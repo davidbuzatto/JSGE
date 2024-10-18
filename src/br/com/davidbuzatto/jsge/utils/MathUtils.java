@@ -1015,13 +1015,12 @@ public class MathUtils {
      * Traslada uma matriz.
      */
     private static Matrix matrixTranslate( double x, double y, double z ) {
-        Matrix result = new Matrix( 
+        return new Matrix( 
                 1.0, 0.0, 0.0, x,
                 0.0, 1.0, 0.0, y,
                 0.0, 0.0, 1.0, z,
                 0.0, 0.0, 0.0, 1.0
         );
-        return result;
     }
     
     /**
@@ -1074,14 +1073,12 @@ public class MathUtils {
      * Escalona uma matriz.
      */
     private static Matrix matrixScale( double x, double y, double z ) {
-        Matrix result = new Matrix( 
+        return new Matrix( 
                 x, 0.0, 0.0, 0.0,
                 0.0, y, 0.0, 0.0,
                 0.0, 0.0, z, 0.0,
                 0.0, 0.0, 0.0, 1.0
         );
-
-        return result;
     }
     
     /**
@@ -1089,8 +1086,7 @@ public class MathUtils {
      */
     private static Matrix getCameraMatrix2D( Camera2D camera ) {
         
-        Matrix matTransform = new Matrix();
-        
+        // from: https://github.com/raysan5/raylib/blob/master/src/rcore.c
         // The camera in world-space is set by
         //   1. Move it to target
         //   2. Rotate by -rotation and scale by (1/zoom)
@@ -1110,9 +1106,7 @@ public class MathUtils {
         Matrix matScale = matrixScale( camera.zoom, camera.zoom, 1.0 );
         Matrix matTranslation = matrixTranslate( camera.offset.x, camera.offset.y, 0.0 );
 
-        matTransform = matrixMultiply( matrixMultiply( matOrigin, matrixMultiply( matScale, matRotation ) ), matTranslation );
-
-        return matTransform;
+        return matrixMultiply( matrixMultiply( matOrigin, matrixMultiply( matScale, matRotation ) ), matTranslation );
         
     }
     
