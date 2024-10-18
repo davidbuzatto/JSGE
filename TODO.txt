@@ -1,3 +1,5 @@
+Terminar implementação dos exemplos.
+
 Configuração do ícone da aplicação.
     void SetWindowIcon(Image image);                            // Set icon for window (single image, RGBA 32bit, only PLATFORM_DESKTOP)
 
