@@ -16,6 +16,7 @@
  */
 package br.com.davidbuzatto.jsge.examples;
 
+import br.com.davidbuzatto.jsge.examples.particles.ParticlesExample;
 import br.com.davidbuzatto.jsge.utils.Utils;
 
 /**
@@ -51,7 +52,6 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         btnColorMethods = new javax.swing.JButton();
         btnBouncingBall = new javax.swing.JButton();
         btnParticles = new javax.swing.JButton();
-        btnPointsAtLinesAndCurves = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,7 +73,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
             }
         });
 
-        btnCollisionDetection.setText("Collision Detection");
+        btnCollisionDetection.setText("Collision Detection and Points at Lines and Curves");
         btnCollisionDetection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCollisionDetectionActionPerformed(evt);
@@ -115,13 +115,6 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
             }
         });
 
-        btnPointsAtLinesAndCurves.setText("Points at Lines and Curves");
-        btnPointsAtLinesAndCurves.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPointsAtLinesAndCurvesActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,7 +130,6 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
                     .addComponent(btnColorMethods, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBouncingBall, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnParticles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPointsAtLinesAndCurves, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -162,8 +154,6 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
                 .addComponent(btnBouncingBall)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnParticles)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPointsAtLinesAndCurves)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -180,7 +170,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDrawingPrimitiveObjectsActionPerformed
 
     private void btnCollisionDetectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCollisionDetectionActionPerformed
-        // TODO add your handling code here:
+        new CollisionDetectionExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnCollisionDetectionActionPerformed
 
     private void btnImageLoadingAndProcessingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImageLoadingAndProcessingActionPerformed
@@ -188,11 +178,11 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnImageLoadingAndProcessingActionPerformed
 
     private void btnUserInteractionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInteractionActionPerformed
-        // TODO add your handling code here:
+        new UserInteractionExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnUserInteractionActionPerformed
 
     private void btnColorMethodsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorMethodsActionPerformed
-        // TODO add your handling code here:
+        new ColorMethodsExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnColorMethodsActionPerformed
 
     private void btnBouncingBallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBouncingBallActionPerformed
@@ -200,12 +190,8 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBouncingBallActionPerformed
 
     private void btnParticlesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParticlesActionPerformed
-        // TODO add your handling code here:
+        new ParticlesExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnParticlesActionPerformed
-
-    private void btnPointsAtLinesAndCurvesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPointsAtLinesAndCurvesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPointsAtLinesAndCurvesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,7 +237,6 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnDrawingPrimitiveObjects;
     private javax.swing.JButton btnImageLoadingAndProcessing;
     private javax.swing.JButton btnParticles;
-    private javax.swing.JButton btnPointsAtLinesAndCurves;
     private javax.swing.JButton btnUserInteraction;
     private javax.swing.JLabel lblHeader;
     // End of variables declaration//GEN-END:variables

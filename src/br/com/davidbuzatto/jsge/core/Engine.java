@@ -4208,6 +4208,19 @@ public abstract class Engine extends JFrame {
     public static final int MOUSE_CURSOR_RESIZE_ALL    = Cursor.MOVE_CURSOR;      // cursor redimensionamento omnidirecional
     public static final int MOUSE_CURSOR_WAIT          = Cursor.WAIT_CURSOR;      // cursor aguarde
     
+    // constantes para fontes
+    public static final int FONT_PLAIN                 = Font.PLAIN;              // fonte sem estilo
+    public static final int FONT_BOLD                  = Font.BOLD;               // fonte em negrito
+    public static final int FONT_ITALIC                = Font.ITALIC;             // fonte em itálico
+    
+    // constantes para contornos
+    public static final int STROKE_CAP_BUTT            = BasicStroke.CAP_BUTT;    // fim da linha sem decoração
+    public static final int STROKE_CAP_ROUND           = BasicStroke.CAP_ROUND;   // fim da linha redondo
+    public static final int STROKE_CAP_SQUARE          = BasicStroke.CAP_SQUARE;  // fim da linha quadrado
+    public static final int STROKE_JOIN_BEVEL          = BasicStroke.JOIN_BEVEL;  // junção entre linhas chanfrada
+    public static final int STROKE_JOIN_MITER          = BasicStroke.JOIN_MITER;  // junção entre linhas em esquadria
+    public static final int STROKE_JOIN_ROUND          = BasicStroke.JOIN_ROUND;  // junção entre linhas arredondado
+    
 
 
     /***************************************************************************

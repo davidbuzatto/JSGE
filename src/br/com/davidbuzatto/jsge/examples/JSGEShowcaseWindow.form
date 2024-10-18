@@ -34,7 +34,6 @@
                   <Component id="btnColorMethods" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnBouncingBall" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnParticles" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnPointsAtLinesAndCurves" max="32767" attributes="0"/>
                   <Component id="lblHeader" alignment="0" pref="386" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -62,8 +61,6 @@
               <Component id="btnBouncingBall" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnParticles" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnPointsAtLinesAndCurves" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -97,7 +94,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnCollisionDetection">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Collision Detection"/>
+        <Property name="text" type="java.lang.String" value="Collision Detection and Points at Lines and Curves"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCollisionDetectionActionPerformed"/>
@@ -141,14 +138,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnParticlesActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnPointsAtLinesAndCurves">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Points at Lines and Curves"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPointsAtLinesAndCurvesActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

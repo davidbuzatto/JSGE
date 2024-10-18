@@ -33,7 +33,6 @@ import br.com.davidbuzatto.jsge.geom.Ring;
 import br.com.davidbuzatto.jsge.geom.RoundRectangle;
 import br.com.davidbuzatto.jsge.geom.Triangle;
 import br.com.davidbuzatto.jsge.geom.Vector2;
-import java.awt.Font;
 
 /**
  * Exemplos de utilização dos objetos primitivos para desenho.
@@ -103,7 +102,7 @@ public class DrawingWithPrimitivesObjectsExample extends Engine {
     public void draw() {
 
         clearBackground( WHITE );
-        setFontStyle( Font.BOLD );
+        setFontStyle( FONT_BOLD );
         
         point.draw( this, BLACK );
         vector.draw( this, VIOLET );

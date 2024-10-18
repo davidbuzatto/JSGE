@@ -1,3 +1,5 @@
+Configuração do ícone da aplicação.
+
 Implementar audio.
 
 Empacotar e criar template no VSCode
