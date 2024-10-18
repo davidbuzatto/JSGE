@@ -33,7 +33,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class ParticlesExample extends Engine {
     
-    private static final double GRAVITY = 50;
+    public static final double GRAVITY = 50;
     private List<Particle> particles;
     private Rectangle limits;
     
@@ -68,7 +68,7 @@ public class ParticlesExample extends Engine {
         }
 
         for ( Particle p : particles ) {
-            p.update( delta, limits, GRAVITY );
+            p.update( delta, limits );
         }
         
     }

@@ -3117,7 +3117,7 @@ public abstract class Engine extends JFrame {
      * @param bgColor Uma cor de fundo.
      */
     public void drawImage( Image image, double x, double y, Color bgColor ) {
-        g2d.drawImage(image.buffImage, (int) x, (int) y, bgColor, null );
+        g2d.drawImage( image.buffImage, (int) x, (int) y, bgColor, null );
     }
     
     /**
@@ -3170,7 +3170,7 @@ public abstract class Engine extends JFrame {
     public void drawImage( Image image, double x, double y, double originX, double originY, double rotation, Color bgColor ) {
         Graphics2D ig2d = (Graphics2D) g2d.create();
         ig2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
-        ig2d.drawImage(image.buffImage, (int) x, (int) y, bgColor, null );
+        ig2d.drawImage( image.buffImage, (int) x, (int) y, bgColor, null );
         ig2d.dispose();
     }
     
@@ -3198,7 +3198,7 @@ public abstract class Engine extends JFrame {
      * @param bgColor Uma cor de fundo.
      */
     public void drawImage( Image image, Rectangle source, double x, double y, Color bgColor ) {
-        g2d.drawImage(image.buffImage, 
+        g2d.drawImage( image.buffImage, 
                 (int) x, 
                 (int) y, 
                 (int) ( x + source.width ), 
@@ -3266,7 +3266,7 @@ public abstract class Engine extends JFrame {
     public void drawImage( Image image, Rectangle source, double x, double y, double originX, double originY, double rotation, Color bgColor ) {
         Graphics2D ig2d = (Graphics2D) g2d.create();
         ig2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
-        ig2d.drawImage(image.buffImage, 
+        ig2d.drawImage( image.buffImage, 
                 (int) x, 
                 (int) y, 
                 (int) ( x + source.width ), 
@@ -3305,7 +3305,7 @@ public abstract class Engine extends JFrame {
      * @param bgColor Uma cor de fundo.
      */
     public void drawImage( Image image, Rectangle source, Rectangle dest, Color bgColor ) {
-        g2d.drawImage(image.buffImage, 
+        g2d.drawImage( image.buffImage, 
                 (int) dest.x, 
                 (int) dest.y, 
                 (int) ( dest.x + dest.width ), 
@@ -3369,7 +3369,7 @@ public abstract class Engine extends JFrame {
     public void drawImage( Image image, Rectangle source, Rectangle dest, double originX, double originY, double rotation, Color bgColor ) {
         Graphics2D ig2d = (Graphics2D) g2d.create();
         ig2d.rotate( Math.toRadians( rotation ), dest.x + originX, dest.y + originY );
-        ig2d.drawImage(image.buffImage, 
+        ig2d.drawImage( image.buffImage, 
                 (int) dest.x, 
                 (int) dest.y, 
                 (int) ( dest.x + dest.width ), 

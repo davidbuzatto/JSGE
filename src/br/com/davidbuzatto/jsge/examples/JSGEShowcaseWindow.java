@@ -16,8 +16,10 @@
  */
 package br.com.davidbuzatto.jsge.examples;
 
+import br.com.davidbuzatto.jsge.examples.ball.BouncingBallExample;
 import br.com.davidbuzatto.jsge.examples.particles.ParticlesExample;
 import br.com.davidbuzatto.jsge.utils.Utils;
+import javax.swing.JOptionPane;
 
 /**
  * Janela do showcase (vitrine) da JSGE.
@@ -52,6 +54,8 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         btnColorMethods = new javax.swing.JButton();
         btnBouncingBall = new javax.swing.JButton();
         btnParticles = new javax.swing.JButton();
+        btnCamera = new javax.swing.JButton();
+        btnSounds = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -115,6 +119,20 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
             }
         });
 
+        btnCamera.setText("Camera");
+        btnCamera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCameraActionPerformed(evt);
+            }
+        });
+
+        btnSounds.setText("Sounds");
+        btnSounds.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSoundsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -130,7 +148,9 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
                     .addComponent(btnColorMethods, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBouncingBall, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnParticles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
+                    .addComponent(lblHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                    .addComponent(btnCamera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSounds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -154,6 +174,10 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
                 .addComponent(btnBouncingBall)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnParticles)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCamera)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSounds)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -174,7 +198,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCollisionDetectionActionPerformed
 
     private void btnImageLoadingAndProcessingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImageLoadingAndProcessingActionPerformed
-        // TODO add your handling code here:
+        new ImageLoadingProcessingExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnImageLoadingAndProcessingActionPerformed
 
     private void btnUserInteractionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInteractionActionPerformed
@@ -186,12 +210,20 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnColorMethodsActionPerformed
 
     private void btnBouncingBallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBouncingBallActionPerformed
-        // TODO add your handling code here:
+        new BouncingBallExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnBouncingBallActionPerformed
 
     private void btnParticlesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParticlesActionPerformed
         new ParticlesExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnParticlesActionPerformed
+
+    private void btnCameraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCameraActionPerformed
+        JOptionPane.showMessageDialog( this, "Not implemented yet." );
+    }//GEN-LAST:event_btnCameraActionPerformed
+
+    private void btnSoundsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoundsActionPerformed
+        JOptionPane.showMessageDialog( this, "Not implemented yet." );
+    }//GEN-LAST:event_btnSoundsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,12 +263,14 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBouncingBall;
+    private javax.swing.JButton btnCamera;
     private javax.swing.JButton btnCollisionDetection;
     private javax.swing.JButton btnColorMethods;
     private javax.swing.JButton btnDrawingPrimitiveMethods;
     private javax.swing.JButton btnDrawingPrimitiveObjects;
     private javax.swing.JButton btnImageLoadingAndProcessing;
     private javax.swing.JButton btnParticles;
+    private javax.swing.JButton btnSounds;
     private javax.swing.JButton btnUserInteraction;
     private javax.swing.JLabel lblHeader;
     // End of variables declaration//GEN-END:variables

@@ -121,7 +121,7 @@ public class ImageUtils {
         g2d.setColor( Color.BLACK );
         g2d.translate( newImage.getWidth() / 2, newImage.getHeight() / 2 );
         g2d.rotate( Math.toRadians( rotation ) );
-        g2d.drawImage(image.buffImage, -image.getWidth() / 2, -image.getHeight() / 2, null );
+        g2d.drawImage( image.buffImage, -image.getWidth() / 2, -image.getHeight() / 2, null );
         g2d.dispose();
         
         return newImage;

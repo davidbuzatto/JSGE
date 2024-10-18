@@ -14,34 +14,51 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.examples;
+package br.com.davidbuzatto.jsge.examples.ball;
 
 import br.com.davidbuzatto.jsge.core.Engine;
+import static br.com.davidbuzatto.jsge.core.Engine.BLUE;
+import br.com.davidbuzatto.jsge.geom.Vector2;
 
 /**
- *
+ * Exemplo de simulação da bolinha.
+ * 
  * @author Prof. Dr. David Buzatto
  */
-public class EmptyTest extends Engine {
+public class BouncingBallExample extends Engine {
 
-    public EmptyTest() {
-        super( 800, 450, "Empty", 60, true );
+    public static final double GRAVITY = 50;
+    private Ball ball;
+    
+    public BouncingBallExample() {
+        super( 800, 450, "Bouncing Ball", 60, true );
     }
     
     @Override
+    
     public void create() {
+        ball = new Ball(
+                new Vector2( getScreenWidth() / 2, getScreenHeight() / 2 ),
+                new Vector2( 200, 200 ),
+                50,
+                0.99,
+                0.9,
+                BLUE
+        );
     }
 
     @Override
     public void update() {
+        ball.update( getFrameTime(), this );
     }
     
     @Override
     public void draw() {
+        ball.draw( this );
     }
     
     public static void main( String[] args ) {
-        new EmptyTest();
+        new BouncingBallExample();
     }
     
 }

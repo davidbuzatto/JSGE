@@ -23,7 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnDrawingPrimitiveMethods" max="32767" attributes="0"/>
@@ -35,6 +35,8 @@
                   <Component id="btnBouncingBall" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnParticles" alignment="0" max="32767" attributes="0"/>
                   <Component id="lblHeader" alignment="0" pref="386" max="32767" attributes="0"/>
+                  <Component id="btnCamera" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnSounds" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -61,6 +63,10 @@
               <Component id="btnBouncingBall" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnParticles" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnCamera" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnSounds" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -138,6 +144,22 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnParticlesActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCamera">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Camera"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCameraActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnSounds">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sounds"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSoundsActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

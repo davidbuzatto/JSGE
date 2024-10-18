@@ -44,21 +44,21 @@ public class Particle {
         this.color = color;
     }
     
-    void update( double delta, Rectangle limite, double gravidade ) {
+    void update( double delta, Rectangle limits ) {
 
         pos.x += vel.x * delta;
         pos.y += vel.y * delta;
 
-        if ( pos.x - radius <= limite.x ) {
-            pos.x = limite.x + radius;
+        if ( pos.x - radius <= limits.x ) {
+            pos.x = limits.x + radius;
             vel.x = -vel.x * elasticity;
-        } else if ( pos.x + radius >= limite.x + limite.width ) {
-            pos.x = limite.x + limite.width - radius;
+        } else if ( pos.x + radius >= limits.x + limits.width ) {
+            pos.x = limits.x + limits.width - radius;
             vel.x = -vel.x * elasticity;
         }
 
         vel.x = vel.x * friction;
-        vel.y = vel.y * friction + gravidade;
+        vel.y = vel.y * friction + ParticlesExample.GRAVITY;
 
     }
     
