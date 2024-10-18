@@ -270,7 +270,20 @@ public abstract class Engine extends JFrame {
             @Override
             public void keyPressed( KeyEvent e ) {
                 if ( e.getKeyCode() == exitKeyCode ) {
-                    System.exit( 0 );
+                    switch ( getDefaultCloseOperation() ) {
+                        case HIDE_ON_CLOSE:
+                            setVisible( false );
+                            break;
+                        case DISPOSE_ON_CLOSE:
+                            dispose();
+                            break;
+                        case EXIT_ON_CLOSE:
+                            System.exit( 0 );
+                            break;
+                        case DO_NOTHING_ON_CLOSE:
+                        default:
+                            break;
+                    }
                 }
             }
         });
@@ -2497,7 +2510,7 @@ public abstract class Engine extends JFrame {
     public void drawText( String text, double x, double y, double originX, double originY, double rotation, Color color ) {
         g2d.setColor( color );
         Graphics2D ig2d = (Graphics2D) g2d.create();
-        ig2d.rotate( Math.toRadians( rotation ), originX, originY );
+        ig2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
         Rectangle2D r = ig2d.getFontMetrics().getStringBounds( text, ig2d );
         ig2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
         ig2d.dispose();
@@ -2551,7 +2564,7 @@ public abstract class Engine extends JFrame {
         g2d.setColor( color );
         Graphics2D ig2d = (Graphics2D) g2d.create();
         ig2d.setFont( g2d.getFont().deriveFont( (float) fontSize ) );
-        ig2d.rotate( Math.toRadians( rotation ), originX, originY );
+        ig2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
         Rectangle2D r = ig2d.getFontMetrics().getStringBounds( text, ig2d );
         ig2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
         ig2d.dispose();
@@ -3149,14 +3162,14 @@ public abstract class Engine extends JFrame {
      * @param image A imagem a ser desenhada.
      * @param x Coordenada x do desenho da imagem.
      * @param y Coordenada y do desenho da imagem.
-     * @param xOrigin Coordenada x do eixo de rotação.
-     * @param yOrigin Coordenada y do eixo de rotação.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
      * @param rotation Rotação em graus do desenho da imagem (sentido horário).
      * @param bgColor Uma cor de fundo.
      */
-    public void drawImage( Image image, double x, double y, double xOrigin, double yOrigin, double rotation, Color bgColor ) {
+    public void drawImage( Image image, double x, double y, double originX, double originY, double rotation, Color bgColor ) {
         Graphics2D ig2d = (Graphics2D) g2d.create();
-        ig2d.rotate( Math.toRadians( rotation ), x + xOrigin, y + yOrigin );
+        ig2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
         ig2d.drawImage(image.buffImage, (int) x, (int) y, bgColor, null );
         ig2d.dispose();
     }
@@ -3167,12 +3180,12 @@ public abstract class Engine extends JFrame {
      * @param image A imagem a ser desenhada.
      * @param x Coordenada x do desenho da imagem.
      * @param y Coordenada y do desenho da imagem.
-     * @param xOrigin Coordenada x do eixo de rotação.
-     * @param yOrigin Coordenada y do eixo de rotação.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
      * @param rotation Rotação em graus do desenho da imagem (sentido horário).
      */
-    public void drawImage( Image image, double x, double y, double xOrigin, double yOrigin, double rotation ) {
-        drawImage( image, x, y, xOrigin, yOrigin, rotation, null );
+    public void drawImage( Image image, double x, double y, double originX, double originY, double rotation ) {
+        drawImage( image, x, y, originX, originY, rotation, null );
     }
     
     /**
@@ -3245,14 +3258,14 @@ public abstract class Engine extends JFrame {
      * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
      * @param x Coordenada x do desenho da imagem.
      * @param y Coordenada y do desenho da imagem.
-     * @param xOrigin Coordenada x do eixo de rotação.
-     * @param yOrigin Coordenada y do eixo de rotação.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
      * @param rotation Rotação em graus do desenho da imagem (sentido horário).
      * @param bgColor Uma cor de fundo.
      */
-    public void drawImage( Image image, Rectangle source, double x, double y, double xOrigin, double yOrigin, double rotation, Color bgColor ) {
+    public void drawImage( Image image, Rectangle source, double x, double y, double originX, double originY, double rotation, Color bgColor ) {
         Graphics2D ig2d = (Graphics2D) g2d.create();
-        ig2d.rotate( Math.toRadians( rotation ), x + xOrigin, y + yOrigin );
+        ig2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
         ig2d.drawImage(image.buffImage, 
                 (int) x, 
                 (int) y, 
@@ -3275,12 +3288,12 @@ public abstract class Engine extends JFrame {
      * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
      * @param x Coordenada x do desenho da imagem.
      * @param y Coordenada y do desenho da imagem.
-     * @param xOrigin Coordenada x do eixo de rotação.
-     * @param yOrigin Coordenada y do eixo de rotação.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
      * @param rotation Rotação em graus do desenho da imagem (sentido horário).
      */
-    public void drawImage( Image image, Rectangle source, double x, double y, double xOrigin, double yOrigin, double rotation ) {
-        drawImage( image, source, x, y, xOrigin, yOrigin, rotation, null );
+    public void drawImage( Image image, Rectangle source, double x, double y, double originX, double originY, double rotation ) {
+        drawImage( image, source, x, y, originX, originY, rotation, null );
     }
     
     /**
@@ -3348,14 +3361,14 @@ public abstract class Engine extends JFrame {
      * @param image A imagem a ser desenhada.
      * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
      * @param dest Um retângulo de destino que define a posição e dimensões que a imagem será desenhada.
-     * @param xOrigin Coordenada x do eixo de rotação.
-     * @param yOrigin Coordenada y do eixo de rotação.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
      * @param rotation Rotação em graus do desenho da imagem (sentido horário).
      * @param bgColor Uma cor de fundo.
      */
-    public void drawImage( Image image, Rectangle source, Rectangle dest, double xOrigin, double yOrigin, double rotation, Color bgColor ) {
+    public void drawImage( Image image, Rectangle source, Rectangle dest, double originX, double originY, double rotation, Color bgColor ) {
         Graphics2D ig2d = (Graphics2D) g2d.create();
-        ig2d.rotate( Math.toRadians( rotation ), dest.x + xOrigin, dest.y + yOrigin );
+        ig2d.rotate( Math.toRadians( rotation ), dest.x + originX, dest.y + originY );
         ig2d.drawImage(image.buffImage, 
                 (int) dest.x, 
                 (int) dest.y, 
@@ -3377,12 +3390,12 @@ public abstract class Engine extends JFrame {
      * @param image A imagem a ser desenhada.
      * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
      * @param dest Um retângulo de destino que define a posição e dimensões que a imagem será desenhada.
-     * @param xOrigin Coordenada x do eixo de rotação.
-     * @param yOrigin Coordenada y do eixo de rotação.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
      * @param rotation Rotação em graus do desenho da imagem (sentido horário).
      */
-    public void drawImage( Image image, Rectangle source, Rectangle dest, double xOrigin, double yOrigin, double rotation ) {
-        drawImage( image, source, dest, xOrigin, yOrigin, rotation, null );
+    public void drawImage( Image image, Rectangle source, Rectangle dest, double originX, double originY, double rotation ) {
+        drawImage( image, source, dest, originX, originY, rotation, null );
     }
     
     

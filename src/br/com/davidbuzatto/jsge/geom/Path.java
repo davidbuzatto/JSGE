@@ -78,7 +78,7 @@ public class Path implements Drawable {
     /**
      * Fecha o caminho, ligando com uma linha do ponto inicial até o último ponto criado.
      */
-    public void closePath() {
+    public void close() {
         path.closePath();
     }
 

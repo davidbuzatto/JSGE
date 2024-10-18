@@ -311,7 +311,7 @@ public class Image {
         Graphics2D g2d = createGraphics();
         g2d.setColor( color );
 
-        g2d.rotate( Math.toRadians( rotation ), originX, originY );
+        g2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
         g2d.draw( new Rectangle2D.Double( x, y, width, height ) );
 
         g2d.dispose();
@@ -375,7 +375,7 @@ public class Image {
         Graphics2D g2d = createGraphics();
         g2d.setColor( color );
 
-        g2d.rotate( Math.toRadians( rotation ), originX, originY );
+        g2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
         g2d.fill( new Rectangle2D.Double( x, y, width, height ) );
 
         g2d.dispose();
@@ -1831,7 +1831,7 @@ public class Image {
     public void drawText( String text, double x, double y, double originX, double originY, double rotation, Color color ) {
         Graphics2D g2d = createGraphics();
         g2d.setColor( color );
-        g2d.rotate( Math.toRadians( rotation ), originX, originY );
+        g2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
         Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
         g2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
         g2d.dispose();
@@ -1885,7 +1885,7 @@ public class Image {
         Graphics2D g2d = createGraphics();
         g2d.setColor( color );
         g2d.setFont( g2d.getFont().deriveFont( (float) fontSize ) );
-        g2d.rotate( Math.toRadians( rotation ), originX, originY );
+        g2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
         Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
         g2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
         g2d.dispose();

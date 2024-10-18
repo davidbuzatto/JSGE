@@ -172,11 +172,11 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDrawingPrimitiveMethodsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDrawingPrimitiveMethodsActionPerformed
-        // TODO add your handling code here:
+        new DrawingWithPrimitivesMethodsExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnDrawingPrimitiveMethodsActionPerformed
 
     private void btnDrawingPrimitiveObjectsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDrawingPrimitiveObjectsActionPerformed
-        // TODO add your handling code here:
+        new DrawingWithPrimitivesObjectsExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnDrawingPrimitiveObjectsActionPerformed
 
     private void btnCollisionDetectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCollisionDetectionActionPerformed
