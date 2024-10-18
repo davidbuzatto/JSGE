@@ -1,3 +1,3 @@
 Implementar audio.
 
-Empacotar e criar exemplos no VSCode
+Empacotar e criar template no VSCode

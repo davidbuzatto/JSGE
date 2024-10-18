@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge;
+package br.com.davidbuzatto.jsge.examples;
 
 import br.com.davidbuzatto.jsge.core.Engine;
 import br.com.davidbuzatto.jsge.image.Image;
@@ -666,7 +666,7 @@ public class Main extends Engine {
         //drawingTests.drawUsingObjects( this );
         
         // entrada
-        drawRectangle( 10, 790, 360, 120, BLACK );
+        drawRectangle( 10, 800, 360, 120, BLACK );
         drawText( "       Key A: " + aPress + " | " + aDown, 15, 810, 20, BLACK );
         drawText( "  Mouse left: " + mouseLeftPress + " | " + mouseLeftDown, 15, 840, 20, BLACK );
         drawText( "Mouse middle: " + mouseMiddlePress + " | " + mouseMiddleDown, 15, 870, 20, BLACK );

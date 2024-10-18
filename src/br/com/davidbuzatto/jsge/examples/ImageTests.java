@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.tests;
+package br.com.davidbuzatto.jsge.examples;
 
 import br.com.davidbuzatto.jsge.core.Engine;
 import br.com.davidbuzatto.jsge.image.Image;
