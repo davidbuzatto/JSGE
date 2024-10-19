@@ -1,10 +1,11 @@
-Terminar implementação dos exemplos.
+draw text desenhar texto de fato (mais de uma linha)
 
 Desenhar imagem dentro e imagem????
 
 Configuração do ícone da aplicação.
     void SetWindowIcon(Image image);                            // Set icon for window (single image, RGBA 32bit, only PLATFORM_DESKTOP)
 
-Implementar audio.
+Implementar áudio.
+    Terminar implementação dos exemplos.
 
 Empacotar e criar template no VSCode

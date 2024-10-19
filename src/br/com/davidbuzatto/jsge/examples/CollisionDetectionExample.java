@@ -268,10 +268,12 @@ public class CollisionDetectionExample extends Engine {
         fillCircle( pointForQuad, 10, GREEN );
         fillCircle( pointForCubic, 10, BLUE );
 
-        drawText( " Point x Geom: " + textPointGeom, 10, 10, 20, BLACK );
-        drawText( "  Line x Geom: " + textLineGeom, 10, 40, 20, BLACK );
-        drawText( "  Rect x Geom: " + textRectGeom, 10, 70, 20, BLACK );
-        drawText( "Circle x Geom: " + textCircleGeom, 10, 100, 20, BLACK );
+        drawText( " Point x Geom: " + textPointGeom, 10, 40, 20, BLACK );
+        drawText( "  Line x Geom: " + textLineGeom, 10, 70, 20, BLACK );
+        drawText( "  Rect x Geom: " + textRectGeom, 10, 100, 20, BLACK );
+        drawText( "Circle x Geom: " + textCircleGeom, 10, 130, 20, BLACK );
+        
+        drawFPS( 10, 10 );
 
     }
 

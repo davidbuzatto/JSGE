@@ -95,6 +95,8 @@ public class DrawingWithPrimitivesMethodsExample extends Engine {
 
         drawText( "This is a text!", 500, 200, 20, BLACK );
         drawText( "This is a rotated text!", 500, 300, 45, 20, BLACK );
+        
+        drawFPS( 10, 10 );
 
     }
     

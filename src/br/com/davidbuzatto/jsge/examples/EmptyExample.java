@@ -22,9 +22,9 @@ import br.com.davidbuzatto.jsge.core.Engine;
  *
  * @author Prof. Dr. David Buzatto
  */
-public class EmptyTest extends Engine {
+public class EmptyExample extends Engine {
 
-    public EmptyTest() {
+    public EmptyExample() {
         super( 800, 450, "Empty", 60, true );
     }
     
@@ -41,7 +41,7 @@ public class EmptyTest extends Engine {
     }
     
     public static void main( String[] args ) {
-        new EmptyTest();
+        new EmptyExample();
     }
     
 }

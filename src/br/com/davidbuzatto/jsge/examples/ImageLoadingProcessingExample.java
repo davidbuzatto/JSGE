@@ -80,6 +80,8 @@ public class ImageLoadingProcessingExample extends Engine {
         
         drawImage( rotatingImage, 550, 300, ColorUtils.colorAlpha( GOLD, 0.5 ) );
         
+        drawFPS( 10, 10 );
+        
     }
     
     public static void main( String[] args ) {

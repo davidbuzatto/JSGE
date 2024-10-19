@@ -32,7 +32,7 @@ public class ColorMethodsExample extends Engine {
     private Color baseColor;
     
     public ColorMethodsExample() {
-        super( 400, 270, "Color Methods", 60, true, true, false, false, false );
+        super( 400, 290, "Color Methods", 60, true, true, false, false, false );
     }
     
     @Override
@@ -61,7 +61,7 @@ public class ColorMethodsExample extends Engine {
         double xEnd = getScreenWidth() - 10;
         double width = xEnd - xStart;
         
-        double yStart = 10;
+        double yStart = 30;
         double yEnd = getScreenHeight() - 10;
         double height = yEnd - yStart;
         
@@ -74,14 +74,16 @@ public class ColorMethodsExample extends Engine {
             );
         }
         
-        fillRectangle( 10, 10, 50, 50, baseColor );
-        fillRectangle( 10, 60, 50, 50, ColorUtils.colorAlpha( baseColor, 0.5 ) );
-        fillRectangle( 10, 110, 50, 50, ColorUtils.colorTint( baseColor, WHITE ) );
-        fillRectangle( 10, 160, 50, 50, ColorUtils.colorBrightness( baseColor, -0.5 ) );
-        fillRectangle( 10, 210, 50, 50, ColorUtils.colorContrast( baseColor, -0.5 ) );
+        fillRectangle( 10, 30, 50, 50, baseColor );
+        fillRectangle( 10, 80, 50, 50, ColorUtils.colorAlpha( baseColor, 0.5 ) );
+        fillRectangle( 10, 130, 50, 50, ColorUtils.colorTint( baseColor, WHITE ) );
+        fillRectangle( 10, 180, 50, 50, ColorUtils.colorBrightness( baseColor, -0.5 ) );
+        fillRectangle( 10, 230, 50, 50, ColorUtils.colorContrast( baseColor, -0.5 ) );
         
         String message = "right click me ;)";
         drawText( message, getScreenWidth() - measureText( message, 20 ) - 10, 10, 20, BLACK );
+        
+        drawFPS( 10, 10 );
         
     }
     

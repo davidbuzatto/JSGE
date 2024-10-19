@@ -147,6 +147,8 @@ public class DrawingWithPrimitivesObjectsExample extends Engine {
         
         path.fill( this, LIME );
         path.draw( this, BLACK );
+        
+        drawFPS( 30, 10 );
 
     }
 

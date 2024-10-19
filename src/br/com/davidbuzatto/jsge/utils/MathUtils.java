@@ -1024,7 +1024,7 @@ public class MathUtils {
     }
     
     /**
-     * Rotaciona uma matriz (ângulo em readianos)
+     * Rotaciona uma matriz (ângulo em radianos)
      */
     private static Matrix matrixRotate( Vector3 axis, double angle ) {
         

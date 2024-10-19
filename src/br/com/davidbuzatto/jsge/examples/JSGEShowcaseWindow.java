@@ -17,6 +17,7 @@
 package br.com.davidbuzatto.jsge.examples;
 
 import br.com.davidbuzatto.jsge.examples.ball.BouncingBallExample;
+import br.com.davidbuzatto.jsge.examples.camera.CameraExample;
 import br.com.davidbuzatto.jsge.examples.particles.ParticlesExample;
 import br.com.davidbuzatto.jsge.utils.Utils;
 import javax.swing.JOptionPane;
@@ -218,7 +219,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnParticlesActionPerformed
 
     private void btnCameraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCameraActionPerformed
-        JOptionPane.showMessageDialog( this, "Not implemented yet." );
+        new CameraExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnCameraActionPerformed
 
     private void btnSoundsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoundsActionPerformed

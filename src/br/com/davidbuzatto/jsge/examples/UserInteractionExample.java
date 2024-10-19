@@ -98,6 +98,8 @@ public class UserInteractionExample extends Engine {
         drawText( "the", wheelRect.x + 5, wheelRect.y + 32, 20, BLACK );
         drawText( "wheel!", wheelRect.x + 5, wheelRect.y + 52, 20, BLACK );
         
+        drawFPS( 10, 10 );
+        
     }
     
     public static void main( String[] args ) {

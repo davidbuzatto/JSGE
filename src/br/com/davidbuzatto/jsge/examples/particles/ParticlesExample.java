@@ -78,12 +78,13 @@ public class ParticlesExample extends Engine {
 
         clearBackground( BLACK );
         setFontStyle( FONT_BOLD );
-        
-        drawText( "Particles: " + particles.size(), 10, 10, 20, WHITE );
 
         for ( Particle p : particles ) {
             p.draw( this );
         }
+        
+        drawFPS( 10, 10 );
+        drawText( "Particles: " + particles.size(), 10, 40, 20, WHITE );
 
     }
 
