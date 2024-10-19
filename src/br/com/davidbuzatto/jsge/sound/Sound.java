@@ -14,35 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.tests;
-
-import br.com.davidbuzatto.jsge.core.Engine;
+package br.com.davidbuzatto.jsge.sound;
 
 /**
- * Classe de testes.
- * 
+ *
  * @author Prof. Dr. David Buzatto
  */
-public class ScratchPad extends Engine {
-
-    public ScratchPad() {
-        super( 800, 450, "Scratch Pad", 60, true );
-    }
-    
-    @Override
-    public void create() {
-    }
-
-    @Override
-    public void update() {
-    }
-    
-    @Override
-    public void draw() {
-    }
-    
-    public static void main( String[] args ) {
-        new ScratchPad();
-    }
+public class Sound {
     
 }

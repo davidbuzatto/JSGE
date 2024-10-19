@@ -22,8 +22,6 @@ import br.com.davidbuzatto.jsge.geom.Line;
 import br.com.davidbuzatto.jsge.geom.Point;
 import br.com.davidbuzatto.jsge.geom.QuadCurve;
 import br.com.davidbuzatto.jsge.geom.Vector2;
-import java.awt.geom.Arc2D;
-import java.awt.geom.Path2D;
 import java.util.Random;
 
 /**
