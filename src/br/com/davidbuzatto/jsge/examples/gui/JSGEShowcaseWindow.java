@@ -14,8 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.examples;
+package br.com.davidbuzatto.jsge.examples.gui;
 
+import br.com.davidbuzatto.jsge.examples.CollisionDetectionExample;
+import br.com.davidbuzatto.jsge.examples.ColorMethodsExample;
+import br.com.davidbuzatto.jsge.examples.DrawingWithPrimitivesMethodsExample;
+import br.com.davidbuzatto.jsge.examples.DrawingWithPrimitivesObjectsExample;
+import br.com.davidbuzatto.jsge.examples.ImageLoadingProcessingExample;
+import br.com.davidbuzatto.jsge.examples.UserInteractionExample;
 import br.com.davidbuzatto.jsge.examples.ball.BouncingBallExample;
 import br.com.davidbuzatto.jsge.examples.camera.CameraExample;
 import br.com.davidbuzatto.jsge.examples.particles.ParticlesExample;
