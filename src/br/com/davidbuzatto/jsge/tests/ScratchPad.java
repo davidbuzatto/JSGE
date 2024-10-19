@@ -17,6 +17,10 @@
 package br.com.davidbuzatto.jsge.tests;
 
 import br.com.davidbuzatto.jsge.core.Engine;
+import com.goxr3plus.streamplayer.stream.StreamPlayer;
+import com.goxr3plus.streamplayer.stream.StreamPlayerException;
+import java.io.File;
+import java.util.logging.LogManager;
 
 /**
  * Classe de testes.
@@ -25,6 +29,22 @@ import br.com.davidbuzatto.jsge.core.Engine;
  */
 public class ScratchPad extends Engine {
 
+    private class T extends StreamPlayer {
+        public T() {
+            super();
+            try {
+                //open( new File( "resources/sfx/smw_coin.wav" ) );
+                //open( new File( "resources/sfx/kick.wav" ) );
+                //open( new File( "resources/sfx/kick.mp3" ) );
+                //open( new File( "resources/sfx/test.mp3" ) );
+                play();
+            } catch ( StreamPlayerException exc ){
+                exc.printStackTrace();
+            }
+                
+        }
+    }
+    
     public ScratchPad() {
         super( 800, 450, "Scratch Pad", 60, true );
     }
@@ -35,6 +55,9 @@ public class ScratchPad extends Engine {
 
     @Override
     public void update() {
+        if ( isMouseButtonPressed( MOUSE_BUTTON_LEFT ) ) {
+            new T();
+        }
     }
     
     @Override
@@ -42,6 +65,7 @@ public class ScratchPad extends Engine {
     }
     
     public static void main( String[] args ) {
+        LogManager.getLogManager().reset();
         new ScratchPad();
     }
     
