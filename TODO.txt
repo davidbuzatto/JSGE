@@ -1,7 +1,3 @@
-draw text desenhar texto de fato (mais de uma linha)
-    implementação preliminar. falta testar mais e replicar na classe Image
-    método auxiliar em Engine: drawTextMultilineHelper
-
 Implementar áudio.
     Terminar implementação dos exemplos.
 

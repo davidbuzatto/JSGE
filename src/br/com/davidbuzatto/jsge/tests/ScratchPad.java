@@ -45,7 +45,11 @@ public class ScratchPad extends Engine {
         
         drawText( "test", 100, 100, RED );
         drawText( "test\ntest\ntest", 100, 100, 45.0, BLUE );
-        drawText( "test\ntesÇãt\ntAAAAest", 100, 100, 5, 5, 10.0, 80, BLACK );
+        drawText( """
+                  test
+                  tesÇãt
+                  AAAAest
+                  """, 100, 100, 5, 5, 10.0, 80, BLACK );
                 
     }
     

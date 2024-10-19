@@ -32,6 +32,7 @@ import br.com.davidbuzatto.jsge.geom.Ring;
 import br.com.davidbuzatto.jsge.geom.RoundRectangle;
 import br.com.davidbuzatto.jsge.geom.Triangle;
 import br.com.davidbuzatto.jsge.geom.Vector2;
+import br.com.davidbuzatto.jsge.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.utils.MathUtils;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -1231,7 +1232,7 @@ public class Image {
     public void drawRing( double centerX, double centerY, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
         Graphics2D g2d = createGraphics();
         g2d.setColor( color );
-        g2d.draw( MathUtils.createRing( centerX, centerY, innerRadius, outerRadius, startAngle, endAngle ) );
+        g2d.draw( DrawingUtils.createRing( centerX, centerY, innerRadius, outerRadius, startAngle, endAngle ) );
         g2d.dispose();
     }
 
@@ -1287,7 +1288,7 @@ public class Image {
     public void fillRing( double centerX, double centerY, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
         Graphics2D g2d = createGraphics();
         g2d.setColor( color );
-        g2d.fill( MathUtils.createRing( centerX, centerY, innerRadius, outerRadius, startAngle, endAngle ) );
+        g2d.fill( DrawingUtils.createRing( centerX, centerY, innerRadius, outerRadius, startAngle, endAngle ) );
         g2d.dispose();
     }
 
@@ -1343,7 +1344,7 @@ public class Image {
     public void drawTriangle( double v1x, double v1y, double v2x, double v2y, double v3x, double v3y, Color color ) {
         Graphics2D g2d = createGraphics();
         g2d.setColor( color );
-        g2d.draw( MathUtils.createTriangle( v1x, v1y, v2x, v2y, v3x, v3y ) );
+        g2d.draw( DrawingUtils.createTriangle( v1x, v1y, v2x, v2y, v3x, v3y ) );
         g2d.dispose();
     }
 
@@ -1395,7 +1396,7 @@ public class Image {
     public void fillTriangle( double v1x, double v1y, double v2x, double v2y, double v3x, double v3y, Color color ) {
         Graphics2D g2d = createGraphics();
         g2d.setColor( color );
-        g2d.fill( MathUtils.createTriangle( v1x, v1y, v2x, v2y, v3x, v3y ) );
+        g2d.fill( DrawingUtils.createTriangle( v1x, v1y, v2x, v2y, v3x, v3y ) );
         g2d.dispose();
     }
 
@@ -1446,7 +1447,7 @@ public class Image {
     public void drawPolygon( double centerX, double centerY, double sides, double radius, double rotation, Color color ) {
         Graphics2D g2d = createGraphics();
         g2d.setColor( color );
-        g2d.draw( MathUtils.createPolygon( centerX, centerY, sides, radius, rotation ) );
+        g2d.draw( DrawingUtils.createPolygon( centerX, centerY, sides, radius, rotation ) );
         g2d.dispose();
     }
 
@@ -1499,7 +1500,7 @@ public class Image {
     public void fillPolygon( double centerX, double centerY, double sides, double radius, double rotation, Color color ) {
         Graphics2D g2d = createGraphics();
         g2d.setColor( color );
-        g2d.fill( MathUtils.createPolygon( centerX, centerY, sides, radius, rotation ) );
+        g2d.fill( DrawingUtils.createPolygon( centerX, centerY, sides, radius, rotation ) );
         g2d.dispose();
     }
 
@@ -1802,8 +1803,9 @@ public class Image {
     public void drawText( String text, double x, double y, Color color ) {
         Graphics2D g2d = createGraphics();
         g2d.setColor( color );
-        Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
-        g2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
+        //Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
+        //g2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
+        DrawingUtils.drawTextMultilineHelper( text, x, y, g2d );
         g2d.dispose();
     }
     
@@ -1813,7 +1815,7 @@ public class Image {
      * @param text o texto a ser desenhado.
      * @param x coordenada x do início do desenho do texto.
      * @param y coordenada y do início do desenho do texto.
-     * * @param rotation ângulo de rotação em graus (sentido horário).
+     * @param rotation ângulo de rotação em graus (sentido horário).
      * @param color cor de desenho.
      */
     public void drawText( String text, double x, double y, double rotation, Color color ) {
@@ -1835,8 +1837,9 @@ public class Image {
         Graphics2D g2d = createGraphics();
         g2d.setColor( color );
         g2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
-        Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
-        g2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
+        //Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
+        //g2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
+        DrawingUtils.drawTextMultilineHelper( text, x, y, g2d );
         g2d.dispose();
     }
 
@@ -1853,8 +1856,9 @@ public class Image {
         Graphics2D g2d = createGraphics();
         g2d.setColor( color );
         g2d.setFont( g2d.getFont().deriveFont( (float) fontSize ) );
-        Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
-        g2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
+        //Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
+        //g2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
+        DrawingUtils.drawTextMultilineHelper( text, x, y, g2d );
         g2d.dispose();
     }
     
@@ -1889,8 +1893,9 @@ public class Image {
         g2d.setColor( color );
         g2d.setFont( g2d.getFont().deriveFont( (float) fontSize ) );
         g2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
-        Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
-        g2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
+        //Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
+        //g2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
+        DrawingUtils.drawTextMultilineHelper( text, x, y, g2d );
         g2d.dispose();
     }
 

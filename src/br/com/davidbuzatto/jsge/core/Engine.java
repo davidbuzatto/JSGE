@@ -34,6 +34,7 @@ import br.com.davidbuzatto.jsge.geom.RoundRectangle;
 import br.com.davidbuzatto.jsge.geom.Triangle;
 import br.com.davidbuzatto.jsge.geom.Vector2;
 import br.com.davidbuzatto.jsge.utils.ColorUtils;
+import br.com.davidbuzatto.jsge.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.utils.ImageUtils;
 import br.com.davidbuzatto.jsge.utils.MathUtils;
 import java.awt.AWTException;
@@ -1929,7 +1930,7 @@ public abstract class Engine extends JFrame {
      */
     public void drawRing( double centerX, double centerY, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
         g2d.setColor( color );
-        g2d.draw( MathUtils.createRing( centerX, centerY, innerRadius, outerRadius, startAngle, endAngle ) );
+        g2d.draw( DrawingUtils.createRing( centerX, centerY, innerRadius, outerRadius, startAngle, endAngle ) );
     }
 
     /**
@@ -1954,7 +1955,6 @@ public abstract class Engine extends JFrame {
      * @param outerRadius raio externo.
      * @param startAngle ângulo inicial em graus (sentido horário).
      * @param endAngle ângulo final em graus (sentido horário).
-     * @param segments quantidade de segmentos.
      * @param color cor de desenho.
      */
     public void drawRing( Point center, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
@@ -1984,7 +1984,7 @@ public abstract class Engine extends JFrame {
      */
     public void fillRing( double centerX, double centerY, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
         g2d.setColor( color );
-        g2d.fill( MathUtils.createRing( centerX, centerY, innerRadius, outerRadius, startAngle, endAngle ) );
+        g2d.fill( DrawingUtils.createRing( centerX, centerY, innerRadius, outerRadius, startAngle, endAngle ) );
     }
 
     /**
@@ -2038,7 +2038,7 @@ public abstract class Engine extends JFrame {
      */
     public void drawTriangle( double v1x, double v1y, double v2x, double v2y, double v3x, double v3y, Color color ) {
         g2d.setColor( color );
-        g2d.draw( MathUtils.createTriangle( v1x, v1y, v2x, v2y, v3x, v3y ) );
+        g2d.draw( DrawingUtils.createTriangle( v1x, v1y, v2x, v2y, v3x, v3y ) );
     }
 
     /**
@@ -2088,7 +2088,7 @@ public abstract class Engine extends JFrame {
      */
     public void fillTriangle( double v1x, double v1y, double v2x, double v2y, double v3x, double v3y, Color color ) {
         g2d.setColor( color );
-        g2d.fill( MathUtils.createTriangle( v1x, v1y, v2x, v2y, v3x, v3y ) );
+        g2d.fill( DrawingUtils.createTriangle( v1x, v1y, v2x, v2y, v3x, v3y ) );
     }
 
     /**
@@ -2137,7 +2137,7 @@ public abstract class Engine extends JFrame {
      */
     public void drawPolygon( double centerX, double centerY, double sides, double radius, double rotation, Color color ) {
         g2d.setColor( color );
-        g2d.draw( MathUtils.createPolygon( centerX, centerY, sides, radius, rotation ) );
+        g2d.draw( DrawingUtils.createPolygon( centerX, centerY, sides, radius, rotation ) );
     }
 
     /**
@@ -2188,7 +2188,7 @@ public abstract class Engine extends JFrame {
      */
     public void fillPolygon( double centerX, double centerY, double sides, double radius, double rotation, Color color ) {
         g2d.setColor( color );
-        g2d.fill( MathUtils.createPolygon( centerX, centerY, sides, radius, rotation ) );
+        g2d.fill( DrawingUtils.createPolygon( centerX, centerY, sides, radius, rotation ) );
     }
 
     /**
@@ -2481,7 +2481,7 @@ public abstract class Engine extends JFrame {
         g2d.setColor( color );
         //Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
         //g2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
-        drawTextMultilineHelper( text, x, y, g2d );
+        DrawingUtils.drawTextMultilineHelper( text, x, y, g2d );
     }
     
     /**
@@ -2514,7 +2514,7 @@ public abstract class Engine extends JFrame {
         ig2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
         //Rectangle2D r = ig2d.getFontMetrics().getStringBounds( text, ig2d );
         //ig2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
-        drawTextMultilineHelper( text, x, y, ig2d );
+        DrawingUtils.drawTextMultilineHelper( text, x, y, ig2d );
         ig2d.dispose();
     }
 
@@ -2533,7 +2533,7 @@ public abstract class Engine extends JFrame {
         ig2d.setFont( g2d.getFont().deriveFont( (float) fontSize ) );
         //Rectangle2D r = ig2d.getFontMetrics().getStringBounds( text, ig2d );
         //ig2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
-        drawTextMultilineHelper( text, x, y, ig2d );
+        DrawingUtils.drawTextMultilineHelper( text, x, y, ig2d );
         ig2d.dispose();
     }
     
@@ -2570,7 +2570,7 @@ public abstract class Engine extends JFrame {
         ig2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
         //Rectangle2D r = ig2d.getFontMetrics().getStringBounds( text, ig2d );
         //ig2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
-        drawTextMultilineHelper( text, x, y, ig2d );
+        DrawingUtils.drawTextMultilineHelper( text, x, y, ig2d );
         ig2d.dispose();
     }
 
@@ -2722,33 +2722,6 @@ public abstract class Engine extends JFrame {
      */
     public void drawText( String text, Vector2 point, Vector2 origin, double rotation, int fontSize, Color color ) {
         drawText( text, point.x, point.y, origin.x, origin.y, rotation, fontSize, color );
-    }
-
-    /**
-     * Método estático auxiliar para separação do texto em várias linhas e seu
-     * consecutivo desenho.
-     * 
-     * @param text texto a ser desenhado.
-     * @param x coordenada x inicial.
-     * @param y coordenada y inicial.
-     * @param g2d contexto gráfico utilizado.
-     */
-    public static void drawTextMultilineHelper( String text, double x, double y, Graphics2D g2d ) {
-        
-        double iy = y;
-        boolean first = true;
-        
-        for ( String t : text.split( "\n" ) ) {
-            Rectangle2D r = g2d.getFontMetrics().getStringBounds( t, g2d );
-            if ( first ) {
-                iy += r.getHeight() / 2;
-                first = false;
-            } else {
-                iy += r.getHeight() * 0.8;
-            }
-            g2d.drawString( t, (int) x, (int) iy );
-        }
-        
     }
     
     /**
