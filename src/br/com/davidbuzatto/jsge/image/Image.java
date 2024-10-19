@@ -2041,6 +2041,310 @@ public class Image {
         drawText( text, point.x, point.y, origin.x, origin.y, rotation, fontSize, color );
     }
     
+    
+    
+    /***************************************************************************
+     * Métodos para desenho de imagens dentro de imagens.
+     **************************************************************************/
+    
+    /**
+     * Desenha uma imagem com fundo colorido.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param bgColor Uma cor de fundo.
+     */
+    public void drawImage( Image image, double x, double y, Color bgColor ) {
+        Graphics2D g2d = createGraphics();
+        g2d.drawImage( image.buffImage, (int) x, (int) y, bgColor, null );
+        g2d.dispose();
+    }
+    
+    /**
+     * Desenha uma imagem.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     */
+    public void drawImage( Image image, double x, double y ) {
+        drawImage( image, x, y, null );
+    }
+    
+    /**
+     * Desenha uma imagem rotacionada com fundo colorido.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     * @param bgColor Uma cor de fundo.
+     */
+    public void drawImage( Image image, double x, double y, double rotation, Color bgColor ) {
+        drawImage( image, x, y, 0, 0, rotation, bgColor );
+    }
+    
+    /**
+     * Desenha uma imagem rotacionada.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     */
+    public void drawImage( Image image, double x, double y, double rotation ) {
+        drawImage( image, x, y, 0, 0, rotation, null );
+    }
+    
+    /**
+     * Desenha uma imagem rotacionada com fundo colorido.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     * @param bgColor Uma cor de fundo.
+     */
+    public void drawImage( Image image, double x, double y, double originX, double originY, double rotation, Color bgColor ) {
+        Graphics2D g2d = createGraphics();
+        g2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
+        g2d.drawImage( image.buffImage, (int) x, (int) y, bgColor, null );
+        g2d.dispose();
+    }
+    
+    /**
+     * Desenha uma imagem rotacionada.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     */
+    public void drawImage( Image image, double x, double y, double originX, double originY, double rotation ) {
+        drawImage( image, x, y, originX, originY, rotation, null );
+    }
+    
+    /**
+     * Desenha o recorte de uma imagem com fundo colorido.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param bgColor Uma cor de fundo.
+     */
+    public void drawImage( Image image, Rectangle source, double x, double y, Color bgColor ) {
+        Graphics2D g2d = createGraphics();
+        g2d.drawImage( image.buffImage, 
+                (int) x, 
+                (int) y, 
+                (int) ( x + source.width ), 
+                (int) ( y + source.height ), 
+                (int) source.x, 
+                (int) source.y, 
+                (int) ( source.x + source.width ), 
+                (int) ( source.y + source.height ), 
+                bgColor,
+                null
+        );
+        g2d.dispose();
+    }
+    
+    /**
+     * Desenha o recorte de uma imagem.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     */
+    public void drawImage( Image image, Rectangle source, double x, double y ) {
+        drawImage( image, source, x, y, null );
+    }
+    
+    /**
+     * Desenha o recorte rotacionado de uma imagem com fundo colorido.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     * @param bgColor Uma cor de fundo.
+     */
+    public void drawImage( Image image, Rectangle source, double x, double y, double rotation, Color bgColor ) {
+        drawImage( image, source, x, y, 0, 0, rotation, bgColor );
+    }
+    
+    /**
+     * Desenha o recorte rotacionado de uma imagem.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     */
+    public void drawImage( Image image, Rectangle source, double x, double y, double rotation ) {
+        drawImage( image, source, x, y, 0, 0, rotation, null );
+    }
+    
+    /**
+     * Desenha o recorte rotacionado de uma imagem com fundo colorido.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     * @param bgColor Uma cor de fundo.
+     */
+    public void drawImage( Image image, Rectangle source, double x, double y, double originX, double originY, double rotation, Color bgColor ) {
+        Graphics2D g2d = createGraphics();
+        g2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
+        g2d.drawImage( image.buffImage, 
+                (int) x, 
+                (int) y, 
+                (int) ( x + source.width ), 
+                (int) ( y + source.height ), 
+                (int) source.x, 
+                (int) source.y, 
+                (int) ( source.x + source.width ), 
+                (int) ( source.y + source.height ), 
+                bgColor,
+                null
+        );
+        g2d.dispose();
+    }
+    
+    /**
+     * Desenha o recorte rotacionado de uma imagem.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     */
+    public void drawImage( Image image, Rectangle source, double x, double y, double originX, double originY, double rotation ) {
+        drawImage( image, source, x, y, originX, originY, rotation, null );
+    }
+    
+    /**
+     * Desenha o recorte de uma imagem em um retângulo de destino com fundo colorido.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param dest Um retângulo de destino que define a posição e dimensões que a imagem será desenhada.
+     * @param bgColor Uma cor de fundo.
+     */
+    public void drawImage( Image image, Rectangle source, Rectangle dest, Color bgColor ) {
+        Graphics2D g2d = createGraphics();
+        g2d.drawImage( image.buffImage, 
+                (int) dest.x, 
+                (int) dest.y, 
+                (int) ( dest.x + dest.width ), 
+                (int) ( dest.y + dest.height ), 
+                (int) source.x, 
+                (int) source.y, 
+                (int) ( source.x + source.width ), 
+                (int) ( source.y + source.height ), 
+                bgColor,
+                null
+        );
+        g2d.dispose();
+    }
+    
+    /**
+     * Desenha o recorte de uma imagem em um retângulo de destino.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param dest Um retângulo de destino que define a posição e dimensões que a imagem será desenhada.
+     */
+    public void drawImage( Image image, Rectangle source, Rectangle dest ) {
+        drawImage( image, source, dest, null );
+    }
+    
+    /**
+     * Desenha o recorte rotacionado de uma imagem em um retângulo de destino com fundo colorido.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param dest Um retângulo de destino que define a posição e dimensões que a imagem será desenhada.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     * @param bgColor Uma cor de fundo.
+     */
+    public void drawImage( Image image, Rectangle source, Rectangle dest, double rotation, Color bgColor ) {
+        drawImage( image, source, dest, 0, 0, rotation, bgColor );
+    }
+    
+    /**
+     * Desenha o recorte rotacionado de uma imagem em um retângulo de destino.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param dest Um retângulo de destino que define a posição e dimensões que a imagem será desenhada.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     */
+    public void drawImage( Image image, Rectangle source, Rectangle dest, double rotation ) {
+        drawImage( image, source, dest, 0, 0, rotation, null );
+    }
+    
+    /**
+     * Desenha o recorte rotacionado de uma imagem em um retângulo de destino com fundo colorido.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param dest Um retângulo de destino que define a posição e dimensões que a imagem será desenhada.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     * @param bgColor Uma cor de fundo.
+     */
+    public void drawImage( Image image, Rectangle source, Rectangle dest, double originX, double originY, double rotation, Color bgColor ) {
+        Graphics2D g2d = createGraphics();
+        g2d.rotate( Math.toRadians( rotation ), dest.x + originX, dest.y + originY );
+        g2d.drawImage( image.buffImage, 
+                (int) dest.x, 
+                (int) dest.y, 
+                (int) ( dest.x + dest.width ), 
+                (int) ( dest.y + dest.height ), 
+                (int) source.x, 
+                (int) source.y, 
+                (int) ( source.x + source.width ), 
+                (int) ( source.y + source.height ), 
+                bgColor,
+                null
+        );
+        g2d.dispose();
+    }
+    
+    /**
+     * Desenha o recorte rotacionado de uma imagem em um retângulo de destino.
+     * 
+     * @param image A imagem a ser desenhada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param dest Um retângulo de destino que define a posição e dimensões que a imagem será desenhada.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     */
+    public void drawImage( Image image, Rectangle source, Rectangle dest, double originX, double originY, double rotation ) {
+        drawImage( image, source, dest, originX, originY, rotation, null );
+    }
+    
+    
+    
     /***************************************************************************
      * Métodos para gerenciamento de fonte e contornos para o contexto gráfico
      * das imagens.

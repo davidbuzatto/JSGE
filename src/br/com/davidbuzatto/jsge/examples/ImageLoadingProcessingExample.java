@@ -30,8 +30,9 @@ import java.awt.Font;
  */
 public class ImageLoadingProcessingExample extends Engine {
 
-    private Image image;
-    private Image imageCont;
+    private Image duke;
+    private Image dukeStroke;
+    private Image ladybug;
     private Image rotatingImage;
     
     private int rotationAngle;
@@ -43,21 +44,45 @@ public class ImageLoadingProcessingExample extends Engine {
     @Override
     public void create() {
         
-        image = loadImage( "resources/images/duke.png" );
-        imageCont = loadImage( "resources/images/dukeCont.png" );
+        duke = loadImage( "resources/images/duke.png" );
+        dukeStroke = loadImage( "resources/images/dukeCont.png" );
+        ladybug = loadImage( "resources/images/ladybug.png" );
         
         Image.enableAntialiasing();
         Image.setFontStyle( FONT_BOLD );
         
-        imageCont.fillRing( 50, 50, 10, 30, 0, 290, ColorUtils.colorAlpha( GOLD, 0.8 ) );
-        imageCont.drawRing( 50, 50, 10, 30, 0, 290, BLACK );
-        imageCont.drawText( "hello!", 50, 30, 20, BLUE );
+        dukeStroke.fillRing( 50, 50, 10, 30, 0, 290, ColorUtils.colorAlpha( GOLD, 0.8 ) );
+        dukeStroke.drawRing( 50, 50, 10, 30, 0, 290, BLACK );
+        dukeStroke.drawText( "hello!", 50, 30, 20, BLUE );
+        
+        dukeStroke.drawImage( 
+                ladybug, 
+                dukeStroke.getWidth() - ladybug.getWidth(), 
+                dukeStroke.getHeight() - ladybug.getHeight()
+        );
+        
+        /*dukeStroke.drawImage( 
+                ladybug, 
+                new Rectangle( 0, 0, 30, 30 ),
+                dukeStroke.getWidth() - ladybug.getWidth(), 
+                dukeStroke.getHeight() - ladybug.getHeight()
+        );*/
+        
+        /*dukeStroke.drawImage( 
+                ladybug, 
+                new Rectangle( 0, 0, 30, 30 ),
+                new Rectangle( 
+                        dukeStroke.getWidth() - ladybug.getWidth(),
+                        dukeStroke.getHeight() - ladybug.getHeight(),
+                        60, 30
+                )
+        );*/
         
     }
 
     @Override
     public void update() {
-        rotatingImage = ImageUtils.imageRotate( imageCont, rotationAngle++ );
+        rotatingImage = ImageUtils.imageRotate( dukeStroke, rotationAngle++ );
     }
     
     @Override
@@ -66,17 +91,17 @@ public class ImageLoadingProcessingExample extends Engine {
         clearBackground( WHITE );
         setFontStyle( Font.BOLD );
         
-        drawImage( image, 10, 10 );
-        drawImage( image, 410, 10, 45, ColorUtils.colorAlpha( BLUE, 0.5 ) );
-        drawImage( image, 780, 10, 10, 10, 90, ColorUtils.colorAlpha( GREEN, 0.5 ) );
+        drawImage( duke, 10, 10 );
+        drawImage( duke, 410, 10, 45, ColorUtils.colorAlpha( BLUE, 0.5 ) );
+        drawImage( duke, 780, 10, 10, 10, 90, ColorUtils.colorAlpha( GREEN, 0.5 ) );
         
-        drawImage( image, new Rectangle( 0, 0, 100, 100 ), 10, 250, ColorUtils.colorAlpha( BLACK, 0.5 ) );
-        drawImage( image, new Rectangle( 0, 0, 100, 100 ), 170, 250, 45, ColorUtils.colorAlpha( PINK, 0.5 ) );
-        drawImage( image, new Rectangle( 0, 0, 100, 100 ), 320, 250, 10, 10, 90, ColorUtils.colorAlpha( ORANGE, 0.5 ) );
+        drawImage( duke, new Rectangle( 0, 0, 100, 100 ), 10, 250, ColorUtils.colorAlpha( BLACK, 0.5 ) );
+        drawImage( duke, new Rectangle( 0, 0, 100, 100 ), 170, 250, 45, ColorUtils.colorAlpha( PINK, 0.5 ) );
+        drawImage( duke, new Rectangle( 0, 0, 100, 100 ), 320, 250, 10, 10, 90, ColorUtils.colorAlpha( ORANGE, 0.5 ) );
         
-        drawImage( image, new Rectangle( 0, 0, 100, 100 ), new Rectangle( 10, 400, 150, 150 ), ColorUtils.colorAlpha( VIOLET, 0.5 ) );
-        drawImage( image, new Rectangle( 20, 20, 100, 100 ), new Rectangle( 250, 400, 150, 150 ), 45, ColorUtils.colorAlpha( LIME, 0.5 ) );
-        drawImage( image, new Rectangle( 40, 40, 100, 100 ), new Rectangle( 490, 400, 150, 150 ), 10, 10, 90, ColorUtils.colorAlpha( DARKBLUE, 0.5 ) );
+        drawImage( duke, new Rectangle( 0, 0, 100, 100 ), new Rectangle( 10, 400, 150, 150 ), ColorUtils.colorAlpha( VIOLET, 0.5 ) );
+        drawImage( duke, new Rectangle( 20, 20, 100, 100 ), new Rectangle( 250, 400, 150, 150 ), 45, ColorUtils.colorAlpha( LIME, 0.5 ) );
+        drawImage( duke, new Rectangle( 40, 40, 100, 100 ), new Rectangle( 490, 400, 150, 150 ), 10, 10, 90, ColorUtils.colorAlpha( DARKBLUE, 0.5 ) );
         
         drawImage( rotatingImage, 550, 300, ColorUtils.colorAlpha( GOLD, 0.5 ) );
         
