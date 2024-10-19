@@ -49,7 +49,10 @@ import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 
 /**
- * Abstração para as BufferedImages.
+ * Abstração para as BufferedImage.
+ * 
+ * Possui a maioria, senão todos os métodos de desenho da engine,
+ * entretanto, o desenho é feito na imagem.
  * 
  * @author Prof. Dr. David Buzatto
  */
