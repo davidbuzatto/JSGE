@@ -2479,8 +2479,9 @@ public abstract class Engine extends JFrame {
      */
     public void drawText( String text, double x, double y, Color color ) {
         g2d.setColor( color );
-        Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
-        g2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
+        //Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
+        //g2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
+        drawTextMultilineHelper( text, x, y, g2d );
     }
     
     /**
@@ -2511,8 +2512,9 @@ public abstract class Engine extends JFrame {
         g2d.setColor( color );
         Graphics2D ig2d = (Graphics2D) g2d.create();
         ig2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
-        Rectangle2D r = ig2d.getFontMetrics().getStringBounds( text, ig2d );
-        ig2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
+        //Rectangle2D r = ig2d.getFontMetrics().getStringBounds( text, ig2d );
+        //ig2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
+        drawTextMultilineHelper( text, x, y, ig2d );
         ig2d.dispose();
     }
 
@@ -2529,8 +2531,9 @@ public abstract class Engine extends JFrame {
         g2d.setColor( color );
         Graphics2D ig2d = (Graphics2D) g2d.create();
         ig2d.setFont( g2d.getFont().deriveFont( (float) fontSize ) );
-        Rectangle2D r = ig2d.getFontMetrics().getStringBounds( text, ig2d );
-        ig2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
+        //Rectangle2D r = ig2d.getFontMetrics().getStringBounds( text, ig2d );
+        //ig2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
+        drawTextMultilineHelper( text, x, y, ig2d );
         ig2d.dispose();
     }
     
@@ -2565,8 +2568,9 @@ public abstract class Engine extends JFrame {
         Graphics2D ig2d = (Graphics2D) g2d.create();
         ig2d.setFont( g2d.getFont().deriveFont( (float) fontSize ) );
         ig2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
-        Rectangle2D r = ig2d.getFontMetrics().getStringBounds( text, ig2d );
-        ig2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
+        //Rectangle2D r = ig2d.getFontMetrics().getStringBounds( text, ig2d );
+        //ig2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
+        drawTextMultilineHelper( text, x, y, ig2d );
         ig2d.dispose();
     }
 
@@ -2720,6 +2724,33 @@ public abstract class Engine extends JFrame {
         drawText( text, point.x, point.y, origin.x, origin.y, rotation, fontSize, color );
     }
 
+    /**
+     * Método estático auxiliar para separação do texto em várias linhas e seu
+     * consecutivo desenho.
+     * 
+     * @param text texto a ser desenhado.
+     * @param x coordenada x inicial.
+     * @param y coordenada y inicial.
+     * @param g2d contexto gráfico utilizado.
+     */
+    public static void drawTextMultilineHelper( String text, double x, double y, Graphics2D g2d ) {
+        
+        double iy = y;
+        boolean first = true;
+        
+        for ( String t : text.split( "\n" ) ) {
+            Rectangle2D r = g2d.getFontMetrics().getStringBounds( t, g2d );
+            if ( first ) {
+                iy += r.getHeight() / 2;
+                first = false;
+            } else {
+                iy += r.getHeight() * 0.8;
+            }
+            g2d.drawString( t, (int) x, (int) iy );
+        }
+        
+    }
+    
     /**
      * Mede a largura de um texto.
      * 
