@@ -1,8 +1,5 @@
 draw text desenhar texto de fato (mais de uma linha)
 
-Configuração do ícone da aplicação.
-    void SetWindowIcon(Image image);                            // Set icon for window (single image, RGBA 32bit, only PLATFORM_DESKTOP)
-
 Implementar áudio.
     Terminar implementação dos exemplos.
 

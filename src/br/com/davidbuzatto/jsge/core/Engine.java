@@ -2780,6 +2780,15 @@ public abstract class Engine extends JFrame {
         this.targetFPS = targetFPS;
 
     }
+    
+    /**
+     * Configura o ícone da janela.
+     * 
+     * @param image Imagem utilizada para configurar o ícone.
+     */
+    public void setWindowIcon( Image image ) {
+        setIconImage( image.buffImage );
+    }
 
     /**
      * Obtém o tempo que um frame demorou para ser atualizado e desenhado.

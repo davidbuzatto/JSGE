@@ -48,6 +48,8 @@ public class ImageLoadingProcessingExample extends Engine {
         dukeStroke = loadImage( "resources/images/dukeCont.png" );
         ladybug = loadImage( "resources/images/ladybug.png" );
         
+        setWindowIcon( duke );
+        
         Image.enableAntialiasing();
         Image.setFontStyle( FONT_BOLD );
         
