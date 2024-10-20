@@ -102,7 +102,7 @@ public class SoundAndMusicExample extends Engine {
     private double musicVolume;
     
     public SoundAndMusicExample() {
-        super( 600, 160, "Sound and Music", 60, true );
+        super( 610, 160, "Sound and Music", 60, true );
         addWindowListener( new WindowAdapter() {
             @Override
             public void windowClosing( WindowEvent e ) {
@@ -243,7 +243,9 @@ public class SoundAndMusicExample extends Engine {
         int h = (int) ( 80 * ( 1.0 - musicVolume ) );
         fillRectangle( 480, 60, 20, 90, LIGHTGRAY );
         fillRectangle( 485, 65 + h, 10, 80 - h, DARKGRAY );
-        drawText( String.format( "Volume\n%d%%", volume ), 510, 85, BLACK );
+        drawText( String.format( "Volume\n %d%%", volume ), 520, 70, BLACK );
+        
+        drawText( "use mouse\n  wheel", 510, 115, 16, LIGHTGRAY );
         
         btnPlay.draw();
         btnStop.draw();

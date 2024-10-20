@@ -17,9 +17,6 @@
 package br.com.davidbuzatto.jsge.tests;
 
 import br.com.davidbuzatto.jsge.core.Engine;
-import br.com.davidbuzatto.jsge.sound.Music;
-import br.com.davidbuzatto.jsge.sound.Sound;
-import java.util.logging.LogManager;
 
 /**
  * Classe de testes.
@@ -34,25 +31,10 @@ public class ScratchPad extends Engine {
     
     @Override
     public void create() {
-        setTraceLogLevel( LOG_FATAL );
     }
 
     @Override
     public void update() {
-        
-        if ( isMouseButtonPressed( MOUSE_BUTTON_LEFT ) ) {
-            //traceLog( LOG_NONE, "none" );
-            //traceLog( LOG_INFO, "info" );
-            //traceLog( LOG_WARNING, "warning" );
-            //traceLog( LOG_ERROR, "error" );
-            //traceLog( LOG_FATAL, "fatal" );
-            //traceLog( LOG_ALL, "all" );
-            traceLogInfo( "infoo" );
-            traceLogWarning( "warningo" );
-            traceLogError( "erroro" );
-            traceLogFatal( "fatalo" );
-        }
-        
     }
     
     @Override

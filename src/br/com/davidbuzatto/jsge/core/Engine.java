@@ -38,6 +38,7 @@ import br.com.davidbuzatto.jsge.sound.Sound;
 import br.com.davidbuzatto.jsge.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.utils.ImageUtils;
+import br.com.davidbuzatto.jsge.utils.Utils;
 import java.awt.AWTException;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
@@ -201,9 +202,6 @@ public abstract class Engine extends JFrame {
     private boolean mode2DActive = false;
     private Graphics2D cameraGraphics;
     private Graphics2D baseGraphics;
-    
-    // controle do sistema de logging
-    private static int traceLogLovel = Engine.LOG_ALL;
         
     /**
      * Processa a entrada inicial fornecida pelo usuário e cria
@@ -374,7 +372,7 @@ public abstract class Engine extends JFrame {
                         drawingPanel.repaint();
                     });
                 } catch ( InterruptedException | InvocationTargetException exc ) {
-                    exc.printStackTrace();
+                    traceLogError( Utils.stackTraceToString( exc ) );
                 }
 
                 timeAfter = System.currentTimeMillis();
@@ -415,7 +413,7 @@ public abstract class Engine extends JFrame {
                 try {
                     Thread.sleep( waitTime );
                 } catch ( InterruptedException exc ) {
-                    exc.printStackTrace();
+                    traceLogError( Utils.stackTraceToString( exc ) );
                 }
 
             }
@@ -719,7 +717,7 @@ public abstract class Engine extends JFrame {
             }
 
         } catch ( IllegalAccessException exc ) {
-            exc.printStackTrace();
+            traceLogError( Utils.stackTraceToString( exc ) );
         }
 
     }
@@ -2934,7 +2932,7 @@ public abstract class Engine extends JFrame {
      * @param args Os argumentos para a formatação do texto.
      */
     public static void traceLog( int logLevel, String text, Object... args ) {
-        if ( logLevel <= traceLogLovel ) {
+        if ( logLevel <= traceLogLevel ) {
             String logLevelPrefix = "";
             boolean emit = true;
             switch ( logLevel ) {
@@ -2997,7 +2995,7 @@ public abstract class Engine extends JFrame {
      */
     public static void setTraceLogLevel( int logLevel ) {
         if ( logLevel >= LOG_NONE && logLevel <= LOG_ALL ) {
-            traceLogLovel = logLevel;
+            traceLogLevel = logLevel;
         }
     }
     
@@ -3167,7 +3165,7 @@ public abstract class Engine extends JFrame {
         try {
             return new Image( ImageIO.read( new File( filePath ) ) );
         } catch ( IOException exc ) {
-            exc.printStackTrace();
+            traceLogError( Utils.stackTraceToString( exc ) );
         }
         
         return ImageUtils.createTextImage( "error", 20, Font.BOLD, WHITE, BLACK );
@@ -3185,7 +3183,7 @@ public abstract class Engine extends JFrame {
         try {
             return new Image( ImageIO.read( input ) );
         } catch ( IOException exc ) {
-            exc.printStackTrace();
+            traceLogError( Utils.stackTraceToString( exc ) );
         }
         
         return ImageUtils.createTextImage( "error", 20, Font.BOLD, WHITE, BLACK );
@@ -3203,7 +3201,7 @@ public abstract class Engine extends JFrame {
         try {
             return new Image( ImageIO.read( url ) );
         } catch ( IOException exc ) {
-            exc.printStackTrace();
+            traceLogError( Utils.stackTraceToString( exc ) );
         }
         
         return ImageUtils.createTextImage( "error", 20, Font.BOLD, WHITE, BLACK );
@@ -4642,5 +4640,8 @@ public abstract class Engine extends JFrame {
     public static int LOG_ERROR          = 3;        // Error logging, used on unrecoverable failures
     public static int LOG_FATAL          = 4;        // Fatal logging, used to abort program: exit(EXIT_FAILURE)
     public static int LOG_ALL            = 5;        // Display all logs
+    
+    // controle do sistema de logging
+    private static int traceLogLevel = Engine.LOG_ALL;
 
 }

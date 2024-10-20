@@ -1,4 +1,0 @@
-Sistema de logging:
-    Mapear todas as exceções!
-
-Empacotar e criar template no VSCode

@@ -157,7 +157,10 @@ public class CameraExample extends Engine {
         
         fillRoundRectangle( 5, 5, 340, 200, 10, ColorUtils.colorAlpha( RAYWHITE, 0.5 ) );
         drawRoundRectangle( 5, 5, 340, 200, 10, BLACK );
+        
         drawFPS( 20, 20 );
+        drawText( "<R> to reset", 210, 20, BLACK );
+        
         int y = 40;
         int step = 18;
         

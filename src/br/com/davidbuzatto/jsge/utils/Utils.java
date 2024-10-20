@@ -16,6 +16,9 @@
  */
 package br.com.davidbuzatto.jsge.utils;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 /**
  * Classe com métodos estáticos utilitários.
  * 
@@ -30,6 +33,24 @@ public class Utils {
      */
     public static String getVersion() {
         return "1.0";
+    }
+    
+    /**
+     * Escreve os dados da stack trace de uma exceção em uma string.
+     * 
+     * @param exc A exceção a ser processada.
+     * @return Uma string com o conteúdo da stack trace.
+     */
+    public static String stackTraceToString( Exception exc ) {
+        
+        StringWriter out = new StringWriter();
+        
+        try ( PrintWriter pw = new PrintWriter( out ) ) {
+            exc.printStackTrace( pw );
+        }
+        
+        return out.toString();
+        
     }
 
 }

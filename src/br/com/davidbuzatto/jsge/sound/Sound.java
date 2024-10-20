@@ -16,7 +16,9 @@
  */
 package br.com.davidbuzatto.jsge.sound;
 
+import static br.com.davidbuzatto.jsge.core.Engine.traceLogError;
 import br.com.davidbuzatto.jsge.utils.MathUtils;
+import br.com.davidbuzatto.jsge.utils.Utils;
 import com.goxr3plus.streamplayer.stream.StreamPlayer;
 import com.goxr3plus.streamplayer.stream.StreamPlayerException;
 import java.io.File;
@@ -80,7 +82,7 @@ public class Sound {
                     play();
                 }
             } catch ( StreamPlayerException exc ) {
-                exc.printStackTrace();
+                traceLogError( Utils.stackTraceToString( exc ) );
             }
         }
         
