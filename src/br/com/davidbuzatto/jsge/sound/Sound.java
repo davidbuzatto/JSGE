@@ -183,7 +183,11 @@ public class Sound {
      * @param volume O volume do som, variando de 0.0 a 1.0.
      */
     public void setVolume( double volume ) {
-        internalPlayer.setGain( MathUtils.clamp( volume, 0.01, 1.0 ) );
+        volume = MathUtils.clamp( volume, 0.01, 1.0 );
+        if ( volume <= 0.01 ) {
+            volume = 0;
+        }
+        internalPlayer.setGain( volume );
     }
     
 }

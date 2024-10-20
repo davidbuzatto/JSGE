@@ -26,6 +26,8 @@ import br.com.davidbuzatto.jsge.sound.Sound;
 import br.com.davidbuzatto.jsge.utils.CollisionUtils;
 import br.com.davidbuzatto.jsge.utils.MathUtils;
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Exemplo de uso de som e música.
@@ -101,6 +103,14 @@ public class SoundAndMusicExample extends Engine {
     
     public SoundAndMusicExample() {
         super( 600, 160, "Sound and Music", 60, true );
+        addWindowListener( new WindowAdapter() {
+            @Override
+            public void windowClosing( WindowEvent e ) {
+                if ( music.isPlaying() ) {
+                    music.stop();
+                }
+            }
+        });
     }
     
     @Override
