@@ -82,6 +82,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.LogManager;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -245,7 +246,9 @@ public abstract class Engine extends JFrame {
                    boolean fullScreen, 
                    boolean undecorated, 
                    boolean alwaysOnTop ) {
-                    
+        
+        LogManager.getLogManager().reset();
+        
         if ( windowWidth <= 0 ) {
             throw new IllegalArgumentException( "width must be positive!" );
         }
@@ -3505,7 +3508,7 @@ public abstract class Engine extends JFrame {
      */
     public static Sound loadSound( String filePath ) {
         return new Sound( filePath );
-    };
+    }
     
     /**
      * Carrega um som de um input stream.
@@ -3515,7 +3518,7 @@ public abstract class Engine extends JFrame {
      */
     public static Sound loadSound( InputStream is ) {
         return new Sound( is );
-    };
+    }
     
     /**
      * Carrega um som de uma URL.
@@ -3525,7 +3528,7 @@ public abstract class Engine extends JFrame {
      */
     public static Sound loadSound( URL url ) {
         return new Sound( url );
-    };
+    }
     
     /**
      * Descarrega um som.
@@ -3534,7 +3537,7 @@ public abstract class Engine extends JFrame {
      */
     public static void unloadSound( Sound sound ) {
         sound.unload();
-    };
+    }
     
     /**
      * Executa o som.
@@ -3543,7 +3546,7 @@ public abstract class Engine extends JFrame {
      */
     public static void playSound( Sound sound ) {
         sound.play();
-    };
+    }
     
     /**
      * Para de executar o som.
@@ -3552,7 +3555,7 @@ public abstract class Engine extends JFrame {
      */
     public static void stopSound( Sound sound ) {
         sound.stop();
-    };
+    }
     
     /**
      * Pausa o som.
@@ -3561,7 +3564,7 @@ public abstract class Engine extends JFrame {
      */
     public void pauseSound( Sound sound ) {
         sound.pause();
-    };
+    }
     
     /**
      * Retoma a execução do som.
@@ -3570,7 +3573,7 @@ public abstract class Engine extends JFrame {
      */
     public void resumeSound( Sound sound ) {
         sound.resume();
-    };
+    }
     
     /**
      * Verifica se o som está executando.
@@ -3580,7 +3583,27 @@ public abstract class Engine extends JFrame {
      */
     public boolean isSoundPlaying( Sound sound ) {
         return sound.isPlaying();
-    };
+    }
+    
+    /**
+     * Verifica se o som está parado.
+     * 
+     * @param sound O som.
+     * @return Verdadeiro caso o som esteja parado, falso caso contrário.
+     */
+    public boolean isSoundStopped( Sound sound ) {
+        return sound.isStopped();
+    }
+    
+    /**
+     * Verifica se o som está pausado.
+     * 
+     * @param sound O som.
+     * @return Verdadeiro caso o som esteja pausado, falso caso contrário.
+     */
+    public boolean isSoundPaused( Sound sound ) {
+        return sound.isPaused();
+    }
     
     /**
      * Configura o volume do som.
@@ -3590,7 +3613,7 @@ public abstract class Engine extends JFrame {
      */
     public void setSoundVolume( Sound sound, double volume ) {
         sound.setVolume( volume );
-    };
+    }
     
     /**
      * Carrega uma música de um arquivo.
@@ -3600,7 +3623,7 @@ public abstract class Engine extends JFrame {
      */
     public static Music loadMusic( String filePath ) {
         return new Music( filePath );
-    };
+    }
     
     /**
      * Carrega uma música de um input stream.
@@ -3610,7 +3633,7 @@ public abstract class Engine extends JFrame {
      */
     public static Music loadMusic( InputStream is ) {
         return new Music( is );
-    };
+    }
     
     /**
      * Carrega uma música de uma URL.
@@ -3620,7 +3643,7 @@ public abstract class Engine extends JFrame {
      */
     public static Music loadMusic( URL url ) {
         return new Music( url );
-    };
+    }
     
     /**
      * Descarrega uma música.
@@ -3629,7 +3652,7 @@ public abstract class Engine extends JFrame {
      */
     public static void unloadMusic( Music music ) {
         music.unload();
-    };
+    }
     
     /**
      * Executa a música.
@@ -3638,7 +3661,7 @@ public abstract class Engine extends JFrame {
      */
     public static void playMusic( Music music ) {
         music.play();
-    };
+    }
     
     /**
      * Para de executar a música.
@@ -3647,7 +3670,7 @@ public abstract class Engine extends JFrame {
      */
     public static void stopMusic( Music music ) {
         music.stop();
-    };
+    }
     
     /**
      * Pausa a música.
@@ -3656,7 +3679,7 @@ public abstract class Engine extends JFrame {
      */
     public void pauseMusic( Music music ) {
         music.pause();
-    };
+    }
     
     /**
      * Retoma a execução da música.
@@ -3665,7 +3688,7 @@ public abstract class Engine extends JFrame {
      */
     public void resumeMusic( Music music ) {
         music.resume();
-    };
+    }
     
     /**
      * Verifica se a música está executando.
@@ -3675,7 +3698,37 @@ public abstract class Engine extends JFrame {
      */
     public boolean isMusicPlaying( Music music ) {
         return music.isPlaying();
-    };
+    }
+    
+    /**
+     * Verifica se a música está parada.
+     * 
+     * @param music A música.
+     * @return Verdadeiro caso a música esteja parada, falso caso contrário.
+     */
+    public boolean isMusicStopped( Music music ) {
+        return music.isStopped();
+    }
+    
+    /**
+     * Verifica se a música está pausada.
+     * 
+     * @param music A música.
+     * @return Verdadeiro caso a música esteja pausada, falso caso contrário.
+     */
+    public boolean isMusicPaused( Music music ) {
+        return music.isPaused();
+    }
+    
+    /**
+     * Verifica se a música está sendo procurada.
+     * 
+     * @param music A música.
+     * @return Verdadeiro caso a música esteja sendo procurada, falso caso contrário.
+     */
+    public boolean isMusicSeeking( Music music ) {
+        return music.isSeeking();
+    }
     
     /**
      * Configura o volume da música.
@@ -3685,7 +3738,7 @@ public abstract class Engine extends JFrame {
      */
     public void setMusicVolume( Music music, double volume ) {
         music.setVolume( volume );
-    };
+    }
     
     /**
      * Procura uma posição da música.
@@ -3695,7 +3748,7 @@ public abstract class Engine extends JFrame {
      */
     public static void seekMusic( Music music, int position ) {
         music.seek( position );
-    };
+    }
     
     /**
      * Obtém a duração da da música.

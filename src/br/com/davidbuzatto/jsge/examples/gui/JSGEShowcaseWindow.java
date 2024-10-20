@@ -21,12 +21,12 @@ import br.com.davidbuzatto.jsge.examples.ColorMethodsExample;
 import br.com.davidbuzatto.jsge.examples.DrawingWithPrimitivesMethodsExample;
 import br.com.davidbuzatto.jsge.examples.DrawingWithPrimitivesObjectsExample;
 import br.com.davidbuzatto.jsge.examples.ImageLoadingProcessingExample;
+import br.com.davidbuzatto.jsge.examples.SoundAndMusicExample;
 import br.com.davidbuzatto.jsge.examples.UserInteractionExample;
 import br.com.davidbuzatto.jsge.examples.ball.BouncingBallExample;
 import br.com.davidbuzatto.jsge.examples.camera.CameraExample;
 import br.com.davidbuzatto.jsge.examples.particles.ParticlesExample;
 import br.com.davidbuzatto.jsge.utils.Utils;
-import javax.swing.JOptionPane;
 
 /**
  * Janela do showcase (vitrine) da JSGE.
@@ -62,7 +62,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         btnBouncingBall = new javax.swing.JButton();
         btnParticles = new javax.swing.JButton();
         btnCamera = new javax.swing.JButton();
-        btnSounds = new javax.swing.JButton();
+        btnSoundAndMusic = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,10 +133,10 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
             }
         });
 
-        btnSounds.setText("Sounds");
-        btnSounds.addActionListener(new java.awt.event.ActionListener() {
+        btnSoundAndMusic.setText("Sound and Music");
+        btnSoundAndMusic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSoundsActionPerformed(evt);
+                btnSoundAndMusicActionPerformed(evt);
             }
         });
 
@@ -157,7 +157,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
                     .addComponent(btnParticles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                     .addComponent(btnCamera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSounds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSoundAndMusic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -184,7 +184,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCamera)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSounds)
+                .addComponent(btnSoundAndMusic)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -228,9 +228,9 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         new CameraExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnCameraActionPerformed
 
-    private void btnSoundsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoundsActionPerformed
-        JOptionPane.showMessageDialog( this, "Not implemented yet." );
-    }//GEN-LAST:event_btnSoundsActionPerformed
+    private void btnSoundAndMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoundAndMusicActionPerformed
+        new SoundAndMusicExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+    }//GEN-LAST:event_btnSoundAndMusicActionPerformed
 
     /**
      * @param args the command line arguments
@@ -277,7 +277,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnDrawingPrimitiveObjects;
     private javax.swing.JButton btnImageLoadingAndProcessing;
     private javax.swing.JButton btnParticles;
-    private javax.swing.JButton btnSounds;
+    private javax.swing.JButton btnSoundAndMusic;
     private javax.swing.JButton btnUserInteraction;
     private javax.swing.JLabel lblHeader;
     // End of variables declaration//GEN-END:variables

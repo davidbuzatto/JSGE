@@ -36,7 +36,7 @@
                   <Component id="btnParticles" alignment="0" max="32767" attributes="0"/>
                   <Component id="lblHeader" alignment="0" pref="386" max="32767" attributes="0"/>
                   <Component id="btnCamera" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnSounds" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnSoundAndMusic" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -66,7 +66,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnCamera" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnSounds" min="-2" max="-2" attributes="0"/>
+              <Component id="btnSoundAndMusic" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -154,12 +154,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCameraActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnSounds">
+    <Component class="javax.swing.JButton" name="btnSoundAndMusic">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Sounds"/>
+        <Property name="text" type="java.lang.String" value="Sound and Music"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSoundsActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSoundAndMusicActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

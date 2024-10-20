@@ -160,6 +160,33 @@ public class Music {
     }
     
     /**
+     * Verifica se a música está parada.
+     * 
+     * @return Verdadeiro caso a música esteja parada, falso caso contrário.
+     */
+    public boolean isStopped() {
+        return internalPlayer.isStopped();
+    }
+    
+    /**
+     * Verifica se a música está pausada.
+     * 
+     * @return Verdadeiro caso a música esteja pausada, falso caso contrário.
+     */
+    public boolean isPaused() {
+        return internalPlayer.isPaused();
+    }
+    
+    /**
+     * Verifica se a música está sendo procurada.
+     * 
+     * @return Verdadeiro caso a música esteja sendo procurada, falso caso contrário.
+     */
+    public boolean isSeeking() {
+        return internalPlayer.isSeeking();
+    }
+    
+    /**
      * Configura o volume da música.
      * 
      * @param volume O volume da música, variando de 0.0 a 1.0.
@@ -175,7 +202,7 @@ public class Music {
      */
     public void seek( int position ) {
         try {
-            internalPlayer.seekSeconds( position );
+            internalPlayer.seekTo( position );
         } catch ( StreamPlayerException exc ) {
             exc.printStackTrace();
         }

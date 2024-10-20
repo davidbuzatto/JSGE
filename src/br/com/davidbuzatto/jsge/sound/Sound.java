@@ -160,6 +160,24 @@ public class Sound {
     }
     
     /**
+     * Verifica se o som está parado.
+     * 
+     * @return Verdadeiro caso o som esteja parado, falso caso contrário.
+     */
+    public boolean isStopped() {
+        return internalPlayer.isStopped();
+    }
+    
+    /**
+     * Verifica se o som está pausado.
+     * 
+     * @return Verdadeiro caso o som esteja pausado, falso caso contrário.
+     */
+    public boolean isPaused() {
+        return internalPlayer.isPaused();
+    }
+    
+    /**
      * Configura o volume do som.
      * 
      * @param volume O volume do som, variando de 0.0 a 1.0.
