@@ -2755,6 +2755,33 @@ public abstract class Engine extends JFrame {
         return width;
     }
     
+    /**
+     * Mede os limites do texto.
+     * 
+     * @param text o texto a ser medido.
+     * @return um retângulo que limita o texto.
+     */
+    public Rectangle measureTextBounds( String text ) {
+        Rectangle2D r2d = g2d.getFontMetrics().getStringBounds( text, g2d );
+        return new Rectangle( 0, 0, r2d.getWidth(), r2d.getHeight() );
+    }
+
+    /**
+     * Mede a largura de um texto.
+     * 
+     * @param text o texto a ser medido.
+     * @param fontSize tamanho da fonte.
+     * @return a largura de um texto.
+     */
+    public Rectangle measureTextBounds( String text, int fontSize ) {
+        Font f = g2d.getFont();
+        g2d.setFont( f.deriveFont( (float) fontSize ) );
+        Rectangle2D r2d = g2d.getFontMetrics().getStringBounds( text, g2d );
+        Rectangle r = new Rectangle( 0, 0, r2d.getWidth(), r2d.getHeight() );
+        g2d.setFont( f );
+        return r;
+    }
+    
     
 
     /***************************************************************************

@@ -39,7 +39,6 @@ public class ScratchPad extends Engine {
     
     @Override
     public void draw() {
-               
     }
     
     public static void main( String[] args ) {
