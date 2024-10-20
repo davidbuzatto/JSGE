@@ -1,6 +1,4 @@
-Implementar áudio.
-    Usar https://github.com/goxr3plus/java-stream-player
-    Terminar implementação dos exemplos.
-    Testando...
+Sistema de logging:
+    Mapear todas as exceções!
 
 Empacotar e criar template no VSCode

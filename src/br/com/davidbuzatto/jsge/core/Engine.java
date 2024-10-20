@@ -201,6 +201,9 @@ public abstract class Engine extends JFrame {
     private boolean mode2DActive = false;
     private Graphics2D cameraGraphics;
     private Graphics2D baseGraphics;
+    
+    // controle do sistema de logging
+    private static int traceLogLovel = Engine.LOG_ALL;
         
     /**
      * Processa a entrada inicial fornecida pelo usuário e cria
@@ -247,6 +250,7 @@ public abstract class Engine extends JFrame {
                    boolean undecorated, 
                    boolean alwaysOnTop ) {
         
+        // desliga o sistema de logging do JDK usado pela biblioteca de processamento de som
         LogManager.getLogManager().reset();
         
         if ( windowWidth <= 0 ) {
@@ -2915,9 +2919,90 @@ public abstract class Engine extends JFrame {
         g2d.setFont( t );
 
     }
-
-
-
+    
+    
+    
+    /***************************************************************************
+     * Métodos de logging.
+     **************************************************************************/
+    
+    /**
+     * Emite uma mensagem de log no stream de saída de erro.
+     * 
+     * @param logLevel O nível do log.
+     * @param text O texto a ser emitido.
+     * @param args Os argumentos para a formatação do texto.
+     */
+    public static void traceLog( int logLevel, String text, Object... args ) {
+        if ( logLevel <= traceLogLovel ) {
+            String logLevelPrefix = "";
+            boolean emit = true;
+            switch ( logLevel ) {
+                case 1 -> logLevelPrefix = "INFO: ";
+                case 2 -> logLevelPrefix = "WARNING: ";
+                case 3 -> logLevelPrefix = "ERROR: ";
+                case 4 -> logLevelPrefix = "FATAL: ";
+                default -> emit = false;
+            }
+            if ( emit ) {
+                System.err.println( logLevelPrefix + String.format( text, args ) );
+            }
+        }        
+    }
+    
+    /**
+     * Emite uma mensagem de log no nível INFO no stream de saída de erro.
+     * 
+     * @param text O texto a ser emitido.
+     * @param args Os argumentos para a formatação do texto.
+     */
+    public static void traceLogInfo( String text, Object... args ) {
+        traceLog( LOG_INFO, text, args );
+    }
+    
+    /**
+     * Emite uma mensagem de log no nível WARNING no stream de saída de erro.
+     * 
+     * @param text O texto a ser emitido.
+     * @param args Os argumentos para a formatação do texto.
+     */
+    public static void traceLogWarning( String text, Object... args ) {
+        traceLog( LOG_WARNING, text, args );
+    }
+    
+    /**
+     * Emite uma mensagem de log no nível ERROR no stream de saída de erro.
+     * 
+     * @param text O texto a ser emitido.
+     * @param args Os argumentos para a formatação do texto.
+     */
+    public static void traceLogError( String text, Object... args ) {
+        traceLog( LOG_ERROR, text, args );
+    }
+    
+    /**
+     * Emite uma mensagem de log no nível FATAL no stream de saída de erro.
+     * 
+     * @param text O texto a ser emitido.
+     * @param args Os argumentos para a formatação do texto.
+     */
+    public static void traceLogFatal( String text, Object... args ) {
+        traceLog( LOG_FATAL, text, args );
+    }
+    
+    /**
+     * Configura o nível de log do sistema de loggin da engine.
+     * 
+     * @param logLevel O nível de log.
+     */
+    public static void setTraceLogLevel( int logLevel ) {
+        if ( logLevel >= LOG_NONE && logLevel <= LOG_ALL ) {
+            traceLogLovel = logLevel;
+        }
+    }
+    
+    
+    
     /***************************************************************************
      * Métodos para configuração da fonte e do contorno.
      **************************************************************************/
@@ -4545,5 +4630,17 @@ public abstract class Engine extends JFrame {
     public static final Color BLANK      = new Color( 0, 0, 0, 0 );
     public static final Color MAGENTA    = new Color( 255, 0, 255 );
     public static final Color RAYWHITE   = new Color( 245, 245, 245 );
+    
+    
+    
+    /***************************************************************************
+     * Níveis de log.
+     **************************************************************************/
+    public static int LOG_NONE           = 0;        // Disable logging
+    public static int LOG_INFO           = 1;        // Info logging, used for program execution info
+    public static int LOG_WARNING        = 2;        // Warning logging, used on recoverable failures
+    public static int LOG_ERROR          = 3;        // Error logging, used on unrecoverable failures
+    public static int LOG_FATAL          = 4;        // Fatal logging, used to abort program: exit(EXIT_FAILURE)
+    public static int LOG_ALL            = 5;        // Display all logs
 
 }

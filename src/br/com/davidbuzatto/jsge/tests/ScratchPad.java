@@ -28,51 +28,39 @@ import java.util.logging.LogManager;
  */
 public class ScratchPad extends Engine {
     
-    private Sound s;
-    private Music music;
-    private double volume;
-    
     public ScratchPad() {
         super( 800, 450, "Scratch Pad", 60, true );
     }
     
     @Override
     public void create() {
-        volume = 1.0;
-        music = new Music( "resources/sfx/musicSample.mp3" );
-        music.play();
+        setTraceLogLevel( LOG_FATAL );
     }
 
     @Override
     public void update() {
         
         if ( isMouseButtonPressed( MOUSE_BUTTON_LEFT ) ) {
-            s = new Sound( "resources/sfx/coin.wav" );
-            s.play();
+            //traceLog( LOG_NONE, "none" );
+            //traceLog( LOG_INFO, "info" );
+            //traceLog( LOG_WARNING, "warning" );
+            //traceLog( LOG_ERROR, "error" );
+            //traceLog( LOG_FATAL, "fatal" );
+            //traceLog( LOG_ALL, "all" );
+            traceLogInfo( "infoo" );
+            traceLogWarning( "warningo" );
+            traceLogError( "erroro" );
+            traceLogFatal( "fatalo" );
         }
-        
-        if ( isKeyPressed( KEY_UP ) ) {
-            volume += 0.1;
-            
-        }
-        if ( isKeyPressed( KEY_DOWN ) ) {
-            volume -= 0.1;
-        }
-        
-        //volume = MathUtils.clamp( volume, 0.0, 1.0 );
-        music.setVolume( volume );
         
     }
     
     @Override
     public void draw() {
-        
-        drawText( String.format( "%d/%d", music.getTimePlayed(), music.getTimeLength() ), 10, 10, 20, BLACK );
-        
+               
     }
     
     public static void main( String[] args ) {
-        LogManager.getLogManager().reset();
         new ScratchPad();
     }
     
