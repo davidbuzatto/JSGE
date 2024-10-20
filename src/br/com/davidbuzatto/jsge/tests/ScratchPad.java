@@ -36,7 +36,7 @@ public class ScratchPad extends Engine {
                 //open( new File( "resources/sfx/smw_coin.wav" ) );
                 //open( new File( "resources/sfx/kick.wav" ) );
                 //open( new File( "resources/sfx/kick.mp3" ) );
-                //open( new File( "resources/sfx/test.mp3" ) );
+                open( new File( "resources/sfx/test.mp3" ) );
                 play();
             } catch ( StreamPlayerException exc ){
                 exc.printStackTrace();
