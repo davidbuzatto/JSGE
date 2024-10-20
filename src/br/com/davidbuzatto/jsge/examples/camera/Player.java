@@ -27,7 +27,7 @@ import java.awt.Color;
  */
 public class Player {
     
-    private Vector2 pos;
+    public Vector2 pos;
     private Vector2 dim;
     private Vector2 vel;
     private double speed;
@@ -79,10 +79,6 @@ public class Player {
     public void draw( Engine engine ) {
         engine.fillRectangle( pos.x - dim.x / 2, pos.y - dim.y / 2, dim.x, dim.y, color );
         engine.drawRectangle( pos.x - dim.x / 2, pos.y - dim.y / 2, dim.x, dim.y, Engine.BLACK );
-    }
-
-    public Vector2 getPos() {
-        return pos;
     }
     
 }

@@ -81,8 +81,8 @@ public class CameraExample extends Engine {
         if ( isKeyPressed( KEY_R ) ) {
             camera.rotation = 0;
             camera.zoom = 1;
-            player.getPos().x = worldBoundary.width / 2;
-            player.getPos().y = worldBoundary.height / 2;
+            player.pos.x = worldBoundary.width / 2;
+            player.pos.y = worldBoundary.height / 2;
         }
         
         updateCamera();
@@ -161,9 +161,9 @@ public class CameraExample extends Engine {
         int y = 40;
         int step = 18;
         
-        Point playerScreen = MathUtils.getWorldToScreen2D( player.getPos().x, player.getPos().y, camera );
+        Point playerScreen = MathUtils.getWorldToScreen2D( player.pos.x, player.pos.y, camera );
         drawText( "Player: ", 20, y, BLACK );
-        drawText( String.format( " World: (%.2f, %.2f)", player.getPos().x, player.getPos().y ), 30, y += step, BLACK );
+        drawText( String.format( " World: (%.2f, %.2f)", player.pos.x, player.pos.y ), 30, y += step, BLACK );
         drawText( String.format( "Screen: (%.2f, %.2f)", playerScreen.x, playerScreen.y ), 30, y += step, BLACK );
         
         y += step;
@@ -178,20 +178,20 @@ public class CameraExample extends Engine {
     
     private void updateCamera() {
         
-        if ( player.getPos().x <= getScreenWidth() / 2 ) {
+        if ( player.pos.x <= getScreenWidth() / 2 ) {
             camera.target.x = getScreenWidth() / 2;
-        } else if ( player.getPos().x >= worldBoundary.width - getScreenWidth() / 2 ) {
+        } else if ( player.pos.x >= worldBoundary.width - getScreenWidth() / 2 ) {
             camera.target.x = worldBoundary.width - getScreenWidth() / 2 ;
         } else {
-            camera.target.x = player.getPos().x;
+            camera.target.x = player.pos.x;
         }
         
-        if ( player.getPos().y <= getScreenHeight() / 2 ) {
+        if ( player.pos.y <= getScreenHeight() / 2 ) {
             camera.target.y = getScreenHeight()/ 2;
-        } else if ( player.getPos().y >= worldBoundary.height - getScreenHeight()/ 2 ) {
+        } else if ( player.pos.y >= worldBoundary.height - getScreenHeight()/ 2 ) {
             camera.target.y = worldBoundary.height - getScreenHeight()/ 2 ;
         } else {
-            camera.target.y = player.getPos().y;
+            camera.target.y = player.pos.y;
         }
         
         camera.offset.x = getScreenWidth() / 2;

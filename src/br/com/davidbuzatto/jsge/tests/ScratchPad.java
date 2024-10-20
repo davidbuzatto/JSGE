@@ -17,9 +17,8 @@
 package br.com.davidbuzatto.jsge.tests;
 
 import br.com.davidbuzatto.jsge.core.Engine;
-import com.goxr3plus.streamplayer.stream.StreamPlayer;
-import com.goxr3plus.streamplayer.stream.StreamPlayerException;
-import java.io.File;
+import br.com.davidbuzatto.jsge.sound.Music;
+import br.com.davidbuzatto.jsge.sound.Sound;
 import java.util.logging.LogManager;
 
 /**
@@ -28,22 +27,10 @@ import java.util.logging.LogManager;
  * @author Prof. Dr. David Buzatto
  */
 public class ScratchPad extends Engine {
-
-    private class T extends StreamPlayer {
-        public T() {
-            super();
-            try {
-                //open( new File( "resources/sfx/smw_coin.wav" ) );
-                //open( new File( "resources/sfx/kick.wav" ) );
-                //open( new File( "resources/sfx/kick.mp3" ) );
-                open( new File( "resources/sfx/test.mp3" ) );
-                play();
-            } catch ( StreamPlayerException exc ){
-                exc.printStackTrace();
-            }
-                
-        }
-    }
+    
+    private Sound s;
+    private Music music;
+    private double volume;
     
     public ScratchPad() {
         super( 800, 450, "Scratch Pad", 60, true );
@@ -51,17 +38,37 @@ public class ScratchPad extends Engine {
     
     @Override
     public void create() {
+        volume = 1.0;
+        music = new Music( "resources/sfx/musicSample.mp3" );
+        music.play();
     }
 
     @Override
     public void update() {
+        
         if ( isMouseButtonPressed( MOUSE_BUTTON_LEFT ) ) {
-            new T();
+            s = new Sound( "resources/sfx/coin.wav" );
+            s.play();
         }
+        
+        if ( isKeyPressed( KEY_UP ) ) {
+            volume += 0.1;
+            
+        }
+        if ( isKeyPressed( KEY_DOWN ) ) {
+            volume -= 0.1;
+        }
+        
+        //volume = MathUtils.clamp( volume, 0.0, 1.0 );
+        music.setVolume( volume );
+        
     }
     
     @Override
     public void draw() {
+        
+        drawText( String.format( "%d/%d", music.getTimePlayed(), music.getTimeLength() ), 10, 10, 20, BLACK );
+        
     }
     
     public static void main( String[] args ) {

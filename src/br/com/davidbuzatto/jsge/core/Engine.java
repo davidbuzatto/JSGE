@@ -33,10 +33,11 @@ import br.com.davidbuzatto.jsge.geom.Ring;
 import br.com.davidbuzatto.jsge.geom.RoundRectangle;
 import br.com.davidbuzatto.jsge.geom.Triangle;
 import br.com.davidbuzatto.jsge.geom.Vector2;
+import br.com.davidbuzatto.jsge.sound.Music;
+import br.com.davidbuzatto.jsge.sound.Sound;
 import br.com.davidbuzatto.jsge.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.utils.ImageUtils;
-import br.com.davidbuzatto.jsge.utils.MathUtils;
 import java.awt.AWTException;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
@@ -3488,6 +3489,232 @@ public abstract class Engine extends JFrame {
             cameraGraphics.dispose();
             mode2DActive = false;
         }
+    }
+    
+    
+    
+    /***************************************************************************
+     * Métodos para controle de sons e músicas
+     **************************************************************************/
+    
+    /**
+     * Carrega um som de um arquivo.
+     * 
+     * @param filePath Caminho do arquivo.
+     * @return Um novo som.
+     */
+    public static Sound loadSound( String filePath ) {
+        return new Sound( filePath );
+    };
+    
+    /**
+     * Carrega um som de um input stream.
+     * 
+     * @param is Input stream.
+     * @return Um novo som.
+     */
+    public static Sound loadSound( InputStream is ) {
+        return new Sound( is );
+    };
+    
+    /**
+     * Carrega um som de uma URL.
+     * 
+     * @param url URL.
+     * @return Um novo som.
+     */
+    public static Sound loadSound( URL url ) {
+        return new Sound( url );
+    };
+    
+    /**
+     * Descarrega um som.
+     * 
+     * @param sound O som a ser descarregado.
+     */
+    public static void unloadSound( Sound sound ) {
+        sound.unload();
+    };
+    
+    /**
+     * Executa o som.
+     * 
+     * @param sound O som.
+     */
+    public static void playSound( Sound sound ) {
+        sound.play();
+    };
+    
+    /**
+     * Para de executar o som.
+     * 
+     * @param sound O som.
+     */
+    public static void stopSound( Sound sound ) {
+        sound.stop();
+    };
+    
+    /**
+     * Pausa o som.
+     * 
+     * @param sound O som.
+     */
+    public void pauseSound( Sound sound ) {
+        sound.pause();
+    };
+    
+    /**
+     * Retoma a execução do som.
+     * 
+     * @param sound O som.
+     */
+    public void resumeSound( Sound sound ) {
+        sound.resume();
+    };
+    
+    /**
+     * Verifica se o som está executando.
+     * 
+     * @param sound O som.
+     * @return Verdadeiro caso o som esteja em execução, falso caso contrário.
+     */
+    public boolean isSoundPlaying( Sound sound ) {
+        return sound.isPlaying();
+    };
+    
+    /**
+     * Configura o volume do som.
+     * 
+     * @param sound O som.
+     * @param volume O volume do som, variando de 0.0 a 1.0.
+     */
+    public void setSoundVolume( Sound sound, double volume ) {
+        sound.setVolume( volume );
+    };
+    
+    /**
+     * Carrega uma música de um arquivo.
+     * 
+     * @param filePath Caminho do arquivo.
+     * @return Uma nova música.
+     */
+    public static Music loadMusic( String filePath ) {
+        return new Music( filePath );
+    };
+    
+    /**
+     * Carrega uma música de um input stream.
+     * 
+     * @param is Input stream.
+     * @return Uma nova música.
+     */
+    public static Music loadMusic( InputStream is ) {
+        return new Music( is );
+    };
+    
+    /**
+     * Carrega uma música de uma URL.
+     * 
+     * @param url URL.
+     * @return Uma nova música.
+     */
+    public static Music loadMusic( URL url ) {
+        return new Music( url );
+    };
+    
+    /**
+     * Descarrega uma música.
+     * 
+     * @param music A música a ser descarregado.
+     */
+    public static void unloadMusic( Music music ) {
+        music.unload();
+    };
+    
+    /**
+     * Executa a música.
+     * 
+     * @param music A música.
+     */
+    public static void playMusic( Music music ) {
+        music.play();
+    };
+    
+    /**
+     * Para de executar a música.
+     * 
+     * @param music A música.
+     */
+    public static void stopMusic( Music music ) {
+        music.stop();
+    };
+    
+    /**
+     * Pausa a música.
+     * 
+     * @param music A música.
+     */
+    public void pauseMusic( Music music ) {
+        music.pause();
+    };
+    
+    /**
+     * Retoma a execução da música.
+     * 
+     * @param music A música.
+     */
+    public void resumeMusic( Music music ) {
+        music.resume();
+    };
+    
+    /**
+     * Verifica se a música está executando.
+     * 
+     * @param music A música.
+     * @return Verdadeiro caso a música esteja em execução, falso caso contrário.
+     */
+    public boolean isMusicPlaying( Music music ) {
+        return music.isPlaying();
+    };
+    
+    /**
+     * Configura o volume da música.
+     * 
+     * @param music A música.
+     * @param volume O volume da música, variando de 0.0 a 1.0.
+     */
+    public void setMusicVolume( Music music, double volume ) {
+        music.setVolume( volume );
+    };
+    
+    /**
+     * Procura uma posição da música.
+     * 
+     * @param music A música.
+     * @param position Posição em segundos do momento desejado.
+     */
+    public static void seekMusic( Music music, int position ) {
+        music.seek( position );
+    };
+    
+    /**
+     * Obtém a duração da da música.
+     * 
+     * @param music A música.
+     * @return Duração da música em segundos.
+     */
+    public static int getMusicTimeLength( Music music ) {
+        return music.getTimeLength();
+    }
+    
+    /**
+     * Obtém o tempo de execução da música.
+     * 
+     * @param music A música.
+     * @return O tempo de execução em segundos.
+     */
+    public int getMusicTimePlayed( Music music ) {
+        return music.getTimePlayed();
     }
     
     

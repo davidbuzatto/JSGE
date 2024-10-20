@@ -16,10 +16,187 @@
  */
 package br.com.davidbuzatto.jsge.sound;
 
+import br.com.davidbuzatto.jsge.utils.MathUtils;
+import com.goxr3plus.streamplayer.stream.StreamPlayer;
+import com.goxr3plus.streamplayer.stream.StreamPlayerException;
+import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
+import javax.sound.sampled.FloatControl;
+
 /**
- *
+ * Uma classe para representação de músicas.
+ * Utilize-a para músicas, ou seja, sons com duração maior que 10 segundos.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class Music {
+    
+    private static class GainControl extends FloatControl {
+        public GainControl() {
+            super( FloatControl.Type.MASTER_GAIN, 0.0f, 1.0f, 0.1f, 1, 1.0f, "" );
+        }
+    }
+    
+    private class InternalPlayer extends StreamPlayer {
+        
+        File file;
+        InputStream is;
+        URL url;
+        
+        InternalPlayer() {
+            getOutlet().setGainControl( new GainControl() );
+        }
+        
+        InternalPlayer( String filePath ) {
+            this();
+            this.file = new File( filePath );
+        }
+        
+        InternalPlayer( InputStream is ) {
+            this();
+            this.is = is;
+        }
+        
+        InternalPlayer( URL url ) {
+            this();
+            this.url = url;
+        }
+        
+        void playNow() {
+            try {
+                boolean ok = false;
+                if ( file != null ) {
+                    open( file );
+                    ok = true;
+                } else if ( is != null ) {
+                    open( is );
+                    ok = true;
+                } else if ( url != null ) {
+                    open( url );
+                    ok = true;
+                }
+                if ( ok ) {
+                    play();
+                }
+            } catch ( StreamPlayerException exc ) {
+                exc.printStackTrace();
+            }
+        }
+        
+    }
+    
+    private InternalPlayer internalPlayer;
+    
+    /**
+     * Cria uma música usando o caminho do arquivo.
+     * 
+     * @param filePath Caminho do arquivo.
+     */
+    public Music( String filePath ) {
+        internalPlayer = new InternalPlayer( filePath );
+    }
+    
+    /**
+     * Cria uma música usando um input stream.
+     * 
+     * @param is Input stream.
+     */
+    public Music( InputStream is ) {
+        internalPlayer = new InternalPlayer( is );
+    }
+    
+    /**
+     * Cria uma música usando uma URL.
+     * 
+     * @param url URL
+     */
+    public Music( URL url ) {
+        internalPlayer = new InternalPlayer( url );
+    }
+    
+    /**
+     * Descarrega uma música, liberando os recursos.
+     */
+    public void unload() {
+        internalPlayer.reset();
+    }
+    
+    /**
+     * Executa a música.
+     */
+    public void play() {
+        internalPlayer.playNow();
+    }
+    
+    /**
+     * Para de executar a música.
+     */
+    public void stop() {
+        internalPlayer.stop();
+    }
+    
+    /**
+     * Pausa a música.
+     */
+    public void pause() {
+        internalPlayer.pause();
+    }
+    
+    /**
+     * Retoma a execução da música.
+     */
+    public void resume() {
+        internalPlayer.resume();
+    }
+    
+    /**
+     * Verifica se a música está executando.
+     * 
+     * @return Verdadeiro caso a música esteja em execução, falso caso contrário.
+     */
+    public boolean isPlaying() {
+        return internalPlayer.isPlaying();
+    }
+    
+    /**
+     * Configura o volume da música.
+     * 
+     * @param volume O volume da música, variando de 0.0 a 1.0.
+     */
+    public void setVolume( double volume ) {
+        internalPlayer.setGain( MathUtils.clamp( volume, 0.01, 1.0 ) );
+    }
+    
+    /**
+     * Procura uma posição da música.
+     * 
+     * @param position Posição em segundos do momento desejado.
+     */
+    public void seek( int position ) {
+        try {
+            internalPlayer.seekSeconds( position );
+        } catch ( StreamPlayerException exc ) {
+            exc.printStackTrace();
+        }
+    }
+    
+    /**
+     * Obtém a duração da da música.
+     * 
+     * @return Duração da música em segundos.
+     */
+    public int getTimeLength() {
+        return internalPlayer.getDurationInSeconds();
+    }
+    
+    /**
+     * Obtém o tempo de execução da música.
+     * 
+     * @return O tempo de execução em segundos.
+     */
+    public int getTimePlayed() {
+        return (int) ( internalPlayer.getEncodedStreamPosition() / (double) internalPlayer.getTotalBytes() * internalPlayer.getDurationInSeconds() );
+    }
     
 }

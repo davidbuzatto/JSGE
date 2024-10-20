@@ -33,7 +33,6 @@ import br.com.davidbuzatto.jsge.geom.RoundRectangle;
 import br.com.davidbuzatto.jsge.geom.Triangle;
 import br.com.davidbuzatto.jsge.geom.Vector2;
 import br.com.davidbuzatto.jsge.utils.DrawingUtils;
-import br.com.davidbuzatto.jsge.utils.MathUtils;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
