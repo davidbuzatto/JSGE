@@ -58,6 +58,9 @@ public class DrawingWithPrimitivesObjectsExample extends Engine {
     private CubicCurve cubicCurve;
     private Path path;
     
+    /**
+     * Cria o exemplo.
+     */
     public DrawingWithPrimitivesObjectsExample() {
         super( 500, 560, "Drawing with Primitive Objects", 60, true );
     }
@@ -152,6 +155,10 @@ public class DrawingWithPrimitivesObjectsExample extends Engine {
 
     }
 
+    /**
+     * Executa o exemplo.
+     * @param args Argumentos.
+     */
     public static void main( String[] args ) {
         new DrawingWithPrimitivesObjectsExample();
     }

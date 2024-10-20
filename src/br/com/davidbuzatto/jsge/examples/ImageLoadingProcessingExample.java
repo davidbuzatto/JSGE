@@ -37,6 +37,9 @@ public class ImageLoadingProcessingExample extends Engine {
     
     private int rotationAngle;
     
+    /**
+     * Cria o exemplo.
+     */
     public ImageLoadingProcessingExample() {
         super( 900, 650, "Image Loading and Processing", 60, true );
     }
@@ -111,6 +114,10 @@ public class ImageLoadingProcessingExample extends Engine {
         
     }
     
+    /**
+     * Executa o exemplo.
+     * @param args Argumentos.
+     */
     public static void main( String[] args ) {
         new ImageLoadingProcessingExample();
     }

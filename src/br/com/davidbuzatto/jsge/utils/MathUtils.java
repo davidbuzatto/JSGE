@@ -40,9 +40,9 @@ public class MathUtils {
     /**
      * Realiza a interpolação linear entre dois valores.
      * 
-     * @param start valor inicial.
-     * @param end valor final.
-     * @param amount quantidade (0 a 1)
+     * @param start Valor inicial.
+     * @param end Valor final.
+     * @param amount Quantidade (0 a 1)
      * @return A interpolação linear entre dois valores.
      */
     public static double lerp( double start, double end, double amount ) {
@@ -318,9 +318,9 @@ public class MathUtils {
     /**
      * Realiza a interpolação linear entre dois vetores.
      * 
-     * @param start vetor inicial.
-     * @param end vetor final.
-     * @param amount quantidade (0 a 1)
+     * @param start Vetor inicial.
+     * @param end Vetor final.
+     * @param amount Quantidade (0 a 1)
      * @return Um vetor que representa a interpolação linear entre dois vetores.
      */
     public static Vector2 lerp( Vector2 start, Vector2 end, double amount ) {
@@ -607,10 +607,10 @@ public class MathUtils {
     /**
      * Obtém um ponto dentro de uma linha.
      * 
-     * @param p1x coordenada x do ponto inicial.
-     * @param p1y coordenada y do ponto inicial.
-     * @param p2x coordenada x do ponto final.
-     * @param p2y coordenada y do ponto final.
+     * @param p1x Coordenada x do ponto inicial.
+     * @param p1y Coordenada y do ponto inicial.
+     * @param p2x Coordenada x do ponto final.
+     * @param p2y Coordenada y do ponto final.
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da linha.
      */
@@ -626,8 +626,8 @@ public class MathUtils {
     /**
      * Obtém um ponto dentro de uma linha.
      * 
-     * @param p1 ponto inicial da linha.
-     * @param p2 ponto final da linha.
+     * @param p1 Ponto inicial da linha.
+     * @param p2 Ponto final da linha.
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da linha.
      */
@@ -638,8 +638,8 @@ public class MathUtils {
     /**
      * Obtém um ponto dentro de uma linha.
      * 
-     * @param v1 vetor do ponto inicial da linha.
-     * @param v2 vetor do ponto final da linha.
+     * @param v1 Vetor do ponto inicial da linha.
+     * @param v2 Vetor do ponto final da linha.
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da linha.
      */
@@ -650,7 +650,7 @@ public class MathUtils {
     /**
      * Obtém um ponto dentro de uma linha.
      * 
-     * @param line uma linha.
+     * @param line Uma linha.
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da linha.
      */
@@ -661,12 +661,12 @@ public class MathUtils {
     /**
      * Obtém um ponto dentro de uma curva quadrática (curva Bézier quadrática).
      * 
-     * @param p1x coordenada x do ponto inicial.
-     * @param p1y coordenada y do ponto inicial.
-     * @param cx coordenada x do ponto de controle.
-     * @param cy coordenada y do ponto de controle.
-     * @param p2x coordenada x do ponto final.
-     * @param p2y coordenada y do ponto final.
+     * @param p1x Coordenada x do ponto inicial.
+     * @param p1y Coordenada y do ponto inicial.
+     * @param cx Coordenada x do ponto de controle.
+     * @param cy Coordenada y do ponto de controle.
+     * @param p2x Coordenada x do ponto final.
+     * @param p2y Coordenada y do ponto final.
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da curva.
      */
@@ -686,9 +686,9 @@ public class MathUtils {
     /**
      * Obtém um ponto dentro de uma curva quadrática (curva Bézier quadrática).
      * 
-     * @param p1 ponto inicial.
-     * @param c ponto de controle.
-     * @param p2 ponto final.
+     * @param p1 Ponto inicial.
+     * @param c Ponto de controle.
+     * @param p2 Ponto final.
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da curva.
      */
@@ -699,9 +699,9 @@ public class MathUtils {
     /**
      * Obtém um ponto dentro de uma curva quadrática (curva Bézier quadrática).
      * 
-     * @param v1 vetor do ponto inicial da curva.
-     * @param c vetor do ponto de controle da curva.
-     * @param v2 vetor do ponto final da curva.
+     * @param v1 Vetor do ponto inicial da curva.
+     * @param c Vetor do ponto de controle da curva.
+     * @param v2 Vetor do ponto final da curva.
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da curva.
      */
@@ -712,7 +712,7 @@ public class MathUtils {
     /**
      * Obtém um ponto dentro de uma curva quadrática (curva Bézier quadrática).
      * 
-     * @param quadCurve uma curva Bézier quadrática.
+     * @param quadCurve Uma curva Bézier quadrática.
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da curva.
      */
@@ -723,14 +723,14 @@ public class MathUtils {
     /**
      * Obtém um ponto dentro de uma curva cúbica (curva Bézier cúbica).
      * 
-     * @param p1x coordenada x do ponto inicial.
-     * @param p1y coordenada y do ponto inicial.
-     * @param c1x coordenada x do primeiro ponto de controle.
-     * @param c1y coordenada y do primeiro ponto de controle.
-     * @param c2x coordenada x do segundo ponto de controle.
-     * @param c2y coordenada y do segundo ponto de controle.
-     * @param p2x coordenada x do ponto final.
-     * @param p2y coordenada y do ponto final.
+     * @param p1x Coordenada x do ponto inicial.
+     * @param p1y Coordenada y do ponto inicial.
+     * @param c1x Coordenada x do primeiro ponto de controle.
+     * @param c1y Coordenada y do primeiro ponto de controle.
+     * @param c2x Coordenada x do segundo ponto de controle.
+     * @param c2y Coordenada y do segundo ponto de controle.
+     * @param p2x Coordenada x do ponto final.
+     * @param p2y Coordenada y do ponto final.
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da curva.
      */
@@ -751,10 +751,10 @@ public class MathUtils {
     /**
      * Obtém um ponto dentro de uma curva cúbica (curva Bézier cúbica).
      * 
-     * @param p1 ponto inicial.
-     * @param c1 primeiro ponto de controle.
-     * @param c2 segundo ponto de controle.
-     * @param p2 ponto final.
+     * @param p1 Ponto inicial.
+     * @param c1 Primeiro ponto de controle.
+     * @param c2 Segundo ponto de controle.
+     * @param p2 Ponto final.
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da curva.
      */
@@ -765,10 +765,10 @@ public class MathUtils {
     /**
      * Obtém um ponto dentro de uma curva cúbica (curva Bézier cúbica).
      * 
-     * @param v1 vetor do ponto inicial da curva.
-     * @param c1 vetor do primeiro ponto de controle da curva.
-     * @param c2 vetor do segundo ponto de controle da curva.
-     * @param v2 vetor do ponto final da curva.
+     * @param v1 Vetor do ponto inicial da curva.
+     * @param c1 Vetor do primeiro ponto de controle da curva.
+     * @param c2 Vetor do segundo ponto de controle da curva.
+     * @param v2 Vetor do ponto final da curva.
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da curva.
      */
@@ -779,7 +779,7 @@ public class MathUtils {
     /**
      * Obtém um ponto dentro de uma curva cúbica (curva Bézier cúbica).
      * 
-     * @param cubicCurve uma curva Bézier cúbica.
+     * @param cubicCurve Uma curva Bézier cúbica.
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da curva.
      */
@@ -789,11 +789,10 @@ public class MathUtils {
     
     
     
-    /***************************************************************************
-     * Métodos estáticos privados de suporte.
-     **************************************************************************
-     * /
-     * 
+    //**************************************************************************
+    // Métodos estáticos privados de suporte.
+    //**************************************************************************
+    
     /**
      * Transforma um vetor 3D com uma matrix.
      */
@@ -992,9 +991,9 @@ public class MathUtils {
     
     
     
-    /***************************************************************************
-     * Classes internas estáticas de suporte.
-     **************************************************************************/
+    //**************************************************************************
+    // Classes internas estáticas de suporte.
+    //**************************************************************************
     
     /**
      * Classe para representação de um vetor de três dimensões.

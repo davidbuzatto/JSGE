@@ -26,9 +26,24 @@ import java.awt.Color;
  */
 public class Rectangle implements Drawable {
 
+    /**
+     * Coordenada x do vértice superior esquerdo.
+     */
     public double x;
+    
+    /**
+     * Coordenada y do vértice superior esquerdo.
+     */
     public double y;
+    
+    /**
+     * Largura.
+     */
     public double width;
+    
+    /**
+     * Altura.
+     */
     public double height;
 
     /**
@@ -40,10 +55,10 @@ public class Rectangle implements Drawable {
     /**
      * Cria um novo retângulo.
      * 
-     * @param x coordenada x do vértice superior esquerdo.
-     * @param y coordenada y do vértice superior esquerdo.
-     * @param width largura.
-     * @param height altura.
+     * @param x Coordenada x do vértice superior esquerdo.
+     * @param y Coordenada y do vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
      */
     public Rectangle( double x, double y, double width, double height ) {
         this.x = x;

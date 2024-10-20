@@ -22,17 +22,29 @@ import br.com.davidbuzatto.jsge.geom.Vector2;
 import java.awt.Color;
 
 /**
- *
+ * Modelo de um jogador para o exemplo de uso da câmera.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class Player {
     
+    /**
+     * Posição do jogador.
+     */
     public Vector2 pos;
     private Vector2 dim;
     private Vector2 vel;
     private double speed;
     private Color color;
 
+    /**
+     * Cria o jogador do exemplo da câmera.
+     * 
+     * @param pos Posição.
+     * @param dim Dimensão.
+     * @param speed Velocidade.
+     * @param color Cor.
+     */
     public Player( Vector2 pos, Vector2 dim, double speed, Color color ) {
         this.pos = pos;
         this.dim = dim;
@@ -41,6 +53,13 @@ public class Player {
         this.color = color;
     }
     
+    /**
+     * Atualiza o jogador.
+     * 
+     * @param delta Variação do tempo.
+     * @param boundary Limites.
+     * @param engine Engine.
+     */
     public void update( double delta, Rectangle boundary, Engine engine ) {
         
         if ( engine.isKeyDown( Engine.KEY_LEFT ) ) {
@@ -76,6 +95,11 @@ public class Player {
         
     }
     
+    /**
+     * Desenha o jogador.
+     * 
+     * @param engine Engine.
+     */
     public void draw( Engine engine ) {
         engine.fillRectangle( pos.x - dim.x / 2, pos.y - dim.y / 2, dim.x, dim.y, color );
         engine.drawRectangle( pos.x - dim.x / 2, pos.y - dim.y / 2, dim.x, dim.y, Engine.BLACK );

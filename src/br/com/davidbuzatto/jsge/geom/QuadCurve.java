@@ -26,11 +26,34 @@ import java.awt.Color;
  */
 public class QuadCurve implements Drawable {
     
+    /**
+     * Coordenada x do ponto inicial.
+     */
     public double x1;
+    
+    /**
+     * Coordenada y do ponto inicial.
+     */
     public double y1;
+    
+    /**
+     * Coordenada x do ponto de controle.
+     */
     public double cx;
+    
+    /**
+     * Coordenada y do ponto de controle.
+     */
     public double cy;
+    
+    /**
+     * Coordenada x do ponto final.
+     */
     public double x2;
+    
+    /**
+     * Coordenada y do ponto final.
+     */
     public double y2;
 
     /**
@@ -42,12 +65,12 @@ public class QuadCurve implements Drawable {
     /**
      * Cria uma nova curva Bézier quadrática.
      * 
-     * @param x1 coordenada x inicial.
-     * @param y1 coordenada y inicial.
-     * @param cx coordenada x do ponto de controle.
-     * @param cy coordenada y do ponto de controle.
-     * @param x2 coordenada x final.
-     * @param y2 coordenada y final.
+     * @param x1 Coordenada x inicial.
+     * @param y1 Coordenada y inicial.
+     * @param cx Coordenada x do ponto de controle.
+     * @param cy Coordenada y do ponto de controle.
+     * @param x2 Coordenada x final.
+     * @param y2 Coordenada y final.
      */
     public QuadCurve( double x1, double y1, double cx, double cy, double x2, double y2 ) {
         this.x1 = x1;

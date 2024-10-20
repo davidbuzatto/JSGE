@@ -25,6 +25,9 @@ import br.com.davidbuzatto.jsge.core.Engine;
  */
 public class ScratchPad extends Engine {
     
+    /**
+     * Cria o teste.
+     */
     public ScratchPad() {
         super( 800, 450, "Scratch Pad", 60, true );
     }
@@ -41,6 +44,10 @@ public class ScratchPad extends Engine {
     public void draw() {
     }
     
+    /**
+     * Executa o teste.
+     * @param args Argumentos.
+     */
     public static void main( String[] args ) {
         new ScratchPad();
     }

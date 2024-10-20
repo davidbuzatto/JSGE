@@ -26,11 +26,34 @@ import java.awt.Color;
  */
 public class Ring implements Drawable {
     
+    /**
+     * Coordenada x do centro.
+     */
     public double x;
+    
+    /**
+     * Coordenada y do centro.
+     */
     public double y;
+    
+    /**
+     * Raio interno.
+     */
     public double innerRadius;
+    
+    /**
+     * Raio externo.
+     */
     public double outerRadius;
+    
+    /**
+     * Ângulo inicial, em graus, sentido horário.
+     */
     public double startAngle;
+    
+    /**
+     * Ângulo final, em graus, sentido horário.
+     */
     public double endAngle;
 
     /**
@@ -42,12 +65,12 @@ public class Ring implements Drawable {
     /**
      * Cria um novo anel.
      * 
-     * @param x coordenada x do centro.
-     * @param y coordenada y do centro.
-     * @param innerRadius raio interno.
-     * @param outerRadius raio externo.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param innerRadius Raio interno.
+     * @param outerRadius Raio externo.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
      */
     public Ring( double x, double y, double innerRadius, double outerRadius, double startAngle, double endAngle ) {
         this.x = x;

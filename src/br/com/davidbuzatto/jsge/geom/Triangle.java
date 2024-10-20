@@ -26,11 +26,34 @@ import java.awt.Color;
  */
 public class Triangle implements Drawable {
 
+    /**
+     * Coordenada x do primeiro vértice.
+     */
     public double x1;
+    
+    /**
+     * Coordenada y do primeiro vértice.
+     */
     public double y1;
+    
+    /**
+     * Coordenada x do segundo vértice.
+     */
     public double x2;
+    
+    /**
+     * Coordenada y do segundo vértice.
+     */
     public double y2;
+    
+    /**
+     * Coordenada x do terceiro vértice.
+     */
     public double x3;
+    
+    /**
+     * Coordenada y do terceiro vértice.
+     */
     public double y3;
 
     /**
@@ -42,12 +65,12 @@ public class Triangle implements Drawable {
     /**
      * Cria um novo triângulo.
      * 
-     * @param x1 coordenada x do primeiro vértice.
-     * @param y1 coordenada y do primeiro vértice.
-     * @param x2 coordenada x do segundo vértice.
-     * @param y2 coordenada y do segundo vértice.
-     * @param x3 coordenada x do terceiro vértice.
-     * @param y3 coordenada y do terceiro vértice.
+     * @param x1 Coordenada x do primeiro vértice.
+     * @param y1 Coordenada y do primeiro vértice.
+     * @param x2 Coordenada x do segundo vértice.
+     * @param y2 Coordenada y do segundo vértice.
+     * @param x3 Coordenada x do terceiro vértice.
+     * @param y3 Coordenada y do terceiro vértice.
      */
     public Triangle( double x1, double y1, double x2, double y2, double x3, double y3 ) {
         this.x1 = x1;

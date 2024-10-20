@@ -27,15 +27,20 @@ import br.com.davidbuzatto.jsge.geom.Vector2;
  */
 public class BouncingBallExample extends Engine {
 
+    /**
+     * Constante para a gravidade da simulação.
+     */
     public static final double GRAVITY = 50;
     private Ball ball;
     
+    /**
+     * Cria o exemplo.
+     */
     public BouncingBallExample() {
         super( 800, 450, "Bouncing Ball", 60, true );
     }
     
     @Override
-    
     public void create() {
         ball = new Ball(
                 new Vector2( getScreenWidth() / 2, getScreenHeight() / 2 ),
@@ -58,6 +63,10 @@ public class BouncingBallExample extends Engine {
         drawFPS( 10, 10 );
     }
     
+    /**
+     * Executa o exemplo.
+     * @param args Argumentos.
+     */
     public static void main( String[] args ) {
         new BouncingBallExample();
     }

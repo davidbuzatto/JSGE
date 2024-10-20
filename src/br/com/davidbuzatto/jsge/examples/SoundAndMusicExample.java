@@ -101,6 +101,9 @@ public class SoundAndMusicExample extends Engine {
     private Button btnNext;
     private double musicVolume;
     
+    /**
+     * Cria o exemplo.
+     */
     public SoundAndMusicExample() {
         super( 610, 160, "Sound and Music", 60, true );
         addWindowListener( new WindowAdapter() {
@@ -272,6 +275,10 @@ public class SoundAndMusicExample extends Engine {
         
     }
     
+    /**
+     * Executa o exemplo.
+     * @param args Argumentos.
+     */
     public static void main( String[] args ) {
         new SoundAndMusicExample();
     }

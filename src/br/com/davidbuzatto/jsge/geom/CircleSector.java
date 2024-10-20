@@ -26,10 +26,29 @@ import java.awt.Color;
  */
 public class CircleSector implements Drawable {
     
+    /**
+     * Coordenada x do centro.
+     */
     public double x;
+    
+    /**
+     * Coordenada y do centro.
+     */
     public double y;
+    
+    /**
+     * Raio.
+     */
     public double radius;
+    
+    /**
+     * Ângulo inicial, em graus, sentido horário.
+     */
     public double startAngle;
+    
+    /**
+     * Ângulo final, em graus, sentido horário.
+     */
     public double endAngle;
 
     /**
@@ -41,11 +60,11 @@ public class CircleSector implements Drawable {
     /**
      * Cria um setor circular.
      * 
-     * @param x coordenada x do centro.
-     * @param y coordenada y do centro.
-     * @param radius raio .
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em gradus (sentido horário).
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param radius Raio .
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em gradus (sentido horário).
      */
     public CircleSector( double x, double y, double radius, double startAngle, double endAngle ) {
         this.x = x;

@@ -26,10 +26,29 @@ import java.awt.Color;
  */
 public class RoundRectangle implements Drawable {
 
+    /**
+     * Coordenada x do vértice superior esquerdo.
+     */
     public double x;
+    
+    /**
+     * Coordenada y do vértice superior esquerdo.
+     */
     public double y;
+    
+    /**
+     * Largura.
+     */
     public double width;
+    
+    /**
+     * Altura.
+     */
     public double height;
+    
+    /**
+     * Arredondamento dos cantos.
+     */
     public double roundness;
 
     /**
@@ -41,11 +60,11 @@ public class RoundRectangle implements Drawable {
     /**
      * Cria um novo retângulo com cantos arredondados.
      * 
-     * @param x coordenada x do vértice superior esquerdo.
-     * @param y coordenada y do vértice superior esquerdo.
-     * @param width largura.
-     * @param height altura.
-     * @param roundness arredondamento dos cantos.
+     * @param x Coordenada x do vértice superior esquerdo.
+     * @param y Coordenada y do vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param roundness Arredondamento dos cantos.
      */
     public RoundRectangle( double x, double y, double width, double height, double roundness ) {
         this.x = x;

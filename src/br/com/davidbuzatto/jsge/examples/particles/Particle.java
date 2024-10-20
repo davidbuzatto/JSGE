@@ -35,6 +35,15 @@ public class Particle {
     private double elasticity;
     private Color color;
 
+    /**
+     * Cria uma partícula do exemplo.
+     * @param pos Posição.
+     * @param vel Velocidade.
+     * @param radius Raio.
+     * @param friction Atrito.
+     * @param elasticity Elasticidade.
+     * @param color Cor.
+     */
     public Particle( Vector2 pos, Vector2 vel, double radius, double friction, double elasticity, Color color ) {
         this.pos = pos;
         this.vel = vel;
@@ -44,6 +53,12 @@ public class Particle {
         this.color = color;
     }
     
+    /**
+     * Atualiza uma partícula.
+     * 
+     * @param delta Variação do tempo.
+     * @param limits Limites.
+     */
     void update( double delta, Rectangle limits ) {
 
         pos.x += vel.x * delta;
@@ -62,6 +77,11 @@ public class Particle {
 
     }
     
+    /**
+     * Desenha uma partícula.
+     * 
+     * @param engine Engine.
+     */
     void draw( Engine engine ) {
         engine.fillCircle( pos, radius, color );
     }

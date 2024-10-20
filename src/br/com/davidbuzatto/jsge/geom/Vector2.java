@@ -26,7 +26,14 @@ import java.awt.Color;
  */
 public class Vector2 implements Drawable {
 
+    /**
+     * Coordenada x.
+     */
     public double x;
+    
+    /**
+     * Coordenada y.
+     */
     public double y;
 
     /**
@@ -38,8 +45,8 @@ public class Vector2 implements Drawable {
     /**
      * Cria um novo vetor de duas dimensões.
      * 
-     * @param x coordenada x.
-     * @param y coordenada y.
+     * @param x Coordenada x.
+     * @param y Coordenada y.
      */
     public Vector2( double x, double y ) {
         this.x = x;

@@ -41,6 +41,16 @@ public class Ball {
     private double xOffset;
     private double yOffset;
 
+    /**
+     * Cria uma bolinha.
+     * 
+     * @param pos posição.
+     * @param vel verlocidade.
+     * @param radius raio.
+     * @param friction atrito.
+     * @param alasticity elasticidade.
+     * @param color cor.
+     */
     public Ball( Vector2 pos, Vector2 vel, double radius, double friction, double alasticity, Color color ) {
         this.pos = pos;
         this.prevPos = new Vector2();
@@ -51,6 +61,12 @@ public class Ball {
         this.color = color;
     }
 
+    /**
+     * Atualiza a bolinha.
+     * 
+     * @param delta variação do tempo.
+     * @param engine engine.
+     */
     void update( double delta, Engine engine ) {
 
         if ( engine.isMouseButtonPressed( MOUSE_BUTTON_LEFT ) ) {
@@ -98,6 +114,11 @@ public class Ball {
 
     }
     
+    /**
+     * Desenha a bolinha.
+     * 
+     * @param engine engine.
+     */
     void draw( Engine engine ) {
         engine.fillCircle( pos, radius, color );
     }

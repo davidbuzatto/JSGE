@@ -26,11 +26,34 @@ import java.awt.Color;
  */
 public class Arc implements Drawable {
     
+    /**
+     * Coordenada x do centro.
+     */
     public double x;
+    
+    /**
+     * Coordenada y do centro.
+     */
     public double y;
+    
+    /**
+     * Raio horizontal.
+     */
     public double radiusH;
+    
+    /**
+     * Raio vertical.
+     */
     public double radiusV;
+    
+    /**
+     * Ângulo inicial, em graus, sentido horário.
+     */
     public double startAngle;
+    
+    /**
+     * Ângulo final, em graus, sentido horário.
+     */
     public double endAngle;
 
     /**
@@ -42,12 +65,12 @@ public class Arc implements Drawable {
     /**
      * Cria um novo arco.
      * 
-     * @param x coordenada x do centro.
-     * @param y coordenada y do centro.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em gradus (sentido horário).
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em gradus (sentido horário).
      */
     public Arc( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle ) {
         this.x = x;
@@ -58,6 +81,15 @@ public class Arc implements Drawable {
         this.endAngle = endAngle;
     }
 
+    /**
+     * Cria um novo arco.
+     * 
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param radius Raio horizontal e vertical.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em gradus (sentido horário).
+     */
     public Arc( double x, double y, double radius, double startAngle, double endAngle ) {
         this( x, y, radius, radius, startAngle, endAngle );
     }

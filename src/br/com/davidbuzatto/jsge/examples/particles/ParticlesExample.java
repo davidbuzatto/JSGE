@@ -33,10 +33,17 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class ParticlesExample extends Engine {
     
+    /**
+     * Constante para a gravidade da simulação.
+     */
     public static final double GRAVITY = 50;
+    
     private List<Particle> particles;
     private Rectangle limits;
     
+    /**
+     * Cria o exemplo.
+     */
     public ParticlesExample() {
         super( 800, 450, "Particles", 60, true );
     }
@@ -88,6 +95,10 @@ public class ParticlesExample extends Engine {
 
     }
 
+    /**
+     * Executa o exemplo.
+     * @param args Argumentos.
+     */
     public static void main( String[] args ) {
         new ParticlesExample();
     }

@@ -26,8 +26,19 @@ import java.awt.Color;
  */
 public class Circle implements Drawable {
 
+    /**
+     * Coordenada x do centro.
+     */
     public double x;
+    
+    /**
+     * Coordenada y do centro.
+     */
     public double y;
+    
+    /**
+     * Raio.
+     */
     public double radius;
 
     /**
@@ -39,9 +50,9 @@ public class Circle implements Drawable {
     /**
      * Cria um círculo.
      * 
-     * @param x coordenada x do centro.
-     * @param y coordenada y do centro.
-     * @param radius raio.
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param radius Raio.
      */
     public Circle( double x, double y, double radius ) {
         this.x = x;

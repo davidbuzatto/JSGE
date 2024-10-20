@@ -26,13 +26,44 @@ import java.awt.Color;
  */
 public class CubicCurve implements Drawable {
     
+    /**
+     * Coordenada x do ponto inicial.
+     */
     public double x1;
+    
+    /**
+     * Coordenada y do ponto inicial.
+     */
     public double y1;
+    
+    /**
+     * Coordenada x do primeiro ponto de controle.
+     */
     public double c1x;
+    
+    /**
+     * Coordenada y do primeiro ponto de controle.
+     */
     public double c1y;
+    
+    /**
+     * Coordenada x do segundo ponto de controle.
+     */
     public double c2x;
+    
+    /**
+     * Coordenada y do segundo ponto de controle.
+     */
     public double c2y;
+    
+    /**
+     * Coordenada x do ponto final.
+     */
     public double x2;
+    
+    /**
+     * Coordenada y do ponto final.
+     */
     public double y2;
 
     /**
@@ -44,14 +75,14 @@ public class CubicCurve implements Drawable {
     /**
      * Cria uma nova curva Bézier cúbica.
      * 
-     * @param x1 coordenada x inicial.
-     * @param y1 coordenada y inicial.
-     * @param c1x coordenada x do primeiro ponto de controle.
-     * @param c1y coordenada y do primeiro ponto de controle.
-     * @param c2x coordenada x do segundo ponto de controle.
-     * @param c2y coordenada y do segundo ponto de controle.
-     * @param x2 coordenada x final.
-     * @param y2 coordenada y final.
+     * @param x1 Coordenada x inicial.
+     * @param y1 Coordenada y inicial.
+     * @param c1x Coordenada x do primeiro ponto de controle.
+     * @param c1y Coordenada y do primeiro ponto de controle.
+     * @param c2x Coordenada x do segundo ponto de controle.
+     * @param c2y Coordenada y do segundo ponto de controle.
+     * @param x2 Coordenada x final.
+     * @param y2 Coordenada y final.
      */
     public CubicCurve( double x1, double y1, double c1x, double c1y, double c2x, double c2y, double x2, double y2 ) {
         this.x1 = x1;

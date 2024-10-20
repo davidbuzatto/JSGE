@@ -26,10 +26,29 @@ import java.awt.Color;
  */
 public class Polygon implements Drawable {
 
+    /**
+     * Coordenada x do centro.
+     */
     public double x;
+    
+    /**
+     * Coordenada y do centro.
+     */
     public double y;
+    
+    /**
+     * Quantidade de lados.
+     */
     public int sides;
+    
+    /**
+     * Raio.
+     */
     public double radius;
+    
+    /**
+     * Ângulo de rotação em gradus, no sentido horário.
+     */
     public double rotation;
 
     /**
@@ -41,11 +60,11 @@ public class Polygon implements Drawable {
     /**
      * Cria um novo polígono regular.
      * 
-     * @param x coordenada x do centro.
-     * @param y coordenada y do centro.
-     * @param sides quantidade de lados.
-     * @param radius raio do círculo circunscrito.
-     * @param rotation ângulo inicial em graus (sentido horário).
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param sides Quantidade de lados.
+     * @param radius Raio do círculo circunscrito.
+     * @param rotation Ângulo inicial em graus (sentido horário).
      */
     public Polygon( double x, double y, int sides, double radius, double rotation ) {
         this.x = x;
@@ -55,6 +74,14 @@ public class Polygon implements Drawable {
         this.rotation = rotation;
     }
 
+    /**
+     * Cria um novo polígono regular com rotação igual a zero.
+     * 
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param sides Quantidade de lados.
+     * @param radius Raio do círculo circunscrito.
+     */
     public Polygon( double x, double y, int sides, double radius ) {
         this( x, y, sides, radius, 0.0 );
     }

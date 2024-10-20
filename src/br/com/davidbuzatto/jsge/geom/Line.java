@@ -26,9 +26,24 @@ import java.awt.Color;
  */
 public class Line implements Drawable {
 
+    /**
+     * Coordenada x do ponto inicial.
+     */
     public double x1;
+    
+    /**
+     * Coordenada y do ponto inicial.
+     */
     public double y1;
+    
+    /**
+     * Coordenada x do ponto final.
+     */
     public double x2;
+    
+    /**
+     * Coordenada y do ponto final.
+     */
     public double y2;
 
     /**
@@ -40,10 +55,10 @@ public class Line implements Drawable {
     /**
      * Cria uma nova linha.
      * 
-     * @param x1 coordenada x inicial.
-     * @param y1 coordenada y inicial.
-     * @param x2 coordenada x final.
-     * @param y2 coordenada y final.
+     * @param x1 Coordenada x inicial.
+     * @param y1 Coordenada y inicial.
+     * @param x2 Coordenada x final.
+     * @param y2 Coordenada y final.
      */
     public Line( double x1, double y1, double x2, double y2 ) {
         this.x1 = x1;

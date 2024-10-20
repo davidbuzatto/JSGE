@@ -27,13 +27,16 @@ import java.awt.geom.Path2D;
  */
 public class Path implements Drawable {
     
+    /**
+     * Path2D desse caminho.
+     */
     public Path2D.Double path = new Path2D.Double();
 
     /**
      * Move para a coordenada desejada.
      * 
-     * @param x coordenada x do ponto desejado.
-     * @param y coordenada y do ponto desejado.
+     * @param x Coordenada x do ponto desejado.
+     * @param y Coordenada y do ponto desejado.
      */
     public void moveTo( double x, double y ) {
         path.moveTo( x, y );
@@ -42,8 +45,8 @@ public class Path implements Drawable {
     /**
      * Cria uma linha do ponto atual até o ponto desejado.
      * 
-     * @param x coordenada x do ponto desejado.
-     * @param y coordenada y do ponto desejado.
+     * @param x Coordenada x do ponto desejado.
+     * @param y Coordenada y do ponto desejado.
      */
     public void lineTo( double x, double y ) {
         path.lineTo( x, y );
@@ -52,10 +55,10 @@ public class Path implements Drawable {
     /**
      * Cria uma curva Bézier quadrática do ponto atual até o ponto desejado.
      * 
-     * @param cx coordenada x do ponto de controle.
-     * @param cy coordenada y do ponto de controle.
-     * @param x coordenada x do ponto desejado.
-     * @param y coordenada y do ponto desejado.
+     * @param cx Coordenada x do ponto de controle.
+     * @param cy Coordenada y do ponto de controle.
+     * @param x Coordenada x do ponto desejado.
+     * @param y Coordenada y do ponto desejado.
      */
     public void quadTo( double cx, double cy, double x, double y ) {
         path.quadTo( cx, cy, x, y );
@@ -64,12 +67,12 @@ public class Path implements Drawable {
     /**
      * Cria uma curva Bézier cúbica do ponto atual até o ponto desejado.
      * 
-     * @param c1x coordenada x do primeiro ponto de controle.
-     * @param c1y coordenada y do primeiro ponto de controle.
-     * @param c2x coordenada x do segundo ponto de controle.
-     * @param c2y coordenada y do segundo ponto de controle.
-     * @param x coordenada x do ponto desejado.
-     * @param y coordenada y do ponto desejado.
+     * @param c1x Coordenada x do primeiro ponto de controle.
+     * @param c1y Coordenada y do primeiro ponto de controle.
+     * @param c2x Coordenada x do segundo ponto de controle.
+     * @param c2y Coordenada y do segundo ponto de controle.
+     * @param x Coordenada x do ponto desejado.
+     * @param y Coordenada y do ponto desejado.
      */
     public void cubicTo( double c1x, double c1y, double c2x, double c2y, double x, double y ) {
         path.curveTo( c1x, c1y, c2x, c2y, x, y );

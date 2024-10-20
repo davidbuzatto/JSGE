@@ -26,7 +26,14 @@ import java.awt.Color;
  */
 public class Point implements Drawable {
 
+    /**
+     * Coordenada x.
+     */
     public double x;
+    
+    /**
+     * Coordenada y.
+     */
     public double y;
 
     /**
@@ -38,8 +45,8 @@ public class Point implements Drawable {
     /**
      * Cria um novo ponto.
      * 
-     * @param x coordenada x.
-     * @param y coordenada y.
+     * @param x Coordenada x.
+     * @param y Coordenada y.
      */
     public Point( double x, double y ) {
         this.x = x;

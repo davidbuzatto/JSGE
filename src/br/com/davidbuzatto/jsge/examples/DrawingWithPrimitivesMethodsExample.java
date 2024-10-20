@@ -25,6 +25,9 @@ import br.com.davidbuzatto.jsge.core.Engine;
  */
 public class DrawingWithPrimitivesMethodsExample extends Engine {
     
+    /**
+     * Cria o exemplo.
+     */
     public DrawingWithPrimitivesMethodsExample() {
         super( 800, 600, "Drawing with Primitive Methods", 60, true );
     }
@@ -100,6 +103,10 @@ public class DrawingWithPrimitivesMethodsExample extends Engine {
 
     }
     
+    /**
+     * Executa o exemplo.
+     * @param args Argumentos.
+     */
     public static void main( String[] args ) {
         new DrawingWithPrimitivesMethodsExample();
     }

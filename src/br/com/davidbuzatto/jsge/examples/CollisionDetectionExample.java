@@ -80,6 +80,9 @@ public class CollisionDetectionExample extends Engine {
     private String textRectGeom;
     private String textCircleGeom;
     
+    /**
+     * Cria o exemplo.
+     */
     public CollisionDetectionExample() {
         super( 800, 450, "Collision Detection", 60, true );
     }
@@ -277,6 +280,10 @@ public class CollisionDetectionExample extends Engine {
 
     }
 
+    /**
+     * Executa o exemplo.
+     * @param args Argumentos.
+     */
     public static void main( String[] args ) {
         new CollisionDetectionExample();
     }

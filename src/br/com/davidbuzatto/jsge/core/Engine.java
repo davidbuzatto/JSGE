@@ -97,95 +97,161 @@ import javax.swing.SwingUtilities;
  */
 public abstract class Engine extends JFrame {
 
-    /*
-     * painel de desenho onde todas as operações de desenho e de registro
+    /**
+     * Painel de desenho onde todas as operações de desenho e de registro
      * de eventos ocorretá.
      */
     private DrawingPanel drawingPanel;
 
-    // referência ao contexto gráfico do painel de desenho.
+    /**
+     * Referência ao contexto gráfico do painel de desenho.
+     */
     private Graphics2D g2d;
 
-    // fonte padrão
+    /**
+     * Fonte padrão.
+     */
     private Font defaultFont;
+    
+    /**
+     * Fonte padrão para o desenho do FPS.
+     */
     private Font defaultFPSFont;
 
-    // contorno padrão
+    /**
+     * Contorno padrão.
+     */
     private BasicStroke defaultStroke;
 
-    // tempo antes de iniciar os processos de atualização e desenho
+    /**
+     * Tempo antes de iniciar os processos de atualização e desenho.
+     */
     private long timeBefore;
 
-    // tempo depois de realizar os processos de atualização e desenho
+    /**
+     * Tempo depois de realizar os processos de atualização e desenho.
+     */
     private long timeAfter;
 
-    // tempo a esperar antes de iniciar o próximo ciclo
+    /**
+     * Tempo a esperar antes de iniciar o próximo ciclo.
+     */
     private long waitTime;
 
-    // tempo de um frame
+    /**
+     * Tempo de um frame.
+     */
     private long frameTime;
 
-    // quadros por segundo
+    /**
+     * Quadros por segundo.
+     */
     private int targetFPS;
 
-    // quadros por segundo atual
+    /**
+     * Quadros por segundo atual.
+     */
     private int currentFPS;
 
-    // tempo esperado baseado na quantidade de quadros por segundo
+    /**
+     * Tempo esperado baseado na quantidade de quadros por segundo.
+     */
     private long waitTimeFPS;
 
-    // tempo de início da execução do jogo/simulação
+    /**
+     * Tempo de início da execução do jogo/simulação.
+     */
     private long startTime;
 
-    // flag que sinaliza o uso da suavização (antialiasing) para o contexto gráfico
+    /**
+     * Flag que indica o uso da suavização (antialiasing) para o contexto gráfico.
+     */
     private boolean antialiasing;
     
-    // código da tecla de saída
+    /**
+     * Código da tecla de saída.
+     */
     private int exitKeyCode;
     
-    // flag para controle de execução da thread de desenho
+    /**
+     * Flag para controle de execução da thread de desenho
+     */
     private boolean running;
 
-    // gerenciador de entradas
+    /**
+     * Gerenciador de entradas.
+     */
     private InputManager inputManager;
 
     // ações padrão para o mouse
+    /** Ação para o botão esquerdo do mouse. */
     private GameAction mouseLeftAction;
+    /** Ação para o botão esquerdo do mouse. */
     private GameAction mouseLeftActionInitial;
+    
+    /** Ação para o botão do meio do mouse. */
     private GameAction mouseMiddleAction;
+    /** Ação para o botão do meio do mouse. */
     private GameAction mouseMiddleActionInitial;
+    
+    /** Ação para o botão direito do mouse. */
     private GameAction mouseRightAction;
+    /** Ação para o botão direito do mouse. */
     private GameAction mouseRightActionInitial;
+    
+    /** Ação para o a rolagem para cima do mouse. */
     private GameAction mouseWheelUpAction;
+    /** Ação para o a rolagem para baixo do mouse. */
     private GameAction mouseWheelDownAction;
     
+    /** Indicação se o botão da esquerda do mouse foi processo do ciclo atual. */
     private boolean mouseButtonLeftProcessed;
+    /** Indicação se o botão do meio do mouse foi processo do ciclo atual. */
     private boolean mouseButtonMiddleProcessed;
+    /** Indicação se o botão da direita do mouse foi processo do ciclo atual. */
     private boolean mouseButtonRightProcessed;
     
+    /** Indicação se o botão da esquerda do mouse foi pressionado. */
     private boolean mouseLeftPressed;
+    /** Indicação se o botão da esquerda do mouse foi solto. */
     private boolean mouseLeftReleased;
+    /** Indicação se o botão da esquerda do mouse está pressionado. */
     private boolean mouseLeftDown;
+    /** Indicação se o botão da esquerda do mouse não está pressionado. */
     private boolean mouseLeftUp;
     
+    /** Indicação se o botão do meio do mouse foi pressionado. */
     private boolean mouseMiddlePressed;
+    /** Indicação se o botão do meio do mouse foi solto. */
     private boolean mouseMiddleReleased;
+    /** Indicação se o botão do meio do mouse está pressionado. */
     private boolean mouseMiddleDown;
+    /** Indicação se o botão do meio do mouse não está pressionado. */
     private boolean mouseMiddleUp;
     
+    /** Indicação se o botão da direita do mouse foi pressionado. */
     private boolean mouseRightPressed;
+    /** Indicação se o botão da direita do mouse foi solto. */
     private boolean mouseRightReleased;
+    /** Indicação se o botão da direita do mouse está pressionado. */
     private boolean mouseRightDown;
+    /** Indicação se o botão da direita do mouse não está pressionado. */
     private boolean mouseRightUp;
     
     // mapas para o teclado
+    
+    /** Mapa de processamento das teclas. */
     private Map<Integer, Boolean> keysProcessedMap;
+    /** Mapa de processamento das teclas pressionadas. */
     private Map<Integer, Boolean> keysPressedMap;
+    /** Mapa de processamento das teclas soltas. */
     private Map<Integer, Boolean> keysReleasedMap;
+    /** Mapa de processamento das teclas que estão pressionadas. */
     private Map<Integer, Boolean> keysDownMap;
+    /** Mapa de processamento das teclas não pressionadas. */
     private Map<Integer, Boolean> keysUpMap;
     
-    // controle do cursor
+    /** Qual o cursor do momento. */
     private Cursor currentCursor;
     
     /**
@@ -198,9 +264,13 @@ public abstract class Engine extends JFrame {
                 "invisible"
             );
     
-    // controle da câmera (modo 2D)
+    /** Flag que indica se a engine está em modo 2D (câmera). */
     private boolean mode2DActive = false;
+    
+    /** O contexto gráfico transformado do modo 2D. */
     private Graphics2D cameraGraphics;
+    
+    /** O contexto gráfico original do ciclo. */
     private Graphics2D baseGraphics;
         
     /**
@@ -496,9 +566,10 @@ public abstract class Engine extends JFrame {
     
     
     
-    /***************************************************************************
-     * Tratamento do mouse.
-     **************************************************************************/
+    //**************************************************************************
+    // Tratamento do mouse.
+    //**************************************************************************
+    
     /**
      * Retorna se um botão do mouse foi pressionado uma vez.
      * 
@@ -673,12 +744,12 @@ public abstract class Engine extends JFrame {
 
 
 
-    /***************************************************************************
-     * Tratamento do teclado.
-     **************************************************************************/
+    //**************************************************************************
+    // Tratamento do teclado.
+    //**************************************************************************
     
     /**
-     * Configura a tecla de saída. Por padrão é a tecla <ESC>
+     * Configura a tecla de saída. Por padrão é a tecla &lt;ESC&gt;
      * 
      * @param keyCode Código da tecla.
      */
@@ -686,7 +757,7 @@ public abstract class Engine extends JFrame {
         exitKeyCode = keyCode;
     }
     
-     /**
+    /**
      * Registra um código de tecla para ser "ouvido".
      * 
      * @param keyCode O código da tecla desejada.
@@ -853,16 +924,16 @@ public abstract class Engine extends JFrame {
 
 
     
-    /***************************************************************************
-     * Métodos de desenho
-     **************************************************************************/
+    //**************************************************************************
+    // Métodos de desenho
+    //**************************************************************************
 
     /**
      * Desenha um pixel.
      * 
-     * @param x coordenada x do pixel.
-     * @param y coordenada y do pixel.
-     * @param color cor de desenho.
+     * @param x Coordenada x do pixel.
+     * @param y Coordenada y do pixel.
+     * @param color Cor de desenho.
      */
     public void drawPixel( double x, double y, Color color ) {
         g2d.setColor( color );
@@ -872,8 +943,8 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um pixel.
      * 
-     * @param vector vetor do pixel.
-     * @param color cor de desenho.
+     * @param vector Vetor do pixel.
+     * @param color Cor de desenho.
      */
     public void drawPixel( Vector2 vector, Color color ) {
         drawPixel( vector.x, vector.y, color );
@@ -882,8 +953,8 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um pixel.
      * 
-     * @param point ponto do pixel.
-     * @param color cor de desenho.
+     * @param point Ponto do pixel.
+     * @param color Cor de desenho.
      */
     public void drawPixel( Point point, Color color ) {
         drawPixel( point.x, point.y, color );
@@ -892,11 +963,11 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha uma linha.
      * 
-     * @param startPosX coordenada x do ponto inicial.
-     * @param startPosY coordenada y do ponto inicial.
-     * @param endPosX coordenada x do ponto final.
-     * @param endPosY coordenada y do ponto final.
-     * @param color cor de desenho.
+     * @param startPosX Coordenada x do ponto inicial.
+     * @param startPosY Coordenada y do ponto inicial.
+     * @param endPosX Coordenada x do ponto final.
+     * @param endPosY Coordenada y do ponto final.
+     * @param color Cor de desenho.
      */
     public void drawLine( double startPosX, double startPosY, double endPosX, double endPosY, Color color ) {
         g2d.setColor( color );
@@ -906,9 +977,9 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha uma linha.
      * 
-     * @param startVector vetor inicial.
-     * @param endVector vetor final.
-     * @param color cor de desenho.
+     * @param startVector Vetor inicial.
+     * @param endVector Vetor final.
+     * @param color Cor de desenho.
      */
     public void drawLine( Vector2 startVector, Vector2 endVector, Color color ) {
         drawLine( startVector.x, startVector.y, endVector.x, endVector.y, color );
@@ -917,9 +988,9 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha uma linha.
      * 
-     * @param startPoint ponto inicial.
-     * @param endPoint ponto final.
-     * @param color cor de desenho.
+     * @param startPoint Ponto inicial.
+     * @param endPoint Ponto final.
+     * @param color Cor de desenho.
      */
     public void drawLine( Point startPoint, Point endPoint, Color color ) {
         drawLine( startPoint.x, startPoint.y, endPoint.x, endPoint.y, color );
@@ -929,7 +1000,7 @@ public abstract class Engine extends JFrame {
      * Desenha uma linha.
      * 
      * @param line uma linha.
-     * @param color cor de desenho.
+     * @param color Cor de desenho.
      */
     public void drawLine( Line line, Color color ) {
         drawLine( line.x1, line.y1, line.x2, line.y2, color );
@@ -938,11 +1009,11 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um retângulo.
      * 
-     * @param x coordenada x do vértice superior esquerdo do retângulo.
-     * @param y coordenada y do vértice superior esquerdo do retângulo.
-     * @param width largura.
-     * @param height algura.
-     * @param color cor de desenho.
+     * @param x Coordenada x do vértice superior esquerdo do retângulo.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param color Cor de desenho.
      */
     public void drawRectangle( double x, double y, double width, double height, Color color ) {
         g2d.setColor( color );
@@ -952,10 +1023,10 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um retângulo.
      * 
-     * @param pos vértice superior esquerdo.
-     * @param width largura.
-     * @param height altura.
-     * @param color cor de desenho.
+     * @param pos Vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param color Cor de desenho.
      */
     public void drawRectangle( Vector2 pos, double width, double height, Color color ) {
         drawRectangle( pos.x, pos.y, width, height, color );
@@ -964,10 +1035,10 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um retângulo.
      * 
-     * @param pos vértice superior esquerdo.
-     * @param width largura.
-     * @param height altura.
-     * @param color cor de desenho.
+     * @param pos Vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param color Cor de desenho.
      */
     public void drawRectangle( Point pos, double width, double height, Color color ) {
         drawRectangle( pos.x, pos.y, width, height, color );
@@ -976,8 +1047,8 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um retângulo.
      * 
-     * @param rectangle um retângulo.
-     * @param color cor de desenho.
+     * @param rectangle Um retângulo.
+     * @param color Cor de desenho.
      */
     public void drawRectangle( Rectangle rectangle, Color color ) {
         drawRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, color );
@@ -986,11 +1057,11 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo.
      * 
-     * @param x coordenada x do vértice superior esquerdo do retângulo.
-     * @param y coordenada y do vértice superior esquerdo do retângulo.
-     * @param width largura.
-     * @param height algura.
-     * @param color cor de desenho.
+     * @param x Coordenada x do vértice superior esquerdo do retângulo.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param color Cor de desenho.
      */
     public void fillRectangle( double x, double y, double width, double height, Color color ) {
         g2d.setColor( color );
@@ -1000,10 +1071,10 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo.
      * 
-     * @param pos vértice superior esquerdo.
-     * @param width largura.
-     * @param height altura.
-     * @param color cor de desenho.
+     * @param pos Vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param color Cor de desenho.
      */
     public void fillRectangle( Vector2 pos, double width, double height, Color color ) {
         fillRectangle( pos.x, pos.y, width, height, color );
@@ -1012,10 +1083,10 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo.
      * 
-     * @param pos vértice superior esquerdo.
-     * @param width largura.
-     * @param height altura.
-     * @param color cor de desenho.
+     * @param pos Vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param color Cor de desenho.
      */
     public void fillRectangle( Point pos, double width, double height, Color color ) {
         fillRectangle( pos.x, pos.y, width, height, color );
@@ -1024,8 +1095,8 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo.
      * 
-     * @param rectangle um retângulo.
-     * @param color cor de desenho.
+     * @param rectangle Um retângulo.
+     * @param color Cor de desenho.
      */
     public void fillRectangle( Rectangle rectangle, Color color ) {
         fillRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, color );
@@ -1034,14 +1105,14 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um retângulo rotacionado.
      * 
-     * @param x coordenada x do vértice superior esquerdo do retângulo.
-     * @param y coordenada y do vértice superior esquerdo do retângulo.
-     * @param width largura.
-     * @param height algura.
-     * @param originX coordenada x do pivô da rotação.
-     * @param originY coordenada y do pivô da rotação.
-     * @param rotation rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param x Coordenada x do vértice superior esquerdo do retângulo.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param originX Coordenada x do pivô da rotação.
+     * @param originY Coordenada y do pivô da rotação.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawRectanglePro( double x, double y, double width, double height, double originX, double originY, double rotation, Color color ) {
 
@@ -1058,12 +1129,12 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um retângulo rotacionado.
      * 
-     * @param pos vértice superior esquerdo.
-     * @param width largura.
-     * @param height algura.
+     * @param pos Vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
      * @param origin pivô da rotação.
-     * @param rotation rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawRectanglePro( Vector2 pos, double width, double height, Point origin, double rotation, Color color ) {
         drawRectanglePro( pos.x, pos.y, width, height, origin.x, origin.y, rotation, color );
@@ -1072,12 +1143,12 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um retângulo rotacionado.
      * 
-     * @param pos vértice superior esquerdo.
-     * @param width largura.
-     * @param height algura.
+     * @param pos Vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
      * @param origin pivô da rotação.
-     * @param rotation rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawRectanglePro( Point pos, double width, double height, Point origin, double rotation, Color color ) {
         drawRectanglePro( pos.x, pos.y, width, height, origin.x, origin.y, rotation, color );
@@ -1086,10 +1157,10 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um retângulo rotacionado.
      * 
-     * @param rectangle um retângulo.
+     * @param rectangle Um retângulo.
      * @param origin pivô da rotação.
-     * @param rotation rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawRectanglePro( Rectangle rectangle, Point origin, double rotation, Color color ) {
         drawRectanglePro( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, color );
@@ -1098,14 +1169,14 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo rotacionado.
      * 
-     * @param x coordenada x do vértice superior esquerdo do retângulo.
-     * @param y coordenada y do vértice superior esquerdo do retângulo.
-     * @param width largura.
-     * @param height algura.
-     * @param originX coordenada x do pivô da rotação.
-     * @param originY coordenada y do pivô da rotação.
-     * @param rotation rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param x Coordenada x do vértice superior esquerdo do retângulo.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param originX Coordenada x do pivô da rotação.
+     * @param originY Coordenada y do pivô da rotação.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void fillRectanglePro( double x, double y, double width, double height, double originX, double originY, double rotation, Color color ) {
 
@@ -1122,12 +1193,12 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo rotacionado.
      * 
-     * @param pos vértice superior esquerdo.
-     * @param width largura.
-     * @param height algura.
+     * @param pos Vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
      * @param origin pivô da rotação.
-     * @param rotation rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void fillRectanglePro( Vector2 pos, double width, double height, Point origin, double rotation, Color color ) {
         fillRectanglePro( pos.x, pos.y, width, height, origin.x, origin.y, rotation, color );
@@ -1136,12 +1207,12 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo rotacionado.
      * 
-     * @param pos vértice superior esquerdo.
-     * @param width largura.
-     * @param height algura.
+     * @param pos Vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
      * @param origin pivô da rotação.
-     * @param rotation rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void fillRectanglePro( Point pos, double width, double height, Point origin, double rotation, Color color ) {
         fillRectanglePro( pos.x, pos.y, width, height, origin.x, origin.y, rotation, color );
@@ -1150,10 +1221,10 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo rotacionado.
      * 
-     * @param rectangle um retângulo.
+     * @param rectangle Um retângulo.
      * @param origin pivô da rotação.
-     * @param rotation rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void fillRectanglePro( Rectangle rectangle, Point origin, double rotation, Color color ) {
         fillRectanglePro( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, color );
@@ -1162,12 +1233,12 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um retângulo com cantos arredondados.
      * 
-     * @param x coordenada x do vértice superior esquerdo do retângulo.
-     * @param y coordenada y do vértice superior esquerdo do retângulo.
-     * @param width largura.
-     * @param height algura.
-     * @param roundness arredondamento dos cantos.
-     * @param color cor de desenho.
+     * @param x Coordenada x do vértice superior esquerdo do retângulo.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param roundness Arredondamento dos cantos.
+     * @param color Cor de desenho.
      */
     public void drawRoundRectangle( double x, double y, double width, double height, double roundness, Color color ) {
         g2d.setColor( color );
@@ -1178,10 +1249,10 @@ public abstract class Engine extends JFrame {
      * Desenha um retângulo com cantos arredondados.
      * 
      * @param pos ponto superior esquerdo do retângulo.
-     * @param width largura.
-     * @param height algura.
-     * @param roundness arredondamento dos cantos.
-     * @param color cor de desenho.
+     * @param width Largura.
+     * @param height Altura.
+     * @param roundness Arredondamento dos cantos.
+     * @param color Cor de desenho.
      */
     public void drawRoundRectangle( Vector2 pos, double width, double height, double roundness, Color color ) {
         drawRoundRectangle( pos.x, pos.y, width, height, roundness, color );
@@ -1191,10 +1262,10 @@ public abstract class Engine extends JFrame {
      * Desenha um retângulo com cantos arredondados.
      * 
      * @param pos ponto superior esquerdo do retângulo.
-     * @param width largura.
-     * @param height algura.
-     * @param roundness arredondamento dos cantos.
-     * @param color cor de desenho.
+     * @param width Largura.
+     * @param height Altura.
+     * @param roundness Arredondamento dos cantos.
+     * @param color Cor de desenho.
      */
     public void drawRoundRectangle( Point pos, double width, double height, double roundness, Color color ) {
         drawRoundRectangle( pos.x, pos.y, width, height, roundness, color );
@@ -1203,8 +1274,8 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um retângulo com cantos arredondados.
      * 
-     * @param roundRectangle um retângulo com os cantos arredondados.
-     * @param color cor de desenho.
+     * @param roundRectangle Um retângulo com os cantos arredondados.
+     * @param color Cor de desenho.
      */
     public void drawRoundRectangle( RoundRectangle roundRectangle, Color color ) {
         drawRoundRectangle( roundRectangle.x, roundRectangle.y, roundRectangle.width, roundRectangle.height, roundRectangle.roundness, color );
@@ -1213,12 +1284,12 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo com cantos arredondados.
      * 
-     * @param x coordenada x do vértice superior esquerdo do retângulo.
-     * @param y coordenada y do vértice superior esquerdo do retângulo.
-     * @param width largura.
-     * @param height algura.
-     * @param roundness arredondamento dos cantos.
-     * @param color cor de desenho.
+     * @param x Coordenada x do vértice superior esquerdo do retângulo.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param roundness Arredondamento dos cantos.
+     * @param color Cor de desenho.
      */
     public void fillRoundRectangle( double x, double y, double width, double height, double roundness, Color color ) {
         g2d.setColor( color );
@@ -1229,10 +1300,10 @@ public abstract class Engine extends JFrame {
      * Pinta um retângulo com cantos arredondados.
      * 
      * @param pos ponto superior esquerdo do retângulo.
-     * @param width largura.
-     * @param height algura.
-     * @param roundness arredondamento dos cantos.
-     * @param color cor de desenho.
+     * @param width Largura.
+     * @param height Altura.
+     * @param roundness Arredondamento dos cantos.
+     * @param color Cor de desenho.
      */
     public void fillRoundRectangle( Vector2 pos, double width, double height, double roundness, Color color ) {
         fillRoundRectangle( pos.x, pos.y, width, height, roundness, color );
@@ -1242,10 +1313,10 @@ public abstract class Engine extends JFrame {
      * Pinta um retângulo com cantos arredondados.
      * 
      * @param pos ponto superior esquerdo do retângulo.
-     * @param width largura.
-     * @param height algura.
-     * @param roundness arredondamento dos cantos.
-     * @param color cor de desenho.
+     * @param width Largura.
+     * @param height Altura.
+     * @param roundness Arredondamento dos cantos.
+     * @param color Cor de desenho.
      */
     public void fillRoundRectangle( Point pos, double width, double height, double roundness, Color color ) {
         fillRoundRectangle( pos.x, pos.y, width, height, roundness, color );
@@ -1254,8 +1325,8 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo com cantos arredondados.
      * 
-     * @param roundRectangle um retângulo com os cantos arredondados.
-     * @param color cor de desenho.
+     * @param roundRectangle Um retângulo com os cantos arredondados.
+     * @param color Cor de desenho.
      */
     public void fillRoundRectangle( RoundRectangle roundRectangle, Color color ) {
         fillRoundRectangle( roundRectangle.x, roundRectangle.y, roundRectangle.width, roundRectangle.height, roundRectangle.roundness, color );
@@ -1264,12 +1335,12 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo com um gradiente horizontal.
      * 
-     * @param x coordenada x do vértice superior esquerdo do retângulo.
-     * @param y coordenada y do vértice superior esquerdo do retângulo.
-     * @param width largura.
-     * @param height algura.
-     * @param color1 cor inicial do gradiente.
-     * @param color2 cor final do gradiente.
+     * @param x Coordenada x do vértice superior esquerdo do retângulo.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param color1 Cor inicial do gradiente.
+     * @param color2 Cor final do gradiente.
      */
     public void fillRectangleGradientH( double x, double y, double width, double height, Color color1, Color color2 ) {
         g2d.setPaint( new GradientPaint( (int) x, (int) (y + height / 2), color1, (int) (x + width), (int) (y + height / 2), color2 ) );
@@ -1279,11 +1350,11 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo com um gradiente horizontal.
      * 
-     * @param pos vértice superior esquerdo.
-     * @param width largura.
-     * @param height altura.
-     * @param color1 cor inicial do gradiente.
-     * @param color2 cor final do gradiente.
+     * @param pos Vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param color1 Cor inicial do gradiente.
+     * @param color2 Cor final do gradiente.
      */
     public void fillRectangleGradientH( Vector2 pos, double width, double height, Color color1, Color color2 ) {
         fillRectangleGradientH( pos.x, pos.y, width, height, color1, color2 );
@@ -1292,11 +1363,11 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo com um gradiente horizontal.
      * 
-     * @param pos vértice superior esquerdo.
-     * @param width largura.
-     * @param height altura.
-     * @param color1 cor inicial do gradiente.
-     * @param color2 cor final do gradiente.
+     * @param pos Vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param color1 Cor inicial do gradiente.
+     * @param color2 Cor final do gradiente.
      */
     public void fillRectangleGradientH( Point pos, double width, double height, Color color1, Color color2 ) {
         fillRectangleGradientH( pos.x, pos.y, width, height, color1, color2 );
@@ -1305,9 +1376,9 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo com um gradiente horizontal.
      * 
-     * @param rectangle um retângulo.
-     * @param color1 cor inicial do gradiente.
-     * @param color2 cor final do gradiente.
+     * @param rectangle Um retângulo.
+     * @param color1 Cor inicial do gradiente.
+     * @param color2 Cor final do gradiente.
      */
     public void fillRectangleGradientH( Rectangle rectangle, Color color1, Color color2 ) {
         fillRectangleGradientH( rectangle.x, rectangle.y, rectangle.width, rectangle.height, color1, color2 );
@@ -1316,12 +1387,12 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo com um gradiente vertical.
      * 
-     * @param x coordenada x do vértice superior esquerdo do retângulo.
-     * @param y coordenada y do vértice superior esquerdo do retângulo.
-     * @param width largura.
-     * @param height algura.
-     * @param color1 cor inicial do gradiente.
-     * @param color2 cor final do gradiente.
+     * @param x Coordenada x do vértice superior esquerdo do retângulo.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param color1 Cor inicial do gradiente.
+     * @param color2 Cor final do gradiente.
      */
     public void fillRectangleGradientV( double x, double y, double width, double height, Color color1, Color color2 ) {
         g2d.setPaint( new GradientPaint( (int) (x + width / 2), (int) y, color1, (int) (x + width / 2), (int) (y + height), color2 ) );
@@ -1331,11 +1402,11 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo com um gradiente vertical.
      * 
-     * @param pos vértice superior esquerdo.
-     * @param width largura.
-     * @param height altura.
-     * @param color1 cor inicial do gradiente.
-     * @param color2 cor final do gradiente.
+     * @param pos Vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param color1 Cor inicial do gradiente.
+     * @param color2 Cor final do gradiente.
      */
     public void fillRectangleGradientV( Point pos, double width, double height, Color color1, Color color2 ) {
         fillRectangleGradientV( pos.x, pos.y, width, height, color1, color2 );
@@ -1344,11 +1415,11 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo com um gradiente vertical.
      * 
-     * @param pos vértice superior esquerdo.
-     * @param width largura.
-     * @param height altura.
-     * @param color1 cor inicial do gradiente.
-     * @param color2 cor final do gradiente.
+     * @param pos Vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param color1 Cor inicial do gradiente.
+     * @param color2 Cor final do gradiente.
      */
     public void fillRectangleGradientV( Vector2 pos, double width, double height, Color color1, Color color2 ) {
         fillRectangleGradientV( pos.x, pos.y, width, height, color1, color2 );
@@ -1357,9 +1428,9 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um retângulo com um gradiente vertical.
      * 
-     * @param rectangle um retângulo.
-     * @param color1 cor inicial do gradiente.
-     * @param color2 cor final do gradiente.
+     * @param rectangle Um retângulo.
+     * @param color1 Cor inicial do gradiente.
+     * @param color2 Cor final do gradiente.
      */
     public void fillRectangleGradientV( Rectangle rectangle, Color color1, Color color2 ) {
         fillRectangleGradientV( rectangle.x, rectangle.y, rectangle.width, rectangle.height, color1, color2 );
@@ -1368,22 +1439,22 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um círculo.
      * 
-     * @param centerX coordenada x do centro do círculo.
-     * @param centerY coordenada y do centro do círculo.
-     * @param radius raio.
-     * @param color cor de desenho.
+     * @param x Coordenada x do centro do círculo.
+     * @param y Coordenada y do centro do círculo.
+     * @param radius Raio.
+     * @param color Cor de desenho.
      */
-    public void drawCircle( double centerX, double centerY, double radius, Color color ) {
+    public void drawCircle( double x, double y, double radius, Color color ) {
         g2d.setColor( color );
-        g2d.draw( new Ellipse2D.Double( centerX - radius, centerY - radius, radius * 2, radius * 2 ) );
+        g2d.draw( new Ellipse2D.Double( x - radius, y - radius, radius * 2, radius * 2 ) );
     }
 
     /**
      * Desenha um círculo.
      * 
-     * @param center centro do círculo.
-     * @param radius raio.
-     * @param color cor de desenho.
+     * @param center Centro do círculo.
+     * @param radius Raio.
+     * @param color Cor de desenho.
      */
     public void drawCircle( Vector2 center, double radius, Color color ) {
         drawCircle( center.x, center.y, radius, color );
@@ -1392,9 +1463,9 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um círculo.
      * 
-     * @param center centro do círculo.
-     * @param radius raio.
-     * @param color cor de desenho.
+     * @param center Centro do círculo.
+     * @param radius Raio.
+     * @param color Cor de desenho.
      */
     public void drawCircle( Point center, double radius, Color color ) {
         drawCircle( center.x, center.y, radius, color );
@@ -1403,8 +1474,8 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um círculo.
      * 
-     * @param circle um círculo.
-     * @param color cor de desenho.
+     * @param circle Um círculo.
+     * @param color Cor de desenho.
      */
     public void drawCircle( Circle circle, Color color ) {
         drawCircle( circle.x, circle.y, circle.radius, color );
@@ -1413,22 +1484,22 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um círculo.
      * 
-     * @param centerX coordenada x do centro do círculo.
-     * @param centerY coordenada y do centro do círculo.
-     * @param radius raio.
-     * @param color cor de desenho.
+     * @param x Coordenada x do centro do círculo.
+     * @param y Coordenada y do centro do círculo.
+     * @param radius Raio.
+     * @param color Cor de desenho.
      */
-    public void fillCircle( double centerX, double centerY, double radius, Color color ) {
+    public void fillCircle( double x, double y, double radius, Color color ) {
         g2d.setColor( color );
-        g2d.fill( new Ellipse2D.Double( centerX - radius, centerY - radius, radius * 2, radius * 2 ) );
+        g2d.fill( new Ellipse2D.Double( x - radius, y - radius, radius * 2, radius * 2 ) );
     }
 
     /**
      * Pinta um círculo.
      * 
-     * @param center centro do círculo.
-     * @param radius raio.
-     * @param color cor de desenho.
+     * @param center Centro do círculo.
+     * @param radius Raio.
+     * @param color Cor de desenho.
      */
     public void fillCircle( Vector2 center, double radius, Color color ) {
         fillCircle( center.x, center.y, radius, color );
@@ -1437,9 +1508,9 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um círculo.
      * 
-     * @param center centro do círculo.
-     * @param radius raio.
-     * @param color cor de desenho.
+     * @param center Centro do círculo.
+     * @param radius Raio.
+     * @param color Cor de desenho.
      */
     public void fillCircle( Point center, double radius, Color color ) {
         fillCircle( center.x, center.y, radius, color );
@@ -1448,8 +1519,8 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um círculo.
      * 
-     * @param circle um círculo.
-     * @param color cor de desenho.
+     * @param circle Um círculo.
+     * @param color Cor de desenho.
      */
     public void fillCircle( Circle circle, Color color ) {
         fillCircle( circle.x, circle.y, circle.radius, color );
@@ -1458,24 +1529,24 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha uma elipse.
      * 
-     * @param centerX coordenada x do centro da elipse.
-     * @param centerY coordenada y do centro da elipse.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param color cor de desenho.
+     * @param x Coordenada x do centro da elipse.
+     * @param y Coordenada y do centro da elipse.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param color Cor de desenho.
      */
-    public void drawEllipse( double centerX, double centerY, double radiusH, double radiusV, Color color ) {
+    public void drawEllipse( double x, double y, double radiusH, double radiusV, Color color ) {
         g2d.setColor( color );
-        g2d.draw( new Ellipse2D.Double( centerX - radiusH, centerY - radiusV, radiusH * 2, radiusV * 2 ) );
+        g2d.draw( new Ellipse2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2 ) );
     }
 
     /**
      * Desenha uma elipse.
      * 
-     * @param center centro da elipse.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param color cor de desenho.
+     * @param center Centro da elipse.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param color Cor de desenho.
      */
     public void drawEllipse( Vector2 center, double radiusH, double radiusV, Color color ) {
         drawEllipse( center.x, center.y, radiusH, radiusV, color );
@@ -1484,10 +1555,10 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha uma elipse.
      * 
-     * @param center centro da elipse.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param color cor de desenho.
+     * @param center Centro da elipse.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param color Cor de desenho.
      */
     public void drawEllipse( Point center, double radiusH, double radiusV, Color color ) {
         drawEllipse( center.x, center.y, radiusH, radiusV, color );
@@ -1496,8 +1567,8 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha uma elipse.
      * 
-     * @param ellipse uma elipse.
-     * @param color cor de desenho.
+     * @param ellipse Uma elipse.
+     * @param color Cor de desenho.
      */
     public void drawEllipse( Ellipse ellipse, Color color ) {
         drawEllipse( ellipse.x, ellipse.y, ellipse.radiusH, ellipse.radiusV, color );
@@ -1506,24 +1577,24 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta uma elipse.
      * 
-     * @param centerX coordenada x do centro da elipse.
-     * @param centerY coordenada y do centro da elipse.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param color cor de desenho.
+     * @param x Coordenada x do centro da elipse.
+     * @param y Coordenada y do centro da elipse.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param color Cor de desenho.
      */
-    public void fillEllipse( double centerX, double centerY, double radiusH, double radiusV, Color color ) {
+    public void fillEllipse( double x, double y, double radiusH, double radiusV, Color color ) {
         g2d.setColor( color );
-        g2d.fill( new Ellipse2D.Double( centerX - radiusH, centerY - radiusV, radiusH * 2, radiusV * 2 ) );
+        g2d.fill( new Ellipse2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2 ) );
     }
 
     /**
      * Pinta uma elipse.
      * 
-     * @param center centro da elipse.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param color cor de desenho.
+     * @param center Centro da elipse.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param color Cor de desenho.
      */
     public void fillEllipse( Vector2 center, double radiusH, double radiusV, Color color ) {
         fillEllipse( center.x, center.y, radiusH, radiusV, color );
@@ -1532,10 +1603,10 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta uma elipse.
      * 
-     * @param center centro da elipse.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param color cor de desenho.
+     * @param center Centro da elipse.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param color Cor de desenho.
      */
     public void fillEllipse( Point center, double radiusH, double radiusV, Color color ) {
         fillEllipse( center.x, center.y, radiusH, radiusV, color );
@@ -1544,8 +1615,8 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta uma elipse.
      * 
-     * @param ellipse uma elipse.
-     * @param color cor de desenho.
+     * @param ellipse Uma elipse.
+     * @param color Cor de desenho.
      */
     public void fillEllipse( Ellipse ellipse, Color color ) {
         fillEllipse( ellipse.x, ellipse.y, ellipse.radiusH, ellipse.radiusV, color );
@@ -1554,27 +1625,27 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um setor circular.
      * 
-     * @param centerX coordenada x do centro.
-     * @param centerY coordenada y do centro.
-     * @param radius raio.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param radius Raio.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
-    public void drawCircleSector( double centerX, double centerY, double radius, double startAngle, double endAngle, Color color ) {
+    public void drawCircleSector( double x, double y, double radius, double startAngle, double endAngle, Color color ) {
         g2d.setColor( color );
         double extent = endAngle - startAngle;
-        g2d.draw( new Arc2D.Double( centerX - radius, centerY - radius, radius * 2, radius * 2, startAngle, -extent, Arc2D.PIE ) );
+        g2d.draw( new Arc2D.Double( x - radius, y - radius, radius * 2, radius * 2, startAngle, -extent, Arc2D.PIE ) );
     }
 
     /**
      * Desenha um setor circular.
      * 
-     * @param center ponto do centro.
-     * @param radius raio.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Ponto do centro.
+     * @param radius Raio.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawCircleSector( Vector2 center, double radius, double startAngle, double endAngle, Color color ) {
         drawCircleSector( center.x, center.y, radius, startAngle, endAngle, color );
@@ -1583,11 +1654,11 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um setor circular.
      * 
-     * @param center ponto do centro.
-     * @param radius raio.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Ponto do centro.
+     * @param radius Raio.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawCircleSector( Point center, double radius, double startAngle, double endAngle, Color color ) {
         drawCircleSector( center.x, center.y, radius, startAngle, endAngle, color );
@@ -1596,10 +1667,10 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um setor circular.
      * 
-     * @param circle um círculo.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param circle Um círculo.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawCircleSector( Circle circle, double startAngle, double endAngle, Color color ) {
         drawCircleSector( circle.x, circle.y, circle.radius, startAngle, endAngle, color );
@@ -1608,8 +1679,8 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um setor circular.
      * 
-     * @param circleSector um setor circular.
-     * @param color cor de desenho.
+     * @param circleSector Um setor circular.
+     * @param color Cor de desenho.
      */
     public void drawCircleSector( CircleSector circleSector, Color color ) {
         drawCircleSector( circleSector.x, circleSector.y, circleSector.radius, circleSector.startAngle, circleSector.endAngle, color );
@@ -1618,27 +1689,27 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um setor circular.
      * 
-     * @param centerX coordenada x do centro.
-     * @param centerY coordenada y do centro.
-     * @param radius raio.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param radius Raio.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
-    public void fillCircleSector( double centerX, double centerY, double radius, double startAngle, double endAngle, Color color ) {
+    public void fillCircleSector( double x, double y, double radius, double startAngle, double endAngle, Color color ) {
         g2d.setColor( color );
         double extent = endAngle - startAngle;
-        g2d.fill( new Arc2D.Double( centerX - radius, centerY - radius, radius * 2, radius * 2, startAngle, -extent, Arc2D.PIE ) );
+        g2d.fill( new Arc2D.Double( x - radius, y - radius, radius * 2, radius * 2, startAngle, -extent, Arc2D.PIE ) );
     }
 
     /**
      * Pinta um setor circular.
      * 
-     * @param center ponto do centro.
-     * @param radius raio.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Ponto do centro.
+     * @param radius Raio.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void fillCircleSector( Vector2 center, double radius, double startAngle, double endAngle, Color color ) {
         fillCircleSector( center.x, center.y, radius, startAngle, endAngle, color );
@@ -1647,11 +1718,11 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um setor circular.
      * 
-     * @param center ponto do centro.
-     * @param radius raio.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Ponto do centro.
+     * @param radius Raio.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void fillCircleSector( Point center, double radius, double startAngle, double endAngle, Color color ) {
         fillCircleSector( center.x, center.y, radius, startAngle, endAngle, color );
@@ -1660,10 +1731,10 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um setor circular.
      * 
-     * @param circle um círculo.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param circle Um círculo.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void fillCircleSector( Circle circle, double startAngle, double endAngle, Color color ) {
         fillCircleSector( circle.x, circle.y, circle.radius, startAngle, endAngle, color );
@@ -1672,8 +1743,8 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um setor circular.
      * 
-     * @param circleSector um setor circular.
-     * @param color cor de desenho.
+     * @param circleSector Um setor circular.
+     * @param color Cor de desenho.
      */
     public void fillCircleSector( CircleSector circleSector, Color color ) {
         fillCircleSector( circleSector.x, circleSector.y, circleSector.radius, circleSector.startAngle, circleSector.endAngle, color );
@@ -1682,29 +1753,29 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um setor de uma elipse.
      * 
-     * @param centerX coordenada x do centro.
-     * @param centerY coordenada y do centro.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
-    public void drawEllipseSector( double centerX, double centerY, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
+    public void drawEllipseSector( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
         g2d.setColor( color );
         double extent = endAngle - startAngle;
-        g2d.draw( new Arc2D.Double( centerX - radiusH, centerY - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.PIE ) );
+        g2d.draw( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.PIE ) );
     }
 
     /**
      * Desenha um setor de uma elipse.
      * 
-     * @param center ponto do centro.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Ponto do centro.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawEllipseSector( Vector2 center, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
         drawEllipseSector( center.x, center.y, radiusH, radiusV, startAngle, endAngle, color );
@@ -1713,12 +1784,12 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um setor de uma elipse.
      * 
-     * @param center ponto do centro.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Ponto do centro.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawEllipseSector( Point center, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
         drawEllipseSector( center.x, center.y, radiusH, radiusV, startAngle, endAngle, color );
@@ -1727,10 +1798,10 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um setor de uma elipse.
      * 
-     * @param ellipse uma elipse.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param ellipse Uma elipse.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawEllipseSector( Ellipse ellipse, double startAngle, double endAngle, Color color ) {
         drawEllipseSector( ellipse.x, ellipse.y, ellipse.radiusH, ellipse.radiusV, startAngle, endAngle, color );
@@ -1739,8 +1810,8 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um setor de uma elipse.
      * 
-     * @param ellipseSector um setor de uma elipse.
-     * @param color cor de desenho.
+     * @param ellipseSector Um setor de uma elipse.
+     * @param color Cor de desenho.
      */
     public void drawEllipseSector( EllipseSector ellipseSector, Color color ) {
         drawEllipseSector( ellipseSector.x, ellipseSector.y, ellipseSector.radiusH, ellipseSector.radiusV, ellipseSector.startAngle, ellipseSector.endAngle, color );
@@ -1749,29 +1820,29 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um setor de uma elipse.
      * 
-     * @param centerX coordenada x do centro.
-     * @param centerY coordenada y do centro.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
-    public void fillEllipseSector( double centerX, double centerY, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
+    public void fillEllipseSector( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
         g2d.setColor( color );
         double extent = endAngle - startAngle;
-        g2d.fill( new Arc2D.Double( centerX - radiusH, centerY - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.PIE ) );
+        g2d.fill( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.PIE ) );
     }
 
     /**
      * Pinta um setor de uma elipse.
      * 
-     * @param center ponto do centro.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Ponto do centro.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void fillEllipseSector( Vector2 center, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
         fillEllipseSector( center.x, center.y, radiusH, radiusV, startAngle, endAngle, color );
@@ -1780,12 +1851,12 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um setor de uma elipse.
      * 
-     * @param center ponto do centro.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Ponto do centro.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void fillEllipseSector( Point center, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
         fillEllipseSector( center.x, center.y, radiusH, radiusV, startAngle, endAngle, color );
@@ -1794,10 +1865,10 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um setor de uma elipse.
      * 
-     * @param ellipse uma elipse.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param ellipse Uma elipse.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void fillEllipseSector( Ellipse ellipse, double startAngle, double endAngle, Color color ) {
         fillEllipseSector( ellipse.x, ellipse.y, ellipse.radiusH, ellipse.radiusV, startAngle, endAngle, color );
@@ -1806,8 +1877,8 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um setor de uma elipse.
      * 
-     * @param ellipseSector um setor de uma elipse.
-     * @param color cor de desenho.
+     * @param ellipseSector Um setor de uma elipse.
+     * @param color Cor de desenho.
      */
     public void fillEllipseSector( EllipseSector ellipseSector, Color color ) {
         fillEllipseSector( ellipseSector.x, ellipseSector.y, ellipseSector.radiusH, ellipseSector.radiusV, ellipseSector.startAngle, ellipseSector.endAngle, color );
@@ -1816,29 +1887,29 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um arco.
      * 
-     * @param centerX coordenada x do centro.
-     * @param centerY coordenada y do centro.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
-    public void drawArc( double centerX, double centerY, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
+    public void drawArc( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
         g2d.setColor( color );
         double extent = endAngle - startAngle;
-        g2d.draw( new Arc2D.Double( centerX - radiusH, centerY - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.OPEN ) );
+        g2d.draw( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.OPEN ) );
     }
 
     /**
      * Desenha um arco.
      * 
-     * @param center ponto do centro.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Ponto do centro.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawArc( Vector2 center, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
         drawArc( center.x, center.y, radiusH, radiusV, startAngle, endAngle, color );
@@ -1847,12 +1918,12 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um arco.
      * 
-     * @param center ponto do centro.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Ponto do centro.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawArc( Point center, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
         drawArc( center.x, center.y, radiusH, radiusV, startAngle, endAngle, color );
@@ -1861,8 +1932,8 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um arco
      * 
-     * @param arc um arco.
-     * @param color cor de desenho.
+     * @param arc Um arco.
+     * @param color Cor de desenho.
      */
     public void drawArc( Arc arc, Color color ) {
         drawArc( arc.x, arc.y, arc.radiusH, arc.radiusV, arc.startAngle, arc.endAngle, color );
@@ -1871,29 +1942,29 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um arco.
      * 
-     * @param centerX coordenada x do centro.
-     * @param centerY coordenada y do centro.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
-    public void fillArc( double centerX, double centerY, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
+    public void fillArc( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
         g2d.setColor( color );
         double extent = endAngle - startAngle;
-        g2d.fill( new Arc2D.Double( centerX - radiusH, centerY - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.CHORD ) );
+        g2d.fill( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.CHORD ) );
     }
 
     /**
      * Pinta um arco.
      * 
-     * @param center ponto do centro.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Ponto do centro.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void fillArc( Vector2 center, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
         fillArc( center.x, center.y, radiusH, radiusV, startAngle, endAngle, color );
@@ -1902,12 +1973,12 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um arco.
      * 
-     * @param center ponto do centro.
-     * @param radiusH raio horizontal.
-     * @param radiusV raio vertical.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Ponto do centro.
+     * @param radiusH Raio horizontal.
+     * @param radiusV Raio vertical.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void fillArc( Point center, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
         fillArc( center.x, center.y, radiusH, radiusV, startAngle, endAngle, color );
@@ -1916,8 +1987,8 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um arco
      * 
-     * @param arc um arco.
-     * @param color cor de desenho.
+     * @param arc Um arco.
+     * @param color Cor de desenho.
      */
     public void fillArc( Arc arc, Color color ) {
         fillArc( arc.x, arc.y, arc.radiusH, arc.radiusV, arc.startAngle, arc.endAngle, color );
@@ -1926,28 +1997,28 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um anel.
      * 
-     * @param centerX coordenada x do centro.
-     * @param centerY coordenada y do centro.
-     * @param innerRadius raio interno.
-     * @param outerRadius raio externo.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param innerRadius Raio interno.
+     * @param outerRadius Raio externo.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
-    public void drawRing( double centerX, double centerY, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
+    public void drawRing( double x, double y, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
         g2d.setColor( color );
-        g2d.draw( DrawingUtils.createRing( centerX, centerY, innerRadius, outerRadius, startAngle, endAngle ) );
+        g2d.draw( DrawingUtils.createRing( x, y, innerRadius, outerRadius, startAngle, endAngle ) );
     }
 
     /**
      * Desenha um anel.
      * 
-     * @param center centro do anel.
-     * @param innerRadius raio interno.
-     * @param outerRadius raio externo.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Centro do anel.
+     * @param innerRadius Raio interno.
+     * @param outerRadius Raio externo.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawRing( Vector2 center, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
         drawRing( center.x, center.y, innerRadius, outerRadius, startAngle, endAngle, color );
@@ -1956,12 +2027,12 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um anel.
      * 
-     * @param center centro do anel.
-     * @param innerRadius raio interno.
-     * @param outerRadius raio externo.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Centro do anel.
+     * @param innerRadius Raio interno.
+     * @param outerRadius Raio externo.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawRing( Point center, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
         drawRing( center.x, center.y, innerRadius, outerRadius, startAngle, endAngle, color );
@@ -1970,8 +2041,8 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um anel.
      * 
-     * @param ring um anel.
-     * @param color cor de desenho.
+     * @param ring Um anel.
+     * @param color Cor de desenho.
      */
     public void drawRing( Ring ring, Color color ) {
         drawRing( ring.x, ring.y, ring.innerRadius, ring.outerRadius, ring.startAngle, ring.endAngle, color );
@@ -1980,28 +2051,28 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um anel.
      * 
-     * @param centerX coordenada x do centro.
-     * @param centerY coordenada y do centro.
-     * @param innerRadius raio interno.
-     * @param outerRadius raio externo.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param innerRadius Raio interno.
+     * @param outerRadius Raio externo.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
-    public void fillRing( double centerX, double centerY, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
+    public void fillRing( double x, double y, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
         g2d.setColor( color );
-        g2d.fill( DrawingUtils.createRing( centerX, centerY, innerRadius, outerRadius, startAngle, endAngle ) );
+        g2d.fill( DrawingUtils.createRing( x, y, innerRadius, outerRadius, startAngle, endAngle ) );
     }
 
     /**
      * Pinta um anel.
      * 
-     * @param center centro do anel.
-     * @param innerRadius raio interno.
-     * @param outerRadius raio externo.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Centro do anel.
+     * @param innerRadius Raio interno.
+     * @param outerRadius Raio externo.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void fillRing( Vector2 center, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
         fillRing( center.x, center.y, innerRadius, outerRadius, startAngle, endAngle, color );
@@ -2010,12 +2081,12 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um anel.
      * 
-     * @param center centro do anel.
-     * @param innerRadius raio interno.
-     * @param outerRadius raio externo.
-     * @param startAngle ângulo inicial em graus (sentido horário).
-     * @param endAngle ângulo final em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Centro do anel.
+     * @param innerRadius Raio interno.
+     * @param outerRadius Raio externo.
+     * @param startAngle Ângulo inicial em graus (sentido horário).
+     * @param endAngle Ângulo final em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void fillRing( Point center, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
         fillRing( center.x, center.y, innerRadius, outerRadius, startAngle, endAngle, color );
@@ -2024,8 +2095,8 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um anel.
      * 
-     * @param ring um anel.
-     * @param color cor de desenho.
+     * @param ring Um anel.
+     * @param color Cor de desenho.
      */
     public void fillRing( Ring ring, Color color ) {
         fillRing( ring.x, ring.y, ring.innerRadius, ring.outerRadius, ring.startAngle, ring.endAngle, color );
@@ -2034,13 +2105,13 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um triângulo.
      * 
-     * @param v1x coordenada x do primeiro vértice.
-     * @param v1y coordenada y do primeiro vértice.
-     * @param v2x coordenada x do segundo vértice.
-     * @param v2y coordenada y do segundo vértice.
-     * @param v3x coordenada x do terceiro vértice.
-     * @param v3y coordenada y do terceiro vértice.
-     * @param color cor de desenho.
+     * @param v1x Coordenada x do primeiro vértice.
+     * @param v1y Coordenada y do primeiro vértice.
+     * @param v2x Coordenada x do segundo vértice.
+     * @param v2y Coordenada y do segundo vértice.
+     * @param v3x Coordenada x do terceiro vértice.
+     * @param v3y Coordenada y do terceiro vértice.
+     * @param color Cor de desenho.
      */
     public void drawTriangle( double v1x, double v1y, double v2x, double v2y, double v3x, double v3y, Color color ) {
         g2d.setColor( color );
@@ -2050,10 +2121,10 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um triângulo.
      * 
-     * @param v1 primeiro vértice.
-     * @param v2 segundo vértice.
-     * @param v3 terceiro vértice.
-     * @param color cor de desenho.
+     * @param v1 Primeiro vértice.
+     * @param v2 Segundo vértice.
+     * @param v3 Terceiro vértice.
+     * @param color Cor de desenho.
      */
     public void drawTriangle( Vector2 v1, Vector2 v2, Vector2 v3, Color color ) {
         drawTriangle( v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, color );
@@ -2062,10 +2133,10 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um triângulo.
      * 
-     * @param v1 primeiro vértice.
-     * @param v2 segundo vértice.
-     * @param v3 terceiro vértice.
-     * @param color cor de desenho.
+     * @param v1 Primeiro vértice.
+     * @param v2 Segundo vértice.
+     * @param v3 Terceiro vértice.
+     * @param color Cor de desenho.
      */
     public void drawTriangle( Point v1, Point v2, Point v3, Color color ) {
         drawTriangle( v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, color );
@@ -2074,8 +2145,8 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um triângulo.
      * 
-     * @param triangle um triângulo.
-     * @param color cor de desenho.
+     * @param triangle Um triângulo.
+     * @param color Cor de desenho.
      */
     public void drawTriangle( Triangle triangle, Color color ) {
         drawTriangle( triangle.x1, triangle.y1, triangle.x2, triangle.y2, triangle.x3, triangle.y3, color );
@@ -2084,13 +2155,13 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um triângulo.
      * 
-     * @param v1x coordenada x do primeiro vértice.
-     * @param v1y coordenada y do primeiro vértice.
-     * @param v2x coordenada x do segundo vértice.
-     * @param v2y coordenada y do segundo vértice.
-     * @param v3x coordenada x do terceiro vértice.
-     * @param v3y coordenada y do terceiro vértice.
-     * @param color cor de desenho.
+     * @param v1x Coordenada x do primeiro vértice.
+     * @param v1y Coordenada y do primeiro vértice.
+     * @param v2x Coordenada x do segundo vértice.
+     * @param v2y Coordenada y do segundo vértice.
+     * @param v3x Coordenada x do terceiro vértice.
+     * @param v3y Coordenada y do terceiro vértice.
+     * @param color Cor de desenho.
      */
     public void fillTriangle( double v1x, double v1y, double v2x, double v2y, double v3x, double v3y, Color color ) {
         g2d.setColor( color );
@@ -2100,10 +2171,10 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um triângulo.
      * 
-     * @param v1 primeiro vértice.
-     * @param v2 segundo vértice.
-     * @param v3 terceiro vértice.
-     * @param color cor de desenho.
+     * @param v1 Primeiro vértice.
+     * @param v2 Segundo vértice.
+     * @param v3 Terceiro vértice.
+     * @param color Cor de desenho.
      */
     public void fillTriangle( Vector2 v1, Vector2 v2, Vector2 v3, Color color ) {
         fillTriangle( v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, color );
@@ -2112,10 +2183,10 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um triângulo.
      * 
-     * @param v1 primeiro vértice.
-     * @param v2 segundo vértice.
-     * @param v3 terceiro vértice.
-     * @param color cor de desenho.
+     * @param v1 Primeiro vértice.
+     * @param v2 Segundo vértice.
+     * @param v3 Terceiro vértice.
+     * @param color Cor de desenho.
      */
     public void fillTriangle( Point v1, Point v2, Point v3, Color color ) {
         fillTriangle( v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, color );
@@ -2124,8 +2195,8 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um triângulo.
      * 
-     * @param triangle um triângulo.
-     * @param color cor de desenho.
+     * @param triangle Um triângulo.
+     * @param color Cor de desenho.
      */
     public void fillTriangle( Triangle triangle, Color color ) {
         fillTriangle( triangle.x1, triangle.y1, triangle.x2, triangle.y2, triangle.x3, triangle.y3, color );
@@ -2134,26 +2205,26 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um polígono regular.
      * 
-     * @param centerX coordenada x do centro do polígono.
-     * @param centerY coordenada y do centro do polígono.
-     * @param sides quantidade de lados.
-     * @param radius raio.
-     * @param rotation rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param x Coordenada x do centro do polígono.
+     * @param y Coordenada y do centro do polígono.
+     * @param sides Quantidade de lados.
+     * @param radius Raio.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
-    public void drawPolygon( double centerX, double centerY, double sides, double radius, double rotation, Color color ) {
+    public void drawPolygon( double x, double y, double sides, double radius, double rotation, Color color ) {
         g2d.setColor( color );
-        g2d.draw( DrawingUtils.createPolygon( centerX, centerY, sides, radius, rotation ) );
+        g2d.draw( DrawingUtils.createPolygon( x, y, sides, radius, rotation ) );
     }
 
     /**
      * Desenha um polígono regular.
      * 
-     * @param center centro do polígono.
-     * @param sides quantidade de lados.
-     * @param radius raio.
-     * @param rotation rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Centro do polígono.
+     * @param sides Quantidade de lados.
+     * @param radius Raio.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawPolygon( Vector2 center, double sides, double radius, double rotation, Color color ) {
         drawPolygon( center.x, center.y, sides, radius, rotation, color );
@@ -2162,11 +2233,11 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um polígono regular.
      * 
-     * @param center centro do polígono.
-     * @param sides quantidade de lados.
-     * @param radius raio.
-     * @param rotation rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Centro do polígono.
+     * @param sides Quantidade de lados.
+     * @param radius Raio.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawPolygon( Point center, double sides, double radius, double rotation, Color color ) {
         drawPolygon( center.x, center.y, sides, radius, rotation, color );
@@ -2175,8 +2246,8 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um polígono regular.
      * 
-     * @param polygon um polígono regular.
-     * @param color cor de desenho.
+     * @param polygon Um polígono regular.
+     * @param color Cor de desenho.
      */
     public void drawPolygon( Polygon polygon, Color color ) {
         drawPolygon( polygon.x, polygon.y, polygon.sides, polygon.radius, polygon.rotation, color );
@@ -2185,26 +2256,26 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um polígono regular.
      * 
-     * @param centerX coordenada x do centro do polígono.
-     * @param centerY coordenada y do centro do polígono.
-     * @param sides quantidade de lados.
-     * @param radius raio.
-     * @param rotation rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param x Coordenada x do centro do polígono.
+     * @param y Coordenada y do centro do polígono.
+     * @param sides Quantidade de lados.
+     * @param radius Raio.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
-    public void fillPolygon( double centerX, double centerY, double sides, double radius, double rotation, Color color ) {
+    public void fillPolygon( double x, double y, double sides, double radius, double rotation, Color color ) {
         g2d.setColor( color );
-        g2d.fill( DrawingUtils.createPolygon( centerX, centerY, sides, radius, rotation ) );
+        g2d.fill( DrawingUtils.createPolygon( x, y, sides, radius, rotation ) );
     }
 
     /**
      * Pinta um polígono regular.
      * 
-     * @param center centro do polígono.
-     * @param sides quantidade de lados.
-     * @param radius raio.
-     * @param rotation rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Centro do polígono.
+     * @param sides Quantidade de lados.
+     * @param radius Raio.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void fillPolygon( Vector2 center, double sides, double radius, double rotation, Color color ) {
         fillPolygon( center.x, center.y, sides, radius, rotation, color );
@@ -2213,11 +2284,11 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um polígono regular.
      * 
-     * @param center centro do polígono.
-     * @param sides quantidade de lados.
-     * @param radius raio.
-     * @param rotation rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param center Centro do polígono.
+     * @param sides Quantidade de lados.
+     * @param radius Raio.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void fillPolygon( Point center, double sides, double radius, double rotation, Color color ) {
         fillPolygon( center.x, center.y, sides, radius, rotation, color );
@@ -2226,8 +2297,8 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta um polígono regular.
      * 
-     * @param polygon um polígono regular.
-     * @param color cor de desenho.
+     * @param polygon Um polígono regular.
+     * @param color Cor de desenho.
      */
     public void fillPolygon( Polygon polygon, Color color ) {
         fillPolygon( polygon.x, polygon.y, polygon.sides, polygon.radius, polygon.rotation, color );
@@ -2236,8 +2307,8 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um caminho.
      * 
-     * @param path caminho a ser desenhado.
-     * @param color cor de desenho.
+     * @param path Caminho a ser desenhado.
+     * @param color Cor de desenho.
      */
     public void drawPath( Path path, Color color ) {
         g2d.setColor( color );
@@ -2247,8 +2318,8 @@ public abstract class Engine extends JFrame {
     /**
      * Ponta um caminho.
      * 
-     * @param path caminho a ser desenhado.
-     * @param color cor de desenho.
+     * @param path Caminho a ser desenhado.
+     * @param color Cor de desenho.
      */
     public void fillPath( Path path, Color color ) {
         g2d.setColor( color );
@@ -2257,20 +2328,20 @@ public abstract class Engine extends JFrame {
 
     
     
-    /***************************************************************************
-     * Métodos de desenhos de curvas.
-     **************************************************************************/
+    //**************************************************************************
+    // Métodos de desenhos de curvas.
+    //**************************************************************************
 
     /**
      * Desenha uma curva quadrática (curva Bézier quadrática).
      * 
-     * @param p1x coordenada x do ponto inicial.
-     * @param p1y coordenada y do ponto inicial.
-     * @param cx coordenada x do ponto de controle.
-     * @param cy coordenada y do ponto de controle.
-     * @param p2x coordenada x do ponto final.
-     * @param p2y coordenada y do ponto final.
-     * @param color cor de desenhho.
+     * @param p1x Coordenada x do ponto inicial.
+     * @param p1y Coordenada y do ponto inicial.
+     * @param cx Coordenada x do ponto de controle.
+     * @param cy Coordenada y do ponto de controle.
+     * @param p2x Coordenada x do ponto final.
+     * @param p2y Coordenada y do ponto final.
+     * @param color Cor de desenhho.
      */
     public void drawQuadCurve( double p1x, double p1y, double cx, double cy, double p2x, double p2y, Color color ) {
         g2d.setColor( color );
@@ -2280,10 +2351,10 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha uma curva quadrática (curva Bézier quadrática).
      * 
-     * @param p1 ponto inicial.
-     * @param c ponto de controle.
-     * @param p2 ponto final.
-     * @param color cor de desenhho.
+     * @param p1 Ponto inicial.
+     * @param c Ponto de controle.
+     * @param p2 Ponto final.
+     * @param color Cor de desenhho.
      */
     public void drawQuadCurve( Vector2 p1, Vector2 c, Vector2 p2, Color color ) {
         drawQuadCurve( p1.x, p1.y, c.x, c.y, p2.x, p2.y, color );
@@ -2292,10 +2363,10 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha uma curva quadrática (curva Bézier quadrática).
      * 
-     * @param p1 ponto inicial.
-     * @param c ponto de controle.
-     * @param p2 ponto final.
-     * @param color cor de desenhho.
+     * @param p1 Ponto inicial.
+     * @param c Ponto de controle.
+     * @param p2 Ponto final.
+     * @param color Cor de desenhho.
      */
     public void drawQuadCurve( Point p1, Point c, Point p2, Color color ) {
         drawQuadCurve( p1.x, p1.y, c.x, c.y, p2.x, p2.y, color );
@@ -2304,8 +2375,8 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha uma curva quadrática (curva Bézier quadrática).
      * 
-     * @param quadCurve uma curva Bézier quadrática.
-     * @param color cor de desenhho.
+     * @param quadCurve Uma curva Bézier quadrática.
+     * @param color Cor de desenhho.
      */
     public void drawQuadCurve( QuadCurve quadCurve, Color color ) {
         drawQuadCurve( quadCurve.x1, quadCurve.y1, quadCurve.cx, quadCurve.cy, quadCurve.x2, quadCurve.y2, color );
@@ -2314,13 +2385,13 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta uma curva quadrática (curva Bézier quadrática).
      * 
-     * @param p1x coordenada x do ponto inicial.
-     * @param p1y coordenada y do ponto inicial.
-     * @param cx coordenada x do ponto de controle.
-     * @param cy coordenada y do ponto de controle.
-     * @param p2x coordenada x do ponto final.
-     * @param p2y coordenada y do ponto final.
-     * @param color cor de desenhho.
+     * @param p1x Coordenada x do ponto inicial.
+     * @param p1y Coordenada y do ponto inicial.
+     * @param cx Coordenada x do ponto de controle.
+     * @param cy Coordenada y do ponto de controle.
+     * @param p2x Coordenada x do ponto final.
+     * @param p2y Coordenada y do ponto final.
+     * @param color Cor de desenhho.
      */
     public void fillQuadCurve( double p1x, double p1y, double cx, double cy, double p2x, double p2y, Color color ) {
         g2d.setColor( color );
@@ -2330,10 +2401,10 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta uma curva quadrática (curva Bézier quadrática).
      * 
-     * @param p1 ponto inicial.
-     * @param c ponto de controle.
-     * @param p2 ponto final.
-     * @param color cor de desenhho.
+     * @param p1 Ponto inicial.
+     * @param c Ponto de controle.
+     * @param p2 Ponto final.
+     * @param color Cor de desenhho.
      */
     public void fillQuadCurve( Vector2 p1, Vector2 c, Vector2 p2, Color color ) {
         fillQuadCurve( p1.x, p1.y, c.x, c.y, p2.x, p2.y, color );
@@ -2342,10 +2413,10 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta uma curva quadrática (curva Bézier quadrática).
      * 
-     * @param p1 ponto inicial.
-     * @param c ponto de controle.
-     * @param p2 ponto final.
-     * @param color cor de desenhho.
+     * @param p1 Ponto inicial.
+     * @param c Ponto de controle.
+     * @param p2 Ponto final.
+     * @param color Cor de desenhho.
      */
     public void fillQuadCurve( Point p1, Point c, Point p2, Color color ) {
         fillQuadCurve( p1.x, p1.y, c.x, c.y, p2.x, p2.y, color );
@@ -2354,8 +2425,8 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta uma curva quadrática (curva Bézier quadrática).
      * 
-     * @param quadCurve uma curva Bézier quadrática.
-     * @param color cor de desenhho.
+     * @param quadCurve Uma curva Bézier quadrática.
+     * @param color Cor de desenhho.
      */
     public void fillQuadCurve( QuadCurve quadCurve, Color color ) {
         fillQuadCurve( quadCurve.x1, quadCurve.y1, quadCurve.cx, quadCurve.cy, quadCurve.x2, quadCurve.y2, color );
@@ -2364,15 +2435,15 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha uma curva cúbica (curva Bézier cúbica).
      * 
-     * @param p1x coordenada x do ponto inicial.
-     * @param p1y coordenada y do ponto inicial.
-     * @param c1x coordenada x do primeiro ponto de controle.
-     * @param c1y coordenada y do primeiro ponto de controle.
-     * @param c2x coordenada x do segundo ponto de controle.
-     * @param c2y coordenada y do segundo ponto de controle.
-     * @param p2x coordenada x do ponto final.
-     * @param p2y coordenada y do ponto final.
-     * @param color cor de desenhho.
+     * @param p1x Coordenada x do ponto inicial.
+     * @param p1y Coordenada y do ponto inicial.
+     * @param c1x Coordenada x do primeiro ponto de controle.
+     * @param c1y Coordenada y do primeiro ponto de controle.
+     * @param c2x Coordenada x do segundo ponto de controle.
+     * @param c2y Coordenada y do segundo ponto de controle.
+     * @param p2x Coordenada x do ponto final.
+     * @param p2y Coordenada y do ponto final.
+     * @param color Cor de desenhho.
      */
     public void drawCubicCurve( double p1x, double p1y, double c1x, double c1y, double c2x, double c2y, double p2x, double p2y, Color color ) {
         g2d.setColor( color );
@@ -2382,11 +2453,11 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha uma curva cúbica (curva Bézier cúbica).
      * 
-     * @param p1 ponto inicial.
-     * @param c1 primeiro ponto de controle.
-     * @param c2 segundo ponto de controle.
-     * @param p2 ponto final.
-     * @param color cor de desenhho.
+     * @param p1 Ponto inicial.
+     * @param c1 Primeiro ponto de controle.
+     * @param c2 Segundo ponto de controle.
+     * @param p2 Ponto final.
+     * @param color Cor de desenhho.
      */
     public void drawCubicCurve( Vector2 p1, Vector2 c1, Vector2 c2, Vector2 p2, Color color ) {
         drawCubicCurve( p1.x, p1.y, c1.x, c1.y, c2.x, c2.y, p2.x, p2.y, color );
@@ -2395,11 +2466,11 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha uma curva cúbica (curva Bézier cúbica).
      * 
-     * @param p1 ponto inicial.
-     * @param c1 primeiro ponto de controle.
-     * @param c2 segundo ponto de controle.
-     * @param p2 ponto final.
-     * @param color cor de desenhho.
+     * @param p1 Ponto inicial.
+     * @param c1 Primeiro ponto de controle.
+     * @param c2 Segundo ponto de controle.
+     * @param p2 Ponto final.
+     * @param color Cor de desenhho.
      */
     public void drawCubicCurve( Point p1, Point c1, Point c2, Point p2, Color color ) {
         drawCubicCurve( p1.x, p1.y, c1.x, c1.y, c2.x, c2.y, p2.x, p2.y, color );
@@ -2408,8 +2479,8 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha uma curva cúbica (curva Bézier cúbica).
      * 
-     * @param cubicCurve uma curva Bézier cúbica.
-     * @param color cor de desenhho.
+     * @param cubicCurve Uma curva Bézier cúbica.
+     * @param color Cor de desenhho.
      */
     public void drawCubicCurve( CubicCurve cubicCurve, Color color ) {
         drawCubicCurve( cubicCurve.x1, cubicCurve.y1, cubicCurve.c1x, cubicCurve.c1y, cubicCurve.c2x, cubicCurve.c2y, cubicCurve.x2, cubicCurve.y2, color );
@@ -2418,15 +2489,15 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta uma curva cúbica (curva Bézier cúbica).
      * 
-     * @param p1x coordenada x do ponto inicial.
-     * @param p1y coordenada y do ponto inicial.
-     * @param c1x coordenada x do primeiro ponto de controle.
-     * @param c1y coordenada y do primeiro ponto de controle.
-     * @param c2x coordenada x do segundo ponto de controle.
-     * @param c2y coordenada y do segundo ponto de controle.
-     * @param p2x coordenada x do ponto final.
-     * @param p2y coordenada y do ponto final.
-     * @param color cor de desenhho.
+     * @param p1x Coordenada x do ponto inicial.
+     * @param p1y Coordenada y do ponto inicial.
+     * @param c1x Coordenada x do primeiro ponto de controle.
+     * @param c1y Coordenada y do primeiro ponto de controle.
+     * @param c2x Coordenada x do segundo ponto de controle.
+     * @param c2y Coordenada y do segundo ponto de controle.
+     * @param p2x Coordenada x do ponto final.
+     * @param p2y Coordenada y do ponto final.
+     * @param color Cor de desenhho.
      */
     public void fillCubicCurve( double p1x, double p1y, double c1x, double c1y, double c2x, double c2y, double p2x, double p2y, Color color ) {
         g2d.setColor( color );
@@ -2436,11 +2507,11 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta uma curva cúbica (curva Bézier cúbica).
      * 
-     * @param p1 ponto inicial.
-     * @param c1 primeiro ponto de controle.
-     * @param c2 segundo ponto de controle.
-     * @param p2 ponto final.
-     * @param color cor de desenhho.
+     * @param p1 Ponto inicial.
+     * @param c1 Primeiro ponto de controle.
+     * @param c2 Segundo ponto de controle.
+     * @param p2 Ponto final.
+     * @param color Cor de desenhho.
      */
     public void fillCubicCurve( Vector2 p1, Vector2 c1, Vector2 c2, Vector2 p2, Color color ) {
         fillCubicCurve( p1.x, p1.y, c1.x, c1.y, c2.x, c2.y, p2.x, p2.y, color );
@@ -2449,11 +2520,11 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta uma curva cúbica (curva Bézier cúbica).
      * 
-     * @param p1 ponto inicial.
-     * @param c1 primeiro ponto de controle.
-     * @param c2 segundo ponto de controle.
-     * @param p2 ponto final.
-     * @param color cor de desenhho.
+     * @param p1 Ponto inicial.
+     * @param c1 Primeiro ponto de controle.
+     * @param c2 Segundo ponto de controle.
+     * @param p2 Ponto final.
+     * @param color Cor de desenhho.
      */
     public void fillCubicCurve( Point p1, Point c1, Point c2, Point p2, Color color ) {
         fillCubicCurve( p1.x, p1.y, c1.x, c1.y, c2.x, c2.y, p2.x, p2.y, color );
@@ -2462,8 +2533,8 @@ public abstract class Engine extends JFrame {
     /**
      * Pinta uma curva cúbica (curva Bézier cúbica).
      * 
-     * @param cubicCurve uma curva Bézier cúbica.
-     * @param color cor de desenhho.
+     * @param cubicCurve Uma curva Bézier cúbica.
+     * @param color Cor de desenhho.
      */
     public void fillCubicCurve( CubicCurve cubicCurve, Color color ) {
         fillCubicCurve( cubicCurve.x1, cubicCurve.y1, cubicCurve.c1x, cubicCurve.c1y, cubicCurve.c2x, cubicCurve.c2y, cubicCurve.x2, cubicCurve.y2, color );
@@ -2471,17 +2542,17 @@ public abstract class Engine extends JFrame {
     
 
     
-    /***************************************************************************
-     * Métodos de desenho de texto.
-     **************************************************************************/
+    //**************************************************************************
+    // Métodos de desenho de texto.
+    //**************************************************************************
 
     /**
      * Desenha um texto usando o tamanho de fonte corrente.
      * 
-     * @param text o texto a ser desenhado.
-     * @param x coordenada x do início do desenho do texto.
-     * @param y coordenada y do início do desenho do texto.
-     * @param color cor de desenho.
+     * @param text O texto a ser desenhado.
+     * @param x Coordenada x do início do desenho do texto.
+     * @param y Coordenada y do início do desenho do texto.
+     * @param color Cor de desenho.
      */
     public void drawText( String text, double x, double y, Color color ) {
         g2d.setColor( color );
@@ -2493,11 +2564,11 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto rotacionado usando o tamanho de fonte corrente.
      * 
-     * @param text o texto a ser desenhado.
-     * @param x coordenada x do início do desenho do texto.
-     * @param y coordenada y do início do desenho do texto.
-     * @param rotation ângulo de rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param text O texto a ser desenhado.
+     * @param x Coordenada x do início do desenho do texto.
+     * @param y Coordenada y do início do desenho do texto.
+     * @param rotation Ângulo de rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawText( String text, double x, double y, double rotation, Color color ) {
         drawText( text, x, y, 0, 0, rotation, color );
@@ -2506,13 +2577,13 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto rotacionado usando o tamanho de fonte corrente.
      * 
-     * @param text o texto a ser desenhado.
-     * @param x coordenada x do início do desenho do texto.
-     * @param y coordenada y do início do desenho do texto.
-     * @param originX coordenada x do pivô de rotação.
-     * @param originY coordenada y do pivô de rotação.
-     * @param rotation ângulo de rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param text O texto a ser desenhado.
+     * @param x Coordenada x do início do desenho do texto.
+     * @param y Coordenada y do início do desenho do texto.
+     * @param originX Coordenada x do pivô de rotação.
+     * @param originY Coordenada y do pivô de rotação.
+     * @param rotation Ângulo de rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawText( String text, double x, double y, double originX, double originY, double rotation, Color color ) {
         g2d.setColor( color );
@@ -2527,11 +2598,11 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto.
      * 
-     * @param text o texto a ser desenhado.
-     * @param x coordenada x do início do desenho do texto.
-     * @param y coordenada y do início do desenho do texto.
-     * @param fontSize tamanho da fonte.
-     * @param color cor de desenho.
+     * @param text O texto a ser desenhado.
+     * @param x Coordenada x do início do desenho do texto.
+     * @param y Coordenada y do início do desenho do texto.
+     * @param fontSize Tamanho da fonte.
+     * @param color Cor de desenho.
      */
     public void drawText( String text, double x, double y, int fontSize, Color color ) {
         g2d.setColor( color );
@@ -2546,12 +2617,12 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto rotacionado.
      * 
-     * @param text o texto a ser desenhado.
-     * @param x coordenada x do início do desenho do texto.
-     * @param y coordenada y do início do desenho do texto.
-     * @param rotation ângulo de rotação em graus (sentido horário).
-     * @param fontSize tamanho da fonte.
-     * @param color cor de desenho.
+     * @param text O texto a ser desenhado.
+     * @param x Coordenada x do início do desenho do texto.
+     * @param y Coordenada y do início do desenho do texto.
+     * @param rotation Ângulo de rotação em graus (sentido horário).
+     * @param fontSize Tamanho da fonte.
+     * @param color Cor de desenho.
      */
     public void drawText( String text, double x, double y, double rotation, int fontSize, Color color ) {
         drawText( text, x, y, 0, 0, rotation, fontSize, color );
@@ -2560,14 +2631,14 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto rotacionado.
      * 
-     * @param text o texto a ser desenhado.
-     * @param x coordenada x do início do desenho do texto.
-     * @param y coordenada y do início do desenho do texto.
-     * @param originX coordenada x do pivô de rotação.
-     * @param originY coordenada y do pivô de rotação.
-     * @param rotation ângulo de rotação em graus (sentido horário).
-     * @param fontSize tamanho da fonte.
-     * @param color cor de desenho.
+     * @param text O texto a ser desenhado.
+     * @param x Coordenada x do início do desenho do texto.
+     * @param y Coordenada y do início do desenho do texto.
+     * @param originX Coordenada x do pivô de rotação.
+     * @param originY Coordenada y do pivô de rotação.
+     * @param rotation Ângulo de rotação em graus (sentido horário).
+     * @param fontSize Tamanho da fonte.
+     * @param color Cor de desenho.
      */
     public void drawText( String text, double x, double y, double originX, double originY, double rotation, int fontSize, Color color ) {
         g2d.setColor( color );
@@ -2583,9 +2654,9 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto usando o tamanho de fonte corrente.
      * 
-     * @param text o texto a ser desenhado.
-     * @param point ponto do inicio do desenho do texto.
-     * @param color cor de desenho.
+     * @param text O texto a ser desenhado.
+     * @param point Ponto do inicio do desenho do texto.
+     * @param color Cor de desenho.
      */
     public void drawText( String text, Point point, Color color ) {
         drawText( text, point.x, point.y, color );
@@ -2594,10 +2665,10 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto rotacionado usando o tamanho de fonte corrente.
      * 
-     * @param text o texto a ser desenhado.
-     * @param point ponto do inicio do desenho do texto.
-     * @param rotation ângulo de rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param text O texto a ser desenhado.
+     * @param point Ponto do inicio do desenho do texto.
+     * @param rotation Ângulo de rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawText( String text, Point point, double rotation, Color color ) {
         drawText( text, point.x, point.y, 0, 0, rotation, color );
@@ -2606,11 +2677,11 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto rotacionado usando o tamanho de fonte corrente.
      * 
-     * @param text o texto a ser desenhado.
-     * @param point ponto do inicio do desenho do texto.
+     * @param text O texto a ser desenhado.
+     * @param point Ponto do inicio do desenho do texto.
      * @param origin ponto do pivô de rotação.
-     * @param rotation ângulo de rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param rotation Ângulo de rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawText( String text, Point point, Point origin, double rotation, Color color ) {
         drawText( text, point.x, point.y, origin.x, origin.y, rotation, color );
@@ -2619,10 +2690,10 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto.
      * 
-     * @param text o texto a ser desenhado.
-     * @param point ponto do inicio do desenho do texto.
-     * @param fontSize tamanho da fonte.
-     * @param color cor de desenho.
+     * @param text O texto a ser desenhado.
+     * @param point Ponto do inicio do desenho do texto.
+     * @param fontSize Tamanho da fonte.
+     * @param color Cor de desenho.
      */
     public void drawText( String text, Point point, int fontSize, Color color ) {
         drawText( text, point.x, point.y, fontSize, color );
@@ -2631,11 +2702,11 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto rotacionado.
      * 
-     * @param text o texto a ser desenhado.
-     * @param point ponto do inicio do desenho do texto.
-     * @param rotation ângulo de rotação em graus (sentido horário).
-     * @param fontSize tamanho da fonte.
-     * @param color cor de desenho.
+     * @param text O texto a ser desenhado.
+     * @param point Ponto do inicio do desenho do texto.
+     * @param rotation Ângulo de rotação em graus (sentido horário).
+     * @param fontSize Tamanho da fonte.
+     * @param color Cor de desenho.
      */
     public void drawText( String text, Point point, double rotation, int fontSize, Color color ) {
         drawText( text, point.x, point.y, 0, 0, rotation, fontSize, color );
@@ -2644,12 +2715,12 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto.
      * 
-     * @param text o texto a ser desenhado.
-     * @param point ponto do inicio do desenho do texto.
+     * @param text O texto a ser desenhado.
+     * @param point Ponto do inicio do desenho do texto.
      * @param origin ponto do pivô de rotação.
-     * @param rotation ângulo de rotação em graus (sentido horário).
-     * @param fontSize tamanho da fonte.
-     * @param color cor de desenho.
+     * @param rotation Ângulo de rotação em graus (sentido horário).
+     * @param fontSize Tamanho da fonte.
+     * @param color Cor de desenho.
      */
     public void drawText( String text, Point point, Point origin, double rotation, int fontSize, Color color ) {
         drawText( text, point.x, point.y, origin.x, origin.y, rotation, fontSize, color );
@@ -2658,9 +2729,9 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto usando o tamanho de fonte corrente.
      * 
-     * @param text o texto a ser desenhado.
-     * @param point ponto do inicio do desenho do texto.
-     * @param color cor de desenho.
+     * @param text O texto a ser desenhado.
+     * @param point Ponto do inicio do desenho do texto.
+     * @param color Cor de desenho.
      */
     public void drawText( String text, Vector2 point, Color color ) {
         drawText( text, point.x, point.y, color );
@@ -2669,10 +2740,10 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto rotacionado usando o tamanho de fonte corrente.
      * 
-     * @param text o texto a ser desenhado.
-     * @param point ponto do inicio do desenho do texto.
-     * @param rotation ângulo de rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param text O texto a ser desenhado.
+     * @param point Ponto do inicio do desenho do texto.
+     * @param rotation Ângulo de rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawText( String text, Vector2 point, double rotation, Color color ) {
         drawText( text, point.x, point.y, 0, 0, rotation, color );
@@ -2681,11 +2752,11 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto rotacionado usando o tamanho de fonte corrente.
      * 
-     * @param text o texto a ser desenhado.
-     * @param point ponto do inicio do desenho do texto.
+     * @param text O texto a ser desenhado.
+     * @param point Ponto do inicio do desenho do texto.
      * @param origin ponto do pivô de rotação.
-     * @param rotation ângulo de rotação em graus (sentido horário).
-     * @param color cor de desenho.
+     * @param rotation Ângulo de rotação em graus (sentido horário).
+     * @param color Cor de desenho.
      */
     public void drawText( String text, Vector2 point, Vector2 origin, double rotation, Color color ) {
         drawText( text, point.x, point.y, origin.x, origin.y, rotation, color );
@@ -2694,10 +2765,10 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto.
      * 
-     * @param text o texto a ser desenhado.
-     * @param point ponto do inicio do desenho do texto.
-     * @param fontSize tamanho da fonte.
-     * @param color cor de desenho.
+     * @param text O texto a ser desenhado.
+     * @param point Ponto do inicio do desenho do texto.
+     * @param fontSize Tamanho da fonte.
+     * @param color Cor de desenho.
      */
     public void drawText( String text, Vector2 point, int fontSize, Color color ) {
         drawText( text, point.x, point.y, fontSize, color );
@@ -2706,11 +2777,11 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto rotacionado.
      * 
-     * @param text o texto a ser desenhado.
-     * @param point ponto do inicio do desenho do texto.
-     * @param rotation ângulo de rotação em graus (sentido horário).
-     * @param fontSize tamanho da fonte.
-     * @param color cor de desenho.
+     * @param text O texto a ser desenhado.
+     * @param point Ponto do inicio do desenho do texto.
+     * @param rotation Ângulo de rotação em graus (sentido horário).
+     * @param fontSize Tamanho da fonte.
+     * @param color Cor de desenho.
      */
     public void drawText( String text, Vector2 point, double rotation, int fontSize, Color color ) {
         drawText( text, point.x, point.y, 0, 0, rotation, fontSize, color );
@@ -2719,12 +2790,12 @@ public abstract class Engine extends JFrame {
     /**
      * Desenha um texto rotacionado.
      * 
-     * @param text o texto a ser desenhado.
-     * @param point ponto do inicio do desenho do texto.
+     * @param text O texto a ser desenhado.
+     * @param point Ponto do inicio do desenho do texto.
      * @param origin ponto do pivô de rotação.
-     * @param rotation ângulo de rotação em graus (sentido horário).
-     * @param fontSize tamanho da fonte.
-     * @param color cor de desenho.
+     * @param rotation Ângulo de rotação em graus (sentido horário).
+     * @param fontSize Tamanho da fonte.
+     * @param color Cor de desenho.
      */
     public void drawText( String text, Vector2 point, Vector2 origin, double rotation, int fontSize, Color color ) {
         drawText( text, point.x, point.y, origin.x, origin.y, rotation, fontSize, color );
@@ -2733,8 +2804,8 @@ public abstract class Engine extends JFrame {
     /**
      * Mede a largura de um texto.
      * 
-     * @param text o texto a ser medido.
-     * @return a largura de um texto.
+     * @param text O texto a ser medido.
+     * @return A largura de um texto.
      */
     public int measureText( String text ) {
         return g2d.getFontMetrics().stringWidth( text );
@@ -2743,9 +2814,9 @@ public abstract class Engine extends JFrame {
     /**
      * Mede a largura de um texto.
      * 
-     * @param text o texto a ser medido.
-     * @param fontSize tamanho da fonte.
-     * @return a largura de um texto.
+     * @param text O texto a ser medido.
+     * @param fontSize Tamanho da fonte.
+     * @return A largura de um texto.
      */
     public int measureText( String text, int fontSize ) {
         Font f = g2d.getFont();
@@ -2758,8 +2829,8 @@ public abstract class Engine extends JFrame {
     /**
      * Mede os limites do texto.
      * 
-     * @param text o texto a ser medido.
-     * @return um retângulo que limita o texto.
+     * @param text O texto a ser medido.
+     * @return Um retângulo que limita o texto.
      */
     public Rectangle measureTextBounds( String text ) {
         Rectangle2D r2d = g2d.getFontMetrics().getStringBounds( text, g2d );
@@ -2769,9 +2840,9 @@ public abstract class Engine extends JFrame {
     /**
      * Mede a largura de um texto.
      * 
-     * @param text o texto a ser medido.
-     * @param fontSize tamanho da fonte.
-     * @return a largura de um texto.
+     * @param text O texto a ser medido.
+     * @param fontSize Tamanho da fonte.
+     * @return A largura de um texto.
      */
     public Rectangle measureTextBounds( String text, int fontSize ) {
         Font f = g2d.getFont();
@@ -2784,23 +2855,25 @@ public abstract class Engine extends JFrame {
     
     
 
-    /***************************************************************************
-     * Métodos utilitários variados.
-     **************************************************************************/
+    //**************************************************************************
+    // Métodos utilitários variados.
+    //**************************************************************************
 
     /**
      * Limpa o fundo da tela de desenho.
      * 
-     * @param color cor a ser usada.
+     * @param color Cor a ser usada.
      */
     public void clearBackground( Color color ) {
         fillRectangle( 0, 0, getScreenWidth(), getScreenHeight(), color );
     }
 
-    /***************************************************************************
-     * Métodos para obtenção e/ou configuração de opções e/ou dados
-     * relativos à execução.
-     **************************************************************************/
+    
+    
+    //**************************************************************************
+    // Métodos para obtenção e/ou configuração de opções e/ou dados
+    // relativos à execução.
+    //**************************************************************************
     
     /**
      * Configura o quantidade de quadros por segundo desejado para a execução
@@ -2830,7 +2903,7 @@ public abstract class Engine extends JFrame {
     /**
      * Obtém o tempo que um frame demorou para ser atualizado e desenhado.
      * 
-     * @return o tempo que um frame demorou para ser atualizado e desenhado.
+     * @return O tempo que um frame demorou para ser atualizado e desenhado.
      */
     public double getFrameTime() {
         return frameTime / 1000.0;
@@ -2848,7 +2921,7 @@ public abstract class Engine extends JFrame {
     /**
      * Obtém a quantidade de quadros por segundo atual.
      * 
-     * @return a quantidade de quadros por segundo atual.
+     * @return A quantidade de quadros por segundo atual.
      */
     public int getFPS() {
         return currentFPS;
@@ -2947,9 +3020,9 @@ public abstract class Engine extends JFrame {
     
     
     
-    /***************************************************************************
-     * Métodos de logging.
-     **************************************************************************/
+    //**************************************************************************
+    // Métodos de logging.
+    //**************************************************************************
     
     /**
      * Emite uma mensagem de log no stream de saída de erro.
@@ -3028,9 +3101,9 @@ public abstract class Engine extends JFrame {
     
     
     
-    /***************************************************************************
-     * Métodos para configuração da fonte e do contorno.
-     **************************************************************************/
+    //**************************************************************************
+    // Métodos para configuração da fonte e do contorno.
+    //**************************************************************************
 
     /**
      * Altera a fonte padrão do contexto gráfico.
@@ -3178,9 +3251,10 @@ public abstract class Engine extends JFrame {
 
     
     
-    /***************************************************************************
-     * Métodos para carga e desenho de imagens.
-     **************************************************************************/
+    //**************************************************************************
+    // Métodos para carga e desenho de imagens.
+    //**************************************************************************
+    
     /**
      * Carrega uma imagem.
      * 
@@ -3526,9 +3600,11 @@ public abstract class Engine extends JFrame {
     }
     
     
-    /***************************************************************************
-     * Métodos para gerenciamento do cursor do mouse.
-     **************************************************************************/
+    
+    //**************************************************************************
+    // Métodos para gerenciamento do cursor do mouse.
+    //**************************************************************************
+    
     /**
      * Configura o cursor do mouse.
      * 
@@ -3564,9 +3640,9 @@ public abstract class Engine extends JFrame {
     
     
     
-    /***************************************************************************
-     * Métodos para controle da câmera
-     **************************************************************************/
+    //**************************************************************************
+    // Métodos para controle da câmera
+    //**************************************************************************
     
     /**
      * Inicia o modo 2D usando a câmera.
@@ -3606,9 +3682,9 @@ public abstract class Engine extends JFrame {
     
     
     
-    /***************************************************************************
-     * Métodos para controle de sons e músicas
-     **************************************************************************/
+    //**************************************************************************
+    // Métodos para controle de sons e músicas
+    //**************************************************************************
     
     /**
      * Carrega um som de um arquivo.
@@ -3882,9 +3958,9 @@ public abstract class Engine extends JFrame {
     
     
     
-    /***************************************************************************
-     * Classes internas privadas.
-     **************************************************************************/
+    //**************************************************************************
+    // Classes internas privadas.
+    //**************************************************************************
     
     /**
      * Classe interna que encapsula o processo de desenho.
@@ -3925,11 +4001,19 @@ public abstract class Engine extends JFrame {
      */
     private class InputManager implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
         
-        /**
+        /*
          * Códigos do mouse (apenas para diferenciar as operações de rolagem
          * da roda do mouse).
          */
+        
+        /**
+         * Constante que indica operação da roda de rolagem do mouse para cima.
+         */
         public static final int MOUSE_WHEEL_UP = 3000;
+        
+        /**
+         * Constante que indica operação da roda de rolagem do mouse para baixo.
+         */
         public static final int MOUSE_WHEEL_DOWN = 4000;
 
         private Map<Integer, List<GameAction>> keyActionsMap = new HashMap<>();
@@ -4486,189 +4570,551 @@ public abstract class Engine extends JFrame {
 
     
     
-    /***************************************************************************
-     * Constantes para controle de teclado e mouse, iguais à da raylib.
-     **************************************************************************/
-    public static final int KEY_NULL            = 0;                         // Tecla: NULL, usada para indicar que nenhuma tecla foi pressionada
+    //**************************************************************************
+    // Constantes para teclas.
+    //**************************************************************************
+    
+    /** Tecla: NULL, usada para indicar que nenhuma tecla foi pressionada */
+    public static final int KEY_NULL            = 0;
 
     // alfa-numéricos
-    public static final int KEY_APOSTROPHE      = KeyEvent.VK_QUOTE;         // Tecla: '
-    public static final int KEY_COMMA           = KeyEvent.VK_COMMA;         // Tecla: ,
-    public static final int KEY_MINUS           = KeyEvent.VK_MINUS;         // Tecla: -
-    public static final int KEY_PERIOD          = KeyEvent.VK_PERIOD;        // Tecla: .
-    public static final int KEY_SLASH           = KeyEvent.VK_SLASH;         // Tecla: /
-    public static final int KEY_ZERO            = KeyEvent.VK_0;             // Tecla: 0
-    public static final int KEY_ONE             = KeyEvent.VK_1;             // Tecla: 1
-    public static final int KEY_TWO             = KeyEvent.VK_2;             // Tecla: 2
-    public static final int KEY_THREE           = KeyEvent.VK_3;             // Tecla: 3
-    public static final int KEY_FOUR            = KeyEvent.VK_4;             // Tecla: 4
-    public static final int KEY_FIVE            = KeyEvent.VK_5;             // Tecla: 5
-    public static final int KEY_SIX             = KeyEvent.VK_6;             // Tecla: 6
-    public static final int KEY_SEVEN           = KeyEvent.VK_7;             // Tecla: 7
-    public static final int KEY_EIGHT           = KeyEvent.VK_8;             // Tecla: 8
-    public static final int KEY_NINE            = KeyEvent.VK_9;             // Tecla: 9
-    public static final int KEY_SEMICOLON       = KeyEvent.VK_SEMICOLON;     // Tecla: ;
-    public static final int KEY_EQUAL           = KeyEvent.VK_EQUALS;        // Tecla: =
-    public static final int KEY_A               = KeyEvent.VK_A;             // Tecla: A | a
-    public static final int KEY_B               = KeyEvent.VK_B;             // Tecla: B | b
-    public static final int KEY_C               = KeyEvent.VK_C;             // Tecla: C | c
-    public static final int KEY_D               = KeyEvent.VK_D;             // Tecla: D | d
-    public static final int KEY_E               = KeyEvent.VK_E;             // Tecla: E | e
-    public static final int KEY_F               = KeyEvent.VK_F;             // Tecla: F | f
-    public static final int KEY_G               = KeyEvent.VK_G;             // Tecla: G | g
-    public static final int KEY_H               = KeyEvent.VK_H;             // Tecla: H | h
-    public static final int KEY_I               = KeyEvent.VK_I;             // Tecla: I | i
-    public static final int KEY_J               = KeyEvent.VK_J;             // Tecla: J | j
-    public static final int KEY_K               = KeyEvent.VK_K;             // Tecla: K | k
-    public static final int KEY_L               = KeyEvent.VK_L;             // Tecla: L | l
-    public static final int KEY_M               = KeyEvent.VK_M;             // Tecla: M | m
-    public static final int KEY_N               = KeyEvent.VK_N;             // Tecla: N | n
-    public static final int KEY_O               = KeyEvent.VK_O;             // Tecla: O | o
-    public static final int KEY_P               = KeyEvent.VK_P;             // Tecla: P | p
-    public static final int KEY_Q               = KeyEvent.VK_Q;             // Tecla: Q | q
-    public static final int KEY_R               = KeyEvent.VK_R;             // Tecla: R | r
-    public static final int KEY_S               = KeyEvent.VK_S;             // Tecla: S | s
-    public static final int KEY_T               = KeyEvent.VK_T;             // Tecla: T | t
-    public static final int KEY_U               = KeyEvent.VK_U;             // Tecla: U | u
-    public static final int KEY_V               = KeyEvent.VK_V;             // Tecla: V | v
-    public static final int KEY_W               = KeyEvent.VK_W;             // Tecla: W | w
-    public static final int KEY_X               = KeyEvent.VK_X;             // Tecla: X | x
-    public static final int KEY_Y               = KeyEvent.VK_Y;             // Tecla: Y | y
-    public static final int KEY_Z               = KeyEvent.VK_Z;             // Tecla: Z | z
-    public static final int KEY_LEFT_BRACKET    = KeyEvent.VK_OPEN_BRACKET;  // Tecla: [
-    public static final int KEY_RIGHT_BRACKET   = KeyEvent.VK_CLOSE_BRACKET; // Tecla: ]
-    public static final int KEY_BACKSLASH       = KeyEvent.VK_BACK_SLASH;    // Tecla: '\'
-    public static final int KEY_GRAVE           = KeyEvent.VK_BACK_QUOTE;    // Tecla: `
-
-    // teclas de funções
-    public static final int KEY_SPACE           = KeyEvent.VK_SPACE;         // Tecla: Space
-    public static final int KEY_ESCAPE          = KeyEvent.VK_ESCAPE;        // Tecla: Esc
-    public static final int KEY_ENTER           = KeyEvent.VK_ENTER;         // Tecla: Enter
-    public static final int KEY_TAB             = KeyEvent.VK_TAB;           // Tecla: Tab
-    public static final int KEY_BACKSPACE       = KeyEvent.VK_BACK_SPACE;    // Tecla: Backspace
-    public static final int KEY_INSERT          = KeyEvent.VK_INSERT;        // Tecla: Ins
-    public static final int KEY_DELETE          = KeyEvent.VK_DELETE;        // Tecla: Del
-    public static final int KEY_RIGHT           = KeyEvent.VK_RIGHT;         // Tecla: Cursor right
-    public static final int KEY_LEFT            = KeyEvent.VK_LEFT;          // Tecla: Cursor left
-    public static final int KEY_DOWN            = KeyEvent.VK_DOWN;          // Tecla: Cursor down
-    public static final int KEY_UP              = KeyEvent.VK_UP;            // Tecla: Cursor up
-    public static final int KEY_PAGE_UP         = KeyEvent.VK_PAGE_UP;       // Tecla: Page up
-    public static final int KEY_PAGE_DOWN       = KeyEvent.VK_PAGE_DOWN;     // Tecla: Page down
-    public static final int KEY_HOME            = KeyEvent.VK_HOME;          // Tecla: Home
-    public static final int KEY_END             = KeyEvent.VK_END;           // Tecla: End
-    public static final int KEY_CAPS_LOCK       = KeyEvent.VK_CAPS_LOCK;     // Tecla: Caps lock
-    public static final int KEY_SCROLL_LOCK     = KeyEvent.VK_SCROLL_LOCK;   // Tecla: Scroll down
-    public static final int KEY_NUM_LOCK        = KeyEvent.VK_NUM_LOCK;      // Tecla: Num lock
-    public static final int KEY_PRINT_SCREEN    = KeyEvent.VK_PRINTSCREEN;   // Tecla: Print screen
-    public static final int KEY_PAUSE           = KeyEvent.VK_PAUSE;         // Tecla: Pause
-    public static final int KEY_F1              = KeyEvent.VK_F1;            // Tecla: F1
-    public static final int KEY_F2              = KeyEvent.VK_F2;            // Tecla: F2
-    public static final int KEY_F3              = KeyEvent.VK_F3;            // Tecla: F3
-    public static final int KEY_F4              = KeyEvent.VK_F4;            // Tecla: F4
-    public static final int KEY_F5              = KeyEvent.VK_F5;            // Tecla: F5
-    public static final int KEY_F6              = KeyEvent.VK_F6;            // Tecla: F6
-    public static final int KEY_F7              = KeyEvent.VK_F7;            // Tecla: F7
-    public static final int KEY_F8              = KeyEvent.VK_F8;            // Tecla: F8
-    public static final int KEY_F9              = KeyEvent.VK_F9;            // Tecla: F9
-    public static final int KEY_F10             = KeyEvent.VK_F10;           // Tecla: F10
-    public static final int KEY_F11             = KeyEvent.VK_F11;           // Tecla: F11
-    public static final int KEY_F12             = KeyEvent.VK_F12;           // Tecla: F12
-    public static final int KEY_SHIFT           = KeyEvent.VK_SHIFT;         // Tecla: Shift left
-    public static final int KEY_CONTROL         = KeyEvent.VK_CONTROL;       // Tecla: Control left
-    public static final int KEY_ALT             = KeyEvent.VK_ALT;           // Tecla: Alt left
-    public static final int KEY_SUPER           = KeyEvent.VK_WINDOWS;       // Tecla: Super left
-
-    // teclas do teclado numérico
-    public static final int KEY_KP_0            = KeyEvent.VK_NUMPAD0;       // Tecla: Keypad 0
-    public static final int KEY_KP_1            = KeyEvent.VK_NUMPAD1;       // Tecla: Keypad 1
-    public static final int KEY_KP_2            = KeyEvent.VK_NUMPAD2;       // Tecla: Keypad 2
-    public static final int KEY_KP_3            = KeyEvent.VK_NUMPAD3;       // Tecla: Keypad 3
-    public static final int KEY_KP_4            = KeyEvent.VK_NUMPAD4;       // Tecla: Keypad 4
-    public static final int KEY_KP_5            = KeyEvent.VK_NUMPAD5;       // Tecla: Keypad 5
-    public static final int KEY_KP_6            = KeyEvent.VK_NUMPAD6;       // Tecla: Keypad 6
-    public static final int KEY_KP_7            = KeyEvent.VK_NUMPAD7;       // Tecla: Keypad 7
-    public static final int KEY_KP_8            = KeyEvent.VK_NUMPAD8;       // Tecla: Keypad 8
-    public static final int KEY_KP_9            = KeyEvent.VK_NUMPAD9;       // Tecla: Keypad 9
-    public static final int KEY_KP_DIVIDE       = KeyEvent.VK_DIVIDE;        // Tecla: Keypad /
-    public static final int KEY_KP_MULTIPLY     = KeyEvent.VK_MULTIPLY;      // Tecla: Keypad *
-    public static final int KEY_KP_SUBTRACT     = KeyEvent.VK_SUBTRACT;      // Tecla: Keypad -
-    public static final int KEY_KP_ADD          = KeyEvent.VK_ADD;           // Tecla: Keypad +
-
-    // constantes para o mouse
-    public static final int MOUSE_BUTTON_LEFT    = MouseEvent.BUTTON1;       // botão da esquerda do mouse
-    public static final int MOUSE_BUTTON_RIGHT   = MouseEvent.BUTTON3;       // botão da direitra do mouse
-    public static final int MOUSE_BUTTON_MIDDLE  = MouseEvent.BUTTON2;       // botão do meio do mouse (pressionado)
-
-    // constantes para o cursor
-    public static final int MOUSE_CURSOR_DEFAULT       = Cursor.DEFAULT_CURSOR;   // cursor padrão
-    public static final int MOUSE_CURSOR_IBEAM         = Cursor.TEXT_CURSOR;      // cursor de texto
-    public static final int MOUSE_CURSOR_CROSSHAIR     = Cursor.CROSSHAIR_CURSOR; // cursor em cruz
-    public static final int MOUSE_CURSOR_POINTING_HAND = Cursor.HAND_CURSOR;      // cursor dedo apontando
-    public static final int MOUSE_CURSOR_RESIZE_EW     = Cursor.E_RESIZE_CURSOR;  // cursor redimensionamento horizontal
-    public static final int MOUSE_CURSOR_RESIZE_NS     = Cursor.N_RESIZE_CURSOR;  // cursor redimensionamento vertical
-    public static final int MOUSE_CURSOR_RESIZE_NWSE   = Cursor.NW_RESIZE_CURSOR; // cursor redimensionamento diagonal cima-esquerda -> baixo-direita
-    public static final int MOUSE_CURSOR_RESIZE_NESW   = Cursor.NE_RESIZE_CURSOR; // cursor redimensionamento diagonal baixo-esquerda -> cima-direita
-    public static final int MOUSE_CURSOR_RESIZE_ALL    = Cursor.MOVE_CURSOR;      // cursor redimensionamento omnidirecional
-    public static final int MOUSE_CURSOR_WAIT          = Cursor.WAIT_CURSOR;      // cursor aguarde
     
-    // constantes para fontes
-    public static final int FONT_PLAIN                 = Font.PLAIN;              // fonte sem estilo
-    public static final int FONT_BOLD                  = Font.BOLD;               // fonte em negrito
-    public static final int FONT_ITALIC                = Font.ITALIC;             // fonte em itálico
+    /** Tecla: ' */
+    public static final int KEY_APOSTROPHE      = KeyEvent.VK_QUOTE;
     
-    // constantes para contornos
-    public static final int STROKE_CAP_BUTT            = BasicStroke.CAP_BUTT;    // fim da linha sem decoração
-    public static final int STROKE_CAP_ROUND           = BasicStroke.CAP_ROUND;   // fim da linha redondo
-    public static final int STROKE_CAP_SQUARE          = BasicStroke.CAP_SQUARE;  // fim da linha quadrado
-    public static final int STROKE_JOIN_BEVEL          = BasicStroke.JOIN_BEVEL;  // junção entre linhas chanfrada
-    public static final int STROKE_JOIN_MITER          = BasicStroke.JOIN_MITER;  // junção entre linhas em esquadria
-    public static final int STROKE_JOIN_ROUND          = BasicStroke.JOIN_ROUND;  // junção entre linhas arredondado
+    /** Tecla: , */
+    public static final int KEY_COMMA           = KeyEvent.VK_COMMA;
+    
+    /** Tecla: - */
+    public static final int KEY_MINUS           = KeyEvent.VK_MINUS;
+    
+    /** Tecla: . */
+    public static final int KEY_PERIOD          = KeyEvent.VK_PERIOD;
+    
+    /** Tecla: / */
+    public static final int KEY_SLASH           = KeyEvent.VK_SLASH;
+    
+    /** Tecla: 0 */
+    public static final int KEY_ZERO            = KeyEvent.VK_0;
+    
+    /** Tecla: 1 */
+    public static final int KEY_ONE             = KeyEvent.VK_1;
+    
+    /** Tecla: 2 */
+    public static final int KEY_TWO             = KeyEvent.VK_2;
+    
+    /** Tecla: 3 */
+    public static final int KEY_THREE           = KeyEvent.VK_3;
+    
+    /** Tecla: 4 */
+    public static final int KEY_FOUR            = KeyEvent.VK_4;
+    
+    /** Tecla: 5 */
+    public static final int KEY_FIVE            = KeyEvent.VK_5;
+    
+    /** Tecla: 6 */
+    public static final int KEY_SIX             = KeyEvent.VK_6;
+    
+    /** Tecla: 7 */
+    public static final int KEY_SEVEN           = KeyEvent.VK_7;
+    
+    /** Tecla: 8 */
+    public static final int KEY_EIGHT           = KeyEvent.VK_8;
+    
+    /** Tecla: 9 */
+    public static final int KEY_NINE            = KeyEvent.VK_9;
+    
+    /** Tecla: ; */
+    public static final int KEY_SEMICOLON       = KeyEvent.VK_SEMICOLON;
+    
+    /** Tecla: = */
+    public static final int KEY_EQUAL           = KeyEvent.VK_EQUALS;
+    
+    /** Tecla: A */
+    public static final int KEY_A               = KeyEvent.VK_A;
+    
+    /** Tecla: B */
+    public static final int KEY_B               = KeyEvent.VK_B;
+    
+    /** Tecla: C */
+    public static final int KEY_C               = KeyEvent.VK_C;
+    
+    /** Tecla: D */
+    public static final int KEY_D               = KeyEvent.VK_D;
+    
+    /** Tecla: E */
+    public static final int KEY_E               = KeyEvent.VK_E;
+    
+    /** Tecla: F */
+    public static final int KEY_F               = KeyEvent.VK_F;
+    
+    /** Tecla: G */
+    public static final int KEY_G               = KeyEvent.VK_G;
+    
+    /** Tecla: H */
+    public static final int KEY_H               = KeyEvent.VK_H;
+    
+    /** Tecla: I */
+    public static final int KEY_I               = KeyEvent.VK_I;
+    
+    /** Tecla: J */
+    public static final int KEY_J               = KeyEvent.VK_J;
+    
+    /** Tecla: K */
+    public static final int KEY_K               = KeyEvent.VK_K;
+    
+    /** Tecla: L */
+    public static final int KEY_L               = KeyEvent.VK_L;
+    
+    /** Tecla: M */
+    public static final int KEY_M               = KeyEvent.VK_M;
+    
+    /** Tecla: N */
+    public static final int KEY_N               = KeyEvent.VK_N;
+    
+    /** Tecla: O */
+    public static final int KEY_O               = KeyEvent.VK_O;
+    
+    /** Tecla: P */
+    public static final int KEY_P               = KeyEvent.VK_P;
+    
+    /** Tecla: Q */
+    public static final int KEY_Q               = KeyEvent.VK_Q;
+    
+    /** Tecla: R */
+    public static final int KEY_R               = KeyEvent.VK_R;
+    
+    /** Tecla: S */
+    public static final int KEY_S               = KeyEvent.VK_S;
+    
+    /** Tecla: T */
+    public static final int KEY_T               = KeyEvent.VK_T;
+    
+    /** Tecla: U */
+    public static final int KEY_U               = KeyEvent.VK_U;
+    
+    /** Tecla: V */
+    public static final int KEY_V               = KeyEvent.VK_V;
+    
+    /** Tecla: W */
+    public static final int KEY_W               = KeyEvent.VK_W;
+    
+    /** Tecla: X */
+    public static final int KEY_X               = KeyEvent.VK_X;
+    
+    /** Tecla: Y */
+    public static final int KEY_Y               = KeyEvent.VK_Y;
+    
+    /** Tecla: Z */
+    public static final int KEY_Z               = KeyEvent.VK_Z;
+    
+    /** Tecla: [ */
+    public static final int KEY_LEFT_BRACKET    = KeyEvent.VK_OPEN_BRACKET;
+    
+    /** Tecla: ] */
+    public static final int KEY_RIGHT_BRACKET   = KeyEvent.VK_CLOSE_BRACKET;
+    
+    /** Tecla: \ */
+    public static final int KEY_BACKSLASH       = KeyEvent.VK_BACK_SLASH;
+    
+    /** Tecla: ` */
+    public static final int KEY_GRAVE           = KeyEvent.VK_BACK_QUOTE;
+
+    /** Tecla: &lt;ESPAÇO&gt; */
+    public static final int KEY_SPACE           = KeyEvent.VK_SPACE;
+    
+    /** Tecla: &lt;ESC&gt; */
+    public static final int KEY_ESCAPE          = KeyEvent.VK_ESCAPE;
+    
+    /** Tecla: &lt;ENTER&gt; */
+    public static final int KEY_ENTER           = KeyEvent.VK_ENTER;
+    
+    /** Tecla: &lt;TAB&gt; */
+    public static final int KEY_TAB             = KeyEvent.VK_TAB;
+    
+    /** Tecla: &lt;BACKSPACE&gt; */
+    public static final int KEY_BACKSPACE       = KeyEvent.VK_BACK_SPACE;
+    
+    /** Tecla: &lt;INSERT&gt; */
+    public static final int KEY_INSERT          = KeyEvent.VK_INSERT;
+    
+    /** Tecla: &lt;DELETE&gt; */
+    public static final int KEY_DELETE          = KeyEvent.VK_DELETE;
+    
+    /** Tecla: &lt;ARROW RIGHT&gt; */
+    public static final int KEY_RIGHT           = KeyEvent.VK_RIGHT;
+    
+    /** Tecla: &lt;ARROW LEFT&gt; */
+    public static final int KEY_LEFT            = KeyEvent.VK_LEFT;
+    
+    /** Tecla: &lt;ARROW DOWN&gt; */
+    public static final int KEY_DOWN            = KeyEvent.VK_DOWN;
+    
+    /** Tecla: &lt;ARROW UP&gt; */
+    public static final int KEY_UP              = KeyEvent.VK_UP;
+    
+    /** Tecla: &lt;PAGE UP&gt; */
+    public static final int KEY_PAGE_UP         = KeyEvent.VK_PAGE_UP;
+    
+    /** Tecla: &lt;PAGE DOWN&gt; */
+    public static final int KEY_PAGE_DOWN       = KeyEvent.VK_PAGE_DOWN;
+    
+    /** Tecla: &lt;HOME&gt; */
+    public static final int KEY_HOME            = KeyEvent.VK_HOME;
+    
+    /** Tecla: &lt;END&gt; */
+    public static final int KEY_END             = KeyEvent.VK_END;
+    
+    /** Tecla: &lt;CAPS LOCK&gt; */
+    public static final int KEY_CAPS_LOCK       = KeyEvent.VK_CAPS_LOCK;
+    
+    /** Tecla: &lt;SCROLL LOCK&gt; */
+    public static final int KEY_SCROLL_LOCK     = KeyEvent.VK_SCROLL_LOCK;
+    
+    /** Tecla: &lt;NUM LOCK&gt; */
+    public static final int KEY_NUM_LOCK        = KeyEvent.VK_NUM_LOCK;
+    
+    /** Tecla: &lt;PRINT SCREEN&gt; */
+    public static final int KEY_PRINT_SCREEN    = KeyEvent.VK_PRINTSCREEN;
+    
+    /** Tecla: &lt;PAUSE&gt; */
+    public static final int KEY_PAUSE           = KeyEvent.VK_PAUSE;
+    
+    /** Tecla: &lt;F1&gt; */
+    public static final int KEY_F1              = KeyEvent.VK_F1;
+    
+    /** Tecla: &lt;F2&gt; */
+    public static final int KEY_F2              = KeyEvent.VK_F2;
+    
+    /** Tecla: &lt;F3&gt; */
+    public static final int KEY_F3              = KeyEvent.VK_F3;
+    
+    /** Tecla: &lt;F4&gt; */
+    public static final int KEY_F4              = KeyEvent.VK_F4;
+    
+    /** Tecla: &lt;F5&gt; */
+    public static final int KEY_F5              = KeyEvent.VK_F5;
+    
+    /** Tecla: &lt;F6&gt; */
+    public static final int KEY_F6              = KeyEvent.VK_F6;
+    
+    /** Tecla: &lt;F7&gt; */
+    public static final int KEY_F7              = KeyEvent.VK_F7;
+    
+    /** Tecla: &lt;F8&gt; */
+    public static final int KEY_F8              = KeyEvent.VK_F8;
+    
+    /** Tecla: &lt;F9&gt; */
+    public static final int KEY_F9              = KeyEvent.VK_F9;
+    
+    /** Tecla: &lt;F10&gt; */
+    public static final int KEY_F10             = KeyEvent.VK_F10;
+    
+    /** Tecla: &lt;F11&gt; */
+    public static final int KEY_F11             = KeyEvent.VK_F11;
+    
+    /** Tecla: &lt;F12&gt; */
+    public static final int KEY_F12             = KeyEvent.VK_F12;
+    
+    /** Tecla: &lt;SHIFT&gt; */
+    public static final int KEY_SHIFT           = KeyEvent.VK_SHIFT;
+    
+    /** Tecla: &lt;CONTROL&gt; */
+    public static final int KEY_CONTROL         = KeyEvent.VK_CONTROL;
+    
+    /** Tecla: &lt;ALT&gt; */
+    public static final int KEY_ALT             = KeyEvent.VK_ALT;
+    
+    /** Tecla: &lt;WINDOWS/SUPER&gt; */
+    public static final int KEY_SUPER           = KeyEvent.VK_WINDOWS;
+    
+    /** Tecla: &lt;NUMPAD 0&gt; */
+    public static final int KEY_KP_0            = KeyEvent.VK_NUMPAD0;
+    
+    /** Tecla: &lt;NUMPAD 1&gt; */
+    public static final int KEY_KP_1            = KeyEvent.VK_NUMPAD1;
+    
+    /** Tecla: &lt;NUMPAD 2&gt; */
+    public static final int KEY_KP_2            = KeyEvent.VK_NUMPAD2;
+    
+    /** Tecla: &lt;NUMPAD 3&gt; */
+    public static final int KEY_KP_3            = KeyEvent.VK_NUMPAD3;
+    
+    /** Tecla: &lt;NUMPAD 4&gt; */
+    public static final int KEY_KP_4            = KeyEvent.VK_NUMPAD4;
+    
+    /** Tecla: &lt;NUMPAD 5&gt; */
+    public static final int KEY_KP_5            = KeyEvent.VK_NUMPAD5;
+    
+    /** Tecla: &lt;NUMPAD 6&gt; */
+    public static final int KEY_KP_6            = KeyEvent.VK_NUMPAD6;
+    
+    /** Tecla: &lt;NUMPAD 7&gt; */
+    public static final int KEY_KP_7            = KeyEvent.VK_NUMPAD7;
+    
+    /** Tecla: &lt;NUMPAD 8&gt; */
+    public static final int KEY_KP_8            = KeyEvent.VK_NUMPAD8;
+    
+    /** Tecla: &lt;NUMPAD 9&gt; */
+    public static final int KEY_KP_9            = KeyEvent.VK_NUMPAD9;
+    
+    /** Tecla: &lt;NUMPAD /&gt; */
+    public static final int KEY_KP_DIVIDE       = KeyEvent.VK_DIVIDE;
+    
+    /** Tecla: &lt;NUMPAD *&gt; */
+    public static final int KEY_KP_MULTIPLY     = KeyEvent.VK_MULTIPLY;
+    
+    /** Tecla: &lt;NUMPAD -&gt; */
+    public static final int KEY_KP_SUBTRACT     = KeyEvent.VK_SUBTRACT;
+    
+    /** Tecla: &lt;NUMPAD +&gt; */
+    public static final int KEY_KP_ADD          = KeyEvent.VK_ADD;
+
+    
+    
+    //**************************************************************************
+    // Constantes para os botões do mouse.
+    //**************************************************************************
+    
+    /**
+     * Constante que representa o botão esquerdo do mouse.
+     */
+    public static final int MOUSE_BUTTON_LEFT    = MouseEvent.BUTTON1;
+    
+    /**
+     * Constante que representa o botão do meio do mouse.
+     */
+    public static final int MOUSE_BUTTON_MIDDLE  = MouseEvent.BUTTON2;
+    
+    /**
+     * Constante que representa o botão direito do mouse.
+     */
+    public static final int MOUSE_BUTTON_RIGHT   = MouseEvent.BUTTON3;
+    
+
+    
+    //**************************************************************************
+    // Constantes para o cursor do mouse.
+    //**************************************************************************
+    
+    /**
+     * Constante que representa o cursor padrão (seta) do mouse.
+     */
+    public static final int MOUSE_CURSOR_DEFAULT       = Cursor.DEFAULT_CURSOR;
+    
+    /**
+     * Constante que representa o cursor de inserção de texto do mouse.
+     */
+    public static final int MOUSE_CURSOR_IBEAM         = Cursor.TEXT_CURSOR;
+    
+    /**
+     * Constante que representa o cursor em cruz do mouse.
+     */
+    public static final int MOUSE_CURSOR_CROSSHAIR     = Cursor.CROSSHAIR_CURSOR;
+    
+    /**
+     * Constante que representa o cursor de dedo apontando do mouse.
+     */
+    public static final int MOUSE_CURSOR_POINTING_HAND = Cursor.HAND_CURSOR;
+    
+    /**
+     * Constante que representa o cursor de redimensionamento horizontal do mouse.
+     */
+    public static final int MOUSE_CURSOR_RESIZE_EW     = Cursor.E_RESIZE_CURSOR;
+    
+    /**
+     * Constante que representa o cursor de redimensionamento vertical do mouse.
+     */
+    public static final int MOUSE_CURSOR_RESIZE_NS     = Cursor.N_RESIZE_CURSOR;
+    
+    /**
+     * Constante que representa o cursor de redimensionamento diagonal cima-esquerda -> baixo-direita horizontal do mouse.
+     */
+    public static final int MOUSE_CURSOR_RESIZE_NWSE   = Cursor.NW_RESIZE_CURSOR;
+    
+    /**
+     * Constante que representa o cursor de redimensionamento diagonal baixo-esquerda -> cima-direita horizontal do mouse.
+     */
+    public static final int MOUSE_CURSOR_RESIZE_NESW   = Cursor.NE_RESIZE_CURSOR;
+    
+    /**
+     * Constante que representa o cursor de redimensionamento omnidirecional do mouse.
+     */
+    public static final int MOUSE_CURSOR_RESIZE_ALL    = Cursor.MOVE_CURSOR;
+    
+    /**
+     * Constante que representa o cursor de redimensionamento aguarde do mouse.
+     */
+    public static final int MOUSE_CURSOR_WAIT          = Cursor.WAIT_CURSOR;
+    
+    
+    
+    //**************************************************************************
+    // Constantes para fontes.
+    //**************************************************************************
+    
+    /**
+     * Constante que representa o estilo de fonte simples.
+     */
+    public static final int FONT_PLAIN                 = Font.PLAIN;
+    
+    /**
+     * Constante que representa o estilo de fonte negrito.
+     */
+    public static final int FONT_BOLD                  = Font.BOLD;
+    
+    /**
+     * Constante que representa o estilo de fonte itálico.
+     */
+    public static final int FONT_ITALIC                = Font.ITALIC;
+    
+    
+    
+    //**************************************************************************
+    // Constantes para contornos.
+    //**************************************************************************
+    
+    /**
+     * Constante que representa o estilo de fim da linha sem decoração para contornos.
+     */
+    public static final int STROKE_CAP_BUTT            = BasicStroke.CAP_BUTT;
+    
+    /**
+     * Constante que representa o estilo de fim da linha redondo para contornos.
+     */
+    public static final int STROKE_CAP_ROUND           = BasicStroke.CAP_ROUND;
+    
+    /**
+     * Constante que representa o estilo de fim da linha quadrado para contornos.
+     */
+    public static final int STROKE_CAP_SQUARE          = BasicStroke.CAP_SQUARE;
+    
+    /**
+     * Constante que representa o estilo de junção entre linhas chanfrada para contornos.
+     */
+    public static final int STROKE_JOIN_BEVEL          = BasicStroke.JOIN_BEVEL;
+    
+    /**
+     * Constante que representa o estilo de junção entre linhas em esquadria para contornos.
+     */
+    public static final int STROKE_JOIN_MITER          = BasicStroke.JOIN_MITER;
+    
+    /**
+     * Constante que representa o estilo de junção entre linhas arredondado para contornos.
+     */
+    public static final int STROKE_JOIN_ROUND          = BasicStroke.JOIN_ROUND;
     
 
 
-    /***************************************************************************
-     * Cores padrão.
-     **************************************************************************/
+    //**************************************************************************
+    // Cores padrão.
+    //**************************************************************************
+    
+    /** Cor cinza claro. */
     public static final Color LIGHTGRAY  = new Color( 200, 200, 200 );
+    
+    /** Cor cinza. */
     public static final Color GRAY       = new Color( 130, 130, 130 );
+    
+    /** Cor cinza escuro. */
     public static final Color DARKGRAY   = new Color( 80, 80, 80 );
+    
+    /** Cor amarela. */
     public static final Color YELLOW     = new Color( 253, 249, 0 );
+    
+    /** Cor dourada. */
     public static final Color GOLD       = new Color( 255, 203, 0 );
+    
+    /** Cor laranja. */
     public static final Color ORANGE     = new Color( 255, 161, 0 );
+    
+    /** Cor rosa. */
     public static final Color PINK       = new Color( 255, 109, 194 );
+    
+    /** Cor vermelha. */
     public static final Color RED        = new Color( 230, 41, 55 );
+    
+    /** Cor vermelha escura. */
     public static final Color MAROON     = new Color( 190, 33, 55 );
+    
+    /** Cor verde. */
     public static final Color GREEN      = new Color( 0, 228, 48 );
+    
+    /** Cor limão. */
     public static final Color LIME       = new Color( 0, 158, 47 );
+    
+    /** Cor verde escuro. */
     public static final Color DARKGREEN  = new Color( 0, 117, 44 );
+    
+    /** Cor azul céu. */
     public static final Color SKYBLUE    = new Color( 102, 191, 255 );
+    
+    /** Cor azul. */
     public static final Color BLUE       = new Color( 0, 121, 241 );
+    
+    /** Cor azul escuro. */
     public static final Color DARKBLUE   = new Color( 0, 82, 172 );
+    
+    /** Cor roxa. */
     public static final Color PURPLE     = new Color( 200, 122, 255 );
+    
+    /** Cor violeta. */
     public static final Color VIOLET     = new Color( 135, 60, 190 );
+    
+    /** Cor roxo escuro. */
     public static final Color DARKPURPLE = new Color( 112, 31, 126 );
+    
+    /** Cor bege. */
     public static final Color BEIGE      = new Color( 211, 176, 131 );
+    
+    /** Cor marrom. */
     public static final Color BROWN      = new Color( 127, 106, 79 );
+    
+    /** Cor marrom escuro. */
     public static final Color DARKBROWN  = new Color( 76, 63, 47 );
+    
+    /** Cor branca. */
     public static final Color WHITE      = new Color( 255, 255, 255 );
+    
+    /** Cor preta. */
     public static final Color BLACK      = new Color( 0, 0, 0 );
+    
+    /** Cor transparente. */
     public static final Color BLANK      = new Color( 0, 0, 0, 0 );
+    
+    /** Cor magenta. */
     public static final Color MAGENTA    = new Color( 255, 0, 255 );
+    
+    /** Cor raywhite: homenagem a raylib www.raylib.com */
     public static final Color RAYWHITE   = new Color( 245, 245, 245 );
     
     
     
-    /***************************************************************************
-     * Níveis de log.
-     **************************************************************************/
-    public static int LOG_NONE           = 0;        // Disable logging
-    public static int LOG_INFO           = 1;        // Info logging, used for program execution info
-    public static int LOG_WARNING        = 2;        // Warning logging, used on recoverable failures
-    public static int LOG_ERROR          = 3;        // Error logging, used on unrecoverable failures
-    public static int LOG_FATAL          = 4;        // Fatal logging, used to abort program: exit(EXIT_FAILURE)
-    public static int LOG_ALL            = 5;        // Display all logs
+    //**************************************************************************
+    // Níveis de log.
+    //**************************************************************************
     
-    // controle do sistema de logging
+    /** Constante para desabilitar o sistema de logs */
+    public static int LOG_NONE           = 0;
+    
+    /** Constante para logs em nível INFO (informação). */
+    public static int LOG_INFO           = 1;
+    
+    /** Constante para logs em nível WARNING (aviso). */
+    public static int LOG_WARNING        = 2;
+    
+    /** Constante para logs em nível ERROR (erro). */
+    public static int LOG_ERROR          = 3;
+    
+    /** Constante para logs em nível FATAL. */
+    public static int LOG_FATAL          = 4;
+    
+    /** Constante para realizar o log de quaisquer níveis. */
+    public static int LOG_ALL            = 5;
+    
+    /**
+     * Nível de log atual da engine.
+     */
     private static int traceLogLevel = Engine.LOG_ALL;
 
 }

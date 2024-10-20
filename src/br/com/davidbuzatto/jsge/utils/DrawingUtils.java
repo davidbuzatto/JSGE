@@ -28,8 +28,16 @@ import java.awt.geom.Rectangle2D;
  */
 public class DrawingUtils {
        
-    /*
-     * Cria um triângulo.
+    /**
+     * Cria Path2D de um triângulo.
+     * 
+     * @param v1x Coordenada x do primeiro vértice.
+     * @param v1y Coordenada y do primeiro vértice.
+     * @param v2x Coordenada x do segundo vértice.
+     * @param v2y Coordenada y do segundo vértice.
+     * @param v3x Coordenada x do terceiro vértice.
+     * @param v3y Coordenada y do quarto vértice.
+     * @return 
      */
     public static Path2D createTriangle( double v1x, double v1y, double v2x, double v2y, double v3x, double v3y ) {
 
@@ -43,10 +51,16 @@ public class DrawingUtils {
 
     }
     
-    /*
-     * Cria um polígono regular.
+    /**
+     * Cria um Path2D de um polígono regular.
+     * 
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param sides Quantidade de lados.
+     * @param radius Raio do círculo circunscrito.
+     * @param rotation Ângulo inicial em graus (sentido horário).
      */
-    public static Path2D createPolygon( double centerX, double centerY, double sides, double radius, double rotation ) {
+    public static Path2D createPolygon( double x, double y, double sides, double radius, double rotation ) {
 
         Path2D path = new Path2D.Double();
         double currentAngle = rotation;
@@ -55,13 +69,13 @@ public class DrawingUtils {
         for ( int i = 0; i < sides; i++ ) {
 
             double rad = Math.toRadians( currentAngle );
-            double x = centerX + radius * Math.cos( rad );
-            double y = centerY + radius * Math.sin( rad );
+            double ix = x + radius * Math.cos( rad );
+            double iy = y + radius * Math.sin( rad );
 
             if ( i == 0 ) {
-                path.moveTo( x, y );
+                path.moveTo( ix, iy );
             } else {
-                path.lineTo( x, y );
+                path.lineTo( ix, iy );
             }
 
             currentAngle += angleIncrement;
@@ -74,16 +88,24 @@ public class DrawingUtils {
 
     }
     
-    /*
-     * Cria um anel.
+    /**
+     * Cria um Path2D de um anel.
+     * 
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param innerRadius Raio interno.
+     * @param outerRadius Raio externo.
+     * @param startAngle Ângulo inicial em graus (sentigo horário).
+     * @param endAngle Ângulo final em graus (sentigo horário).
+     * @return 
      */
-    public static Path2D createRing( double centerX, double centerY, double innerRadius, double outerRadius, double startAngle, double endAngle ) {
+    public static Path2D createRing( double x, double y, double innerRadius, double outerRadius, double startAngle, double endAngle ) {
 
         Path2D path = new Path2D.Double();
         
         double extent = endAngle - startAngle;
-        path.append( new Arc2D.Double( centerX - innerRadius, centerY - innerRadius, innerRadius * 2, innerRadius * 2, -startAngle, -extent, Arc2D.OPEN ), true );
-        path.append( new Arc2D.Double( centerX - outerRadius, centerY - outerRadius, outerRadius * 2, outerRadius * 2, -startAngle - extent, extent, Arc2D.OPEN ), true );
+        path.append( new Arc2D.Double( x - innerRadius, y - innerRadius, innerRadius * 2, innerRadius * 2, -startAngle, -extent, Arc2D.OPEN ), true );
+        path.append( new Arc2D.Double( x - outerRadius, y - outerRadius, outerRadius * 2, outerRadius * 2, -startAngle - extent, extent, Arc2D.OPEN ), true );
         path.closePath();
         
         return path;
@@ -144,10 +166,10 @@ public class DrawingUtils {
      * Método estático auxiliar para separação do texto em várias linhas e seu
      * consecutivo desenho.
      * 
-     * @param text texto a ser desenhado.
-     * @param x coordenada x inicial.
-     * @param y coordenada y inicial.
-     * @param g2d contexto gráfico utilizado.
+     * @param text Texto a ser desenhado.
+     * @param x Coordenada x inicial.
+     * @param y Coordenada y inicial.
+     * @param g2d Contexto gráfico utilizado.
      */
     public static void drawTextMultilineHelper( String text, double x, double y, Graphics2D g2d ) {
         

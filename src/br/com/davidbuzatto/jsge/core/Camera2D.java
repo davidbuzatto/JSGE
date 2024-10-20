@@ -25,11 +25,31 @@ import br.com.davidbuzatto.jsge.geom.Point;
  */
 public class Camera2D {
     
+    /**
+     * O alvo da câmera.
+     */
     public Point target;
+    
+    /**
+     * O deslocamento da câmera.
+     */
     public Point offset;
+    
+    /**
+     * Rotação em graus no sentido horário.
+     */
     public double rotation;
+    
+    /**
+     * Fator de zoom.
+     */
     public double zoom;
 
+    /**
+     * Cria uma nova câmera apontando para a coordenada 0.0; 0.0, com deslocamento
+     * igual a zero tanto na vertical, quanto na horizontal, sem rotação e com 
+     * fator de zoom igual a 1.0.
+     */
     public Camera2D() {
         target = new Point();
         offset = new Point();
@@ -37,6 +57,14 @@ public class Camera2D {
         zoom = 1.0;
     }
     
+    /**
+     * Cria uma nova câmera.
+     * 
+     * @param target o alvo.
+     * @param offset o deslocamento.
+     * @param rotation a rotação.
+     * @param zoom o zoom.
+     */
     public Camera2D( Point target, Point offset, double rotation, double zoom ) {
         this.target = target;
         this.offset = offset;

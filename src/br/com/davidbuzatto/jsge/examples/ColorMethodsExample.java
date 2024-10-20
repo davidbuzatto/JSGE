@@ -31,6 +31,9 @@ public class ColorMethodsExample extends Engine {
 
     private Color baseColor;
     
+    /**
+     * Cria o exemplo.
+     */
     public ColorMethodsExample() {
         super( 400, 290, "Color Methods", 60, true, true, false, false, false );
     }
@@ -87,6 +90,10 @@ public class ColorMethodsExample extends Engine {
         
     }
     
+    /**
+     * Executa o exemplo.
+     * @param args Argumentos.
+     */
     public static void main( String[] args ) {
         new ColorMethodsExample();
     }

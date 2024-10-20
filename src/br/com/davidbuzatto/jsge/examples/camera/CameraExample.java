@@ -37,6 +37,9 @@ public class CameraExample extends Engine {
     private Player player;
     private Camera2D camera;
     
+    /**
+     * Cria o exemplo.
+     */
     public CameraExample() {
         super( 800, 600, "Camera", 60, true );
     }
@@ -202,6 +205,10 @@ public class CameraExample extends Engine {
         
     }
     
+    /**
+     * Executa o exemplo.
+     * @param args Argumentos.
+     */
     public static void main( String[] args ) {
         new CameraExample();
     }

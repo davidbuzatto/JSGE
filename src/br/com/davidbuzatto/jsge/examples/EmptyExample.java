@@ -19,11 +19,15 @@ package br.com.davidbuzatto.jsge.examples;
 import br.com.davidbuzatto.jsge.core.Engine;
 
 /**
- *
+ * Template de exemplo.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class EmptyExample extends Engine {
 
+    /**
+     * Cria o exemplo.
+     */
     public EmptyExample() {
         super( 800, 450, "Empty", 60, true );
     }
@@ -40,6 +44,10 @@ public class EmptyExample extends Engine {
     public void draw() {
     }
     
+    /**
+     * Executa o exemplo.
+     * @param args Argumentos.
+     */
     public static void main( String[] args ) {
         new EmptyExample();
     }

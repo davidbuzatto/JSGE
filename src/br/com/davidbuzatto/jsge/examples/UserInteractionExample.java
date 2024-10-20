@@ -37,6 +37,9 @@ public class UserInteractionExample extends Engine {
     
     private Rectangle wheelRect;
     
+    /**
+     * Cria o exemplo.
+     */
     public UserInteractionExample() {
         super( 400, 250, "User Interaction", 60, true );
     }
@@ -102,6 +105,10 @@ public class UserInteractionExample extends Engine {
         
     }
     
+    /**
+     * Executa o exemplo.
+     * @param args Argumentos.
+     */
     public static void main( String[] args ) {
         new UserInteractionExample();
     }
