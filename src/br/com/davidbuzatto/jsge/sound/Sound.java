@@ -17,13 +17,18 @@
 package br.com.davidbuzatto.jsge.sound;
 
 import static br.com.davidbuzatto.jsge.core.Engine.traceLogError;
-import br.com.davidbuzatto.jsge.utils.MathUtils;
 import br.com.davidbuzatto.jsge.utils.Utils;
+import com.goxr3plus.streamplayer.enums.Status;
 import com.goxr3plus.streamplayer.stream.StreamPlayer;
+import com.goxr3plus.streamplayer.stream.StreamPlayerEvent;
 import com.goxr3plus.streamplayer.stream.StreamPlayerException;
+import com.goxr3plus.streamplayer.stream.StreamPlayerListener;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.sound.sampled.FloatControl;
 
 /**
@@ -40,7 +45,9 @@ public class Sound {
         }
     }
     
-    private class InternalPlayer extends StreamPlayer {
+    private static ExecutorService executor = Executors.newFixedThreadPool( 10 );
+    
+    private class InternalPlayer extends StreamPlayer implements StreamPlayerListener {
         
         File file;
         InputStream is;
@@ -48,11 +55,12 @@ public class Sound {
         
         InternalPlayer() {
             getOutlet().setGainControl( new GainControl() );
+            addStreamPlayerListener( this );
         }
         
-        InternalPlayer( String filePath ) {
+        InternalPlayer( File file ) {
             this();
-            this.file = new File( filePath );
+            this.file = file;
         }
         
         InternalPlayer( InputStream is ) {
@@ -65,30 +73,53 @@ public class Sound {
             this.url = url;
         }
         
-        void playNow() {
+        void playWithFile() {
             try {
-                boolean ok = false;
-                if ( file != null ) {
-                    open( file );
-                    ok = true;
-                } else if ( is != null ) {
-                    open( is );
-                    ok = true;
-                } else if ( url != null ) {
-                    open( url );
-                    ok = true;
-                }
-                if ( ok ) {
-                    play();
-                }
+                open( file );
+                play();
             } catch ( StreamPlayerException exc ) {
                 traceLogError( Utils.stackTraceToString( exc ) );
             }
         }
         
+        void playWithInputStream() {
+            try {
+                open( is );
+                play();
+            } catch ( StreamPlayerException exc ) {
+                traceLogError( Utils.stackTraceToString( exc ) );
+            }
+        }
+        
+        void playWithUrl() {
+            try {
+                open( url );
+                play();
+            } catch ( StreamPlayerException exc ) {
+                traceLogError( Utils.stackTraceToString( exc ) );
+            }
+        }
+
+        @Override
+        public void opened( Object o, Map<String, Object> map ) {
+        }
+
+        @Override
+        public void progress( int i, long l, byte[] bytes, Map<String, Object> map ) {
+        }
+
+        @Override
+        public void statusUpdated( StreamPlayerEvent spe ) {
+            if ( spe.getPlayerStatus() == Status.STOPPED ) {
+                reset();
+            }
+        }
+        
     }
     
-    private InternalPlayer internalPlayer;
+    private File file;
+    private InputStream is;
+    private URL url;
     
     /**
      * Cria um som usando o caminho do arquivo.
@@ -96,7 +127,7 @@ public class Sound {
      * @param filePath Caminho do arquivo.
      */
     public Sound( String filePath ) {
-        internalPlayer = new InternalPlayer( filePath );
+        this.file = new File( filePath );
     }
     
     /**
@@ -105,7 +136,7 @@ public class Sound {
      * @param is Input stream.
      */
     public Sound( InputStream is ) {
-        internalPlayer = new InternalPlayer( is );
+        this.is = is;
     }
     
     /**
@@ -114,82 +145,25 @@ public class Sound {
      * @param url URL.
      */
     public Sound( URL url ) {
-        internalPlayer = new InternalPlayer( url );
-    }
-    
-    /**
-     * Descarrega um som, liberando os recursos.
-     */
-    public void unload() {
-        internalPlayer.reset();
+        this.url = url;
     }
     
     /**
      * Executa o som.
      */
     public void play() {
-        internalPlayer.playNow();
-    }
-    
-    /**
-     * Para de executar o som.
-     */
-    public void stop() {
-        internalPlayer.stop();
-    }
-    
-    /**
-     * Pausa o som.
-     */
-    public void pause() {
-        internalPlayer.pause();
-    }
-    
-    /**
-     * Retoma a execução do som.
-     */
-    public void resume() {
-        internalPlayer.resume();
-    }
-    
-    /**
-     * Verifica se o som está executando.
-     * 
-     * @return Verdadeiro caso o som esteja em execução, falso caso contrário.
-     */
-    public boolean isPlaying() {
-        return internalPlayer.isPlaying();
-    }
-    
-    /**
-     * Verifica se o som está parado.
-     * 
-     * @return Verdadeiro caso o som esteja parado, falso caso contrário.
-     */
-    public boolean isStopped() {
-        return internalPlayer.isStopped();
-    }
-    
-    /**
-     * Verifica se o som está pausado.
-     * 
-     * @return Verdadeiro caso o som esteja pausado, falso caso contrário.
-     */
-    public boolean isPaused() {
-        return internalPlayer.isPaused();
-    }
-    
-    /**
-     * Configura o volume do som.
-     * 
-     * @param volume O volume do som, variando de 0.0 a 1.0.
-     */
-    public void setVolume( double volume ) {
-        volume = MathUtils.clamp( volume, 0.01, 1.0 );
-        if ( volume <= 0.01 ) {
-            volume = 0;
-        }
-        internalPlayer.setGain( volume );
+        executor.execute( () -> {
+            if ( file != null ) {
+                InternalPlayer p = new InternalPlayer( file );
+                p.playWithFile();
+            } else if ( is != null ) {
+                InternalPlayer p = new InternalPlayer( is );
+                p.playWithInputStream();
+            } else if ( url != null ) {
+                InternalPlayer p = new InternalPlayer( url );
+                p.playWithUrl();
+            }
+        });
     }
     
 }

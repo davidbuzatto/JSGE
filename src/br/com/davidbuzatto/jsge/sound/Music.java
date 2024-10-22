@@ -24,6 +24,8 @@ import com.goxr3plus.streamplayer.stream.StreamPlayerException;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.sound.sampled.FloatControl;
 
 /**
@@ -40,6 +42,8 @@ public class Music {
         }
     }
     
+    private static ExecutorService executor = Executors.newFixedThreadPool( 10 );
+    
     private class InternalPlayer extends StreamPlayer {
         
         File file;
@@ -50,9 +54,9 @@ public class Music {
             getOutlet().setGainControl( new GainControl() );
         }
         
-        InternalPlayer( String filePath ) {
+        InternalPlayer( File file ) {
             this();
-            this.file = new File( filePath );
+            this.file = file;
         }
         
         InternalPlayer( InputStream is ) {
@@ -96,7 +100,7 @@ public class Music {
      * @param filePath Caminho do arquivo.
      */
     public Music( String filePath ) {
-        internalPlayer = new InternalPlayer( filePath );
+        internalPlayer = new InternalPlayer( new File( filePath ) );
     }
     
     /**
@@ -128,7 +132,9 @@ public class Music {
      * Executa a música.
      */
     public void play() {
-        internalPlayer.playNow();
+        executor.execute( () -> {
+            internalPlayer.playNow();
+        });
     }
     
     /**

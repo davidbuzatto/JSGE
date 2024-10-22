@@ -3717,88 +3717,12 @@ public abstract class Engine extends JFrame {
     }
     
     /**
-     * Descarrega um som.
-     * 
-     * @param sound O som a ser descarregado.
-     */
-    public static void unloadSound( Sound sound ) {
-        sound.unload();
-    }
-    
-    /**
      * Executa o som.
      * 
      * @param sound O som.
      */
     public static void playSound( Sound sound ) {
         sound.play();
-    }
-    
-    /**
-     * Para de executar o som.
-     * 
-     * @param sound O som.
-     */
-    public static void stopSound( Sound sound ) {
-        sound.stop();
-    }
-    
-    /**
-     * Pausa o som.
-     * 
-     * @param sound O som.
-     */
-    public void pauseSound( Sound sound ) {
-        sound.pause();
-    }
-    
-    /**
-     * Retoma a execução do som.
-     * 
-     * @param sound O som.
-     */
-    public void resumeSound( Sound sound ) {
-        sound.resume();
-    }
-    
-    /**
-     * Verifica se o som está executando.
-     * 
-     * @param sound O som.
-     * @return Verdadeiro caso o som esteja em execução, falso caso contrário.
-     */
-    public boolean isSoundPlaying( Sound sound ) {
-        return sound.isPlaying();
-    }
-    
-    /**
-     * Verifica se o som está parado.
-     * 
-     * @param sound O som.
-     * @return Verdadeiro caso o som esteja parado, falso caso contrário.
-     */
-    public boolean isSoundStopped( Sound sound ) {
-        return sound.isStopped();
-    }
-    
-    /**
-     * Verifica se o som está pausado.
-     * 
-     * @param sound O som.
-     * @return Verdadeiro caso o som esteja pausado, falso caso contrário.
-     */
-    public boolean isSoundPaused( Sound sound ) {
-        return sound.isPaused();
-    }
-    
-    /**
-     * Configura o volume do som.
-     * 
-     * @param sound O som.
-     * @param volume O volume do som, variando de 0.0 a 1.0.
-     */
-    public void setSoundVolume( Sound sound, double volume ) {
-        sound.setVolume( volume );
     }
     
     /**
