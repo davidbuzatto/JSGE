@@ -1114,7 +1114,7 @@ public abstract class Engine extends JFrame {
      * @param rotation Rotação em graus (sentido horário).
      * @param color Cor de desenho.
      */
-    public void drawRectanglePro( double x, double y, double width, double height, double originX, double originY, double rotation, Color color ) {
+    public void drawRectangle( double x, double y, double width, double height, double originX, double originY, double rotation, Color color ) {
 
         Graphics2D gc = (Graphics2D) g2d.create();
         gc.setColor( color );
@@ -1136,8 +1136,8 @@ public abstract class Engine extends JFrame {
      * @param rotation Rotação em graus (sentido horário).
      * @param color Cor de desenho.
      */
-    public void drawRectanglePro( Vector2 pos, double width, double height, Point origin, double rotation, Color color ) {
-        drawRectanglePro( pos.x, pos.y, width, height, origin.x, origin.y, rotation, color );
+    public void drawRectangle( Vector2 pos, double width, double height, Point origin, double rotation, Color color ) {
+        drawRectangle( pos.x, pos.y, width, height, origin.x, origin.y, rotation, color );
     }
 
     /**
@@ -1150,8 +1150,8 @@ public abstract class Engine extends JFrame {
      * @param rotation Rotação em graus (sentido horário).
      * @param color Cor de desenho.
      */
-    public void drawRectanglePro( Point pos, double width, double height, Point origin, double rotation, Color color ) {
-        drawRectanglePro( pos.x, pos.y, width, height, origin.x, origin.y, rotation, color );
+    public void drawRectangle( Point pos, double width, double height, Point origin, double rotation, Color color ) {
+        drawRectangle( pos.x, pos.y, width, height, origin.x, origin.y, rotation, color );
     }
 
     /**
@@ -1162,8 +1162,8 @@ public abstract class Engine extends JFrame {
      * @param rotation Rotação em graus (sentido horário).
      * @param color Cor de desenho.
      */
-    public void drawRectanglePro( Rectangle rectangle, Point origin, double rotation, Color color ) {
-        drawRectanglePro( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, color );
+    public void drawRectangle( Rectangle rectangle, Point origin, double rotation, Color color ) {
+        drawRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, color );
     }
 
     /**
@@ -1178,7 +1178,7 @@ public abstract class Engine extends JFrame {
      * @param rotation Rotação em graus (sentido horário).
      * @param color Cor de desenho.
      */
-    public void fillRectanglePro( double x, double y, double width, double height, double originX, double originY, double rotation, Color color ) {
+    public void fillRectangle( double x, double y, double width, double height, double originX, double originY, double rotation, Color color ) {
 
         Graphics2D gc = (Graphics2D) g2d.create();
         gc.setColor( color );
@@ -1200,8 +1200,8 @@ public abstract class Engine extends JFrame {
      * @param rotation Rotação em graus (sentido horário).
      * @param color Cor de desenho.
      */
-    public void fillRectanglePro( Vector2 pos, double width, double height, Point origin, double rotation, Color color ) {
-        fillRectanglePro( pos.x, pos.y, width, height, origin.x, origin.y, rotation, color );
+    public void fillRectangle( Vector2 pos, double width, double height, Point origin, double rotation, Color color ) {
+        fillRectangle( pos.x, pos.y, width, height, origin.x, origin.y, rotation, color );
     }
 
     /**
@@ -1214,8 +1214,8 @@ public abstract class Engine extends JFrame {
      * @param rotation Rotação em graus (sentido horário).
      * @param color Cor de desenho.
      */
-    public void fillRectanglePro( Point pos, double width, double height, Point origin, double rotation, Color color ) {
-        fillRectanglePro( pos.x, pos.y, width, height, origin.x, origin.y, rotation, color );
+    public void fillRectangle( Point pos, double width, double height, Point origin, double rotation, Color color ) {
+        fillRectangle( pos.x, pos.y, width, height, origin.x, origin.y, rotation, color );
     }
 
     /**
@@ -1226,8 +1226,8 @@ public abstract class Engine extends JFrame {
      * @param rotation Rotação em graus (sentido horário).
      * @param color Cor de desenho.
      */
-    public void fillRectanglePro( Rectangle rectangle, Point origin, double rotation, Color color ) {
-        fillRectanglePro( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, color );
+    public void fillRectangle( Rectangle rectangle, Point origin, double rotation, Color color ) {
+        fillRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, color );
     }
 
     /**
@@ -2103,7 +2103,7 @@ public abstract class Engine extends JFrame {
     }
 
     /**
-     * Desenha um triângulo.
+     * Desenha um triângulo. Forneça os vértices no sentido horário.
      * 
      * @param v1x Coordenada x do primeiro vértice.
      * @param v1y Coordenada y do primeiro vértice.
@@ -2119,7 +2119,7 @@ public abstract class Engine extends JFrame {
     }
 
     /**
-     * Desenha um triângulo.
+     * Desenha um triângulo. Forneça os vértices no sentido horário.
      * 
      * @param v1 Primeiro vértice.
      * @param v2 Segundo vértice.
@@ -2131,7 +2131,7 @@ public abstract class Engine extends JFrame {
     }
 
     /**
-     * Desenha um triângulo.
+     * Desenha um triângulo. Forneça os vértices no sentido horário.
      * 
      * @param v1 Primeiro vértice.
      * @param v2 Segundo vértice.
@@ -2153,7 +2153,7 @@ public abstract class Engine extends JFrame {
     }
 
     /**
-     * Pinta um triângulo.
+     * Pinta um triângulo. Forneça os vértices no sentido horário.
      * 
      * @param v1x Coordenada x do primeiro vértice.
      * @param v1y Coordenada y do primeiro vértice.
@@ -2169,7 +2169,7 @@ public abstract class Engine extends JFrame {
     }
 
     /**
-     * Pinta um triângulo.
+     * Pinta um triângulo. Forneça os vértices no sentido horário.
      * 
      * @param v1 Primeiro vértice.
      * @param v2 Segundo vértice.
@@ -2181,7 +2181,7 @@ public abstract class Engine extends JFrame {
     }
 
     /**
-     * Pinta um triângulo.
+     * Pinta um triângulo. Forneça os vértices no sentido horário.
      * 
      * @param v1 Primeiro vértice.
      * @param v2 Segundo vértice.

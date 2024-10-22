@@ -57,8 +57,8 @@ public class DrawingWithPrimitivesMethodsExample extends Engine {
         fillRectangle( 50, 120, 50, 100, BLUE );
         drawRectangle( 50, 120, 50, 100, BLACK );
 
-        fillRectanglePro( 50, 240, 50, 100, 50, 240, 15, BLUE );
-        drawRectanglePro( 50, 240, 50, 100, 50, 240, 15, BLACK );
+        fillRectangle( 50, 240, 50, 100, 50, 240, 15, BLUE );
+        drawRectangle( 50, 240, 50, 100, 50, 240, 15, BLACK );
 
         fillRoundRectangle( 50, 370, 80, 60, 20, BLUE );
         drawRoundRectangle( 50, 370, 80, 60, 20, BLACK );

@@ -63,7 +63,7 @@ public class Triangle implements Drawable {
     }
 
     /**
-     * Cria um novo triângulo.
+     * Cria um novo triângulo. Forneça os vértices no sentido horário.
      * 
      * @param x1 Coordenada x do primeiro vértice.
      * @param y1 Coordenada y do primeiro vértice.
