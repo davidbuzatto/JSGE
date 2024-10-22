@@ -32,7 +32,7 @@ public class Utils {
      * @return A versão.
      */
     public static String getVersion() {
-        return "1.0.2";
+        return "1.0.3";
     }
     
     /**
