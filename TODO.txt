@@ -1,0 +1,1 @@
+Resolver eventos não consumidos.
