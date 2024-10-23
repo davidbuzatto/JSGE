@@ -17,16 +17,14 @@
 package br.com.davidbuzatto.jsge.examples;
 
 import br.com.davidbuzatto.jsge.core.Engine;
-import static br.com.davidbuzatto.jsge.core.Engine.BLACK;
-import static br.com.davidbuzatto.jsge.core.Engine.MOUSE_BUTTON_LEFT;
 import br.com.davidbuzatto.jsge.geom.Circle;
 import br.com.davidbuzatto.jsge.geom.CubicCurve;
 import br.com.davidbuzatto.jsge.geom.Line;
-import br.com.davidbuzatto.jsge.geom.Point;
 import br.com.davidbuzatto.jsge.geom.Polygon;
 import br.com.davidbuzatto.jsge.geom.QuadCurve;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.geom.Triangle;
+import br.com.davidbuzatto.jsge.geom.Vector2;
 import br.com.davidbuzatto.jsge.utils.CollisionUtils;
 import br.com.davidbuzatto.jsge.utils.MathUtils;
 import java.awt.Color;
@@ -63,14 +61,14 @@ public class CollisionDetectionExample extends Engine {
     private Color noOverlapColor = RAYWHITE;
     private Color overlapColor = GOLD;
     private Rectangle overlapRec;
-    private Point lineCollisionPoint;
+    private Vector2 lineCollisionPoint;
 
     private Line lineForPoint;
     private QuadCurve quadForPoint;
     private CubicCurve cubicForPoint;
-    private Point pointForLine;
-    private Point pointForQuad;
-    private Point pointForCubic;
+    private Vector2 pointForLine;
+    private Vector2 pointForQuad;
+    private Vector2 pointForCubic;
 
     private double amount;
     private double amountVel;
@@ -117,7 +115,7 @@ public class CollisionDetectionExample extends Engine {
     public void update() {
         
         double delta = getFrameTime();
-        Point mousePos = getMousePositionPoint();
+        Vector2 mousePos = getMousePositionPoint();
         
         if ( isMouseButtonPressed( MOUSE_BUTTON_LEFT ) ) {
             

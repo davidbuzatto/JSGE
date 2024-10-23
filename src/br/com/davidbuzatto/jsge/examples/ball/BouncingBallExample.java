@@ -17,7 +17,6 @@
 package br.com.davidbuzatto.jsge.examples.ball;
 
 import br.com.davidbuzatto.jsge.core.Engine;
-import static br.com.davidbuzatto.jsge.core.Engine.BLUE;
 import br.com.davidbuzatto.jsge.geom.Vector2;
 
 /**

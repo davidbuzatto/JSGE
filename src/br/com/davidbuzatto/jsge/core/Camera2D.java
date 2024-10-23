@@ -16,7 +16,7 @@
  */
 package br.com.davidbuzatto.jsge.core;
 
-import br.com.davidbuzatto.jsge.geom.Point;
+import br.com.davidbuzatto.jsge.geom.Vector2;
 
 /**
  * Representação de uma câmera para controle do processo de desenho.
@@ -28,12 +28,12 @@ public class Camera2D {
     /**
      * O alvo da câmera.
      */
-    public Point target;
+    public Vector2 target;
     
     /**
      * O deslocamento da câmera.
      */
-    public Point offset;
+    public Vector2 offset;
     
     /**
      * Rotação em graus no sentido horário.
@@ -51,8 +51,8 @@ public class Camera2D {
      * fator de zoom igual a 1.0.
      */
     public Camera2D() {
-        target = new Point();
-        offset = new Point();
+        target = new Vector2();
+        offset = new Vector2();
         rotation = 0.0;
         zoom = 1.0;
     }
@@ -65,7 +65,7 @@ public class Camera2D {
      * @param rotation a rotação.
      * @param zoom o zoom.
      */
-    public Camera2D( Point target, Point offset, double rotation, double zoom ) {
+    public Camera2D( Vector2 target, Vector2 offset, double rotation, double zoom ) {
         this.target = target;
         this.offset = offset;
         this.rotation = rotation;

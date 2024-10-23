@@ -21,6 +21,7 @@ import java.awt.Color;
 
 /**
  * Classe para representação de um vetor de duas dimensões.
+ * Também é usada para representar pontos 2D em várias partes da API da Engine.
  * 
  * @author Prof. Dr. David Buzatto
  */
@@ -60,7 +61,7 @@ public class Vector2 implements Drawable {
 
     @Override
     public void fill( Engine engine, Color color ) {
-        throw new UnsupportedOperationException( "can'f fill a 2D vector." );
+        engine.drawLine( 0, 0, x, y, color );
     }
 
     @Override

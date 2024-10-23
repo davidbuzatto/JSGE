@@ -17,7 +17,6 @@
 package br.com.davidbuzatto.jsge.examples.ball;
 
 import br.com.davidbuzatto.jsge.core.Engine;
-import static br.com.davidbuzatto.jsge.core.Engine.MOUSE_BUTTON_LEFT;
 import br.com.davidbuzatto.jsge.geom.Vector2;
 import br.com.davidbuzatto.jsge.utils.CollisionUtils;
 import java.awt.Color;
@@ -69,13 +68,13 @@ public class Ball {
      */
     void update( double delta, Engine engine ) {
 
-        if ( engine.isMouseButtonPressed( MOUSE_BUTTON_LEFT ) ) {
+        if ( engine.isMouseButtonPressed( engine.MOUSE_BUTTON_LEFT ) ) {
             if ( CollisionUtils.checkCollisionPointCircle( engine.getMousePositionPoint(), pos, radius ) ) {
                 dragging = true;
                 xOffset = pos.x - engine.getMouseX();
                 yOffset = pos.y - engine.getMouseY();
             }
-        } else if ( engine.isMouseButtonReleased( MOUSE_BUTTON_LEFT ) ) {
+        } else if ( engine.isMouseButtonReleased( engine.MOUSE_BUTTON_LEFT ) ) {
             dragging = false;
         }
 

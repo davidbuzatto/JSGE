@@ -18,7 +18,6 @@ package br.com.davidbuzatto.jsge.examples.camera;
 
 import br.com.davidbuzatto.jsge.core.Camera2D;
 import br.com.davidbuzatto.jsge.core.Engine;
-import br.com.davidbuzatto.jsge.geom.Point;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.geom.Vector2;
 import br.com.davidbuzatto.jsge.utils.ColorUtils;
@@ -167,7 +166,7 @@ public class CameraExample extends Engine {
         int y = 40;
         int step = 18;
         
-        Point playerScreen = MathUtils.getWorldToScreen2D( player.pos.x, player.pos.y, camera );
+        Vector2 playerScreen = MathUtils.getWorldToScreen2D( player.pos.x, player.pos.y, camera );
         drawText( "Player: ", 20, y, BLACK );
         drawText( String.format( " World: (%.2f, %.2f)", player.pos.x, player.pos.y ), 30, y += step, BLACK );
         drawText( String.format( "Screen: (%.2f, %.2f)", playerScreen.x, playerScreen.y ), 30, y += step, BLACK );

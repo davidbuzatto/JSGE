@@ -19,7 +19,6 @@ package br.com.davidbuzatto.jsge.utils;
 import br.com.davidbuzatto.jsge.core.Camera2D;
 import br.com.davidbuzatto.jsge.geom.CubicCurve;
 import br.com.davidbuzatto.jsge.geom.Line;
-import br.com.davidbuzatto.jsge.geom.Point;
 import br.com.davidbuzatto.jsge.geom.QuadCurve;
 import br.com.davidbuzatto.jsge.geom.Vector2;
 import java.util.Random;
@@ -133,20 +132,6 @@ public class MathUtils {
      */
     public static void setRandomSeed( long seed ) {
         random.setSeed( seed );
-    }
-
-    /**
-     * Realiza a interpolação linear entre dois pontos.
-     * 
-     * @param start ponto inicial.
-     * @param end ponto final.
-     * @param amount quantidade (0 a 1)
-     * @return Um ponto que representa a interpolação linear entre dois pontos.
-     */
-    public static Point lerp( Point start, Point end, double amount ) {
-        double x = start.x + ( end.x - start.x ) * amount;
-        double y = start.y + ( end.y - start.y ) * amount;
-        return new Point( x, y );
     }
 
     /**
@@ -497,26 +482,6 @@ public class MathUtils {
         return result;
 
     }
-
-    /**
-     * Cria um ponto 2D usando um vetor 2D.
-     * 
-     * @param v Um vetor 2D.
-     * @return Um ponto 2D.
-     */
-    public static Point vector2ToPoint( Vector2 v ) {
-        return new Point( v.x, v.y );
-    }
-
-    /**
-     * Cria um vetor 2D usando um ponto 2D.
-     * 
-     * @param p Um ponto 2D.
-     * @return Um vetor 2D.
-     */
-    public static Vector2 pointToVector2( Point p ) {
-        return new Vector2( p.x, p.y );
-    }
     
     /**
      * Converte uma coordenada da tela para uma coordenada do mundo 2D de 
@@ -527,12 +492,12 @@ public class MathUtils {
      * @param camera A câmera a ser utilizada.
      * @return O ponto correspondente do mundo 2D.
      */
-    public static Point getScreenToWorld2D( double x, double y, Camera2D camera ) {
+    public static Vector2 getScreenToWorld2D( double x, double y, Camera2D camera ) {
         
         Matrix invMatCamera = MathUtils.matrixInvert( MathUtils.getCameraMatrix2D( camera ) );
         Vector3 transform = MathUtils.vector3Transform( new Vector3( x, y, 0 ), invMatCamera );
 
-        return new Point( transform.x, transform.y );
+        return new Vector2( transform.x, transform.y );
         
     }
     
@@ -544,21 +509,9 @@ public class MathUtils {
      * @param camera A câmera a ser utilizada.
      * @return O ponto correspondente do mundo 2D.
      */
-    public static Point getScreenToWorld2D( Point point, Camera2D camera ) {
+    public static Vector2 getScreenToWorld2D( Vector2 point, Camera2D camera ) {
         return getScreenToWorld2D( point.x, point.y, camera );
         
-    }
-    
-    /**
-     * Converte uma coordenada da tela para uma coordenada do mundo 2D de 
-     * acordo com o câmera.
-     * 
-     * @param vector A posição da tela.
-     * @param camera A câmera a ser utilizada.
-     * @return O ponto correspondente do mundo 2D.
-     */
-    public static Point getScreenToWorld2D( Vector2 vector, Camera2D camera ) {
-        return getScreenToWorld2D( vector.x, vector.y, camera );
     }
     
     /**
@@ -570,12 +523,12 @@ public class MathUtils {
      * @param camera A câmera a ser utilizada.
      * @return O ponto correspondente da tela.
      */
-    public static Point getWorldToScreen2D( double x, double y, Camera2D camera ) {
+    public static Vector2 getWorldToScreen2D( double x, double y, Camera2D camera ) {
         
         Matrix matCamera = MathUtils.getCameraMatrix2D( camera );
         Vector3 transform = MathUtils.vector3Transform( new Vector3( x, y, 0 ), matCamera );
 
-        return new Point( transform.x, transform.y );
+        return new Vector2( transform.x, transform.y );
         
     }
     
@@ -587,21 +540,9 @@ public class MathUtils {
      * @param camera A câmera a ser utilizada.
      * @return O ponto correspondente da tela.
      */
-    public static Point getWorldToScreen2D( Point point, Camera2D camera ) {
+    public static Vector2 getWorldToScreen2D( Vector2 point, Camera2D camera ) {
         return getWorldToScreen2D( point.x, point.y, camera );
         
-    }
-    
-    /**
-     * Converte uma coordenada do mundo 2D para uma coordenada da tela de 
-     * acordo com o câmera.
-     * 
-     * @param vector A posição do mundo 2D.
-     * @param camera A câmera a ser utilizada.
-     * @return O ponto correspondente da tela.
-     */
-    public static Point getWorldToScreen2D( Vector2 vector, Camera2D camera ) {
-        return getWorldToScreen2D( vector.x, vector.y, camera );
     }
     
     /**
@@ -614,12 +555,12 @@ public class MathUtils {
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da linha.
      */
-    public static Point getPointAtLine( double p1x, double p1y, double p2x, double p2y, double amount ) {
+    public static Vector2 getPointAtLine( double p1x, double p1y, double p2x, double p2y, double amount ) {
 
         double x = p1x * ( 1.0 - amount ) + p2x * amount;
         double y = p1y * ( 1.0 - amount ) + p2y * amount;
 
-        return new Point( x, y );
+        return new Vector2( x, y );
         
     }
 
@@ -631,20 +572,8 @@ public class MathUtils {
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da linha.
      */
-    public static Point getPointAtLine( Point p1, Point p2, double amount ) {
-        return getPointAtLine( p1.x, p1.y, p2.x, p2.y, amount )        ;
-    }
-
-    /**
-     * Obtém um ponto dentro de uma linha.
-     * 
-     * @param v1 Vetor do ponto inicial da linha.
-     * @param v2 Vetor do ponto final da linha.
-     * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
-     * @return O ponto dentro da linha.
-     */
-    public static Point getPointAtLine( Vector2 v1, Vector2 v2, double amount ) {
-        return getPointAtLine( v1.x, v1.y, v2.x, v2.y, amount )        ;
+    public static Vector2 getPointAtLine( Vector2 p1, Vector2 p2, double amount ) {
+        return getPointAtLine( p1.x, p1.y, p2.x, p2.y, amount );
     }
 
     /**
@@ -654,7 +583,7 @@ public class MathUtils {
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da linha.
      */
-    public static Point getPointAtLine( Line line, double amount ) {
+    public static Vector2 getPointAtLine( Line line, double amount ) {
         return getPointAtLine( line.x1, line.y1, line.x2, line.y2, amount );
     }
 
@@ -670,7 +599,7 @@ public class MathUtils {
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da curva.
      */
-    public static Point getPointAtQuadCurve( double p1x, double p1y, double cx, double cy, double p2x, double p2y, double amount ) {
+    public static Vector2 getPointAtQuadCurve( double p1x, double p1y, double cx, double cy, double p2x, double p2y, double amount ) {
 
         double a = Math.pow( 1.0 - amount, 2 );
         double b = 2.0 * ( 1.0 - amount ) * amount;
@@ -679,7 +608,7 @@ public class MathUtils {
         double x = a * p1x + b * cx + c * p2x;
         double y = a * p1y + b * cy + c * p2y;
 
-        return new Point( x, y );
+        return new Vector2( x, y );
 
     }
 
@@ -692,21 +621,8 @@ public class MathUtils {
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da curva.
      */
-    public static Point getPointAtQuadCurve( Point p1, Point c, Point p2, double amount ) {
+    public static Vector2 getPointAtQuadCurve( Vector2 p1, Vector2 c, Vector2 p2, double amount ) {
         return getPointAtQuadCurve( p1.x, p1.y, c.x, c.y, p2.x, p2.y, amount );
-    }
-
-    /**
-     * Obtém um ponto dentro de uma curva quadrática (curva Bézier quadrática).
-     * 
-     * @param v1 Vetor do ponto inicial da curva.
-     * @param c Vetor do ponto de controle da curva.
-     * @param v2 Vetor do ponto final da curva.
-     * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
-     * @return O ponto dentro da curva.
-     */
-    public static Point getPointAtQuadCurve( Vector2 v1, Vector2 c, Vector2 v2, double amount ) {
-        return getPointAtQuadCurve( v1.x, v1.y, c.x, c.y, v2.x, v2.y, amount );
     }
     
     /**
@@ -716,7 +632,7 @@ public class MathUtils {
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da curva.
      */
-    public static Point getPointAtQuadCurve( QuadCurve quadCurve, double amount ) {
+    public static Vector2 getPointAtQuadCurve( QuadCurve quadCurve, double amount ) {
         return getPointAtQuadCurve( quadCurve.x1, quadCurve.y1, quadCurve.cx, quadCurve.cy, quadCurve.x2, quadCurve.y2, amount );
     }
 
@@ -734,7 +650,7 @@ public class MathUtils {
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da curva.
      */
-    public static Point getPointAtCubicCurve( double p1x, double p1y, double c1x, double c1y, double c2x, double c2y, double p2x, double p2y, double amount ) {
+    public static Vector2 getPointAtCubicCurve( double p1x, double p1y, double c1x, double c1y, double c2x, double c2y, double p2x, double p2y, double amount ) {
 
         double a = Math.pow( 1.0 - amount, 3 );
         double b = 3.0 * Math.pow( 1.0 - amount, 2 ) * amount;
@@ -744,7 +660,7 @@ public class MathUtils {
         double x = a * p1x + b * c1x + c * c2x + d * p2x;
         double y = a * p1y + b * c1y + c * c2y + d * p2y;
 
-        return new Point( x, y );
+        return new Vector2( x, y );
 
     }
 
@@ -758,22 +674,8 @@ public class MathUtils {
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da curva.
      */
-    public static Point getPointAtCubicCurve( Point p1, Point c1, Point c2, Point p2, double amount ) {
+    public static Vector2 getPointAtCubicCurve( Vector2 p1, Vector2 c1, Vector2 c2, Vector2 p2, double amount ) {
         return getPointAtCubicCurve( p1.x, p1.y, c1.x, c1.y, c2.x, c2.y, p2.x, p2.y, amount );
-    }
-
-    /**
-     * Obtém um ponto dentro de uma curva cúbica (curva Bézier cúbica).
-     * 
-     * @param v1 Vetor do ponto inicial da curva.
-     * @param c1 Vetor do primeiro ponto de controle da curva.
-     * @param c2 Vetor do segundo ponto de controle da curva.
-     * @param v2 Vetor do ponto final da curva.
-     * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
-     * @return O ponto dentro da curva.
-     */
-    public static Point getPointAtCubicCurve( Vector2 v1, Vector2 c1, Vector2 c2, Vector2 v2, double amount ) {
-        return getPointAtCubicCurve( v1.x, v1.y, c1.x, c1.y, c2.x, c2.y, v2.x, v2.y, amount );
     }
 
     /**
@@ -783,7 +685,7 @@ public class MathUtils {
      * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
      * @return O ponto dentro da curva.
      */
-    public static Point getPointAtCubicCurve( CubicCurve cubicCurve, double amount ) {
+    public static Vector2 getPointAtCubicCurve( CubicCurve cubicCurve, double amount ) {
         return getPointAtCubicCurve( cubicCurve.x1, cubicCurve.y1, cubicCurve.c1x, cubicCurve.c1y, cubicCurve.c2x, cubicCurve.c2y, cubicCurve.x2, cubicCurve.y2, amount );
     }
     

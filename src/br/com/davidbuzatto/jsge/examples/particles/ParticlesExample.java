@@ -17,7 +17,6 @@
 package br.com.davidbuzatto.jsge.examples.particles;
 
 import br.com.davidbuzatto.jsge.core.Engine;
-import br.com.davidbuzatto.jsge.geom.Point;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.geom.Vector2;
 import br.com.davidbuzatto.jsge.utils.CollisionUtils;
@@ -58,7 +57,7 @@ public class ParticlesExample extends Engine {
     public void update() {
         
         double delta = getFrameTime();
-        Point mousePos = getMousePositionPoint();
+        Vector2 mousePos = getMousePositionPoint();
         
         if ( isMouseButtonDown( MOUSE_BUTTON_LEFT ) && CollisionUtils.checkCollisionPointRectangle( mousePos, limits ) ) {
             for ( int i = 0; i < 20; i++ ) {

@@ -17,10 +17,8 @@
 package br.com.davidbuzatto.jsge.examples;
 
 import br.com.davidbuzatto.jsge.core.Engine;
-import static br.com.davidbuzatto.jsge.core.Engine.GOLD;
-import static br.com.davidbuzatto.jsge.core.Engine.MOUSE_BUTTON_LEFT;
-import br.com.davidbuzatto.jsge.geom.Point;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
+import br.com.davidbuzatto.jsge.geom.Vector2;
 import br.com.davidbuzatto.jsge.sound.Music;
 import br.com.davidbuzatto.jsge.sound.Sound;
 import br.com.davidbuzatto.jsge.utils.CollisionUtils;
@@ -49,7 +47,7 @@ public class SoundAndMusicExample extends Engine {
             this.label = label;
         }
         
-        void update( Point mousePos ) {
+        void update( Vector2 mousePos ) {
             
             over = CollisionUtils.checkCollisionPointRectangle( mousePos.x, mousePos.y, rect );
             
@@ -140,7 +138,7 @@ public class SoundAndMusicExample extends Engine {
     public void update() {
         
         double delta = getFrameTime();
-        Point mousePos = getMousePositionPoint();
+        Vector2 mousePos = getMousePositionPoint();
         
         if ( isMouseButtonPressed( MOUSE_BUTTON_RIGHT ) ) {
             sound = loadSound( "resources/sfx/coin.wav" );

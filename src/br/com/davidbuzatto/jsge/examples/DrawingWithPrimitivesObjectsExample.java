@@ -25,7 +25,6 @@ import br.com.davidbuzatto.jsge.geom.Ellipse;
 import br.com.davidbuzatto.jsge.geom.EllipseSector;
 import br.com.davidbuzatto.jsge.geom.Line;
 import br.com.davidbuzatto.jsge.geom.Path;
-import br.com.davidbuzatto.jsge.geom.Point;
 import br.com.davidbuzatto.jsge.geom.Polygon;
 import br.com.davidbuzatto.jsge.geom.QuadCurve;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
@@ -41,7 +40,6 @@ import br.com.davidbuzatto.jsge.geom.Vector2;
  */
 public class DrawingWithPrimitivesObjectsExample extends Engine {
     
-    private Point point;
     private Vector2 vector;
     private Line line;
     private Rectangle rectangle;
@@ -68,7 +66,6 @@ public class DrawingWithPrimitivesObjectsExample extends Engine {
     @Override
     public void create() {
         
-        point = new Point( 50, 50 );
         vector = new Vector2( 30, 30 );
         line = new Line( 60, 60, 100, 100 );
         rectangle = new Rectangle( 50, 120, 50, 100 );
@@ -107,7 +104,6 @@ public class DrawingWithPrimitivesObjectsExample extends Engine {
         clearBackground( WHITE );
         setFontStyle( FONT_BOLD );
         
-        point.draw( this, BLACK );
         vector.draw( this, VIOLET );
 
         line.draw( this, BLACK );
