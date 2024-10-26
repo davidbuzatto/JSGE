@@ -250,6 +250,9 @@ public abstract class Engine extends JFrame {
     /** Mapa de processamento das teclas não pressionadas. */
     private Map<Integer, Boolean> keysUpMap;
     
+    /** Armazena o código da última tecla pressionada. */
+    private int lastPressedKeyCode = KEY_NULL;
+    
     /** Qual o cursor do momento. */
     private Cursor currentCursor;
     
@@ -697,15 +700,6 @@ public abstract class Engine extends JFrame {
     }
 
     /**
-     * Obtém a posição do mouse como um vetor.
-     * 
-     * @return A posição do mouse como um vetor.
-     */
-    public Vector2 getMousePositionVector2() {
-        return new Vector2( inputManager.getMouseX(), inputManager.getMouseY() );
-    }
-
-    /**
      * Obtém a movimentação da roda de rolagem do mouse.
      * Positivo para cima, negativo para baixo e zero para estacionária.
      * 
@@ -722,18 +716,6 @@ public abstract class Engine extends JFrame {
      * Em x a movimentação para cima e em y a movimentação para baixo.
      * 
      * @return Um ponto com a movimentação da roda de rolagem do mouse.
-     */
-    public Vector2 getMouseWheelMovePoint() {
-        double vUp = mouseWheelUpAction.getAmount();
-        double vDown = mouseWheelDownAction.getAmount();
-        return new Vector2( vUp, vDown );
-    }
-
-    /**
-     * Obtém um vetor com movimentação da roda de rolagem do mouse.
-     * Em x a movimentação para cima e em y a movimentação para baixo.
-     * 
-     * @return Um vetor com a movimentação da roda de rolagem do mouse.
      */
     public Vector2 getMouseWheelMoveVector() {
         double vUp = mouseWheelUpAction.getAmount();
@@ -911,14 +893,64 @@ public abstract class Engine extends JFrame {
     /*public boolean isKeyUp( int keyCode ) {
         return !isKeyDown( keyCode );
     }*/
-
+    
     /**
      * Retorna um conjunto dos códigos das teclas pressionadas no momento.
      * 
      * @return Um conjunto dos códigos de teclas pressionadas.
      */
-    public Set<Integer> getKeyPressed() {
+    public Set<Integer> getKeysPressed() {
         return inputManager.getKeysFromPressedActions();
+    }
+    
+    /**
+     * Retorna a o código da tecla pressionada.
+     * 
+     * @return O código da tecla pressionada ou KEY_NULL caso nenhuma tenha sido
+     * pressionada.
+     */
+    public int getKeyPressed() {
+        
+        Set<Integer> s = inputManager.getKeysFromPressedActions();
+        
+        if ( s.isEmpty() ) {
+            return KEY_NULL;
+        }
+        
+        int key = s.iterator().next();
+        
+        if ( key != lastPressedKeyCode ) {
+            lastPressedKeyCode = key;
+            return key;
+        }
+        
+        return KEY_NULL;
+        
+    }
+    
+    /**
+     * Retorna o caractere da tecla pressionada.
+     * 
+     * @return O caractere da tecla pressionada ou KEY_NULL caso nenhuma tenha
+     * sido pressionada.
+     */
+    public char getCharPressed() {
+        
+        Set<Integer> s = inputManager.getKeysFromPressedActions();
+        
+        if ( s.isEmpty() ) {
+            return KEY_NULL;
+        }
+        
+        int key = s.iterator().next();
+        
+        if ( key != lastPressedKeyCode ) {
+            lastPressedKeyCode = key;
+            return (char) key;
+        }
+        
+        return KEY_NULL;
+        
     }
 
 

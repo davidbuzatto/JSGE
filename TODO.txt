@@ -1,1 +1,18 @@
-Resolver eventos não consumidos.
+Permitir o uso de Paints ao invés de somente cores;
+Permite criar uma série de novas possibilidades:
+    ColorUtils
+        GradientPaint
+        TexturePaint
+        RadialGradientPaint
+    ImageUtils
+        LinearGradientPaint
+
+Remover métodos de desenho de retângulo com gradiente!
+Métodos para desenhos de curvas de vários componentes.
+
+Ajuste nas implementações:
+    Templates
+    Modelos
+    Criativos
+
+Resolver eventos não consumidos?

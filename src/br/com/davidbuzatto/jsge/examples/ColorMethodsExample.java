@@ -35,7 +35,7 @@ public class ColorMethodsExample extends Engine {
      * Cria o exemplo.
      */
     public ColorMethodsExample() {
-        super( 400, 290, "Color Methods", 60, true, true, false, false, false );
+        super( 800, 450, "Color Methods", 60, true, true, false, false, false );
     }
     
     @Override
@@ -61,7 +61,7 @@ public class ColorMethodsExample extends Engine {
         int iterations = 300;
         
         double xStart = 70;
-        double xEnd = getScreenWidth() - 10;
+        double xEnd = getScreenWidth() - 400;
         double width = xEnd - xStart;
         
         double yStart = 30;
@@ -84,9 +84,36 @@ public class ColorMethodsExample extends Engine {
         fillRectangle( 10, 230, 50, 50, ColorUtils.colorContrast( baseColor, -0.5 ) );
         
         String message = "right click me ;)";
-        drawText( message, getScreenWidth() - measureText( message, 20 ) - 10, 10, 20, BLACK );
+        drawText( message, 10, getScreenHeight() - 30, 20, BLACK );
+        
+        drawHSVCircle();
         
         drawFPS( 10, 10 );
+        
+    }
+    
+    private void drawHSVCircle() {
+        
+        int radius = 180;
+        int bQuantity = 6;
+        int x = getScreenWidth() - radius - 50; 
+        int y = getScreenHeight() / 2;
+        
+        for ( double r = radius; r > 0; r -= radius / bQuantity ) {
+            for ( int i = 0; i < 360; i += 15 ) {
+                fillCircleSector( x, y, r, i, i + 16, ColorUtils.colorFromHSV( i - 90, 1, r / radius ) );
+            }
+        }
+        
+        for ( int i = 0; i < 360; i += 15 ) {
+            double xp = x + Math.cos( Math.toRadians( i - 90 + 7.5 ) ) * ( radius + 15 );
+            double yp = y + Math.sin( Math.toRadians( i - 90 + 7.5 ) ) * ( radius + 15 );
+            String s = String.valueOf( i );
+            int w = measureText( s, 16 );
+            drawText( String.valueOf( i ), xp - w / 2, yp - 4, 16, BLACK );
+        }
+        
+        drawCircle( x, y, radius, BLACK );
         
     }
     
