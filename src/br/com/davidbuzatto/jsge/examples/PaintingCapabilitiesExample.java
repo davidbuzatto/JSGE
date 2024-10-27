@@ -86,6 +86,8 @@ public class PaintingCapabilitiesExample extends Engine {
     @Override
     public void draw() {
         
+        clearBackground( WHITE );
+        
         fillRectangle( 20, 20, 100, 155, horizontalGradient );
         drawRectangle( 20, 20, 100, 155, BLACK );
         fillRectangle( 20, 185, 100, 155, verticalGradient );

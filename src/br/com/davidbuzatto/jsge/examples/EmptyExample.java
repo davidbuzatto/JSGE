@@ -42,6 +42,7 @@ public class EmptyExample extends Engine {
     
     @Override
     public void draw() {
+        clearBackground( WHITE );
     }
     
     /**

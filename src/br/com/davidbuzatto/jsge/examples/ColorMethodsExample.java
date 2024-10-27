@@ -58,6 +58,8 @@ public class ColorMethodsExample extends Engine {
     @Override
     public void draw() {
         
+        clearBackground( WHITE );
+        
         int iterations = 300;
         
         double xStart = 70;

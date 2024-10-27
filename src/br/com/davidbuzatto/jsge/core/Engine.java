@@ -412,9 +412,8 @@ public abstract class Engine extends JFrame {
 
         // inicia o processo de execução do jogo ou simulação
         running = true;
-        start();
-
         setVisible( true );
+        start();
 
     }
 
@@ -468,7 +467,7 @@ public abstract class Engine extends JFrame {
                 // quanto se deve esperar?
                 waitTime = waitTimeFPS - frameTime;
 
-                //System.out.printf( "%d %d %d %d\n", timeBefore, timeAfter, frameTime, waitTime );
+                //traceLogInfo( "%d %d %d %d", timeBefore, timeAfter, frameTime, waitTime );
 
                 // se o tempo a esperar for negativo, quer dizer que não
                 // houve tempo suficiente, baseado no tempo esperado
@@ -3524,6 +3523,10 @@ public abstract class Engine extends JFrame {
      */
     private class DrawingPanel extends JPanel {
 
+        public DrawingPanel() {
+            setBackground( null );
+        }
+        
         @Override
         public void paintComponent( Graphics g ) {
 

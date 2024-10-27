@@ -218,6 +218,7 @@ public class SoundAndMusicExample extends Engine {
     @Override
     public void draw() {
         
+        clearBackground( WHITE );
         setFontSize( 20 );
         setFontStyle( FONT_BOLD );
         

@@ -100,6 +100,7 @@ public class UserInteractionExample extends Engine {
     @Override
     public void draw() {
         
+        clearBackground( WHITE );
         setFontStyle( FONT_BOLD );
         setStrokeWidth( 2 );
         

@@ -41,7 +41,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
      */
     public JSGEShowcaseWindow() {
         initComponents();
-        setTitle( String.format( "JSGE v%s Showcase", Utils.getVersion() ) );
+        setTitle( String.format( "JSGE Showcase - v%s", Utils.getVersion() ) );
     }
 
     /**

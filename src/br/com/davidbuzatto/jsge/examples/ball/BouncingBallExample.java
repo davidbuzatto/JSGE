@@ -58,6 +58,7 @@ public class BouncingBallExample extends Engine {
     
     @Override
     public void draw() {
+        clearBackground( WHITE );
         ball.draw( this );
         drawFPS( 10, 10 );
     }

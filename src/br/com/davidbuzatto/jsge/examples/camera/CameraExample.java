@@ -94,6 +94,7 @@ public class CameraExample extends Engine {
     @Override
     public void draw() {
         
+        clearBackground( WHITE );
         setFontSize( 16 );
         setFontStyle( FONT_BOLD );
         
