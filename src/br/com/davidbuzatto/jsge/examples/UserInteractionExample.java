@@ -37,11 +37,14 @@ public class UserInteractionExample extends Engine {
     
     private Rectangle wheelRect;
     
+    private char lastChar;
+    private int lastKey;
+    
     /**
      * Cria o exemplo.
      */
     public UserInteractionExample() {
-        super( 400, 250, "User Interaction", 60, true );
+        super( 400, 280, "User Interaction", 60, true );
     }
     
     @Override
@@ -80,6 +83,16 @@ public class UserInteractionExample extends Engine {
         if ( isMouseButtonReleased( MOUSE_BUTTON_RIGHT ) ) mouseRightPress = "released";
         mouseRightDown = isMouseButtonDown( MOUSE_BUTTON_RIGHT ) ? "down" : "up";
         
+        char c = getCharPressed();
+        if ( c != KEY_NULL ) {
+            lastChar = c;
+        }
+        
+        int k = getKeyPressed();
+        if ( k != KEY_NULL ) {
+            lastKey = k;
+        }
+        
         wheelRect.x += getMouseWheelMove() * 5;
         
     }
@@ -90,10 +103,12 @@ public class UserInteractionExample extends Engine {
         setFontStyle( FONT_BOLD );
         setStrokeWidth( 2 );
         
-        drawText( "       Key A: " + keyAPress + " | " + keyADown, 15, 10, 20, BLACK );
-        drawText( "  Mouse left: " + mouseLeftPress + " | " + mouseLeftDown, 15, 40, 20, BLACK );
-        drawText( "Mouse middle: " + mouseMiddlePress + " | " + mouseMiddleDown, 15, 70, 20, BLACK );
-        drawText( " Mouse right: " + mouseRightPress + " | " + mouseRightDown, 15, 100, 20, BLACK );
+        drawText( "        Key A: " + keyAPress + " | " + keyADown, 15, 10, 20, BLACK );
+        drawText( "   Mouse left: " + mouseLeftPress + " | " + mouseLeftDown, 15, 40, 20, BLACK );
+        drawText( " Mouse middle: " + mouseMiddlePress + " | " + mouseMiddleDown, 15, 70, 20, BLACK );
+        drawText( "  Mouse right: " + mouseRightPress + " | " + mouseRightDown, 15, 100, 20, BLACK );
+        drawText( "Last key char: " + lastChar, 15, 130, 20, BLACK );
+        drawText( "     Last key: " + lastKey, 15, 160, 20, BLACK );
         
         wheelRect.fill( this, GOLD );
         wheelRect.draw( this, BLACK );

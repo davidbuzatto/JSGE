@@ -46,7 +46,6 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
@@ -250,6 +249,9 @@ public abstract class Engine extends JFrame {
     private Map<Integer, Boolean> keysDownMap;
     /** Mapa de processamento das teclas não pressionadas. */
     private Map<Integer, Boolean> keysUpMap;
+    
+    /** Armazena o caractere da última tecla pressionada. */
+    private int lastPressedChar = KEY_NULL;
     
     /** Armazena o código da última tecla pressionada. */
     private int lastPressedKeyCode = KEY_NULL;
@@ -955,8 +957,8 @@ public abstract class Engine extends JFrame {
         
         int key = s.iterator().next();
         
-        if ( key != lastPressedKeyCode ) {
-            lastPressedKeyCode = key;
+        if ( key != lastPressedChar ) {
+            lastPressedChar = key;
             return (char) key;
         }
         
