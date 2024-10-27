@@ -21,6 +21,7 @@ import br.com.davidbuzatto.jsge.examples.ColorMethodsExample;
 import br.com.davidbuzatto.jsge.examples.DrawingWithPrimitivesMethodsExample;
 import br.com.davidbuzatto.jsge.examples.DrawingWithPrimitivesObjectsExample;
 import br.com.davidbuzatto.jsge.examples.ImageLoadingProcessingExample;
+import br.com.davidbuzatto.jsge.examples.PaintingCapabilitiesExample;
 import br.com.davidbuzatto.jsge.examples.SoundAndMusicExample;
 import br.com.davidbuzatto.jsge.examples.UserInteractionExample;
 import br.com.davidbuzatto.jsge.examples.ball.BouncingBallExample;
@@ -55,6 +56,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         lblHeader = new javax.swing.JLabel();
         btnDrawingPrimitiveMethods = new javax.swing.JButton();
         btnDrawingPrimitiveObjects = new javax.swing.JButton();
+        btnPaintingCapabilities = new javax.swing.JButton();
         btnCollisionDetection = new javax.swing.JButton();
         btnImageLoadingAndProcessing = new javax.swing.JButton();
         btnUserInteraction = new javax.swing.JButton();
@@ -65,6 +67,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         btnSoundAndMusic = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         lblHeader.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -81,6 +84,13 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         btnDrawingPrimitiveObjects.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDrawingPrimitiveObjectsActionPerformed(evt);
+            }
+        });
+
+        btnPaintingCapabilities.setText("Painting Capabilities");
+        btnPaintingCapabilities.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPaintingCapabilitiesActionPerformed(evt);
             }
         });
 
@@ -157,7 +167,8 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
                     .addComponent(btnParticles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                     .addComponent(btnCamera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSoundAndMusic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSoundAndMusic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPaintingCapabilities, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -169,6 +180,8 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
                 .addComponent(btnDrawingPrimitiveMethods)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDrawingPrimitiveObjects)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPaintingCapabilities)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCollisionDetection)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -232,6 +245,10 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         new SoundAndMusicExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnSoundAndMusicActionPerformed
 
+    private void btnPaintingCapabilitiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaintingCapabilitiesActionPerformed
+        new PaintingCapabilitiesExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+    }//GEN-LAST:event_btnPaintingCapabilitiesActionPerformed
+
     /**
      * Executa o Showcase.
      * 
@@ -278,6 +295,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnDrawingPrimitiveMethods;
     private javax.swing.JButton btnDrawingPrimitiveObjects;
     private javax.swing.JButton btnImageLoadingAndProcessing;
+    private javax.swing.JButton btnPaintingCapabilities;
     private javax.swing.JButton btnParticles;
     private javax.swing.JButton btnSoundAndMusic;
     private javax.swing.JButton btnUserInteraction;

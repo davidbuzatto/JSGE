@@ -17,7 +17,7 @@
 package br.com.davidbuzatto.jsge.geom;
 
 import br.com.davidbuzatto.jsge.core.Engine;
-import java.awt.Color;
+import java.awt.Paint;
 
 /**
  * Classe para representação de um setor circular.
@@ -75,12 +75,12 @@ public class CircleSector implements Drawable {
     }
 
     @Override
-    public void draw( Engine engine, Color color ) {
+    public void draw( Engine engine, Paint color ) {
         engine.drawCircleSector( this, color );
     }
 
     @Override
-    public void fill( Engine engine, Color color ) {
+    public void fill( Engine engine, Paint color ) {
         engine.fillCircleSector( this, color );
     }
 

@@ -17,7 +17,7 @@
 package br.com.davidbuzatto.jsge.geom;
 
 import br.com.davidbuzatto.jsge.core.Engine;
-import java.awt.Color;
+import java.awt.Paint;
 
 /**
  * Interface para elementos desenháveis.
@@ -29,17 +29,17 @@ public interface Drawable {
     /**
      * Desenha o elemento corrente usando a engine.
      * 
-     * @param engine engine utilizada.
-     * @param color cor do desenho.
+     * @param engine Engine utilizada.
+     * @param paint Paint para o desenho.
      */
-    void draw( Engine engine, Color color );
+    void draw( Engine engine, Paint paint );
 
     /**
      * Pinta o elemento corrente usando a engine.
      * 
-     * @param engine engine utilizada.
-     * @param color cor do desenho.
+     * @param engine Engine utilizada.
+     * @param paint Paint para o desenho.
      */
-    void fill( Engine engine, Color color );
+    void fill( Engine engine, Paint paint );
 
 }

@@ -17,7 +17,7 @@
 package br.com.davidbuzatto.jsge.geom;
 
 import br.com.davidbuzatto.jsge.core.Engine;
-import java.awt.Color;
+import java.awt.Paint;
 
 /**
  * Classe para representação de um polígono regular em duas dimensões.
@@ -87,12 +87,12 @@ public class Polygon implements Drawable {
     }
 
     @Override
-    public void draw( Engine engine, Color color ) {
+    public void draw( Engine engine, Paint color ) {
         engine.drawPolygon( this, color );
     }
 
     @Override
-    public void fill( Engine engine, Color color ) {
+    public void fill( Engine engine, Paint color ) {
         engine.fillPolygon( this, color );
     }
 

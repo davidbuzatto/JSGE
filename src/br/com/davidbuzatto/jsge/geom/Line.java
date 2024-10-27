@@ -17,7 +17,7 @@
 package br.com.davidbuzatto.jsge.geom;
 
 import br.com.davidbuzatto.jsge.core.Engine;
-import java.awt.Color;
+import java.awt.Paint;
 
 /**
  * Classe para representação de uma linha em duas dimensões.
@@ -68,12 +68,12 @@ public class Line implements Drawable {
     }
 
     @Override
-    public void draw( Engine engine, Color color ) {
+    public void draw( Engine engine, Paint color ) {
         engine.drawLine( this, color );
     }
 
     @Override
-    public void fill( Engine engine, Color color ) {
+    public void fill( Engine engine, Paint color ) {
         engine.drawLine( this, color );
     }
 

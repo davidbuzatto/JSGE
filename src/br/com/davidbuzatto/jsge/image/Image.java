@@ -37,6 +37,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
+import java.awt.Paint;
 import java.awt.RenderingHints;
 import java.awt.geom.Arc2D;
 import java.awt.geom.CubicCurve2D;
@@ -160,11 +161,11 @@ public class Image {
      * 
      * @param x Coordenada x do pixel.
      * @param y Coordenada y do pixel.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawPixel( double x, double y, Color color ) {
+    public void drawPixel( double x, double y, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.draw( new Line2D.Double( x, y, x, y ) );
         g2d.dispose();
     }
@@ -173,47 +174,47 @@ public class Image {
      * Desenha um pixel.
      * 
      * @param point Ponto do pixel.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawPixel( Vector2 point, Color color ) {
-        drawPixel( point.x, point.y, color );
+    public void drawPixel( Vector2 point, Paint paint ) {
+        drawPixel( point.x, point.y, paint );
     }
 
     /**
      * Desenha uma linha.
      * 
-     * @param startPosX Coordenada x do ponto inicial.
-     * @param startPosY Coordenada y do ponto inicial.
-     * @param endPosX Coordenada x do ponto final.
-     * @param endPosY Coordenada y do ponto final.
-     * @param color Cor de desenho.
+     * @param startX Coordenada x do ponto inicial.
+     * @param startY Coordenada y do ponto inicial.
+     * @param endX Coordenada x do ponto final.
+     * @param endY Coordenada y do ponto final.
+     * @param paint Paint para o desenho.
      */
-    public void drawLine( double startPosX, double startPosY, double endPosX, double endPosY, Color color ) {
+    public void drawLine( double startX, double startY, double endX, double endY, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
-        g2d.draw( new Line2D.Double( startPosX, startPosY, endPosX, endPosY ) );
+        g2d.setPaint( paint );
+        g2d.draw( new Line2D.Double( startX, startY, endX, endY ) );
         g2d.dispose();
     }
 
     /**
      * Desenha uma linha.
      * 
-     * @param startVector2 Ponto inicial.
-     * @param endVector2 Ponto final.
-     * @param color Cor de desenho.
+     * @param start Ponto inicial.
+     * @param end Ponto final.
+     * @param paint Paint para o desenho.
      */
-    public void drawLine( Vector2 startVector2, Vector2 endVector2, Color color ) {
-        drawLine( startVector2.x, startVector2.y, endVector2.x, endVector2.y, color );
+    public void drawLine( Vector2 start, Vector2 end, Paint paint ) {
+        drawLine( start.x, start.y, end.x, end.y, paint );
     }
 
     /**
      * Desenha uma linha.
      * 
      * @param line Uma linha.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawLine( Line line, Color color ) {
-        drawLine( line.x1, line.y1, line.x2, line.y2, color );
+    public void drawLine( Line line, Paint paint ) {
+        drawLine( line.x1, line.y1, line.x2, line.y2, paint );
     }
 
     /**
@@ -223,11 +224,11 @@ public class Image {
      * @param y Coordenada y do vértice superior esquerdo do retângulo.
      * @param width Largura.
      * @param height Altura.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawRectangle( double x, double y, double width, double height, Color color ) {
+    public void drawRectangle( double x, double y, double width, double height, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.draw( new Rectangle2D.Double( x, y, width, height ) );
         g2d.dispose();
     }
@@ -238,20 +239,20 @@ public class Image {
      * @param pos Vértice superior esquerdo.
      * @param width Largura.
      * @param height Altura.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawRectangle( Vector2 pos, double width, double height, Color color ) {
-        drawRectangle( pos.x, pos.y, width, height, color );
+    public void drawRectangle( Vector2 pos, double width, double height, Paint paint ) {
+        drawRectangle( pos.x, pos.y, width, height, paint );
     }
 
     /**
      * Desenha um retângulo.
      * 
      * @param rectangle Um retângulo.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawRectangle( Rectangle rectangle, Color color ) {
-        drawRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, color );
+    public void drawRectangle( Rectangle rectangle, Paint paint ) {
+        drawRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, paint );
     }
 
     /**
@@ -261,11 +262,11 @@ public class Image {
      * @param y Coordenada y do vértice superior esquerdo do retângulo.
      * @param width Largura.
      * @param height Altura.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillRectangle( double x, double y, double width, double height, Color color ) {
+    public void fillRectangle( double x, double y, double width, double height, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.fill( new Rectangle2D.Double( x, y, width, height ) );
         g2d.dispose();
     }
@@ -276,20 +277,20 @@ public class Image {
      * @param pos Vértice superior esquerdo.
      * @param width Largura.
      * @param height Altura.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillRectangle( Vector2 pos, double width, double height, Color color ) {
-        fillRectangle( pos.x, pos.y, width, height, color );
+    public void fillRectangle( Vector2 pos, double width, double height, Paint paint ) {
+        fillRectangle( pos.x, pos.y, width, height, paint );
     }
 
     /**
      * Pinta um retângulo.
      * 
      * @param rectangle Um retângulo.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillRectangle( Rectangle rectangle, Color color ) {
-        fillRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, color );
+    public void fillRectangle( Rectangle rectangle, Paint paint ) {
+        fillRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, paint );
     }
 
     /**
@@ -302,12 +303,12 @@ public class Image {
      * @param originX Coordenada x do pivô da rotação.
      * @param originY Coordenada y do pivô da rotação.
      * @param rotation Rotação em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawRectanglePro( double x, double y, double width, double height, double originX, double originY, double rotation, Color color ) {
+    public void drawRectanglePro( double x, double y, double width, double height, double originX, double originY, double rotation, Paint paint ) {
 
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
 
         g2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
         g2d.draw( new Rectangle2D.Double( x, y, width, height ) );
@@ -324,10 +325,10 @@ public class Image {
      * @param height Altura.
      * @param origin Pivô da rotação.
      * @param rotation Rotação em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawRectanglePro( Vector2 pos, double width, double height, Vector2 origin, double rotation, Color color ) {
-        drawRectanglePro( pos.x, pos.y, width, height, origin.x, origin.y, rotation, color );
+    public void drawRectanglePro( Vector2 pos, double width, double height, Vector2 origin, double rotation, Paint paint ) {
+        drawRectanglePro( pos.x, pos.y, width, height, origin.x, origin.y, rotation, paint );
     }
 
     /**
@@ -336,10 +337,10 @@ public class Image {
      * @param rectangle Um retângulo.
      * @param origin Pivô da rotação.
      * @param rotation Rotação em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawRectanglePro( Rectangle rectangle, Vector2 origin, double rotation, Color color ) {
-        drawRectanglePro( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, color );
+    public void drawRectanglePro( Rectangle rectangle, Vector2 origin, double rotation, Paint paint ) {
+        drawRectanglePro( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, paint );
     }
 
     /**
@@ -352,12 +353,12 @@ public class Image {
      * @param originX Coordenada x do pivô da rotação.
      * @param originY Coordenada y do pivô da rotação.
      * @param rotation Rotação em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillRectanglePro( double x, double y, double width, double height, double originX, double originY, double rotation, Color color ) {
+    public void fillRectanglePro( double x, double y, double width, double height, double originX, double originY, double rotation, Paint paint ) {
 
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
 
         g2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
         g2d.fill( new Rectangle2D.Double( x, y, width, height ) );
@@ -374,10 +375,10 @@ public class Image {
      * @param height Altura.
      * @param origin Pivô da rotação.
      * @param rotation Rotação em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillRectanglePro( Vector2 pos, double width, double height, Vector2 origin, double rotation, Color color ) {
-        fillRectanglePro( pos.x, pos.y, width, height, origin.x, origin.y, rotation, color );
+    public void fillRectanglePro( Vector2 pos, double width, double height, Vector2 origin, double rotation, Paint paint ) {
+        fillRectanglePro( pos.x, pos.y, width, height, origin.x, origin.y, rotation, paint );
     }
 
     /**
@@ -386,10 +387,10 @@ public class Image {
      * @param rectangle Um retângulo.
      * @param origin Pivô da rotação.
      * @param rotation Rotação em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillRectanglePro( Rectangle rectangle, Vector2 origin, double rotation, Color color ) {
-        fillRectanglePro( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, color );
+    public void fillRectanglePro( Rectangle rectangle, Vector2 origin, double rotation, Paint paint ) {
+        fillRectanglePro( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, paint );
     }
 
     /**
@@ -400,11 +401,11 @@ public class Image {
      * @param width Largura.
      * @param height Altura.
      * @param roundness Arredondamento dos cantos.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawRoundRectangle( double x, double y, double width, double height, double roundness, Color color ) {
+    public void drawRoundRectangle( double x, double y, double width, double height, double roundness, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.draw( new RoundRectangle2D.Double( x, y, width, height, roundness, roundness ) );
         g2d.dispose();
     }
@@ -416,20 +417,20 @@ public class Image {
      * @param width Largura.
      * @param height Altura.
      * @param roundness Arredondamento dos cantos.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawRoundRectangle( Vector2 pos, double width, double height, double roundness, Color color ) {
-        drawRoundRectangle( pos.x, pos.y, width, height, roundness, color );
+    public void drawRoundRectangle( Vector2 pos, double width, double height, double roundness, Paint paint ) {
+        drawRoundRectangle( pos.x, pos.y, width, height, roundness, paint );
     }
 
     /**
      * Desenha um retângulo com cantos arredondados.
      * 
      * @param roundRectangle Um retângulo com os cantos arredondados.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawRoundRectangle( RoundRectangle roundRectangle, Color color ) {
-        drawRoundRectangle( roundRectangle.x, roundRectangle.y, roundRectangle.width, roundRectangle.height, roundRectangle.roundness, color );
+    public void drawRoundRectangle( RoundRectangle roundRectangle, Paint paint ) {
+        drawRoundRectangle( roundRectangle.x, roundRectangle.y, roundRectangle.width, roundRectangle.height, roundRectangle.roundness, paint );
     }
 
     /**
@@ -440,11 +441,11 @@ public class Image {
      * @param width Largura.
      * @param height Altura.
      * @param roundness Arredondamento dos cantos.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillRoundRectangle( double x, double y, double width, double height, double roundness, Color color ) {
+    public void fillRoundRectangle( double x, double y, double width, double height, double roundness, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.fill( new RoundRectangle2D.Double( x, y, width, height, roundness, roundness ) );
         g2d.dispose();
     }
@@ -456,102 +457,20 @@ public class Image {
      * @param width Largura.
      * @param height Altura.
      * @param roundness Arredondamento dos cantos.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillRoundRectangle( Vector2 pos, double width, double height, double roundness, Color color ) {
-        fillRoundRectangle( pos.x, pos.y, width, height, roundness, color );
+    public void fillRoundRectangle( Vector2 pos, double width, double height, double roundness, Paint paint ) {
+        fillRoundRectangle( pos.x, pos.y, width, height, roundness, paint );
     }
 
     /**
      * Pinta um retângulo com cantos arredondados.
      * 
      * @param roundRectangle Um retângulo com os cantos arredondados.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillRoundRectangle( RoundRectangle roundRectangle, Color color ) {
-        fillRoundRectangle( roundRectangle.x, roundRectangle.y, roundRectangle.width, roundRectangle.height, roundRectangle.roundness, color );
-    }
-
-    /**
-     * Pinta um retângulo com um gradiente horizontal.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo.
-     * @param width Largura.
-     * @param height Altura.
-     * @param color1 Cor inicial do gradiente.
-     * @param color2 Cor final do gradiente.
-     */
-    public void fillRectangleGradientH( double x, double y, double width, double height, Color color1, Color color2 ) {
-        Graphics2D g2d = createGraphics();
-        g2d.setPaint( new GradientPaint( (int) x, (int) (y + height / 2), color1, (int) (x + width), (int) (y + height / 2), color2 ) );
-        g2d.fill( new Rectangle2D.Double( x, y, width, height ) );
-        g2d.dispose();
-    }
-
-    /**
-     * Pinta um retângulo com um gradiente horizontal.
-     * 
-     * @param pos Vértice superior esquerdo.
-     * @param width Largura.
-     * @param height Altura.
-     * @param color1 Cor inicial do gradiente.
-     * @param color2 Cor final do gradiente.
-     */
-    public void fillRectangleGradientH( Vector2 pos, double width, double height, Color color1, Color color2 ) {
-        fillRectangleGradientH( pos.x, pos.y, width, height, color1, color2 );
-    }
-
-    /**
-     * Pinta um retângulo com um gradiente horizontal.
-     * 
-     * @param rectangle Um retângulo.
-     * @param color1 Cor inicial do gradiente.
-     * @param color2 Cor final do gradiente.
-     */
-    public void fillRectangleGradientH( Rectangle rectangle, Color color1, Color color2 ) {
-        fillRectangleGradientH( rectangle.x, rectangle.y, rectangle.width, rectangle.height, color1, color2 );
-    }
-
-    /**
-     * Pinta um retângulo com um gradiente vertical.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo.
-     * @param width Largura.
-     * @param height Altura.
-     * @param color1 Cor inicial do gradiente.
-     * @param color2 Cor final do gradiente.
-     */
-    public void fillRectangleGradientV( double x, double y, double width, double height, Color color1, Color color2 ) {
-        Graphics2D g2d = createGraphics();
-        g2d.setPaint( new GradientPaint( (int) (x + width / 2), (int) y, color1, (int) (x + width / 2), (int) (y + height), color2 ) );
-        g2d.fill( new Rectangle2D.Double( x, y, width, height ) );
-        g2d.dispose();
-    }
-
-    /**
-     * Pinta um retângulo com um gradiente vertical.
-     * 
-     * @param pos Vértice superior esquerdo.
-     * @param width Largura.
-     * @param height Altura.
-     * @param color1 Cor inicial do gradiente.
-     * @param color2 Cor final do gradiente.
-     */
-    public void fillRectangleGradientV( Vector2 pos, double width, double height, Color color1, Color color2 ) {
-        fillRectangleGradientV( pos.x, pos.y, width, height, color1, color2 );
-    }
-
-    /**
-     * Pinta um retângulo com um gradiente vertical.
-     * 
-     * @param rectangle Um retângulo.
-     * @param color1 Cor inicial do gradiente.
-     * @param color2 Cor final do gradiente.
-     */
-    public void fillRectangleGradientV( Rectangle rectangle, Color color1, Color color2 ) {
-        fillRectangleGradientV( rectangle.x, rectangle.y, rectangle.width, rectangle.height, color1, color2 );
+    public void fillRoundRectangle( RoundRectangle roundRectangle, Paint paint ) {
+        fillRoundRectangle( roundRectangle.x, roundRectangle.y, roundRectangle.width, roundRectangle.height, roundRectangle.roundness, paint );
     }
 
     /**
@@ -560,11 +479,11 @@ public class Image {
      * @param x Coordenada x do centro do círculo.
      * @param y Coordenada y do centro do círculo.
      * @param radius Raio.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawCircle( double x, double y, double radius, Color color ) {
+    public void drawCircle( double x, double y, double radius, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.draw( new Ellipse2D.Double( x - radius, y - radius, radius * 2, radius * 2 ) );
         g2d.dispose();
     }
@@ -574,20 +493,20 @@ public class Image {
      * 
      * @param center Centro do círculo.
      * @param radius Raio.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawCircle( Vector2 center, double radius, Color color ) {
-        drawCircle( center.x, center.y, radius, color );
+    public void drawCircle( Vector2 center, double radius, Paint paint ) {
+        drawCircle( center.x, center.y, radius, paint );
     }
 
     /**
      * Desenha um círculo.
      * 
      * @param circle Um círculo.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawCircle( Circle circle, Color color ) {
-        drawCircle( circle.x, circle.y, circle.radius, color );
+    public void drawCircle( Circle circle, Paint paint ) {
+        drawCircle( circle.x, circle.y, circle.radius, paint );
     }
 
     /**
@@ -596,11 +515,11 @@ public class Image {
      * @param x Coordenada x do centro do círculo.
      * @param y Coordenada y do centro do círculo.
      * @param radius Raio.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillCircle( double x, double y, double radius, Color color ) {
+    public void fillCircle( double x, double y, double radius, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.fill( new Ellipse2D.Double( x - radius, y - radius, radius * 2, radius * 2 ) );
         g2d.dispose();
     }
@@ -610,20 +529,20 @@ public class Image {
      * 
      * @param center Centro do círculo.
      * @param radius Raio.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillCircle( Vector2 center, double radius, Color color ) {
-        fillCircle( center.x, center.y, radius, color );
+    public void fillCircle( Vector2 center, double radius, Paint paint ) {
+        fillCircle( center.x, center.y, radius, paint );
     }
 
     /**
      * Pinta um círculo.
      * 
      * @param circle Um círculo.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillCircle( Circle circle, Color color ) {
-        fillCircle( circle.x, circle.y, circle.radius, color );
+    public void fillCircle( Circle circle, Paint paint ) {
+        fillCircle( circle.x, circle.y, circle.radius, paint );
     }
 
     /**
@@ -633,11 +552,11 @@ public class Image {
      * @param y Coordenada y do centro da elipse.
      * @param radiusH Raio horizontal.
      * @param radiusV Raio vertical.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawEllipse( double x, double y, double radiusH, double radiusV, Color color ) {
+    public void drawEllipse( double x, double y, double radiusH, double radiusV, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.draw( new Ellipse2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2 ) );
         g2d.dispose();
     }
@@ -648,20 +567,20 @@ public class Image {
      * @param center Centro da elipse.
      * @param radiusH Raio horizontal.
      * @param radiusV Raio vertical.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawEllipse( Vector2 center, double radiusH, double radiusV, Color color ) {
-        drawEllipse( center.x, center.y, radiusH, radiusV, color );
+    public void drawEllipse( Vector2 center, double radiusH, double radiusV, Paint paint ) {
+        drawEllipse( center.x, center.y, radiusH, radiusV, paint );
     }
 
     /**
      * Desenha uma elipse.
      * 
      * @param ellipse Uma elipse.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawEllipse( Ellipse ellipse, Color color ) {
-        drawEllipse( ellipse.x, ellipse.y, ellipse.radiusH, ellipse.radiusV, color );
+    public void drawEllipse( Ellipse ellipse, Paint paint ) {
+        drawEllipse( ellipse.x, ellipse.y, ellipse.radiusH, ellipse.radiusV, paint );
     }
 
     /**
@@ -671,11 +590,11 @@ public class Image {
      * @param y Coordenada y do centro da elipse.
      * @param radiusH Raio horizontal.
      * @param radiusV Raio vertical.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillEllipse( double x, double y, double radiusH, double radiusV, Color color ) {
+    public void fillEllipse( double x, double y, double radiusH, double radiusV, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.fill( new Ellipse2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2 ) );
         g2d.dispose();
     }
@@ -686,20 +605,20 @@ public class Image {
      * @param center Centro da elipse.
      * @param radiusH Raio horizontal.
      * @param radiusV Raio vertical.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillEllipse( Vector2 center, double radiusH, double radiusV, Color color ) {
-        fillEllipse( center.x, center.y, radiusH, radiusV, color );
+    public void fillEllipse( Vector2 center, double radiusH, double radiusV, Paint paint ) {
+        fillEllipse( center.x, center.y, radiusH, radiusV, paint );
     }
 
     /**
      * Pinta uma elipse.
      * 
      * @param ellipse Uma elipse.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillEllipse( Ellipse ellipse, Color color ) {
-        fillEllipse( ellipse.x, ellipse.y, ellipse.radiusH, ellipse.radiusV, color );
+    public void fillEllipse( Ellipse ellipse, Paint paint ) {
+        fillEllipse( ellipse.x, ellipse.y, ellipse.radiusH, ellipse.radiusV, paint );
     }
 
     /**
@@ -710,11 +629,11 @@ public class Image {
      * @param radius Raio.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawCircleSector( double x, double y, double radius, double startAngle, double endAngle, Color color ) {
+    public void drawCircleSector( double x, double y, double radius, double startAngle, double endAngle, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         double extent = endAngle - startAngle;
         g2d.draw( new Arc2D.Double( x - radius, y - radius, radius * 2, radius * 2, startAngle, -extent, Arc2D.PIE ) );
         g2d.dispose();
@@ -727,10 +646,10 @@ public class Image {
      * @param radius Raio.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawCircleSector( Vector2 center, double radius, double startAngle, double endAngle, Color color ) {
-        drawCircleSector( center.x, center.y, radius, startAngle, endAngle, color );
+    public void drawCircleSector( Vector2 center, double radius, double startAngle, double endAngle, Paint paint ) {
+        drawCircleSector( center.x, center.y, radius, startAngle, endAngle, paint );
     }
 
     /**
@@ -739,20 +658,20 @@ public class Image {
      * @param circle Um círculo.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawCircleSector( Circle circle, double startAngle, double endAngle, Color color ) {
-        drawCircleSector( circle.x, circle.y, circle.radius, startAngle, endAngle, color );
+    public void drawCircleSector( Circle circle, double startAngle, double endAngle, Paint paint ) {
+        drawCircleSector( circle.x, circle.y, circle.radius, startAngle, endAngle, paint );
     }
 
     /**
      * Desenha um setor circular.
      * 
      * @param circleSector Um setor circular.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawCircleSector( CircleSector circleSector, Color color ) {
-        drawCircleSector( circleSector.x, circleSector.y, circleSector.radius, circleSector.startAngle, circleSector.endAngle, color );
+    public void drawCircleSector( CircleSector circleSector, Paint paint ) {
+        drawCircleSector( circleSector.x, circleSector.y, circleSector.radius, circleSector.startAngle, circleSector.endAngle, paint );
     }
 
     /**
@@ -763,11 +682,11 @@ public class Image {
      * @param radius Raio.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillCircleSector( double x, double y, double radius, double startAngle, double endAngle, Color color ) {
+    public void fillCircleSector( double x, double y, double radius, double startAngle, double endAngle, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         double extent = endAngle - startAngle;
         g2d.fill( new Arc2D.Double( x - radius, y - radius, radius * 2, radius * 2, startAngle, -extent, Arc2D.PIE ) );
         g2d.dispose();
@@ -780,10 +699,10 @@ public class Image {
      * @param radius Raio.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillCircleSector( Vector2 center, double radius, double startAngle, double endAngle, Color color ) {
-        fillCircleSector( center.x, center.y, radius, startAngle, endAngle, color );
+    public void fillCircleSector( Vector2 center, double radius, double startAngle, double endAngle, Paint paint ) {
+        fillCircleSector( center.x, center.y, radius, startAngle, endAngle, paint );
     }
 
     /**
@@ -792,20 +711,20 @@ public class Image {
      * @param circle Um círculo.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillCircleSector( Circle circle, double startAngle, double endAngle, Color color ) {
-        fillCircleSector( circle.x, circle.y, circle.radius, startAngle, endAngle, color );
+    public void fillCircleSector( Circle circle, double startAngle, double endAngle, Paint paint ) {
+        fillCircleSector( circle.x, circle.y, circle.radius, startAngle, endAngle, paint );
     }
 
     /**
      * Pinta um setor circular.
      * 
      * @param circleSector Um setor circular.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillCircleSector( CircleSector circleSector, Color color ) {
-        fillCircleSector( circleSector.x, circleSector.y, circleSector.radius, circleSector.startAngle, circleSector.endAngle, color );
+    public void fillCircleSector( CircleSector circleSector, Paint paint ) {
+        fillCircleSector( circleSector.x, circleSector.y, circleSector.radius, circleSector.startAngle, circleSector.endAngle, paint );
     }
 
     /**
@@ -817,11 +736,11 @@ public class Image {
      * @param radiusV Raio vertical.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawEllipseSector( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
+    public void drawEllipseSector( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         double extent = endAngle - startAngle;
         g2d.draw( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.PIE ) );
         g2d.dispose();
@@ -835,10 +754,10 @@ public class Image {
      * @param radiusV Raio vertical.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawEllipseSector( Vector2 center, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
-        drawEllipseSector( center.x, center.y, radiusH, radiusV, startAngle, endAngle, color );
+    public void drawEllipseSector( Vector2 center, double radiusH, double radiusV, double startAngle, double endAngle, Paint paint ) {
+        drawEllipseSector( center.x, center.y, radiusH, radiusV, startAngle, endAngle, paint );
     }
 
     /**
@@ -847,20 +766,20 @@ public class Image {
      * @param ellipse Uma elipse.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawEllipseSector( Ellipse ellipse, double startAngle, double endAngle, Color color ) {
-        drawEllipseSector( ellipse.x, ellipse.y, ellipse.radiusH, ellipse.radiusV, startAngle, endAngle, color );
+    public void drawEllipseSector( Ellipse ellipse, double startAngle, double endAngle, Paint paint ) {
+        drawEllipseSector( ellipse.x, ellipse.y, ellipse.radiusH, ellipse.radiusV, startAngle, endAngle, paint );
     }
 
     /**
      * Desenha um setor de uma elipse.
      * 
      * @param ellipseSector Um setor de uma elipse.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawEllipseSector( EllipseSector ellipseSector, Color color ) {
-        drawEllipseSector( ellipseSector.x, ellipseSector.y, ellipseSector.radiusH, ellipseSector.radiusV, ellipseSector.startAngle, ellipseSector.endAngle, color );
+    public void drawEllipseSector( EllipseSector ellipseSector, Paint paint ) {
+        drawEllipseSector( ellipseSector.x, ellipseSector.y, ellipseSector.radiusH, ellipseSector.radiusV, ellipseSector.startAngle, ellipseSector.endAngle, paint );
     }
 
     /**
@@ -872,11 +791,11 @@ public class Image {
      * @param radiusV Raio vertical.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillEllipseSector( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
+    public void fillEllipseSector( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         double extent = endAngle - startAngle;
         g2d.fill( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.PIE ) );
         g2d.dispose();
@@ -890,10 +809,10 @@ public class Image {
      * @param radiusV Raio vertical.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillEllipseSector( Vector2 center, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
-        fillEllipseSector( center.x, center.y, radiusH, radiusV, startAngle, endAngle, color );
+    public void fillEllipseSector( Vector2 center, double radiusH, double radiusV, double startAngle, double endAngle, Paint paint ) {
+        fillEllipseSector( center.x, center.y, radiusH, radiusV, startAngle, endAngle, paint );
     }
 
     /**
@@ -902,20 +821,20 @@ public class Image {
      * @param ellipse Uma elipse.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillEllipseSector( Ellipse ellipse, double startAngle, double endAngle, Color color ) {
-        fillEllipseSector( ellipse.x, ellipse.y, ellipse.radiusH, ellipse.radiusV, startAngle, endAngle, color );
+    public void fillEllipseSector( Ellipse ellipse, double startAngle, double endAngle, Paint paint ) {
+        fillEllipseSector( ellipse.x, ellipse.y, ellipse.radiusH, ellipse.radiusV, startAngle, endAngle, paint );
     }
 
     /**
      * Pinta um setor de uma elipse.
      * 
      * @param ellipseSector Um setor de uma elipse.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillEllipseSector( EllipseSector ellipseSector, Color color ) {
-        fillEllipseSector( ellipseSector.x, ellipseSector.y, ellipseSector.radiusH, ellipseSector.radiusV, ellipseSector.startAngle, ellipseSector.endAngle, color );
+    public void fillEllipseSector( EllipseSector ellipseSector, Paint paint ) {
+        fillEllipseSector( ellipseSector.x, ellipseSector.y, ellipseSector.radiusH, ellipseSector.radiusV, ellipseSector.startAngle, ellipseSector.endAngle, paint );
     }
 
     /**
@@ -927,11 +846,11 @@ public class Image {
      * @param radiusV Raio vertical.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawArc( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
+    public void drawArc( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         double extent = endAngle - startAngle;
         g2d.draw( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.OPEN ) );
         g2d.dispose();
@@ -945,20 +864,20 @@ public class Image {
      * @param radiusV Raio vertical.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawArc( Vector2 center, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
-        drawArc( center.x, center.y, radiusH, radiusV, startAngle, endAngle, color );
+    public void drawArc( Vector2 center, double radiusH, double radiusV, double startAngle, double endAngle, Paint paint ) {
+        drawArc( center.x, center.y, radiusH, radiusV, startAngle, endAngle, paint );
     }
 
     /**
      * Desenha um arco
      * 
      * @param arc Um arco.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawArc( Arc arc, Color color ) {
-        drawArc( arc.x, arc.y, arc.radiusH, arc.radiusV, arc.startAngle, arc.endAngle, color );
+    public void drawArc( Arc arc, Paint paint ) {
+        drawArc( arc.x, arc.y, arc.radiusH, arc.radiusV, arc.startAngle, arc.endAngle, paint );
     }
 
     /**
@@ -970,11 +889,11 @@ public class Image {
      * @param radiusV Raio vertical.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillArc( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
+    public void fillArc( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         double extent = endAngle - startAngle;
         g2d.fill( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.CHORD ) );
         g2d.dispose();
@@ -988,20 +907,20 @@ public class Image {
      * @param radiusV Raio vertical.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillArc( Vector2 center, double radiusH, double radiusV, double startAngle, double endAngle, Color color ) {
-        fillArc( center.x, center.y, radiusH, radiusV, startAngle, endAngle, color );
+    public void fillArc( Vector2 center, double radiusH, double radiusV, double startAngle, double endAngle, Paint paint ) {
+        fillArc( center.x, center.y, radiusH, radiusV, startAngle, endAngle, paint );
     }
 
     /**
      * Pinta um arco
      * 
      * @param arc Um arco.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillArc( Arc arc, Color color ) {
-        fillArc( arc.x, arc.y, arc.radiusH, arc.radiusV, arc.startAngle, arc.endAngle, color );
+    public void fillArc( Arc arc, Paint paint ) {
+        fillArc( arc.x, arc.y, arc.radiusH, arc.radiusV, arc.startAngle, arc.endAngle, paint );
     }
 
     /**
@@ -1013,11 +932,11 @@ public class Image {
      * @param outerRadius Raio externo.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawRing( double x, double y, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
+    public void drawRing( double x, double y, double innerRadius, double outerRadius, double startAngle, double endAngle, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.draw( DrawingUtils.createRing( x, y, innerRadius, outerRadius, startAngle, endAngle ) );
         g2d.dispose();
     }
@@ -1030,20 +949,20 @@ public class Image {
      * @param outerRadius Raio externo.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawRing( Vector2 center, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
-        drawRing( center.x, center.y, innerRadius, outerRadius, startAngle, endAngle, color );
+    public void drawRing( Vector2 center, double innerRadius, double outerRadius, double startAngle, double endAngle, Paint paint ) {
+        drawRing( center.x, center.y, innerRadius, outerRadius, startAngle, endAngle, paint );
     }
 
     /**
      * Desenha um anel.
      * 
      * @param ring Um anel.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawRing( Ring ring, Color color ) {
-        drawRing( ring.x, ring.y, ring.innerRadius, ring.outerRadius, ring.startAngle, ring.endAngle, color );
+    public void drawRing( Ring ring, Paint paint ) {
+        drawRing( ring.x, ring.y, ring.innerRadius, ring.outerRadius, ring.startAngle, ring.endAngle, paint );
     }
 
     /**
@@ -1055,11 +974,11 @@ public class Image {
      * @param outerRadius Raio externo.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillRing( double x, double y, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
+    public void fillRing( double x, double y, double innerRadius, double outerRadius, double startAngle, double endAngle, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.fill( DrawingUtils.createRing( x, y, innerRadius, outerRadius, startAngle, endAngle ) );
         g2d.dispose();
     }
@@ -1072,20 +991,20 @@ public class Image {
      * @param outerRadius Raio externo.
      * @param startAngle Ângulo inicial em graus (sentido horário).
      * @param endAngle Ângulo final em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillRing( Vector2 center, double innerRadius, double outerRadius, double startAngle, double endAngle, Color color ) {
-        fillRing( center.x, center.y, innerRadius, outerRadius, startAngle, endAngle, color );
+    public void fillRing( Vector2 center, double innerRadius, double outerRadius, double startAngle, double endAngle, Paint paint ) {
+        fillRing( center.x, center.y, innerRadius, outerRadius, startAngle, endAngle, paint );
     }
 
     /**
      * Pinta um anel.
      * 
      * @param ring Um anel.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillRing( Ring ring, Color color ) {
-        fillRing( ring.x, ring.y, ring.innerRadius, ring.outerRadius, ring.startAngle, ring.endAngle, color );
+    public void fillRing( Ring ring, Paint paint ) {
+        fillRing( ring.x, ring.y, ring.innerRadius, ring.outerRadius, ring.startAngle, ring.endAngle, paint );
     }
 
     /**
@@ -1097,11 +1016,11 @@ public class Image {
      * @param v2y Coordenada y do segundo vértice.
      * @param v3x Coordenada x do terceiro vértice.
      * @param v3y Coordenada y do terceiro vértice.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawTriangle( double v1x, double v1y, double v2x, double v2y, double v3x, double v3y, Color color ) {
+    public void drawTriangle( double v1x, double v1y, double v2x, double v2y, double v3x, double v3y, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.draw( DrawingUtils.createTriangle( v1x, v1y, v2x, v2y, v3x, v3y ) );
         g2d.dispose();
     }
@@ -1112,20 +1031,20 @@ public class Image {
      * @param v1 Primeiro vértice.
      * @param v2 Segundo vértice.
      * @param v3 Terceiro vértice.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawTriangle( Vector2 v1, Vector2 v2, Vector2 v3, Color color ) {
-        drawTriangle( v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, color );
+    public void drawTriangle( Vector2 v1, Vector2 v2, Vector2 v3, Paint paint ) {
+        drawTriangle( v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, paint );
     }
 
     /**
      * Desenha um triângulo.
      * 
      * @param triangle Um triângulo.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawTriangle( Triangle triangle, Color color ) {
-        drawTriangle( triangle.x1, triangle.y1, triangle.x2, triangle.y2, triangle.x3, triangle.y3, color );
+    public void drawTriangle( Triangle triangle, Paint paint ) {
+        drawTriangle( triangle.x1, triangle.y1, triangle.x2, triangle.y2, triangle.x3, triangle.y3, paint );
     }
 
     /**
@@ -1137,11 +1056,11 @@ public class Image {
      * @param v2y Coordenada y do segundo vértice.
      * @param v3x Coordenada x do terceiro vértice.
      * @param v3y Coordenada y do terceiro vértice.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillTriangle( double v1x, double v1y, double v2x, double v2y, double v3x, double v3y, Color color ) {
+    public void fillTriangle( double v1x, double v1y, double v2x, double v2y, double v3x, double v3y, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.fill( DrawingUtils.createTriangle( v1x, v1y, v2x, v2y, v3x, v3y ) );
         g2d.dispose();
     }
@@ -1152,20 +1071,20 @@ public class Image {
      * @param v1 Primeiro vértice.
      * @param v2 Segundo vértice.
      * @param v3 Terceiro vértice.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillTriangle( Vector2 v1, Vector2 v2, Vector2 v3, Color color ) {
-        fillTriangle( v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, color );
+    public void fillTriangle( Vector2 v1, Vector2 v2, Vector2 v3, Paint paint ) {
+        fillTriangle( v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, paint );
     }
 
     /**
      * Pinta um triângulo.
      * 
      * @param triangle Um triângulo.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillTriangle( Triangle triangle, Color color ) {
-        fillTriangle( triangle.x1, triangle.y1, triangle.x2, triangle.y2, triangle.x3, triangle.y3, color );
+    public void fillTriangle( Triangle triangle, Paint paint ) {
+        fillTriangle( triangle.x1, triangle.y1, triangle.x2, triangle.y2, triangle.x3, triangle.y3, paint );
     }
 
     /**
@@ -1176,11 +1095,11 @@ public class Image {
      * @param sides Quantidade de lados.
      * @param radius Raio.
      * @param rotation Rotação em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawPolygon( double x, double y, double sides, double radius, double rotation, Color color ) {
+    public void drawPolygon( double x, double y, double sides, double radius, double rotation, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.draw( DrawingUtils.createPolygon( x, y, sides, radius, rotation ) );
         g2d.dispose();
     }
@@ -1192,20 +1111,20 @@ public class Image {
      * @param sides Quantidade de lados.
      * @param radius Raio.
      * @param rotation Rotação em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawPolygon( Vector2 center, double sides, double radius, double rotation, Color color ) {
-        drawPolygon( center.x, center.y, sides, radius, rotation, color );
+    public void drawPolygon( Vector2 center, double sides, double radius, double rotation, Paint paint ) {
+        drawPolygon( center.x, center.y, sides, radius, rotation, paint );
     }
 
     /**
      * Desenha um polígono regular.
      * 
      * @param polygon Um polígono regular.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawPolygon( Polygon polygon, Color color ) {
-        drawPolygon( polygon.x, polygon.y, polygon.sides, polygon.radius, polygon.rotation, color );
+    public void drawPolygon( Polygon polygon, Paint paint ) {
+        drawPolygon( polygon.x, polygon.y, polygon.sides, polygon.radius, polygon.rotation, paint );
     }
 
     /**
@@ -1216,11 +1135,11 @@ public class Image {
      * @param sides Quantidade de lados.
      * @param radius Raio.
      * @param rotation Rotação em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillPolygon( double x, double y, double sides, double radius, double rotation, Color color ) {
+    public void fillPolygon( double x, double y, double sides, double radius, double rotation, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.fill( DrawingUtils.createPolygon( x, y, sides, radius, rotation ) );
         g2d.dispose();
     }
@@ -1232,31 +1151,31 @@ public class Image {
      * @param sides Quantidade de lados.
      * @param radius Raio.
      * @param rotation Rotação em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillPolygon( Vector2 center, double sides, double radius, double rotation, Color color ) {
-        fillPolygon( center.x, center.y, sides, radius, rotation, color );
+    public void fillPolygon( Vector2 center, double sides, double radius, double rotation, Paint paint ) {
+        fillPolygon( center.x, center.y, sides, radius, rotation, paint );
     }
 
     /**
      * Pinta um polígono regular.
      * 
      * @param polygon Um polígono regular.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillPolygon( Polygon polygon, Color color ) {
-        fillPolygon( polygon.x, polygon.y, polygon.sides, polygon.radius, polygon.rotation, color );
+    public void fillPolygon( Polygon polygon, Paint paint ) {
+        fillPolygon( polygon.x, polygon.y, polygon.sides, polygon.radius, polygon.rotation, paint );
     }
 
     /**
      * Desenha um caminho.
      * 
      * @param path Caminho a ser desenhado.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawPath( Path path, Color color ) {
+    public void drawPath( Path path, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.draw( path.path );
         g2d.dispose();
     }
@@ -1265,11 +1184,11 @@ public class Image {
      * Ponta um caminho.
      * 
      * @param path Caminho a ser desenhado.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void fillPath( Path path, Color color ) {
+    public void fillPath( Path path, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.fill( path.path );
         g2d.dispose();
     }
@@ -1289,11 +1208,11 @@ public class Image {
      * @param cy Coordenada y do ponto de controle.
      * @param p2x Coordenada x do ponto final.
      * @param p2y Coordenada y do ponto final.
-     * @param color Cor de desenhho.
+     * @param paint Cor de desenhho.
      */
-    public void drawQuadCurve( double p1x, double p1y, double cx, double cy, double p2x, double p2y, Color color ) {
+    public void drawQuadCurve( double p1x, double p1y, double cx, double cy, double p2x, double p2y, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.draw( new QuadCurve2D.Double( p1x, p1y, cx, cy, p2x, p2y ) );
         g2d.dispose();
     }
@@ -1304,20 +1223,20 @@ public class Image {
      * @param p1 Ponto inicial.
      * @param c Ponto de controle.
      * @param p2 Ponto final.
-     * @param color Cor de desenhho.
+     * @param paint Cor de desenhho.
      */
-    public void drawQuadCurve( Vector2 p1, Vector2 c, Vector2 p2, Color color ) {
-        drawQuadCurve( p1.x, p1.y, c.x, c.y, p2.x, p2.y, color );
+    public void drawQuadCurve( Vector2 p1, Vector2 c, Vector2 p2, Paint paint ) {
+        drawQuadCurve( p1.x, p1.y, c.x, c.y, p2.x, p2.y, paint );
     }
 
     /**
      * Desenha uma curva quadrática (curva Bézier quadrática).
      * 
      * @param quadCurve uma curva Bézier quadrática.
-     * @param color Cor de desenhho.
+     * @param paint Cor de desenhho.
      */
-    public void drawQuadCurve( QuadCurve quadCurve, Color color ) {
-        drawQuadCurve( quadCurve.x1, quadCurve.y1, quadCurve.cx, quadCurve.cy, quadCurve.x2, quadCurve.y2, color );
+    public void drawQuadCurve( QuadCurve quadCurve, Paint paint ) {
+        drawQuadCurve( quadCurve.x1, quadCurve.y1, quadCurve.cx, quadCurve.cy, quadCurve.x2, quadCurve.y2, paint );
     }
 
     /**
@@ -1329,11 +1248,11 @@ public class Image {
      * @param cy Coordenada y do ponto de controle.
      * @param p2x Coordenada x do ponto final.
      * @param p2y Coordenada y do ponto final.
-     * @param color Cor de desenhho.
+     * @param paint Cor de desenhho.
      */
-    public void fillQuadCurve( double p1x, double p1y, double cx, double cy, double p2x, double p2y, Color color ) {
+    public void fillQuadCurve( double p1x, double p1y, double cx, double cy, double p2x, double p2y, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.fill( new QuadCurve2D.Double( p1x, p1y, cx, cy, p2x, p2y ) );
         g2d.dispose();
     }
@@ -1344,20 +1263,20 @@ public class Image {
      * @param p1 Ponto inicial.
      * @param c Ponto de controle.
      * @param p2 Ponto final.
-     * @param color Cor de desenhho.
+     * @param paint Cor de desenhho.
      */
-    public void fillQuadCurve( Vector2 p1, Vector2 c, Vector2 p2, Color color ) {
-        fillQuadCurve( p1.x, p1.y, c.x, c.y, p2.x, p2.y, color );
+    public void fillQuadCurve( Vector2 p1, Vector2 c, Vector2 p2, Paint paint ) {
+        fillQuadCurve( p1.x, p1.y, c.x, c.y, p2.x, p2.y, paint );
     }
 
     /**
      * Pinta uma curva quadrática (curva Bézier quadrática).
      * 
      * @param quadCurve uma curva Bézier quadrática.
-     * @param color Cor de desenhho.
+     * @param paint Cor de desenhho.
      */
-    public void fillQuadCurve( QuadCurve quadCurve, Color color ) {
-        fillQuadCurve( quadCurve.x1, quadCurve.y1, quadCurve.cx, quadCurve.cy, quadCurve.x2, quadCurve.y2, color );
+    public void fillQuadCurve( QuadCurve quadCurve, Paint paint ) {
+        fillQuadCurve( quadCurve.x1, quadCurve.y1, quadCurve.cx, quadCurve.cy, quadCurve.x2, quadCurve.y2, paint );
     }
 
     /**
@@ -1371,11 +1290,11 @@ public class Image {
      * @param c2y Coordenada y do segundo ponto de controle.
      * @param p2x Coordenada x do ponto final.
      * @param p2y Coordenada y do ponto final.
-     * @param color Cor de desenhho.
+     * @param paint Cor de desenhho.
      */
-    public void drawCubicCurve( double p1x, double p1y, double c1x, double c1y, double c2x, double c2y, double p2x, double p2y, Color color ) {
+    public void drawCubicCurve( double p1x, double p1y, double c1x, double c1y, double c2x, double c2y, double p2x, double p2y, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.draw( new CubicCurve2D.Double( p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y ) );
         g2d.dispose();
     }
@@ -1387,20 +1306,20 @@ public class Image {
      * @param c1 Primeiro ponto de controle.
      * @param c2 Segundo ponto de controle.
      * @param p2 Ponto final.
-     * @param color Cor de desenhho.
+     * @param paint Cor de desenhho.
      */
-    public void drawCubicCurve( Vector2 p1, Vector2 c1, Vector2 c2, Vector2 p2, Color color ) {
-        drawCubicCurve( p1.x, p1.y, c1.x, c1.y, c2.x, c2.y, p2.x, p2.y, color );
+    public void drawCubicCurve( Vector2 p1, Vector2 c1, Vector2 c2, Vector2 p2, Paint paint ) {
+        drawCubicCurve( p1.x, p1.y, c1.x, c1.y, c2.x, c2.y, p2.x, p2.y, paint );
     }
 
     /**
      * Desenha uma curva cúbica (curva Bézier cúbica).
      * 
      * @param cubicCurve Uma curva Bézier cúbica.
-     * @param color Cor de desenhho.
+     * @param paint Cor de desenhho.
      */
-    public void drawCubicCurve( CubicCurve cubicCurve, Color color ) {
-        drawCubicCurve( cubicCurve.x1, cubicCurve.y1, cubicCurve.c1x, cubicCurve.c1y, cubicCurve.c2x, cubicCurve.c2y, cubicCurve.x2, cubicCurve.y2, color );
+    public void drawCubicCurve( CubicCurve cubicCurve, Paint paint ) {
+        drawCubicCurve( cubicCurve.x1, cubicCurve.y1, cubicCurve.c1x, cubicCurve.c1y, cubicCurve.c2x, cubicCurve.c2y, cubicCurve.x2, cubicCurve.y2, paint );
     }
 
     /**
@@ -1414,11 +1333,11 @@ public class Image {
      * @param c2y Coordenada y do segundo ponto de controle.
      * @param p2x Coordenada x do ponto final.
      * @param p2y Coordenada y do ponto final.
-     * @param color Cor de desenhho.
+     * @param paint Cor de desenhho.
      */
-    public void fillCubicCurve( double p1x, double p1y, double c1x, double c1y, double c2x, double c2y, double p2x, double p2y, Color color ) {
+    public void fillCubicCurve( double p1x, double p1y, double c1x, double c1y, double c2x, double c2y, double p2x, double p2y, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.fill( new CubicCurve2D.Double( p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y ) );
         g2d.dispose();
     }
@@ -1430,20 +1349,20 @@ public class Image {
      * @param c1 Primeiro ponto de controle.
      * @param c2 Segundo ponto de controle.
      * @param p2 Ponto final.
-     * @param color Cor de desenhho.
+     * @param paint Cor de desenhho.
      */
-    public void fillCubicCurve( Vector2 p1, Vector2 c1, Vector2 c2, Vector2 p2, Color color ) {
-        fillCubicCurve( p1.x, p1.y, c1.x, c1.y, c2.x, c2.y, p2.x, p2.y, color );
+    public void fillCubicCurve( Vector2 p1, Vector2 c1, Vector2 c2, Vector2 p2, Paint paint ) {
+        fillCubicCurve( p1.x, p1.y, c1.x, c1.y, c2.x, c2.y, p2.x, p2.y, paint );
     }
 
     /**
      * Pinta uma curva cúbica (curva Bézier cúbica).
      * 
      * @param cubicCurve Uma curva Bézier cúbica.
-     * @param color Cor de desenhho.
+     * @param paint Cor de desenhho.
      */
-    public void fillCubicCurve( CubicCurve cubicCurve, Color color ) {
-        fillCubicCurve( cubicCurve.x1, cubicCurve.y1, cubicCurve.c1x, cubicCurve.c1y, cubicCurve.c2x, cubicCurve.c2y, cubicCurve.x2, cubicCurve.y2, color );
+    public void fillCubicCurve( CubicCurve cubicCurve, Paint paint ) {
+        fillCubicCurve( cubicCurve.x1, cubicCurve.y1, cubicCurve.c1x, cubicCurve.c1y, cubicCurve.c2x, cubicCurve.c2y, cubicCurve.x2, cubicCurve.y2, paint );
     }
 
     
@@ -1458,11 +1377,11 @@ public class Image {
      * @param text O texto a ser desenhado.
      * @param x Coordenada x do início do desenho do texto.
      * @param y Coordenada y do início do desenho do texto.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawText( String text, double x, double y, Color color ) {
+    public void drawText( String text, double x, double y, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         //Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
         //g2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
         DrawingUtils.drawTextMultilineHelper( text, x, y, g2d );
@@ -1476,10 +1395,10 @@ public class Image {
      * @param x Coordenada x do início do desenho do texto.
      * @param y Coordenada y do início do desenho do texto.
      * @param rotation Ângulo de rotação em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawText( String text, double x, double y, double rotation, Color color ) {
-        drawText( text, x, y, 0, 0, rotation, color );
+    public void drawText( String text, double x, double y, double rotation, Paint paint ) {
+        drawText( text, x, y, 0, 0, rotation, paint );
     }
 
     /**
@@ -1491,11 +1410,11 @@ public class Image {
      * @param originX Coordenada x do pivô de rotação.
      * @param originY Coordenada y do pivô de rotação.
      * @param rotation Ângulo de rotação em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawText( String text, double x, double y, double originX, double originY, double rotation, Color color ) {
+    public void drawText( String text, double x, double y, double originX, double originY, double rotation, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
         //Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
         //g2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
@@ -1510,11 +1429,11 @@ public class Image {
      * @param x Coordenada x do início do desenho do texto.
      * @param y Coordenada y do início do desenho do texto.
      * @param fontSize Tamanho da fonte.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawText( String text, double x, double y, int fontSize, Color color ) {
+    public void drawText( String text, double x, double y, int fontSize, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.setFont( g2d.getFont().deriveFont( (float) fontSize ) );
         //Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
         //g2d.drawString( text, (int) x, (int) ( y + r.getHeight() / 2 ) );
@@ -1530,10 +1449,10 @@ public class Image {
      * @param y Coordenada y do início do desenho do texto.
      * @param rotation Ângulo de rotação em graus (sentido horário).
      * @param fontSize Tamanho da fonte.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawText( String text, double x, double y, double rotation, int fontSize, Color color ) {
-        drawText( text, x, y, 0, 0, rotation, fontSize, color );
+    public void drawText( String text, double x, double y, double rotation, int fontSize, Paint paint ) {
+        drawText( text, x, y, 0, 0, rotation, fontSize, paint );
     }
     
     /**
@@ -1546,11 +1465,11 @@ public class Image {
      * @param originY Coordenada y do pivô de rotação.
      * @param rotation Ângulo de rotação em graus (sentido horário).
      * @param fontSize Tamanho da fonte.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawText( String text, double x, double y, double originX, double originY, double rotation, int fontSize, Color color ) {
+    public void drawText( String text, double x, double y, double originX, double originY, double rotation, int fontSize, Paint paint ) {
         Graphics2D g2d = createGraphics();
-        g2d.setColor( color );
+        g2d.setPaint( paint );
         g2d.setFont( g2d.getFont().deriveFont( (float) fontSize ) );
         g2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
         //Rectangle2D r = g2d.getFontMetrics().getStringBounds( text, g2d );
@@ -1564,10 +1483,10 @@ public class Image {
      * 
      * @param text O texto a ser desenhado.
      * @param point Ponto do inicio do desenho do texto.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawText( String text, Vector2 point, Color color ) {
-        drawText( text, point.x, point.y, color );
+    public void drawText( String text, Vector2 point, Paint paint ) {
+        drawText( text, point.x, point.y, paint );
     }
     
     /**
@@ -1576,10 +1495,10 @@ public class Image {
      * @param text O texto a ser desenhado.
      * @param point Ponto do inicio do desenho do texto.
      * @param rotation Ângulo de rotação em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawText( String text, Vector2 point, double rotation, Color color ) {
-        drawText( text, point.x, point.y, 0, 0, rotation, color );
+    public void drawText( String text, Vector2 point, double rotation, Paint paint ) {
+        drawText( text, point.x, point.y, 0, 0, rotation, paint );
     }
 
     /**
@@ -1589,10 +1508,10 @@ public class Image {
      * @param point Ponto do inicio do desenho do texto.
      * @param origin Ponto do pivô de rotação.
      * @param rotation Ângulo de rotação em graus (sentido horário).
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawText( String text, Vector2 point, Vector2 origin, double rotation, Color color ) {
-        drawText( text, point.x, point.y, origin.x, origin.y, rotation, color );
+    public void drawText( String text, Vector2 point, Vector2 origin, double rotation, Paint paint ) {
+        drawText( text, point.x, point.y, origin.x, origin.y, rotation, paint );
     }
 
     /**
@@ -1601,10 +1520,10 @@ public class Image {
      * @param text O texto a ser desenhado.
      * @param point Ponto do inicio do desenho do texto.
      * @param fontSize Tamanho da fonte.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawText( String text, Vector2 point, int fontSize, Color color ) {
-        drawText( text, point.x, point.y, fontSize, color );
+    public void drawText( String text, Vector2 point, int fontSize, Paint paint ) {
+        drawText( text, point.x, point.y, fontSize, paint );
     }
     
     /**
@@ -1614,10 +1533,10 @@ public class Image {
      * @param point Ponto do inicio do desenho do texto.
      * @param rotation Ângulo de rotação em graus (sentido horário).
      * @param fontSize Tamanho da fonte.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawText( String text, Vector2 point, double rotation, int fontSize, Color color ) {
-        drawText( text, point.x, point.y, 0, 0, rotation, fontSize, color );
+    public void drawText( String text, Vector2 point, double rotation, int fontSize, Paint paint ) {
+        drawText( text, point.x, point.y, 0, 0, rotation, fontSize, paint );
     }
 
     /**
@@ -1628,10 +1547,10 @@ public class Image {
      * @param origin Ponto do pivô de rotação.
      * @param rotation Ângulo de rotação em graus (sentido horário).
      * @param fontSize Tamanho da fonte.
-     * @param color Cor de desenho.
+     * @param paint Paint para o desenho.
      */
-    public void drawText( String text, Vector2 point, Vector2 origin, double rotation, int fontSize, Color color ) {
-        drawText( text, point.x, point.y, origin.x, origin.y, rotation, fontSize, color );
+    public void drawText( String text, Vector2 point, Vector2 origin, double rotation, int fontSize, Paint paint ) {
+        drawText( text, point.x, point.y, origin.x, origin.y, rotation, fontSize, paint );
     }
     
     

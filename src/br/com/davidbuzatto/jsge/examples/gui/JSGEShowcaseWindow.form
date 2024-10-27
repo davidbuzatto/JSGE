@@ -3,6 +3,7 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -37,6 +38,7 @@
                   <Component id="lblHeader" alignment="0" pref="386" max="32767" attributes="0"/>
                   <Component id="btnCamera" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnSoundAndMusic" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnPaintingCapabilities" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -51,6 +53,8 @@
               <Component id="btnDrawingPrimitiveMethods" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnDrawingPrimitiveObjects" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnPaintingCapabilities" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnCollisionDetection" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -96,6 +100,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDrawingPrimitiveObjectsActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnPaintingCapabilities">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Painting Capabilities"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPaintingCapabilitiesActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCollisionDetection">

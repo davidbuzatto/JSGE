@@ -29,7 +29,7 @@ public class DrawingWithPrimitivesMethodsExample extends Engine {
      * Cria o exemplo.
      */
     public DrawingWithPrimitivesMethodsExample() {
-        super( 800, 600, "Drawing with Primitive Methods", 60, true );
+        super( 720, 520, "Drawing with Primitive Methods", 60, true );
     }
     
     @Override
@@ -62,9 +62,6 @@ public class DrawingWithPrimitivesMethodsExample extends Engine {
 
         fillRoundRectangle( 50, 370, 80, 60, 20, BLUE );
         drawRoundRectangle( 50, 370, 80, 60, 20, BLACK );
-
-        fillRectangleGradientH( 50, 450, 100, 50, BLUE, GREEN );
-        fillRectangleGradientV( 50, 520, 100, 50, BLUE, GREEN );
 
         fillCircle( 250, 70, 30, MAROON );
         drawCircle( 250, 70, 30, BLACK );

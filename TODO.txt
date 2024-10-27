@@ -1,14 +1,6 @@
-Permitir o uso de Paints ao invés de somente cores;
-Permite criar uma série de novas possibilidades:
-    ColorUtils
-        GradientPaint
-        TexturePaint
-        RadialGradientPaint
-    ImageUtils
-        LinearGradientPaint
-
-Remover métodos de desenho de retângulo com gradiente!
 Métodos para desenhos de curvas de vários componentes.
+Introduzir QuadCurveSegment
+           CubicCurveSegment
 
 Ajuste nas implementações:
     Templates
@@ -16,3 +8,5 @@ Ajuste nas implementações:
     Criativos
 
 Resolver eventos não consumidos?
+    Se lidar com componenets swing pode gerar problema.
+    Evitar usar.
