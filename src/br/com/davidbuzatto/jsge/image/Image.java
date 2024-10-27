@@ -1208,7 +1208,7 @@ public class Image {
      * @param cy Coordenada y do ponto de controle.
      * @param p2x Coordenada x do ponto final.
      * @param p2y Coordenada y do ponto final.
-     * @param paint Cor de desenhho.
+     * @param paint Paint para o desenhho.
      */
     public void drawQuadCurve( double p1x, double p1y, double cx, double cy, double p2x, double p2y, Paint paint ) {
         Graphics2D g2d = createGraphics();
@@ -1223,7 +1223,7 @@ public class Image {
      * @param p1 Ponto inicial.
      * @param c Ponto de controle.
      * @param p2 Ponto final.
-     * @param paint Cor de desenhho.
+     * @param paint Paint para o desenhho.
      */
     public void drawQuadCurve( Vector2 p1, Vector2 c, Vector2 p2, Paint paint ) {
         drawQuadCurve( p1.x, p1.y, c.x, c.y, p2.x, p2.y, paint );
@@ -1233,7 +1233,7 @@ public class Image {
      * Desenha uma curva quadrática (curva Bézier quadrática).
      * 
      * @param quadCurve uma curva Bézier quadrática.
-     * @param paint Cor de desenhho.
+     * @param paint Paint para o desenhho.
      */
     public void drawQuadCurve( QuadCurve quadCurve, Paint paint ) {
         drawQuadCurve( quadCurve.x1, quadCurve.y1, quadCurve.cx, quadCurve.cy, quadCurve.x2, quadCurve.y2, paint );
@@ -1248,7 +1248,7 @@ public class Image {
      * @param cy Coordenada y do ponto de controle.
      * @param p2x Coordenada x do ponto final.
      * @param p2y Coordenada y do ponto final.
-     * @param paint Cor de desenhho.
+     * @param paint Paint para o desenhho.
      */
     public void fillQuadCurve( double p1x, double p1y, double cx, double cy, double p2x, double p2y, Paint paint ) {
         Graphics2D g2d = createGraphics();
@@ -1263,7 +1263,7 @@ public class Image {
      * @param p1 Ponto inicial.
      * @param c Ponto de controle.
      * @param p2 Ponto final.
-     * @param paint Cor de desenhho.
+     * @param paint Paint para o desenhho.
      */
     public void fillQuadCurve( Vector2 p1, Vector2 c, Vector2 p2, Paint paint ) {
         fillQuadCurve( p1.x, p1.y, c.x, c.y, p2.x, p2.y, paint );
@@ -1273,7 +1273,7 @@ public class Image {
      * Pinta uma curva quadrática (curva Bézier quadrática).
      * 
      * @param quadCurve uma curva Bézier quadrática.
-     * @param paint Cor de desenhho.
+     * @param paint Paint para o desenhho.
      */
     public void fillQuadCurve( QuadCurve quadCurve, Paint paint ) {
         fillQuadCurve( quadCurve.x1, quadCurve.y1, quadCurve.cx, quadCurve.cy, quadCurve.x2, quadCurve.y2, paint );
@@ -1290,7 +1290,7 @@ public class Image {
      * @param c2y Coordenada y do segundo ponto de controle.
      * @param p2x Coordenada x do ponto final.
      * @param p2y Coordenada y do ponto final.
-     * @param paint Cor de desenhho.
+     * @param paint Paint para o desenhho.
      */
     public void drawCubicCurve( double p1x, double p1y, double c1x, double c1y, double c2x, double c2y, double p2x, double p2y, Paint paint ) {
         Graphics2D g2d = createGraphics();
@@ -1306,7 +1306,7 @@ public class Image {
      * @param c1 Primeiro ponto de controle.
      * @param c2 Segundo ponto de controle.
      * @param p2 Ponto final.
-     * @param paint Cor de desenhho.
+     * @param paint Paint para o desenhho.
      */
     public void drawCubicCurve( Vector2 p1, Vector2 c1, Vector2 c2, Vector2 p2, Paint paint ) {
         drawCubicCurve( p1.x, p1.y, c1.x, c1.y, c2.x, c2.y, p2.x, p2.y, paint );
@@ -1316,7 +1316,7 @@ public class Image {
      * Desenha uma curva cúbica (curva Bézier cúbica).
      * 
      * @param cubicCurve Uma curva Bézier cúbica.
-     * @param paint Cor de desenhho.
+     * @param paint Paint para o desenhho.
      */
     public void drawCubicCurve( CubicCurve cubicCurve, Paint paint ) {
         drawCubicCurve( cubicCurve.x1, cubicCurve.y1, cubicCurve.c1x, cubicCurve.c1y, cubicCurve.c2x, cubicCurve.c2y, cubicCurve.x2, cubicCurve.y2, paint );
@@ -1333,7 +1333,7 @@ public class Image {
      * @param c2y Coordenada y do segundo ponto de controle.
      * @param p2x Coordenada x do ponto final.
      * @param p2y Coordenada y do ponto final.
-     * @param paint Cor de desenhho.
+     * @param paint Paint para o desenhho.
      */
     public void fillCubicCurve( double p1x, double p1y, double c1x, double c1y, double c2x, double c2y, double p2x, double p2y, Paint paint ) {
         Graphics2D g2d = createGraphics();
@@ -1349,7 +1349,7 @@ public class Image {
      * @param c1 Primeiro ponto de controle.
      * @param c2 Segundo ponto de controle.
      * @param p2 Ponto final.
-     * @param paint Cor de desenhho.
+     * @param paint Paint para o desenhho.
      */
     public void fillCubicCurve( Vector2 p1, Vector2 c1, Vector2 c2, Vector2 p2, Paint paint ) {
         fillCubicCurve( p1.x, p1.y, c1.x, c1.y, c2.x, c2.y, p2.x, p2.y, paint );
@@ -1359,7 +1359,7 @@ public class Image {
      * Pinta uma curva cúbica (curva Bézier cúbica).
      * 
      * @param cubicCurve Uma curva Bézier cúbica.
-     * @param paint Cor de desenhho.
+     * @param paint Paint para o desenhho.
      */
     public void fillCubicCurve( CubicCurve cubicCurve, Paint paint ) {
         fillCubicCurve( cubicCurve.x1, cubicCurve.y1, cubicCurve.c1x, cubicCurve.c1y, cubicCurve.c2x, cubicCurve.c2y, cubicCurve.x2, cubicCurve.y2, paint );

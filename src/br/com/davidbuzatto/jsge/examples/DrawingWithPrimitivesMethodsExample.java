@@ -17,6 +17,9 @@
 package br.com.davidbuzatto.jsge.examples;
 
 import br.com.davidbuzatto.jsge.core.Engine;
+import br.com.davidbuzatto.jsge.geom.Vector2;
+import br.com.davidbuzatto.jsge.utils.CollisionUtils;
+import br.com.davidbuzatto.jsge.utils.ColorUtils;
 
 /**
  * Exemplos de utilização dos métotodos de desenho de primitivas.
@@ -24,6 +27,10 @@ import br.com.davidbuzatto.jsge.core.Engine;
  * @author Prof. Dr. David Buzatto
  */
 public class DrawingWithPrimitivesMethodsExample extends Engine {
+    
+    private Vector2[] pointsQuadCurve;
+    private Vector2[] pointsCubicCurve;
+    private Vector2 draggedPoint;
     
     /**
      * Cria o exemplo.
@@ -34,10 +41,68 @@ public class DrawingWithPrimitivesMethodsExample extends Engine {
     
     @Override
     public void create() {
+        
+        pointsQuadCurve = new Vector2[]{
+            new Vector2( 500, 100 ),
+            new Vector2( 525, 70 ),
+            new Vector2( 550, 100 ),
+            new Vector2( 575, 150 ),
+            new Vector2( 600, 100 ),
+            new Vector2( 625, 50 ),
+            new Vector2( 650, 100 ),
+            new Vector2( 675, 180 ),
+            new Vector2( 700, 100 )
+        };
+        
+        pointsCubicCurve = new Vector2[]{
+            new Vector2( 450, 225 ),
+            new Vector2( 465, 214 ),
+            new Vector2( 477, 236 ),
+            new Vector2( 500, 225 ),
+            new Vector2( 517, 206 ),
+            new Vector2( 559, 263 ),
+            new Vector2( 580, 225 ),
+            new Vector2( 603, 116 ),
+            new Vector2( 650, 360 ),
+            new Vector2( 700, 225 )
+        };
+        
     }
 
     @Override
     public void update() {
+        
+        Vector2 mousePos = getMousePositionPoint();
+        
+        if ( isMouseButtonPressed( MOUSE_BUTTON_LEFT ) ) {
+            
+            for ( Vector2 p : pointsQuadCurve ) {
+                if ( CollisionUtils.checkCollisionPointCircle( mousePos, p, 5 ) ) {
+                    draggedPoint = p;
+                    break;
+                }
+            }
+
+            if ( draggedPoint == null ) {
+                for ( Vector2 p : pointsCubicCurve ) {
+                    if ( CollisionUtils.checkCollisionPointCircle( mousePos, p, 5 ) ) {
+                        draggedPoint = p;
+                        break;
+                    }
+                }
+            }
+            
+        }
+        
+        if ( isMouseButtonReleased( MOUSE_BUTTON_LEFT ) ) {
+            draggedPoint = null;
+        }
+        
+        if ( draggedPoint != null ) {
+            draggedPoint.x = mousePos.x;
+            draggedPoint.y = mousePos.y;
+        }
+        
     }
 
     /**
@@ -93,8 +158,24 @@ public class DrawingWithPrimitivesMethodsExample extends Engine {
         fillCubicCurve( 400, 340, 350, 380, 450, 420, 400, 460, ORANGE );
         drawCubicCurve( 400, 340, 350, 380, 450, 420, 400, 460, BLACK );
 
-        drawText( "This is a text!", 500, 200, 20, BLACK );
-        drawText( "This is a rotated text!", 500, 300, 45, 20, BLACK );
+        fillQuadCurve( pointsQuadCurve, PINK );
+        drawQuadCurve( pointsQuadCurve, BLACK );
+        
+        fillCubicCurve( pointsCubicCurve, LIME );
+        drawCubicCurve( pointsCubicCurve, BLACK );
+        
+        drawText( "This is a text!", 450, 320, 20, BLACK );
+        drawText( "This is a rotated text!", 450, 350, 30, 20, BLACK );
+        
+        for ( Vector2 p : pointsQuadCurve ) {
+            fillCircle( p, 5, ColorUtils.fade( VIOLET, 0.5 ) );
+            drawCircle( p, 5, BLACK );
+        }
+        
+        for ( Vector2 p : pointsCubicCurve ) {
+            fillCircle( p, 5, ColorUtils.fade( DARKGREEN, 0.5 ) );
+            drawCircle( p, 5, BLACK );
+        }
         
         drawFPS( 10, 10 );
 
