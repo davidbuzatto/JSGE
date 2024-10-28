@@ -16,9 +16,9 @@
  */
 package br.com.davidbuzatto.jsge.examples.camera;
 
-import br.com.davidbuzatto.jsge.core.Engine;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
-import br.com.davidbuzatto.jsge.geom.Vector2;
+import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
@@ -58,21 +58,21 @@ public class Player {
      * 
      * @param delta Variação do tempo.
      * @param boundary Limites.
-     * @param engine Engine.
+     * @param engine EngineFrame.
      */
-    public void update( double delta, Rectangle boundary, Engine engine ) {
+    public void update( double delta, Rectangle boundary, EngineFrame engine ) {
         
-        if ( engine.isKeyDown( Engine.KEY_LEFT ) ) {
+        if ( engine.isKeyDown(EngineFrame.KEY_LEFT ) ) {
             vel.x = -speed;
-        } else if ( engine.isKeyDown( Engine.KEY_RIGHT ) ) {
+        } else if ( engine.isKeyDown(EngineFrame.KEY_RIGHT ) ) {
             vel.x = speed;
         } else {
             vel.x = 0;
         }
         
-        if ( engine.isKeyDown( Engine.KEY_UP ) ) {
+        if ( engine.isKeyDown(EngineFrame.KEY_UP ) ) {
             vel.y = -speed;
-        } else if ( engine.isKeyDown( Engine.KEY_DOWN ) ) {
+        } else if ( engine.isKeyDown(EngineFrame.KEY_DOWN ) ) {
             vel.y = speed;
         } else {
             vel.y = 0;
@@ -98,11 +98,11 @@ public class Player {
     /**
      * Desenha o jogador.
      * 
-     * @param engine Engine.
+     * @param engine EngineFrame.
      */
-    public void draw( Engine engine ) {
+    public void draw( EngineFrame engine ) {
         engine.fillRectangle( pos.x - dim.x / 2, pos.y - dim.y / 2, dim.x, dim.y, color );
-        engine.drawRectangle( pos.x - dim.x / 2, pos.y - dim.y / 2, dim.x, dim.y, Engine.BLACK );
+        engine.drawRectangle(pos.x - dim.x / 2, pos.y - dim.y / 2, dim.x, dim.y, EngineFrame.BLACK );
     }
     
 }

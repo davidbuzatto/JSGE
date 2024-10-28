@@ -14,13 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.examples;
+package br.com.davidbuzatto.jsge.examples.basic;
 
-import br.com.davidbuzatto.jsge.core.Engine;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.image.Image;
-import br.com.davidbuzatto.jsge.utils.ColorUtils;
-import br.com.davidbuzatto.jsge.utils.ImageUtils;
+import br.com.davidbuzatto.jsge.image.ImageUtils;
 import java.awt.Font;
 
 /**
@@ -28,7 +28,7 @@ import java.awt.Font;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class ImageLoadingProcessingExample extends Engine {
+public class ImageLoadingProcessingExample extends EngineFrame {
 
     private Image duke;
     private Image dukeStroke;

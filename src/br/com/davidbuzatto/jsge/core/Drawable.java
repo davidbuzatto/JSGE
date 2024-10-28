@@ -14,43 +14,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.examples;
+package br.com.davidbuzatto.jsge.core;
 
-import br.com.davidbuzatto.jsge.core.Engine;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import java.awt.Paint;
 
 /**
- * Template de exemplo.
+ * Interface para elementos desenháveis.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class EmptyExample extends Engine {
-
-    /**
-     * Cria o exemplo.
-     */
-    public EmptyExample() {
-        super( 800, 450, "Empty", 60, true );
-    }
-    
-    @Override
-    public void create() {
-    }
-
-    @Override
-    public void update() {
-    }
-    
-    @Override
-    public void draw() {
-        clearBackground( WHITE );
-    }
+public interface Drawable {
     
     /**
-     * Executa o exemplo.
-     * @param args Argumentos.
+     * Desenha o elemento corrente usando a engine.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param paint Paint para o desenho.
      */
-    public static void main( String[] args ) {
-        new EmptyExample();
-    }
-    
+    void draw( EngineFrame engine, Paint paint );
+
+    /**
+     * Pinta o elemento corrente usando a engine.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param paint Paint para o desenho.
+     */
+    void fill( EngineFrame engine, Paint paint );
+
 }

@@ -16,9 +16,9 @@
  */
 package br.com.davidbuzatto.jsge.examples.ball;
 
-import br.com.davidbuzatto.jsge.core.Engine;
-import br.com.davidbuzatto.jsge.geom.Vector2;
-import br.com.davidbuzatto.jsge.utils.CollisionUtils;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.math.Vector2;
+import br.com.davidbuzatto.jsge.math.CollisionUtils;
 import java.awt.Color;
 
 /**
@@ -66,7 +66,7 @@ public class Ball {
      * @param delta variação do tempo.
      * @param engine engine.
      */
-    void update( double delta, Engine engine ) {
+    void update( double delta, EngineFrame engine ) {
 
         if ( engine.isMouseButtonPressed( engine.MOUSE_BUTTON_LEFT ) ) {
             if ( CollisionUtils.checkCollisionPointCircle( engine.getMousePositionPoint(), pos, radius ) ) {
@@ -118,7 +118,7 @@ public class Ball {
      * 
      * @param engine engine.
      */
-    void draw( Engine engine ) {
+    void draw( EngineFrame engine ) {
         engine.fillCircle( pos, radius, color );
     }
         

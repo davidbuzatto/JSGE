@@ -14,12 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.examples;
+package br.com.davidbuzatto.jsge.examples.basic;
 
-import br.com.davidbuzatto.jsge.core.Engine;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
+import br.com.davidbuzatto.jsge.core.utils.PaintUtils;
 import br.com.davidbuzatto.jsge.image.Image;
-import br.com.davidbuzatto.jsge.utils.ColorUtils;
-import br.com.davidbuzatto.jsge.utils.PaintUtils;
 import java.awt.Color;
 import java.awt.Paint;
 
@@ -28,7 +28,7 @@ import java.awt.Paint;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class PaintingCapabilitiesExample extends Engine {
+public class PaintingCapabilitiesExample extends EngineFrame {
 
     
     private Paint horizontalGradient;

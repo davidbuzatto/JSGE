@@ -14,19 +14,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.geom;
-
-import br.com.davidbuzatto.jsge.core.Engine;
-import java.awt.Paint;
+package br.com.davidbuzatto.jsge.math;
 
 /**
- * Classe para representação de um vetor de duas dimensões.
- * Também é usada para representar pontos 2D em várias partes da API da Engine.
+ * Classe para representação de um vetor de três dimensões.
+ * 
+ * Pode ser usada para retornar valores com três componentes, como pontos
+ * 3D etc.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class Vector2 implements Drawable {
-
+public class Vector3 {
+    
     /**
      * Coordenada x.
      */
@@ -36,37 +35,34 @@ public class Vector2 implements Drawable {
      * Coordenada y.
      */
     public double y;
-
-    /**
-     * Cria um novo vetor de duas dimensões com valores padrão.
-     */
-    public Vector2() {
-    }
     
     /**
-     * Cria um novo vetor de duas dimensões.
-     * 
-     * @param x Coordenada x.
-     * @param y Coordenada y.
+     * Coordenada z.
      */
-    public Vector2( double x, double y ) {
+    public double z;
+
+    /**
+     * Cria um novo vetor de três dimensões com valores padrão.
+     */
+    public Vector3() {
+    }
+
+    /**
+     * Cria um novo vetor de três dimensões.
+     * 
+     * @param x coordenada x.
+     * @param y coordenada y.
+     * @param z coordenada z.
+     */
+    public Vector3( double x, double y, double z ) {
         this.x = x;
         this.y = y;
-    }
-
-    @Override
-    public void draw( Engine engine, Paint color ) {
-        engine.drawLine( 0, 0, x, y, color );
-    }
-
-    @Override
-    public void fill( Engine engine, Paint color ) {
-        engine.drawLine( 0, 0, x, y, color );
+        this.z = z;
     }
 
     @Override
     public String toString() {
-        return String.format( "Vector2[%.2f, %.2f]", x, y );
+        return String.format( "Vector3[%.2f, %.2f, %.2f]", x, y, z );
     }
-
+    
 }

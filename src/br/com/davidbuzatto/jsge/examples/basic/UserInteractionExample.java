@@ -14,9 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.examples;
+package br.com.davidbuzatto.jsge.examples.basic;
 
-import br.com.davidbuzatto.jsge.core.Engine;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 
 /**
@@ -24,7 +24,7 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class UserInteractionExample extends Engine {
+public class UserInteractionExample extends EngineFrame {
 
     private String keyAPress;
     private String keyADown;

@@ -14,15 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.examples;
+package br.com.davidbuzatto.jsge.examples.basic;
 
-import br.com.davidbuzatto.jsge.core.Engine;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
-import br.com.davidbuzatto.jsge.geom.Vector2;
+import br.com.davidbuzatto.jsge.math.Vector2;
+import br.com.davidbuzatto.jsge.math.CollisionUtils;
+import br.com.davidbuzatto.jsge.math.MathUtils;
 import br.com.davidbuzatto.jsge.sound.Music;
 import br.com.davidbuzatto.jsge.sound.Sound;
-import br.com.davidbuzatto.jsge.utils.CollisionUtils;
-import br.com.davidbuzatto.jsge.utils.MathUtils;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -32,7 +32,7 @@ import java.awt.event.WindowEvent;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class SoundAndMusicExample extends Engine {
+public class SoundAndMusicExample extends EngineFrame {
     
     private class Button {
         

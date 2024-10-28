@@ -14,9 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.examples;
+package br.com.davidbuzatto.jsge.examples.basic;
 
-import br.com.davidbuzatto.jsge.core.Engine;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Circle;
 import br.com.davidbuzatto.jsge.geom.CubicCurve;
 import br.com.davidbuzatto.jsge.geom.Line;
@@ -24,9 +24,9 @@ import br.com.davidbuzatto.jsge.geom.Polygon;
 import br.com.davidbuzatto.jsge.geom.QuadCurve;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.geom.Triangle;
-import br.com.davidbuzatto.jsge.geom.Vector2;
-import br.com.davidbuzatto.jsge.utils.CollisionUtils;
-import br.com.davidbuzatto.jsge.utils.MathUtils;
+import br.com.davidbuzatto.jsge.math.Vector2;
+import br.com.davidbuzatto.jsge.math.CollisionUtils;
+import br.com.davidbuzatto.jsge.math.MathUtils;
 import java.awt.Color;
 
 /**
@@ -35,7 +35,7 @@ import java.awt.Color;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class CollisionDetectionExample extends Engine {
+public class CollisionDetectionExample extends EngineFrame {
     
     private double xOffset;
     private double yOffset;

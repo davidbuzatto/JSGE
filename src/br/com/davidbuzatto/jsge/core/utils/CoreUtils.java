@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.utils;
+package br.com.davidbuzatto.jsge.core.utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -24,7 +24,7 @@ import java.io.StringWriter;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class Utils {
+public class CoreUtils {
     
     /**
      * Obtém a versão atual.
@@ -32,7 +32,7 @@ public class Utils {
      * @return A versão.
      */
     public static String getVersion() {
-        return "1.0.8";
+        return "1.1.0";
     }
     
     /**

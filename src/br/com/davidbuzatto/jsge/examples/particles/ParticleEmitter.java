@@ -16,11 +16,11 @@
  */
 package br.com.davidbuzatto.jsge.examples.particles;
 
-import br.com.davidbuzatto.jsge.core.Engine;
-import br.com.davidbuzatto.jsge.geom.Vector2;
-import br.com.davidbuzatto.jsge.utils.CollisionUtils;
-import br.com.davidbuzatto.jsge.utils.ColorUtils;
-import br.com.davidbuzatto.jsge.utils.MathUtils;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
+import br.com.davidbuzatto.jsge.math.Vector2;
+import br.com.davidbuzatto.jsge.math.CollisionUtils;
+import br.com.davidbuzatto.jsge.math.MathUtils;
 import java.awt.Color;
 
 /**
@@ -68,11 +68,11 @@ public class ParticleEmitter {
         this.particles = new Particle[maxParticles];
     }
     
-    public void draw( Engine engine ) {
+    public void draw( EngineFrame engine ) {
 
         if ( draggable && mouseOver ) {
-            engine.fillCircle( pos, radius, ColorUtils.fade( Engine.RAYWHITE, 0.5 ) );    
-            engine.drawCircle( pos, radius, Engine.RAYWHITE );
+            engine.fillCircle(pos, radius, ColorUtils.fade(EngineFrame.RAYWHITE, 0.5 ) );    
+            engine.drawCircle(pos, radius, EngineFrame.RAYWHITE );
         }
 
         for ( int i = 0; i < particleQuantity; i++ ) {
@@ -81,7 +81,7 @@ public class ParticleEmitter {
 
     }
 
-    public void updateMoveSin( double delta, Engine engine ) {
+    public void updateMoveSin( double delta, EngineFrame engine ) {
 
         pos.x += vel.x * delta;
         pos.y += vel.y * Math.sin( Math.toRadians( posAngle ) ) * delta;
@@ -300,13 +300,13 @@ public class ParticleEmitter {
 
     }
     
-    public boolean resolveParticleEmitterMouseOperations( Engine engine ) {
+    public boolean resolveParticleEmitterMouseOperations( EngineFrame engine ) {
 
         Vector2 mousePos = engine.getMousePositionPoint();
 
         if ( draggable && isMouseOverParticleEmitter( pos, radius, mousePos ) ) {
             mouseOver = true;
-            if ( engine.isMouseButtonPressed( Engine.MOUSE_BUTTON_LEFT ) ) {
+            if ( engine.isMouseButtonPressed(EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                 dragging = true;
                 xOffset = pos.x - mousePos.x;
                 yOffset = pos.y - mousePos.y;
@@ -315,7 +315,7 @@ public class ParticleEmitter {
             mouseOver = false;
         }
 
-        if ( engine.isMouseButtonReleased( Engine.MOUSE_BUTTON_LEFT ) ) {
+        if ( engine.isMouseButtonReleased(EngineFrame.MOUSE_BUTTON_LEFT ) ) {
             dragging = false;
         }
 

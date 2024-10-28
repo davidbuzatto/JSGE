@@ -14,9 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.utils;
+package br.com.davidbuzatto.jsge.image;
 
-import br.com.davidbuzatto.jsge.image.Image;
+import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;

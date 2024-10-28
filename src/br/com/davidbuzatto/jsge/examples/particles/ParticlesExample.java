@@ -16,9 +16,9 @@
  */
 package br.com.davidbuzatto.jsge.examples.particles;
 
-import br.com.davidbuzatto.jsge.core.Engine;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
-import br.com.davidbuzatto.jsge.geom.Vector2;
+import br.com.davidbuzatto.jsge.math.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +28,7 @@ import java.util.List;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class ParticlesExample extends Engine {
+public class ParticlesExample extends EngineFrame {
     
     /**
      * Constante para a gravidade da simulação.

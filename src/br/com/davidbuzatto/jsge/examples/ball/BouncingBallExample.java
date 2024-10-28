@@ -16,15 +16,15 @@
  */
 package br.com.davidbuzatto.jsge.examples.ball;
 
-import br.com.davidbuzatto.jsge.core.Engine;
-import br.com.davidbuzatto.jsge.geom.Vector2;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.math.Vector2;
 
 /**
  * Exemplo de simulação da bolinha.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class BouncingBallExample extends Engine {
+public class BouncingBallExample extends EngineFrame {
 
     /**
      * Constante para a gravidade da simulação.

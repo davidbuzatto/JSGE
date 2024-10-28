@@ -16,7 +16,7 @@
  */
 package br.com.davidbuzatto.jsge.core;
 
-import br.com.davidbuzatto.jsge.geom.Vector2;
+import br.com.davidbuzatto.jsge.math.Vector2;
 
 /**
  * Representação de uma câmera para controle do processo de desenho.

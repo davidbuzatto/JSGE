@@ -16,7 +16,8 @@
  */
 package br.com.davidbuzatto.jsge.geom;
 
-import br.com.davidbuzatto.jsge.core.Engine;
+import br.com.davidbuzatto.jsge.core.Drawable;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import java.awt.Paint;
 import java.awt.geom.Path2D;
 
@@ -86,12 +87,12 @@ public class Path implements Drawable {
     }
 
     @Override
-    public void draw( Engine engine, Paint color ) {
+    public void draw( EngineFrame engine, Paint color ) {
         engine.drawPath( this, color );
     }
 
     @Override
-    public void fill( Engine engine, Paint color ) {
+    public void fill( EngineFrame engine, Paint color ) {
         engine.fillPath( this, color );
     }
 

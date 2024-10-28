@@ -17,11 +17,11 @@
 package br.com.davidbuzatto.jsge.examples.camera;
 
 import br.com.davidbuzatto.jsge.core.Camera2D;
-import br.com.davidbuzatto.jsge.core.Engine;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
-import br.com.davidbuzatto.jsge.geom.Vector2;
-import br.com.davidbuzatto.jsge.utils.ColorUtils;
-import br.com.davidbuzatto.jsge.utils.MathUtils;
+import br.com.davidbuzatto.jsge.math.Vector2;
+import br.com.davidbuzatto.jsge.math.MathUtils;
 import java.awt.Color;
 
 /**
@@ -29,7 +29,7 @@ import java.awt.Color;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class CameraExample extends Engine {
+public class CameraExample extends EngineFrame {
 
     private Rectangle worldBoundary;
     private Rectangle playerBoundary;

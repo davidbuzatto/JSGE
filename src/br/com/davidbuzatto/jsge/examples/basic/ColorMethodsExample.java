@@ -14,10 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.examples;
+package br.com.davidbuzatto.jsge.examples.basic;
 
-import br.com.davidbuzatto.jsge.core.Engine;
-import br.com.davidbuzatto.jsge.utils.ColorUtils;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import java.awt.Color;
 import javax.swing.JColorChooser;
 import javax.swing.SwingUtilities;
@@ -27,7 +27,7 @@ import javax.swing.SwingUtilities;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class ColorMethodsExample extends Engine {
+public class ColorMethodsExample extends EngineFrame {
 
     private Color baseColor;
     

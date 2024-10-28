@@ -14,19 +14,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.examples;
+package br.com.davidbuzatto.jsge.examples.basic;
 
-import br.com.davidbuzatto.jsge.core.Engine;
-import br.com.davidbuzatto.jsge.geom.Vector2;
-import br.com.davidbuzatto.jsge.utils.CollisionUtils;
-import br.com.davidbuzatto.jsge.utils.ColorUtils;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.math.Vector2;
+import br.com.davidbuzatto.jsge.math.CollisionUtils;
+import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 
 /**
  * Exemplos de utilização dos métotodos de desenho de primitivas.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class DrawingWithPrimitivesMethodsExample extends Engine {
+public class DrawingWithPrimitivesMethodsExample extends EngineFrame {
     
     private Vector2[] pointsQuadCurve;
     private Vector2[] pointsCubicCurve;

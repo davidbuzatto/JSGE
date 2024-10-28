@@ -14,42 +14,46 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.tests;
-
-import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+package br.com.davidbuzatto.jsge.math;
 
 /**
- * Classe de testes.
+ * Classe para representação de um vetor de duas dimensões.
+ * Também é usada para representar pontos 2D em várias partes da API da Engine.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class ScratchPad extends EngineFrame {
+public class Vector2 {
+
+    /**
+     * Coordenada x.
+     */
+    public double x;
     
     /**
-     * Cria o teste.
+     * Coordenada y.
      */
-    public ScratchPad() {
-        super( 800, 450, "Scratch Pad", 60, true );
+    public double y;
+
+    /**
+     * Cria um novo vetor de duas dimensões com valores padrão.
+     */
+    public Vector2() {
     }
     
-    @Override
-    public void create() {
+    /**
+     * Cria um novo vetor de duas dimensões.
+     * 
+     * @param x Coordenada x.
+     * @param y Coordenada y.
+     */
+    public Vector2( double x, double y ) {
+        this.x = x;
+        this.y = y;
     }
 
     @Override
-    public void update() {
+    public String toString() {
+        return String.format( "Vector2[%.2f, %.2f]", x, y );
     }
-    
-    @Override
-    public void draw() {
-    }
-    
-    /**
-     * Executa o teste.
-     * @param args Argumentos.
-     */
-    public static void main( String[] args ) {
-        new ScratchPad();
-    }
-    
+
 }

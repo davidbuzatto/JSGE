@@ -14,9 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.examples;
+package br.com.davidbuzatto.jsge.examples.basic;
 
-import br.com.davidbuzatto.jsge.core.Engine;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Arc;
 import br.com.davidbuzatto.jsge.geom.Circle;
 import br.com.davidbuzatto.jsge.geom.CircleSector;
@@ -31,16 +31,14 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.geom.Ring;
 import br.com.davidbuzatto.jsge.geom.RoundRectangle;
 import br.com.davidbuzatto.jsge.geom.Triangle;
-import br.com.davidbuzatto.jsge.geom.Vector2;
 
 /**
  * Exemplos de utilização dos objetos primitivos para desenho.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class DrawingWithPrimitivesObjectsExample extends Engine {
+public class DrawingWithPrimitivesObjectsExample extends EngineFrame {
     
-    private Vector2 vector;
     private Line line;
     private Rectangle rectangle;
     private RoundRectangle roundRectangle;
@@ -66,7 +64,6 @@ public class DrawingWithPrimitivesObjectsExample extends Engine {
     @Override
     public void create() {
         
-        vector = new Vector2( 30, 30 );
         line = new Line( 60, 60, 100, 100 );
         rectangle = new Rectangle( 50, 120, 50, 100 );
         roundRectangle = new RoundRectangle( 50, 240, 80, 60, 20 );
@@ -103,8 +100,6 @@ public class DrawingWithPrimitivesObjectsExample extends Engine {
 
         clearBackground( WHITE );
         setFontStyle( FONT_BOLD );
-        
-        vector.draw( this, VIOLET );
 
         line.draw( this, BLACK );
 
@@ -147,7 +142,7 @@ public class DrawingWithPrimitivesObjectsExample extends Engine {
         path.fill( this, LIME );
         path.draw( this, BLACK );
         
-        drawFPS( 30, 10 );
+        drawFPS( 10, 10 );
 
     }
 

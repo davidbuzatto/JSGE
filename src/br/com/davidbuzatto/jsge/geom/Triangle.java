@@ -16,12 +16,13 @@
  */
 package br.com.davidbuzatto.jsge.geom;
 
-import br.com.davidbuzatto.jsge.core.Engine;
+import br.com.davidbuzatto.jsge.core.Drawable;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import java.awt.Paint;
 
 /**
  * Classe para representação de um triângulo em duas dimensões.
- * 
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class Triangle implements Drawable {
@@ -30,27 +31,27 @@ public class Triangle implements Drawable {
      * Coordenada x do primeiro vértice.
      */
     public double x1;
-    
+
     /**
      * Coordenada y do primeiro vértice.
      */
     public double y1;
-    
+
     /**
      * Coordenada x do segundo vértice.
      */
     public double x2;
-    
+
     /**
      * Coordenada y do segundo vértice.
      */
     public double y2;
-    
+
     /**
      * Coordenada x do terceiro vértice.
      */
     public double x3;
-    
+
     /**
      * Coordenada y do terceiro vértice.
      */
@@ -64,7 +65,7 @@ public class Triangle implements Drawable {
 
     /**
      * Cria um novo triângulo. Forneça os vértices no sentido horário.
-     * 
+     *
      * @param x1 Coordenada x do primeiro vértice.
      * @param y1 Coordenada y do primeiro vértice.
      * @param x2 Coordenada x do segundo vértice.
@@ -82,12 +83,12 @@ public class Triangle implements Drawable {
     }
 
     @Override
-    public void draw( Engine engine, Paint color ) {
+    public void draw( EngineFrame engine, Paint color ) {
         engine.drawTriangle( this, color );
     }
 
     @Override
-    public void fill( Engine engine, Paint color ) {
+    public void fill( EngineFrame engine, Paint color ) {
         engine.fillTriangle( this, color );
     }
 

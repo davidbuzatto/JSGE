@@ -16,7 +16,8 @@
  */
 package br.com.davidbuzatto.jsge.geom;
 
-import br.com.davidbuzatto.jsge.core.Engine;
+import br.com.davidbuzatto.jsge.core.Drawable;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import java.awt.Paint;
 
 /**
@@ -95,12 +96,12 @@ public class Arc implements Drawable {
     }
 
     @Override
-    public void draw( Engine engine, Paint color ) {
+    public void draw( EngineFrame engine, Paint color ) {
         engine.drawArc( this, color );
     }
 
     @Override
-    public void fill( Engine engine, Paint color ) {
+    public void fill( EngineFrame engine, Paint color ) {
         engine.fillArc( this, color );
     }
 

@@ -14,20 +14,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.examples.gui;
+package br.com.davidbuzatto.jsge.examples;
 
-import br.com.davidbuzatto.jsge.examples.CollisionDetectionExample;
-import br.com.davidbuzatto.jsge.examples.ColorMethodsExample;
-import br.com.davidbuzatto.jsge.examples.DrawingWithPrimitivesMethodsExample;
-import br.com.davidbuzatto.jsge.examples.DrawingWithPrimitivesObjectsExample;
-import br.com.davidbuzatto.jsge.examples.ImageLoadingProcessingExample;
-import br.com.davidbuzatto.jsge.examples.PaintingCapabilitiesExample;
-import br.com.davidbuzatto.jsge.examples.SoundAndMusicExample;
-import br.com.davidbuzatto.jsge.examples.UserInteractionExample;
+import br.com.davidbuzatto.jsge.core.utils.CoreUtils;
+import br.com.davidbuzatto.jsge.examples.basic.CollisionDetectionExample;
+import br.com.davidbuzatto.jsge.examples.basic.ColorMethodsExample;
+import br.com.davidbuzatto.jsge.examples.basic.DrawingWithPrimitivesMethodsExample;
+import br.com.davidbuzatto.jsge.examples.basic.DrawingWithPrimitivesObjectsExample;
+import br.com.davidbuzatto.jsge.examples.basic.ImageLoadingProcessingExample;
+import br.com.davidbuzatto.jsge.examples.basic.PaintingCapabilitiesExample;
+import br.com.davidbuzatto.jsge.examples.basic.SoundAndMusicExample;
+import br.com.davidbuzatto.jsge.examples.basic.UserInteractionExample;
 import br.com.davidbuzatto.jsge.examples.ball.BouncingBallExample;
 import br.com.davidbuzatto.jsge.examples.camera.CameraExample;
 import br.com.davidbuzatto.jsge.examples.particles.ParticlesExample;
-import br.com.davidbuzatto.jsge.utils.Utils;
 
 /**
  * Janela do showcase (vitrine) da JSGE.
@@ -41,7 +41,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
      */
     public JSGEShowcaseWindow() {
         initComponents();
-        setTitle( String.format( "JSGE Showcase - v%s", Utils.getVersion() ) );
+        setTitle(String.format("JSGE Showcase - v%s", CoreUtils.getVersion() ) );
     }
 
     /**

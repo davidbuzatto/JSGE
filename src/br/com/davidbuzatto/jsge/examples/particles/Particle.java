@@ -16,8 +16,8 @@
  */
 package br.com.davidbuzatto.jsge.examples.particles;
 
-import br.com.davidbuzatto.jsge.core.Engine;
-import br.com.davidbuzatto.jsge.geom.Vector2;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
@@ -76,9 +76,9 @@ public class Particle {
     /**
      * Desenha uma partícula.
      * 
-     * @param engine Engine.
+     * @param engine EngineFrame.
      */
-    void draw( Engine engine ) {
+    void draw( EngineFrame engine ) {
         engine.fillCircle( pos, radius, color );
     }
 

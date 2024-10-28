@@ -14,66 +14,61 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.geom;
-
-import br.com.davidbuzatto.jsge.core.Drawable;
-import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
-import java.awt.Paint;
+package br.com.davidbuzatto.jsge.math;
 
 /**
- * Classe para representação de um círculo em duas dimensões.
+ * Classe para representação de um vetor de quatro dimensões.
+ * 
+ * Pode ser usada para retornar valores com quatro componentes.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class Circle implements Drawable {
-
+public class Vector4 {
+    
     /**
-     * Coordenada x do centro.
+     * Coordenada x.
      */
     public double x;
     
     /**
-     * Coordenada y do centro.
+     * Coordenada y.
      */
     public double y;
     
     /**
-     * Raio.
+     * Coordenada z.
      */
-    public double radius;
+    public double z;
+    
+    /**
+     * Coordenada w.
+     */
+    public double w;
 
     /**
-     * Cria um círculo com valores padrão.
+     * Cria um novo vetor de quatro dimensões com valores padrão.
      */
-    public Circle() {
+    public Vector4() {
     }
 
     /**
-     * Cria um círculo.
+     * Cria um novo vetor de quatro dimensões.
      * 
-     * @param x Coordenada x do centro.
-     * @param y Coordenada y do centro.
-     * @param radius Raio.
+     * @param x coordenada x.
+     * @param y coordenada y.
+     * @param z coordenada z.
+     * @param w coordenada w.
      */
-    public Circle( double x, double y, double radius ) {
+    public Vector4( double x, double y, double z, double w ) {
         this.x = x;
         this.y = y;
-        this.radius = radius;
-    }
-
-    @Override
-    public void draw( EngineFrame engine, Paint color ) {
-        engine.drawCircle( this, color );
-    }
-
-    @Override
-    public void fill( EngineFrame engine, Paint color ) {
-        engine.fillCircle( this, color );
+        this.z = z;
+        this.w = w;
     }
 
     @Override
     public String toString() {
-        return String.format( "Circle[%.2f, %.2f, %.2f]", x, y, radius );
+        return String.format( "Vector4[%.2f, %.2f, %.2f, %.2f]", x, y, z, w );
     }
-
+        
 }

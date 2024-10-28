@@ -16,7 +16,8 @@
  */
 package br.com.davidbuzatto.jsge.geom;
 
-import br.com.davidbuzatto.jsge.core.Engine;
+import br.com.davidbuzatto.jsge.core.Drawable;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import java.awt.Paint;
 
 /**
@@ -87,12 +88,12 @@ public class Polygon implements Drawable {
     }
 
     @Override
-    public void draw( Engine engine, Paint color ) {
+    public void draw( EngineFrame engine, Paint color ) {
         engine.drawPolygon( this, color );
     }
 
     @Override
-    public void fill( Engine engine, Paint color ) {
+    public void fill( EngineFrame engine, Paint color ) {
         engine.fillPolygon( this, color );
     }
 

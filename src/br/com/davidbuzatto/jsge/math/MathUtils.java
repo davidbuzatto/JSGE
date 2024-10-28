@@ -14,13 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.utils;
+package br.com.davidbuzatto.jsge.math;
 
 import br.com.davidbuzatto.jsge.core.Camera2D;
 import br.com.davidbuzatto.jsge.geom.CubicCurve;
 import br.com.davidbuzatto.jsge.geom.Line;
 import br.com.davidbuzatto.jsge.geom.QuadCurve;
-import br.com.davidbuzatto.jsge.geom.Vector2;
 import java.util.Random;
 
 /**
@@ -689,16 +688,10 @@ public class MathUtils {
         return getPointAtCubicCurve( cubicCurve.x1, cubicCurve.y1, cubicCurve.c1x, cubicCurve.c1y, cubicCurve.c2x, cubicCurve.c2y, cubicCurve.x2, cubicCurve.y2, amount );
     }
     
-    
-    
-    //**************************************************************************
-    // Métodos estáticos privados de suporte.
-    //**************************************************************************
-    
     /**
      * Transforma um vetor 3D com uma matrix.
      */
-    private static Vector3 vector3Transform( Vector3 v, Matrix mat ) {
+    public static Vector3 vector3Transform( Vector3 v, Matrix mat ) {
         
         Vector3 result = new Vector3();
 
@@ -717,7 +710,7 @@ public class MathUtils {
     /**
      * Inverte uma matriz.
      */
-    private static Matrix matrixInvert( Matrix mat ) {
+    public static Matrix matrixInvert( Matrix mat ) {
         
         Matrix result = new Matrix();
 
@@ -767,7 +760,7 @@ public class MathUtils {
     /**
      * Multiplica duas matrizes.
      */
-    private static Matrix matrixMultiply( Matrix left, Matrix right ) {
+    public static Matrix matrixMultiply( Matrix left, Matrix right ) {
         
         Matrix result = new Matrix();
 
@@ -795,7 +788,7 @@ public class MathUtils {
     /**
      * Traslada uma matriz.
      */
-    private static Matrix matrixTranslate( double x, double y, double z ) {
+    public static Matrix matrixTranslate( double x, double y, double z ) {
         return new Matrix( 
                 1.0, 0.0, 0.0, x,
                 0.0, 1.0, 0.0, y,
@@ -807,7 +800,7 @@ public class MathUtils {
     /**
      * Rotaciona uma matriz (ângulo em radianos)
      */
-    private static Matrix matrixRotate( Vector3 axis, double angle ) {
+    public static Matrix matrixRotate( Vector3 axis, double angle ) {
         
         Matrix result = new Matrix();
 
@@ -853,7 +846,7 @@ public class MathUtils {
     /**
      * Escalona uma matriz.
      */
-    private static Matrix matrixScale( double x, double y, double z ) {
+    public static Matrix matrixScale( double x, double y, double z ) {
         return new Matrix( 
                 x, 0.0, 0.0, 0.0,
                 0.0, y, 0.0, 0.0,
@@ -865,7 +858,7 @@ public class MathUtils {
     /**
      * Obtém a matriz da câmera 2D.
      */
-    private static Matrix getCameraMatrix2D( Camera2D camera ) {
+    public static Matrix getCameraMatrix2D( Camera2D camera ) {
         
         // from: https://github.com/raysan5/raylib/blob/master/src/rcore.c
         // The camera in world-space is set by
@@ -891,164 +884,4 @@ public class MathUtils {
         
     }
     
-    
-    
-    //**************************************************************************
-    // Classes internas estáticas de suporte.
-    //**************************************************************************
-    
-    /**
-     * Classe para representação de um vetor de três dimensões.
-     * 
-     * @author Prof. Dr. David Buzatto
-     */
-    private static class Vector3 {
-    
-        public double x;
-        public double y;
-        public double z;
-    
-        /**
-         * Cria um novo vetor de três dimensões com valores padrão.
-         */
-        public Vector3() {
-        }
-        
-        /**
-         * Cria um novo vetor de três dimensões.
-         * 
-         * @param x coordenada x.
-         * @param y coordenada y.
-         * @param z coordenada z.
-         */
-        public Vector3( double x, double y, double z ) {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
-    
-        @Override
-        public String toString() {
-            return String.format( "Vector3[%.2f, %.2f, %.2f]", x, y, z );
-        }
-    
-    }
-    
-    /**
-     * Classe para representação de um vetor de quatro dimensões.
-     * 
-     * @author Prof. Dr. David Buzatto
-     */
-    private static class Vector4 {
-    
-        public double x;
-        public double y;
-        public double z;
-        public double w;
-    
-        /**
-         * Cria um novo vetor de quatro dimensões com valores padrão.
-         */
-        public Vector4() {
-        }
-        
-        /**
-         * Cria um novo vetor de quatro dimensões.
-         * 
-         * @param x coordenada x.
-         * @param y coordenada y.
-         * @param z coordenada z.
-         * @param w coordenada w.
-         */
-        public Vector4( double x, double y, double z, double w ) {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-            this.w = w;
-        }
-    
-        @Override
-        public String toString() {
-            return String.format( "Vector3[%.2f, %.2f, %.2f, %.2f]", x, y, z, w );
-        }
-    
-    }
-
-    /**
-     * Uma matriz.
-     * 
-     * @author Prof. Dr. David Buzatto
-     */
-    private static class Matrix {
- 
-        public double m0, m4, m8, m12;  // primeira linha
-        public double m1, m5, m9, m13;  // segunda linha
-        public double m2, m6, m10, m14; // terceira linha
-        public double m3, m7, m11, m15; // quarta linha
- 
-        /**
-         * Cria uma nova matriz com valores padrão.
-         */
-        public Matrix() {
-        }
- 
-        /**
-         * Cria uma nova matriz.
-         * 
-         * @param m0 valor da linha 1, coluna 1
-         * @param m4 valor da linha 1, coluna 2
-         * @param m8 valor da linha 1, coluna 3
-         * @param m12 valor da linha 1, coluna 4
-         * @param m1 valor da linha 2, coluna 1
-         * @param m5 valor da linha 2, coluna 2
-         * @param m9 valor da linha 2, coluna 3
-         * @param m13 valor da linha 2, coluna 4
-         * @param m2 valor da linha 3, coluna 1
-         * @param m6 valor da linha 3, coluna 2
-         * @param m10 valor da linha 3, coluna 3
-         * @param m14 valor da linha 3, coluna 4
-         * @param m3 valor da linha 4, coluna 1
-         * @param m7 valor da linha 4, coluna 2
-         * @param m11 valor da linha 4, coluna 3
-         * @param m15 valor da linha 4, coluna 4
-         */
-        public Matrix( double m0, double m4, double m8, double m12, double m1, double m5, double m9, double m13, double m2, double m6, double m10, double m14, double m3, double m7, double m11, double m15 ) {
-            this.m0 = m0;
-            this.m4 = m4;
-            this.m8 = m8;
-            this.m12 = m12;
-            this.m1 = m1;
-            this.m5 = m5;
-            this.m9 = m9;
-            this.m13 = m13;
-            this.m2 = m2;
-            this.m6 = m6;
-            this.m10 = m10;
-            this.m14 = m14;
-            this.m3 = m3;
-            this.m7 = m7;
-            this.m11 = m11;
-            this.m15 = m15;
-        }
- 
-        @Override
-        public String toString() {
-            return String.format( 
-                    """
-                    Matrix[
-                        %.2f, %.2f, %.2f, %.2f
-                        %.2f, %.2f, %.2f, %.2f
-                        %.2f, %.2f, %.2f, %.2f
-                        %.2f, %.2f, %.2f, %.2f
-                    ]
-                    """, 
-                    m0, m4, m8, m12,
-                    m1, m5, m9, m13,
-                    m2, m6, m10, m14,
-                    m3, m7, m11, m15
-            );
-        }
- 
-    }
-
 }

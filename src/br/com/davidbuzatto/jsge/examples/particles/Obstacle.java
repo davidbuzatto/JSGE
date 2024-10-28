@@ -16,7 +16,7 @@
  */
 package br.com.davidbuzatto.jsge.examples.particles;
 
-import br.com.davidbuzatto.jsge.core.Engine;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import java.awt.Color;
 
@@ -72,7 +72,7 @@ public class Obstacle {
         
     }
     
-    public void draw( Engine engine ) {
+    public void draw( EngineFrame engine ) {
         engine.fillRectangle( rect, color );
     }
     
