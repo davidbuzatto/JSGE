@@ -17,7 +17,6 @@
 package br.com.davidbuzatto.jsge.examples.particles;
 
 import br.com.davidbuzatto.jsge.core.Engine;
-import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.geom.Vector2;
 import java.awt.Color;
 
@@ -28,12 +27,14 @@ import java.awt.Color;
  */
 public class Particle {
 
-    private Vector2 pos;
-    private Vector2 vel;
-    private double radius;
-    private double friction;
-    private double elasticity;
-    private Color color;
+    public Vector2 pos;
+    public Vector2 vel;
+    public double radius;
+    public double friction;
+    public double elasticity;
+    public Color color;
+    
+    private static final double MAX_FALL_SPEED = 500;
 
     /**
      * Cria uma partícula do exemplo.
@@ -57,23 +58,18 @@ public class Particle {
      * Atualiza uma partícula.
      * 
      * @param delta Variação do tempo.
-     * @param limits Limites.
      */
-    void update( double delta, Rectangle limits ) {
+    void update( double delta ) {
 
         pos.x += vel.x * delta;
         pos.y += vel.y * delta;
 
-        if ( pos.x - radius <= limits.x ) {
-            pos.x = limits.x + radius;
-            vel.x = -vel.x * elasticity;
-        } else if ( pos.x + radius >= limits.x + limits.width ) {
-            pos.x = limits.x + limits.width - radius;
-            vel.x = -vel.x * elasticity;
-        }
-
         vel.x = vel.x * friction;
         vel.y = vel.y * friction + ParticlesExample.GRAVITY;
+        
+        if ( vel.y > MAX_FALL_SPEED ) {
+            vel.y = MAX_FALL_SPEED;
+        }
 
     }
     

@@ -46,7 +46,6 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.RenderingHints;
@@ -69,11 +68,11 @@ import java.awt.geom.Line2D;
 import java.awt.geom.QuadCurve2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.ArrayList;
@@ -89,18 +88,18 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
- * Engine simples para criação de jogos ou simulações usando Java 2D.
- * Grande parte da sua API é baseada na engine de jogos Raylib (www.raylib.com).
+ * Cópia da classe Engine, mas utilizando BufferedStrategy para o desenho.
+ * O desempenho parece ser pior!
  * 
  * @author Prof. Dr. David Buzatto
  */
-public abstract class Engine extends JFrame {
+public abstract class BufferStrategyEngine extends JFrame {
 
     /**
      * Painel de desenho onde todas as operações de desenho e de registro
      * de eventos ocorretá.
      */
-    private DrawingPanel drawingPanel;
+    private JPanel dimensionsPanel;
 
     /**
      * Referência ao contexto gráfico do painel de desenho.
@@ -313,7 +312,7 @@ public abstract class Engine extends JFrame {
      * @param undecorated Flag que indica se a janela deve ser não decorada.
      * @param alwaysOnTop Flag que indica se a janela está sempre por cima.
      */
-    public Engine( int windowWidth, 
+    public BufferStrategyEngine( int windowWidth, 
                    int windowHeight, 
                    String windowTitle, 
                    int targetFPS, 
@@ -344,11 +343,8 @@ public abstract class Engine extends JFrame {
         this.antialiasing = antialiasing;
         waitTimeFPS = (long) ( 1000.0 / this.targetFPS );   // quanto se espera que cada frame demore
 
-        // cria e configura o painel de desenho
-        drawingPanel = new DrawingPanel();
-        drawingPanel.setPreferredSize( new Dimension( windowWidth, windowHeight ) );
-        drawingPanel.setFocusable( true );
-        drawingPanel.addKeyListener( new KeyAdapter(){
+        setFocusable( true );
+        addKeyListener( new KeyAdapter(){
             @Override
             public void keyPressed( KeyEvent e ) {
                 if ( e.getKeyCode() == exitKeyCode ) {
@@ -377,6 +373,7 @@ public abstract class Engine extends JFrame {
         // configura a engine
         setTitle( windowTitle );
         setAlwaysOnTop( alwaysOnTop );
+        setIgnoreRepaint( true );
 
         if ( fullScreen ) {
             setResizable( false );
@@ -388,15 +385,22 @@ public abstract class Engine extends JFrame {
         }
 
         setDefaultCloseOperation( EXIT_ON_CLOSE );
-        add( drawingPanel, BorderLayout.CENTER );
+        
+        // cria e configura o painel de dimensões
+        dimensionsPanel = new JPanel();
+        dimensionsPanel.setBackground( null );
+        dimensionsPanel.setPreferredSize( new Dimension( windowWidth, windowHeight ) );
+        add( dimensionsPanel, BorderLayout.CENTER );
 
         if ( !fullScreen ) {
             pack();
         }
 
-        setLocationRelativeTo( null );
-
         addWindowListener( new WindowAdapter() {
+            @Override
+            public void windowOpened( WindowEvent e ) {
+                createBufferStrategy( 2 );
+            }
             @Override
             public void windowClosing( WindowEvent e ) {
                 running = false;
@@ -413,6 +417,8 @@ public abstract class Engine extends JFrame {
         // inicia o processo de execução do jogo ou simulação
         running = true;
         setVisible( true );
+        setLocationRelativeTo( null );
+        
         start();
 
     }
@@ -426,7 +432,7 @@ public abstract class Engine extends JFrame {
      * @param targetFPS A quantidade máxima de frames por segundo que se deseja que o processo de atualização e desenho mantenha.
      * @param antialiasing Flag que indica se deve ou não usar suavização para o desenho no contexto gráfico.
      */
-    public Engine( int windowWidth, 
+    public BufferStrategyEngine( int windowWidth, 
                    int windowHeight, 
                    String windowTitle, 
                    int targetFPS, 
@@ -444,20 +450,13 @@ public abstract class Engine extends JFrame {
                 
                 try {
                     update();
+                    customPaint();
                 } catch ( RuntimeException exc ) {
                     traceLogError( Utils.stackTraceToString( exc ) );
                 }
                 
                 resetMouseButtonsState();
                 resetKeysState();
-                
-                try {
-                    SwingUtilities.invokeAndWait( () -> {
-                        drawingPanel.repaint();
-                    });
-                } catch ( InterruptedException | InvocationTargetException exc ) {
-                    traceLogError( Utils.stackTraceToString( exc ) );
-                }
 
                 timeAfter = System.currentTimeMillis();
 
@@ -506,9 +505,40 @@ public abstract class Engine extends JFrame {
 
     }
 
+    private void customPaint() {
+
+        BufferStrategy bf = getBufferStrategy();
+        
+        if ( bf != null ) {
+            
+            g2d = (Graphics2D) bf.getDrawGraphics();
+            g2d.translate( getInsets().left, getInsets().top );
+
+            g2d.setFont( defaultFont );
+            g2d.setStroke( defaultStroke );
+
+            g2d.clearRect( 0, 0, getWidth(), getHeight() );
+
+            if ( antialiasing ) {
+                g2d.setRenderingHint( 
+                    RenderingHints.KEY_ANTIALIASING, 
+                    RenderingHints.VALUE_ANTIALIAS_ON );
+            }
+
+            draw();
+            g2d.dispose();
+            
+            if ( !bf.contentsLost() ) {
+                bf.show();
+            }
+            
+        }
+
+    }
+    
     private void prepareInputManager() {
 
-        inputManager = new InputManager( drawingPanel );
+        inputManager = new InputManager( this );
 
         mouseLeftAction = new GameAction( "mouse button left" );
         mouseLeftActionInitial = new GameAction( "mouse button left initial", true );
@@ -708,7 +738,7 @@ public abstract class Engine extends JFrame {
      * @return A posição do mouse como um ponto.
      */
     public Vector2 getMousePositionPoint() {
-        return new Vector2( inputManager.getMouseX(), inputManager.getMouseY() );
+        return new Vector2( inputManager.getMouseX() - getInsets().left, inputManager.getMouseY() - getInsets().top );
     }
 
     /**
@@ -768,7 +798,7 @@ public abstract class Engine extends JFrame {
 
         try {
 
-            Class<? extends Engine> klass = Engine.class;
+            Class<? extends BufferStrategyEngine> klass = BufferStrategyEngine.class;
             
             for ( Field f : klass.getDeclaredFields() ) {
                 if ( Modifier.isStatic( f.getModifiers() ) ) {
@@ -2530,7 +2560,7 @@ public abstract class Engine extends JFrame {
      * @return largura da tela.
      */
     public int getScreenWidth() {
-        return drawingPanel.getWidth();
+        return dimensionsPanel.getWidth();
     }
 
     /**
@@ -2539,7 +2569,7 @@ public abstract class Engine extends JFrame {
      * @return altura da tela.
      */
     public int getScreenHeight() {
-        return drawingPanel.getHeight();
+        return dimensionsPanel.getHeight();
     }
 
     /**
@@ -3244,21 +3274,21 @@ public abstract class Engine extends JFrame {
      */
     public void setMouseCursor( int cursor ) {
         currentCursor = Cursor.getPredefinedCursor( cursor );
-        drawingPanel.setCursor( currentCursor );
+        setCursor( currentCursor );
     }
     
     /**
      * Mostra o cursor.
      */
     public void showCursor() {
-        drawingPanel.setCursor( currentCursor );
+        setCursor( currentCursor );
     }
     
     /**
      * Esconde o cursor.
      */
     public void hideCursor() {
-        drawingPanel.setCursor( INVISIBLE_CURSOR );
+        setCursor( INVISIBLE_CURSOR );
     }
     
     /**
@@ -3267,7 +3297,7 @@ public abstract class Engine extends JFrame {
      * @return verdadeiro se o cursor estiver escondido, falso caso contrário.
      */
     public boolean isCursorHidden() {
-        return drawingPanel.getCursor() == INVISIBLE_CURSOR;
+        return getCursor() == INVISIBLE_CURSOR;
     }
     
     
@@ -3513,48 +3543,10 @@ public abstract class Engine extends JFrame {
     }
     
     
-    
+        
     //**************************************************************************
     // Classes internas privadas.
     //**************************************************************************
-    
-    /**
-     * Classe interna que encapsula o processo de desenho.
-     */
-    private class DrawingPanel extends JPanel {
-
-        public DrawingPanel() {
-            setBackground( null );
-        }
-        
-        @Override
-        public void paintComponent( Graphics g ) {
-
-            super.paintComponent( g );
-            g2d = (Graphics2D) g.create();
-
-            g2d.setFont( defaultFont );
-            g2d.setStroke( defaultStroke );
-            
-            g2d.clearRect( 0, 0, getWidth(), getHeight() );
-
-            if ( antialiasing ) {
-                g2d.setRenderingHint( 
-                    RenderingHints.KEY_ANTIALIASING, 
-                    RenderingHints.VALUE_ANTIALIAS_ON );
-            }
-            
-            try {
-                draw();
-            } catch ( RuntimeException exc ) {
-                traceLogError( Utils.stackTraceToString( exc ) );
-            }
-            
-            g2d.dispose();
-
-        }
-
-    }
 
     
     
@@ -4710,6 +4702,6 @@ public abstract class Engine extends JFrame {
     /**
      * Nível de log atual da engine.
      */
-    private static int traceLogLevel = Engine.LOG_ALL;
+    private static int traceLogLevel = BufferStrategyEngine.LOG_ALL;
 
 }

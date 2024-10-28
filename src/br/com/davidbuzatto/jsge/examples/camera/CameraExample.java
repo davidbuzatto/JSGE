@@ -71,9 +71,9 @@ public class CameraExample extends Engine {
             camera.rotation++;
         }
         
-        if ( isKeyDown( KEY_KP_ADD ) ) {
+        if ( isKeyDown( KEY_KP_ADD ) || isKeyDown( KEY_EQUAL ) ) {
             camera.zoom += 0.01;
-        } else if ( isKeyDown( KEY_KP_SUBTRACT ) ) {
+        } else if ( isKeyDown( KEY_KP_SUBTRACT ) || isKeyDown( KEY_MINUS ) ) {
             camera.zoom -= 0.01;
             if ( camera.zoom < 0.1 ) {
                 camera.zoom = 0.1;
