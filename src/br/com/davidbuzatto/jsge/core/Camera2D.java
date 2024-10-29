@@ -16,7 +16,6 @@
  */
 package br.com.davidbuzatto.jsge.core;
 
-import br.com.davidbuzatto.jsge.math.MathUtils;
 import br.com.davidbuzatto.jsge.math.Matrix;
 import br.com.davidbuzatto.jsge.math.Vector2;
 import br.com.davidbuzatto.jsge.math.Vector3;
@@ -85,8 +84,8 @@ public class Camera2D {
      */
     public Vector2 getScreenToWorld( double x, double y ) {
         
-        Matrix invMatCamera = MathUtils.invert( getCameraMatrix() );
-        Vector3 transform = MathUtils.transform( new Vector3( x, y, 0 ), invMatCamera );
+        Matrix invMatCamera = getCameraMatrix().invert();
+        Vector3 transform = new Vector3( x, y, 0 ).transform( invMatCamera );
 
         return new Vector2( transform.x, transform.y );
         
@@ -114,7 +113,7 @@ public class Camera2D {
     public Vector2 getWorldToScreen( double x, double y ) {
         
         Matrix matCamera = getCameraMatrix();
-        Vector3 transform = MathUtils.transform( new Vector3( x, y, 0 ), matCamera );
+        Vector3 transform = new Vector3( x, y, 0 ).transform( matCamera );
 
         return new Vector2( transform.x, transform.y );
         
@@ -136,11 +135,11 @@ public class Camera2D {
      */
     public Matrix getCameraMatrix() {
         
-        // from: https://github.com/raysan5/raylib/blob/master/src/rcore.c
+        // fonte: https://github.com/raysan5/raylib/blob/master/src/rcore.c
         // The camera in world-space is set by
         //   1. Move it to target
-        //   2. Rotate by -rotation and scale by (1/zoom)
-        //      When setting higher scale, it's more intuitive for the world to become bigger (= camera become smaller),
+        //   2. Rotate by -rotation and scaling by (1/zoom)
+        //      When setting higher scaling, it's more intuitive for the world to become bigger (= camera become smaller),
         //      not for the camera getting bigger, hence the invert. Same deal with rotation
         //   3. Move it by (-offset);
         //      Offset defines target transform relative to screen, but since we're effectively "moving" screen (camera)
@@ -151,12 +150,12 @@ public class Camera2D {
         //   1. Move to offset
         //   2. Rotate and Scale
         //   3. Move by -target
-        Matrix matOrigin = MathUtils.translate( -target.x, -target.y, 0.0 );
-        Matrix matRotation = MathUtils.rotate( new Vector3( 0.0f, 0.0f, 1.0f ), Math.toRadians( rotation ) );
-        Matrix matScale = MathUtils.scale( zoom, zoom, 1.0 );
-        Matrix matTranslation = MathUtils.translate( offset.x, offset.y, 0.0 );
+        Matrix matOrigin = Matrix.translation( -target.x, -target.y, 0.0 );
+        Matrix matRotation = Matrix.rotation( new Vector3( 0.0, 0.0, 1.0 ), Math.toRadians( rotation ) );
+        Matrix matScale = Matrix.scaling( zoom, zoom, 1.0 );
+        Matrix matTranslation = Matrix.translation( offset.x, offset.y, 0.0 );
 
-        return MathUtils.multiply( MathUtils.multiply( matOrigin, MathUtils.multiply( matScale, matRotation ) ), matTranslation );
+        return matOrigin.multiply( matScale.multiply( matRotation ) ).multiply( matTranslation );
         
     }
     
