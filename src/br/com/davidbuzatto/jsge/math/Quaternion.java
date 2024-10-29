@@ -64,76 +64,90 @@ public class Quaternion implements Cloneable {
         this.w = w;
     }
 
-    //**************************************************************************
-    // Métodos utilitários para quaternions.
-    //**************************************************************************
+    /**
+     * Soma o quaternion corrente com outro quaternion.
+     * 
+     * @param q Outro quaternion.
+     * @return Um novo quaternion resultado da soma.
+     */
+    public Quaternion add( Quaternion q ) {
+        return new Quaternion( x + q.x, y + q.y, z + q.z, w + q.w );
+    }
     
-/*
-// Add two quaternions
-RMAPI Quaternion QuaternionAdd(Quaternion q1, Quaternion q2)
-{
-    Quaternion result = {q1.x + q2.x, q1.y + q2.y, q1.z + q2.z, q1.w + q2.w};
-
-    return result;
-}
-
-// Add quaternion and float value
-RMAPI Quaternion QuaternionAddValue(Quaternion q, float add)
-{
-    Quaternion result = {q.x + add, q.y + add, q.z + add, q.w + add};
-
-    return result;
-}
-
-// Subtract two quaternions
-RMAPI Quaternion QuaternionSubtract(Quaternion q1, Quaternion q2)
-{
-    Quaternion result = {q1.x - q2.x, q1.y - q2.y, q1.z - q2.z, q1.w - q2.w};
-
-    return result;
-}
-
-// Subtract quaternion and float value
-RMAPI Quaternion QuaternionSubtractValue(Quaternion q, float sub)
-{
-    Quaternion result = {q.x - sub, q.y - sub, q.z - sub, q.w - sub};
-
-    return result;
-}*/
+    /**
+     * Soma um valor ao quaternion corrente.
+     * 
+     * @param value O valor a somar.
+     * @return Um novo quaternion com os componentes somados ao valor passado.
+     */
+    public Quaternion addValue( double value ) {
+        return new Quaternion( x + value, y + value, z + value, w + value );
+    }
+    
+    /**
+     * Subtrai um quaternion do quaternion corrente.
+     * 
+     * @param q Outro quaternion.
+     * @return Um novo quaternion resultado da subtração.
+     */
+    public Quaternion subtract( Quaternion q ) {
+        return new Quaternion( x - q.x, y - q.y, z - q.z, w - q.w );
+    }
+    
+    /**
+     * Subtrai um valor do quaternion corrente
+     * 
+     * @param value O valor a subtrair.
+     * @return Um novo quaternion com os componentes subtraídos do valor passado.
+     */
+    public Quaternion subtractValue( double value ) {
+        return new Quaternion( x - value, y - value, z - value, w - value );
+    }
 
     /**
+     * Cria uma quaternion identidade.
      * 
-     * @return 
+     * @return Uma novo quaternion identidade.
      */
     public static Quaternion identity() {
-        return new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f );
+        return new Quaternion( 0.0, 0.0, 0.0, 1.0 );
+    }
+    
+    /**
+     * Calcula o comprimento do quaternion.
+     * 
+     * @return O comprimento.
+     */
+    public double length() {
+        return Math.sqrt( x * x + y * y + z * z + w * w );
+    }
+    
+    /**
+     * Normaliza o vetor quaternion.
+     * 
+     * @return Um novo quaternion normalizado.
+     */
+    public Quaternion normalize() {
+
+        Quaternion result = new Quaternion();
+        double length = Math.sqrt( x * x + y * y + z * z + w * w );
+
+        if ( length == 0.0 ) {
+            length = 1.0;
+        }
+        
+        double ilength = 1.0 / length;
+        result.x = x * ilength;
+        result.y = y * ilength;
+        result.z = z * ilength;
+        result.w = w * ilength;
+
+        return result;
+
     }
     
 /*
-// Computes the length of a quaternion
-RMAPI float QuaternionLength(Quaternion q)
-{
-    float result = sqrtf(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w);
 
-    return result;
-}
-
-// Normalize provided quaternion
-RMAPI Quaternion QuaternionNormalize(Quaternion q)
-{
-    Quaternion result = { 0 };
-
-    float length = sqrtf(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w);
-    if (length == 0.0f) length = 1.0f;
-    float ilength = 1.0f/length;
-
-    result.x = q.x*ilength;
-    result.y = q.y*ilength;
-    result.z = q.z*ilength;
-    result.w = q.w*ilength;
-
-    return result;
-}
 
 // Invert provided quaternion
 RMAPI Quaternion QuaternionInvert(Quaternion q)
@@ -142,9 +156,9 @@ RMAPI Quaternion QuaternionInvert(Quaternion q)
 
     float lengthSq = q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w;
 
-    if (lengthSq != 0.0f)
+    if (lengthSq != 0.0)
     {
-        float invLength = 1.0f/lengthSq;
+        float invLength = 1.0/lengthSq;
 
         result.x *= -invLength;
         result.y *= -invLength;
@@ -219,8 +233,8 @@ RMAPI Quaternion QuaternionNlerp(Quaternion q1, Quaternion q2, float amount)
     // QuaternionNormalize(q);
     Quaternion q = result;
     float length = sqrtf(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w);
-    if (length == 0.0f) length = 1.0f;
-    float ilength = 1.0f/length;
+    if (length == 0.0) length = 1.0;
+    float ilength = 1.0/length;
 
     result.x = q.x*ilength;
     result.y = q.y*ilength;
@@ -247,12 +261,12 @@ RMAPI Quaternion QuaternionSlerp(Quaternion q1, Quaternion q2, float amount)
         cosHalfTheta = -cosHalfTheta;
     }
 
-    if (fabsf(cosHalfTheta) >= 1.0f) result = q1;
+    if (fabsf(cosHalfTheta) >= 1.0) result = q1;
     else if (cosHalfTheta > 0.95f) result = QuaternionNlerp(q1, q2, amount);
     else
     {
         float halfTheta = acosf(cosHalfTheta);
-        float sinHalfTheta = sqrtf(1.0f - cosHalfTheta*cosHalfTheta);
+        float sinHalfTheta = sqrtf(1.0 - cosHalfTheta*cosHalfTheta);
 
         if (fabsf(sinHalfTheta) < EPSILON)
         {
@@ -313,14 +327,14 @@ RMAPI Quaternion QuaternionFromVector3ToVector3(Vector3 from, Vector3 to)
     result.x = cross.x;
     result.y = cross.y;
     result.z = cross.z;
-    result.w = 1.0f + cos2Theta;
+    result.w = 1.0 + cos2Theta;
 
     // QuaternionNormalize(q);
     // NOTE: Normalize to essentially nlerp the original and identity to 0.5
     Quaternion q = result;
     float length = sqrtf(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w);
-    if (length == 0.0f) length = 1.0f;
-    float ilength = 1.0f/length;
+    if (length == 0.0) length = 1.0;
+    float ilength = 1.0/length;
 
     result.x = q.x*ilength;
     result.y = q.y*ilength;
@@ -368,7 +382,7 @@ RMAPI Quaternion QuaternionFromMatrix(Matrix mat)
         biggestIndex = 3;
     }
 
-    float biggestVal = sqrtf(fourBiggestSquaredMinus1 + 1.0f)*0.5f;
+    float biggestVal = sqrtf(fourBiggestSquaredMinus1 + 1.0)*0.5f;
     float mult = 0.25f/biggestVal;
 
     switch (biggestIndex)
@@ -405,10 +419,10 @@ RMAPI Quaternion QuaternionFromMatrix(Matrix mat)
 // Get a matrix for a given quaternion
 RMAPI Matrix QuaternionToMatrix(Quaternion q)
 {
-    Matrix result = { 1.0f, 0.0f, 0.0f, 0.0f,
-                      0.0f, 1.0f, 0.0f, 0.0f,
-                      0.0f, 0.0f, 1.0f, 0.0f,
-                      0.0f, 0.0f, 0.0f, 1.0f }; // MatrixIdentity()
+    Matrix result = { 1.0, 0.0, 0.0, 0.0,
+                      0.0, 1.0, 0.0, 0.0,
+                      0.0, 0.0, 1.0, 0.0,
+                      0.0, 0.0, 0.0, 1.0 }; // MatrixIdentity()
 
     float a2 = q.x*q.x;
     float b2 = q.y*q.y;
@@ -439,21 +453,21 @@ RMAPI Matrix QuaternionToMatrix(Quaternion q)
 // NOTE: Angle must be provided in radians
 RMAPI Quaternion QuaternionFromAxisAngle(Vector3 axis, float angle)
 {
-    Quaternion result = { 0.0f, 0.0f, 0.0f, 1.0f };
+    Quaternion result = { 0.0, 0.0, 0.0, 1.0 };
 
     float axisLength = sqrtf(axis.x*axis.x + axis.y*axis.y + axis.z*axis.z);
 
-    if (axisLength != 0.0f)
+    if (axisLength != 0.0)
     {
         angle *= 0.5f;
 
-        float length = 0.0f;
-        float ilength = 0.0f;
+        float length = 0.0;
+        float ilength = 0.0;
 
         // Vector3Normalize(axis)
         length = axisLength;
-        if (length == 0.0f) length = 1.0f;
-        ilength = 1.0f/length;
+        if (length == 0.0) length = 1.0;
+        ilength = 1.0/length;
         axis.x *= ilength;
         axis.y *= ilength;
         axis.z *= ilength;
@@ -469,8 +483,8 @@ RMAPI Quaternion QuaternionFromAxisAngle(Vector3 axis, float angle)
         // QuaternionNormalize(q);
         Quaternion q = result;
         length = sqrtf(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w);
-        if (length == 0.0f) length = 1.0f;
-        ilength = 1.0f/length;
+        if (length == 0.0) length = 1.0;
+        ilength = 1.0/length;
         result.x = q.x*ilength;
         result.y = q.y*ilength;
         result.z = q.z*ilength;
@@ -483,12 +497,12 @@ RMAPI Quaternion QuaternionFromAxisAngle(Vector3 axis, float angle)
 // Get the rotation angle and axis for a given quaternion
 RMAPI void QuaternionToAxisAngle(Quaternion q, Vector3 *outAxis, float *outAngle)
 {
-    if (fabsf(q.w) > 1.0f)
+    if (fabsf(q.w) > 1.0)
     {
         // QuaternionNormalize(q);
         float length = sqrtf(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w);
-        if (length == 0.0f) length = 1.0f;
-        float ilength = 1.0f/length;
+        if (length == 0.0) length = 1.0;
+        float ilength = 1.0/length;
 
         q.x = q.x*ilength;
         q.y = q.y*ilength;
@@ -496,9 +510,9 @@ RMAPI void QuaternionToAxisAngle(Quaternion q, Vector3 *outAxis, float *outAngle
         q.w = q.w*ilength;
     }
 
-    Vector3 resAxis = { 0.0f, 0.0f, 0.0f };
-    float resAngle = 2.0f*acosf(q.w);
-    float den = sqrtf(1.0f - q.w*q.w);
+    Vector3 resAxis = { 0.0, 0.0, 0.0 };
+    float resAngle = 2.0*acosf(q.w);
+    float den = sqrtf(1.0 - q.w*q.w);
 
     if (den > EPSILON)
     {
@@ -510,7 +524,7 @@ RMAPI void QuaternionToAxisAngle(Quaternion q, Vector3 *outAxis, float *outAngle
     {
         // This occurs when the angle is zero.
         // Not a problem: just set an arbitrary normalized axis.
-        resAxis.x = 1.0f;
+        resAxis.x = 1.0;
     }
 
     *outAxis = resAxis;
@@ -545,19 +559,19 @@ RMAPI Vector3 QuaternionToEuler(Quaternion q)
     Vector3 result = { 0 };
 
     // Roll (x-axis rotation)
-    float x0 = 2.0f*(q.w*q.x + q.y*q.z);
-    float x1 = 1.0f - 2.0f*(q.x*q.x + q.y*q.y);
+    float x0 = 2.0*(q.w*q.x + q.y*q.z);
+    float x1 = 1.0 - 2.0*(q.x*q.x + q.y*q.y);
     result.x = atan2f(x0, x1);
 
     // Pitch (y-axis rotation)
-    float y0 = 2.0f*(q.w*q.y - q.z*q.x);
-    y0 = y0 > 1.0f ? 1.0f : y0;
-    y0 = y0 < -1.0f ? -1.0f : y0;
+    float y0 = 2.0*(q.w*q.y - q.z*q.x);
+    y0 = y0 > 1.0 ? 1.0 : y0;
+    y0 = y0 < -1.0 ? -1.0 : y0;
     result.y = asinf(y0);
 
     // Yaw (z-axis rotation)
-    float z0 = 2.0f*(q.w*q.z + q.x*q.y);
-    float z1 = 1.0f - 2.0f*(q.y*q.y + q.z*q.z);
+    float z0 = 2.0*(q.w*q.z + q.x*q.y);
+    float z1 = 1.0 - 2.0*(q.y*q.y + q.z*q.z);
     result.z = atan2f(z0, z1);
 
     return result;
