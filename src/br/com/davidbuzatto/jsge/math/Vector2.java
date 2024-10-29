@@ -155,7 +155,8 @@ public class Vector2 {
      * @return A distância.
      */
     public double distance( Vector2 v ) {
-        return Math.sqrt( ( x - v.x ) * ( x - v.x ) + ( y - v.y ) * ( y - v.y ) );
+        return Math.sqrt( ( v.x - x ) * ( v.x - x ) + 
+                          ( v.y - y ) * ( v.y - y ) );
     }
     
     /**
@@ -165,7 +166,8 @@ public class Vector2 {
      * @return A distância quadrada.
      */
     public double distanceSquare( Vector2 v ) {
-        return ( x - v.x ) * ( x - v.x ) + ( y - v.y ) * ( y - v.y );
+        return ( v.x - x ) * ( v.x - x ) + 
+               ( v.y - y ) * ( v.y - y );
     }
 
     /**
@@ -294,15 +296,15 @@ public class Vector2 {
     /**
      * Obtem um novo vetor com o máximo dos componentes.
      * 
-     * @param v2 Outro vetor.
+     * @param v Outro vetor.
      * @return Um novo vetor com o máximo dos componentes.
      */
-    public Vector2 max( Vector2 v2 ) {
+    public Vector2 max( Vector2 v ) {
 
         Vector2 result = new Vector2();
 
-        result.x = Math.max( x, v2.x );
-        result.y = Math.max( y, v2.y );
+        result.x = Math.max( x, v.x );
+        result.y = Math.max( y, v.y );
 
         return result;
 
@@ -366,7 +368,7 @@ public class Vector2 {
     }
 
     /**
-     * Limita o vetor corrente vetor entre dois vetores 2D.
+     * Limita o vetor corrente vetor entre dois vetores.
      * 
      * @param min O vetor mínimo.
      * @param max O vetor máximo.
@@ -429,13 +431,13 @@ public class Vector2 {
 
         Vector2 result = new Vector2();
 
-        double dot = v.x*n.x + v.y*n.y;
-        double d = 1.0 - r*r*(1.0f- dot*dot);
+        double dot = v.x * n.x + v.y * n.y;
+        double d = 1.0 - r * r * (1.0 - dot * dot);
 
         if ( d >= 0.0 ) {
             d = Math.sqrt( d );
-            result.x = r*v.x - (r*dot + d)*n.x;
-            result.y = r*v.y - (r*dot + d)*n.y;
+            result.x = r * v.x - (r * dot + d) * n.x;
+            result.y = r * v.y - (r * dot + d) * n.y;
         }
 
         return result;

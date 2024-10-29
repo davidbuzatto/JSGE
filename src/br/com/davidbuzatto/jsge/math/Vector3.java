@@ -209,9 +209,9 @@ public class Vector3 {
      * @return A distância.
      */
     public double distance( Vector3 v ) {
-        return Math.sqrt( ( x - v.x ) * ( x - v.x ) + 
-                          ( y - v.y ) * ( y - v.y ) +
-                          ( z - v.z ) * ( z - v.z ));
+        return Math.sqrt( ( v.x - x ) * ( v.x - x ) + 
+                          ( v.y - y ) * ( v.y - y ) +
+                          ( v.z - z ) * ( v.z - z ) );
     }
     
     /**
@@ -221,9 +221,9 @@ public class Vector3 {
      * @return A distância quadrada.
      */
     public double distanceSquare( Vector3 v ) {
-        return ( x - v.x ) * ( x - v.x ) + 
-               ( y - v.y ) * ( y - v.y ) + 
-               ( z - v.z ) * ( z - v.z );
+        return ( v.x - x ) * ( v.x - x ) + 
+               ( v.y - y ) * ( v.y - y ) +
+               ( v.z - z ) * ( v.z - z );
     }
     
     
@@ -397,298 +397,404 @@ public class Vector3 {
         
     }
     
+    /**
+     * Transforma o vetor corrente por uma rotação por quaternion.
+     * 
+     * @param q O quaternion.
+     * @return Um novo vetor transformado.
+     */
+    public Vector3 rotateByQuaternion( Quaternion q ) {
+        
+        Vector3 result = new Vector3();
+        
+        result.x = x * ( q.x * q.x + q.w * q.w - q.y * q.y - q.z * q.z ) + y * ( 2 * q.x * q.y - 2 * q.w * q.z ) + z * ( 2 * q.x * q.z + 2 * q.w * q.y );
+        result.y = x * ( 2 * q.w * q.z + 2 * q.x * q.y ) + y * ( q.w * q.w - q.x * q.x + q.y * q.y - q.z * q.z ) + z * ( -2 * q.w * q.x + 2 * q.y * q.z );
+        result.z = x * ( -2 * q.w * q.y + 2 * q.x * q.z ) + y * ( 2 * q.w * q.x + 2 * q.y * q.z )+ z * ( q.w * q.w - q.x * q.x - q.y * q.y + q.z * q.z );
+        
+        return result;
     
-    /*// Transform a vector by quaternion rotation
-    RMAPI Vector3 Vector3RotateByQuaternion(Vector3 v, Quaternion q)
-    {
-    Vector3 result = { 0 };
-    result.x = v.x*(q.x*q.x + q.w*q.w - q.y*q.y - q.z*q.z) + v.y*(2*q.x*q.y - 2*q.w*q.z) + v.z*(2*q.x*q.z + 2*q.w*q.y);
-    result.y = v.x*(2*q.w*q.z + 2*q.x*q.y) + v.y*(q.w*q.w - q.x*q.x + q.y*q.y - q.z*q.z) + v.z*(-2*q.w*q.x + 2*q.y*q.z);
-    result.z = v.x*(-2*q.w*q.y + 2*q.x*q.z) + v.y*(2*q.w*q.x + 2*q.y*q.z)+ v.z*(q.w*q.w - q.x*q.x - q.y*q.y + q.z*q.z);
-    return result;
-    }
-    
-    // Rotates a vector around an axis
-    RMAPI Vector3 Vector3RotateByAxisAngle(Vector3 v, Vector3 axis, float angle)
-    {
-    // Using Euler-Rodrigues Formula
-    // Ref.: https://en.wikipedia.org/w/index.php?title=Euler%E2%80%93Rodrigues_formula
-    Vector3 result = v;
-    // Vector3Normalize(axis);
-    float length = sqrtf(axis.x*axis.x + axis.y*axis.y + axis.z*axis.z);
-    if (length == 0.0f) length = 1.0f;
-    float ilength = 1.0f/length;
-    axis.x *= ilength;
-    axis.y *= ilength;
-    axis.z *= ilength;
-    angle /= 2.0f;
-    float a = sinf(angle);
-    float b = axis.x*a;
-    float c = axis.y*a;
-    float d = axis.z*a;
-    a = cosf(angle);
-    Vector3 w = { b, c, d };
-    // Vector3CrossProduct(w, v)
-    Vector3 wv = { w.y*v.z - w.z*v.y, w.z*v.x - w.x*v.z, w.x*v.y - w.y*v.x };
-    // Vector3CrossProduct(w, wv)
-    Vector3 wwv = { w.y*wv.z - w.z*wv.y, w.z*wv.x - w.x*wv.z, w.x*wv.y - w.y*wv.x };
-    // Vector3Scale(wv, 2*a)
-    a *= 2;
-    wv.x *= a;
-    wv.y *= a;
-    wv.z *= a;
-    // Vector3Scale(wwv, 2)
-    wwv.x *= 2;
-    wwv.y *= 2;
-    wwv.z *= 2;
-    result.x += wv.x;
-    result.y += wv.y;
-    result.z += wv.z;
-    result.x += wwv.x;
-    result.y += wwv.y;
-    result.z += wwv.z;
-    return result;
     }
     
-    // Move Vector towards target
-    RMAPI Vector3 Vector3MoveTowards(Vector3 v, Vector3 target, float maxDistance)
-    {
-    Vector3 result = { 0 };
-    float dx = target.x - v.x;
-    float dy = target.y - v.y;
-    float dz = target.z - v.z;
-    float value = (dx*dx) + (dy*dy) + (dz*dz);
-    if ((value == 0) || ((maxDistance >= 0) && (value <= maxDistance*maxDistance))) return target;
-    float dist = sqrtf(value);
-    result.x = v.x + dx/dist*maxDistance;
-    result.y = v.y + dy/dist*maxDistance;
-    result.z = v.z + dz/dist*maxDistance;
-    return result;
+    /**
+     * Rotaciona o vetor corrente em volta de um eixo.
+     * 
+     * Using Euler-Rodrigues Formula
+     * Ref.: https://en.wikipedia.org/w/index.php?title=Euler%E2%80%93Rodrigues_formula
+     * 
+     * @param axis O eixo.
+     * @param angle O ângulo em radianos.
+     * @return 
+     */
+    public Vector3 rotateByAxisAngle( Vector3 axis, double angle ) {
+        
+        Vector3 result = new Vector3( x, y, z );
+        
+        double length = Math.sqrt( axis.x * axis.x + axis.y * axis.y + axis.z * axis.z );
+        
+        if ( length == 0.0 ) {
+            length = 1.0;
+        }
+        
+        double ilength = 1.0 / length;
+        
+        axis.x *= ilength;
+        axis.y *= ilength;
+        axis.z *= ilength;
+        
+        angle /= 2.0;
+        
+        double a = Math.sin( angle );
+        double b = axis.x * a;
+        double c = axis.y * a;
+        double d = axis.z * a;
+        
+        a = Math.cos( angle );
+        Vector3 w = new Vector3( b, c, d );
+        
+        Vector3 wv = new Vector3( w.y * z - w.z * y, w.z * x - w.x * z, w.x * y - w.y * x );
+        
+        Vector3 wwv = new Vector3( w.y * wv.z - w.z * wv.y, w.z * wv.x - w.x * wv.z, w.x * wv.y - w.y * wv.x );
+        
+        a *= 2;
+        wv.x *= a;
+        wv.y *= a;
+        wv.z *= a;
+        
+        wwv.x *= 2;
+        wwv.y *= 2;
+        wwv.z *= 2;
+        
+        result.x += wv.x;
+        result.y += wv.y;
+        result.z += wv.z;
+        result.x += wwv.x;
+        result.y += wwv.y;
+        result.z += wwv.z;
+        
+        return result;
+        
     }
     
-    // Calculate linear interpolation between two vectors
-    RMAPI Vector3 Vector3Lerp(Vector3 v1, Vector3 v2, float amount)
-    {
-    Vector3 result = { 0 };
-    result.x = v1.x + amount*(v2.x - v1.x);
-    result.y = v1.y + amount*(v2.y - v1.y);
-    result.z = v1.z + amount*(v2.z - v1.z);
-    return result;
+    /**
+     * Cria um novo vetor movido em direção a um alvo.
+     * 
+     * @param target O alvo.
+     * @param maxDistance A distância máxima.
+     * @return Um novo vetor movido em direção ao alvo.
+     */
+    public Vector3 moveTowards( Vector3 target, double maxDistance ) {
+        
+        Vector3 result = new Vector3();
+        
+        double dx = target.x - x;
+        double dy = target.y - y;
+        double dz = target.z - z;
+        double value = ( dx * dx ) + ( dy * dy ) + ( dz * dz );
+        
+        if ( ( value == 0.0 ) || ( ( maxDistance >= 0.0 ) && ( value <= maxDistance * maxDistance ) ) ) {
+            return new Vector3( target.x, target.y, target.z );
+        }
+        
+        double dist = Math.sqrt( value );
+        result.x = x + dx / dist * maxDistance;
+        result.y = y + dy / dist * maxDistance;
+        result.z = z + dz / dist * maxDistance;
+        
+        return result;
+        
     }
     
-    // Calculate cubic hermite interpolation between two vectors and their tangents
-    // as described in the GLTF 2.0 specification: https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#interpolation-cubic
-    RMAPI Vector3 Vector3CubicHermite(Vector3 v1, Vector3 tangent1, Vector3 v2, Vector3 tangent2, float amount)
-    {
-    Vector3 result = { 0 };
-    float amountPow2 = amount*amount;
-    float amountPow3 = amount*amount*amount;
-    result.x = (2*amountPow3 - 3*amountPow2 + 1)*v1.x + (amountPow3 - 2*amountPow2 + amount)*tangent1.x + (-2*amountPow3 + 3*amountPow2)*v2.x + (amountPow3 - amountPow2)*tangent2.x;
-    result.y = (2*amountPow3 - 3*amountPow2 + 1)*v1.y + (amountPow3 - 2*amountPow2 + amount)*tangent1.y + (-2*amountPow3 + 3*amountPow2)*v2.y + (amountPow3 - amountPow2)*tangent2.y;
-    result.z = (2*amountPow3 - 3*amountPow2 + 1)*v1.z + (amountPow3 - 2*amountPow2 + amount)*tangent1.z + (-2*amountPow3 + 3*amountPow2)*v2.z + (amountPow3 - amountPow2)*tangent2.z;
-    return result;
+    /**
+     * Realiza a interpolação linear entre o vetor corrente (início) e outro vetor (fim).
+     * 
+     * @param end Vetor final.
+     * @param amount Quantidade (0 a 1)
+     * @return Um vetor que representa a interpolação linear entre dois vetores.
+     */
+    public Vector3 lerp( Vector3 end, double amount ) {
+        double x = this.x + ( end.x - this.x ) * amount;
+        double y = this.y + ( end.y - this.y ) * amount;
+        double z = this.z + ( end.z - this.z ) * amount;
+        return new Vector3( x, y, z );
     }
     
-    // Calculate reflected vector to normal
-    RMAPI Vector3 Vector3Reflect(Vector3 v, Vector3 normal)
-    {
-    Vector3 result = { 0 };
-    // I is the original vector
-    // N is the normal of the incident plane
-    // R = I - (2*N*(DotProduct[I, N]))
-    float dotProduct = (v.x*normal.x + v.y*normal.y + v.z*normal.z);
-    result.x = v.x - (2.0f*normal.x)*dotProduct;
-    result.y = v.y - (2.0f*normal.y)*dotProduct;
-    result.z = v.z - (2.0f*normal.z)*dotProduct;
-    return result;
+    /**
+     * Calcula a interpolação cúbica Hermitiana do vetor corrente e outro vetor e suas tangentes.
+     * 
+     * @param tangent1 Primeira tangente
+     * @param v O vetor.
+     * @param tangent2 Segunda tangente.
+     * @param amount A quantidade
+     * @return Um novo vetor com a interpolação cúbica Hermitiana.
+     */
+    public Vector3 cubicHermite( Vector3 tangent1, Vector3 v, Vector3 tangent2, double amount ) {
+        
+        Vector3 result = new Vector3();
+        double amountPow2 = amount * amount;
+        double amountPow3 = amount * amount * amount;
+        
+        result.x = (2 * amountPow3 - 3 * amountPow2 + 1) * x + (amountPow3 - 2 * amountPow2 + amount) * tangent1.x + (-2 * amountPow3 + 3 * amountPow2) * v.x + (amountPow3 - amountPow2) * tangent2.x;
+        result.y = (2 * amountPow3 - 3 * amountPow2 + 1) * y + (amountPow3 - 2 * amountPow2 + amount) * tangent1.y + (-2 * amountPow3 + 3 * amountPow2) * v.y + (amountPow3 - amountPow2) * tangent2.y;
+        result.z = (2 * amountPow3 - 3 * amountPow2 + 1) * z + (amountPow3 - 2 * amountPow2 + amount) * tangent1.z + (-2 * amountPow3 + 3 * amountPow2) * v.z + (amountPow3 - amountPow2) * tangent2.z;
+        
+        return result;
+    
     }
     
-    // Get min value for each pair of components
-    RMAPI Vector3 Vector3Min(Vector3 v1, Vector3 v2)
-    {
-    Vector3 result = { 0 };
-    result.x = fminf(v1.x, v2.x);
-    result.y = fminf(v1.y, v2.y);
-    result.z = fminf(v1.z, v2.z);
-    return result;
+    /**
+     * Calcula a reflexão do vetor corrente por um vetor normal.
+     * 
+     * @param normal Vetor normal.
+     * @return Um novo vetor refletido.
+     */
+    public Vector3 reflect( Vector3 normal ) {
+        
+        Vector3 result = new Vector3();
+        
+        double dotProduct = (x * normal.x + y * normal.y + z * normal.z);
+        result.x = x - (2.0f * normal.x) * dotProduct;
+        result.y = y - (2.0f * normal.y) * dotProduct;
+        result.z = z - (2.0f * normal.z) * dotProduct;
+        
+        return result;
+    
     }
     
-    // Get max value for each pair of components
-    RMAPI Vector3 Vector3Max(Vector3 v1, Vector3 v2)
-    {
-    Vector3 result = { 0 };
-    result.x = fmaxf(v1.x, v2.x);
-    result.y = fmaxf(v1.y, v2.y);
-    result.z = fmaxf(v1.z, v2.z);
-    return result;
+    /**
+     * Obtem um novo vetor com o mínimo dos componentes.
+     * 
+     * @param v Outro vetor.
+     * @return Um novo vetor com o mínimo dos componentes.
+     */
+    public Vector3 min( Vector3 v ) {
+
+        Vector3 result = new Vector3();
+
+        result.x = Math.min( x, v.x );
+        result.y = Math.min( y, v.y );
+        result.z = Math.min( z, v.z );
+
+        return result;
+
+    }
+
+    /**
+     * Obtem um novo vetor com o máximo dos componentes.
+     * 
+     * @param v Outro vetor.
+     * @return Um novo vetor com o máximo dos componentes.
+     */
+    public Vector3 max( Vector3 v ) {
+
+        Vector3 result = new Vector3();
+
+        result.x = Math.max( x, v.x );
+        result.y = Math.max( y, v.y );
+        result.z = Math.max( z, v.z );
+
+        return result;
+
     }
     
-    // Compute barycenter coordinates (u, v, w) for point p with respect to triangle (a, b, c)
-    // NOTE: Assumes P is on the plane of the triangle
-    RMAPI Vector3 Vector3Barycenter(Vector3 p, Vector3 a, Vector3 b, Vector3 c)
-    {
-    Vector3 result = { 0 };
-    Vector3 v0 = { b.x - a.x, b.y - a.y, b.z - a.z };   // Vector3Subtract(b, a)
-    Vector3 v1 = { c.x - a.x, c.y - a.y, c.z - a.z };   // Vector3Subtract(c, a)
-    Vector3 v2 = { p.x - a.x, p.y - a.y, p.z - a.z };   // Vector3Subtract(p, a)
-    float d00 = (v0.x*v0.x + v0.y*v0.y + v0.z*v0.z);    // Vector3DotProduct(v0, v0)
-    float d01 = (v0.x*v1.x + v0.y*v1.y + v0.z*v1.z);    // Vector3DotProduct(v0, v1)
-    float d11 = (v1.x*v1.x + v1.y*v1.y + v1.z*v1.z);    // Vector3DotProduct(v1, v1)
-    float d20 = (v2.x*v0.x + v2.y*v0.y + v2.z*v0.z);    // Vector3DotProduct(v2, v0)
-    float d21 = (v2.x*v1.x + v2.y*v1.y + v2.z*v1.z);    // Vector3DotProduct(v2, v1)
-    float denom = d00*d11 - d01*d01;
-    result.y = (d11*d20 - d01*d21)/denom;
-    result.z = (d00*d21 - d01*d20)/denom;
-    result.x = 1.0f - (result.z + result.y);
-    return result;
+    /**
+     * Calcula o baricentro de um ponto p em um triângulo (a, b, c).
+     * 
+     * @param p O ponto.
+     * @param a Primeiro vértice.
+     * @param b Segundo vértice.
+     * @param c Terceiro vértice.
+     * @return O baricentro.
+     */
+    public static Vector3 barycenter( Vector3 p, Vector3 a, Vector3 b, Vector3 c ) {
+        
+        Vector3 result = new Vector3();
+        Vector3 v0 = new Vector3( b.x - a.x, b.y - a.y, b.z - a.z );
+        Vector3 v1 = new Vector3( c.x - a.x, c.y - a.y, c.z - a.z );
+        Vector3 v2 = new Vector3( p.x - a.x, p.y - a.y, p.z - a.z );
+        
+        double d00 = (v0.x * v0.x + v0.y * v0.y + v0.z * v0.z);
+        double d01 = (v0.x * v1.x + v0.y * v1.y + v0.z * v1.z);
+        double d11 = (v1.x * v1.x + v1.y * v1.y + v1.z * v1.z);
+        double d20 = (v2.x * v0.x + v2.y * v0.y + v2.z * v0.z);
+        double d21 = (v2.x * v1.x + v2.y * v1.y + v2.z * v1.z);
+        double denom = d00 * d11 - d01 * d01;
+        
+        result.y = (d11 * d20 - d01 * d21) / denom;
+        result.z = (d00 * d21 - d01 * d20) / denom;
+        result.x = 1.0 - (result.z + result.y);
+        
+        return result;
+    
     }
     
-    // Projects a Vector3 from screen space into object space
-    // NOTE: We are avoiding calling other raymath functions despite available
-    RMAPI Vector3 Vector3Unproject(Vector3 source, Matrix projection, Matrix view)
-    {
-    Vector3 result = { 0 };
-    // Calculate unprojected matrix (multiply view matrix by projection matrix) and invert it
-    Matrix matViewProj = {      // MatrixMultiply(view, projection);
-    view.m0*projection.m0 + view.m1*projection.m4 + view.m2*projection.m8 + view.m3*projection.m12,
-    view.m0*projection.m1 + view.m1*projection.m5 + view.m2*projection.m9 + view.m3*projection.m13,
-    view.m0*projection.m2 + view.m1*projection.m6 + view.m2*projection.m10 + view.m3*projection.m14,
-    view.m0*projection.m3 + view.m1*projection.m7 + view.m2*projection.m11 + view.m3*projection.m15,
-    view.m4*projection.m0 + view.m5*projection.m4 + view.m6*projection.m8 + view.m7*projection.m12,
-    view.m4*projection.m1 + view.m5*projection.m5 + view.m6*projection.m9 + view.m7*projection.m13,
-    view.m4*projection.m2 + view.m5*projection.m6 + view.m6*projection.m10 + view.m7*projection.m14,
-    view.m4*projection.m3 + view.m5*projection.m7 + view.m6*projection.m11 + view.m7*projection.m15,
-    view.m8*projection.m0 + view.m9*projection.m4 + view.m10*projection.m8 + view.m11*projection.m12,
-    view.m8*projection.m1 + view.m9*projection.m5 + view.m10*projection.m9 + view.m11*projection.m13,
-    view.m8*projection.m2 + view.m9*projection.m6 + view.m10*projection.m10 + view.m11*projection.m14,
-    view.m8*projection.m3 + view.m9*projection.m7 + view.m10*projection.m11 + view.m11*projection.m15,
-    view.m12*projection.m0 + view.m13*projection.m4 + view.m14*projection.m8 + view.m15*projection.m12,
-    view.m12*projection.m1 + view.m13*projection.m5 + view.m14*projection.m9 + view.m15*projection.m13,
-    view.m12*projection.m2 + view.m13*projection.m6 + view.m14*projection.m10 + view.m15*projection.m14,
-    view.m12*projection.m3 + view.m13*projection.m7 + view.m14*projection.m11 + view.m15*projection.m15 };
-    // Calculate inverted matrix -> MatrixInvert(matViewProj);
-    // Cache the matrix values (speed optimization)
-    float a00 = matViewProj.m0, a01 = matViewProj.m1, a02 = matViewProj.m2, a03 = matViewProj.m3;
-    float a10 = matViewProj.m4, a11 = matViewProj.m5, a12 = matViewProj.m6, a13 = matViewProj.m7;
-    float a20 = matViewProj.m8, a21 = matViewProj.m9, a22 = matViewProj.m10, a23 = matViewProj.m11;
-    float a30 = matViewProj.m12, a31 = matViewProj.m13, a32 = matViewProj.m14, a33 = matViewProj.m15;
-    float b00 = a00*a11 - a01*a10;
-    float b01 = a00*a12 - a02*a10;
-    float b02 = a00*a13 - a03*a10;
-    float b03 = a01*a12 - a02*a11;
-    float b04 = a01*a13 - a03*a11;
-    float b05 = a02*a13 - a03*a12;
-    float b06 = a20*a31 - a21*a30;
-    float b07 = a20*a32 - a22*a30;
-    float b08 = a20*a33 - a23*a30;
-    float b09 = a21*a32 - a22*a31;
-    float b10 = a21*a33 - a23*a31;
-    float b11 = a22*a33 - a23*a32;
-    // Calculate the invert determinant (inlined to avoid double-caching)
-    float invDet = 1.0f/(b00*b11 - b01*b10 + b02*b09 + b03*b08 - b04*b07 + b05*b06);
-    Matrix matViewProjInv = {
-    (a11*b11 - a12*b10 + a13*b09)*invDet,
-    (-a01*b11 + a02*b10 - a03*b09)*invDet,
-    (a31*b05 - a32*b04 + a33*b03)*invDet,
-    (-a21*b05 + a22*b04 - a23*b03)*invDet,
-    (-a10*b11 + a12*b08 - a13*b07)*invDet,
-    (a00*b11 - a02*b08 + a03*b07)*invDet,
-    (-a30*b05 + a32*b02 - a33*b01)*invDet,
-    (a20*b05 - a22*b02 + a23*b01)*invDet,
-    (a10*b10 - a11*b08 + a13*b06)*invDet,
-    (-a00*b10 + a01*b08 - a03*b06)*invDet,
-    (a30*b04 - a31*b02 + a33*b00)*invDet,
-    (-a20*b04 + a21*b02 - a23*b00)*invDet,
-    (-a10*b09 + a11*b07 - a12*b06)*invDet,
-    (a00*b09 - a01*b07 + a02*b06)*invDet,
-    (-a30*b03 + a31*b01 - a32*b00)*invDet,
-    (a20*b03 - a21*b01 + a22*b00)*invDet };
-    // Create quaternion from source point
-    Quaternion quat = { source.x, source.y, source.z, 1.0f };
-    // Multiply quat point by unprojecte matrix
-    Quaternion qtransformed = {     // QuaternionTransform(quat, matViewProjInv)
-    matViewProjInv.m0*quat.x + matViewProjInv.m4*quat.y + matViewProjInv.m8*quat.z + matViewProjInv.m12*quat.w,
-    matViewProjInv.m1*quat.x + matViewProjInv.m5*quat.y + matViewProjInv.m9*quat.z + matViewProjInv.m13*quat.w,
-    matViewProjInv.m2*quat.x + matViewProjInv.m6*quat.y + matViewProjInv.m10*quat.z + matViewProjInv.m14*quat.w,
-    matViewProjInv.m3*quat.x + matViewProjInv.m7*quat.y + matViewProjInv.m11*quat.z + matViewProjInv.m15*quat.w };
-    // Normalized world points in vectors
-    result.x = qtransformed.x/qtransformed.w;
-    result.y = qtransformed.y/qtransformed.w;
-    result.z = qtransformed.z/qtransformed.w;
-    return result;
+    /**
+     * Projeta o vetor corrente (espaço da tela) para o espaço dos objetos.
+     * 
+     * @param projection Matrix de projeção.
+     * @param view Matrix da visualização.
+     * @return Um novo vetor projetado.
+     */
+    public Vector3 unproject( Matrix projection, Matrix view ) {
+        
+        Vector3 result = new Vector3();
+        
+        Matrix matViewProj = new Matrix(
+            view.m0 * projection.m0 + view.m1 * projection.m4 + view.m2 * projection.m8 + view.m3 * projection.m12,
+            view.m0 * projection.m1 + view.m1 * projection.m5 + view.m2 * projection.m9 + view.m3 * projection.m13,
+            view.m0 * projection.m2 + view.m1 * projection.m6 + view.m2 * projection.m10 + view.m3 * projection.m14,
+            view.m0 * projection.m3 + view.m1 * projection.m7 + view.m2 * projection.m11 + view.m3 * projection.m15,
+            view.m4 * projection.m0 + view.m5 * projection.m4 + view.m6 * projection.m8 + view.m7 * projection.m12,
+            view.m4 * projection.m1 + view.m5 * projection.m5 + view.m6 * projection.m9 + view.m7 * projection.m13,
+            view.m4 * projection.m2 + view.m5 * projection.m6 + view.m6 * projection.m10 + view.m7 * projection.m14,
+            view.m4 * projection.m3 + view.m5 * projection.m7 + view.m6 * projection.m11 + view.m7 * projection.m15,
+            view.m8 * projection.m0 + view.m9 * projection.m4 + view.m10 * projection.m8 + view.m11 * projection.m12,
+            view.m8 * projection.m1 + view.m9 * projection.m5 + view.m10 * projection.m9 + view.m11 * projection.m13,
+            view.m8 * projection.m2 + view.m9 * projection.m6 + view.m10 * projection.m10 + view.m11 * projection.m14,
+            view.m8 * projection.m3 + view.m9 * projection.m7 + view.m10 * projection.m11 + view.m11 * projection.m15,
+            view.m12 * projection.m0 + view.m13 * projection.m4 + view.m14 * projection.m8 + view.m15 * projection.m12,
+            view.m12 * projection.m1 + view.m13 * projection.m5 + view.m14 * projection.m9 + view.m15 * projection.m13,
+            view.m12 * projection.m2 + view.m13 * projection.m6 + view.m14 * projection.m10 + view.m15 * projection.m14,
+            view.m12 * projection.m3 + view.m13 * projection.m7 + view.m14 * projection.m11 + view.m15 * projection.m15 );
+        
+        double a00 = matViewProj.m0, a01 = matViewProj.m1, a02 = matViewProj.m2, a03 = matViewProj.m3;
+        double a10 = matViewProj.m4, a11 = matViewProj.m5, a12 = matViewProj.m6, a13 = matViewProj.m7;
+        double a20 = matViewProj.m8, a21 = matViewProj.m9, a22 = matViewProj.m10, a23 = matViewProj.m11;
+        double a30 = matViewProj.m12, a31 = matViewProj.m13, a32 = matViewProj.m14, a33 = matViewProj.m15;
+        double b00 = a00 * a11 - a01 * a10;
+        double b01 = a00 * a12 - a02 * a10;
+        double b02 = a00 * a13 - a03 * a10;
+        double b03 = a01 * a12 - a02 * a11;
+        double b04 = a01 * a13 - a03 * a11;
+        double b05 = a02 * a13 - a03 * a12;
+        double b06 = a20 * a31 - a21 * a30;
+        double b07 = a20 * a32 - a22 * a30;
+        double b08 = a20 * a33 - a23 * a30;
+        double b09 = a21 * a32 - a22 * a31;
+        double b10 = a21 * a33 - a23 * a31;
+        double b11 = a22 * a33 - a23 * a32;
+        
+        double invDet = 1.0 / (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);
+        Matrix matViewProjInv = new Matrix(
+            (a11 * b11 - a12 * b10 + a13 * b09) * invDet,
+            (-a01 * b11 + a02 * b10 - a03 * b09) * invDet,
+            (a31 * b05 - a32 * b04 + a33 * b03) * invDet,
+            (-a21 * b05 + a22 * b04 - a23 * b03) * invDet,
+            (-a10 * b11 + a12 * b08 - a13 * b07) * invDet,
+            (a00 * b11 - a02 * b08 + a03 * b07) * invDet,
+            (-a30 * b05 + a32 * b02 - a33 * b01) * invDet,
+            (a20 * b05 - a22 * b02 + a23 * b01) * invDet,
+            (a10 * b10 - a11 * b08 + a13 * b06) * invDet,
+            (-a00 * b10 + a01 * b08 - a03 * b06) * invDet,
+            (a30 * b04 - a31 * b02 + a33 * b00) * invDet,
+            (-a20 * b04 + a21 * b02 - a23 * b00) * invDet,
+            (-a10 * b09 + a11 * b07 - a12 * b06) * invDet,
+            (a00 * b09 - a01 * b07 + a02 * b06) * invDet,
+            (-a30 * b03 + a31 * b01 - a32 * b00) * invDet,
+            (a20 * b03 - a21 * b01 + a22 * b00) * invDet );
+        
+        Quaternion quat = new Quaternion( x, y, z, 1.0f );
+        Quaternion qtransformed = new Quaternion(
+            matViewProjInv.m0 * quat.x + matViewProjInv.m4 * quat.y + matViewProjInv.m8 * quat.z + matViewProjInv.m12 * quat.w,
+            matViewProjInv.m1 * quat.x + matViewProjInv.m5 * quat.y + matViewProjInv.m9 * quat.z + matViewProjInv.m13 * quat.w,
+            matViewProjInv.m2 * quat.x + matViewProjInv.m6 * quat.y + matViewProjInv.m10 * quat.z + matViewProjInv.m14 * quat.w,
+            matViewProjInv.m3 * quat.x + matViewProjInv.m7 * quat.y + matViewProjInv.m11 * quat.z + matViewProjInv.m15 * quat.w );
+        
+        result.x = qtransformed.x / qtransformed.w;
+        result.y = qtransformed.y / qtransformed.w;
+        result.z = qtransformed.z / qtransformed.w;
+        
+        return result;
+    
     }
     
-    // Get Vector3 as float array
-    RMAPI float3 Vector3ToFloatV(Vector3 v)
-    {
-    float3 buffer = { 0 };
-    buffer.v[0] = v.x;
-    buffer.v[1] = v.y;
-    buffer.v[2] = v.z;
-    return buffer;
+    /**
+     * Inverte o vetor corrente.
+     * 
+     * @return Um novo vetor invertido.
+     */
+    public Vector3 invert() {
+        return new Vector3( 1.0 / x, 1.0 / y, 1.0 / z );
     }
     
-    // Invert the given vector
-    RMAPI Vector3 Vector3Invert(Vector3 v)
-    {
-    Vector3 result = { 1.0f/v.x, 1.0f/v.y, 1.0f/v.z };
-    return result;
-    }
-    // Clamp the components of the vector between
-    // min and max values specified by the given vectors
-    RMAPI Vector3 Vector3Clamp(Vector3 v, Vector3 min, Vector3 max)
-    {
-    Vector3 result = { 0 };
-    result.x = fminf(max.x, fmaxf(min.x, v.x));
-    result.y = fminf(max.y, fmaxf(min.y, v.y));
-    result.z = fminf(max.z, fmaxf(min.z, v.z));
-    return result;
-    }
-    // Clamp the magnitude of the vector between two values
-    RMAPI Vector3 Vector3ClampValue(Vector3 v, float min, float max)
-    {
-    Vector3 result = v;
-    float length = (v.x*v.x) + (v.y*v.y) + (v.z*v.z);
-    if (length > 0.0f)
-    {
-    length = sqrtf(length);
-    float scale = 1;    // By default, 1 as the neutral element.
-    if (length < min)
-    {
-    scale = min/length;
-    }
-    else if (length > max)
-    {
-    scale = max/length;
-    }
-    result.x = v.x*scale;
-    result.y = v.y*scale;
-    result.z = v.z*scale;
-    }
-    return result;
+    /**
+     * Limita o vetor corrente vetor entre dois vetores.
+     * 
+     * @param min O vetor mínimo.
+     * @param max O vetor máximo.
+     * @return Um novo vetor limitado entre o vetor mínimo e o vetor máximo.
+     */
+    public Vector3 clamp( Vector3 min, Vector3 max ) {
+
+        Vector3 result = new Vector3();
+
+        result.x = Math.min( max.x, Math.max( min.x, x ) );
+        result.y = Math.min( max.y, Math.max( min.y, y ) );
+        result.z = Math.min( max.z, Math.max( min.z, z ) );
+
+        return result;
+
     }
     
-    // Compute the direction of a refracted ray
-    // v: normalized direction of the incoming ray
-    // n: normalized normal vector of the interface of two optical media
-    // r: ratio of the refractive index of the medium from where the ray comes
-    //    to the refractive index of the medium on the other side of the surface
-    RMAPI Vector3 Vector3Refract(Vector3 v, Vector3 n, float r)
-    {
-    Vector3 result = { 0 };
-    float dot = v.x*n.x + v.y*n.y + v.z*n.z;
-    float d = 1.0f - r*r*(1.0f - dot*dot);
-    if (d >= 0.0f)
-    {
-    d = sqrtf(d);
-    v.x = r*v.x - (r*dot + d)*n.x;
-    v.y = r*v.y - (r*dot + d)*n.y;
-    v.z = r*v.z - (r*dot + d)*n.z;
-    result = v;
+    /**
+     * Limita a magnitude do vetor corrente entre mínimo e máximo.
+     * 
+     * @param min O valor mínimo.
+     * @param max O valor máximo.
+     * @return Um novo vetor com a magnitude limitada.
+     */
+    public Vector3 clampValue( double min, double max ) {
+
+        Vector3 result = new Vector3( x, y, z );
+
+        double length = x * x + y * y + z * z;
+
+        if ( length > 0.0 ) {
+
+            length = Math.sqrt( length );
+
+            double scale = 1;
+            if ( length < min ) {
+                scale = min / length;
+            } else if ( length > max ) {
+                scale = max / length;
+            }
+
+            result.x = x * scale;
+            result.y = y * scale;
+            result.z = z * scale;
+
+        }
+
+        return result;
+
     }
-    return result;
-    }*/
     
+    /**
+     * Computa a direção de um raio refratado.
+     * 
+     * @param v A direção normalizada do raio de chegada.
+     * @param n O vetor normal normalizado da interface das dois meios óticos.
+     * @param r A razão do índice de refração do meio de onde o raio chega com o
+     * índice de refração do outro meio da superfície.
+     * @return A direção do raio refratado.
+     */
+    public static Vector3 refract( Vector3 v, Vector3 n, double r ) {
+
+        Vector3 result = new Vector3();
+
+        double dot = v.x * n.x + v.y * n.y + v.z * n.z;
+        double d = 1.0 - r * r * (1.0 - dot * dot);
+
+        if ( d >= 0.0 ) {
+            d = Math.sqrt( d );
+            result.x = r * v.x - (r * dot + d) * n.x;
+            result.y = r * v.y - (r * dot + d) * n.y;
+            result.z = r * v.z - (r * dot + d) * n.z;
+        }
+
+        return result;
+            
+    }    
     
     @Override
     public int hashCode(  ) {
