@@ -61,9 +61,9 @@ public class Vector3 {
     }
 
     /**
-     * Cria um vetor 3D com todos os componentes iguais a 1.0.
+     * Cria um vetor com todos os componentes iguais a 1.0.
      * 
-     * @return Um vetor 3D com todos os componentes iguais a 1.0.
+     * @return Um vetor com todos os componentes iguais a 1.0.
      */
     public static Vector3 one() {
         return new Vector3( 1.0, 1.0, 1.0 );
@@ -103,7 +103,7 @@ public class Vector3 {
      * Subtrai um valor do vetor corrente
      * 
      * @param value O valor a subtrair.
-     * @return Um novo vetor 2D com os componentes subtraídos do valor passado.
+     * @return Um novo vetor com os componentes subtraídos do valor passado.
      */
     public Vector3 subtractValue( double value ) {
         return new Vector3( x - value, y - value, z - value );
@@ -273,7 +273,7 @@ public class Vector3 {
         Vector3 result = new Vector3();
         double length = Math.sqrt( x * x + y * y + z * z );
 
-        if ( length != 0.0 ) {
+        if ( length > 0.0 ) {
             double ilength = 1.0 / length;
             result.x = x * ilength;
             result.y = y * ilength;

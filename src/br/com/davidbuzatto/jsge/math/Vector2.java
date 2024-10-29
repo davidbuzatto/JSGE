@@ -52,9 +52,9 @@ public class Vector2 {
     }
     
     /**
-     * Cria um vetor 2D com ambos os componentes iguais a 1.0.
+     * Cria um vetor com ambos os componentes iguais a 1.0.
      * 
-     * @return Um vetor 2D com ambos os componentes iguais a 1.0.
+     * @return Um vetor com ambos os componentes iguais a 1.0.
      */
     public static Vector2 one() {
         return new Vector2( 1.0, 1.0 );
@@ -94,7 +94,7 @@ public class Vector2 {
      * Subtrai um valor do vetor corrente
      * 
      * @param value O valor a subtrair.
-     * @return Um novo vetor 2D com os componentes subtraídos do valor passado.
+     * @return Um novo vetor com os componentes subtraídos do valor passado.
      */
     public Vector2 subtractValue( double value ) {
         return new Vector2( x - value, y - value );
@@ -346,7 +346,7 @@ public class Vector2 {
         double value = dx * dx + dy * dy;
 
         if ( ( value == 0 ) || ( ( maxDistance >= 0 ) && ( value <= maxDistance * maxDistance ) ) ) {
-            return target;
+            return new Vector2( target.x, target.y );
         }
 
         double dist = Math.sqrt( value );

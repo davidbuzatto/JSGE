@@ -66,178 +66,262 @@ public class Vector4 {
         this.w = w;
     }
 
-    //**************************************************************************
-    // Métodos utilitários para vetores 4D.
-    //**************************************************************************
-/*
-    RMAPI Vector4 Vector4One(void)
-    {
-    Vector4 result = { 1.0f, 1.0f, 1.0f, 1.0f };
-    return result;
-    }
-    RMAPI Vector4 Vector4Add(Vector4 v1, Vector4 v2)
-    {
-    Vector4 result = {
-    v1.x + v2.x,
-    v1.y + v2.y,
-    v1.z + v2.z,
-    v1.w + v2.w
-    };
-    return result;
-    }
-    RMAPI Vector4 Vector4AddValue(Vector4 v, float add)
-    {
-    Vector4 result = {
-    v.x + add,
-    v.y + add,
-    v.z + add,
-    v.w + add
-    };
-    return result;
-    }
-    RMAPI Vector4 Vector4Subtract(Vector4 v1, Vector4 v2)
-    {
-    Vector4 result = {
-    v1.x - v2.x,
-    v1.y - v2.y,
-    v1.z - v2.z,
-    v1.w - v2.w
-    };
-    return result;
-    }
-    RMAPI Vector4 Vector4SubtractValue(Vector4 v, float add)
-    {
-    Vector4 result = {
-    v.x - add,
-    v.y - add,
-    v.z - add,
-    v.w - add
-    };
-    return result;
-    }
-    RMAPI float Vector4Length(Vector4 v)
-    {
-    float result = sqrtf((v.x*v.x) + (v.y*v.y) + (v.z*v.z) + (v.w*v.w));
-    return result;
-    }
-    RMAPI float Vector4LengthSqr(Vector4 v)
-    {
-    float result = (v.x*v.x) + (v.y*v.y) + (v.z*v.z) + (v.w*v.w);
-    return result;
-    }
-    RMAPI float Vector4DotProduct(Vector4 v1, Vector4 v2)
-    {
-    float result = (v1.x*v2.x + v1.y*v2.y + v1.z*v2.z + v1.w*v2.w);
-    return result;
-    }
-    // Calculate distance between two vectors
-    RMAPI float Vector4Distance(Vector4 v1, Vector4 v2)
-    {
-    float result = sqrtf(
-    (v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y) +
-    (v1.z - v2.z)*(v1.z - v2.z) + (v1.w - v2.w)*(v1.w - v2.w));
-    return result;
-    }
-    // Calculate square distance between two vectors
-    RMAPI float Vector4DistanceSqr(Vector4 v1, Vector4 v2)
-    {
-    float result =
-    (v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y) +
-    (v1.z - v2.z)*(v1.z - v2.z) + (v1.w - v2.w)*(v1.w - v2.w);
-    return result;
-    }
-    RMAPI Vector4 Vector4Scale(Vector4 v, float scale)
-    {
-    Vector4 result = { v.x*scale, v.y*scale, v.z*scale, v.w*scale };
-    return result;
-    }
-    // Multiply vector by vector
-    RMAPI Vector4 Vector4Multiply(Vector4 v1, Vector4 v2)
-    {
-    Vector4 result = { v1.x*v2.x, v1.y*v2.y, v1.z*v2.z, v1.w*v2.w };
-    return result;
-    }
-    // Negate vector
-    RMAPI Vector4 Vector4Negate(Vector4 v)
-    {
-    Vector4 result = { -v.x, -v.y, -v.z, -v.w };
-    return result;
-    }
-    // Divide vector by vector
-    RMAPI Vector4 Vector4Divide(Vector4 v1, Vector4 v2)
-    {
-    Vector4 result = { v1.x/v2.x, v1.y/v2.y, v1.z/v2.z, v1.w/v2.w };
-    return result;
-    }
-    // Normalize provided vector
-    RMAPI Vector4 Vector4Normalize(Vector4 v)
-    {
-    Vector4 result = { 0 };
-    float length = sqrtf((v.x*v.x) + (v.y*v.y) + (v.z*v.z) + (v.w*v.w));
-    if (length > 0)
-    {
-    float ilength = 1.0f/length;
-    result.x = v.x*ilength;
-    result.y = v.y*ilength;
-    result.z = v.z*ilength;
-    result.w = v.w*ilength;
-    }
-    return result;
-    }
-    // Get min value for each pair of components
-    RMAPI Vector4 Vector4Min(Vector4 v1, Vector4 v2)
-    {
-    Vector4 result = { 0 };
-    result.x = fminf(v1.x, v2.x);
-    result.y = fminf(v1.y, v2.y);
-    result.z = fminf(v1.z, v2.z);
-    result.w = fminf(v1.w, v2.w);
-    return result;
-    }
-    // Get max value for each pair of components
-    RMAPI Vector4 Vector4Max(Vector4 v1, Vector4 v2)
-    {
-    Vector4 result = { 0 };
-    result.x = fmaxf(v1.x, v2.x);
-    result.y = fmaxf(v1.y, v2.y);
-    result.z = fmaxf(v1.z, v2.z);
-    result.w = fmaxf(v1.w, v2.w);
-    return result;
-    }
-    // Calculate linear interpolation between two vectors
-    RMAPI Vector4 Vector4Lerp(Vector4 v1, Vector4 v2, float amount)
-    {
-    Vector4 result = { 0 };
-    result.x = v1.x + amount*(v2.x - v1.x);
-    result.y = v1.y + amount*(v2.y - v1.y);
-    result.z = v1.z + amount*(v2.z - v1.z);
-    result.w = v1.w + amount*(v2.w - v1.w);
-    return result;
-    }
-    // Move Vector towards target
-    RMAPI Vector4 Vector4MoveTowards(Vector4 v, Vector4 target, float maxDistance)
-    {
-    Vector4 result = { 0 };
-    float dx = target.x - v.x;
-    float dy = target.y - v.y;
-    float dz = target.z - v.z;
-    float dw = target.w - v.w;
-    float value = (dx*dx) + (dy*dy) + (dz*dz) + (dw*dw);
-    if ((value == 0) || ((maxDistance >= 0) && (value <= maxDistance*maxDistance))) return target;
-    float dist = sqrtf(value);
-    result.x = v.x + dx/dist*maxDistance;
-    result.y = v.y + dy/dist*maxDistance;
-    result.z = v.z + dz/dist*maxDistance;
-    result.w = v.w + dw/dist*maxDistance;
-    return result;
-    }
-    // Invert the given vector
-    RMAPI Vector4 Vector4Invert(Vector4 v)
-    {
-    Vector4 result = { 1.0f/v.x, 1.0f/v.y, 1.0f/v.z, 1.0f/v.w };
-    return result;
-    }
+    /**
+     * Cria um vetor com todos os componentes iguais a 1.0.
+     * 
+     * @return Um vetor com todos os componentes iguais a 1.0.
      */
+    public static Vector4 one() {
+        return new Vector4( 1.0, 1.0, 1.0, 1.0 );
+    }
+    
+    /**
+     * Soma o vetor corrente com outro vetor.
+     * 
+     * @param v Outro vetor.
+     * @return Um novo vetor resultado da soma.
+     */
+    public Vector4 add( Vector4 v ) {
+        return new Vector4( x + v.x, y + v.y, z + v.z, w + v.w );
+    }
+    
+    /**
+     * Soma um valor ao vetor corrente.
+     * 
+     * @param value O valor a somar.
+     * @return Um novo vetor com os componentes somados ao valor passado.
+     */
+    public Vector4 addValue( double value ) {
+        return new Vector4( x + value, y + value, z + value, w + value );
+    }
+    
+    /**
+     * Subtrai um vetor do vetor corrente.
+     * 
+     * @param v Outro vetor.
+     * @return Um novo vetor resultado da subtração.
+     */
+    public Vector4 subtract( Vector4 v ) {
+        return new Vector4( x - v.x, y - v.y, z - v.z, w - v.w );
+    }
+    
+    /**
+     * Subtrai um valor do vetor corrente
+     * 
+     * @param value O valor a subtrair.
+     * @return Um novo vetor com os componentes subtraídos do valor passado.
+     */
+    public Vector4 subtractValue( double value ) {
+        return new Vector4( x - value, y - value, z - value, w - value );
+    }
+    
+    /**
+     * Calcula o comprimento do vetor.
+     * 
+     * @return O comprimento.
+     */
+    public double length() {
+        return Math.sqrt( x * x + y * y + z * z + w * w );
+    }
+    
+    /**
+     * Calcula o comprimento quadrado do vetor.
+     * 
+     * @return O comprimento.
+     */
+    public double lengthSquare() {
+        return x * x + y * y + z * z + w * w;
+    }
+    
+    /**
+     * Calcula o produto escalar do vetor corrente com o vetor passado.
+     * 
+     * @param v Outro vetor.
+     * @return O produto escalar.
+     */
+    public double dotProduct( Vector4 v ) {
+        return x * v.x + y * v.y + z * v.z + w * v.w;
+    }
+
+    /**
+     * Calcula a distância entre o vetor corrente e outro vetor.
+     * 
+     * @param v Outro vetor.
+     * @return A distância.
+     */
+    public double distance( Vector4 v ) {
+        return Math.sqrt( ( v.x - x ) * ( v.x - x ) + 
+                          ( v.y - y ) * ( v.y - y ) +
+                          ( v.z - z ) * ( v.z - z ) +
+                          ( v.w - w ) * ( v.w - w ) );
+    }
+    
+    /**
+     * Calcula a distância quadrada entre o vetor corrente e outro vetor.
+     * 
+     * @param v Outro vetor.
+     * @return A distância quadrada.
+     */
+    public double distanceSquare( Vector4 v ) {
+        return ( v.x - x ) * ( v.x - x ) + 
+               ( v.y - y ) * ( v.y - y ) +
+               ( v.z - z ) * ( v.z - z ) +
+               ( v.w - w ) * ( v.w - w );
+    }
+    
+    /**
+     * Escalona o vetor corrente, análogo à multiplicação por escalar.
+     * 
+     * @param scale A escala.
+     * @return Um novo vetor escalonado.
+     */
+    public Vector4 scale( double scale ) {
+        return new Vector4( x * scale, y * scale, z * scale, w * scale );
+    }
+    
+    /**
+     * Multiplica o vetor corrente por outro vetor.
+     * 
+     * @param v Outro vetor.
+     * @return Um novo vetor com o resultado da multiplicação.
+     */
+    public Vector4 multiply( Vector4 v ) {
+        return new Vector4( x * v.x, y * v.y, z * v.z, w * v.w );
+    }
+    
+    /**
+     * Nega o vetor corrente.
+     * 
+     * @return Um novo vetor com a negação do vetor corrente.
+     */
+    public Vector4 negate() {
+        return new Vector4( -x, -y, -z, -w );
+    }
+    
+    /**
+     * Divide o vetor corrente por outro vetor.
+     * 
+     * @param v Outro vetor.
+     * @return Um novo vetor com o resultado da divisão.
+     */
+    public Vector4 divide( Vector4 v ) {
+        return new Vector4( x / v.x, y / v.y, z / v.z, w / v.w );
+    }
+    
+    /**
+     * Normaliza o vetor corrent.
+     * 
+     * @return Um novo vetor normalizado.
+     */
+    public Vector4 normalize() {
+
+        Vector4 result = new Vector4();
+        double length = Math.sqrt( x * x + y * y + z * z + w * w );
+
+        if ( length > 0.0 ) {
+            double ilength = 1.0 / length;
+            result.x = x * ilength;
+            result.y = y * ilength;
+            result.z = z * ilength;
+            result.w = w * ilength;
+        }
+
+        return result;
+
+    }
+    
+    /**
+     * Obtem um novo vetor com o mínimo dos componentes.
+     * 
+     * @param v Outro vetor.
+     * @return Um novo vetor com o mínimo dos componentes.
+     */
+    public Vector4 min( Vector4 v ) {
+
+        Vector4 result = new Vector4();
+
+        result.x = Math.min( x, v.x );
+        result.y = Math.min( y, v.y );
+        result.z = Math.min( z, v.z );
+        result.w = Math.min( w, v.w );
+
+        return result;
+
+    }
+
+    /**
+     * Obtem um novo vetor com o máximo dos componentes.
+     * 
+     * @param v Outro vetor.
+     * @return Um novo vetor com o máximo dos componentes.
+     */
+    public Vector4 max( Vector4 v ) {
+
+        Vector4 result = new Vector4();
+
+        result.x = Math.max( x, v.x );
+        result.y = Math.max( y, v.y );
+        result.z = Math.max( z, v.z );
+        result.w = Math.max( w, v.w );
+
+        return result;
+
+    }
+    
+    /**
+     * Realiza a interpolação linear entre o vetor corrente (início) e outro vetor (fim).
+     * 
+     * @param end Vetor final.
+     * @param amount Quantidade (0 a 1)
+     * @return Um vetor que representa a interpolação linear entre dois vetores.
+     */
+    public Vector4 lerp( Vector4 end, double amount ) {
+        double x = this.x + ( end.x - this.x ) * amount;
+        double y = this.y + ( end.y - this.y ) * amount;
+        double z = this.z + ( end.z - this.z ) * amount;
+        double w = this.w + ( end.w - this.w ) * amount;
+        return new Vector4( x, y, z, w );
+    }
+    
+    /**
+     * Cria um novo vetor movido em direção a um alvo.
+     * 
+     * @param target O alvo.
+     * @param maxDistance A distância máxima.
+     * @return Um novo vetor movido em direção ao alvo.
+     */
+    public Vector4 moveTowards( Vector4 target, double maxDistance ) {
+        
+        Vector4 result = new Vector4();
+        
+        double dx = target.x - x;
+        double dy = target.y - y;
+        double dz = target.z - z;
+        double dw = target.w - w;
+        double value = ( dx * dx ) + ( dy * dy ) + ( dz * dz ) + ( dw * dw );
+        
+        if ( ( value == 0.0 ) || ( ( maxDistance >= 0.0 ) && ( value <= maxDistance * maxDistance ) ) ) {
+            return new Vector4( target.x, target.y, target.z, target.w );
+        }
+        
+        double dist = Math.sqrt( value );
+        result.x = x + dx / dist * maxDistance;
+        result.y = y + dy / dist * maxDistance;
+        result.z = z + dz / dist * maxDistance;
+        result.w = w + dw / dist * maxDistance;
+        
+        return result;
+        
+    }
+    
+    /**
+     * Inverte o vetor corrente.
+     * 
+     * @return Um novo vetor invertido.
+     */
+    public Vector3 invert() {
+        return new Vector3( 1.0 / x, 1.0 / y, 1.0 / z );
+    }
     
     @Override
     public int hashCode(  ) {
