@@ -23,10 +23,41 @@ package br.com.davidbuzatto.jsge.math;
  */
 public class Matrix {
     
-    public double m0, m4, m8, m12;  // primeira linha
-    public double m1, m5, m9, m13;  // segunda linha
-    public double m2, m6, m10, m14; // terceira linha
-    public double m3, m7, m11, m15; // quarta linha
+    /** Linha 1, coluna 1 */
+    public double m0;
+    /** Linha 1, coluna 2 */
+    public double m4;
+    /** Linha 1, coluna 3 */
+    public double m8;
+    /** Linha 1, coluna 4 */
+    public double m12;
+    
+    /** Linha 2, coluna 1 */
+    public double m1;
+    /** Linha 2, coluna 2 */
+    public double m5;
+    /** Linha 2, coluna 3 */
+    public double m9;
+    /** Linha 2, coluna 4 */
+    public double m13;
+    
+    /** Linha 3, coluna 1 */
+    public double m2;
+    /** Linha 3, coluna 2 */
+    public double m6;
+    /** Linha 3, coluna 3 */
+    public double m10;
+    /** Linha 3, coluna 4 */
+    public double m14;
+    
+    /** Linha 4, coluna 1 */
+    public double m3;
+    /** Linha 4, coluna 2 */
+    public double m7;
+    /** Linha 4, coluna 3 */
+    public double m11;
+    /** Linha 4, coluna 4 */
+    public double m15;
 
     /**
      * Cria uma nova matriz com valores padrão.
@@ -37,22 +68,22 @@ public class Matrix {
     /**
      * Cria uma nova matriz.
      * 
-     * @param m0 valor da linha 1, coluna 1
-     * @param m4 valor da linha 1, coluna 2
-     * @param m8 valor da linha 1, coluna 3
-     * @param m12 valor da linha 1, coluna 4
-     * @param m1 valor da linha 2, coluna 1
-     * @param m5 valor da linha 2, coluna 2
-     * @param m9 valor da linha 2, coluna 3
-     * @param m13 valor da linha 2, coluna 4
-     * @param m2 valor da linha 3, coluna 1
-     * @param m6 valor da linha 3, coluna 2
-     * @param m10 valor da linha 3, coluna 3
-     * @param m14 valor da linha 3, coluna 4
-     * @param m3 valor da linha 4, coluna 1
-     * @param m7 valor da linha 4, coluna 2
-     * @param m11 valor da linha 4, coluna 3
-     * @param m15 valor da linha 4, coluna 4
+     * @param m0 Valor da linha 1, coluna 1
+     * @param m4 Valor da linha 1, coluna 2
+     * @param m8 Valor da linha 1, coluna 3
+     * @param m12 Valor da linha 1, coluna 4
+     * @param m1 Valor da linha 2, coluna 1
+     * @param m5 Valor da linha 2, coluna 2
+     * @param m9 Valor da linha 2, coluna 3
+     * @param m13 Valor da linha 2, coluna 4
+     * @param m2 Valor da linha 3, coluna 1
+     * @param m6 Valor da linha 3, coluna 2
+     * @param m10 Valor da linha 3, coluna 3
+     * @param m14 Valor da linha 3, coluna 4
+     * @param m3 Valor da linha 4, coluna 1
+     * @param m7 Valor da linha 4, coluna 2
+     * @param m11 Valor da linha 4, coluna 3
+     * @param m15 Valor da linha 4, coluna 4
      */
     public Matrix( double m0, double m4, double m8, double m12, 
                    double m1, double m5, double m9, double m13, 
