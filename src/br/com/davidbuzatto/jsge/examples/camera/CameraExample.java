@@ -167,7 +167,7 @@ public class CameraExample extends EngineFrame {
         int y = 40;
         int step = 18;
         
-        Vector2 playerScreen = MathUtils.getWorldToScreen2D( player.pos.x, player.pos.y, camera );
+        Vector2 playerScreen = camera.getWorldToScreen( player.pos.x, player.pos.y );
         drawText( "Player: ", 20, y, BLACK );
         drawText( String.format( " World: (%.2f, %.2f)", player.pos.x, player.pos.y ), 30, y += step, BLACK );
         drawText( String.format( "Screen: (%.2f, %.2f)", playerScreen.x, playerScreen.y ), 30, y += step, BLACK );

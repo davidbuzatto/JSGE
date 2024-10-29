@@ -16,7 +16,10 @@
  */
 package br.com.davidbuzatto.jsge.core;
 
+import br.com.davidbuzatto.jsge.math.MathUtils;
+import br.com.davidbuzatto.jsge.math.Matrix;
 import br.com.davidbuzatto.jsge.math.Vector2;
+import br.com.davidbuzatto.jsge.math.Vector3;
 
 /**
  * Representação de uma câmera para controle do processo de desenho.
@@ -71,7 +74,92 @@ public class Camera2D {
         this.rotation = rotation;
         this.zoom = zoom;
     }
+    
+    /**
+     * Converte uma coordenada da tela para uma coordenada do mundo 2D de 
+     * acordo com o câmera.
+     * 
+     * @param x A coordenada x da posição da tela.
+     * @param y A coordenada y da posição da tela.
+     * @return O ponto correspondente do mundo 2D.
+     */
+    public Vector2 getScreenToWorld( double x, double y ) {
+        
+        Matrix invMatCamera = MathUtils.invert( getCameraMatrix() );
+        Vector3 transform = MathUtils.transform( new Vector3( x, y, 0 ), invMatCamera );
 
+        return new Vector2( transform.x, transform.y );
+        
+    }
+    
+    /**
+     * Converte uma coordenada da tela para uma coordenada do mundo 2D de 
+     * acordo com o câmera.
+     * 
+     * @param point A posição da tela.
+     * @return O ponto correspondente do mundo 2D.
+     */
+    public Vector2 getScreenToWorld( Vector2 point ) {
+        return getScreenToWorld( point.x, point.y );
+    }
+    
+    /**
+     * Converte uma coordenada do mundo 2D para uma coordenada da tela de 
+     * acordo com o câmera.
+     * 
+     * @param x A coordenada x da posição do mundo 2D.
+     * @param y A coordenada y da posição do mundo 2D.
+     * @return O ponto correspondente da tela.
+     */
+    public Vector2 getWorldToScreen( double x, double y ) {
+        
+        Matrix matCamera = getCameraMatrix();
+        Vector3 transform = MathUtils.transform( new Vector3( x, y, 0 ), matCamera );
+
+        return new Vector2( transform.x, transform.y );
+        
+    }
+    
+    /**
+     * Converte uma coordenada do mundo 2D para uma coordenada da tela de 
+     * acordo com o câmera.
+     * 
+     * @param point A posição do mundo 2D.
+     * @return O ponto correspondente da tela.
+     */
+    public Vector2 getWorldToScreen( Vector2 point ) {
+        return getWorldToScreen( point.x, point.y );
+    }
+    
+    /**
+     * Obtém a matriz da câmera 2D.
+     */
+    public Matrix getCameraMatrix() {
+        
+        // from: https://github.com/raysan5/raylib/blob/master/src/rcore.c
+        // The camera in world-space is set by
+        //   1. Move it to target
+        //   2. Rotate by -rotation and scale by (1/zoom)
+        //      When setting higher scale, it's more intuitive for the world to become bigger (= camera become smaller),
+        //      not for the camera getting bigger, hence the invert. Same deal with rotation
+        //   3. Move it by (-offset);
+        //      Offset defines target transform relative to screen, but since we're effectively "moving" screen (camera)
+        //      we need to do it into opposite direction (inverse transform)
+
+        // Having camera transform in world-space, inverse of it gives the modelview transform
+        // Since (A*B*C)' = C'*B'*A', the modelview is
+        //   1. Move to offset
+        //   2. Rotate and Scale
+        //   3. Move by -target
+        Matrix matOrigin = MathUtils.translate( -target.x, -target.y, 0.0 );
+        Matrix matRotation = MathUtils.rotate( new Vector3( 0.0f, 0.0f, 1.0f ), Math.toRadians( rotation ) );
+        Matrix matScale = MathUtils.scale( zoom, zoom, 1.0 );
+        Matrix matTranslation = MathUtils.translate( offset.x, offset.y, 0.0 );
+
+        return MathUtils.multiply( MathUtils.multiply( matOrigin, MathUtils.multiply( matScale, matRotation ) ), matTranslation );
+        
+    }
+    
     @Override
     public String toString() {
         return "Camera{" + "target=" + target + ", offset=" + offset + ", rotation=" + rotation + ", zoom=" + zoom + '}';

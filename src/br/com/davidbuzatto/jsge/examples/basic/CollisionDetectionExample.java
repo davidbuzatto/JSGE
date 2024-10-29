@@ -26,7 +26,7 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.geom.Triangle;
 import br.com.davidbuzatto.jsge.math.Vector2;
 import br.com.davidbuzatto.jsge.math.CollisionUtils;
-import br.com.davidbuzatto.jsge.math.MathUtils;
+import br.com.davidbuzatto.jsge.math.CurveUtils;
 import java.awt.Color;
 
 /**
@@ -168,9 +168,9 @@ public class CollisionDetectionExample extends EngineFrame {
             amount = 1.0;
         }
 
-        pointForLine = MathUtils.getPointAtLine( lineForPoint, amount );
-        pointForQuad = MathUtils.getPointAtQuadCurve( quadForPoint, amount );
-        pointForCubic = MathUtils.getPointAtCubicCurve( cubicForPoint, amount );
+        pointForLine = CurveUtils.getPointAtLine( lineForPoint, amount );
+        pointForQuad = CurveUtils.getPointAtQuadCurve( quadForPoint, amount );
+        pointForCubic = CurveUtils.getPointAtCubicCurve( cubicForPoint, amount );
 
         if ( mlDragging && mousePos != null ) {
             double difX = moveableLine.x2 - moveableLine.x1;
