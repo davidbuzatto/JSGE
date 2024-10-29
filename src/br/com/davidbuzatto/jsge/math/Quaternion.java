@@ -21,7 +21,7 @@ package br.com.davidbuzatto.jsge.math;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class Quaternion {
+public class Quaternion implements Cloneable {
     
     /**
      * Coordenada x.
@@ -99,16 +99,17 @@ RMAPI Quaternion QuaternionSubtractValue(Quaternion q, float sub)
     Quaternion result = {q.x - sub, q.y - sub, q.z - sub, q.w - sub};
 
     return result;
-}
+}*/
 
-// Get identity quaternion
-RMAPI Quaternion QuaternionIdentity(void)
-{
-    Quaternion result = { 0.0f, 0.0f, 0.0f, 1.0f };
-
-    return result;
-}
-
+    /**
+     * 
+     * @return 
+     */
+    public static Quaternion identity() {
+        return new Quaternion( 0.0f, 0.0f, 0.0f, 1.0f );
+    }
+    
+/*
 // Computes the length of a quaternion
 RMAPI float QuaternionLength(Quaternion q)
 {
@@ -327,9 +328,17 @@ RMAPI Quaternion QuaternionFromVector3ToVector3(Vector3 from, Vector3 to)
     result.w = q.w*ilength;
 
     return result;
-}
-
-// Get a quaternion for a given rotation matrix
+}*/
+    
+    /**
+     * 
+     * @param mat 
+     */
+    public static Quaternion fromMatrix( Matrix mat ) {
+        return null;
+    }
+    
+/*// Get a quaternion for a given rotation matrix
 RMAPI Quaternion QuaternionFromMatrix(Matrix mat)
 {
     Quaternion result = { 0 };
@@ -567,7 +576,17 @@ RMAPI Quaternion QuaternionTransform(Quaternion q, Matrix mat)
     return result;
 }
 */
-
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Quaternion clone = (Quaternion) super.clone();
+        clone.x = x;
+        clone.y = y;
+        clone.z = z;
+        clone.w = w;
+        return clone;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

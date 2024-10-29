@@ -150,10 +150,10 @@ public class Camera2D {
         //   1. Move to offset
         //   2. Rotate and Scale
         //   3. Move by -target
-        Matrix matOrigin = Matrix.translation( -target.x, -target.y, 0.0 );
-        Matrix matRotation = Matrix.rotation( new Vector3( 0.0, 0.0, 1.0 ), Math.toRadians( rotation ) );
-        Matrix matScale = Matrix.scaling( zoom, zoom, 1.0 );
-        Matrix matTranslation = Matrix.translation( offset.x, offset.y, 0.0 );
+        Matrix matOrigin = Matrix.translate( -target.x, -target.y, 0.0 );
+        Matrix matRotation = Matrix.rotate( new Vector3( 0.0, 0.0, 1.0 ), Math.toRadians( rotation ) );
+        Matrix matScale = Matrix.scale( zoom, zoom, 1.0 );
+        Matrix matTranslation = Matrix.translate( offset.x, offset.y, 0.0 );
 
         return matOrigin.multiply( matScale.multiply( matRotation ) ).multiply( matTranslation );
         

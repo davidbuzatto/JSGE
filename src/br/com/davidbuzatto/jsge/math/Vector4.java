@@ -23,7 +23,7 @@ package br.com.davidbuzatto.jsge.math;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class Vector4 {
+public class Vector4 implements Cloneable {
     
     /**
      * Coordenada x.
@@ -321,6 +321,16 @@ public class Vector4 {
      */
     public Vector4 invert() {
         return new Vector4( 1.0 / x, 1.0 / y, 1.0 / z, 1.0 / w );
+    }
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Vector4 clone = (Vector4) super.clone();
+        clone.x = x;
+        clone.y = y;
+        clone.z = z;
+        clone.w = w;
+        return clone;
     }
     
     @Override
