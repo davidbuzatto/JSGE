@@ -319,8 +319,8 @@ public class Vector4 {
      * 
      * @return Um novo vetor invertido.
      */
-    public Vector3 invert() {
-        return new Vector3( 1.0 / x, 1.0 / y, 1.0 / z );
+    public Vector4 invert() {
+        return new Vector4( 1.0 / x, 1.0 / y, 1.0 / z, 1.0 / w );
     }
     
     @Override
