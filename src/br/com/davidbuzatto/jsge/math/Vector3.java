@@ -59,15 +59,6 @@ public class Vector3 implements Cloneable {
         this.y = y;
         this.z = z;
     }
-
-    /**
-     * Cria um vetor com todos os componentes iguais a 1.0.
-     * 
-     * @return Um vetor com todos os componentes iguais a 1.0.
-     */
-    public static Vector3 one() {
-        return new Vector3( 1.0, 1.0, 1.0 );
-    }
     
     /**
      * Soma o vetor corrente com outro vetor.
@@ -329,57 +320,6 @@ public class Vector3 implements Cloneable {
     }
     
     /**
-     * Ortonormaliza dois vetores (serão modificados).
-     * Faz com que os vetores sejam normalizados e ortogonais entre eles.
-     * implementação da funlção de Gram-Schmidt.
-     * 
-     * @param v1 Um vetor.
-     * @param v2 Outro vetor.
-     */
-    public static void orthoNormalize( Vector3 v1, Vector3 v2 ) {
-        
-        double length = 0.0;
-        double ilength = 0.0;
-        
-        Vector3 v = new Vector3( v1.x, v1.y, v1.z );
-        
-        length = Math.sqrt( v.x * v.x + v.y * v.y + v.z * v.z );
-        if ( length == 0.0 ) {
-            length = 1.0;
-        }
-        
-        ilength = 1.0 / length;
-        
-        v1.x *= ilength;
-        v1.y *= ilength;
-        v1.z *= ilength;
-        
-        Vector3 vn1 = new Vector3( v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x );
-        
-        v.x = vn1.x;
-        v.y = vn1.y;
-        v.z = vn1.z;
-        
-        length = Math.sqrt( v.x * v.x + v.y * v.y + v.z * v.z );
-        if ( length == 0.0 ) {
-            length = 1.0;
-        }
-        
-        ilength = 1.0 / length;
-        
-        vn1.x *= ilength;
-        vn1.y *= ilength;
-        vn1.z *= ilength;
-        
-        // Vector3CrossProduct(vn1, *v1)
-        Vector3 vn2 = new Vector3( vn1.y * v1.z - vn1.z * v1.y, vn1.z * v1.x - vn1.x * v1.z, vn1.x * v1.y - vn1.y * v1.x );
-        v2.x = vn2.x;
-        v2.y = vn2.y;
-        v2.z = vn2.z;
-     
-    }
-    
-    /**
      * Transforma o vetor corrente dada uma matriz.
      * 
      * @param mat A matriz.
@@ -597,37 +537,6 @@ public class Vector3 implements Cloneable {
     }
     
     /**
-     * Calcula o baricentro de um ponto p em um triângulo (a, b, c).
-     * 
-     * @param p O ponto.
-     * @param a Primeiro vértice.
-     * @param b Segundo vértice.
-     * @param c Terceiro vértice.
-     * @return O baricentro.
-     */
-    public static Vector3 barycenter( Vector3 p, Vector3 a, Vector3 b, Vector3 c ) {
-        
-        Vector3 result = new Vector3();
-        Vector3 v0 = new Vector3( b.x - a.x, b.y - a.y, b.z - a.z );
-        Vector3 v1 = new Vector3( c.x - a.x, c.y - a.y, c.z - a.z );
-        Vector3 v2 = new Vector3( p.x - a.x, p.y - a.y, p.z - a.z );
-        
-        double d00 = (v0.x * v0.x + v0.y * v0.y + v0.z * v0.z);
-        double d01 = (v0.x * v1.x + v0.y * v1.y + v0.z * v1.z);
-        double d11 = (v1.x * v1.x + v1.y * v1.y + v1.z * v1.z);
-        double d20 = (v2.x * v0.x + v2.y * v0.y + v2.z * v0.z);
-        double d21 = (v2.x * v1.x + v2.y * v1.y + v2.z * v1.z);
-        double denom = d00 * d11 - d01 * d01;
-        
-        result.y = (d11 * d20 - d01 * d21) / denom;
-        result.z = (d00 * d21 - d01 * d20) / denom;
-        result.x = 1.0 - (result.z + result.y);
-        
-        return result;
-    
-    }
-    
-    /**
      * Projeta o vetor corrente (espaço da tela) para o espaço dos objetos.
      * 
      * @param projection Matrix de projeção.
@@ -767,6 +676,97 @@ public class Vector3 implements Cloneable {
 
         return result;
 
+    }
+    
+    /**
+     * Cria um vetor com todos os componentes iguais a 1.0.
+     * 
+     * @return Um vetor com todos os componentes iguais a 1.0.
+     */
+    public static Vector3 one() {
+        return new Vector3( 1.0, 1.0, 1.0 );
+    }
+    
+    /**
+     * Ortonormaliza dois vetores (serão modificados).
+     * Faz com que os vetores sejam normalizados e ortogonais entre eles.
+     * implementação da funlção de Gram-Schmidt.
+     * 
+     * @param v1 Um vetor.
+     * @param v2 Outro vetor.
+     */
+    public static void orthoNormalize( Vector3 v1, Vector3 v2 ) {
+        
+        double length = 0.0;
+        double ilength = 0.0;
+        
+        Vector3 v = new Vector3( v1.x, v1.y, v1.z );
+        
+        length = Math.sqrt( v.x * v.x + v.y * v.y + v.z * v.z );
+        if ( length == 0.0 ) {
+            length = 1.0;
+        }
+        
+        ilength = 1.0 / length;
+        
+        v1.x *= ilength;
+        v1.y *= ilength;
+        v1.z *= ilength;
+        
+        Vector3 vn1 = new Vector3( v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x );
+        
+        v.x = vn1.x;
+        v.y = vn1.y;
+        v.z = vn1.z;
+        
+        length = Math.sqrt( v.x * v.x + v.y * v.y + v.z * v.z );
+        if ( length == 0.0 ) {
+            length = 1.0;
+        }
+        
+        ilength = 1.0 / length;
+        
+        vn1.x *= ilength;
+        vn1.y *= ilength;
+        vn1.z *= ilength;
+        
+        // Vector3CrossProduct(vn1, *v1)
+        Vector3 vn2 = new Vector3( vn1.y * v1.z - vn1.z * v1.y, vn1.z * v1.x - vn1.x * v1.z, vn1.x * v1.y - vn1.y * v1.x );
+        v2.x = vn2.x;
+        v2.y = vn2.y;
+        v2.z = vn2.z;
+     
+    }
+    
+    /**
+     * Calcula o baricentro de um ponto p em um triângulo (a, b, c).
+     * 
+     * @param p O ponto.
+     * @param a Primeiro vértice.
+     * @param b Segundo vértice.
+     * @param c Terceiro vértice.
+     * @return O baricentro.
+     */
+    public static Vector3 barycenter( Vector3 p, Vector3 a, Vector3 b, Vector3 c ) {
+        
+        Vector3 result = new Vector3();
+        Vector3 v0 = new Vector3( b.x - a.x, b.y - a.y, b.z - a.z );
+        Vector3 v1 = new Vector3( c.x - a.x, c.y - a.y, c.z - a.z );
+        Vector3 v2 = new Vector3( p.x - a.x, p.y - a.y, p.z - a.z );
+        
+        double d00 = (v0.x * v0.x + v0.y * v0.y + v0.z * v0.z);
+        double d01 = (v0.x * v1.x + v0.y * v1.y + v0.z * v1.z);
+        double d11 = (v1.x * v1.x + v1.y * v1.y + v1.z * v1.z);
+        double d20 = (v2.x * v0.x + v2.y * v0.y + v2.z * v0.z);
+        double d21 = (v2.x * v1.x + v2.y * v1.y + v2.z * v1.z);
+        double denom = d00 * d11 - d01 * d01;
+        
+        result.y = (d11 * d20 - d01 * d21) / denom;
+        result.z = (d00 * d21 - d01 * d20) / denom;
+        result.x = 1.0 - (result.z + result.y);
+        
+        return result;
+    
     }
     
     /**

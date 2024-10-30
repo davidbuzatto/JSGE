@@ -50,15 +50,6 @@ public class Vector2 implements Cloneable {
         this.x = x;
         this.y = y;
     }
-    
-    /**
-     * Cria um vetor com ambos os componentes iguais a 1.0.
-     * 
-     * @return Um vetor com ambos os componentes iguais a 1.0.
-     */
-    public static Vector2 one() {
-        return new Vector2( 1.0, 1.0 );
-    }
 
     /**
      * Soma o vetor corrente com outro vetor.
@@ -419,6 +410,15 @@ public class Vector2 implements Cloneable {
     }
     
     /**
+     * Cria um vetor com ambos os componentes iguais a 1.0.
+     * 
+     * @return Um vetor com ambos os componentes iguais a 1.0.
+     */
+    public static Vector2 one() {
+        return new Vector2( 1.0, 1.0 );
+    }
+    
+    /**
      * Computa a direção de um raio refratado.
      * 
      * @param v A direção normalizada do raio de chegada.
@@ -442,6 +442,17 @@ public class Vector2 implements Cloneable {
 
         return result;
             
+    }
+    
+    /**
+     * Calcula o ângulo relativo entre duas linhas definidas pelos vetores.
+     * 
+     * @param v1 Um vetor.
+     * @param v2 Outro vetor.
+     * @return O ângulo relativo das duas linhas definidas pelos dois vetores.
+     */
+    public static double lineAngle( Vector2 v1, Vector2 v2 ) {
+        return Math.atan2( v2.y - v1.y, v2.x - v1.x );
     }
 
     @Override
