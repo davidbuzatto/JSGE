@@ -276,11 +276,12 @@ public class Vector4 implements Cloneable {
      * @return Um vetor que representa a interpolação linear entre dois vetores.
      */
     public Vector4 lerp( Vector4 end, double amount ) {
-        double x = this.x + ( end.x - this.x ) * amount;
-        double y = this.y + ( end.y - this.y ) * amount;
-        double z = this.z + ( end.z - this.z ) * amount;
-        double w = this.w + ( end.w - this.w ) * amount;
-        return new Vector4( x, y, z, w );
+        return new Vector4(
+            this.x + ( end.x - this.x ) * amount,
+            this.y + ( end.y - this.y ) * amount,
+            this.z + ( end.z - this.z ) * amount,
+            this.w + ( end.w - this.w ) * amount
+        );
     }
     
     /**

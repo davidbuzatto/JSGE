@@ -17,7 +17,7 @@
 package br.com.davidbuzatto.jsge.math;
 
 /**
- * Classe para representação de um quaternion.
+ * Classe para representação de um quatérnio.
  * 
  * @author Prof. Dr. David Buzatto
  */
@@ -44,13 +44,13 @@ public class Quaternion implements Cloneable {
     public double w;
 
     /**
-     * Cria um novo quaternion com valores padrão.
+     * Cria um novo quatérnio com valores padrão.
      */
     public Quaternion() {
     }
 
     /**
-     * Cria um novo quaternion.
+     * Cria um novo quatérnio.
      * 
      * @param x coordenada x.
      * @param y coordenada y.
@@ -65,56 +65,56 @@ public class Quaternion implements Cloneable {
     }
 
     /**
-     * Soma o quaternion corrente com outro quaternion.
+     * Soma o quatérnio corrente com outro quatérnio.
      * 
-     * @param q Outro quaternion.
-     * @return Um novo quaternion resultado da soma.
+     * @param q Outro quatérnio.
+     * @return Um novo quatérnio resultado da soma.
      */
     public Quaternion add( Quaternion q ) {
         return new Quaternion( x + q.x, y + q.y, z + q.z, w + q.w );
     }
     
     /**
-     * Soma um valor ao quaternion corrente.
+     * Soma um valor ao quatérnio corrente.
      * 
      * @param value O valor a somar.
-     * @return Um novo quaternion com os componentes somados ao valor passado.
+     * @return Um novo quatérnio com os componentes somados ao valor passado.
      */
     public Quaternion addValue( double value ) {
         return new Quaternion( x + value, y + value, z + value, w + value );
     }
     
     /**
-     * Subtrai um quaternion do quaternion corrente.
+     * Subtrai um quatérnio do quatérnio corrente.
      * 
-     * @param q Outro quaternion.
-     * @return Um novo quaternion resultado da subtração.
+     * @param q Outro quatérnio.
+     * @return Um novo quatérnio resultado da subtração.
      */
     public Quaternion subtract( Quaternion q ) {
         return new Quaternion( x - q.x, y - q.y, z - q.z, w - q.w );
     }
     
     /**
-     * Subtrai um valor do quaternion corrente
+     * Subtrai um valor do quatérnio corrente
      * 
      * @param value O valor a subtrair.
-     * @return Um novo quaternion com os componentes subtraídos do valor passado.
+     * @return Um novo quatérnio com os componentes subtraídos do valor passado.
      */
     public Quaternion subtractValue( double value ) {
         return new Quaternion( x - value, y - value, z - value, w - value );
     }
 
     /**
-     * Cria uma quaternion identidade.
+     * Cria uma quatérnio identidade.
      * 
-     * @return Uma novo quaternion identidade.
+     * @return Uma novo quatérnio identidade.
      */
     public static Quaternion identity() {
         return new Quaternion( 0.0, 0.0, 0.0, 1.0 );
     }
     
     /**
-     * Calcula o comprimento do quaternion.
+     * Calcula o comprimento do quatérnio.
      * 
      * @return O comprimento.
      */
@@ -123,9 +123,9 @@ public class Quaternion implements Cloneable {
     }
     
     /**
-     * Normaliza o vetor quaternion.
+     * Normaliza o vetor quatérnio.
      * 
-     * @return Um novo quaternion normalizado.
+     * @return Um novo quatérnio normalizado.
      */
     public Quaternion normalize() {
 
@@ -146,450 +146,512 @@ public class Quaternion implements Cloneable {
 
     }
     
-/*
+    /**
+     * Inverte o quatérnio corrente.
+     * 
+     * @return Um novo quatérnio invertido.
+     */
+    public Quaternion invert() {
+        
+        Quaternion result = new Quaternion( x, y, z, w );
 
+        double lengthSq = x * x + y * y + z * z + w * w;
 
-// Invert provided quaternion
-RMAPI Quaternion QuaternionInvert(Quaternion q)
-{
-    Quaternion result = q;
-
-    float lengthSq = q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w;
-
-    if (lengthSq != 0.0)
-    {
-        float invLength = 1.0/lengthSq;
-
-        result.x *= -invLength;
-        result.y *= -invLength;
-        result.z *= -invLength;
-        result.w *= invLength;
-    }
-
-    return result;
-}
-
-// Calculate two quaternion multiplication
-RMAPI Quaternion QuaternionMultiply(Quaternion q1, Quaternion q2)
-{
-    Quaternion result = { 0 };
-
-    float qax = q1.x, qay = q1.y, qaz = q1.z, qaw = q1.w;
-    float qbx = q2.x, qby = q2.y, qbz = q2.z, qbw = q2.w;
-
-    result.x = qax*qbw + qaw*qbx + qay*qbz - qaz*qby;
-    result.y = qay*qbw + qaw*qby + qaz*qbx - qax*qbz;
-    result.z = qaz*qbw + qaw*qbz + qax*qby - qay*qbx;
-    result.w = qaw*qbw - qax*qbx - qay*qby - qaz*qbz;
-
-    return result;
-}
-
-// Scale quaternion by float value
-RMAPI Quaternion QuaternionScale(Quaternion q, float mul)
-{
-    Quaternion result = { 0 };
-
-    result.x = q.x*mul;
-    result.y = q.y*mul;
-    result.z = q.z*mul;
-    result.w = q.w*mul;
-
-    return result;
-}
-
-// Divide two quaternions
-RMAPI Quaternion QuaternionDivide(Quaternion q1, Quaternion q2)
-{
-    Quaternion result = { q1.x/q2.x, q1.y/q2.y, q1.z/q2.z, q1.w/q2.w };
-
-    return result;
-}
-
-// Calculate linear interpolation between two quaternions
-RMAPI Quaternion QuaternionLerp(Quaternion q1, Quaternion q2, float amount)
-{
-    Quaternion result = { 0 };
-
-    result.x = q1.x + amount*(q2.x - q1.x);
-    result.y = q1.y + amount*(q2.y - q1.y);
-    result.z = q1.z + amount*(q2.z - q1.z);
-    result.w = q1.w + amount*(q2.w - q1.w);
-
-    return result;
-}
-
-// Calculate slerp-optimized interpolation between two quaternions
-RMAPI Quaternion QuaternionNlerp(Quaternion q1, Quaternion q2, float amount)
-{
-    Quaternion result = { 0 };
-
-    // QuaternionLerp(q1, q2, amount)
-    result.x = q1.x + amount*(q2.x - q1.x);
-    result.y = q1.y + amount*(q2.y - q1.y);
-    result.z = q1.z + amount*(q2.z - q1.z);
-    result.w = q1.w + amount*(q2.w - q1.w);
-
-    // QuaternionNormalize(q);
-    Quaternion q = result;
-    float length = sqrtf(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w);
-    if (length == 0.0) length = 1.0;
-    float ilength = 1.0/length;
-
-    result.x = q.x*ilength;
-    result.y = q.y*ilength;
-    result.z = q.z*ilength;
-    result.w = q.w*ilength;
-
-    return result;
-}
-
-// Calculates spherical linear interpolation between two quaternions
-RMAPI Quaternion QuaternionSlerp(Quaternion q1, Quaternion q2, float amount)
-{
-    Quaternion result = { 0 };
-
-#if !defined(EPSILON)
-    #define EPSILON 0.000001f
-#endif
-
-    float cosHalfTheta = q1.x*q2.x + q1.y*q2.y + q1.z*q2.z + q1.w*q2.w;
-
-    if (cosHalfTheta < 0)
-    {
-        q2.x = -q2.x; q2.y = -q2.y; q2.z = -q2.z; q2.w = -q2.w;
-        cosHalfTheta = -cosHalfTheta;
-    }
-
-    if (fabsf(cosHalfTheta) >= 1.0) result = q1;
-    else if (cosHalfTheta > 0.95f) result = QuaternionNlerp(q1, q2, amount);
-    else
-    {
-        float halfTheta = acosf(cosHalfTheta);
-        float sinHalfTheta = sqrtf(1.0 - cosHalfTheta*cosHalfTheta);
-
-        if (fabsf(sinHalfTheta) < EPSILON)
-        {
-            result.x = (q1.x*0.5f + q2.x*0.5f);
-            result.y = (q1.y*0.5f + q2.y*0.5f);
-            result.z = (q1.z*0.5f + q2.z*0.5f);
-            result.w = (q1.w*0.5f + q2.w*0.5f);
+        if ( lengthSq != 0.0 ) {
+            double invLength = 1.0/lengthSq;
+            result.x *= -invLength;
+            result.y *= -invLength;
+            result.z *= -invLength;
+            result.w *= invLength;
         }
-        else
-        {
-            float ratioA = sinf((1 - amount)*halfTheta)/sinHalfTheta;
-            float ratioB = sinf(amount*halfTheta)/sinHalfTheta;
 
-            result.x = (q1.x*ratioA + q2.x*ratioB);
-            result.y = (q1.y*ratioA + q2.y*ratioB);
-            result.z = (q1.z*ratioA + q2.z*ratioB);
-            result.w = (q1.w*ratioA + q2.w*ratioB);
-        }
+        return result;
+    
     }
-
-    return result;
-}
-
-// Calculate quaternion cubic spline interpolation using Cubic Hermite Spline algorithm
-// as described in the GLTF 2.0 specification: https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#interpolation-cubic
-RMAPI Quaternion QuaternionCubicHermiteSpline(Quaternion q1, Quaternion outTangent1, Quaternion q2, Quaternion inTangent2, float t)
-{
-    float t2 = t*t;
-    float t3 = t2*t;
-    float h00 = 2*t3 - 3*t2 + 1;
-    float h10 = t3 - 2*t2 + t;
-    float h01 = -2*t3 + 3*t2;
-    float h11 = t3 - t2;
-
-    Quaternion p0 = QuaternionScale(q1, h00);
-    Quaternion m0 = QuaternionScale(outTangent1, h10);
-    Quaternion p1 = QuaternionScale(q2, h01);
-    Quaternion m1 = QuaternionScale(inTangent2, h11);
-
-    Quaternion result = { 0 };
-
-    result = QuaternionAdd(p0, m0);
-    result = QuaternionAdd(result, p1);
-    result = QuaternionAdd(result, m1);
-    result = QuaternionNormalize(result);
-
-    return result;
-}
-
-// Calculate quaternion based on the rotation from one vector to another
-RMAPI Quaternion QuaternionFromVector3ToVector3(Vector3 from, Vector3 to)
-{
-    Quaternion result = { 0 };
-
-    float cos2Theta = (from.x*to.x + from.y*to.y + from.z*to.z);    // Vector3DotProduct(from, to)
-    Vector3 cross = { from.y*to.z - from.z*to.y, from.z*to.x - from.x*to.z, from.x*to.y - from.y*to.x }; // Vector3CrossProduct(from, to)
-
-    result.x = cross.x;
-    result.y = cross.y;
-    result.z = cross.z;
-    result.w = 1.0 + cos2Theta;
-
-    // QuaternionNormalize(q);
-    // NOTE: Normalize to essentially nlerp the original and identity to 0.5
-    Quaternion q = result;
-    float length = sqrtf(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w);
-    if (length == 0.0) length = 1.0;
-    float ilength = 1.0/length;
-
-    result.x = q.x*ilength;
-    result.y = q.y*ilength;
-    result.z = q.z*ilength;
-    result.w = q.w*ilength;
-
-    return result;
-}*/
     
     /**
+     * Multiplica o quatérnio corrente por outro quatérnio.
      * 
-     * @param mat 
+     * @param q Outro quatérnio.
+     * @return Um novo quatérnio com o resultado da multiplicação.
      */
-    public static Quaternion fromMatrix( Matrix mat ) {
-        return null;
+    public Quaternion multiply( Quaternion q ) {
+        
+        Quaternion result = new Quaternion();
+
+        double qax = x, qay = y, qaz = z, qaw = w;
+        double qbx = q.x, qby = q.y, qbz = q.z, qbw = q.w;
+
+        result.x = qax * qbw + qaw * qbx + qay * qbz - qaz * qby;
+        result.y = qay * qbw + qaw * qby + qaz * qbx - qax * qbz;
+        result.z = qaz * qbw + qaw * qbz + qax * qby - qay * qbx;
+        result.w = qaw * qbw - qax * qbx - qay * qby - qaz * qbz;
+
+        return result;
+    
     }
     
-/*// Get a quaternion for a given rotation matrix
-RMAPI Quaternion QuaternionFromMatrix(Matrix mat)
-{
-    Quaternion result = { 0 };
-
-    float fourWSquaredMinus1 = mat.m0  + mat.m5 + mat.m10;
-    float fourXSquaredMinus1 = mat.m0  - mat.m5 - mat.m10;
-    float fourYSquaredMinus1 = mat.m5  - mat.m0 - mat.m10;
-    float fourZSquaredMinus1 = mat.m10 - mat.m0 - mat.m5;
-
-    int biggestIndex = 0;
-    float fourBiggestSquaredMinus1 = fourWSquaredMinus1;
-    if (fourXSquaredMinus1 > fourBiggestSquaredMinus1)
-    {
-        fourBiggestSquaredMinus1 = fourXSquaredMinus1;
-        biggestIndex = 1;
+    /**
+     * Escalona o quatérnio corrente, análogo à multiplicação por escalar.
+     * 
+     * @param scale A escala.
+     * @return Um novo quatérnio escalonado.
+     */
+    public Quaternion scale( double scale ) {
+        return new Quaternion( x * scale, y * scale, z * scale, w * scale );
     }
-
-    if (fourYSquaredMinus1 > fourBiggestSquaredMinus1)
-    {
-        fourBiggestSquaredMinus1 = fourYSquaredMinus1;
-        biggestIndex = 2;
+    
+    /**
+     * Divide o quatérnio corrente por outro quatérnio.
+     * 
+     * @param q Outro quatérnio.
+     * @return Um novo vetor com o resultado da divisão.
+     */
+    public Quaternion divide( Quaternion q ) {
+        return new Quaternion( x / q.x, y / q.y, z / q.z, w / q.w );
     }
-
-    if (fourZSquaredMinus1 > fourBiggestSquaredMinus1)
-    {
-        fourBiggestSquaredMinus1 = fourZSquaredMinus1;
-        biggestIndex = 3;
+    
+    /**
+     * Realiza a interpolação linear entre o quatérnio corrente (início) e outro quatérnio (fim).
+     * 
+     * @param end Quatérnio final.
+     * @param amount Quantidade (0 a 1)
+     * @return Um quatérnio que representa a interpolação linear entre dois quatérnios.
+     */
+    public Quaternion lerp( Quaternion end, double amount ) {
+        return new Quaternion( 
+            this.x + ( end.x - this.x ) * amount,
+            this.y + ( end.y - this.y ) * amount,
+            this.z + ( end.z - this.z ) * amount,
+            this.w + ( end.w - this.w ) * amount
+        );
     }
+    
+    /**
+     * Realiza a interpolação linear normalizada entre o quatérnio corrente (início) e outro quatérnio (fim).
+     * 
+     * @param end Quatérnio final.
+     * @param amount Quantidade (0 a 1)
+     * @return Um quatérnio que representa a interpolação linear normalizada entre dois quatérnios.
+     */
+    public Quaternion normalizedLerp( Quaternion end, double amount ) {
+        
+        Quaternion result = new Quaternion( 
+            this.x + ( end.x - this.x ) * amount,
+            this.y + ( end.y - this.y ) * amount,
+            this.z + ( end.z - this.z ) * amount,
+            this.w + ( end.w - this.w ) * amount
+        );
+        
+        Quaternion q = new Quaternion( result.x, result.y, result.z, result.w );
+        double length = Math.sqrt( q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w );
+        if ( length == 0.0 ) {
+            length = 1.0;
+        }
+        double ilength = 1.0 / length;
 
-    float biggestVal = sqrtf(fourBiggestSquaredMinus1 + 1.0)*0.5f;
-    float mult = 0.25f/biggestVal;
-
-    switch (biggestIndex)
-    {
-        case 0:
-            result.w = biggestVal;
-            result.x = (mat.m6 - mat.m9)*mult;
-            result.y = (mat.m8 - mat.m2)*mult;
-            result.z = (mat.m1 - mat.m4)*mult;
-            break;
-        case 1:
-            result.x = biggestVal;
-            result.w = (mat.m6 - mat.m9)*mult;
-            result.y = (mat.m1 + mat.m4)*mult;
-            result.z = (mat.m8 + mat.m2)*mult;
-            break;
-        case 2:
-            result.y = biggestVal;
-            result.w = (mat.m8 - mat.m2)*mult;
-            result.x = (mat.m1 + mat.m4)*mult;
-            result.z = (mat.m6 + mat.m9)*mult;
-            break;
-        case 3:
-            result.z = biggestVal;
-            result.w = (mat.m1 - mat.m4)*mult;
-            result.x = (mat.m8 + mat.m2)*mult;
-            result.y = (mat.m6 + mat.m9)*mult;
-            break;
+        result.x = q.x * ilength;
+        result.y = q.y * ilength;
+        result.z = q.z * ilength;
+        result.w = q.w * ilength;
+        
+        return result;
+        
     }
+    
+    /**
+     * Realiza a interpolação linear esférica entre o quatérnio corrente (início) e outro quatérnio (fim).
+     * 
+     * @param end Quatérnio final.
+     * @param amount Quantidade (0 a 1)
+     * @return Um quatérnio que representa a interpolação linear esférica entre dois quatérnios.
+     */
+    public Quaternion sphericalLerp( Quaternion end, double amount ) {
+        
+        Quaternion result = new Quaternion();
 
-    return result;
-}
+        double cosHalfTheta = x * end.x + y * end.y + z * end.z + w * end.w;
 
-// Get a matrix for a given quaternion
-RMAPI Matrix QuaternionToMatrix(Quaternion q)
-{
-    Matrix result = { 1.0, 0.0, 0.0, 0.0,
-                      0.0, 1.0, 0.0, 0.0,
-                      0.0, 0.0, 1.0, 0.0,
-                      0.0, 0.0, 0.0, 1.0 }; // MatrixIdentity()
+        if ( cosHalfTheta < 0.0 ) {
+            end.x = -end.x; 
+            end.y = -end.y; 
+            end.z = -end.z; 
+            end.w = -end.w;
+            cosHalfTheta = -cosHalfTheta;
+        }
 
-    float a2 = q.x*q.x;
-    float b2 = q.y*q.y;
-    float c2 = q.z*q.z;
-    float ac = q.x*q.z;
-    float ab = q.x*q.y;
-    float bc = q.y*q.z;
-    float ad = q.w*q.x;
-    float bd = q.w*q.y;
-    float cd = q.w*q.z;
+        if ( Math.abs( cosHalfTheta ) >= 1.0 ) {
+            result.x = x;
+            result.y = y;
+            result.z = z;
+            result.w = w;
+        } else if ( cosHalfTheta > 0.95 ) {
+            result = normalizedLerp( end, amount );
+        } else {
+            
+            double halfTheta = Math.cos( cosHalfTheta );
+            double sinHalfTheta = Math.sqrt( 1.0 - cosHalfTheta * cosHalfTheta );
 
-    result.m0 = 1 - 2*(b2 + c2);
-    result.m1 = 2*(ab + cd);
-    result.m2 = 2*(ac - bd);
+            if ( Math.abs( sinHalfTheta ) < 0.000001 ) {
+                result.x = (x * 0.5f + end.x * 0.5f);
+                result.y = (y * 0.5f + end.y * 0.5f);
+                result.z = (z * 0.5f + end.z * 0.5f);
+                result.w = (w * 0.5f + end.w * 0.5f);
+            } else {
+                
+                double ratioA = Math.sin( ( 1 - amount ) * halfTheta ) / sinHalfTheta;
+                double ratioB = Math.sin( amount * halfTheta ) / sinHalfTheta;
 
-    result.m4 = 2*(ab - cd);
-    result.m5 = 1 - 2*(a2 + c2);
-    result.m6 = 2*(bc + ad);
+                result.x = (x * ratioA + end.x * ratioB);
+                result.y = (y * ratioA + end.y * ratioB);
+                result.z = (z * ratioA + end.z * ratioB);
+                result.w = (w * ratioA + end.w * ratioB);
+                
+            }
+            
+        }
 
-    result.m8 = 2*(ac + bd);
-    result.m9 = 2*(bc - ad);
-    result.m10 = 1 - 2*(a2 + b2);
-
-    return result;
-}
-
-// Get rotation quaternion for an angle and axis
-// NOTE: Angle must be provided in radians
-RMAPI Quaternion QuaternionFromAxisAngle(Vector3 axis, float angle)
-{
-    Quaternion result = { 0.0, 0.0, 0.0, 1.0 };
-
-    float axisLength = sqrtf(axis.x*axis.x + axis.y*axis.y + axis.z*axis.z);
-
-    if (axisLength != 0.0)
-    {
-        angle *= 0.5f;
-
-        float length = 0.0;
-        float ilength = 0.0;
-
-        // Vector3Normalize(axis)
-        length = axisLength;
-        if (length == 0.0) length = 1.0;
-        ilength = 1.0/length;
-        axis.x *= ilength;
-        axis.y *= ilength;
-        axis.z *= ilength;
-
-        float sinres = sinf(angle);
-        float cosres = cosf(angle);
-
-        result.x = axis.x*sinres;
-        result.y = axis.y*sinres;
-        result.z = axis.z*sinres;
-        result.w = cosres;
-
-        // QuaternionNormalize(q);
-        Quaternion q = result;
-        length = sqrtf(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w);
-        if (length == 0.0) length = 1.0;
-        ilength = 1.0/length;
-        result.x = q.x*ilength;
-        result.y = q.y*ilength;
-        result.z = q.z*ilength;
-        result.w = q.w*ilength;
+        return result;
+    
     }
+    
+    /**
+     * Calcula a interpolação cúbica Hermitiana do quatérnio corrente e de outro quatérnio e suas tangentes.
+     * 
+     * @param outTangent Primeira tangente
+     * @param q O quatérnio.
+     * @param inTangent Segunda tangente.
+     * @param amount A quantidade
+     * @return Um novo vetor com a interpolação cúbica Hermitiana.
+     */
+    public Quaternion cubicHermite( Quaternion outTangent, Quaternion q, Quaternion inTangent, double amount ) {
+        
+        double t2 = amount*amount;
+        double t3 = t2*amount;
+        double h00 = 2*t3 - 3*t2 + 1;
+        double h10 = t3 - 2*t2 + amount;
+        double h01 = -2*t3 + 3*t2;
+        double h11 = t3 - t2;
 
-    return result;
-}
+        Quaternion p0 = scale( h00);
+        Quaternion m0 = outTangent.scale( h10 );
+        Quaternion p1 = q.scale( h01 );
+        Quaternion m1 = inTangent.scale( h11 );
 
-// Get the rotation angle and axis for a given quaternion
-RMAPI void QuaternionToAxisAngle(Quaternion q, Vector3 *outAxis, float *outAngle)
-{
-    if (fabsf(q.w) > 1.0)
-    {
-        // QuaternionNormalize(q);
-        float length = sqrtf(q.x*q.x + q.y*q.y + q.z*q.z + q.w*q.w);
-        if (length == 0.0) length = 1.0;
-        float ilength = 1.0/length;
+        Quaternion result = p0.add( m0 );
+        result = result.add( p1 );
+        result = result.add( m1 );
+        result = result.normalize();
 
-        q.x = q.x*ilength;
-        q.y = q.y*ilength;
-        q.z = q.z*ilength;
-        q.w = q.w*ilength;
+        return result;
+    
     }
+    
+    /**
+     * Cria um quatérnio baseado na rotação de um vetor para outro.
+     * 
+     * @param from Um vetor.
+     * @param to Outro vetor.
+     * @return Um novo quatérnio.
+     */
+    public static Quaternion fromVectorToVetor( Vector3 from, Vector3 to ) {
+        
+        Quaternion result = new Quaternion();
 
-    Vector3 resAxis = { 0.0, 0.0, 0.0 };
-    float resAngle = 2.0*acosf(q.w);
-    float den = sqrtf(1.0 - q.w*q.w);
+        double cos2Theta = (from.x * to.x + from.y * to.y + from.z * to.z);
+        Vector3 cross = new Vector3( from.y * to.z - from.z * to.y, from.z * to.x - from.x * to.z, from.x * to.y - from.y * to.x );
 
-    if (den > EPSILON)
-    {
-        resAxis.x = q.x/den;
-        resAxis.y = q.y/den;
-        resAxis.z = q.z/den;
+        result.x = cross.x;
+        result.y = cross.y;
+        result.z = cross.z;
+        result.w = 1.0 + cos2Theta;
+
+        Quaternion q = new Quaternion( result.x, result.y, result.z, result.w );
+        double length = Math.sqrt( q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w );
+        if ( length == 0.0 ) {
+            length = 1.0;
+        }
+        double ilength = 1.0 / length;
+
+        result.x = q.x * ilength;
+        result.y = q.y * ilength;
+        result.z = q.z * ilength;
+        result.w = q.w * ilength;
+        
+        return result;
+    
     }
-    else
-    {
-        // This occurs when the angle is zero.
-        // Not a problem: just set an arbitrary normalized axis.
-        resAxis.x = 1.0;
+    
+    /**
+     * Obtém um quatérnio dada uma matriz de rotação.
+     * 
+     * @param mat A matriz.
+     * @return Um novo quatérnio.
+     */
+    public static Quaternion fromMatrix( Matrix mat ) {
+        
+        Quaternion result = new Quaternion();
+
+        double fourWSquaredMinus1 = mat.m0  + mat.m5 + mat.m10;
+        double fourXSquaredMinus1 = mat.m0  - mat.m5 - mat.m10;
+        double fourYSquaredMinus1 = mat.m5  - mat.m0 - mat.m10;
+        double fourZSquaredMinus1 = mat.m10 - mat.m0 - mat.m5;
+
+        int biggestIndex = 0;
+        double fourBiggestSquaredMinus1 = fourWSquaredMinus1;
+        if ( fourXSquaredMinus1 > fourBiggestSquaredMinus1 ) {
+            fourBiggestSquaredMinus1 = fourXSquaredMinus1;
+            biggestIndex = 1;
+        }
+
+        if ( fourYSquaredMinus1 > fourBiggestSquaredMinus1 ) {
+            fourBiggestSquaredMinus1 = fourYSquaredMinus1;
+            biggestIndex = 2;
+        }
+
+        if ( fourZSquaredMinus1 > fourBiggestSquaredMinus1 ) {
+            fourBiggestSquaredMinus1 = fourZSquaredMinus1;
+            biggestIndex = 3;
+        }
+
+        double biggestVal = Math.sqrt( fourBiggestSquaredMinus1 + 1.0 ) * 0.5;
+        double mult = 0.25 / biggestVal;
+
+        switch ( biggestIndex ) {
+            case 0:
+                result.w = biggestVal;
+                result.x = (mat.m6 - mat.m9) * mult;
+                result.y = (mat.m8 - mat.m2) * mult;
+                result.z = (mat.m1 - mat.m4) * mult;
+                break;
+            case 1:
+                result.x = biggestVal;
+                result.w = (mat.m6 - mat.m9) * mult;
+                result.y = (mat.m1 + mat.m4) * mult;
+                result.z = (mat.m8 + mat.m2) * mult;
+                break;
+            case 2:
+                result.y = biggestVal;
+                result.w = (mat.m8 - mat.m2) * mult;
+                result.x = (mat.m1 + mat.m4) * mult;
+                result.z = (mat.m6 + mat.m9) * mult;
+                break;
+            case 3:
+                result.z = biggestVal;
+                result.w = (mat.m1 - mat.m4) * mult;
+                result.x = (mat.m8 + mat.m2) * mult;
+                result.y = (mat.m6 + mat.m9) * mult;
+                break;
+        }
+
+        return result;
+    
     }
+    
+    /**
+     * Obtém a matrix do quatérnio corrente.
+     * 
+     * @return Uma nova matriz do quatérnio corrente.
+     */
+    public Matrix toMatrix() {
+        
+        Matrix result = Matrix.identity();
 
-    *outAxis = resAxis;
-    *outAngle = resAngle;
-}
+        double a2 = x * x;
+        double b2 = y * y;
+        double c2 = z * z;
+        double ac = x * z;
+        double ab = x * y;
+        double bc = y * z;
+        double ad = w * x;
+        double bd = w * y;
+        double cd = w * z;
 
-// Get the quaternion equivalent to Euler angles
-// NOTE: Rotation order is ZYX
-RMAPI Quaternion QuaternionFromEuler(float pitch, float yaw, float roll)
-{
-    Quaternion result = { 0 };
+        result.m0 = 1 - 2 * (b2 + c2);
+        result.m1 = 2 * (ab + cd);
+        result.m2 = 2 * (ac - bd);
 
-    float x0 = cosf(pitch*0.5f);
-    float x1 = sinf(pitch*0.5f);
-    float y0 = cosf(yaw*0.5f);
-    float y1 = sinf(yaw*0.5f);
-    float z0 = cosf(roll*0.5f);
-    float z1 = sinf(roll*0.5f);
+        result.m4 = 2 * (ab - cd);
+        result.m5 = 1 - 2 * (a2 + c2);
+        result.m6 = 2 * (bc + ad);
 
-    result.x = x1*y0*z0 - x0*y1*z1;
-    result.y = x0*y1*z0 + x1*y0*z1;
-    result.z = x0*y0*z1 - x1*y1*z0;
-    result.w = x0*y0*z0 + x1*y1*z1;
+        result.m8 = 2 * (ac + bd);
+        result.m9 = 2 * (bc - ad);
+        result.m10 = 1 - 2 * (a2 + b2);
 
-    return result;
-}
+        return result;
+    
+    }
+    
+    /**
+     * Obtém um quatérnio de rotação dado um ângulo e um eixo.
+     * 
+     * @param axis O eixo.
+     * @param angle O ângulo em radianos.
+     * @return Um novo quatérnio de rotação.
+     */
+    public static Quaternion fromAxisAngle( Vector3 axis, double angle ) {
+        
+        Quaternion result = new Quaternion( 0.0, 0.0, 0.0, 1.0 );
 
-// Get the Euler angles equivalent to quaternion (roll, pitch, yaw)
-// NOTE: Angles are returned in a Vector3 struct in radians
-RMAPI Vector3 QuaternionToEuler(Quaternion q)
-{
-    Vector3 result = { 0 };
+        double axisLength = Math.sqrt( axis.x * axis.x + axis.y * axis.y + axis.z * axis.z );
 
-    // Roll (x-axis rotation)
-    float x0 = 2.0*(q.w*q.x + q.y*q.z);
-    float x1 = 1.0 - 2.0*(q.x*q.x + q.y*q.y);
-    result.x = atan2f(x0, x1);
+        if ( axisLength != 0.0 ) {
+            
+            angle *= 0.5;
 
-    // Pitch (y-axis rotation)
-    float y0 = 2.0*(q.w*q.y - q.z*q.x);
-    y0 = y0 > 1.0 ? 1.0 : y0;
-    y0 = y0 < -1.0 ? -1.0 : y0;
-    result.y = asinf(y0);
+            double length = 0.0;
+            double ilength = 0.0;
 
-    // Yaw (z-axis rotation)
-    float z0 = 2.0*(q.w*q.z + q.x*q.y);
-    float z1 = 1.0 - 2.0*(q.y*q.y + q.z*q.z);
-    result.z = atan2f(z0, z1);
+            length = axisLength;
+            if ( length == 0.0 ) {
+                length = 1.0;
+            }
+            ilength = 1.0 / length;
+            axis.x *= ilength;
+            axis.y *= ilength;
+            axis.z *= ilength;
 
-    return result;
-}
+            double sinres = Math.sin( angle );
+            double cosres = Math.cos( angle );
 
-// Transform a quaternion given a transformation matrix
-RMAPI Quaternion QuaternionTransform(Quaternion q, Matrix mat)
-{
-    Quaternion result = { 0 };
+            result.x = axis.x * sinres;
+            result.y = axis.y * sinres;
+            result.z = axis.z * sinres;
+            result.w = cosres;
 
-    result.x = mat.m0*q.x + mat.m4*q.y + mat.m8*q.z + mat.m12*q.w;
-    result.y = mat.m1*q.x + mat.m5*q.y + mat.m9*q.z + mat.m13*q.w;
-    result.z = mat.m2*q.x + mat.m6*q.y + mat.m10*q.z + mat.m14*q.w;
-    result.w = mat.m3*q.x + mat.m7*q.y + mat.m11*q.z + mat.m15*q.w;
+            Quaternion q = new Quaternion( result.x, result.y, result.z, result.w );
+            length = Math.sqrt( q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w );
+            if ( length == 0.0 ) {
+                length = 1.0;
+            }
+            ilength = 1.0/length;
+            
+            result.x = q.x * ilength;
+            result.y = q.y * ilength;
+            result.z = q.z * ilength;
+            result.w = q.w * ilength;
+            
+        }
 
-    return result;
-}
-*/
+        return result;
+    
+    }
+    
+    /**
+     * Obtém o ângulo de rotação e o eixo do quatérnio corrente.
+     * @param outAxis Vetor que receberá os dados do eixo.
+     * @return O ângulo.
+     */
+    public double toAxisAngle( Vector3 outAxis ) {
+        
+        Quaternion q = new Quaternion( x, y, z, w );
+        
+        if ( Math.abs( q.w ) > 1.0 ) {
+            
+            double length = Math.sqrt( q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w );
+            if (length == 0.0) length = 1.0;
+            double ilength = 1.0 / length;
+
+            q.x = q.x * ilength;
+            q.y = q.y * ilength;
+            q.z = q.z * ilength;
+            q.w = q.w * ilength;
+            
+        }
+
+        outAxis.x = 0;
+        outAxis.y = 0;
+        outAxis.z = 0;
+        
+        double resAngle = 2.0 * Math.acos( q.w );
+        double den = Math.sqrt( 1.0 - q.w*q.w );
+
+        if ( den > 0.000001 ) {
+            outAxis.x = q.x/den;
+            outAxis.y = q.y/den;
+            outAxis.z = q.z/den;
+        } else {
+            outAxis.x = 1.0;
+        }
+
+        return resAngle;
+    
+    }
+    
+    /**
+     * Obtém o quatérnio equivalente aos ângulos de Euler.
+     * A ordem de rotação é ZYX.
+     * 
+     * @param pitch Ângulo de passo.
+     * @param yaw Ângulo de guinada.
+     * @param roll Ângulo de rolagem.
+     * @return Um novo quatérnio equivalente aos ângulos de Euler.
+     */
+    public static Quaternion fromEuler( double pitch, double yaw, double roll ) {
+        
+        Quaternion result = new Quaternion();
+
+        double x0 = Math.cos( pitch * 0.5 );
+        double x1 = Math.sin( pitch * 0.5 );
+        double y0 = Math.cos( yaw * 0.5 );
+        double y1 = Math.sin( yaw * 0.5 );
+        double z0 = Math.cos( roll * 0.5 );
+        double z1 = Math.sin( roll * 0.5 );
+
+        result.x = x1 * y0 * z0 - x0 * y1 * z1;
+        result.y = x0 * y1 * z0 + x1 * y0 * z1;
+        result.z = x0 * y0 * z1 - x1 * y1 * z0;
+        result.w = x0 * y0 * z0 + x1 * y1 * z1;
+
+        return result;
+        
+    }
+    
+    /**
+     * Obtém os ângulos de Euler em radianos (rolagem (roll), passo (pitch) e guinada (yaw))
+     * equivalentes ao quatérnio corrente.
+     * @return Um vetor contendo os ângulos de Euler. x = roll (rotação em x), y = pitch (rotação em y) e z = yaw (rotação em z).
+     */
+    public Vector3 toEuler() {
+        
+        Vector3 result = new Vector3();
+
+        double x0 = 2.0 * (w * x + y * z);
+        double x1 = 1.0 - 2.0 * (x * x + y * y);
+        result.x = Math.atan2( x0, x1 );
+
+        double y0 = 2.0 * (w * y - z * x);
+        y0 = y0 > 1.0 ? 1.0 : y0;
+        y0 = y0 < -1.0 ? -1.0 : y0;
+        result.y = Math.asin( y0 );
+
+        double z0 = 2.0 * (w * z + x * y);
+        double z1 = 1.0 - 2.0 * (y * y + z * z);
+        result.z = Math.atan2( z0, z1 );
+
+        return result;
+    
+    }
+    
+    /**
+     * Transforma o quatérnio corrente dada uma matriz.
+     * 
+     * @param mat A matriz.
+     * @return Um novo quatérnio transformado.
+     */
+    public Quaternion transform( Matrix mat ) {
+        
+        Quaternion result = new Quaternion();
+
+        result.x = mat.m0 * x + mat.m4 * y + mat.m8 * z + mat.m12 * w;
+        result.y = mat.m1 * x + mat.m5 * y + mat.m9 * z + mat.m13 * w;
+        result.z = mat.m2 * x + mat.m6 * y + mat.m10 * z + mat.m14 * w;
+        result.w = mat.m3 * x + mat.m7 * y + mat.m11 * z + mat.m15 * w;
+
+        return result;
+        
+    }
     
     @Override
     public Object clone() throws CloneNotSupportedException {

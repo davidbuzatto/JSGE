@@ -452,14 +452,15 @@ public class Vector3 implements Cloneable {
      * @return Um vetor que representa a interpolação linear entre dois vetores.
      */
     public Vector3 lerp( Vector3 end, double amount ) {
-        double x = this.x + ( end.x - this.x ) * amount;
-        double y = this.y + ( end.y - this.y ) * amount;
-        double z = this.z + ( end.z - this.z ) * amount;
-        return new Vector3( x, y, z );
+        return new Vector3( 
+            this.x + ( end.x - this.x ) * amount,
+            this.y + ( end.y - this.y ) * amount,
+            this.z + ( end.z - this.z ) * amount
+        );
     }
     
     /**
-     * Calcula a interpolação cúbica Hermitiana do vetor corrente e outro vetor e suas tangentes.
+     * Calcula a interpolação cúbica Hermitiana do vetor corrente e de outro vetor e suas tangentes.
      * 
      * @param tangent1 Primeira tangente
      * @param v O vetor.
