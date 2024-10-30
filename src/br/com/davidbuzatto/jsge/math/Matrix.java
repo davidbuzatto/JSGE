@@ -315,6 +315,73 @@ public class Matrix implements Cloneable {
     }
     
     /**
+     * Decompõe a matriz corrente em seus componentes rotacionais, translacionais e de escalonamento.
+     * 
+     * @param translation Vetor que receberá os dados translacionais.
+     * @param rotation Quaternion que receberá os componentes rotacionais.
+     * @param scaling Vetor que receberá os componentes de escalonamento.
+     */
+    public void decompose( Vector3 translation, Quaternion rotation, Vector3 scaling ) {
+        
+        translation.x = m12;
+        translation.y = m13;
+        translation.z = m14;
+        
+        double a = m0;
+        double b = m4;
+        double c = m8;
+        double d = m1;
+        double e = m5;
+        double f = m9;
+        double g = m2;
+        double h = m6;
+        double i = m10;
+        double A = e * i - f * h;
+        double B = f * g - d * i;
+        double C = d * h - e * g;
+        
+        double det = a * A + b * B + c * C;
+        Vector3 abc = new Vector3( a, b, c );
+        Vector3 def = new Vector3( d, e, f );
+        Vector3 ghi = new Vector3( g, h, i );
+        double scalex = abc.length();
+        double scaley = def.length();
+        double scalez = ghi.length();
+        Vector3 s = new Vector3( scalex, scaley, scalez );
+        if ( det < 0 ) {
+            s = s.negate();
+        }
+        scaling.x = s.x;
+        scaling.y = s.y;
+        scaling.z = s.z;
+        
+        try {
+            
+            Matrix clone = (Matrix) clone();
+
+            if ( Double.doubleToLongBits( det ) != Double.doubleToLongBits( 0 ) ) {
+                clone.m0 /= s.x;
+                clone.m5 /= s.y;
+                clone.m10 /= s.z;
+                Quaternion q = Quaternion.fromMatrix( clone );
+                rotation.x = q.x;
+                rotation.y = q.y;
+                rotation.z = q.z;
+                rotation.w = q.w;
+            } else {
+                Quaternion q = Quaternion.identity();
+                rotation.x = q.x;
+                rotation.y = q.y;
+                rotation.z = q.z;
+                rotation.w = q.w;
+            }
+            
+        } catch ( CloneNotSupportedException exc ) {
+        }
+        
+    }
+    
+    /**
      * Cria uma matriz identidade.
      * 
      * @return Uma nova matriz identidade.
@@ -726,72 +793,6 @@ public class Matrix implements Cloneable {
         
         return result;
     
-    }
-    
-    /**
-     * Decompõe a matriz em seus componentes rotacionais, translacionais e de escalonamento.
-     * @param translation Vetor que receberá os dados translacionais.
-     * @param rotation Quaternion que receberá os componentes rotacionais.
-     * @param scaling Vetor que receberá os componentes de escalonamento.
-     */
-    public void decompose( Vector3 translation, Quaternion rotation, Vector3 scaling ) {
-        
-        translation.x = m12;
-        translation.y = m13;
-        translation.z = m14;
-        
-        double a = m0;
-        double b = m4;
-        double c = m8;
-        double d = m1;
-        double e = m5;
-        double f = m9;
-        double g = m2;
-        double h = m6;
-        double i = m10;
-        double A = e * i - f * h;
-        double B = f * g - d * i;
-        double C = d * h - e * g;
-        
-        double det = a * A + b * B + c * C;
-        Vector3 abc = new Vector3( a, b, c );
-        Vector3 def = new Vector3( d, e, f );
-        Vector3 ghi = new Vector3( g, h, i );
-        double scalex = abc.length();
-        double scaley = def.length();
-        double scalez = ghi.length();
-        Vector3 s = new Vector3( scalex, scaley, scalez );
-        if ( det < 0 ) {
-            s = s.negate();
-        }
-        scaling.x = s.x;
-        scaling.y = s.y;
-        scaling.z = s.z;
-        
-        try {
-            
-            Matrix clone = (Matrix) clone();
-
-            if ( Double.doubleToLongBits( det ) != Double.doubleToLongBits( 0 ) ) {
-                clone.m0 /= s.x;
-                clone.m5 /= s.y;
-                clone.m10 /= s.z;
-                Quaternion q = Quaternion.fromMatrix( clone );
-                rotation.x = q.x;
-                rotation.y = q.y;
-                rotation.z = q.z;
-                rotation.w = q.w;
-            } else {
-                Quaternion q = Quaternion.identity();
-                rotation.x = q.x;
-                rotation.y = q.y;
-                rotation.z = q.z;
-                rotation.w = q.w;
-            }
-            
-        } catch ( CloneNotSupportedException exc ) {
-        }
-        
     }
     
     @Override

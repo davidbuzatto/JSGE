@@ -103,15 +103,6 @@ public class Quaternion implements Cloneable {
     public Quaternion subtractValue( double value ) {
         return new Quaternion( x - value, y - value, z - value, w - value );
     }
-
-    /**
-     * Cria uma quatérnio identidade.
-     * 
-     * @return Uma novo quatérnio identidade.
-     */
-    public static Quaternion identity() {
-        return new Quaternion( 0.0, 0.0, 0.0, 1.0 );
-    }
     
     /**
      * Calcula o comprimento do quatérnio.
@@ -348,6 +339,136 @@ public class Quaternion implements Cloneable {
     }
     
     /**
+     * Obtém a matrix do quatérnio corrente.
+     * 
+     * @return Uma nova matriz do quatérnio corrente.
+     */
+    public Matrix toMatrix() {
+        
+        Matrix result = Matrix.identity();
+
+        double a2 = x * x;
+        double b2 = y * y;
+        double c2 = z * z;
+        double ac = x * z;
+        double ab = x * y;
+        double bc = y * z;
+        double ad = w * x;
+        double bd = w * y;
+        double cd = w * z;
+
+        result.m0 = 1 - 2 * (b2 + c2);
+        result.m1 = 2 * (ab + cd);
+        result.m2 = 2 * (ac - bd);
+
+        result.m4 = 2 * (ab - cd);
+        result.m5 = 1 - 2 * (a2 + c2);
+        result.m6 = 2 * (bc + ad);
+
+        result.m8 = 2 * (ac + bd);
+        result.m9 = 2 * (bc - ad);
+        result.m10 = 1 - 2 * (a2 + b2);
+
+        return result;
+    
+    }
+    
+    /**
+     * Obtém o ângulo de rotação e o eixo do quatérnio corrente.
+     * @param outAxis Vetor que receberá os dados do eixo.
+     * @return O ângulo.
+     */
+    public double toAxisAngle( Vector3 outAxis ) {
+        
+        Quaternion q = new Quaternion( x, y, z, w );
+        
+        if ( Math.abs( q.w ) > 1.0 ) {
+            
+            double length = Math.sqrt( q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w );
+            if (length == 0.0) length = 1.0;
+            double ilength = 1.0 / length;
+
+            q.x = q.x * ilength;
+            q.y = q.y * ilength;
+            q.z = q.z * ilength;
+            q.w = q.w * ilength;
+            
+        }
+
+        outAxis.x = 0;
+        outAxis.y = 0;
+        outAxis.z = 0;
+        
+        double resAngle = 2.0 * Math.acos( q.w );
+        double den = Math.sqrt( 1.0 - q.w*q.w );
+
+        if ( den > 0.000001 ) {
+            outAxis.x = q.x/den;
+            outAxis.y = q.y/den;
+            outAxis.z = q.z/den;
+        } else {
+            outAxis.x = 1.0;
+        }
+
+        return resAngle;
+    
+    }
+    
+    /**
+     * Obtém os ângulos de Euler em radianos (rolagem (roll), passo (pitch) e guinada (yaw))
+     * equivalentes ao quatérnio corrente.
+     * @return Um vetor contendo os ângulos de Euler. x = roll (rotação em x), y = pitch (rotação em y) e z = yaw (rotação em z).
+     */
+    public Vector3 toEuler() {
+        
+        Vector3 result = new Vector3();
+
+        double x0 = 2.0 * (w * x + y * z);
+        double x1 = 1.0 - 2.0 * (x * x + y * y);
+        result.x = Math.atan2( x0, x1 );
+
+        double y0 = 2.0 * (w * y - z * x);
+        y0 = y0 > 1.0 ? 1.0 : y0;
+        y0 = y0 < -1.0 ? -1.0 : y0;
+        result.y = Math.asin( y0 );
+
+        double z0 = 2.0 * (w * z + x * y);
+        double z1 = 1.0 - 2.0 * (y * y + z * z);
+        result.z = Math.atan2( z0, z1 );
+
+        return result;
+    
+    }
+    
+    /**
+     * Transforma o quatérnio corrente dada uma matriz.
+     * 
+     * @param mat A matriz.
+     * @return Um novo quatérnio transformado.
+     */
+    public Quaternion transform( Matrix mat ) {
+        
+        Quaternion result = new Quaternion();
+
+        result.x = mat.m0 * x + mat.m4 * y + mat.m8 * z + mat.m12 * w;
+        result.y = mat.m1 * x + mat.m5 * y + mat.m9 * z + mat.m13 * w;
+        result.z = mat.m2 * x + mat.m6 * y + mat.m10 * z + mat.m14 * w;
+        result.w = mat.m3 * x + mat.m7 * y + mat.m11 * z + mat.m15 * w;
+
+        return result;
+        
+    }
+    
+    /**
+     * Cria uma quatérnio identidade.
+     * 
+     * @return Uma novo quatérnio identidade.
+     */
+    public static Quaternion identity() {
+        return new Quaternion( 0.0, 0.0, 0.0, 1.0 );
+    }
+    
+    /**
      * Cria um quatérnio baseado na rotação de um vetor para outro.
      * 
      * @param from Um vetor.
@@ -449,41 +570,6 @@ public class Quaternion implements Cloneable {
     }
     
     /**
-     * Obtém a matrix do quatérnio corrente.
-     * 
-     * @return Uma nova matriz do quatérnio corrente.
-     */
-    public Matrix toMatrix() {
-        
-        Matrix result = Matrix.identity();
-
-        double a2 = x * x;
-        double b2 = y * y;
-        double c2 = z * z;
-        double ac = x * z;
-        double ab = x * y;
-        double bc = y * z;
-        double ad = w * x;
-        double bd = w * y;
-        double cd = w * z;
-
-        result.m0 = 1 - 2 * (b2 + c2);
-        result.m1 = 2 * (ab + cd);
-        result.m2 = 2 * (ac - bd);
-
-        result.m4 = 2 * (ab - cd);
-        result.m5 = 1 - 2 * (a2 + c2);
-        result.m6 = 2 * (bc + ad);
-
-        result.m8 = 2 * (ac + bd);
-        result.m9 = 2 * (bc - ad);
-        result.m10 = 1 - 2 * (a2 + b2);
-
-        return result;
-    
-    }
-    
-    /**
      * Obtém um quatérnio de rotação dado um ângulo e um eixo.
      * 
      * @param axis O eixo.
@@ -492,7 +578,7 @@ public class Quaternion implements Cloneable {
      */
     public static Quaternion fromAxisAngle( Vector3 axis, double angle ) {
         
-        Quaternion result = new Quaternion( 0.0, 0.0, 0.0, 1.0 );
+        Quaternion result = identity();
 
         double axisLength = Math.sqrt( axis.x * axis.x + axis.y * axis.y + axis.z * axis.z );
 
@@ -539,47 +625,6 @@ public class Quaternion implements Cloneable {
     }
     
     /**
-     * Obtém o ângulo de rotação e o eixo do quatérnio corrente.
-     * @param outAxis Vetor que receberá os dados do eixo.
-     * @return O ângulo.
-     */
-    public double toAxisAngle( Vector3 outAxis ) {
-        
-        Quaternion q = new Quaternion( x, y, z, w );
-        
-        if ( Math.abs( q.w ) > 1.0 ) {
-            
-            double length = Math.sqrt( q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w );
-            if (length == 0.0) length = 1.0;
-            double ilength = 1.0 / length;
-
-            q.x = q.x * ilength;
-            q.y = q.y * ilength;
-            q.z = q.z * ilength;
-            q.w = q.w * ilength;
-            
-        }
-
-        outAxis.x = 0;
-        outAxis.y = 0;
-        outAxis.z = 0;
-        
-        double resAngle = 2.0 * Math.acos( q.w );
-        double den = Math.sqrt( 1.0 - q.w*q.w );
-
-        if ( den > 0.000001 ) {
-            outAxis.x = q.x/den;
-            outAxis.y = q.y/den;
-            outAxis.z = q.z/den;
-        } else {
-            outAxis.x = 1.0;
-        }
-
-        return resAngle;
-    
-    }
-    
-    /**
      * Obtém o quatérnio equivalente aos ângulos de Euler.
      * A ordem de rotação é ZYX.
      * 
@@ -603,51 +648,6 @@ public class Quaternion implements Cloneable {
         result.y = x0 * y1 * z0 + x1 * y0 * z1;
         result.z = x0 * y0 * z1 - x1 * y1 * z0;
         result.w = x0 * y0 * z0 + x1 * y1 * z1;
-
-        return result;
-        
-    }
-    
-    /**
-     * Obtém os ângulos de Euler em radianos (rolagem (roll), passo (pitch) e guinada (yaw))
-     * equivalentes ao quatérnio corrente.
-     * @return Um vetor contendo os ângulos de Euler. x = roll (rotação em x), y = pitch (rotação em y) e z = yaw (rotação em z).
-     */
-    public Vector3 toEuler() {
-        
-        Vector3 result = new Vector3();
-
-        double x0 = 2.0 * (w * x + y * z);
-        double x1 = 1.0 - 2.0 * (x * x + y * y);
-        result.x = Math.atan2( x0, x1 );
-
-        double y0 = 2.0 * (w * y - z * x);
-        y0 = y0 > 1.0 ? 1.0 : y0;
-        y0 = y0 < -1.0 ? -1.0 : y0;
-        result.y = Math.asin( y0 );
-
-        double z0 = 2.0 * (w * z + x * y);
-        double z1 = 1.0 - 2.0 * (y * y + z * z);
-        result.z = Math.atan2( z0, z1 );
-
-        return result;
-    
-    }
-    
-    /**
-     * Transforma o quatérnio corrente dada uma matriz.
-     * 
-     * @param mat A matriz.
-     * @return Um novo quatérnio transformado.
-     */
-    public Quaternion transform( Matrix mat ) {
-        
-        Quaternion result = new Quaternion();
-
-        result.x = mat.m0 * x + mat.m4 * y + mat.m8 * z + mat.m12 * w;
-        result.y = mat.m1 * x + mat.m5 * y + mat.m9 * z + mat.m13 * w;
-        result.z = mat.m2 * x + mat.m6 * y + mat.m10 * z + mat.m14 * w;
-        result.w = mat.m3 * x + mat.m7 * y + mat.m11 * z + mat.m15 * w;
 
         return result;
         
