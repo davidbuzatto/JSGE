@@ -32,7 +32,7 @@ public class CoreUtils {
      * @return A versão.
      */
     public static String getVersion() {
-        return "1.1.0";
+        return "1.2.0";
     }
     
     /**

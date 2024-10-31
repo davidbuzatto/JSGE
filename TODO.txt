@@ -1,1 +1,4 @@
-Implementar as operações nas classes matemáticas.
+Implementar as funções de suavização.
+    https://easings.net/
+
+Implementar todos os tipos de interpolação de movimento.

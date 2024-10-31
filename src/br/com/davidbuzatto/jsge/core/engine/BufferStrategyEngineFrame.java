@@ -16,7 +16,6 @@
  */
 package br.com.davidbuzatto.jsge.core.engine;
 
-
 import br.com.davidbuzatto.jsge.core.Camera2D;
 import br.com.davidbuzatto.jsge.core.utils.TraceLogUtils;
 import br.com.davidbuzatto.jsge.core.utils.ColorUtils;

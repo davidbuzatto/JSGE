@@ -16,7 +16,19 @@
  */
 package br.com.davidbuzatto.jsge.tests;
 
+import br.com.davidbuzatto.jsge.animation.proxy.ComponentProxy;
+import br.com.davidbuzatto.jsge.animation.proxy.ComponentProxyAdapter;
+import br.com.davidbuzatto.jsge.animation.frame.DrawableAnimationFrame;
+import br.com.davidbuzatto.jsge.animation.FrameByFrameAnimation;
+import br.com.davidbuzatto.jsge.animation.MotionTweenAnimation;
+import br.com.davidbuzatto.jsge.animation.tween.MotionTweenFactory;
+import br.com.davidbuzatto.jsge.animation.frame.ImageAnimationFrame;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.geom.Circle;
+import br.com.davidbuzatto.jsge.geom.Polygon;
+import br.com.davidbuzatto.jsge.geom.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe de testes.
@@ -24,6 +36,12 @@ import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
  * @author Prof. Dr. David Buzatto
  */
 public class ScratchPad extends EngineFrame {
+    
+    private FrameByFrameAnimation<ImageAnimationFrame> imgAnimationFixed;
+    private FrameByFrameAnimation<ImageAnimationFrame> imgAnimationVariable;
+    private FrameByFrameAnimation<DrawableAnimationFrame> drAnimationFixed;
+    
+    private MotionTweenAnimation<Rectangle> motionTweenAnimation;
     
     /**
      * Cria o teste.
@@ -34,14 +52,81 @@ public class ScratchPad extends EngineFrame {
     
     @Override
     public void create() {
+        
+        List<ImageAnimationFrame> imageFrames = new ArrayList<>();
+        imageFrames.add( new ImageAnimationFrame( loadImage( "resources/images/coin0.png" ) ) );
+        imageFrames.add( new ImageAnimationFrame( loadImage( "resources/images/coin1.png" ) ) );
+        imageFrames.add( new ImageAnimationFrame( loadImage( "resources/images/coin2.png" ) ) );
+        imageFrames.add( new ImageAnimationFrame( loadImage( "resources/images/coin3.png" ) ) );
+        imgAnimationFixed = new FrameByFrameAnimation( 0.1, imageFrames );
+        imgAnimationVariable = new FrameByFrameAnimation( new double[]{ 3, 2, 1, 0.5 }, imageFrames );
+        
+        List<DrawableAnimationFrame> drawableFrames = new ArrayList<>();
+        drawableFrames.add( new DrawableAnimationFrame( new Rectangle( 35, 130, 50, 50 ) ) );
+        drawableFrames.add( new DrawableAnimationFrame( new Circle( 60, 155, 25 ) ) );
+        drawableFrames.add( new DrawableAnimationFrame( new Polygon( 60, 155, 5, 25 ) ) );
+        drAnimationFixed = new FrameByFrameAnimation( 0.5, drawableFrames );
+        
+        ComponentProxy<Rectangle> proxy = new ComponentProxyAdapter<>(new Rectangle( 0, 200, 50, 50 )){
+            @Override
+            public void setX( double x ) {
+                component.x = x;
+            }
+
+            @Override
+            public double getX() {
+                return component.x;
+            }
+            @Override
+            public void setY( double y ) {
+                component.y = y;
+            }
+
+            @Override
+            public double getY() {
+                return component.y;
+            }
+        };
+        
+        motionTweenAnimation = new MotionTweenAnimation<>(
+                proxy,
+                MotionTweenFactory.<Rectangle>tweenXY(),
+                0, 200, 100, 200, 50, 200 );
+        
     }
 
     @Override
     public void update() {
+        
+        double delta = getFrameTime();
+        
+        imgAnimationFixed.update( delta );
+        imgAnimationVariable.update( delta );
+        
+        drAnimationFixed.update( delta );
+        
+        motionTweenAnimation.update( delta );
+        
     }
     
     @Override
     public void draw() {
+        
+        drawImage( imgAnimationFixed.getCurrentFrame().image, 25, 25 );
+        drawImage( imgAnimationVariable.getCurrentFrame().image, 75, 25 );
+        
+        imgAnimationFixed.getCurrentFrame().draw( this, 25, 75 );
+        imgAnimationVariable.getCurrentFrame().draw( this, 75, 75 );
+        
+        /*drAnimationFixed.getCurrentFrame().getDrawable().fill( this, GREEN );
+        drAnimationFixed.getCurrentFrame().getDrawable().draw( this, BLACK );*/
+        
+        drAnimationFixed.getCurrentFrame().fill( this, GREEN );
+        drAnimationFixed.getCurrentFrame().draw( this, BLACK );
+        
+        motionTweenAnimation.getComponent().draw( this, BLACK );
+        
+        
     }
     
     /**
