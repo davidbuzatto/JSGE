@@ -635,7 +635,7 @@ public class Image {
         Graphics2D g2d = createGraphics();
         g2d.setPaint( paint );
         double extent = endAngle - startAngle;
-        g2d.draw( new Arc2D.Double( x - radius, y - radius, radius * 2, radius * 2, startAngle, -extent, Arc2D.PIE ) );
+        g2d.draw( new Arc2D.Double( x - radius, y - radius, radius * 2, radius * 2, -startAngle, -extent, Arc2D.PIE ) );
         g2d.dispose();
     }
 
@@ -688,7 +688,7 @@ public class Image {
         Graphics2D g2d = createGraphics();
         g2d.setPaint( paint );
         double extent = endAngle - startAngle;
-        g2d.fill( new Arc2D.Double( x - radius, y - radius, radius * 2, radius * 2, startAngle, -extent, Arc2D.PIE ) );
+        g2d.fill( new Arc2D.Double( x - radius, y - radius, radius * 2, radius * 2, -startAngle, -extent, Arc2D.PIE ) );
         g2d.dispose();
     }
 
@@ -742,7 +742,7 @@ public class Image {
         Graphics2D g2d = createGraphics();
         g2d.setPaint( paint );
         double extent = endAngle - startAngle;
-        g2d.draw( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.PIE ) );
+        g2d.draw( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, -startAngle, -extent, Arc2D.PIE ) );
         g2d.dispose();
     }
 
@@ -797,7 +797,7 @@ public class Image {
         Graphics2D g2d = createGraphics();
         g2d.setPaint( paint );
         double extent = endAngle - startAngle;
-        g2d.fill( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.PIE ) );
+        g2d.fill( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, -startAngle, -extent, Arc2D.PIE ) );
         g2d.dispose();
     }
 
@@ -852,7 +852,7 @@ public class Image {
         Graphics2D g2d = createGraphics();
         g2d.setPaint( paint );
         double extent = endAngle - startAngle;
-        g2d.draw( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.OPEN ) );
+        g2d.draw( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, -startAngle, -extent, Arc2D.OPEN ) );
         g2d.dispose();
     }
 
@@ -895,7 +895,7 @@ public class Image {
         Graphics2D g2d = createGraphics();
         g2d.setPaint( paint );
         double extent = endAngle - startAngle;
-        g2d.fill( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.CHORD ) );
+        g2d.fill( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, -startAngle, -extent, Arc2D.CHORD ) );
         g2d.dispose();
     }
 

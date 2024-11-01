@@ -1432,7 +1432,7 @@ public abstract class EngineFrame extends JFrame {
     public void drawCircleSector( double x, double y, double radius, double startAngle, double endAngle, Paint paint ) {
         g2d.setPaint( paint );
         double extent = endAngle - startAngle;
-        g2d.draw( new Arc2D.Double( x - radius, y - radius, radius * 2, radius * 2, startAngle, -extent, Arc2D.PIE ) );
+        g2d.draw( new Arc2D.Double( x - radius, y - radius, radius * 2, radius * 2, -startAngle, -extent, Arc2D.PIE ) );
     }
 
     /**
@@ -1483,7 +1483,7 @@ public abstract class EngineFrame extends JFrame {
     public void fillCircleSector( double x, double y, double radius, double startAngle, double endAngle, Paint paint ) {
         g2d.setPaint( paint );
         double extent = endAngle - startAngle;
-        g2d.fill( new Arc2D.Double( x - radius, y - radius, radius * 2, radius * 2, startAngle, -extent, Arc2D.PIE ) );
+        g2d.fill( new Arc2D.Double( x - radius, y - radius, radius * 2, radius * 2, -startAngle, -extent, Arc2D.PIE ) );
     }
 
     /**
@@ -1535,7 +1535,7 @@ public abstract class EngineFrame extends JFrame {
     public void drawEllipseSector( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle, Paint paint ) {
         g2d.setPaint( paint );
         double extent = endAngle - startAngle;
-        g2d.draw( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.PIE ) );
+        g2d.draw( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, -startAngle, -extent, Arc2D.PIE ) );
     }
 
     /**
@@ -1588,7 +1588,7 @@ public abstract class EngineFrame extends JFrame {
     public void fillEllipseSector( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle, Paint paint ) {
         g2d.setPaint( paint );
         double extent = endAngle - startAngle;
-        g2d.fill( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.PIE ) );
+        g2d.fill( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, -startAngle, -extent, Arc2D.PIE ) );
     }
 
     /**
@@ -1641,7 +1641,7 @@ public abstract class EngineFrame extends JFrame {
     public void drawArc( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle, Paint paint ) {
         g2d.setPaint( paint );
         double extent = endAngle - startAngle;
-        g2d.draw( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.OPEN ) );
+        g2d.draw( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, -startAngle, -extent, Arc2D.OPEN ) );
     }
 
     /**
@@ -1682,7 +1682,7 @@ public abstract class EngineFrame extends JFrame {
     public void fillArc( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle, Paint paint ) {
         g2d.setPaint( paint );
         double extent = endAngle - startAngle;
-        g2d.fill( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, startAngle, -extent, Arc2D.CHORD ) );
+        g2d.fill( new Arc2D.Double( x - radiusH, y - radiusV, radiusH * 2, radiusV * 2, -startAngle, -extent, Arc2D.CHORD ) );
     }
 
     /**
