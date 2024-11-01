@@ -26,8 +26,6 @@ import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationConsumerFact
 import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationEasingFunctions;
 import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationProperties;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
-import static br.com.davidbuzatto.jsge.core.engine.EngineFrame.BLACK;
-import static br.com.davidbuzatto.jsge.core.engine.EngineFrame.BLUE;
 import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.geom.Circle;
