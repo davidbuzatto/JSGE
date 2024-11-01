@@ -18,6 +18,9 @@ package br.com.davidbuzatto.jsge.animation;
 
 import br.com.davidbuzatto.jsge.animation.tween.MotionTweenConsumer;
 import br.com.davidbuzatto.jsge.animation.proxy.ComponentProxy;
+import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationState;
+import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationStateContainer;
+import java.util.function.DoubleFunction;
 
 /**
  * Uma animação de interpolação de movimento.
@@ -29,6 +32,7 @@ public class MotionTweenAnimation<ComponentType> {
     
     private ComponentProxy<ComponentType> componentProxy;
     private MotionTweenConsumer<ComponentType> updateFunction;
+    private DoubleFunction<Double> easingFunction;
     
     private double x1;
     private double y1;
@@ -43,30 +47,37 @@ public class MotionTweenAnimation<ComponentType> {
     private double velAngle;
     private double velScale;
     private double velRadius;
+    private double velPercentage;
+    
+    private MotionTweenAnimationStateContainer stateContainer;
     
     public MotionTweenAnimation( 
             ComponentProxy<ComponentType> proxy, 
             MotionTweenConsumer updateFunction, 
+            DoubleFunction<Double> easingFunction, 
             double x1, 
             double y1, 
             double x2, 
             double y2,
             double velX,
-            double velY ) {
-        this( proxy, updateFunction, x1, y1, x2, y2, 0, 0, 0, 0, velX, velY, 0, 0, 0 );
+            double velY,
+            double velPercentage ) {
+        this( proxy, updateFunction, easingFunction, x1, y1, x2, y2, 0, 0, 0, 0, velX, velY, 0, 0, 0, velPercentage );
     }
 
     public MotionTweenAnimation( 
             ComponentProxy<ComponentType> proxy, 
             MotionTweenConsumer<ComponentType> updateFunction, 
+            DoubleFunction<Double> easingFunction, 
             double x1, double y1, double x2, double y2, 
             double startAngle, double endAngle, 
             double scale, double radius, 
             double velX, double velY, 
             double velAngle, double velScale, 
-            double velRadius ) {
+            double velRadius, double velPercentage ) {
         this.componentProxy = proxy;
         this.updateFunction = updateFunction;
+        this.easingFunction = easingFunction;
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
@@ -80,10 +91,12 @@ public class MotionTweenAnimation<ComponentType> {
         this.velAngle = velAngle;
         this.velScale = velScale;
         this.velRadius = velRadius;
+        this.velPercentage = velPercentage;
+        stateContainer = new MotionTweenAnimationStateContainer( MotionTweenAnimationState.INITIALIZED );
     }
     
     public void update( double delta ) {
-        updateFunction.accept( delta, componentProxy, x1, y1, x2, y2, startAngle, endAngle, scale, radius, velX, velY, velAngle, velScale, velRadius );
+        updateFunction.accept( delta, componentProxy, easingFunction, stateContainer, x1, y1, x2, y2, startAngle, endAngle, scale, radius, velX, velY, velAngle, velScale, velRadius, velPercentage );
     }
     
     public ComponentType getComponent() {

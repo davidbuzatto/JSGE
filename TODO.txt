@@ -1,4 +1,3 @@
-Implementar as funções de suavização.
-    https://easings.net/
-
-Implementar todos os tipos de interpolação de movimento.
+Mmelhorar os proxies para ao invés de ter vários métodos, ter apenas alguns usando mapas.
+Implementar "todos" os tipos de interpolação de movimento.
+Criar vários construtores para expor apenas os parâmetros necessários para cada consumer.

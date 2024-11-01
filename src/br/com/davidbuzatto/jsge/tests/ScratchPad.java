@@ -23,6 +23,7 @@ import br.com.davidbuzatto.jsge.animation.FrameByFrameAnimation;
 import br.com.davidbuzatto.jsge.animation.MotionTweenAnimation;
 import br.com.davidbuzatto.jsge.animation.tween.MotionTweenFactory;
 import br.com.davidbuzatto.jsge.animation.frame.ImageAnimationFrame;
+import br.com.davidbuzatto.jsge.animation.tween.EasingFunctions;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Circle;
 import br.com.davidbuzatto.jsge.geom.Polygon;
@@ -72,7 +73,6 @@ public class ScratchPad extends EngineFrame {
             public void setX( double x ) {
                 component.x = x;
             }
-
             @Override
             public double getX() {
                 return component.x;
@@ -81,7 +81,6 @@ public class ScratchPad extends EngineFrame {
             public void setY( double y ) {
                 component.y = y;
             }
-
             @Override
             public double getY() {
                 return component.y;
@@ -90,8 +89,9 @@ public class ScratchPad extends EngineFrame {
         
         motionTweenAnimation = new MotionTweenAnimation<>(
                 proxy,
-                MotionTweenFactory.<Rectangle>tweenXY(),
-                0, 200, 100, 200, 50, 200 );
+                MotionTweenFactory.<Rectangle>tweenXYEasing(),
+                EasingFunctions.easeInOutBack,
+                300, 50, 600, 350, 300, 200, 0.5 );
         
     }
 
@@ -124,7 +124,7 @@ public class ScratchPad extends EngineFrame {
         drAnimationFixed.getCurrentFrame().fill( this, GREEN );
         drAnimationFixed.getCurrentFrame().draw( this, BLACK );
         
-        motionTweenAnimation.getComponent().draw( this, BLACK );
+        motionTweenAnimation.getComponent().fill( this, BLUE );
         
         
     }

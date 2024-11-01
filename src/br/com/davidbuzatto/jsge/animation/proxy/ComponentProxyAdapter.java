@@ -16,6 +16,8 @@
  */
 package br.com.davidbuzatto.jsge.animation.proxy;
 
+import java.awt.Color;
+
 /**
  * Adaptador para o proxy de componentes.
  * 
@@ -127,6 +129,34 @@ public class ComponentProxyAdapter<ComponentType> extends ComponentProxy<Compone
 
     @Override
     public void setVelRadius( double radiusVel ) {
+    }
+    
+    @Override
+    public void setWidth( double width ) {
+    }
+
+    @Override
+    public void setHeight( double height ) {
+    }
+
+    @Override
+    public void setRed( double red ) {
+    }
+
+    @Override
+    public void setGreen( double green ) {
+    }
+
+    @Override
+    public void setBlue( double blue ) {
+    }
+
+    @Override
+    public void setAlpha( double alpha ) {
+    }
+
+    @Override
+    public void setColor( Color color ) {
     }
 
     @Override
@@ -247,6 +277,41 @@ public class ComponentProxyAdapter<ComponentType> extends ComponentProxy<Compone
     @Override
     public double getVelRadius() {
         return 0;
+    }
+
+    @Override
+    public double getWidth() {
+        return 0;
+    }
+
+    @Override
+    public double getHeight() {
+        return 0;
+    }
+
+    @Override
+    public double getRed() {
+        return 0;
+    }
+
+    @Override
+    public double getGreen() {
+        return 0;
+    }
+
+    @Override
+    public double getBlue() {
+        return 0;
+    }
+
+    @Override
+    public double getAlpha() {
+        return 0;
+    }
+
+    @Override
+    public Color getColor() {
+        return Color.BLACK;
     }
     
 }

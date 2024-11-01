@@ -17,10 +17,12 @@
 package br.com.davidbuzatto.jsge.animation.tween;
 
 import br.com.davidbuzatto.jsge.animation.proxy.ComponentProxy;
+import java.util.function.DoubleFunction;
 
 /**
  * Interface funcional para os consumidores dos interpoladores de movimento.
  * 
+ * @param <ComponentType> Tipo do componente.
  * @author Prof. Dr. David Buzatto
  */
 @FunctionalInterface
@@ -29,6 +31,8 @@ public interface MotionTweenConsumer<ComponentType> {
     public void accept( 
             double delta, 
             ComponentProxy<ComponentType> componentProxy, 
+            DoubleFunction<Double> easingFunction,
+            MotionTweenAnimationStateContainer stateContainer,
             double x1, 
             double y1, 
             double x2, 
@@ -41,6 +45,7 @@ public interface MotionTweenConsumer<ComponentType> {
             double velY,
             double velAngle,
             double velScale,
-            double velRadius );
+            double velRadius,
+            double velPercentage );
     
 }

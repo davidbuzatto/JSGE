@@ -16,6 +16,8 @@
  */
 package br.com.davidbuzatto.jsge.animation.proxy;
 
+import java.awt.Color;
+
 /**
  * Um proxy para componentes.
  * 
@@ -62,6 +64,13 @@ public abstract class ComponentProxy<ComponentType> {
     public abstract void setEndRotation( double rotation );
     public abstract void setScale( double scale );
     public abstract void setRadius( double radius );
+    public abstract void setWidth( double width );
+    public abstract void setHeight( double height );
+    public abstract void setRed( double red );
+    public abstract void setGreen( double green );
+    public abstract void setBlue( double blue );
+    public abstract void setAlpha( double alpha );
+    public abstract void setColor( Color color );
     
     public abstract void setVelX( double xVel );
     public abstract void setVelY( double yVel );
@@ -88,6 +97,13 @@ public abstract class ComponentProxy<ComponentType> {
     public abstract double getEndRotation();
     public abstract double getScale();
     public abstract double getRadius();
+    public abstract double getWidth();
+    public abstract double getHeight();
+    public abstract double getRed();
+    public abstract double getGreen();
+    public abstract double getBlue();
+    public abstract double getAlpha();
+    public abstract Color getColor();
     
     public abstract double getVelX();
     public abstract double getVelY();

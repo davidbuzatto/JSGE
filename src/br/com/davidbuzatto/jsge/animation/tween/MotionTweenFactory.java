@@ -17,6 +17,7 @@
 package br.com.davidbuzatto.jsge.animation.tween;
 
 import br.com.davidbuzatto.jsge.animation.proxy.ComponentProxy;
+import java.util.function.DoubleFunction;
 
 /**
  * Uma fábrica de interpoladores de movimento.
@@ -25,67 +26,294 @@ import br.com.davidbuzatto.jsge.animation.proxy.ComponentProxy;
  */
 public class MotionTweenFactory {
     
-    public static <ComponentType> MotionTweenConsumer<ComponentType> tweenX() {
+    public static <ComponentType> MotionTweenConsumer<ComponentType> tweenXEasing() {
         return ( 
-                double delta, 
-                ComponentProxy<ComponentType> componentProxy, 
-                double x1, 
-                double y1, 
-                double x2, 
-                double y2,
-                double startAngle,
-                double endAngle,
-                double scale,
-                double radius,
-                double velX,
-                double velY,
-                double velAngle,
-                double velScale,
-                double velRadius ) -> {
-            componentProxy.setX( componentProxy.getX() + delta * velX );
+            double delta, 
+            ComponentProxy<ComponentType> componentProxy, 
+            DoubleFunction<Double> easingFunction,
+            MotionTweenAnimationStateContainer stateContainer,
+            double x1, 
+            double y1, 
+            double x2, 
+            double y2,
+            double startAngle,
+            double endAngle,
+            double scale,
+            double radius,
+            double velX,
+            double velY,
+            double velAngle,
+            double velScale,
+            double velRadius,
+            double velPercentage ) -> {
+            
+            if ( stateContainer.state == MotionTweenAnimationState.INITIALIZED ) {
+                stateContainer.state = MotionTweenAnimationState.RUNNING;
+                componentProxy.setX( x1 );
+                componentProxy.setY( y1 );
+            }
+            
+            if ( stateContainer.state == MotionTweenAnimationState.RUNNING ) {
+                
+                if ( easingFunction != null ) {
+                    stateContainer.percentage += velPercentage * delta;
+                    componentProxy.setX( x1 + ( x2 - x1 ) * easingFunction.apply( stateContainer.percentage ) );
+                    if ( stateContainer.percentage >= 1.0 ) {
+                        componentProxy.setX( x2 );
+                        stateContainer.percentage = 1.0;
+                        stateContainer.state = MotionTweenAnimationState.FINISHED;
+                    }
+                } else {
+                    componentProxy.setX( componentProxy.getX() + delta * velX );
+                    if ( componentProxy.getX() >= x2 ) {
+                        componentProxy.setX( x2 );
+                        stateContainer.state = MotionTweenAnimationState.FINISHED;
+                    }
+                }
+                
+            }
+            
         };
     }
     
-    public static <ComponentType> MotionTweenConsumer<ComponentType> tweenY() {
+    public static <ComponentType> MotionTweenConsumer<ComponentType> tweenYEasing() {
         return ( 
-                double delta, 
-                ComponentProxy<ComponentType> componentProxy, 
-                double x1, 
-                double y1, 
-                double x2, 
-                double y2,
-                double startAngle,
-                double endAngle,
-                double scale,
-                double radius,
-                double velX,
-                double velY,
-                double velAngle,
-                double velScale,
-                double velRadius ) -> {
-            componentProxy.setY( componentProxy.getY() + delta * velX );
+            double delta, 
+            ComponentProxy<ComponentType> componentProxy, 
+            DoubleFunction<Double> easingFunction,
+            MotionTweenAnimationStateContainer stateContainer,
+            double x1, 
+            double y1, 
+            double x2, 
+            double y2,
+            double startAngle,
+            double endAngle,
+            double scale,
+            double radius,
+            double velX,
+            double velY,
+            double velAngle,
+            double velScale,
+            double velRadius,
+            double velPercentage ) -> {
+            
+            if ( stateContainer.state == MotionTweenAnimationState.INITIALIZED ) {
+                stateContainer.state = MotionTweenAnimationState.RUNNING;
+                componentProxy.setX( x1 );
+                componentProxy.setY( y1 );
+            }
+            
+            if ( stateContainer.state == MotionTweenAnimationState.RUNNING ) {
+                
+                if ( easingFunction != null ) {
+                    stateContainer.percentage += velPercentage * delta;
+                    componentProxy.setY( y1 + ( y2 - y1 ) * easingFunction.apply( stateContainer.percentage ) );
+                    if ( stateContainer.percentage >= 1.0 ) {
+                        componentProxy.setY( y2 );
+                        stateContainer.percentage = 1.0;
+                        stateContainer.state = MotionTweenAnimationState.FINISHED;
+                    }
+                } else {
+                    componentProxy.setY( componentProxy.getY() + delta * velY );
+                    if ( componentProxy.getY() >= y2 ) {
+                        componentProxy.setY( y2 );
+                        stateContainer.state = MotionTweenAnimationState.FINISHED;
+                    }
+                }
+                
+            }
+            
         };
     }
     
-    public static <ComponentType> MotionTweenConsumer<ComponentType> tweenXY() {
+    public static <ComponentType> MotionTweenConsumer<ComponentType> tweenXYEasing() {
         return ( 
-                double delta, 
-                ComponentProxy<ComponentType> componentProxy, 
-                double x1, 
-                double y1, 
-                double x2, 
-                double y2,
-                double startAngle,
-                double endAngle,
-                double scale,
-                double radius,
-                double velX,
-                double velY,
-                double velAngle,
-                double velScale,
-                double velRadius ) -> {
-            componentProxy.setX( componentProxy.getX() + delta * velX );
-            componentProxy.setY( componentProxy.getY() + delta * velY );
+            double delta, 
+            ComponentProxy<ComponentType> componentProxy, 
+            DoubleFunction<Double> easingFunction,
+            MotionTweenAnimationStateContainer stateContainer,
+            double x1, 
+            double y1, 
+            double x2, 
+            double y2,
+            double startAngle,
+            double endAngle,
+            double scale,
+            double radius,
+            double velX,
+            double velY,
+            double velAngle,
+            double velScale,
+            double velRadius,
+            double velPercentage ) -> {
+            
+            if ( stateContainer.state == MotionTweenAnimationState.INITIALIZED ) {
+                stateContainer.state = MotionTweenAnimationState.RUNNING;
+                componentProxy.setX( x1 );
+                componentProxy.setY( y1 );
+            }
+            
+            if ( stateContainer.state == MotionTweenAnimationState.RUNNING ) {
+                
+                boolean stop = false;
+                
+                if ( easingFunction != null ) {
+                    stateContainer.percentage += velPercentage * delta;
+                    componentProxy.setX( x1 + ( x2 - x1 ) * easingFunction.apply( stateContainer.percentage ) );
+                    componentProxy.setY( y1 + ( y2 - y1 ) * easingFunction.apply( stateContainer.percentage ) );
+                    if ( stateContainer.percentage >= 1.0 ) {
+                        componentProxy.setX( x2 );
+                        componentProxy.setY( y2 );
+                        stateContainer.percentage = 1.0;
+                        stop = true;
+                    }
+                } else {
+                    componentProxy.setX( componentProxy.getX() + delta * velX );
+                    componentProxy.setY( componentProxy.getY() + delta * velY );
+                    if ( componentProxy.getX() >= x2 ) {
+                        componentProxy.setX( x2 );
+                        stop = true;
+                    }
+                    if ( componentProxy.getY() >= y2 ) {
+                        componentProxy.setY( y2 );
+                        stop = true;
+                    }
+                }
+                
+                if ( stop ) {
+                    stateContainer.state = MotionTweenAnimationState.FINISHED;
+                }
+                
+            }
+            
+        };
+    }
+    
+    public static <ComponentType> MotionTweenConsumer<ComponentType> tweenXSimple() {
+        return ( 
+            double delta, 
+            ComponentProxy<ComponentType> componentProxy, 
+            DoubleFunction<Double> easingFunction,
+            MotionTweenAnimationStateContainer stateContainer,
+            double x1, 
+            double y1, 
+            double x2, 
+            double y2,
+            double startAngle,
+            double endAngle,
+            double scale,
+            double radius,
+            double velX,
+            double velY,
+            double velAngle,
+            double velScale,
+            double velRadius,
+            double velPercentage ) -> {
+            
+            if ( stateContainer.state == MotionTweenAnimationState.INITIALIZED ) {
+                stateContainer.state = MotionTweenAnimationState.RUNNING;
+                componentProxy.setX( x1 );
+                componentProxy.setY( y1 );
+            }
+            
+            if ( stateContainer.state == MotionTweenAnimationState.RUNNING ) {
+                componentProxy.setX( componentProxy.getX() + delta * velX );
+                if ( componentProxy.getX() >= x2 ) {
+                    componentProxy.setX( x2 );
+                    stateContainer.state = MotionTweenAnimationState.FINISHED;
+                }
+            }
+            
+        };
+    }
+    
+    public static <ComponentType> MotionTweenConsumer<ComponentType> tweenYSimple() {
+        return ( 
+            double delta, 
+            ComponentProxy<ComponentType> componentProxy, 
+            DoubleFunction<Double> easingFunction,
+            MotionTweenAnimationStateContainer stateContainer,
+            double x1, 
+            double y1, 
+            double x2, 
+            double y2,
+            double startAngle,
+            double endAngle,
+            double scale,
+            double radius,
+            double velX,
+            double velY,
+            double velAngle,
+            double velScale,
+            double velRadius,
+            double velPercentage ) -> {
+            
+            if ( stateContainer.state == MotionTweenAnimationState.INITIALIZED ) {
+                stateContainer.state = MotionTweenAnimationState.RUNNING;
+                componentProxy.setX( x1 );
+                componentProxy.setY( y1 );
+            }
+            
+            if ( stateContainer.state == MotionTweenAnimationState.RUNNING ) {
+                componentProxy.setY( componentProxy.getY() + delta * velY );
+                if ( componentProxy.getY() >= y2 ) {
+                    componentProxy.setY( y2 );
+                    stateContainer.state = MotionTweenAnimationState.FINISHED;
+                }
+            }
+            
+        };
+    }
+    
+    public static <ComponentType> MotionTweenConsumer<ComponentType> tweenXYSimple() {
+        return ( 
+            double delta, 
+            ComponentProxy<ComponentType> componentProxy, 
+            DoubleFunction<Double> easingFunction,
+            MotionTweenAnimationStateContainer stateContainer,
+            double x1, 
+            double y1, 
+            double x2, 
+            double y2,
+            double startAngle,
+            double endAngle,
+            double scale,
+            double radius,
+            double velX,
+            double velY,
+            double velAngle,
+            double velScale,
+            double velRadius,
+            double velPercentage ) -> {
+            
+            if ( stateContainer.state == MotionTweenAnimationState.INITIALIZED ) {
+                stateContainer.state = MotionTweenAnimationState.RUNNING;
+                componentProxy.setX( x1 );
+                componentProxy.setY( y1 );
+            }
+            
+            if ( stateContainer.state == MotionTweenAnimationState.RUNNING ) {
+                
+                componentProxy.setX( componentProxy.getX() + delta * velX );
+                componentProxy.setY( componentProxy.getY() + delta * velY );
+                boolean stop = false;
+                
+                if ( componentProxy.getX() >= x2 ) {
+                    componentProxy.setX( x2 );
+                    stop = true;
+                }
+                
+                if ( componentProxy.getY() >= y2 ) {
+                    componentProxy.setY( y2 );
+                    stop = true;
+                }
+                
+                if ( stop ) {
+                    stateContainer.state = MotionTweenAnimationState.FINISHED;
+                }
+                
+            }
+            
         };
     }
     
