@@ -1,3 +1,2 @@
-Mmelhorar os proxies para ao invés de ter vários métodos, ter apenas alguns usando mapas.
+Melhorar tratamento de cores em hexa (jogar alpha para o fim?).
 Implementar "todos" os tipos de interpolação de movimento.
-Criar vários construtores para expor apenas os parâmetros necessários para cada consumer.

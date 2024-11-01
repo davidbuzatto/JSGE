@@ -26,26 +26,14 @@ import java.util.function.DoubleFunction;
  * @author Prof. Dr. David Buzatto
  */
 @FunctionalInterface
-public interface MotionTweenConsumer<ComponentType> {
+public interface MotionTweenAnimationConsumer<ComponentType> {
     
     public void accept( 
-            double delta, 
-            ComponentProxy<ComponentType> componentProxy, 
-            DoubleFunction<Double> easingFunction,
-            MotionTweenAnimationStateContainer stateContainer,
-            double x1, 
-            double y1, 
-            double x2, 
-            double y2,
-            double startAngle,
-            double endAngle,
-            double scale,
-            double radius,
-            double velX,
-            double velY,
-            double velAngle,
-            double velScale,
-            double velRadius,
-            double velPercentage );
+        double delta, 
+        MotionTweenAnimationProperties properties,
+        ComponentProxy<ComponentType> componentProxy, 
+        DoubleFunction<Double> easingFunction,
+        MotionTweenAnimationStateContainer stateContainer
+    );
     
 }
