@@ -21,6 +21,7 @@ import java.util.function.DoubleFunction;
 
 /**
  * Interface funcional para os consumidores dos interpoladores de movimento.
+ * São essas funções que são responsáveis em atualizar o estado de uma animação.
  * 
  * @param <ComponentType> Tipo do componente.
  * @author Prof. Dr. David Buzatto

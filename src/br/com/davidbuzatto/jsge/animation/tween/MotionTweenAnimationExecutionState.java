@@ -17,14 +17,22 @@
 package br.com.davidbuzatto.jsge.animation.tween;
 
 /**
- * O estado de uma animação de interpolação de movimento.
+ * O estado de execução uma animação de interpolação de movimento.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public enum MotionTweenAnimationState {
+public enum MotionTweenAnimationExecutionState {
     
+    /** A animação foi criada e inicializada (construtor executou). */
     INITIALIZED,
+    
+    /** A animaçãop está em execução. */
     RUNNING,
+    
+    /** A animação está pausada. */
+    PAUSED,
+    
+    /** A animação terminou. */
     FINISHED
     
 }

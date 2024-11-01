@@ -20,13 +20,17 @@ import java.awt.Color;
 import java.awt.Paint;
 
 /**
- * Um proxy para componentes.
+ * Um proxy para componentes. Essa classe contém uma série de métodos que representam
+ * possíveis propriedades dos componentes que serão manipulados.
  * 
  * @param <ComponentType> Tipo do componente.
  * @author Prof. Dr. David Buzatto
  */
 public abstract class ComponentProxy<ComponentType> {
     
+    /**
+     * O componente que será manipulado através do proxy.
+     */
     protected ComponentType component;
     
     /**

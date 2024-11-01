@@ -26,6 +26,7 @@ import br.com.davidbuzatto.jsge.animation.frame.ImageAnimationFrame;
 import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationEasingFunctions;
 import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationProperties;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.geom.Circle;
 import br.com.davidbuzatto.jsge.geom.Polygon;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
@@ -101,7 +102,7 @@ public class ScratchPad extends EngineFrame {
         );
         
         DoubleFunction<Double> easingFunction = MotionTweenAnimationEasingFunctions.easeInOutBack;
-        easingFunctionImage = MotionTweenAnimationEasingFunctions.plot( easingFunction, 250, 200, 15, 30, BLACK, BLUE, WHITE );
+        easingFunctionImage = DrawingUtils.plot( easingFunction, 250, 200, 15, 30, BLACK, BLUE );
         
         motionTweenAnimation = new MotionTweenAnimation<>(
             p,
@@ -142,7 +143,7 @@ public class ScratchPad extends EngineFrame {
         drAnimationFixed.getCurrentFrame().draw( this, BLACK );
         
         motionTweenAnimation.getComponent().fill( this, BLUE );
-        drawImage( easingFunctionImage, 25, 220 );
+        drawImage( easingFunctionImage, 25, 220, WHITE );
         
         drawFPS( 20, 20 );
         

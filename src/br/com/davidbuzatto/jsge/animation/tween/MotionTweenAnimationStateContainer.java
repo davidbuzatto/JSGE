@@ -17,16 +17,24 @@
 package br.com.davidbuzatto.jsge.animation.tween;
 
 /**
- * Contém o estado de uma animação de interpolação de movimento.
+ * Contém o estado de uma animação de interpolação de movimento que
+ * consiste no estado de execução e na porcentagem da execução.
  * 
  * @author Prof. Dr. David Buzatto
  */
 public class MotionTweenAnimationStateContainer {
     
-    public MotionTweenAnimationState state;
+    /** O estado de execução da animação. */
+    public MotionTweenAnimationExecutionState state;
+    
+    /** A porcentagem de execução da animação. Varia de 0 a 1.*/
     public double percentage;
     
-    public MotionTweenAnimationStateContainer( MotionTweenAnimationState initialState ) {
+    /**
+     * Cria um novo container do estado da animação.
+     * @param initialState 
+     */
+    public MotionTweenAnimationStateContainer( MotionTweenAnimationExecutionState initialState ) {
         this.state = initialState;
         this.percentage = 0.0;
     }

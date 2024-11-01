@@ -20,7 +20,8 @@ import java.awt.Color;
 import java.awt.Paint;
 
 /**
- * Adaptador para o proxy de componentes.
+ * Classe de conveniência que estende o proxy de componentes, fornecendo uma
+ * implementação padrão para cada método.
  * 
  * @param <ComponentType> Tipo do componente do proxy.
  * @author Prof. Dr. David Buzatto

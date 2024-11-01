@@ -20,7 +20,7 @@ import br.com.davidbuzatto.jsge.animation.proxy.ComponentProxy;
 import java.util.function.DoubleFunction;
 
 /**
- * Uma fábrica de interpoladores de movimento.
+ * Uma fábrica de funções de atualização para as animações com interpolação de movimento.
  * 
  * @author Prof. Dr. David Buzatto
  */
@@ -34,13 +34,13 @@ public class MotionTweenAnimationConsumerFactory {
             DoubleFunction<Double> easingFunction,
             MotionTweenAnimationStateContainer stateContainer ) -> {
             
-            if ( stateContainer.state == MotionTweenAnimationState.INITIALIZED ) {
-                stateContainer.state = MotionTweenAnimationState.RUNNING;
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.INITIALIZED ) {
+                stateContainer.state = MotionTweenAnimationExecutionState.RUNNING;
                 componentProxy.setX( p.getDouble( "x1" ) );
                 componentProxy.setY( p.getDouble( "y1" ) );
             }
             
-            if ( stateContainer.state == MotionTweenAnimationState.RUNNING ) {
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.RUNNING ) {
                 
                 if ( easingFunction != null ) {
                     stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
@@ -48,13 +48,13 @@ public class MotionTweenAnimationConsumerFactory {
                     if ( stateContainer.percentage >= 1.0 ) {
                         componentProxy.setX( p.getDouble( "x2" ) );
                         stateContainer.percentage = 1.0;
-                        stateContainer.state = MotionTweenAnimationState.FINISHED;
+                        stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
                     }
                 } else {
                     componentProxy.setX( componentProxy.getX() + delta * p.getDouble( "velX" ) );
                     if ( componentProxy.getX() >= p.getDouble( "x2" ) ) {
                         componentProxy.setX( p.getDouble( "x2" ) );
-                        stateContainer.state = MotionTweenAnimationState.FINISHED;
+                        stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
                     }
                 }
                 
@@ -71,13 +71,13 @@ public class MotionTweenAnimationConsumerFactory {
             DoubleFunction<Double> easingFunction,
             MotionTweenAnimationStateContainer stateContainer ) -> {
             
-            if ( stateContainer.state == MotionTweenAnimationState.INITIALIZED ) {
-                stateContainer.state = MotionTweenAnimationState.RUNNING;
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.INITIALIZED ) {
+                stateContainer.state = MotionTweenAnimationExecutionState.RUNNING;
                 componentProxy.setX( p.getDouble( "x1" ) );
                 componentProxy.setY( p.getDouble( "y1" ) );
             }
             
-            if ( stateContainer.state == MotionTweenAnimationState.RUNNING ) {
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.RUNNING ) {
                 
                 if ( easingFunction != null ) {
                     stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
@@ -85,13 +85,13 @@ public class MotionTweenAnimationConsumerFactory {
                     if ( stateContainer.percentage >= 1.0 ) {
                         componentProxy.setY( p.getDouble( "y2" ) );
                         stateContainer.percentage = 1.0;
-                        stateContainer.state = MotionTweenAnimationState.FINISHED;
+                        stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
                     }
                 } else {
                     componentProxy.setY( componentProxy.getY() + delta * p.getDouble( "velY" ) );
                     if ( componentProxy.getY() >= p.getDouble( "y2" ) ) {
                         componentProxy.setY( p.getDouble( "y2" ) );
-                        stateContainer.state = MotionTweenAnimationState.FINISHED;
+                        stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
                     }
                 }
                 
@@ -108,13 +108,13 @@ public class MotionTweenAnimationConsumerFactory {
             DoubleFunction<Double> easingFunction,
             MotionTweenAnimationStateContainer stateContainer ) -> {
             
-            if ( stateContainer.state == MotionTweenAnimationState.INITIALIZED ) {
-                stateContainer.state = MotionTweenAnimationState.RUNNING;
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.INITIALIZED ) {
+                stateContainer.state = MotionTweenAnimationExecutionState.RUNNING;
                 componentProxy.setX( p.getDouble( "x1" ) );
                 componentProxy.setY( p.getDouble( "y1" ) );
             }
             
-            if ( stateContainer.state == MotionTweenAnimationState.RUNNING ) {
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.RUNNING ) {
                 
                 boolean stop = false;
                 
@@ -142,7 +142,7 @@ public class MotionTweenAnimationConsumerFactory {
                 }
                 
                 if ( stop ) {
-                    stateContainer.state = MotionTweenAnimationState.FINISHED;
+                    stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
                 }
                 
             }
@@ -158,17 +158,17 @@ public class MotionTweenAnimationConsumerFactory {
             DoubleFunction<Double> easingFunction,
             MotionTweenAnimationStateContainer stateContainer ) -> {
             
-            if ( stateContainer.state == MotionTweenAnimationState.INITIALIZED ) {
-                stateContainer.state = MotionTweenAnimationState.RUNNING;
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.INITIALIZED ) {
+                stateContainer.state = MotionTweenAnimationExecutionState.RUNNING;
                 componentProxy.setX( p.getDouble( "x1" ) );
                 componentProxy.setY( p.getDouble( "y1" ) );
             }
             
-            if ( stateContainer.state == MotionTweenAnimationState.RUNNING ) {
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.RUNNING ) {
                 componentProxy.setX( componentProxy.getX() + delta * p.getDouble( "velX" ) );
                 if ( componentProxy.getX() >= p.getDouble( "x2" ) ) {
                     componentProxy.setX( p.getDouble( "x2" ) );
-                    stateContainer.state = MotionTweenAnimationState.FINISHED;
+                    stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
                 }
             }
             
@@ -183,17 +183,17 @@ public class MotionTweenAnimationConsumerFactory {
             DoubleFunction<Double> easingFunction,
             MotionTweenAnimationStateContainer stateContainer ) -> {
             
-            if ( stateContainer.state == MotionTweenAnimationState.INITIALIZED ) {
-                stateContainer.state = MotionTweenAnimationState.RUNNING;
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.INITIALIZED ) {
+                stateContainer.state = MotionTweenAnimationExecutionState.RUNNING;
                 componentProxy.setX( p.getDouble( "x1" ) );
                 componentProxy.setY( p.getDouble( "y1" ) );
             }
             
-            if ( stateContainer.state == MotionTweenAnimationState.RUNNING ) {
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.RUNNING ) {
                 componentProxy.setY( componentProxy.getY() + delta * p.getDouble( "velY" ) );
                 if ( componentProxy.getY() >= p.getDouble( "y2" ) ) {
                     componentProxy.setY( p.getDouble( "y2" ) );
-                    stateContainer.state = MotionTweenAnimationState.FINISHED;
+                    stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
                 }
             }
             
@@ -208,13 +208,13 @@ public class MotionTweenAnimationConsumerFactory {
             DoubleFunction<Double> easingFunction,
             MotionTweenAnimationStateContainer stateContainer ) -> {
             
-            if ( stateContainer.state == MotionTweenAnimationState.INITIALIZED ) {
-                stateContainer.state = MotionTweenAnimationState.RUNNING;
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.INITIALIZED ) {
+                stateContainer.state = MotionTweenAnimationExecutionState.RUNNING;
                 componentProxy.setX( p.getDouble( "x1" ) );
                 componentProxy.setY( p.getDouble( "y1" ) );
             }
             
-            if ( stateContainer.state == MotionTweenAnimationState.RUNNING ) {
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.RUNNING ) {
                 
                 componentProxy.setX( componentProxy.getX() + delta * p.getDouble( "velX" ) );
                 componentProxy.setY( componentProxy.getY() + delta * p.getDouble( "velY" ) );
@@ -231,7 +231,7 @@ public class MotionTweenAnimationConsumerFactory {
                 }
                 
                 if ( stop ) {
-                    stateContainer.state = MotionTweenAnimationState.FINISHED;
+                    stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
                 }
                 
             }

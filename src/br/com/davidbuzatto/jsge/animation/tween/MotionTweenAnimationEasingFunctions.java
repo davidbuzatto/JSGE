@@ -16,14 +16,6 @@
  */
 package br.com.davidbuzatto.jsge.animation.tween;
 
-import br.com.davidbuzatto.jsge.image.Image;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.Path2D;
-import java.awt.image.BufferedImage;
 import java.util.function.DoubleFunction;
 
 /**
@@ -201,47 +193,5 @@ public class MotionTweenAnimationEasingFunctions {
             ? ( 1 - MotionTweenAnimationEasingFunctions.easeOutBounce.apply( 1 - 2 * t ) ) / 2
             : ( 1 + MotionTweenAnimationEasingFunctions.easeOutBounce.apply( 2 * t - 1 ) ) / 2;
     };
-    
-    public static Image plot( DoubleFunction<Double> function, int width, int height, int marginH, int marginV, Color axisColor, Color graphColor, Color bgColor ) {
-        
-        BufferedImage img = new BufferedImage( width, height, BufferedImage.TYPE_4BYTE_ABGR );
-        Graphics2D g2d = (Graphics2D) img.createGraphics();
-        g2d.setRenderingHint( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
-        
-        g2d.setFont( new Font( Font.MONOSPACED, Font.PLAIN, 12 ) );
-        
-        g2d.setColor( bgColor );
-        g2d.fillRect( 0, 0, img.getWidth(), img.getHeight() );
-        
-        g2d.setColor( axisColor );
-        g2d.drawLine( marginH, marginV, marginH, height - marginV );
-        g2d.drawLine( marginH, height - marginV, width - marginH, height - marginV );
-        g2d.drawString( "v", marginH + 5, marginV + 10 );
-        g2d.drawString( "t", width - marginH - 10, height - marginV - 5 );
-        
-        g2d.setColor( graphColor );
-        g2d.setStroke( new BasicStroke( 1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND ) );
-        Path2D.Double path = new Path2D.Double();
-        
-        for ( double i = 0.0; i <= 100.0; i += 0.1 ) {
-            
-            double p = i / 100.0;
-            
-            double x = marginH + ( width - marginH * 2 ) * p;
-            double y = height - marginV - ( height - marginV * 2 ) * function.apply( p );
-            
-            if ( i == 0 ) {
-                path.moveTo( x, y );
-            } else {
-                path.lineTo( x, y );
-            }
-        }
-        
-        g2d.draw( path );
-        g2d.dispose();
-        
-        return new Image( img );
-        
-    }
     
 }

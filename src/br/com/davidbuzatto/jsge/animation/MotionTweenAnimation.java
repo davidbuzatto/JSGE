@@ -17,7 +17,7 @@
 package br.com.davidbuzatto.jsge.animation;
 
 import br.com.davidbuzatto.jsge.animation.proxy.ComponentProxy;
-import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationState;
+import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationExecutionState;
 import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationStateContainer;
 import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationProperties;
 import java.util.function.DoubleFunction;
@@ -37,6 +37,13 @@ public class MotionTweenAnimation<ComponentType> {
     private MotionTweenAnimationProperties properties;
     private MotionTweenAnimationStateContainer stateContainer;
 
+    /**
+     * Constroi uma nova animação de interpolação de movimento.
+     * 
+     * @param properties As propriedades utilizadas para o controle da animação.
+     * @param proxy Um proxy do componente que será manipulado na animação.
+     * @param updateFunction A função de atualização de animação.
+     */
     public MotionTweenAnimation( 
         MotionTweenAnimationProperties properties,
         ComponentProxy<ComponentType> proxy, 
@@ -44,6 +51,14 @@ public class MotionTweenAnimation<ComponentType> {
         this( properties, proxy, updateFunction, null );
     }
     
+    /**
+     * Constroi uma nova animação de interpolação de movimento.
+     * 
+     * @param properties As propriedades utilizadas para o controle da animação.
+     * @param proxy Um proxy do componente que será manipulado na animação.
+     * @param updateFunction A função de atualização de animação.
+     * @param easingFunction A função de suavização da animação.
+     */
     public MotionTweenAnimation( 
         MotionTweenAnimationProperties properties,
         ComponentProxy<ComponentType> proxy, 
@@ -54,16 +69,63 @@ public class MotionTweenAnimation<ComponentType> {
         this.componentProxy = proxy;
         this.updateFunction = updateFunction;
         this.easingFunction = easingFunction;
-        stateContainer = new MotionTweenAnimationStateContainer( MotionTweenAnimationState.INITIALIZED );
+        
+        stateContainer = new MotionTweenAnimationStateContainer( MotionTweenAnimationExecutionState.INITIALIZED );
         
     }
     
+    /**
+     * Atualiza a animação usando a função de atualização definida.
+     * 
+     * @param delta Variação do tempo.
+     */
     public void update( double delta ) {
         updateFunction.accept( delta, properties, componentProxy, easingFunction, stateContainer );
     }
     
+    /**
+     * Obtém o componente manipulado na animação.
+     * 
+     * @return O componente manipulado na animação.
+     */
     public ComponentType getComponent() {
         return componentProxy.getComponent();
+    }
+    
+    /**
+     * Obtém o estado da animação.
+     * 
+     * @return O estado da animação.
+     */
+    public MotionTweenAnimationExecutionState getState() {
+        return stateContainer.state;
+    }
+    
+    /**
+     * Pausa a animação. Esse método apenas muda o estado da animação.
+     * O processo de pausar de fato deve ser implementado na função
+     * de atualização.
+     */
+    public void pause() {
+        stateContainer.state = MotionTweenAnimationExecutionState.PAUSED;
+    }
+    
+    /**
+     * Retoma uma animação. Esse método apenas muda o estado da animação.
+     * O processo de retomar de fato deve ser implementado na função
+     * de atualização.
+     */
+    public void resume() {
+        stateContainer.state = MotionTweenAnimationExecutionState.RUNNING;
+    }
+    
+    /**
+     * Reseta uma animação. Esse método apenas muda o estado da animação.
+     * O processo de resetar de fato deve ser implementado na função
+     * de atualização.
+     */
+    public void reset() {
+        stateContainer.state = MotionTweenAnimationExecutionState.INITIALIZED;
     }
     
 }
