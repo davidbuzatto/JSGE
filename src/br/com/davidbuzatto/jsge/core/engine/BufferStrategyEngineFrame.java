@@ -34,6 +34,7 @@ import br.com.davidbuzatto.jsge.geom.QuadCurve;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.geom.Ring;
 import br.com.davidbuzatto.jsge.geom.RoundRectangle;
+import br.com.davidbuzatto.jsge.geom.Star;
 import br.com.davidbuzatto.jsge.geom.Triangle;
 import br.com.davidbuzatto.jsge.image.Image;
 import br.com.davidbuzatto.jsge.image.ImageUtils;
@@ -1904,7 +1905,7 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
      * @param rotation Rotação em graus (sentido horário).
      * @param paint Paint para o desenho.
      */
-    public void drawPolygon( double x, double y, double sides, double radius, double rotation, Paint paint ) {
+    public void drawPolygon( double x, double y, int sides, double radius, double rotation, Paint paint ) {
         g2d.setPaint( paint );
         g2d.draw( DrawingUtils.createPolygon( x, y, sides, radius, rotation ) );
     }
@@ -1918,7 +1919,7 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
      * @param rotation Rotação em graus (sentido horário).
      * @param paint Paint para o desenho.
      */
-    public void drawPolygon( Vector2 center, double sides, double radius, double rotation, Paint paint ) {
+    public void drawPolygon( Vector2 center, int sides, double radius, double rotation, Paint paint ) {
         drawPolygon( center.x, center.y, sides, radius, rotation, paint );
     }
 
@@ -1942,7 +1943,7 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
      * @param rotation Rotação em graus (sentido horário).
      * @param paint Paint para o desenho.
      */
-    public void fillPolygon( double x, double y, double sides, double radius, double rotation, Paint paint ) {
+    public void fillPolygon( double x, double y, int sides, double radius, double rotation, Paint paint ) {
         g2d.setPaint( paint );
         g2d.fill( DrawingUtils.createPolygon( x, y, sides, radius, rotation ) );
     }
@@ -1956,7 +1957,7 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
      * @param rotation Rotação em graus (sentido horário).
      * @param paint Paint para o desenho.
      */
-    public void fillPolygon( Vector2 center, double sides, double radius, double rotation, Paint paint ) {
+    public void fillPolygon( Vector2 center, int sides, double radius, double rotation, Paint paint ) {
         fillPolygon( center.x, center.y, sides, radius, rotation, paint );
     }
 
@@ -1970,6 +1971,82 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
         fillPolygon( polygon.x, polygon.y, polygon.sides, polygon.radius, polygon.rotation, paint );
     }
 
+    /**
+     * Desenha uma estrela regular.
+     * 
+     * @param x Coordenada x do centro da estrela.
+     * @param y Coordenada y do centro da estrela.
+     * @param tips Quantidade de pontas.
+     * @param radius Raio.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param paint Paint para o desenho.
+     */
+    public void drawStar( double x, double y, int tips, double radius, double rotation, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.draw( DrawingUtils.createStar( x, y, tips, radius, rotation ) );
+    }
+
+    /**
+     * Desenha uma estrela regular.
+     * 
+     * @param center Centro da estrela.
+     * @param tips Quantidade de pontas.
+     * @param radius Raio.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param paint Paint para o desenho.
+     */
+    public void drawStar( Vector2 center, int tips, double radius, double rotation, Paint paint ) {
+        drawStar( center.x, center.y, tips, radius, rotation, paint );
+    }
+
+    /**
+     * Desenha uma estrela regular.
+     * 
+     * @param polygon Uma estrela regular.
+     * @param paint Paint para o desenho.
+     */
+    public void drawStar( Star polygon, Paint paint ) {
+        drawStar( polygon.x, polygon.y, polygon.tips, polygon.radius, polygon.rotation, paint );
+    }
+
+    /**
+     * Pinta uma estrela regular.
+     * 
+     * @param x Coordenada x do centro da estrela.
+     * @param y Coordenada y do centro da estrela.
+     * @param tips Quantidade de pontas.
+     * @param radius Raio.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param paint Paint para o desenho.
+     */
+    public void fillStar( double x, double y, int tips, double radius, double rotation, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.fill( DrawingUtils.createStar( x, y, tips, radius, rotation ) );
+    }
+
+    /**
+     * Pinta uma estrela regular.
+     * 
+     * @param center Centro da estrela.
+     * @param tips Quantidade de pontas.
+     * @param radius Raio.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param paint Paint para o desenho.
+     */
+    public void fillStar( Vector2 center, int tips, double radius, double rotation, Paint paint ) {
+        fillStar( center.x, center.y, tips, radius, rotation, paint );
+    }
+
+    /**
+     * Pinta uma estrela regular.
+     * 
+     * @param polygon Uma estrela regular.
+     * @param paint Paint para o desenho.
+     */
+    public void fillStar( Star polygon, Paint paint ) {
+        fillStar( polygon.x, polygon.y, polygon.tips, polygon.radius, polygon.rotation, paint );
+    }
+    
     /**
      * Desenha um caminho.
      * 

@@ -44,7 +44,7 @@ public class DrawingUtils {
      * @param v2y Coordenada y do segundo vértice.
      * @param v3x Coordenada x do terceiro vértice.
      * @param v3y Coordenada y do quarto vértice.
-     * @return 
+     * @return O Path2D do triângulo.
      */
     public static Path2D createTriangle( double v1x, double v1y, double v2x, double v2y, double v3x, double v3y ) {
 
@@ -66,8 +66,9 @@ public class DrawingUtils {
      * @param sides Quantidade de lados.
      * @param radius Raio do círculo circunscrito.
      * @param rotation Ângulo inicial em graus (sentido horário).
+     * @return O Path2D do polígono.
      */
-    public static Path2D createPolygon( double x, double y, double sides, double radius, double rotation ) {
+    public static Path2D createPolygon( double x, double y, int sides, double radius, double rotation ) {
 
         Path2D path = new Path2D.Double();
         double currentAngle = rotation;
@@ -96,6 +97,59 @@ public class DrawingUtils {
     }
     
     /**
+     * Cria um Path2D de uma estrela regular.
+     * 
+     * @param x Coordenada x do centro.
+     * @param y Coordenada y do centro.
+     * @param tips Quantidade de pontas.
+     * @param radius Raio do círculo circunscrito.
+     * @param rotation Ângulo inicial em graus (sentido horário).
+     * @return O Path2D da estrela.
+     */
+    public static Path2D createStar( double x, double y, int tips, double radius, double rotation ) {
+
+        Path2D path = new Path2D.Double();
+        double currentAngle = rotation;
+        double angleIncrement = 360.0 / tips;
+        
+        double[] xs = new double[tips];
+        double[] ys = new double[tips];
+        
+        for ( int i = 0; i < tips; i++ ) {
+            double rad = Math.toRadians( currentAngle );
+            xs[i] = x + radius * Math.cos( rad );
+            ys[i] = y + radius * Math.sin( rad );
+            currentAngle += angleIncrement;
+        }
+        path.moveTo( xs[0], ys[0] );
+        
+        if ( tips % 2 == 0 ) {
+            
+            for ( int i = 2; i < tips; i += 2 ) {
+                path.lineTo( xs[i], ys[i] );
+            }
+            path.closePath();
+            
+            path.moveTo( xs[1], ys[1] );
+            for ( int i = 3; i < tips; i += 2 ) {
+                path.lineTo( xs[i], ys[i] );
+            }
+            
+        } else {
+            
+            for ( int i = 2; i < tips * 2; i += 2 ) {
+                path.lineTo( xs[i%tips], ys[i%tips] );
+            }
+            
+        }
+
+        path.closePath();
+        
+        return path;
+
+    }
+    
+    /**
      * Cria um Path2D de um anel.
      * 
      * @param x Coordenada x do centro.
@@ -104,7 +158,7 @@ public class DrawingUtils {
      * @param outerRadius Raio externo.
      * @param startAngle Ângulo inicial em graus (sentigo horário).
      * @param endAngle Ângulo final em graus (sentigo horário).
-     * @return 
+     * @return O Path2D do anel.
      */
     public static Path2D createRing( double x, double y, double innerRadius, double outerRadius, double startAngle, double endAngle ) {
 
@@ -218,9 +272,14 @@ public class DrawingUtils {
         
         g2d.setColor( axisColor );
         g2d.drawLine( marginH, marginV, marginH, height - marginV );
+        g2d.drawLine( marginH, marginV, marginH - 3, marginV + 3 );
+        g2d.drawLine( marginH, marginV, marginH + 3, marginV + 3 );
         g2d.drawLine( marginH, height - marginV, width - marginH, height - marginV );
-        g2d.drawString( "y", marginH + 5, marginV + 10 );
-        g2d.drawString( "x", width - marginH - 10, height - marginV - 5 );
+        g2d.drawLine( width - marginH, height - marginV, width - marginH - 3, height - marginV - 3 );
+        g2d.drawLine( width - marginH, height - marginV, width - marginH - 3, height - marginV + 3 );
+        
+        g2d.drawString( "y", marginH + 5, marginV + 15 );
+        g2d.drawString( "x", width - marginH - 14, height - marginV - 5 );
         
         g2d.setColor( graphColor );
         g2d.setStroke( new BasicStroke( 1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND ) );

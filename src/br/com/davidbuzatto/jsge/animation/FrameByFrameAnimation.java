@@ -71,6 +71,10 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
         return frames.get( currentFrame );
     }
     
+    public int getCurrentFramePosition() {
+        return currentFrame;
+    }
+    
     public FrameType getFrame( int index ) {
         if ( index >= 0 && index < frames.size() ) {
             return frames.get( index );

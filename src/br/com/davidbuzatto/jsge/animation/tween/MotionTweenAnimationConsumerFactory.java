@@ -150,6 +150,94 @@ public class MotionTweenAnimationConsumerFactory {
         };
     }
     
+    public static <ComponentType> MotionTweenAnimationConsumer<ComponentType> tweenRadiusEasing() {
+        return ( 
+            double delta, 
+            MotionTweenAnimationProperties p,
+            ComponentProxy<ComponentType> componentProxy, 
+            DoubleFunction<Double> easingFunction,
+            MotionTweenAnimationStateContainer stateContainer ) -> {
+            
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.INITIALIZED ) {
+                stateContainer.state = MotionTweenAnimationExecutionState.RUNNING;
+                componentProxy.setX( p.getDouble( "x1" ) );
+                componentProxy.setY( p.getDouble( "y1" ) );
+            }
+            
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.RUNNING ) {
+                
+                stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
+                componentProxy.setRadius( p.getDouble( "radius1" ) + ( p.getDouble( "radius2" ) - p.getDouble( "radius1" ) ) * easingFunction.apply( stateContainer.percentage ) );
+                if ( stateContainer.percentage >= 1.0 ) {
+                    componentProxy.setRadius( p.getDouble( "radius2" ) );
+                    stateContainer.percentage = 1.0;
+                    stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
+                }
+                
+            }
+            
+        };
+    }
+    
+    public static <ComponentType> MotionTweenAnimationConsumer<ComponentType> tweenRotationEasing() {
+        return ( 
+            double delta, 
+            MotionTweenAnimationProperties p,
+            ComponentProxy<ComponentType> componentProxy, 
+            DoubleFunction<Double> easingFunction,
+            MotionTweenAnimationStateContainer stateContainer ) -> {
+            
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.INITIALIZED ) {
+                stateContainer.state = MotionTweenAnimationExecutionState.RUNNING;
+                componentProxy.setX( p.getDouble( "x1" ) );
+                componentProxy.setY( p.getDouble( "y1" ) );
+            }
+            
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.RUNNING ) {
+                
+                stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
+                componentProxy.setRotation( p.getDouble( "startAngle" ) + ( p.getDouble( "endAngle" ) - p.getDouble( "startAngle" ) ) * easingFunction.apply( stateContainer.percentage ) );
+                if ( stateContainer.percentage >= 1.0 ) {
+                    componentProxy.setRotation( p.getDouble( "endAngle" ) );
+                    stateContainer.percentage = 1.0;
+                    stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
+                }
+                
+            }
+            
+        };
+    }
+    
+    public static <ComponentType> MotionTweenAnimationConsumer<ComponentType> tweenAlphaEasing() {
+        return ( 
+            double delta, 
+            MotionTweenAnimationProperties p,
+            ComponentProxy<ComponentType> componentProxy, 
+            DoubleFunction<Double> easingFunction,
+            MotionTweenAnimationStateContainer stateContainer ) -> {
+            
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.INITIALIZED ) {
+                stateContainer.state = MotionTweenAnimationExecutionState.RUNNING;
+                componentProxy.setX( p.getDouble( "x1" ) );
+                componentProxy.setY( p.getDouble( "y1" ) );
+                
+            }
+            
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.RUNNING ) {
+                
+                stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
+                componentProxy.setAlpha( (int) ( p.getInt( "alpha1" ) + ( p.getInt( "alpha2" ) - p.getInt( "alpha1" ) ) * easingFunction.apply( stateContainer.percentage ) ) );
+                if ( stateContainer.percentage >= 1.0 ) {
+                    componentProxy.setAlpha( p.getInt( "alpha2" ) );
+                    stateContainer.percentage = 1.0;
+                    stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
+                }
+                
+            }
+            
+        };
+    }
+    
     public static <ComponentType> MotionTweenAnimationConsumer<ComponentType> tweenXSimple() {
         return ( 
             double delta, 

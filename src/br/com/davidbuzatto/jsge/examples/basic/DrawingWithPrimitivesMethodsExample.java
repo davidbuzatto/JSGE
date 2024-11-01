@@ -36,7 +36,7 @@ public class DrawingWithPrimitivesMethodsExample extends EngineFrame {
      * Cria o exemplo.
      */
     public DrawingWithPrimitivesMethodsExample() {
-        super( 720, 520, "Drawing with Primitive Methods", 60, true );
+        super( 720, 560, "Drawing with Primitive Methods", 60, true );
     }
     
     @Override
@@ -151,12 +151,15 @@ public class DrawingWithPrimitivesMethodsExample extends EngineFrame {
 
         fillPolygon( 400, 160, 5, 35, 0, ORANGE );
         drawPolygon( 400, 160, 5, 35, 0, BLACK );
+        
+        fillStar( 400, 250, 5, 35, 0, ORANGE );
+        drawStar( 400, 250, 5, 35, 0, BLACK );
 
-        fillQuadCurve( 400, 220, 450, 270, 400, 320, ORANGE );
-        drawQuadCurve( 400, 220, 450, 270, 400, 320, BLACK );
+        fillQuadCurve( 400, 300, 450, 350, 400, 400, ORANGE );
+        drawQuadCurve( 400, 300, 450, 350, 400, 400, BLACK );
 
-        fillCubicCurve( 400, 340, 350, 380, 450, 420, 400, 460, ORANGE );
-        drawCubicCurve( 400, 340, 350, 380, 450, 420, 400, 460, BLACK );
+        fillCubicCurve( 400, 420, 350, 460, 450, 500, 400, 540, ORANGE );
+        drawCubicCurve( 400, 420, 350, 460, 450, 500, 400, 540, BLACK );
 
         fillQuadCurve( pointsQuadCurve, PINK );
         drawQuadCurve( pointsQuadCurve, BLACK );

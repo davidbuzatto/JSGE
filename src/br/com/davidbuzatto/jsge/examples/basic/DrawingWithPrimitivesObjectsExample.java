@@ -30,6 +30,7 @@ import br.com.davidbuzatto.jsge.geom.QuadCurve;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.geom.Ring;
 import br.com.davidbuzatto.jsge.geom.RoundRectangle;
+import br.com.davidbuzatto.jsge.geom.Star;
 import br.com.davidbuzatto.jsge.geom.Triangle;
 
 /**
@@ -50,6 +51,7 @@ public class DrawingWithPrimitivesObjectsExample extends EngineFrame {
     private Ring ring;
     private Triangle triangle;
     private Polygon polygon;
+    private Star star;
     private QuadCurve quadCurve;
     private CubicCurve cubicCurve;
     private Path path;
@@ -75,8 +77,9 @@ public class DrawingWithPrimitivesObjectsExample extends EngineFrame {
         ring = new Ring( 250, 400, 10, 30, 0, 130 );
         triangle = new Triangle( 400, 50, 440, 100, 360, 100 );
         polygon = new Polygon( 400, 160, 5, 35, 0 );
-        quadCurve = new QuadCurve( 400, 220, 450, 270, 400, 320 );
-        cubicCurve = new CubicCurve( 400, 340, 350, 380, 450, 420, 400, 460 );
+        star = new Star( 400, 250, 5, 35, 0 );
+        quadCurve = new QuadCurve( 400, 300, 450, 350, 400, 400 );
+        cubicCurve = new CubicCurve( 400, 420, 350, 460, 450, 500, 400, 540 );
         
         path = new Path();
         path.moveTo( 50, 320 );
@@ -132,6 +135,9 @@ public class DrawingWithPrimitivesObjectsExample extends EngineFrame {
 
         polygon.fill( this, ORANGE );
         polygon.draw( this, BLACK );
+        
+        star.fill( this, ORANGE );
+        star.draw( this, BLACK );
 
         quadCurve.fill( this, ORANGE );
         quadCurve.draw( this, BLACK );

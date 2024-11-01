@@ -102,6 +102,15 @@ public class MotionTweenAnimation<ComponentType> {
     }
     
     /**
+     * Obtém a porcentagem da animação.
+     * 
+     * @return A porcentagem da execução da animação.
+     */
+    public double getPercentage() {
+        return stateContainer.percentage;
+    }
+    
+    /**
      * Pausa a animação. Esse método apenas muda o estado da animação.
      * O processo de pausar de fato deve ser implementado na função
      * de atualização.
@@ -126,6 +135,23 @@ public class MotionTweenAnimation<ComponentType> {
      */
     public void reset() {
         stateContainer.state = MotionTweenAnimationExecutionState.INITIALIZED;
+        stateContainer.percentage = 0.0;
+    }
+
+    public void setComponentProxy( ComponentProxy<ComponentType> componentProxy ) {
+        this.componentProxy = componentProxy;
+    }
+
+    public void setUpdateFunction( MotionTweenAnimationConsumer<ComponentType> updateFunction ) {
+        this.updateFunction = updateFunction;
+    }
+
+    public void setEasingFunction( DoubleFunction<Double> easingFunction ) {
+        this.easingFunction = easingFunction;
+    }
+
+    public void setProperties( MotionTweenAnimationProperties properties ) {
+        this.properties = properties;
     }
     
 }
