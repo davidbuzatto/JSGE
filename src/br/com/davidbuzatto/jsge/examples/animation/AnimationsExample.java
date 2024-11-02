@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.examples.basic;
+package br.com.davidbuzatto.jsge.examples.animation;
 
 import br.com.davidbuzatto.jsge.animation.FrameByFrameAnimation;
 import br.com.davidbuzatto.jsge.animation.MotionTweenAnimation;
@@ -94,6 +94,7 @@ public class AnimationsExample extends EngineFrame {
         new Pair( "easeOutBounce", MotionTweenAnimationEasingFunctions.easeOutBounce ),
         new Pair( "easeInOutBounce", MotionTweenAnimationEasingFunctions.easeInOutBounce )
     };
+    
     private Pair easingFunctionPair;
     private int currentEasingFunction;
     private Button nextEFR;
@@ -174,11 +175,7 @@ public class AnimationsExample extends EngineFrame {
         }
         
         boolean checkOver( Vector2 mousePos ) {
-            if ( CollisionUtils.checkCollisionPointRectangle( mousePos, rect ) ) {
-                isOver = true;
-            } else {
-                isOver = false;
-            }
+            isOver = CollisionUtils.checkCollisionPointRectangle( mousePos, rect );
             return isOver;
         }
         
@@ -197,7 +194,6 @@ public class AnimationsExample extends EngineFrame {
         
     }
     
-    
     /**
      * Cria o exemplo.
      */
@@ -208,6 +204,10 @@ public class AnimationsExample extends EngineFrame {
     @Override
     public void create() {
         
+        /**
+         * Cada animação baseada em frames precisa de uma lista de imagens
+         * ou de componenets desenháveis (interface Drawable).
+         */
         List<ImageAnimationFrame> imageFrames = new ArrayList<>();
         imageFrames.add( new ImageAnimationFrame( loadImage( "resources/images/coin0.png" ) ) );
         imageFrames.add( new ImageAnimationFrame( loadImage( "resources/images/coin1.png" ) ) );
@@ -229,22 +229,23 @@ public class AnimationsExample extends EngineFrame {
         nextEFR = new Button( new Rectangle( 700, 52, 30, 30 ), true );
         repeatEFR = new Button( new Rectangle( 740, 52, 30, 30 ), "R" );
         
+        /**
+         * Os proxies servem como ponte de comunicação entre as funções de 
+         * atualização (MotionTweenAnimationConsumer) e os componentes que
+         * serão atualizados. Implemente apenas os métodos necessários. Há diversos
+         * métodos semanticamente associados às formas geométricas e algumas
+         * propriedades físicas. Os métodos set devem ser usados para alterar
+         * propriedades dos componenets e os métodos get devem ser usados
+         * para ler tais propriedades.
+         */
         ComponentProxy<Rectangle> proxyPos = new ComponentProxyAdapter<>( new Rectangle( 0, 0, 50, 50 ) ){
             @Override
             public void setX( double x ) {
                 component.x = x;
             }
             @Override
-            public double getX() {
-                return component.x;
-            }
-            @Override
             public void setY( double y ) {
                 component.y = y;
-            }
-            @Override
-            public double getY() {
-                return component.y;
             }
         };
         
@@ -254,24 +255,12 @@ public class AnimationsExample extends EngineFrame {
                 component.x = x;
             }
             @Override
-            public double getX() {
-                return component.x;
-            }
-            @Override
             public void setY( double y ) {
                 component.y = y;
             }
             @Override
-            public double getY() {
-                return component.y;
-            }
-            @Override
             public void setRadius( double radius ) {
                 component.radius = radius;
-            }
-            @Override
-            public double getRadius() {
-                return component.radius;
             }
         };
         
@@ -281,28 +270,12 @@ public class AnimationsExample extends EngineFrame {
                 component.x = x;
             }
             @Override
-            public double getX() {
-                return component.x;
-            }
-            @Override
             public void setY( double y ) {
                 component.y = y;
             }
             @Override
-            public double getY() {
-                return component.y;
-            }
-            @Override
             public void setAlpha( int alpha ) {
                 component.alpha = alpha;
-            }
-            @Override
-            public int getAlpha() {
-                return component.alpha;
-            }
-            @Override
-            public double getRadius() {
-                return component.radius;
             }
         };
         
@@ -312,38 +285,26 @@ public class AnimationsExample extends EngineFrame {
                 component.x = x;
             }
             @Override
-            public double getX() {
-                return component.x;
-            }
-            @Override
             public void setY( double y ) {
                 component.y = y;
-            }
-            @Override
-            public double getY() {
-                return component.y;
             }
             @Override
             public void setRotation( double rotation ) {
                 component.rotation = rotation;
             }
-            @Override
-            public double getRotation() {
-                return component.rotation;
-            }
-            @Override
-            public double getRadius() {
-                return component.radius;
-            }
         };
         
+        /**
+         * Para simplificar a forma que diversos parâmetros são passados para
+         * a execução da função de atualização, use-se a classe MotionTweenAnimationProperties.
+         * Todos esses parâmetros poderão ser acessos e alterados caso necessário
+         * dentro da função de atualização correspondente.
+         */
         MotionTweenAnimationProperties pPos = MotionTweenAnimationProperties.of( 
             "x1", 50,
             "y1", 360,
             "x2", 380,
-            "y2", 360,
             "velX", 300,
-            "velT", 300,
             "velPercentage", 0.5
         );
         
@@ -366,8 +327,8 @@ public class AnimationsExample extends EngineFrame {
         MotionTweenAnimationProperties pRotation = MotionTweenAnimationProperties.of( 
             "x1", 790,
             "y1", 385,
-            "startAngle", 0.0, 
-            "endAngle", 360.0, 
+            "angle1", 0.0, 
+            "angle2", 360.0, 
             "velPercentage", 0.5
         );
         

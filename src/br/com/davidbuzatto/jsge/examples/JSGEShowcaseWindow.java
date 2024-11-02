@@ -26,7 +26,7 @@ import br.com.davidbuzatto.jsge.examples.basic.PaintingCapabilitiesExample;
 import br.com.davidbuzatto.jsge.examples.basic.SoundAndMusicExample;
 import br.com.davidbuzatto.jsge.examples.basic.UserInteractionExample;
 import br.com.davidbuzatto.jsge.examples.ball.BouncingBallExample;
-import br.com.davidbuzatto.jsge.examples.basic.AnimationsExample;
+import br.com.davidbuzatto.jsge.examples.animation.AnimationsExample;
 import br.com.davidbuzatto.jsge.examples.camera.CameraExample;
 import br.com.davidbuzatto.jsge.examples.particles.ParticlesExample;
 

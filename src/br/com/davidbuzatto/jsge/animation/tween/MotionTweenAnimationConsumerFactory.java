@@ -42,20 +42,13 @@ public class MotionTweenAnimationConsumerFactory {
             
             if ( stateContainer.state == MotionTweenAnimationExecutionState.RUNNING ) {
                 
-                if ( easingFunction != null ) {
-                    stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
-                    componentProxy.setX( p.getDouble( "x1" ) + ( p.getDouble( "x2" ) - p.getDouble( "x1" ) ) * easingFunction.apply( stateContainer.percentage ) );
-                    if ( stateContainer.percentage >= 1.0 ) {
-                        componentProxy.setX( p.getDouble( "x2" ) );
-                        stateContainer.percentage = 1.0;
-                        stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
-                    }
-                } else {
-                    componentProxy.setX( componentProxy.getX() + delta * p.getDouble( "velX" ) );
-                    if ( componentProxy.getX() >= p.getDouble( "x2" ) ) {
-                        componentProxy.setX( p.getDouble( "x2" ) );
-                        stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
-                    }
+                stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
+                componentProxy.setX( p.getDouble( "x1" ) + ( p.getDouble( "x2" ) - p.getDouble( "x1" ) ) * easingFunction.apply( stateContainer.percentage ) );
+                
+                if ( stateContainer.percentage >= 1.0 ) {
+                    componentProxy.setX( p.getDouble( "x2" ) );
+                    stateContainer.percentage = 1.0;
+                    stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
                 }
                 
             }
@@ -79,20 +72,13 @@ public class MotionTweenAnimationConsumerFactory {
             
             if ( stateContainer.state == MotionTweenAnimationExecutionState.RUNNING ) {
                 
-                if ( easingFunction != null ) {
-                    stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
-                    componentProxy.setY( p.getDouble( "y1" ) + ( p.getDouble( "y2" ) - p.getDouble( "y1" ) ) * easingFunction.apply( stateContainer.percentage ) );
-                    if ( stateContainer.percentage >= 1.0 ) {
-                        componentProxy.setY( p.getDouble( "y2" ) );
-                        stateContainer.percentage = 1.0;
-                        stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
-                    }
-                } else {
-                    componentProxy.setY( componentProxy.getY() + delta * p.getDouble( "velY" ) );
-                    if ( componentProxy.getY() >= p.getDouble( "y2" ) ) {
-                        componentProxy.setY( p.getDouble( "y2" ) );
-                        stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
-                    }
+                stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
+                componentProxy.setY( p.getDouble( "y1" ) + ( p.getDouble( "y2" ) - p.getDouble( "y1" ) ) * easingFunction.apply( stateContainer.percentage ) );
+                
+                if ( stateContainer.percentage >= 1.0 ) {
+                    componentProxy.setY( p.getDouble( "y2" ) );
+                    stateContainer.percentage = 1.0;
+                    stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
                 }
                 
             }
@@ -116,32 +102,14 @@ public class MotionTweenAnimationConsumerFactory {
             
             if ( stateContainer.state == MotionTweenAnimationExecutionState.RUNNING ) {
                 
-                boolean stop = false;
+                stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
+                componentProxy.setX( p.getDouble( "x1" ) + ( p.getDouble( "x2" ) - p.getDouble( "x1" ) ) * easingFunction.apply( stateContainer.percentage ) );
+                componentProxy.setY( p.getDouble( "y1" ) + ( p.getDouble( "y2" ) - p.getDouble( "y1" ) ) * easingFunction.apply( stateContainer.percentage ) );
                 
-                if ( easingFunction != null ) {
-                    stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
-                    componentProxy.setX( p.getDouble( "x1" ) + ( p.getDouble( "x2" ) - p.getDouble( "x1" ) ) * easingFunction.apply( stateContainer.percentage ) );
-                    componentProxy.setY( p.getDouble( "y1" ) + ( p.getDouble( "y2" ) - p.getDouble( "y1" ) ) * easingFunction.apply( stateContainer.percentage ) );
-                    if ( stateContainer.percentage >= 1.0 ) {
-                        componentProxy.setX( p.getDouble( "x2" ) );
-                        componentProxy.setY( p.getDouble( "y2" ) );
-                        stateContainer.percentage = 1.0;
-                        stop = true;
-                    }
-                } else {
-                    componentProxy.setX( componentProxy.getX() + delta * p.getDouble( "velX" ) );
-                    componentProxy.setY( componentProxy.getY() + delta * p.getDouble( "velY" ) );
-                    if ( componentProxy.getX() >= p.getDouble( "x2" ) ) {
-                        componentProxy.setX( p.getDouble( "x2" ) );
-                        stop = true;
-                    }
-                    if ( componentProxy.getY() >= p.getDouble( "y2" ) ) {
-                        componentProxy.setY( p.getDouble( "y2" ) );
-                        stop = true;
-                    }
-                }
-                
-                if ( stop ) {
+                if ( stateContainer.percentage >= 1.0 ) {
+                    componentProxy.setX( p.getDouble( "x2" ) );
+                    componentProxy.setY( p.getDouble( "y2" ) );
+                    stateContainer.percentage = 1.0;
                     stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
                 }
                 
@@ -168,37 +136,9 @@ public class MotionTweenAnimationConsumerFactory {
                 
                 stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
                 componentProxy.setRadius( p.getDouble( "radius1" ) + ( p.getDouble( "radius2" ) - p.getDouble( "radius1" ) ) * easingFunction.apply( stateContainer.percentage ) );
+                
                 if ( stateContainer.percentage >= 1.0 ) {
                     componentProxy.setRadius( p.getDouble( "radius2" ) );
-                    stateContainer.percentage = 1.0;
-                    stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
-                }
-                
-            }
-            
-        };
-    }
-    
-    public static <ComponentType> MotionTweenAnimationConsumer<ComponentType> tweenRotationEasing() {
-        return ( 
-            double delta, 
-            MotionTweenAnimationProperties p,
-            ComponentProxy<ComponentType> componentProxy, 
-            DoubleFunction<Double> easingFunction,
-            MotionTweenAnimationStateContainer stateContainer ) -> {
-            
-            if ( stateContainer.state == MotionTweenAnimationExecutionState.INITIALIZED ) {
-                stateContainer.state = MotionTweenAnimationExecutionState.RUNNING;
-                componentProxy.setX( p.getDouble( "x1" ) );
-                componentProxy.setY( p.getDouble( "y1" ) );
-            }
-            
-            if ( stateContainer.state == MotionTweenAnimationExecutionState.RUNNING ) {
-                
-                stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
-                componentProxy.setRotation( p.getDouble( "startAngle" ) + ( p.getDouble( "endAngle" ) - p.getDouble( "startAngle" ) ) * easingFunction.apply( stateContainer.percentage ) );
-                if ( stateContainer.percentage >= 1.0 ) {
-                    componentProxy.setRotation( p.getDouble( "endAngle" ) );
                     stateContainer.percentage = 1.0;
                     stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
                 }
@@ -227,6 +167,7 @@ public class MotionTweenAnimationConsumerFactory {
                 
                 stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
                 componentProxy.setAlpha( (int) ( p.getInt( "alpha1" ) + ( p.getInt( "alpha2" ) - p.getInt( "alpha1" ) ) * easingFunction.apply( stateContainer.percentage ) ) );
+                
                 if ( stateContainer.percentage >= 1.0 ) {
                     componentProxy.setAlpha( p.getInt( "alpha2" ) );
                     stateContainer.percentage = 1.0;
@@ -238,7 +179,37 @@ public class MotionTweenAnimationConsumerFactory {
         };
     }
     
-    public static <ComponentType> MotionTweenAnimationConsumer<ComponentType> tweenXSimple() {
+    public static <ComponentType> MotionTweenAnimationConsumer<ComponentType> tweenRotationEasing() {
+        return ( 
+            double delta, 
+            MotionTweenAnimationProperties p,
+            ComponentProxy<ComponentType> componentProxy, 
+            DoubleFunction<Double> easingFunction,
+            MotionTweenAnimationStateContainer stateContainer ) -> {
+            
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.INITIALIZED ) {
+                stateContainer.state = MotionTweenAnimationExecutionState.RUNNING;
+                componentProxy.setX( p.getDouble( "x1" ) );
+                componentProxy.setY( p.getDouble( "y1" ) );
+            }
+            
+            if ( stateContainer.state == MotionTweenAnimationExecutionState.RUNNING ) {
+                
+                stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
+                componentProxy.setRotation( p.getDouble( "angle1" ) + ( p.getDouble( "angle2" ) - p.getDouble( "angle1" ) ) * easingFunction.apply( stateContainer.percentage ) );
+                
+                if ( stateContainer.percentage >= 1.0 ) {
+                    componentProxy.setRotation( p.getDouble( "angle2" ) );
+                    stateContainer.percentage = 1.0;
+                    stateContainer.state = MotionTweenAnimationExecutionState.FINISHED;
+                }
+                
+            }
+            
+        };
+    }
+    
+    public static <ComponentType> MotionTweenAnimationConsumer<ComponentType> tweenX() {
         return ( 
             double delta, 
             MotionTweenAnimationProperties p,
@@ -263,7 +234,7 @@ public class MotionTweenAnimationConsumerFactory {
         };
     }
     
-    public static <ComponentType> MotionTweenAnimationConsumer<ComponentType> tweenYSimple() {
+    public static <ComponentType> MotionTweenAnimationConsumer<ComponentType> tweenY() {
         return ( 
             double delta, 
             MotionTweenAnimationProperties p,
@@ -288,7 +259,7 @@ public class MotionTweenAnimationConsumerFactory {
         };
     }
     
-    public static <ComponentType> MotionTweenAnimationConsumer<ComponentType> tweenXYSimple() {
+    public static <ComponentType> MotionTweenAnimationConsumer<ComponentType> tweenXY() {
         return ( 
             double delta, 
             MotionTweenAnimationProperties p,
