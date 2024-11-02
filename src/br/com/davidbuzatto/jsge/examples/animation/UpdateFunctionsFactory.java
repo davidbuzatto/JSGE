@@ -16,12 +16,12 @@
  */
 package br.com.davidbuzatto.jsge.examples.animation;
 
-import br.com.davidbuzatto.jsge.animation.tween.proxy.ComponentProxy;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationExecutionState;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationProperties;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationStateContainer;
-import java.util.function.DoubleFunction;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationUpdateFunction;
+import br.com.davidbuzatto.jsge.animation.tween.proxy.ComponentProxy;
+import java.util.function.DoubleFunction;
 
 /**
  * Uma fábrica de funções de atualização para as animações interpoladas do
