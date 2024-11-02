@@ -24,7 +24,7 @@ import java.util.function.DoubleFunction;
  *
  * @author Prof. Dr. David Buzatto
  */
-public class MotionTweenAnimationEasingFunctions {
+public class TweenAnimationEasingFunctions {
 
     public static DoubleFunction<Double> easeInSine = ( x ) -> {
         return 1 - Math.cos( ( x * Math.PI ) / 2 );
@@ -171,7 +171,7 @@ public class MotionTweenAnimationEasingFunctions {
     };
 
     public static DoubleFunction<Double> easeInBounce = ( x ) -> {
-        return 1 - MotionTweenAnimationEasingFunctions.easeOutBounce.apply( 1 - x );
+        return 1 - TweenAnimationEasingFunctions.easeOutBounce.apply( 1 - x );
     };
 
     public static DoubleFunction<Double> easeOutBounce = ( x ) -> {
@@ -190,8 +190,8 @@ public class MotionTweenAnimationEasingFunctions {
 
     public static DoubleFunction<Double> easeInOutBounce = ( x ) -> {
         return x < 0.5
-            ? ( 1 - MotionTweenAnimationEasingFunctions.easeOutBounce.apply( 1 - 2 * x ) ) / 2
-            : ( 1 + MotionTweenAnimationEasingFunctions.easeOutBounce.apply( 2 * x - 1 ) ) / 2;
+            ? ( 1 - TweenAnimationEasingFunctions.easeOutBounce.apply( 1 - 2 * x ) ) / 2
+            : ( 1 + TweenAnimationEasingFunctions.easeOutBounce.apply( 2 * x - 1 ) ) / 2;
     };
     
 }

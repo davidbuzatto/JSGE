@@ -28,7 +28,7 @@ import java.util.Map;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class MotionTweenAnimationProperties {
+public class TweenAnimationProperties {
     
     private final Map<String, Object> properties = new HashMap<>();
     
@@ -42,9 +42,9 @@ public class MotionTweenAnimationProperties {
      * @param args Pares chave-valor que preencherão as propriedades.
      * @return Um novo objeto de propriedades.
      */
-    public static MotionTweenAnimationProperties of( Object... args ) {
+    public static TweenAnimationProperties of( Object... args ) {
         
-        MotionTweenAnimationProperties p = new MotionTweenAnimationProperties();
+        TweenAnimationProperties p = new TweenAnimationProperties();
         List<Object> argsLi = Arrays.asList( args );
         
         if ( argsLi.size() % 2 != 0 ) {

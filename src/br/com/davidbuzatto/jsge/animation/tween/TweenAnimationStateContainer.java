@@ -17,22 +17,26 @@
 package br.com.davidbuzatto.jsge.animation.tween;
 
 /**
- * O estado de execução uma animação de interpolação de movimento.
+ * Contém o estado de uma animação de interpolada que consiste no estado de
+ * execução e na porcentagem da execução.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public enum MotionTweenAnimationExecutionState {
+public class TweenAnimationStateContainer {
     
-    /** A animação foi criada e inicializada (construtor executou). */
-    INITIALIZED,
+    /** O estado de execução da animação. */
+    public TweenAnimationExecutionState state;
     
-    /** A animaçãop está em execução. */
-    RUNNING,
+    /** A porcentagem de execução da animação. Varia de 0 a 1.*/
+    public double percentage;
     
-    /** A animação está pausada. */
-    PAUSED,
-    
-    /** A animação terminou. */
-    FINISHED
+    /**
+     * Cria um novo container do estado da animação.
+     * @param initialState 
+     */
+    public TweenAnimationStateContainer( TweenAnimationExecutionState initialState ) {
+        this.state = initialState;
+        this.percentage = 0.0;
+    }
     
 }

@@ -16,25 +16,23 @@
  */
 package br.com.davidbuzatto.jsge.animation.tween;
 
-import br.com.davidbuzatto.jsge.animation.proxy.ComponentProxy;
-import java.util.function.DoubleFunction;
-
 /**
- * Interface funcional para os consumidores dos interpoladores de movimento.
- * São essas funções que são responsáveis em atualizar o estado de uma animação.
+ * O estado de execução uma animação interpolada.
  * 
- * @param <ComponentType> Tipo do componente.
  * @author Prof. Dr. David Buzatto
  */
-@FunctionalInterface
-public interface MotionTweenAnimationConsumer<ComponentType> {
+public enum TweenAnimationExecutionState {
     
-    public void accept( 
-        double delta, 
-        MotionTweenAnimationProperties properties,
-        ComponentProxy<ComponentType> componentProxy, 
-        DoubleFunction<Double> easingFunction,
-        MotionTweenAnimationStateContainer stateContainer
-    );
+    /** A animação foi criada e inicializada (construtor executou). */
+    INITIALIZED,
+    
+    /** A animaçãop está em execução. */
+    RUNNING,
+    
+    /** A animação está pausada. */
+    PAUSED,
+    
+    /** A animação terminou. */
+    FINISHED
     
 }

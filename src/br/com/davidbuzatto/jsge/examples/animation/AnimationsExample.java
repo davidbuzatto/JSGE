@@ -17,13 +17,13 @@
 package br.com.davidbuzatto.jsge.examples.animation;
 
 import br.com.davidbuzatto.jsge.animation.FrameByFrameAnimation;
-import br.com.davidbuzatto.jsge.animation.MotionTweenAnimation;
+import br.com.davidbuzatto.jsge.animation.TweenAnimation;
 import br.com.davidbuzatto.jsge.animation.frame.DrawableAnimationFrame;
 import br.com.davidbuzatto.jsge.animation.frame.ImageAnimationFrame;
-import br.com.davidbuzatto.jsge.animation.proxy.ComponentProxy;
-import br.com.davidbuzatto.jsge.animation.proxy.ComponentProxyAdapter;
-import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationEasingFunctions;
-import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationProperties;
+import br.com.davidbuzatto.jsge.animation.tween.proxy.ComponentProxy;
+import br.com.davidbuzatto.jsge.animation.tween.proxy.ComponentProxyAdapter;
+import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationEasingFunctions;
+import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationProperties;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
@@ -55,43 +55,43 @@ public class AnimationsExample extends EngineFrame {
     private FrameByFrameAnimation<DrawableAnimationFrame> drawableAnimation;
     private Color[] colors = { RED, GREEN, GOLD, ORANGE, BLUE, PINK, VIOLET };
     
-    private MotionTweenAnimation<Rectangle> mtaPos;
-    private MotionTweenAnimation<Circle> mtaRadius;
-    private MotionTweenAnimation<AlphaCircleSector> mtaAlpha;
-    private MotionTweenAnimation<Polygon> mtaRotation;
+    private TweenAnimation<Rectangle> mtaPos;
+    private TweenAnimation<Circle> mtaRadius;
+    private TweenAnimation<AlphaCircleSector> mtaAlpha;
+    private TweenAnimation<Polygon> mtaRotation;
     private Image easingFunctionImage;
     
     private static Pair[] easingFunctions = {
-        new Pair( "easeInSine", MotionTweenAnimationEasingFunctions.easeInSine ),
-        new Pair( "easeOutSine", MotionTweenAnimationEasingFunctions.easeOutSine ),
-        new Pair( "easeInOutSine", MotionTweenAnimationEasingFunctions.easeInOutSine ),
-        new Pair( "easeInQuad", MotionTweenAnimationEasingFunctions.easeInQuad ),
-        new Pair( "easeOutQuad", MotionTweenAnimationEasingFunctions.easeOutQuad ),
-        new Pair( "easeInOutQuad", MotionTweenAnimationEasingFunctions.easeInOutQuad ),
-        new Pair( "easeInCubic", MotionTweenAnimationEasingFunctions.easeInCubic ),
-        new Pair( "easeOutCubic", MotionTweenAnimationEasingFunctions.easeOutCubic ),
-        new Pair( "easeInOutCubic", MotionTweenAnimationEasingFunctions.easeInOutCubic ),
-        new Pair( "easeInQuart", MotionTweenAnimationEasingFunctions.easeInQuart ),
-        new Pair( "easeOutQuart", MotionTweenAnimationEasingFunctions.easeOutQuart ),
-        new Pair( "easeInOutQuart", MotionTweenAnimationEasingFunctions.easeInOutQuart ),
-        new Pair( "easeInQuint", MotionTweenAnimationEasingFunctions.easeInQuint ),
-        new Pair( "easeOutQuint", MotionTweenAnimationEasingFunctions.easeOutQuint ),
-        new Pair( "easeInOutQuint", MotionTweenAnimationEasingFunctions.easeInOutQuint ),
-        new Pair( "easeInEtpo", MotionTweenAnimationEasingFunctions.easeInEtpo ),
-        new Pair( "easeOutEtpo", MotionTweenAnimationEasingFunctions.easeOutEtpo ),
-        new Pair( "easeInOutEtpo", MotionTweenAnimationEasingFunctions.easeInOutEtpo ),
-        new Pair( "easeInCirc", MotionTweenAnimationEasingFunctions.easeInCirc ),
-        new Pair( "easeOutCirc", MotionTweenAnimationEasingFunctions.easeOutCirc ),
-        new Pair( "easeInOutCirc", MotionTweenAnimationEasingFunctions.easeInOutCirc ),
-        new Pair( "easeInBack", MotionTweenAnimationEasingFunctions.easeInBack ),
-        new Pair( "easeOutBack", MotionTweenAnimationEasingFunctions.easeOutBack ),
-        new Pair( "easeInOutBack", MotionTweenAnimationEasingFunctions.easeInOutBack ),
-        new Pair( "easeInElastic", MotionTweenAnimationEasingFunctions.easeInElastic ),
-        new Pair( "easeOutElastic", MotionTweenAnimationEasingFunctions.easeOutElastic ),
-        new Pair( "easeInOutElastic", MotionTweenAnimationEasingFunctions.easeInOutElastic ),
-        new Pair( "easeInBounce", MotionTweenAnimationEasingFunctions.easeInBounce ),
-        new Pair( "easeOutBounce", MotionTweenAnimationEasingFunctions.easeOutBounce ),
-        new Pair( "easeInOutBounce", MotionTweenAnimationEasingFunctions.easeInOutBounce )
+        new Pair( "easeInSine", TweenAnimationEasingFunctions.easeInSine ),
+        new Pair( "easeOutSine", TweenAnimationEasingFunctions.easeOutSine ),
+        new Pair( "easeInOutSine", TweenAnimationEasingFunctions.easeInOutSine ),
+        new Pair( "easeInQuad", TweenAnimationEasingFunctions.easeInQuad ),
+        new Pair( "easeOutQuad", TweenAnimationEasingFunctions.easeOutQuad ),
+        new Pair( "easeInOutQuad", TweenAnimationEasingFunctions.easeInOutQuad ),
+        new Pair( "easeInCubic", TweenAnimationEasingFunctions.easeInCubic ),
+        new Pair( "easeOutCubic", TweenAnimationEasingFunctions.easeOutCubic ),
+        new Pair( "easeInOutCubic", TweenAnimationEasingFunctions.easeInOutCubic ),
+        new Pair( "easeInQuart", TweenAnimationEasingFunctions.easeInQuart ),
+        new Pair( "easeOutQuart", TweenAnimationEasingFunctions.easeOutQuart ),
+        new Pair( "easeInOutQuart", TweenAnimationEasingFunctions.easeInOutQuart ),
+        new Pair( "easeInQuint", TweenAnimationEasingFunctions.easeInQuint ),
+        new Pair( "easeOutQuint", TweenAnimationEasingFunctions.easeOutQuint ),
+        new Pair( "easeInOutQuint", TweenAnimationEasingFunctions.easeInOutQuint ),
+        new Pair( "easeInEtpo", TweenAnimationEasingFunctions.easeInEtpo ),
+        new Pair( "easeOutEtpo", TweenAnimationEasingFunctions.easeOutEtpo ),
+        new Pair( "easeInOutEtpo", TweenAnimationEasingFunctions.easeInOutEtpo ),
+        new Pair( "easeInCirc", TweenAnimationEasingFunctions.easeInCirc ),
+        new Pair( "easeOutCirc", TweenAnimationEasingFunctions.easeOutCirc ),
+        new Pair( "easeInOutCirc", TweenAnimationEasingFunctions.easeInOutCirc ),
+        new Pair( "easeInBack", TweenAnimationEasingFunctions.easeInBack ),
+        new Pair( "easeOutBack", TweenAnimationEasingFunctions.easeOutBack ),
+        new Pair( "easeInOutBack", TweenAnimationEasingFunctions.easeInOutBack ),
+        new Pair( "easeInElastic", TweenAnimationEasingFunctions.easeInElastic ),
+        new Pair( "easeOutElastic", TweenAnimationEasingFunctions.easeOutElastic ),
+        new Pair( "easeInOutElastic", TweenAnimationEasingFunctions.easeInOutElastic ),
+        new Pair( "easeInBounce", TweenAnimationEasingFunctions.easeInBounce ),
+        new Pair( "easeOutBounce", TweenAnimationEasingFunctions.easeOutBounce ),
+        new Pair( "easeInOutBounce", TweenAnimationEasingFunctions.easeInOutBounce )
     };
     
     private Pair easingFunctionPair;
@@ -299,7 +299,7 @@ public class AnimationsExample extends EngineFrame {
          * Todos esses parâmetros poderão ser acessos e alterados caso necessário
          * dentro da função de atualização correspondente.
          */
-        MotionTweenAnimationProperties pPos = MotionTweenAnimationProperties.of( 
+        TweenAnimationProperties pPos = TweenAnimationProperties.of( 
             "x1", 50,
             "y1", 360,
             "x2", 380,
@@ -307,7 +307,7 @@ public class AnimationsExample extends EngineFrame {
             "velPercentage", 0.5
         );
         
-        MotionTweenAnimationProperties pRadius = MotionTweenAnimationProperties.of( 
+        TweenAnimationProperties pRadius = TweenAnimationProperties.of( 
             "x1", 520,
             "y1", 385,
             "radius1", 10, 
@@ -315,7 +315,7 @@ public class AnimationsExample extends EngineFrame {
             "velPercentage", 0.5
         );
         
-        MotionTweenAnimationProperties pAlpha = MotionTweenAnimationProperties.of( 
+        TweenAnimationProperties pAlpha = TweenAnimationProperties.of( 
             "x1", 660,
             "y1", 385,
             "alpha1", 0, 
@@ -323,7 +323,7 @@ public class AnimationsExample extends EngineFrame {
             "velPercentage", 0.5
         );
         
-        MotionTweenAnimationProperties pRotation = MotionTweenAnimationProperties.of( 
+        TweenAnimationProperties pRotation = TweenAnimationProperties.of( 
             "x1", 790,
             "y1", 385,
             "angle1", 0.0, 
@@ -337,31 +337,31 @@ public class AnimationsExample extends EngineFrame {
         easingFunctionPair = easingFunctions[currentEasingFunction];
         easingFunctionImage = DrawingUtils.plot( easingFunctionPair.function, 200, 200, fimH, fimV, BLACK, BLUE );
         
-        mtaPos = new MotionTweenAnimation<>(
+        mtaPos = new TweenAnimation<>(
             pPos,
             proxyPos,
-            MotionTweenAnimationConsumerFactory.<Rectangle>tweenXEasing(),
+            UpdateFunctionsFactory.<Rectangle>tweenXEasing(),
             easingFunctionPair.function
         );
         
-        mtaRadius = new MotionTweenAnimation<>(
+        mtaRadius = new TweenAnimation<>(
             pRadius,
             proxyRadius,
-            MotionTweenAnimationConsumerFactory.<Circle>tweenRadiusEasing(),
+            UpdateFunctionsFactory.<Circle>tweenRadiusEasing(),
             easingFunctionPair.function
         );
         
-        mtaAlpha = new MotionTweenAnimation<>(
+        mtaAlpha = new TweenAnimation<>(
             pAlpha,
             proxyAlpha,
-            MotionTweenAnimationConsumerFactory.<AlphaCircleSector>tweenAlphaEasing(),
+            UpdateFunctionsFactory.<AlphaCircleSector>tweenAlphaEasing(),
             easingFunctionPair.function
         );
         
-        mtaRotation = new MotionTweenAnimation<>(
+        mtaRotation = new TweenAnimation<>(
             pRotation,
             proxyRotation,
-            MotionTweenAnimationConsumerFactory.<Polygon>tweenRotationEasing(),
+            UpdateFunctionsFactory.<Polygon>tweenRotationEasing(),
             easingFunctionPair.function
         );
         

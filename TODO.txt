@@ -1,1 +1,0 @@
-Implementar "todos" os tipos de interpolação de movimento.

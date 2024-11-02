@@ -16,53 +16,53 @@
  */
 package br.com.davidbuzatto.jsge.animation;
 
-import br.com.davidbuzatto.jsge.animation.proxy.ComponentProxy;
-import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationExecutionState;
-import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationStateContainer;
-import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationProperties;
+import br.com.davidbuzatto.jsge.animation.tween.proxy.ComponentProxy;
+import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationExecutionState;
+import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationStateContainer;
+import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationProperties;
 import java.util.function.DoubleFunction;
-import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationConsumer;
+import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationUpdateFunction;
 
 /**
- * Uma animação de interpolação de movimento.
+ * Uma animação interpolada.
  * 
  * @param <ComponentType> O tipo do componente que passará pela interpolação.
  * @author Prof. Dr. David Buzatto
  */
-public class MotionTweenAnimation<ComponentType> {
+public class TweenAnimation<ComponentType> {
     
     private ComponentProxy<ComponentType> componentProxy;
-    private MotionTweenAnimationConsumer<ComponentType> updateFunction;
+    private TweenAnimationUpdateFunction<ComponentType> updateFunction;
     private DoubleFunction<Double> easingFunction;
-    private MotionTweenAnimationProperties properties;
-    private MotionTweenAnimationStateContainer stateContainer;
+    private TweenAnimationProperties properties;
+    private TweenAnimationStateContainer stateContainer;
 
     /**
-     * Constroi uma nova animação de interpolação de movimento.
+     * Constroi uma nova animação de interpolada.
      * 
      * @param properties As propriedades utilizadas para o controle da animação.
      * @param proxy Um proxy do componente que será manipulado na animação.
      * @param updateFunction A função de atualização de animação.
      */
-    public MotionTweenAnimation( 
-        MotionTweenAnimationProperties properties,
+    public TweenAnimation( 
+        TweenAnimationProperties properties,
         ComponentProxy<ComponentType> proxy, 
-        MotionTweenAnimationConsumer<ComponentType> updateFunction ) {
+        TweenAnimationUpdateFunction<ComponentType> updateFunction ) {
         this( properties, proxy, updateFunction, null );
     }
     
     /**
-     * Constroi uma nova animação de interpolação de movimento.
+     * Constroi uma nova animação interpolada.
      * 
      * @param properties As propriedades utilizadas para o controle da animação.
      * @param proxy Um proxy do componente que será manipulado na animação.
      * @param updateFunction A função de atualização de animação.
      * @param easingFunction A função de suavização da animação.
      */
-    public MotionTweenAnimation( 
-        MotionTweenAnimationProperties properties,
+    public TweenAnimation( 
+        TweenAnimationProperties properties,
         ComponentProxy<ComponentType> proxy, 
-        MotionTweenAnimationConsumer<ComponentType> updateFunction, 
+        TweenAnimationUpdateFunction<ComponentType> updateFunction, 
         DoubleFunction<Double> easingFunction ) {
         
         this.properties = properties;
@@ -70,7 +70,7 @@ public class MotionTweenAnimation<ComponentType> {
         this.updateFunction = updateFunction;
         this.easingFunction = easingFunction;
         
-        stateContainer = new MotionTweenAnimationStateContainer( MotionTweenAnimationExecutionState.INITIALIZED );
+        stateContainer = new TweenAnimationStateContainer( TweenAnimationExecutionState.INITIALIZED );
         
     }
     
@@ -97,7 +97,7 @@ public class MotionTweenAnimation<ComponentType> {
      * 
      * @return O estado da animação.
      */
-    public MotionTweenAnimationExecutionState getState() {
+    public TweenAnimationExecutionState getState() {
         return stateContainer.state;
     }
     
@@ -116,7 +116,7 @@ public class MotionTweenAnimation<ComponentType> {
      * de atualização.
      */
     public void pause() {
-        stateContainer.state = MotionTweenAnimationExecutionState.PAUSED;
+        stateContainer.state = TweenAnimationExecutionState.PAUSED;
     }
     
     /**
@@ -125,7 +125,7 @@ public class MotionTweenAnimation<ComponentType> {
      * de atualização.
      */
     public void resume() {
-        stateContainer.state = MotionTweenAnimationExecutionState.RUNNING;
+        stateContainer.state = TweenAnimationExecutionState.RUNNING;
     }
     
     /**
@@ -134,7 +134,7 @@ public class MotionTweenAnimation<ComponentType> {
      * de atualização.
      */
     public void reset() {
-        stateContainer.state = MotionTweenAnimationExecutionState.INITIALIZED;
+        stateContainer.state = TweenAnimationExecutionState.INITIALIZED;
         stateContainer.percentage = 0.0;
     }
 
@@ -142,7 +142,7 @@ public class MotionTweenAnimation<ComponentType> {
         this.componentProxy = componentProxy;
     }
 
-    public void setUpdateFunction( MotionTweenAnimationConsumer<ComponentType> updateFunction ) {
+    public void setUpdateFunction( TweenAnimationUpdateFunction<ComponentType> updateFunction ) {
         this.updateFunction = updateFunction;
     }
 
@@ -150,7 +150,7 @@ public class MotionTweenAnimation<ComponentType> {
         this.easingFunction = easingFunction;
     }
 
-    public void setProperties( MotionTweenAnimationProperties properties ) {
+    public void setProperties( TweenAnimationProperties properties ) {
         this.properties = properties;
     }
     
