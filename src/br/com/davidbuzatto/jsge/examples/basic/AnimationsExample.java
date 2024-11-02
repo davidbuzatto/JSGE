@@ -275,7 +275,7 @@ public class AnimationsExample extends EngineFrame {
             }
         };
         
-        ComponentProxy<AlphaCircleSector> proxyAlpha = new ComponentProxyAdapter<>( new AlphaCircleSector( 0, 0, 30, -30, 300 ) ){
+        ComponentProxy<AlphaCircleSector> proxyAlpha = new ComponentProxyAdapter<>( new AlphaCircleSector( 0, 0, 30, 30, 330 ) ){
             @Override
             public void setX( double x ) {
                 component.x = x;
@@ -410,9 +410,8 @@ public class AnimationsExample extends EngineFrame {
     }
 
     @Override
-    public void update() {
+    public void update( double delta ) {
         
-        double delta = getFrameTime();
         Vector2 mousePos = getMousePositionPoint();
         
         imageAnimation.update( delta );

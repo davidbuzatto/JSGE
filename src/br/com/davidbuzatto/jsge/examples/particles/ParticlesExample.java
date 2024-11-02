@@ -118,9 +118,8 @@ public class ParticlesExample extends EngineFrame {
     }
     
     @Override
-    public void update() {
+    public void update( double delta ) {
         
-        double delta = getFrameTime();
         Vector2 mousePos = getMousePositionPoint();
 
         boolean d1 = peStaticRight.resolveParticleEmitterMouseOperations( this );

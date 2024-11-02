@@ -65,7 +65,7 @@ public class UserInteractionExample extends EngineFrame {
     }
 
     @Override
-    public void update() {
+    public void update( double delta ) {
         
         if ( isKeyPressed( KEY_A ) ) keyAPress = "pressed";
         if ( isKeyReleased( KEY_A ) ) keyAPress = "released";

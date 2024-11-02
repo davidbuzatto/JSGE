@@ -293,8 +293,10 @@ public abstract class EngineFrame extends JFrame {
      * Atualiza os objetos/contextos/variáveis do jogo ou simulação.
      * 
      * É executado uma vez a cada frame, sempre antes do método de desenho.
+     * 
+     * @param delta A variação no tempo, em segundos, de um frame para o outro.
      */
-    public abstract void update();
+    public abstract void update( double delta );
 
     /**
      * Desenha o estado dos objetos/contextos/variáveis do jogo ou simulação.
@@ -446,7 +448,7 @@ public abstract class EngineFrame extends JFrame {
                 timeBefore = System.currentTimeMillis();
                 
                 try {
-                    update();
+                    update( frameTime / 1000.0 ); // getFrameTime();
                 } catch ( RuntimeException exc ) {
                     traceLogError( CoreUtils.stackTraceToString( exc ) );
                 }

@@ -1,3 +1,1 @@
-Conferir tratamento de cores em hexa (jogar alpha para o fim?).
-Trazer delta no update?
 Implementar "todos" os tipos de interpolação de movimento.

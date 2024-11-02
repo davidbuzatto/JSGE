@@ -86,7 +86,7 @@ public class ImageLoadingProcessingExample extends EngineFrame {
     }
 
     @Override
-    public void update() {
+    public void update( double delta ) {
         rotatingImage = ImageUtils.imageRotate( dukeStroke, rotationAngle++ );
     }
     

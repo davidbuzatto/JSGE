@@ -70,7 +70,7 @@ public class DrawingWithPrimitivesMethodsExample extends EngineFrame {
     }
 
     @Override
-    public void update() {
+    public void update( double delta ) {
         
         Vector2 mousePos = getMousePositionPoint();
         

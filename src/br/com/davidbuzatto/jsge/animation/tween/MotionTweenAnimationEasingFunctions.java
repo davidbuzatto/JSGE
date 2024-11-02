@@ -26,172 +26,172 @@ import java.util.function.DoubleFunction;
  */
 public class MotionTweenAnimationEasingFunctions {
 
-    public static DoubleFunction<Double> easeInSine = ( t ) -> {
-        return 1 - Math.cos( ( t * Math.PI ) / 2 );
+    public static DoubleFunction<Double> easeInSine = ( x ) -> {
+        return 1 - Math.cos( ( x * Math.PI ) / 2 );
     };
 
-    public static DoubleFunction<Double> easeOutSine = ( t ) -> {
-        return Math.sin( ( t * Math.PI ) / 2 );
+    public static DoubleFunction<Double> easeOutSine = ( x ) -> {
+        return Math.sin( ( x * Math.PI ) / 2 );
     };
 
-    public static DoubleFunction<Double> easeInOutSine = ( t ) -> {
-        return -( Math.cos( Math.PI * t ) - 1 ) / 2;
+    public static DoubleFunction<Double> easeInOutSine = ( x ) -> {
+        return -( Math.cos( Math.PI * x ) - 1 ) / 2;
     };
 
-    public static DoubleFunction<Double> easeInQuad = ( t ) -> {
-        return t * t;
+    public static DoubleFunction<Double> easeInQuad = ( x ) -> {
+        return x * x;
     };
 
-    public static DoubleFunction<Double> easeOutQuad = ( t ) -> {
-        return 1 - ( 1 - t ) * ( 1 - t );
+    public static DoubleFunction<Double> easeOutQuad = ( x ) -> {
+        return 1 - ( 1 - x ) * ( 1 - x );
     };
 
-    public static DoubleFunction<Double> easeInOutQuad = ( t ) -> {
-        return t < 0.5 ? 2 * t * t : 1 - Math.pow( -2 * t + 2, 2 ) / 2;
+    public static DoubleFunction<Double> easeInOutQuad = ( x ) -> {
+        return x < 0.5 ? 2 * x * x : 1 - Math.pow( -2 * x + 2, 2 ) / 2;
     };
 
-    public static DoubleFunction<Double> easeInCubic = ( t ) -> {
-        return t * t * t;
+    public static DoubleFunction<Double> easeInCubic = ( x ) -> {
+        return x * x * x;
     };
 
-    public static DoubleFunction<Double> easeOutCubic = ( t ) -> {
-        return 1 - Math.pow( 1 - t, 3 );
+    public static DoubleFunction<Double> easeOutCubic = ( x ) -> {
+        return 1 - Math.pow( 1 - x, 3 );
     };
 
-    public static DoubleFunction<Double> easeInOutCubic = ( t ) -> {
-        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow( -2 * t + 2, 3 ) / 2;
+    public static DoubleFunction<Double> easeInOutCubic = ( x ) -> {
+        return x < 0.5 ? 4 * x * x * x : 1 - Math.pow( -2 * x + 2, 3 ) / 2;
     };
 
-    public static DoubleFunction<Double> easeInQuart = ( t ) -> {
-        return t * t * t * t;
+    public static DoubleFunction<Double> easeInQuart = ( x ) -> {
+        return x * x * x * x;
     };
 
-    public static DoubleFunction<Double> easeOutQuart = ( t ) -> {
-        return 1 - Math.pow( 1 - t, 4 );
+    public static DoubleFunction<Double> easeOutQuart = ( x ) -> {
+        return 1 - Math.pow( 1 - x, 4 );
     };
 
-    public static DoubleFunction<Double> easeInOutQuart = ( t ) -> {
-        return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow( -2 * t + 2, 4 ) / 2;
+    public static DoubleFunction<Double> easeInOutQuart = ( x ) -> {
+        return x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow( -2 * x + 2, 4 ) / 2;
     };
 
-    public static DoubleFunction<Double> easeInQuint = ( t ) -> {
-        return t * t * t * t * t;
+    public static DoubleFunction<Double> easeInQuint = ( x ) -> {
+        return x * x * x * x * x;
     };
 
-    public static DoubleFunction<Double> easeOutQuint = ( t ) -> {
-        return 1 - Math.pow( 1 - t, 5 );
+    public static DoubleFunction<Double> easeOutQuint = ( x ) -> {
+        return 1 - Math.pow( 1 - x, 5 );
     };
 
-    public static DoubleFunction<Double> easeInOutQuint = ( t ) -> {
-        return t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow( -2 * t + 2, 5 ) / 2;
+    public static DoubleFunction<Double> easeInOutQuint = ( x ) -> {
+        return x < 0.5 ? 16 * x * x * x * x * x : 1 - Math.pow( -2 * x + 2, 5 ) / 2;
     };
 
-    public static DoubleFunction<Double> easeInEtpo = ( t ) -> {
-        return t == 0 ? 0 : Math.pow( 2, 10 * t - 10 );
+    public static DoubleFunction<Double> easeInEtpo = ( x ) -> {
+        return x == 0 ? 0 : Math.pow( 2, 10 * x - 10 );
     };
 
-    public static DoubleFunction<Double> easeOutEtpo = ( t ) -> {
-        return t == 1 ? 1 : 1 - Math.pow( 2, -10 * t );
+    public static DoubleFunction<Double> easeOutEtpo = ( x ) -> {
+        return x == 1 ? 1 : 1 - Math.pow( 2, -10 * x );
     };
 
-    public static DoubleFunction<Double> easeInOutEtpo = ( t ) -> {
-        return t == 0
+    public static DoubleFunction<Double> easeInOutEtpo = ( x ) -> {
+        return x == 0
             ? 0
-            : t == 1
+            : x == 1
                 ? 1
-                : t < 0.5 ? Math.pow( 2, 20 * t - 10 ) / 2
-                    : ( 2 - Math.pow( 2, -20 * t + 10 ) ) / 2;
+                : x < 0.5 ? Math.pow( 2, 20 * x - 10 ) / 2
+                    : ( 2 - Math.pow( 2, -20 * x + 10 ) ) / 2;
     };
 
-    public static DoubleFunction<Double> easeInCirc = ( t ) -> {
-        return 1 - Math.sqrt( 1 - Math.pow( t, 2 ) );
+    public static DoubleFunction<Double> easeInCirc = ( x ) -> {
+        return 1 - Math.sqrt( 1 - Math.pow( x, 2 ) );
     };
 
-    public static DoubleFunction<Double> easeOutCirc = ( t ) -> {
-        return Math.sqrt( 1 - Math.pow( t - 1, 2 ) );
+    public static DoubleFunction<Double> easeOutCirc = ( x ) -> {
+        return Math.sqrt( 1 - Math.pow( x - 1, 2 ) );
     };
 
-    public static DoubleFunction<Double> easeInOutCirc = ( t ) -> {
-        return t < 0.5
-            ? ( 1 - Math.sqrt( 1 - Math.pow( 2 * t, 2 ) ) ) / 2
-            : ( Math.sqrt( 1 - Math.pow( -2 * t + 2, 2 ) ) + 1 ) / 2;
+    public static DoubleFunction<Double> easeInOutCirc = ( x ) -> {
+        return x < 0.5
+            ? ( 1 - Math.sqrt( 1 - Math.pow( 2 * x, 2 ) ) ) / 2
+            : ( Math.sqrt( 1 - Math.pow( -2 * x + 2, 2 ) ) + 1 ) / 2;
     };
 
-    public static DoubleFunction<Double> easeInBack = ( t ) -> {
+    public static DoubleFunction<Double> easeInBack = ( x ) -> {
         double c1 = 1.70158;
         double c3 = c1 + 1;
 
-        return c3 * t * t * t - c1 * t * t;
+        return c3 * x * x * x - c1 * x * x;
     };
 
-    public static DoubleFunction<Double> easeOutBack = ( t ) -> {
+    public static DoubleFunction<Double> easeOutBack = ( x ) -> {
         double c1 = 1.70158;
         double c3 = c1 + 1;
 
-        return 1 + c3 * Math.pow( t - 1, 3 ) + c1 * Math.pow( t - 1, 2 );
+        return 1 + c3 * Math.pow( x - 1, 3 ) + c1 * Math.pow( x - 1, 2 );
     };
 
-    public static DoubleFunction<Double> easeInOutBack = ( t ) -> {
+    public static DoubleFunction<Double> easeInOutBack = ( x ) -> {
         double c1 = 1.70158;
         double c2 = c1 * 1.525;
 
-        return t < 0.5
-            ? ( Math.pow( 2 * t, 2 ) * ( ( c2 + 1 ) * 2 * t - c2 ) ) / 2
-            : ( Math.pow( 2 * t - 2, 2 ) * ( ( c2 + 1 ) * ( t * 2 - 2 ) + c2 ) + 2 ) / 2;
+        return x < 0.5
+            ? ( Math.pow( 2 * x, 2 ) * ( ( c2 + 1 ) * 2 * x - c2 ) ) / 2
+            : ( Math.pow( 2 * x - 2, 2 ) * ( ( c2 + 1 ) * ( x * 2 - 2 ) + c2 ) + 2 ) / 2;
     };
 
-    public static DoubleFunction<Double> easeInElastic = ( t ) -> {
+    public static DoubleFunction<Double> easeInElastic = ( x ) -> {
         double c4 = ( 2 * Math.PI ) / 3;
-        return t == 0
+        return x == 0
             ? 0
-            : t == 1
+            : x == 1
                 ? 1
-                : -Math.pow( 2, 10 * t - 10 ) * Math.sin( ( t * 10 - 10.75 ) * c4 );
+                : -Math.pow( 2, 10 * x - 10 ) * Math.sin( ( x * 10 - 10.75 ) * c4 );
     };
 
-    public static DoubleFunction<Double> easeOutElastic = ( t ) -> {
+    public static DoubleFunction<Double> easeOutElastic = ( x ) -> {
         double c4 = ( 2 * Math.PI ) / 3;
 
-        return t == 0
+        return x == 0
             ? 0
-            : t == 1
+            : x == 1
                 ? 1
-                : Math.pow( 2, -10 * t ) * Math.sin( ( t * 10 - 0.75 ) * c4 ) + 1;
+                : Math.pow( 2, -10 * x ) * Math.sin( ( x * 10 - 0.75 ) * c4 ) + 1;
     };
 
-    public static DoubleFunction<Double> easeInOutElastic = ( t ) -> {
+    public static DoubleFunction<Double> easeInOutElastic = ( x ) -> {
         double c5 = ( 2 * Math.PI ) / 4.5;
-        return t == 0
+        return x == 0
             ? 0
-            : t == 1
+            : x == 1
                 ? 1
-                : t < 0.5
-                    ? -( Math.pow( 2, 20 * t - 10 ) * Math.sin( ( 20 * t - 11.125 ) * c5 ) ) / 2
-                    : ( Math.pow( 2, -20 * t + 10 ) * Math.sin( ( 20 * t - 11.125 ) * c5 ) ) / 2 + 1;
+                : x < 0.5
+                    ? -( Math.pow( 2, 20 * x - 10 ) * Math.sin( ( 20 * x - 11.125 ) * c5 ) ) / 2
+                    : ( Math.pow( 2, -20 * x + 10 ) * Math.sin( ( 20 * x - 11.125 ) * c5 ) ) / 2 + 1;
     };
 
-    public static DoubleFunction<Double> easeInBounce = ( t ) -> {
-        return 1 - MotionTweenAnimationEasingFunctions.easeOutBounce.apply( 1 - t );
+    public static DoubleFunction<Double> easeInBounce = ( x ) -> {
+        return 1 - MotionTweenAnimationEasingFunctions.easeOutBounce.apply( 1 - x );
     };
 
-    public static DoubleFunction<Double> easeOutBounce = ( t ) -> {
+    public static DoubleFunction<Double> easeOutBounce = ( x ) -> {
         double n1 = 7.5625;
         double d1 = 2.75;
-        if ( t < 1 / d1 ) {
-            return n1 * t * t;
-        } else if ( t < 2 / d1 ) {
-            return n1 * ( t -= 1.5 / d1 ) * t + 0.75;
-        } else if ( t < 2.5 / d1 ) {
-            return n1 * ( t -= 2.25 / d1 ) * t + 0.9375;
+        if ( x < 1 / d1 ) {
+            return n1 * x * x;
+        } else if ( x < 2 / d1 ) {
+            return n1 * ( x -= 1.5 / d1 ) * x + 0.75;
+        } else if ( x < 2.5 / d1 ) {
+            return n1 * ( x -= 2.25 / d1 ) * x + 0.9375;
         } else {
-            return n1 * ( t -= 2.625 / d1 ) * t + 0.984375;
+            return n1 * ( x -= 2.625 / d1 ) * x + 0.984375;
         }
     };
 
-    public static DoubleFunction<Double> easeInOutBounce = ( t ) -> {
-        return t < 0.5
-            ? ( 1 - MotionTweenAnimationEasingFunctions.easeOutBounce.apply( 1 - 2 * t ) ) / 2
-            : ( 1 + MotionTweenAnimationEasingFunctions.easeOutBounce.apply( 2 * t - 1 ) ) / 2;
+    public static DoubleFunction<Double> easeInOutBounce = ( x ) -> {
+        return x < 0.5
+            ? ( 1 - MotionTweenAnimationEasingFunctions.easeOutBounce.apply( 1 - 2 * x ) ) / 2
+            : ( 1 + MotionTweenAnimationEasingFunctions.easeOutBounce.apply( 2 * x - 1 ) ) / 2;
     };
     
 }

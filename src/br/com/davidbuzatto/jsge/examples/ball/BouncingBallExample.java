@@ -52,8 +52,8 @@ public class BouncingBallExample extends EngineFrame {
     }
 
     @Override
-    public void update() {
-        ball.update( getFrameTime(), this );
+    public void update( double delta ) {
+        ball.update( delta, this );
     }
     
     @Override

@@ -112,9 +112,8 @@ public class CollisionDetectionExample extends EngineFrame {
     }
     
     @Override
-    public void update() {
+    public void update( double delta ) {
         
-        double delta = getFrameTime();
         Vector2 mousePos = getMousePositionPoint();
         
         if ( isMouseButtonPressed( MOUSE_BUTTON_LEFT ) ) {

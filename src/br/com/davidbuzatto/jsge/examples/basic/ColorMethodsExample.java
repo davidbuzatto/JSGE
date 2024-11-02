@@ -44,7 +44,7 @@ public class ColorMethodsExample extends EngineFrame {
     }
 
     @Override
-    public void update() {
+    public void update( double delta ) {
         if ( isMouseButtonPressed( MOUSE_BUTTON_RIGHT ) ) {
             SwingUtilities.invokeLater(() -> {
                 Color c = JColorChooser.showDialog( null, "Choose a color!", baseColor );

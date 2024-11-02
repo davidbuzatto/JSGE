@@ -170,9 +170,7 @@ public class ColorUtils {
     public static Color colorAlpha( Color color, double alpha ) {
         return fade( color, alpha );
     }
-
-    // Get Color structure from hexadecimal value
-    // 0xAARRGGBB
+    
     /**
      * Obtém uma cor a partir de um inteido em hexadecimal na forma 0xAARRGGBB, onde:
      *     AA: canal alfa de 00 a FF;

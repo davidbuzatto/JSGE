@@ -80,7 +80,7 @@ public class PaintingCapabilitiesExample extends EngineFrame {
     }
 
     @Override
-    public void update() {
+    public void update( double delta ) {
     }
     
     @Override

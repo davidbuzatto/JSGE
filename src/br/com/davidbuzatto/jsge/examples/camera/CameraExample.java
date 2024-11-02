@@ -21,7 +21,6 @@ import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.Vector2;
-import br.com.davidbuzatto.jsge.math.MathUtils;
 import java.awt.Color;
 
 /**
@@ -61,9 +60,9 @@ public class CameraExample extends EngineFrame {
     }
 
     @Override
-    public void update() {
+    public void update( double delta ) {
         
-        player.update( getFrameTime(), playerBoundary, this );
+        player.update( delta, playerBoundary, this );
         
         if ( isKeyDown( KEY_DELETE ) ) {
             camera.rotation--;
