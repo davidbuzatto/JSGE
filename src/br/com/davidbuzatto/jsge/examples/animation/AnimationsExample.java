@@ -22,7 +22,6 @@ import br.com.davidbuzatto.jsge.animation.frame.DrawableAnimationFrame;
 import br.com.davidbuzatto.jsge.animation.frame.ImageAnimationFrame;
 import br.com.davidbuzatto.jsge.animation.proxy.ComponentProxy;
 import br.com.davidbuzatto.jsge.animation.proxy.ComponentProxyAdapter;
-import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationConsumerFactory;
 import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationEasingFunctions;
 import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationProperties;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;

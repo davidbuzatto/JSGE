@@ -14,9 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.animation.tween;
+package br.com.davidbuzatto.jsge.examples.animation;
 
 import br.com.davidbuzatto.jsge.animation.proxy.ComponentProxy;
+import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationConsumer;
+import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationExecutionState;
+import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationProperties;
+import br.com.davidbuzatto.jsge.animation.tween.MotionTweenAnimationStateContainer;
 import java.util.function.DoubleFunction;
 
 /**
