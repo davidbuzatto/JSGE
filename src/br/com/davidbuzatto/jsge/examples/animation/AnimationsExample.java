@@ -230,14 +230,14 @@ public class AnimationsExample extends EngineFrame {
         
         /**
          * Os proxies servem como ponte de comunicação entre as funções de 
-         * atualização (MotionTweenAnimationConsumer) e os componentes que
+         * atualização (TweenAnimationUpdateFunction) e os componentes que
          * serão atualizados. Implemente apenas os métodos necessários. Há diversos
          * métodos semanticamente associados às formas geométricas e algumas
          * propriedades físicas. Os métodos set devem ser usados para alterar
          * propriedades dos componenets e os métodos get devem ser usados
          * para ler tais propriedades.
          */
-        ComponentProxy<Rectangle> proxyPos = new ComponentProxyAdapter<>( new Rectangle( 0, 0, 50, 50 ) ){
+        ComponentProxy<Rectangle> proxyPos = new ComponentProxyAdapter<>( new Rectangle( 0, 0, 80, 80 ) ){
             @Override
             public void setX( double x ) {
                 component.x = x;
@@ -263,7 +263,7 @@ public class AnimationsExample extends EngineFrame {
             }
         };
         
-        ComponentProxy<AlphaCircleSector> proxyAlpha = new ComponentProxyAdapter<>( new AlphaCircleSector( 0, 0, 30, 30, 330 ) ){
+        ComponentProxy<AlphaCircleSector> proxyAlpha = new ComponentProxyAdapter<>( new AlphaCircleSector( 0, 0, 40, 30, 330 ) ){
             @Override
             public void setX( double x ) {
                 component.x = x;
@@ -278,7 +278,7 @@ public class AnimationsExample extends EngineFrame {
             }
         };
         
-        ComponentProxy<Polygon> proxyRotation = new ComponentProxyAdapter<>( new Polygon( 0, 0, 5, 35 ) ){
+        ComponentProxy<Polygon> proxyRotation = new ComponentProxyAdapter<>( new Polygon( 0, 0, 5, 40 ) ){
             @Override
             public void setX( double x ) {
                 component.x = x;
@@ -295,14 +295,14 @@ public class AnimationsExample extends EngineFrame {
         
         /**
          * Para simplificar a forma que diversos parâmetros são passados para
-         * a execução da função de atualização, use-se a classe MotionTweenAnimationProperties.
+         * a execução da função de atualização, use-se a classe TweenAnimationProperties.
          * Todos esses parâmetros poderão ser acessos e alterados caso necessário
          * dentro da função de atualização correspondente.
          */
         TweenAnimationProperties pPos = TweenAnimationProperties.of( 
             "x1", 50,
-            "y1", 360,
-            "x2", 380,
+            "y1", 345,
+            "x2", 340,
             "velX", 300,
             "velPercentage", 0.5
         );
@@ -311,7 +311,7 @@ public class AnimationsExample extends EngineFrame {
             "x1", 520,
             "y1", 385,
             "radius1", 10, 
-            "radius2", 30, 
+            "radius2", 40, 
             "velPercentage", 0.5
         );
         
@@ -392,14 +392,14 @@ public class AnimationsExample extends EngineFrame {
                     currentEasingFunction = easingFunctions.length - 1;
                 }
                 currentEasingFunction %= easingFunctions.length;
-                resetMotionTweenAnimation();
+                resetTweenAnimations();
             }
             if ( nextEFR.checkOver( mousePos ) ) {
                 currentEasingFunction = ( currentEasingFunction + 1 ) % easingFunctions.length;
-                resetMotionTweenAnimation();
+                resetTweenAnimations();
             }
             if ( repeatEFR.checkOver( mousePos ) ) {
-                resetMotionTweenAnimation();
+                resetTweenAnimations();
             }
         }
         
@@ -422,7 +422,7 @@ public class AnimationsExample extends EngineFrame {
         drawLine( 450, 20, 450, 250, BLACK );
         drawLine( 20, 250, 450, 250, BLACK );
         
-        drawText( "motion tween animation", 20, 270, BLACK );
+        drawText( "tween animations", 20, 270, BLACK );
         drawText( "position:", 20, 300, BLACK );
         mtaPos.getComponent().fill( this, VIOLET );
         mtaPos.getComponent().draw( this, BLACK );
@@ -439,7 +439,7 @@ public class AnimationsExample extends EngineFrame {
         mtaRotation.getComponent().fill( this, MAROON );
         mtaRotation.getComponent().draw( this, BLACK );
         
-        drawText( "motion tween options", 460, 20, BLACK );
+        drawText( "tween animations options", 460, 20, BLACK );
         drawText( "easing function:", 460, 60, BLACK );
         drawText( String.format( "%02d/%02d", currentEasingFunction + 1, easingFunctions.length ), 780, 60, BLACK );
         prevEFR.draw( this );
@@ -457,7 +457,7 @@ public class AnimationsExample extends EngineFrame {
         
     }
     
-    private void resetMotionTweenAnimation() {
+    private void resetTweenAnimations() {
         mtaPos.reset();
         mtaRadius.reset();
         mtaAlpha.reset();
