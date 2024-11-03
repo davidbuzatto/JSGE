@@ -1,4 +1,3 @@
 Implementar exemplos de animação de interpolação:
-    Sem suavização.
     Baseada em tempo.
-    Separar TweenAnimation em baseada em tempo e baseada em porcentagem.
+    opção de contorno pontilhado, tracejado etc.
