@@ -752,7 +752,7 @@ public class AnimationsExample extends EngineFrame {
         fillRectangle( 595, 310, 115, 225, ColorUtils.fade( ORANGE, 0.2 ) );
         fillRectangle( 730, 310, 125, 225, ColorUtils.fade( MAROON, 0.2 ) );
         
-        String tEasing = String.format( "tween animation [easing] (%.2f%%)", etaPos.getPercentage() * 100 );
+        String tEasing = String.format( "tween animation [with easing] (%.2f%%)", etaPos.getPercentage() * 100 );
         drawText( tEasing, getScreenWidth() / 2 - measureText( tEasing ) / 2, 280, BLACK );
         drawText( "position", 190, 320, BLACK );
         etaPos.getComponent().fill( this, VIOLET );
@@ -784,7 +784,7 @@ public class AnimationsExample extends EngineFrame {
             ( 80 + easingFunctionImage.getHeight() - fimV ) - ( easingFunctionImage.getHeight() - fimV * 2 ) * easingFunctionPair.function.apply( etaPos.getPercentage() ), 
             5, ColorUtils.fade( DARKBLUE, 0.8 ) );
         
-        String tNoEasing = String.format( "tween animation [no easing] (%.2f%%)", taPos.getPercentage() * 100 );
+        String tNoEasing = String.format( "tween animation [without easing] (%.2f%%)", taPos.getPercentage() * 100 );
         drawText( tNoEasing, getScreenWidth() / 2 - measureText( tNoEasing ) / 2, 550, BLACK );
         taPos.getComponent().fill( this, VIOLET );
         taPos.getComponent().draw( this, BLACK );
@@ -799,13 +799,13 @@ public class AnimationsExample extends EngineFrame {
         String tLabel = String.format( "timing animation (%.2fs/%.2fs)", timingAnim.getExecutionTime(), timingAnim.getTotalExecutionTime() );
         drawText( tLabel, getScreenWidth() / 2 - measureText( tLabel ) / 2, 600, BLACK );
         drawText( """
-                    <arrow up>: increase time
-                                and reset
+                    <up>: increase time
+                          and reset
                   
-                  <arrow down>: decrease time
-                                and reset
+                  <down>: decrease time
+                          and reset
                   
-                  <arrow left>: reset
+                  <left>: reset
                   """, 20, 655, 14, BLACK );
         timingAnim.getComponent().fill( this, PINK );
         timingAnim.getComponent().draw( this, BLACK );
