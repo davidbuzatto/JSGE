@@ -21,6 +21,7 @@ import br.com.davidbuzatto.jsge.core.utils.TraceLogUtils;
 import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.core.utils.CoreUtils;
 import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
+import br.com.davidbuzatto.jsge.core.utils.StrokeUtils;
 import br.com.davidbuzatto.jsge.geom.Arc;
 import br.com.davidbuzatto.jsge.geom.Circle;
 import br.com.davidbuzatto.jsge.geom.CircleSector;
@@ -2892,10 +2893,10 @@ public abstract class EngineFrame extends JFrame {
     /**
      * Altera a largura da linha do contorno padrão do contexto gráfico.
      * 
-     * @param width A largura da linha do contorno padrão.
+     * @param lineWidth A largura da linha do contorno padrão.
      */
-    public void setDefaultStrokeWidth( float width ) {
-        defaultStroke = new BasicStroke( width, defaultStroke.getEndCap(), defaultStroke.getLineJoin() );
+    public void setDefaultStrokeLineWidth( float lineWidth ) {
+        defaultStroke = StrokeUtils.cloneStrokeLineWidth( lineWidth, defaultStroke );
     }
 
     /**
@@ -2905,7 +2906,7 @@ public abstract class EngineFrame extends JFrame {
      * @param endCap O novo modelo de desenho.
      */
     public void setDefaultStrokeEndCap( int endCap ) {
-        defaultStroke = new BasicStroke( defaultStroke.getLineWidth(), endCap, defaultStroke.getLineJoin() );
+        defaultStroke = StrokeUtils.cloneStrokeEndCap( endCap, defaultStroke );
     }
 
     /**
@@ -2915,16 +2916,25 @@ public abstract class EngineFrame extends JFrame {
      * @param lineJoin O novo modelo de junção de linhas.
      */
     public void setDefaultStrokeLineJoin( int lineJoin ) {
-        defaultStroke = new BasicStroke( defaultStroke.getLineWidth(), defaultStroke.getEndCap(), lineJoin );
+        defaultStroke = StrokeUtils.cloneStrokeLineJoin( lineJoin, defaultStroke );
     }
 
     /**
+     * Altera o contorno do contexto gráfico.
+     * 
+     * @param stroke Contorno a ser usado.
+     */
+    public void setStroke( BasicStroke stroke ) {
+        g2d.setStroke( stroke );
+    }
+    
+    /**
      * Altera a largura da linha do contorno corrente do contexto gráfico.
      * 
-     * @param width A largura da linha do contorno padrão.
+     * @param lineWidth A largura da linha do contorno padrão.
      */
-    public void setStrokeWidth( float width ) {
-        g2d.setStroke( new BasicStroke( width, defaultStroke.getEndCap(), defaultStroke.getLineJoin() ) );
+    public void setStrokeLineWidth( float lineWidth ) {
+        g2d.setStroke( StrokeUtils.cloneStrokeLineWidth( lineWidth, g2d.getStroke() ) );
     }
 
     /**
@@ -2934,7 +2944,7 @@ public abstract class EngineFrame extends JFrame {
      * @param endCap O novo modelo de desenho.
      */
     public void setStrokeEndCap( int endCap ) {
-        g2d.setStroke( new BasicStroke( defaultStroke.getLineWidth(), endCap, defaultStroke.getLineJoin() ) );
+        g2d.setStroke( StrokeUtils.cloneStrokeEndCap( endCap, g2d.getStroke() ) );
     }
 
     /**
@@ -2944,9 +2954,9 @@ public abstract class EngineFrame extends JFrame {
      * @param lineJoin O novo modelo de junção de linhas.
      */
     public void setStrokeLineJoin( int lineJoin ) {
-        g2d.setStroke( new BasicStroke( defaultStroke.getLineWidth(), defaultStroke.getEndCap(), lineJoin ) );
+        g2d.setStroke( StrokeUtils.cloneStrokeLineJoin( lineJoin, g2d.getStroke() ) );
     }
-
+    
     
     
     //**************************************************************************

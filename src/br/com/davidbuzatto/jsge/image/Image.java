@@ -17,6 +17,7 @@
 package br.com.davidbuzatto.jsge.image;
 
 import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
+import br.com.davidbuzatto.jsge.core.utils.StrokeUtils;
 import br.com.davidbuzatto.jsge.geom.Arc;
 import br.com.davidbuzatto.jsge.geom.Circle;
 import br.com.davidbuzatto.jsge.geom.CircleSector;
@@ -2011,13 +2012,23 @@ public class Image {
     }
     
     /**
+     * Configura o contorno corrente que é usada para os processos de desenho
+     * do contexto gráfico das imagens.
+     * 
+     * @param stroke O novo contorno.
+     */
+    public static void setStroke( BasicStroke stroke ) {
+        Image.stroke = stroke;
+    }
+    
+    /**
      * Configura a largura do desenho da linha do contorno corrente que é usado
      * para os processos de desenho do contexto gráfico das imagens.
      * 
-     * @param width A largura da linha do contorno padrão.
+     * @param lineWidth A largura da linha do contorno padrão.
      */
-    public static void setStrokeWidth( float width ) {
-        stroke = new BasicStroke( width, stroke.getEndCap(), stroke.getLineJoin() );
+    public static void setStrokeLineWidth( float lineWidth ) {
+        stroke = StrokeUtils.cloneStrokeLineWidth( lineWidth, stroke );
     }
     
     /**
@@ -2027,7 +2038,7 @@ public class Image {
      * @param endCap O novo modelo de desenho.
      */
     public static void setStrokeEndCap( int endCap ) {
-        stroke = new BasicStroke( stroke.getLineWidth(), endCap, stroke.getLineJoin() );
+        stroke = StrokeUtils.cloneStrokeEndCap( endCap, stroke );
     }
     
     /**
@@ -2037,17 +2048,7 @@ public class Image {
      * @param lineJoin O novo modelo de junção de linhas.
      */
     public static void setStrokeLineJoin( int lineJoin ) {
-        stroke = new BasicStroke( stroke.getLineWidth(), stroke.getEndCap(), lineJoin );
-    }
-    
-    /**
-     * Configura o contorno corrente que é usada para os processos de desenho
-     * do contexto gráfico das imagens.
-     * 
-     * @param stroke O novo contorno.
-     */
-    public static void setStroke( BasicStroke stroke ) {
-        Image.stroke = stroke;
+        stroke = StrokeUtils.cloneStrokeLineJoin( lineJoin, stroke );
     }
     
     /**

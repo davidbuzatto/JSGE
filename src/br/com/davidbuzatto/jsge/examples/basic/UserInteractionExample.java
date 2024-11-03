@@ -62,6 +62,8 @@ public class UserInteractionExample extends EngineFrame {
         
         wheelRect = new Rectangle( 10, getScreenHeight() - 90, 80, 80 );
         
+        setDefaultStrokeLineWidth( 2 );
+        
     }
 
     @Override
@@ -102,7 +104,6 @@ public class UserInteractionExample extends EngineFrame {
         
         clearBackground( WHITE );
         setFontStyle( FONT_BOLD );
-        setStrokeWidth( 2 );
         
         drawText( "        Key A: " + keyAPress + " | " + keyADown, 15, 10, 20, BLACK );
         drawText( "   Mouse left: " + mouseLeftPress + " | " + mouseLeftDown, 15, 40, 20, BLACK );
