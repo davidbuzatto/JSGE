@@ -1,3 +1,1 @@
-Implementar exemplos de animação de interpolação:
-    Baseada em tempo.
-    opção de contorno pontilhado, tracejado etc.
+Opção de contorno pontilhado, tracejado etc.

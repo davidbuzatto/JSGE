@@ -111,6 +111,7 @@ public abstract class TweenAnimationBase<ComponentType> {
     public void reset() {
         stateContainer.state = TweenAnimationExecutionState.INITIALIZED;
         stateContainer.percentage = 0.0;
+        stateContainer.executionTime = 0.0;
     }
 
     /**

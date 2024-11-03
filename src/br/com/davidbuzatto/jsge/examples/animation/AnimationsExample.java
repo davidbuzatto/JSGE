@@ -66,7 +66,7 @@ public class AnimationsExample extends EngineFrame {
     private TweenAnimation<AlphaCircleSector> taAlpha;
     private TweenAnimation<Polygon> taRotation;
     
-    private TimingTweenAnimation<Polygon> tAnim;
+    private TimingTweenAnimation<Polygon> timingAnim;
     
     private Image easingFunctionImage;
     
@@ -471,6 +471,39 @@ public class AnimationsExample extends EngineFrame {
             
         };
         
+        TweenAnimationComponentMapper<Polygon> timingMapper = new TweenAnimationComponentMapper<>( new Polygon( 0, 0, 6, 10 ) ){
+            
+            @Override
+            public void set( String property, Object value ) {
+                switch ( property ) {
+                    case "x" -> component.x = (Double) value;
+                    case "y" -> component.y = (Double) value;
+                    case "angle" -> component.rotation = (Double) value;
+                    case "radius" -> component.radius = (Double) value;
+                }
+            }
+            
+            @Override
+            public Object get( String property ) {
+                switch ( property ) {
+                    case "x" -> {
+                        return component.x;
+                    }
+                    case "y" -> {
+                        return component.y;
+                    }
+                    case "angle" -> {
+                        return component.rotation;
+                    }
+                    case "radius" -> {
+                        return component.radius;
+                    }
+                }
+                return null;
+            }
+            
+        };
+        
         /**
          * Para simplificar a forma que diversos parâmetros são passados para
          * a execução da função de atualização, use-se a classe TweenAnimationProperties.
@@ -535,6 +568,17 @@ public class AnimationsExample extends EngineFrame {
             "velAngle", 180.0
         );
         
+        TweenAnimationProperties pTiming = TweenAnimationProperties.of( 
+            "x", 280,
+            "y", 700,
+            "angle", 0,
+            "radius", 10,
+            "velX", 200,
+            "velY", 200,
+            "velAngle", 200,
+            "velRadius", 15
+        );
+        
         fimH = 15;
         fimV = 45;
         
@@ -597,6 +641,13 @@ public class AnimationsExample extends EngineFrame {
             UpdateFunctionsFactory.<Polygon>tweenRotation()
         );
         
+        timingAnim = new TimingTweenAnimation<>(
+            pTiming,
+            timingMapper,
+            TimingFunctionsFactory.<Polygon>tweenTime(),
+            1.5
+        );
+        
         setDefaultFontSize( 20 );
         
     }
@@ -618,6 +669,8 @@ public class AnimationsExample extends EngineFrame {
         taRadius.update( delta );
         taAlpha.update( delta );
         taRotation.update( delta );
+        
+        timingAnim.update( delta );
         
         prevEFR.checkOver( mousePos );
         nextEFR.checkOver( mousePos );
@@ -652,6 +705,27 @@ public class AnimationsExample extends EngineFrame {
             }
         }
         
+        if ( isKeyPressed( KEY_LEFT ) ) {
+            double t = timingAnim.getTotalExecutionTime();
+            resetTimingAnimation( t );
+        }
+        
+        if ( isKeyPressed( KEY_UP ) ) {
+            double t = timingAnim.getTotalExecutionTime() + 0.5;
+            if ( t >= 3.5 ) {
+                t = 3.5;
+            }
+            resetTimingAnimation( t );
+        }
+        
+        if ( isKeyPressed( KEY_DOWN ) ) {
+            double t = timingAnim.getTotalExecutionTime() - 0.5;
+            if ( t <= 0.5 ) {
+                t = 0.5;
+            }
+            resetTimingAnimation( t );
+        }
+        
     }
     
     @Override
@@ -672,13 +746,13 @@ public class AnimationsExample extends EngineFrame {
         drawLine( 450, 20, 450, 250, BLACK );
         drawLine( 20, 250, 450, 250, BLACK );
         
-        fillRectangle( 10, 270, getScreenWidth() - 20, 310, ColorUtils.fade( LIGHTGRAY, 0.2 ) );
+        fillRectangle( 10, 270, getScreenWidth() - 20, 305, ColorUtils.fade( LIGHTGRAY, 0.2 ) );
         fillRectangle( 20, 310, 420, 225, ColorUtils.fade( VIOLET, 0.2 ) );
         fillRectangle( 465, 310, 110, 225, ColorUtils.fade( LIME, 0.2 ) );
         fillRectangle( 595, 310, 115, 225, ColorUtils.fade( ORANGE, 0.2 ) );
         fillRectangle( 730, 310, 125, 225, ColorUtils.fade( MAROON, 0.2 ) );
         
-        String tEasing = String.format( "tween animations [easing] (%.2f%%)", etaPos.getPercentage() * 100 );
+        String tEasing = String.format( "tween animation [easing] (%.2f%%)", etaPos.getPercentage() * 100 );
         drawText( tEasing, getScreenWidth() / 2 - measureText( tEasing ) / 2, 280, BLACK );
         drawText( "position", 190, 320, BLACK );
         etaPos.getComponent().fill( this, VIOLET );
@@ -696,7 +770,7 @@ public class AnimationsExample extends EngineFrame {
         etaRotation.getComponent().fill( this, MAROON );
         etaRotation.getComponent().draw( this, BLACK );
         
-        drawText( "tween animations options", 460, 20, BLACK );
+        drawText( "tween animation control:", 460, 20, BLACK );
         drawText( "easing function:", 460, 60, BLACK );
         drawText( String.format( "%02d/%02d", currentEasingFunction + 1, easingFunctions.length ), 780, 60, BLACK );
         prevEFR.draw( this );
@@ -710,7 +784,7 @@ public class AnimationsExample extends EngineFrame {
             ( 80 + easingFunctionImage.getHeight() - fimV ) - ( easingFunctionImage.getHeight() - fimV * 2 ) * easingFunctionPair.function.apply( etaPos.getPercentage() ), 
             5, ColorUtils.fade( DARKBLUE, 0.8 ) );
         
-        String tNoEasing = String.format( "tween animations [no easing] (%.2f%%)", taPos.getPercentage() * 100 );
+        String tNoEasing = String.format( "tween animation [no easing] (%.2f%%)", taPos.getPercentage() * 100 );
         drawText( tNoEasing, getScreenWidth() / 2 - measureText( tNoEasing ) / 2, 550, BLACK );
         taPos.getComponent().fill( this, VIOLET );
         taPos.getComponent().draw( this, BLACK );
@@ -721,8 +795,20 @@ public class AnimationsExample extends EngineFrame {
         taRotation.getComponent().fill( this, MAROON );
         taRotation.getComponent().draw( this, BLACK );
         
-        String time = String.format( "time animation (%.2fs/%.2fs) | arrows to change time and reset", 10.0, 10.0 );
-        drawText( time, getScreenWidth() / 2 - measureText( time ) / 2, 600, BLACK );
+        fillRectangle( 10, 585, getScreenWidth() - 20, getScreenHeight() - 595, ColorUtils.fade( LIGHTGRAY, 0.2 ) );
+        String tLabel = String.format( "timing animation (%.2fs/%.2fs)", timingAnim.getExecutionTime(), timingAnim.getTotalExecutionTime() );
+        drawText( tLabel, getScreenWidth() / 2 - measureText( tLabel ) / 2, 600, BLACK );
+        drawText( """
+                    <arrow up>: increase time
+                                and reset
+                  
+                  <arrow down>: decrease time
+                                and reset
+                  
+                  <arrow left>: reset
+                  """, 20, 655, 14, BLACK );
+        timingAnim.getComponent().fill( this, PINK );
+        timingAnim.getComponent().draw( this, BLACK );
         
         drawFPS( 10, 10 );
         
@@ -748,6 +834,11 @@ public class AnimationsExample extends EngineFrame {
         etaAlpha.setEasingFunction( easingFunctionPair.function );
         etaRotation.setEasingFunction( easingFunctionPair.function );
         
+    }
+    
+    private void resetTimingAnimation( double newTotalExecutionTime ) {
+        timingAnim.reset();
+        timingAnim.setTotalExecutionTime( newTotalExecutionTime );
     }
     
     /**
