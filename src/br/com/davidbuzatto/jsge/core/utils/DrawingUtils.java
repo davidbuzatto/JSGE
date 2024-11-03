@@ -29,11 +29,11 @@ import java.awt.image.BufferedImage;
 import java.util.function.DoubleFunction;
 
 /**
- * Classe com métodos utilitários de desenho.
+ * Interface com métodos utilitários de desenho.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class DrawingUtils {
+public interface DrawingUtils {
        
     /**
      * Cria Path2D de um triângulo.

@@ -18,13 +18,16 @@ package br.com.davidbuzatto.jsge.core.utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ResourceBundle;
 
 /**
- * Classe com métodos estáticos utilitários.
+ * Interface com métodos estáticos utilitários.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class CoreUtils {
+public interface CoreUtils {
+    
+    public static final ResourceBundle BUNDLE = ResourceBundle.getBundle( "br/com/davidbuzatto/jsge/examples/Bundle" );
     
     /**
      * Obtém a versão atual.
@@ -32,7 +35,7 @@ public class CoreUtils {
      * @return A versão.
      */
     public static String getVersion() {
-        return "1.2.0";
+        return BUNDLE.getString( "JSGE.version" );
     }
     
     /**

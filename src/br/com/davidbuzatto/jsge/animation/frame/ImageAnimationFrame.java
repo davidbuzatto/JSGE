@@ -25,7 +25,7 @@ import java.awt.Color;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class ImageAnimationFrame extends AnimationFrame {
+public class ImageAnimationFrame implements AnimationFrame {
     
     /**
      * A imagem do quadro de animação.
@@ -58,7 +58,7 @@ public class ImageAnimationFrame extends AnimationFrame {
      * @param engine A engine.
      * @param x Coordenada x.
      * @param y Coordenada y.
-     * @bgColor Cor de fundo.
+     * @param bgColor Cor de fundo.
      */
     public void draw( EngineFrame engine, double x, double y, Color bgColor ) {
         engine.drawImage( image, x, y, bgColor );

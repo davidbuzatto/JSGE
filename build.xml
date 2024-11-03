@@ -70,4 +70,56 @@
     nbproject/build-impl.xml file. 
 
     -->
+    
+    <target name="-post-jar">
+        
+        <loadproperties srcFile="${src.dir}/br/com/davidbuzatto/jsge/examples/Bundle.properties"/>        
+        <property name="artefatoBin" value="JSGE-${JSGE.version}-bin"/>
+        <property name="artefatoJavadoc" value="JSGE-${JSGE.version}-javadoc"/>
+        <property name="artefatoSrc" value="JSGE-${JSGE.version}-src"/>
+        
+        <!-- remoção do readme -->
+        <delete file="${dist.dir}/README.TXT"/>
+        
+        <!-- renomeia o jar -->
+        <move file="${dist.jar}" tofile="${dist.dir}/${artefatoBin}.jar"/>
+        
+        <!-- move o jar para a pasta lib -->
+        <move file="${dist.dir}/${artefatoBin}.jar" todir="${dist.dir}/lib"/>
+        
+        <!-- copia os recursos para a pasta lib -->
+        <copy todir="${dist.dir}/lib/resources">
+            <fileset dir="resources"/>
+        </copy>
+        
+        <!-- renomeia a pasta lib para a pasta de binários -->
+        <move file="${dist.dir}/lib" tofile="${dist.dir}/${artefatoBin}"/>
+        
+        <!-- compacta a pasta de binários -->
+        <zip destfile="${dist.dir}/${artefatoBin}.zip"
+             basedir="${dist.dir}/${artefatoBin}"/>
+        
+        
+        <!-- compacta fontes -->
+        <zip destfile="${artefatoSrc}.zip"
+             basedir="${src.dir}"/>
+        
+        <!-- move para pasta dist -->
+        <move file="${artefatoSrc}.zip" todir="${dist.dir}"/>
+        
+        
+        <!-- gera a documentação -->
+        <antcall target="-javadoc-build"/>
+        
+        <!-- compacta a documentação -->
+        <zip destfile="${dist.dir}/${artefatoJavadoc}.zip"
+             basedir="${dist.dir}/javadoc"/>
+        
+        <!-- apaga o diretório do build da documentação -->
+        <delete includeEmptyDirs="true">
+           <fileset dir="${dist.dir}/javadoc"/>
+        </delete>
+        
+    </target>
+    
 </project>

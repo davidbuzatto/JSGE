@@ -19,16 +19,16 @@ package br.com.davidbuzatto.jsge.math;
 import java.util.Random;
 
 /**
- * Classe com métodos estáticos utilitários relacionados à matemática.
+ * Interface com métodos estáticos utilitários relacionados à matemática.
  * 
  * Várias implementações são baseadas na raylib e em seus módulos
  * (www.raylib.com). Nesse caso, principalmente a raymath.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class MathUtils {
+public interface MathUtils {
     
-    private static final Random random = new Random();
+    public static final Random RANDOM_GEN = new Random();
     public static final double DEG2RAD = Math.PI / 180.0;
     public static final double RAD2DEG = 180.0 / Math.PI;
 
@@ -118,7 +118,7 @@ public class MathUtils {
      * @return Um número pseudo-aleatório entre min (inclusive) e max (inclusive).
      */
     public static int getRandomValue( int min, int max ) {
-        return random.nextInt( min, max + 1 );
+        return RANDOM_GEN.nextInt( min, max + 1 );
     }
 
     /**
@@ -127,7 +127,7 @@ public class MathUtils {
      * @param seed A semente a ser utilizada.
      */
     public static void setRandomSeed( long seed ) {
-        random.setSeed( seed );
+        RANDOM_GEN.setSeed( seed );
     }
     
 }

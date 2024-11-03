@@ -17,10 +17,10 @@
 package br.com.davidbuzatto.jsge.animation.frame;
 
 /**
- * Classe que tipifica um quadro de uma animação.
+ * Interface de marcação para um quadro de uma animação.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public abstract class AnimationFrame {
+public interface AnimationFrame {
     
 }

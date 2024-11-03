@@ -4075,7 +4075,7 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
      *
      * @author Prof. Dr. David Buzatto
      */
-    public class GameAction {
+    private class GameAction {
         
         private static final int STATE_RELEASED = 0;
         private static final int STATE_PRESSED = 1;

@@ -25,7 +25,7 @@ import java.awt.Paint;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class DrawableAnimationFrame extends AnimationFrame {
+public class DrawableAnimationFrame implements AnimationFrame {
     
     /**
      * O objeto desenhável do quadro de animação.

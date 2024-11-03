@@ -20,14 +20,14 @@ import br.com.davidbuzatto.jsge.math.MathUtils;
 import java.awt.Color;
 
 /**
- * Classe com métodos estáticos utilitários relacionados às cores.
+ * Interface com métodos estáticos utilitários relacionados às cores.
  * 
  * Várias implementações são baseadas na raylib e em seus módulos
  * (www.raylib.com).
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class ColorUtils {
+public interface ColorUtils {
     
     /**
      * Aplica transparência (alpha) na cor.

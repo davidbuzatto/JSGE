@@ -30,11 +30,11 @@ import java.awt.TexturePaint;
 import java.awt.geom.Rectangle2D;
 
 /**
- * Classe com métodos estáticos utilitários criação de diversos tipos de Paints.
+ * Interface com métodos estáticos utilitários criação de diversos tipos de Paints.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class PaintUtils {
+public interface PaintUtils {
     
     /**
      * Enumeração para os tipos de cyclos para os gradientes.

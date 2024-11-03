@@ -132,6 +132,8 @@ public class Camera2D {
     
     /**
      * Obtém a matriz da câmera 2D.
+     * 
+     * @return A matriz da câmera 2D.
      */
     public Matrix getCameraMatrix() {
         

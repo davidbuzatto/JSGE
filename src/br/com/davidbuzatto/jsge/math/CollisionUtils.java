@@ -23,16 +23,19 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.geom.Triangle;
 
 /**
- * Classe com métodos estáticos utilitários para detecção de colisão.
+ * Interface com métodos estáticos utilitários para detecção de colisão.
  * 
  * Várias implementações são baseadas na raylib e em seus módulos
  * (www.raylib.com).
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class CollisionUtils {
+public interface CollisionUtils {
     
-    private static final double FLT_EPSILON = 2.2204460492503131e-16;
+    /**
+     * Variação para valores em ponto flutuante.
+     */
+    public static final double FLT_EPSILON = 2.2204460492503131e-16;
 
     /**
      * Verifica se dois retângulos colidiram.

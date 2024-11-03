@@ -21,11 +21,11 @@ import br.com.davidbuzatto.jsge.geom.Line;
 import br.com.davidbuzatto.jsge.geom.QuadCurve;
 
 /**
- * Classe com métodos utilitários para curvas.
+ * Interface com métodos utilitários para curvas.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class CurveUtils {
+public interface CurveUtils {
     
     /**
      * Obtém um ponto dentro de uma linha.

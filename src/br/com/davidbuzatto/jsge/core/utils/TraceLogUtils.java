@@ -22,7 +22,7 @@ package br.com.davidbuzatto.jsge.core.utils;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class TraceLogUtils {
+public abstract class TraceLogUtils {
     
     //**************************************************************************
     // Níveis de log.

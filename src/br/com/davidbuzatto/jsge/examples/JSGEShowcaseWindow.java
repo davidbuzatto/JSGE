@@ -36,13 +36,13 @@ import br.com.davidbuzatto.jsge.examples.particles.ParticlesExample;
  * @author Prof. Dr. David Buzatto
  */
 public class JSGEShowcaseWindow extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form JSGEShowcaseFrame
      */
     public JSGEShowcaseWindow() {
         initComponents();
-        setTitle(String.format("JSGE Showcase - v%s", CoreUtils.getVersion() ) );
+        setTitle( String.format( "JSGE-%s Showcase", CoreUtils.getVersion() ) );
     }
 
     /**

@@ -1026,7 +1026,7 @@ is divided into following sections:
                         <filtermapper>
                             <replacestring from=" " to="%20"/>
                         </filtermapper>
-                        <globmapper from="*" to="lib/*"/>
+                        <!--globmapper from="*" to="lib/*"/-->
                     </chainedmapper>
                 </pathconvert>
                 <taskdef classname="org.netbeans.modules.java.j2seproject.copylibstask.CopyLibs" classpath="${libs.CopyLibs.classpath}" name="copylibs"/>

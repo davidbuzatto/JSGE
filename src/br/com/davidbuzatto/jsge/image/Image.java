@@ -1948,8 +1948,8 @@ public class Image {
      * 
      * A fonte padrão tem os seguintes atributos:
      * <ul>
-     * <li>Nome: {@link #FONT_MONOSPACED}</li>
-     * <li>Estilo: {@link #FONT_BOLD}</li>
+     * <li>Nome: {@link br.com.davidbuzatto.jsge.core.engine.EngineFrame#FONT_MONOSPACED}</li>
+     * <li>Estilo: {@link br.com.davidbuzatto.jsge.core.engine.EngineFrame#FONT_BOLD}</li>
      * <li>Tamanho: 10</li>
      * </ul>
      * 
