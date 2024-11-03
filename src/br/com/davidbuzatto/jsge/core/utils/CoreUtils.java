@@ -30,7 +30,7 @@ public interface CoreUtils {
     /**
      * Resurce bundle para strings.
      */
-    public static final ResourceBundle BUNDLE = ResourceBundle.getBundle( "br/com/davidbuzatto/jsge/examples/Bundle" );
+    public static final ResourceBundle BUNDLE = ResourceBundle.getBundle( "br/com/davidbuzatto/jsge/Bundle" );
     
     /**
      * Obtém a versão atual.

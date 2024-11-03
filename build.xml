@@ -73,7 +73,7 @@
     
     <target name="-post-jar">
         
-        <loadproperties srcFile="${src.dir}/br/com/davidbuzatto/jsge/examples/Bundle.properties"/>        
+        <loadproperties srcFile="${src.dir}/br/com/davidbuzatto/jsge/Bundle.properties"/>        
         <property name="artefatoBin" value="JSGE-${JSGE.version}-bin"/>
         <property name="artefatoJavadoc" value="JSGE-${JSGE.version}-javadoc"/>
         <property name="artefatoSrc" value="JSGE-${JSGE.version}-src"/>
