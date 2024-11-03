@@ -32,13 +32,17 @@ public interface TweenAnimationUpdateFunction<ComponentType> {
      * Função de atualização.
      * 
      * @param delta Variação no tempo.
+     * @param deltaPercentagePerSecond Quanto a porcentagem da execução deve variar por segundo. A porcentagem é medida de 0 a 1.
+     * @param totalExecutionTime Tempo de total de execução da animação.
      * @param properties Propriedades para inicialização e manutenção do estado da animação.
      * @param componentMapper Mapeador de propriedades que realiza a interface entre o componente manipulado e a função de atualização.
      * @param easingFunction Função de suavização.
-     * @param stateContainer Mantém o estado da animação.
+     * @param stateContainer Mantém o estado da animação. ´É responsabilidade do desenvolvedor lidar com seus atributos.
      */
     public void accept( 
         double delta, 
+        double deltaPercentagePerSecond,
+        double totalExecutionTime,
         TweenAnimationProperties properties,
         TweenAnimationComponentMapper<ComponentType> componentMapper, 
         DoubleFunction<Double> easingFunction,

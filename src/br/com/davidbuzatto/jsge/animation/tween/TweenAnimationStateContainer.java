@@ -27,8 +27,11 @@ public class TweenAnimationStateContainer {
     /** O estado de execução da animação. */
     public TweenAnimationExecutionState state;
     
-    /** A porcentagem de execução da animação. Varia de 0 a 1.*/
+    /** A porcentagem de execução da animação. Varia de 0 a 1. */
     public double percentage;
+    
+    /** O tempo que passou do início da animação até o momento atual. */
+    public double executionTime;
     
     /**
      * Cria um novo container do estado da animação.
@@ -38,6 +41,7 @@ public class TweenAnimationStateContainer {
     public TweenAnimationStateContainer( TweenAnimationExecutionState initialState ) {
         this.state = initialState;
         this.percentage = 0.0;
+        this.executionTime = 0.0;
     }
     
 }

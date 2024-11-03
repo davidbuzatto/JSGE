@@ -196,7 +196,7 @@ public class AnimationsExample extends EngineFrame {
      * Cria o exemplo.
      */
     public AnimationsExample() {
-        super( 870, 450, "Animations", 60, true );
+        super( 870, 600, "Animations", 60, true );
     }
     
     @Override
@@ -354,32 +354,28 @@ public class AnimationsExample extends EngineFrame {
             "x1", 50,
             "y1", 345,
             "x2", 340,
-            "velX", 300,
-            "velPercentage", 0.5
+            "velX", 300
         );
         
         TweenAnimationProperties pRadius = TweenAnimationProperties.of( 
             "x1", 520,
             "y1", 385,
             "radius1", 10, 
-            "radius2", 40, 
-            "velPercentage", 0.5
+            "radius2", 40
         );
         
         TweenAnimationProperties pAlpha = TweenAnimationProperties.of( 
             "x1", 660,
             "y1", 385,
             "alpha1", 0, 
-            "alpha2", 255, 
-            "velPercentage", 0.5
+            "alpha2", 255
         );
         
         TweenAnimationProperties pRotation = TweenAnimationProperties.of( 
             "x1", 790,
             "y1", 385,
             "angle1", 0.0, 
-            "angle2", 360.0, 
-            "velPercentage", 0.5
+            "angle2", 360.0
         );
         
         fimH = 15;
@@ -389,31 +385,35 @@ public class AnimationsExample extends EngineFrame {
         easingFunctionImage = DrawingUtils.plot( easingFunctionPair.function, 200, 200, fimH, fimV, BLACK, BLUE );
         
         mtaPos = new TweenAnimation<>(
-            pPos,
-            posMapper,
-            UpdateFunctionsFactory.<Rectangle>tweenXEasing(),
-            easingFunctionPair.function
+            pPos,                                              // propriedades
+            posMapper,                                         // mapeador
+            UpdateFunctionsFactory.<Rectangle>tweenXEasing(),  // função de atualização
+            easingFunctionPair.function,                       // função de suavização
+            0.5                                                // 50% por segundo (2 segundos para executar a interpolação inteira)
         );
         
         mtaRadius = new TweenAnimation<>(
             pRadius,
             radiusMapper,
             UpdateFunctionsFactory.<Circle>tweenRadiusEasing(),
-            easingFunctionPair.function
+            easingFunctionPair.function,
+            0.5
         );
         
         mtaAlpha = new TweenAnimation<>(
             pAlpha,
             alphaMapper,
             UpdateFunctionsFactory.<AlphaCircleSector>tweenAlphaEasing(),
-            easingFunctionPair.function
+            easingFunctionPair.function,
+            0.5
         );
         
         mtaRotation = new TweenAnimation<>(
             pRotation,
             rotationMapper,
             UpdateFunctionsFactory.<Polygon>tweenRotationEasing(),
-            easingFunctionPair.function
+            easingFunctionPair.function,
+            0.5
         );
         
         setDefaultFontSize( 20 );
@@ -454,6 +454,17 @@ public class AnimationsExample extends EngineFrame {
             }
         }
         
+        double mw = getMouseWheelMove();
+        if ( mw != 0.0 ) {
+            mw /= 100.0;
+            imageAnimation.setTimeToNextFrame( imageAnimation.getTimeToNextFrame() + mw );
+            if ( imageAnimation.getTimeToNextFrame() > 1.0 ) {
+                imageAnimation.setTimeToNextFrame( 1.0 );
+            } else if ( imageAnimation.getTimeToNextFrame() <= 0.01 ) {
+                imageAnimation.setTimeToNextFrame( 0.01 );
+            }
+        }
+        
     }
     
     @Override
@@ -462,9 +473,10 @@ public class AnimationsExample extends EngineFrame {
         clearBackground( WHITE );
         
         drawText( "image animation (frame by frame)", 20, 50, BLACK );
-        for ( int i = 0; i < 10; i++ ) {
+        for ( int i = 0; i < 4; i++ ) {
             drawImage( imageAnimation.getCurrentFrame().image, 20 + i * 40, 80 );
         }
+        drawText( String.format( "%.2fs to next frame\nuse mouse wheel to change!", imageAnimation.getTimeToNextFrame() ), 190, 85, 14, BLACK );
         
         drawText( "drawable animation (frame by frame)", 20, 150, BLACK );
         drawableAnimation.getCurrentFrame().fill( this, colors[drawableAnimation.getCurrentFramePosition()] );
@@ -473,7 +485,7 @@ public class AnimationsExample extends EngineFrame {
         drawLine( 450, 20, 450, 250, BLACK );
         drawLine( 20, 250, 450, 250, BLACK );
         
-        drawText( "tween animations", 20, 270, BLACK );
+        drawText( String.format( "tween animations [easing] (%.2f%%)", mtaPos.getPercentage() * 100 ), 20, 270, BLACK );
         drawText( "position:", 20, 300, BLACK );
         mtaPos.getComponent().fill( this, VIOLET );
         mtaPos.getComponent().draw( this, BLACK );
@@ -503,6 +515,8 @@ public class AnimationsExample extends EngineFrame {
             ( 460 + fimH ) + ( easingFunctionImage.getWidth() - fimH * 2 ) * mtaPos.getPercentage(), 
             ( 80 + easingFunctionImage.getHeight() - fimV ) - ( easingFunctionImage.getHeight() - fimV * 2 ) * easingFunctionPair.function.apply( mtaPos.getPercentage() ), 
             5, ColorUtils.fade( DARKBLUE, 0.8 ) );
+        
+        drawText( String.format( "tween animations [no easing] (%.2f%%)", mtaPos.getPercentage() * 100 ), 20, 450, BLACK );
         
         drawFPS( 10, 10 );
         

@@ -36,41 +36,84 @@ public class TweenAnimation<ComponentType> {
     private DoubleFunction<Double> easingFunction;
     private TweenAnimationProperties properties;
     private TweenAnimationStateContainer stateContainer;
+    
+    private double deltaPercentagePerSecond;
+    private double totalExecutionTime;
 
     /**
      * Constroi uma nova animação de interpolada.
      * 
      * @param properties As propriedades utilizadas para o controle da animação.
-     * @param mapper Um mapeador de propriedades do componente que será manipulado na animação.
+     * @param componentMapper Um mapeador de propriedades do componente que será manipulado na animação.
      * @param updateFunction A função de atualização de animação.
      */
     public TweenAnimation( 
         TweenAnimationProperties properties,
-        TweenAnimationComponentMapper<ComponentType> mapper, 
+        TweenAnimationComponentMapper<ComponentType> componentMapper, 
         TweenAnimationUpdateFunction<ComponentType> updateFunction ) {
-        this( properties, mapper, updateFunction, null );
+        this( properties, componentMapper, updateFunction, ( x ) -> 1.0, 0.0, 0.0 );
+    }
+    
+    /**
+     * Constroi uma nova animação de interpolada.
+     * 
+     * @param properties As propriedades utilizadas para o controle da animação.
+     * @param componentMapper Um mapeador de propriedades do componente que será manipulado na animação.
+     * @param updateFunction A função de atualização de animação.
+     * @param totalExecutionTime Tempo de total de execução da animação.
+     */
+    public TweenAnimation( 
+        TweenAnimationProperties properties,
+        TweenAnimationComponentMapper<ComponentType> componentMapper, 
+        TweenAnimationUpdateFunction<ComponentType> updateFunction,
+        double totalExecutionTime ) {
+        this( properties, componentMapper, updateFunction, ( x ) -> 1.0, 0.0, totalExecutionTime );
     }
     
     /**
      * Constroi uma nova animação interpolada.
      * 
      * @param properties As propriedades utilizadas para o controle da animação.
-     * @param mapper Um mapeador de propriedades do componente que será manipulado na animação.
+     * @param componentMapper Um mapeador de propriedades do componente que será manipulado na animação.
      * @param updateFunction A função de atualização de animação.
      * @param easingFunction A função de suavização da animação.
+     * @param deltaPercentagePerSecond Quanto a porcentagem da execução deve variar por segundo. A porcentagem é medida de 0 a 1.
      */
     public TweenAnimation( 
         TweenAnimationProperties properties,
-        TweenAnimationComponentMapper<ComponentType> mapper, 
+        TweenAnimationComponentMapper<ComponentType> componentMapper, 
         TweenAnimationUpdateFunction<ComponentType> updateFunction, 
-        DoubleFunction<Double> easingFunction ) {
+        DoubleFunction<Double> easingFunction,
+        double deltaPercentagePerSecond ) {
+        this( properties, componentMapper, updateFunction, easingFunction, deltaPercentagePerSecond, 0.0 );
+    }
+    
+    /**
+     * Constroi uma nova animação interpolada.
+     * 
+     * @param properties As propriedades utilizadas para o controle da animação.
+     * @param componentMapper Um mapeador de propriedades do componente que será manipulado na animação.
+     * @param updateFunction A função de atualização de animação.
+     * @param easingFunction A função de suavização da animação.
+     * @param deltaPercentagePerSecond Quanto a porcentagem da execução deve variar por segundo. A porcentagem é medida de 0 a 1.
+     * @param totalExecutionTime Tempo de total de execução da animação.
+     */
+    public TweenAnimation( 
+        TweenAnimationProperties properties,
+        TweenAnimationComponentMapper<ComponentType> componentMapper, 
+        TweenAnimationUpdateFunction<ComponentType> updateFunction, 
+        DoubleFunction<Double> easingFunction,
+        double deltaPercentagePerSecond, 
+        double totalExecutionTime ) {
         
         this.properties = properties;
-        this.componentMapper = mapper;
+        this.componentMapper = componentMapper;
         this.updateFunction = updateFunction;
         this.easingFunction = easingFunction;
+        this.deltaPercentagePerSecond = deltaPercentagePerSecond;
+        this.totalExecutionTime = totalExecutionTime;
         
-        stateContainer = new TweenAnimationStateContainer( TweenAnimationExecutionState.INITIALIZED );
+        this.stateContainer = new TweenAnimationStateContainer( TweenAnimationExecutionState.INITIALIZED );
         
     }
     
@@ -80,7 +123,7 @@ public class TweenAnimation<ComponentType> {
      * @param delta Variação do tempo.
      */
     public void update( double delta ) {
-        updateFunction.accept(delta, properties, componentMapper, easingFunction, stateContainer );
+        updateFunction.accept( delta, deltaPercentagePerSecond, totalExecutionTime, properties, componentMapper, easingFunction, stateContainer );
     }
     
     /**
@@ -108,6 +151,51 @@ public class TweenAnimation<ComponentType> {
      */
     public double getPercentage() {
         return stateContainer.percentage;
+    }
+    
+    /**
+     * Obtém o tempo de execução total animação.
+     * 
+     * @return O tempo de execução total da animação.
+     */
+    public double getExecutionTime() {
+        return stateContainer.executionTime;
+    }
+
+    /**
+     * Obtém quanto a porcentagem da execução deve variar por segundo. A porcentagem é medida de 0 a 1.
+     * 
+     * @return Quanto a porcentagem da execução deve variar por segundo.
+     */
+    public double getDeltaPercentagePerSecond() {
+        return deltaPercentagePerSecond;
+    }
+
+    /**
+     * Configura quanto a porcentagem da execução deve variar por segundo. A porcentagem é medida de 0 a 1.
+     * 
+     * @param deltaPercentagePerSecond Quanto a porcentagem da execução deve variar por segundo.
+     */
+    public void setDeltaPercentagePerSecond( double deltaPercentagePerSecond ) {
+        this.deltaPercentagePerSecond = deltaPercentagePerSecond;
+    }
+
+    /**
+     * Obtém o tempo de total de execução da animação.
+     * 
+     * @return O tempo de total de execução da animação.
+     */
+    public double getTotalExecutionTime() {
+        return totalExecutionTime;
+    }
+
+    /**
+     * Configura o tempo de total de execução da animação.
+     * 
+     * @param totalExecutionTime O tempo de total de execução da animação.
+     */
+    public void setTotalExecutionTime( double totalExecutionTime ) {
+        this.totalExecutionTime = totalExecutionTime;
     }
     
     /**

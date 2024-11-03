@@ -23,10 +23,10 @@ package br.com.davidbuzatto.jsge.animation.tween;
  */
 public enum TweenAnimationExecutionState {
     
-    /** A animação foi criada e inicializada (construtor executou). */
+    /** A animação foi criada e inicializada. */
     INITIALIZED,
     
-    /** A animaçãop está em execução. */
+    /** A animação está em execução. */
     RUNNING,
     
     /** A animação está pausada. */

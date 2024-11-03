@@ -40,7 +40,7 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
     /**
      * Cria uma animação quadro a quadro.
      * 
-     * @param timeToNextFrame Tempo para a transição de um quadro para outro.
+     * @param timeToNextFrame Tempo para a transição de um quadro para outro em segundos.
      * @param frames Quadros da animação.
      */
     public FrameByFrameAnimation( double timeToNextFrame, List<FrameType> frames ) {
@@ -52,7 +52,7 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
     /**
      * Cria uma animação quadro a quadro.
      * 
-     * @param timesToNextFrame Tempos para a transição dos quadros.
+     * @param timesToNextFrame Tempos para a transição dos quadros em segundos.
      * @param frames Quadros da animação.
      */
     public FrameByFrameAnimation( double[] timesToNextFrame, List<FrameType> frames ) {
@@ -82,6 +82,42 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
             }
         }
         
+    }
+
+    /**
+     * Obtém o tempo para a transição de um quadro para outro em segundos.
+     * 
+     * @return O tempo para o próximo quadro em segundos.
+     */
+    public double getTimeToNextFrame() {
+        return timeToNextFrame;
+    }
+
+    /**
+     * Configura o tempo para a transição de um quadro para outro em segundos.
+     * 
+     * @param timeToNextFrame O tempo para o próximo quadro em segundos.
+     */
+    public void setTimeToNextFrame( double timeToNextFrame ) {
+        this.timeToNextFrame = timeToNextFrame;
+    }
+
+    /**
+     * Obtém os tempos para a transição de um quadro para outro em segundos.
+     * 
+     * @return Os tempos para os próximos quadros em segundos.
+     */
+    public double[] getTimesToNextFrame() {
+        return timesToNextFrame;
+    }
+
+    /**
+     * Configura os tempos para a transição de um quadro para outro em segundos.
+     * 
+     * @param timesToNextFrame Os tempos para os próximos quadros em segundos.
+     */
+    public void setTimesToNextFrame( double[] timesToNextFrame ) {
+        this.timesToNextFrame = timesToNextFrame;
     }
     
     /**
