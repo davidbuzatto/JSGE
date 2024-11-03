@@ -27,13 +27,30 @@ import java.awt.Color;
  */
 public class Obstacle {
     
+    /** retângulo */
     public Rectangle rect;
+    
+    /** sonda de colisão de cima */
     public Rectangle topCP;
+    
+    /** sonda de colisão de baixo */
     public Rectangle bottomCP;
+    
+    /** sonda de colisão da esquerda */
     public Rectangle leftCP;
+    
+    /** sonda de colisão de direita */
     public Rectangle rightCP;
+    
+    /** cor */
     public Color color;
     
+    /**
+     * Cria um obstáculo.
+     * 
+     * @param rect Reângulo.
+     * @param color Cor.
+     */
     public Obstacle( Rectangle rect, Color color ) {
         
         this.rect = rect;
@@ -72,6 +89,11 @@ public class Obstacle {
         
     }
     
+    /**
+     * Desenha o obstáculo.
+     * 
+     * @param engine A engine.
+     */
     public void draw( EngineFrame engine ) {
         engine.fillRectangle( rect, color );
     }

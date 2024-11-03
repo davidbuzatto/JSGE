@@ -24,6 +24,12 @@ package br.com.davidbuzatto.jsge.core.utils;
  */
 public abstract class TraceLogUtils {
     
+    /**
+     * Um warning a menos do javadoc :D
+     */
+    private TraceLogUtils() {
+    }
+    
     //**************************************************************************
     // Níveis de log.
     //**************************************************************************

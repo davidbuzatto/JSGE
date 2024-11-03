@@ -33,6 +33,12 @@ public class TweenAnimationProperties {
     private final Map<String, Object> properties = new HashMap<>();
     
     /**
+     * Cria um container de propriedades para uma interpolação de movimento.
+     */
+    public TweenAnimationProperties() {
+    }
+    
+    /**
      * Método de conveniência para criar um novo MotionTweenAnimationProperties.
      * Os argumentos devem ser passados em pares chave-valor, sendo a chave
      * uma String e o valor qualquer objeto. Mesmo que a chave seja passada

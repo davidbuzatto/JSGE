@@ -68,11 +68,15 @@ public class Image {
         disableAntialiasing();
     }
     
+    /**
+     * Uma buffered image com os dados de fato da imagem.
+     */
     public BufferedImage buffImage;
     
     /**
      * Cria uma imagem a partir de uma buffered image.
-     * @param buffImage 
+     * 
+     * @param buffImage Uma buffered image.
      */
     public Image( BufferedImage buffImage ) {
         this.buffImage = buffImage;

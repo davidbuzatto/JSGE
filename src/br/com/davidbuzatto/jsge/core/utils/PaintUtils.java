@@ -465,7 +465,7 @@ public interface PaintUtils {
      * 
      * @param center Centro.
      * @param radius Raio.
-     * @param focus
+     * @param focus Ponto do foco.
      * @param fractions Posições percentuais das fronteiras das cores.
      * @param colors Cores.
      * @param cycleMethod Qual tipo de ciclo deve ser empregado.
@@ -480,7 +480,7 @@ public interface PaintUtils {
      * 
      * @param center Centro.
      * @param radius Raio.
-     * @param focus
+     * @param focus Ponto do foco.
      * @param fractions Posições percentuais das fronteiras das cores.
      * @param colors Cores.
      * @return Um gradiente radial acíclico.

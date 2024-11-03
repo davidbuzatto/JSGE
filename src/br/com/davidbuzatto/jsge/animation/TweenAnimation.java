@@ -138,18 +138,38 @@ public class TweenAnimation<ComponentType> {
         stateContainer.percentage = 0.0;
     }
 
+    /**
+     * Configura o mapeador.
+     * 
+     * @param componentMapper Mapeador.
+     */
     public void setComponentMapper( TweenAnimationComponentMapper<ComponentType> componentMapper ) {
         this.componentMapper = componentMapper;
     }
 
+    /**
+     * Configura a função de atualização.
+     * 
+     * @param updateFunction A função.
+     */
     public void setUpdateFunction( TweenAnimationUpdateFunction<ComponentType> updateFunction ) {
         this.updateFunction = updateFunction;
     }
 
+    /**
+     * Configura a função de suavização.
+     * 
+     * @param easingFunction A função.
+     */
     public void setEasingFunction( DoubleFunction<Double> easingFunction ) {
         this.easingFunction = easingFunction;
     }
 
+    /**
+     * Configura as propriedades.
+     * 
+     * @param properties As propriedades.
+     */
     public void setProperties( TweenAnimationProperties properties ) {
         this.properties = properties;
     }

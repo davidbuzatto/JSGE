@@ -31,8 +31,15 @@ public class Path implements Drawable {
     /**
      * Path2D desse caminho.
      */
-    public Path2D.Double path = new Path2D.Double();
+    public Path2D.Double path;
 
+    /**
+     * Cria um novo caminho.
+     */
+    public Path() {
+        path = new Path2D.Double();
+    }
+    
     /**
      * Move para a coordenada desejada.
      * 

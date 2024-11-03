@@ -27,6 +27,9 @@ import java.util.ResourceBundle;
  */
 public interface CoreUtils {
     
+    /**
+     * Resurce bundle para strings.
+     */
     public static final ResourceBundle BUNDLE = ResourceBundle.getBundle( "br/com/davidbuzatto/jsge/examples/Bundle" );
     
     /**

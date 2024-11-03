@@ -27,11 +27,22 @@ import java.awt.Color;
  */
 public class Particle {
 
+    /** posição */
     public Vector2 pos;
+    
+    /** velocidade */
     public Vector2 vel;
+    
+    /** raio */
     public double radius;
+    
+    /** atrito */
     public double friction;
+    
+    /** elasticidade */
     public double elasticity;
+    
+    /** cor */
     public Color color;
     
     private static final double MAX_FALL_SPEED = 500;

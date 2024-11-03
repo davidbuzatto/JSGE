@@ -363,7 +363,7 @@ public class Vector3 implements Cloneable {
      * 
      * @param axis O eixo.
      * @param angle O ângulo em radianos.
-     * @return 
+     * @return Um novo vetor rotacionado.
      */
     public Vector3 rotateByAxisAngle( Vector3 axis, double angle ) {
         

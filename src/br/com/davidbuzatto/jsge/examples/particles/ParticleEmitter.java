@@ -30,22 +30,46 @@ import java.awt.Color;
  */
 public class ParticleEmitter {
     
+    /** posição */
     public Vector2 pos;
+    
+    /** velocidade */
     public Vector2 vel;
     
+    /** ângulo de lançamento */
     public double launchAngle;
+    
+    /** ângulo da posição (movimento) */
     public double posAngle;
+    
+    /** velocidade do ângulo da posição */
     public double posAngleVel;
+    
+    /** ângulo da matiz */
     public double hueAngle;
+    
+    /** velocidade do ângulo da matiz */
     public double hueAngleVel;
     
+    /** raio */
     public double radius;
+    
+    /** se está sendo arrastado */
     public boolean dragging;
+    
+    /** se é arrastável */
     public boolean draggable;
+    
+    /** se o mouse está em cima */
     public boolean mouseOver;
     
+    /** posição de uma nova particula */
     public int newParticlePos;
+    
+    /** quantidade de partículas */
     public int particleQuantity;
+    
+    /** partículas */
     public Particle[] particles;
     
     private double xOffset;
@@ -53,6 +77,18 @@ public class ParticleEmitter {
     
     private static final double PE_RANDOM_MULTIPLIER = 1000.0;
     
+    /**
+     * Cria um emissor de partículas.
+     * 
+     * @param pos Posição.
+     * @param vel Velocidade.
+     * @param launchAngle Ângulo de lançamento.
+     * @param posAngleVel Ângulo de posição.
+     * @param hueAngleVel Ângulo da matiz.
+     * @param radius Raio.
+     * @param draggable Se é arrastável.
+     * @param maxParticles Quantidade máxima de partículas.
+     */
     public ParticleEmitter( Vector2 pos, Vector2 vel, double launchAngle, double posAngleVel, double hueAngleVel, double radius, boolean draggable, int maxParticles ) {
         this.pos = pos;
         this.vel = vel;
@@ -68,6 +104,11 @@ public class ParticleEmitter {
         this.particles = new Particle[maxParticles];
     }
     
+    /**
+     * Desenha o emissor.
+     * 
+     * @param engine A engine.
+     */
     public void draw( EngineFrame engine ) {
 
         if ( draggable && mouseOver ) {
@@ -81,6 +122,11 @@ public class ParticleEmitter {
 
     }
 
+    /**
+     * Atualiza a posição usando seno e o ângulo.
+     * @param delta Variaçao do tempo.
+     * @param engine A engine.
+     */
     public void updateMoveSin( double delta, EngineFrame engine ) {
 
         pos.x += vel.x * delta;
@@ -105,6 +151,11 @@ public class ParticleEmitter {
 
     }
 
+    /**
+     * Atualiza um emissor estático.
+     * 
+     * @param delta Variação do tempo.
+     */
     public void updateStatic( double delta ) {
 
         updateHueAngleBouncing( delta );
@@ -115,6 +166,11 @@ public class ParticleEmitter {
 
     }
 
+    /**
+     * Atualiza um emissor de matiz.
+     * 
+     * @param delta Variação do tempo.
+     */
     public void updateHueAngleBouncing( double delta ) {
 
         hueAngle += hueAngleVel * delta;
@@ -129,6 +185,14 @@ public class ParticleEmitter {
 
     }
 
+    /**
+     * Emite uma partícula.
+     * 
+     * @param pos Posição.
+     * @param vel Velocidade.
+     * @param radius Raio.
+     * @param color Cor.
+     */
     public void emitParticle( Vector2 pos, Vector2 vel, double radius, Color color ) {
 
         int k = newParticlePos % particles.length;
@@ -149,11 +213,30 @@ public class ParticleEmitter {
         }
 
     }
-
+    
+    /**
+     * Emite uma partícula em um intervalo de cor.
+     * 
+     * @param vel Velocidade.
+     * @param minRadius Raio mínimo.
+     * @param maxRadius Raio máximo.
+     * @param startHue Matiz inicial.
+     * @param endHue Matiz final.
+     */
     public void emitParticleColorInterval( Vector2 vel, double minRadius, double maxRadius, double startHue, double endHue ) {
         emitParticlePositionColorInterval( pos, vel, minRadius, maxRadius, startHue, endHue );
     }
 
+    /**
+     * Emite uma partícula com posição e intervalo de cor.
+     * 
+     * @param pos Posição.
+     * @param vel Velocidade.
+     * @param minRadius Raio mínimo.
+     * @param maxRadius Raio máximo.
+     * @param startHue Matiz inicial.
+     * @param endHue Matiz final.
+     */
     public void emitParticlePositionColorInterval( Vector2 pos, Vector2 vel, double minRadius, double maxRadius, double startHue, double endHue ) {
         emitParticle( 
             pos, 
@@ -167,6 +250,14 @@ public class ParticleEmitter {
         );
     }
 
+    /**
+     * Verifica se a posição do mouse está em cima do emissor.
+     * 
+     * @param pePos Posição do emissor.
+     * @param peRadius Raio do emissor.
+     * @param mousePos Posição do mouse.
+     * @return a.
+     */
     public boolean isMouseOverParticleEmitter( Vector2 pePos, double peRadius, Vector2 mousePos ) {
 
         double c1 = mousePos.x - pePos.x;
@@ -176,6 +267,21 @@ public class ParticleEmitter {
 
     }
 
+    /**
+     * A.
+     * 
+     * @param minVelX a.
+     * @param maxVelX a.
+     * @param minVelY a.
+     * @param maxVelY a.
+     * @param randomSignX a.
+     * @param randomSignY a.
+     * @param minRadius a.
+     * @param maxRadius a.
+     * @param startHue a.
+     * @param endHue a.
+     * @param quantity a.
+     */
     public void emitParticleColorIntervalQuantity( 
         double minVelX, double maxVelX, 
         double minVelY, double maxVelY, 
@@ -198,6 +304,22 @@ public class ParticleEmitter {
 
     }
 
+    /**
+     * A.
+     * 
+     * @param pos a.
+     * @param minVelX a.
+     * @param maxVelX a.
+     * @param minVelY a.
+     * @param maxVelY a.
+     * @param randomSignX a.
+     * @param randomSignY a.
+     * @param minRadius a.
+     * @param maxRadius a.
+     * @param startHue a.
+     * @param endHue a.
+     * @param quantity a.
+     */
     public void emitParticlePositionColorIntervalQuantity( 
         Vector2 pos,
         double minVelX, double maxVelX, 
@@ -222,6 +344,20 @@ public class ParticleEmitter {
 
     }
 
+    /**
+     * A.
+     * 
+     * @param minVel a.
+     * @param maxVel a.
+     * @param minLaunchAngle a.
+     * @param maxLaunchAngle a.
+     * @param randomSignLaunchAnble a.
+     * @param minRadius a.
+     * @param maxRadius a.
+     * @param startHue a.
+     * @param endHue a.
+     * @param quantity a.
+     */
     public void emitParticlePolarColorIntervalQuantity( 
         double minVel, double maxVel, 
         double minLaunchAngle, double maxLaunchAngle,
@@ -254,6 +390,21 @@ public class ParticleEmitter {
 
     }
 
+    /**
+     * A.
+     * 
+     * @param pos a.
+     * @param minVel a.
+     * @param maxVel a.
+     * @param minLaunchAngle a.
+     * @param maxLaunchAngle a.
+     * @param randomSignLaunchAnble a.
+     * @param minRadius a.
+     * @param maxRadius a.
+     * @param startHue a.
+     * @param endHue a.
+     * @param quantity a.
+     */
     public void emitParticlePolarPositionColorIntervalQuantity( 
         Vector2 pos,
         double minVel, double maxVel, 
@@ -300,6 +451,12 @@ public class ParticleEmitter {
 
     }
     
+    /**
+     * A.
+     * 
+     * @param engine a.
+     * @return a.
+     */
     public boolean resolveParticleEmitterMouseOperations( EngineFrame engine ) {
 
         Vector2 mousePos = engine.getMousePositionPoint();
@@ -336,6 +493,12 @@ public class ParticleEmitter {
 
     }
     
+    /**
+     * A.
+     * 
+     * @param obstacles a.
+     * @param obstacleQuantity a.
+     */
     public void resolveParticlesObstaclesCollision( Obstacle[] obstacles, int obstacleQuantity ) {        
 
         for ( int i = 0; i < particleQuantity; i++ ) {

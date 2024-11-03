@@ -228,13 +228,9 @@ public class AnimationsExample extends EngineFrame {
         repeatEFR = new Button( new Rectangle( 740, 52, 30, 30 ), "R" );
         
         /**
-         * Os proxies servem como ponte de comunicação entre as funções de 
+         * Os mapeadores servem como ponte de comunicação entre as funções de 
          * atualização (TweenAnimationUpdateFunction) e os componentes que
-         * serão atualizados. Implemente apenas os métodos necessários. Há diversos
-         * métodos semanticamente associados às formas geométricas e algumas
-         * propriedades físicas. Os métodos set devem ser usados para alterar
-         * propriedades dos componenets e os métodos get devem ser usados
-         * para ler tais propriedades.
+         * serão atualizados.
          */
         TweenAnimationComponentMapper<Rectangle> posMapper = new TweenAnimationComponentMapper<>( new Rectangle( 0, 0, 80, 80 ) ){
             

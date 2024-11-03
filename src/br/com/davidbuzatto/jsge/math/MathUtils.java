@@ -28,8 +28,19 @@ import java.util.Random;
  */
 public interface MathUtils {
     
+    /**
+     * Gerador de números pseudo-aleatórios.
+     */
     public static final Random RANDOM_GEN = new Random();
+    
+    /**
+     * Constante para conversão de graus em radianos.
+     */
     public static final double DEG2RAD = Math.PI / 180.0;
+    
+    /**
+     * Constante para conversão de radianos em graus.
+     */
     public static final double RAD2DEG = 180.0 / Math.PI;
 
     /**

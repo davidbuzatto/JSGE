@@ -29,8 +29,14 @@ import java.util.function.DoubleFunction;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class UpdateFunctionsFactory {
+public interface UpdateFunctionsFactory {
     
+    /**
+     * Fabrica uma função de interpolação em x com suavização.
+     * 
+     * @param <ComponentType> Tipo do componente.
+     * @return A função de interpolação.
+     */
     public static <ComponentType> TweenAnimationUpdateFunction<ComponentType> tweenXEasing() {
         return ( 
             double delta, 
@@ -61,6 +67,12 @@ public class UpdateFunctionsFactory {
         };
     }
     
+    /**
+     * Fabrica uma função de interpolação em y com suavização.
+     * 
+     * @param <ComponentType> Tipo do componente.
+     * @return A função de interpolação.
+     */
     public static <ComponentType> TweenAnimationUpdateFunction<ComponentType> tweenYEasing() {
         return ( 
             double delta, 
@@ -91,6 +103,12 @@ public class UpdateFunctionsFactory {
         };
     }
     
+    /**
+     * Fabrica uma função de interpolação em x e y com suavização.
+     * 
+     * @param <ComponentType> Tipo do componente.
+     * @return A função de interpolação.
+     */
     public static <ComponentType> TweenAnimationUpdateFunction<ComponentType> tweenXYEasing() {
         return ( 
             double delta, 
@@ -123,6 +141,12 @@ public class UpdateFunctionsFactory {
         };
     }
     
+    /**
+     * Fabrica uma função de interpolação para raio com suavização.
+     * 
+     * @param <ComponentType> Tipo do componente.
+     * @return A função de interpolação.
+     */
     public static <ComponentType> TweenAnimationUpdateFunction<ComponentType> tweenRadiusEasing() {
         return ( 
             double delta, 
@@ -153,6 +177,12 @@ public class UpdateFunctionsFactory {
         };
     }
     
+    /**
+     * Fabrica uma função de interpolação para transparência com suavização.
+     * 
+     * @param <ComponentType> Tipo do componente.
+     * @return A função de interpolação.
+     */
     public static <ComponentType> TweenAnimationUpdateFunction<ComponentType> tweenAlphaEasing() {
         return ( 
             double delta, 
@@ -184,6 +214,12 @@ public class UpdateFunctionsFactory {
         };
     }
     
+    /**
+     * Fabrica uma função de interpolação para rotação com suavização.
+     * 
+     * @param <ComponentType> Tipo do componente.
+     * @return A função de interpolação.
+     */
     public static <ComponentType> TweenAnimationUpdateFunction<ComponentType> tweenRotationEasing() {
         return ( 
             double delta, 
@@ -214,6 +250,12 @@ public class UpdateFunctionsFactory {
         };
     }
     
+    /**
+     * Fabrica uma função de interpolação em x.
+     * 
+     * @param <ComponentType> Tipo do componente.
+     * @return A função de interpolação.
+     */
     public static <ComponentType> TweenAnimationUpdateFunction<ComponentType> tweenX() {
         return ( 
             double delta, 
@@ -239,6 +281,12 @@ public class UpdateFunctionsFactory {
         };
     }
     
+    /**
+     * Fabrica uma função de interpolação em y.
+     * 
+     * @param <ComponentType> Tipo do componente.
+     * @return A função de interpolação.
+     */
     public static <ComponentType> TweenAnimationUpdateFunction<ComponentType> tweenY() {
         return ( 
             double delta, 
@@ -264,6 +312,12 @@ public class UpdateFunctionsFactory {
         };
     }
     
+    /**
+     * Fabrica uma função de interpolação em x e y.
+     * 
+     * @param <ComponentType> Tipo do componente.
+     * @return A função de interpolação.
+     */
     public static <ComponentType> TweenAnimationUpdateFunction<ComponentType> tweenXY() {
         return ( 
             double delta, 

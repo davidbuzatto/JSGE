@@ -24,11 +24,11 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 /**
- * Classe com métodos estáticos utilitários para tratamento de imagens.
+ * Interface com métodos estáticos utilitários para tratamento de imagens.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class ImageUtils {
+public interface ImageUtils {
     
     /**
      * Cria uma imagem redimensionada da imagem original.

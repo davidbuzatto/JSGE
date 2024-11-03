@@ -32,7 +32,8 @@ public class TweenAnimationStateContainer {
     
     /**
      * Cria um novo container do estado da animação.
-     * @param initialState 
+     * 
+     * @param initialState Estado inicial.
      */
     public TweenAnimationStateContainer( TweenAnimationExecutionState initialState ) {
         this.state = initialState;
