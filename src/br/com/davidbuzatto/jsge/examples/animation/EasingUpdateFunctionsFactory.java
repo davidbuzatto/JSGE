@@ -19,28 +19,31 @@ package br.com.davidbuzatto.jsge.examples.animation;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationExecutionState;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationProperties;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationStateContainer;
-import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationUpdateFunction;
+import br.com.davidbuzatto.jsge.animation.tween.easing.EasingTweenAnimationUpdateFunction;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationComponentMapper;
+import java.util.function.DoubleFunction;
 
 /**
- * Uma fábrica de funções de atualização para as animações interpoladas do
- * exemplo de animações.
+ * Uma fábrica de funções de atualização com suavização para as animações
+ * interpoladas suavizadas do exemplo de animações.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public interface UpdateFunctionsFactory {
+public interface EasingUpdateFunctionsFactory {
     
     /**
-     * Fabrica uma função de interpolação em x.
+     * Fabrica uma função de interpolação em x com suavização.
      * 
      * @param <ComponentType> Tipo do componente.
      * @return A função de interpolação.
      */
-    public static <ComponentType> TweenAnimationUpdateFunction<ComponentType> tweenX() {
+    public static <ComponentType> EasingTweenAnimationUpdateFunction<ComponentType> tweenX() {
         return ( 
             double delta, 
+            double deltaP,
             TweenAnimationProperties p,
             TweenAnimationComponentMapper<ComponentType> cm, 
+            DoubleFunction<Double> ef,
             TweenAnimationStateContainer sc ) -> {
             
             if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
@@ -50,28 +53,34 @@ public interface UpdateFunctionsFactory {
             }
             
             if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
-                cm.set( "x", (Double) cm.get( "x" ) + p.getDouble( "velX" ) * delta );
-                if ( (Double) cm.get( "x" ) >= p.getDouble( "x2" ) ) {
+                
+                sc.percentage += deltaP * delta;
+                cm.set( "x", p.getDouble( "x1" ) + ( p.getDouble( "x2" ) - p.getDouble( "x1" ) ) * ef.apply( sc.percentage ) );
+                
+                if ( sc.percentage >= 1.0 ) {
                     cm.set( "x", p.getDouble( "x2" ) );
+                    sc.percentage = 1.0;
                     sc.state = TweenAnimationExecutionState.FINISHED;
                 }
-                sc.percentage = ( (Double) cm.get( "x" ) - p.getDouble( "x1" ) ) / ( p.getDouble( "x2" ) - p.getDouble( "x1" ) );
+                
             }
             
         };
     }
     
     /**
-     * Fabrica uma função de interpolação em y.
+     * Fabrica uma função de interpolação em y com suavização.
      * 
      * @param <ComponentType> Tipo do componente.
      * @return A função de interpolação.
      */
-    public static <ComponentType> TweenAnimationUpdateFunction<ComponentType> tweenY() {
+    public static <ComponentType> EasingTweenAnimationUpdateFunction<ComponentType> tweenY() {
         return ( 
             double delta, 
+            double deltaP,
             TweenAnimationProperties p,
             TweenAnimationComponentMapper<ComponentType> cm, 
+            DoubleFunction<Double> ef,
             TweenAnimationStateContainer sc ) -> {
             
             if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
@@ -81,28 +90,34 @@ public interface UpdateFunctionsFactory {
             }
             
             if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
-                cm.set( "y", (Double) cm.get( "y" ) + delta * p.getDouble( "velY" ) );
-                if ( (Double) cm.get( "y" ) >= p.getDouble( "y2" ) ) {
+                
+                sc.percentage += deltaP * delta;
+                cm.set( "y", p.getDouble( "y1" ) + ( p.getDouble( "y2" ) - p.getDouble( "y1" ) ) * ef.apply( sc.percentage ) );
+                
+                if ( sc.percentage >= 1.0 ) {
                     cm.set( "y", p.getDouble( "y2" ) );
+                    sc.percentage = 1.0;
                     sc.state = TweenAnimationExecutionState.FINISHED;
                 }
-                sc.percentage = ( (Double) cm.get( "y" ) - p.getDouble( "y1" ) ) / ( p.getDouble( "y2" ) - p.getDouble( "y1" ) );
+                
             }
             
         };
     }
     
     /**
-     * Fabrica uma função de interpolação em x e y.
+     * Fabrica uma função de interpolação em x e y com suavização.
      * 
      * @param <ComponentType> Tipo do componente.
      * @return A função de interpolação.
      */
-    public static <ComponentType> TweenAnimationUpdateFunction<ComponentType> tweenXY() {
+    public static <ComponentType> EasingTweenAnimationUpdateFunction<ComponentType> tweenXY() {
         return ( 
             double delta, 
+            double deltaP,
             TweenAnimationProperties p,
             TweenAnimationComponentMapper<ComponentType> cm, 
+            DoubleFunction<Double> ef,
             TweenAnimationStateContainer sc ) -> {
             
             if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
@@ -113,92 +128,92 @@ public interface UpdateFunctionsFactory {
             
             if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
                 
-                cm.set( "x", (Double) cm.get( "x" ) + delta * p.getDouble( "velX" ) );
-                cm.set( "y", (Double) cm.get( "y" ) + delta * p.getDouble( "velY" ) );
-                boolean stop = false;
+                sc.percentage += deltaP * delta;
+                cm.set( "x", p.getDouble( "x1" ) + ( p.getDouble( "x2" ) - p.getDouble( "x1" ) ) * ef.apply( sc.percentage ) );
+                cm.set( "y", p.getDouble( "y1" ) + ( p.getDouble( "y2" ) - p.getDouble( "y1" ) ) * ef.apply( sc.percentage ) );
                 
-                if ( (Double) cm.get( "x" ) >= p.getDouble( "x2" ) ) {
+                if ( sc.percentage >= 1.0 ) {
                     cm.set( "x", p.getDouble( "x2" ) );
-                    stop = true;
-                }
-                
-                if ( (Double) cm.get( "y" ) >= p.getDouble( "y2" ) ) {
                     cm.set( "y", p.getDouble( "y2" ) );
-                    stop = true;
-                }
-                
-                if ( stop ) {
+                    sc.percentage = 1.0;
                     sc.state = TweenAnimationExecutionState.FINISHED;
                 }
-                
-                double sum = ( (Double) cm.get( "x" ) - p.getDouble( "x1" ) ) / ( p.getDouble( "x2" ) - p.getDouble( "x1" ) );
-                sum += ( (Double) cm.get( "y" ) - p.getDouble( "y1" ) ) / ( p.getDouble( "y2" ) - p.getDouble( "y1" ) );
-                sc.percentage = sum / 2.0;
                 
             }
             
         };
     }
     
-    /* Fabrica uma função de interpolação para raio.
+    /**
+     * Fabrica uma função de interpolação para raio com suavização.
      * 
      * @param <ComponentType> Tipo do componente.
      * @return A função de interpolação.
      */
-    public static <ComponentType> TweenAnimationUpdateFunction<ComponentType> tweenRadius() {
+    public static <ComponentType> EasingTweenAnimationUpdateFunction<ComponentType> tweenRadius() {
         return ( 
             double delta, 
+            double deltaP,
             TweenAnimationProperties p,
             TweenAnimationComponentMapper<ComponentType> cm, 
+            DoubleFunction<Double> ef,
             TweenAnimationStateContainer sc ) -> {
             
             if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
                 sc.state = TweenAnimationExecutionState.RUNNING;
                 cm.set( "x", p.getDouble( "x1" ) );
                 cm.set( "y", p.getDouble( "y1" ) );
-                cm.set( "radius", p.getDouble( "radius1" ) );
             }
             
             if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
-                cm.set( "radius", (Double) cm.get( "radius" ) + p.getDouble( "velRadius" ) * delta );
-                if ( (Double) cm.get( "radius" ) >= p.getDouble( "radius2" ) ) {
+                
+                sc.percentage += deltaP * delta;
+                cm.set( "radius", p.getDouble( "radius1" ) + ( p.getDouble( "radius2" ) - p.getDouble( "radius1" ) ) * ef.apply( sc.percentage ) );
+                
+                if ( sc.percentage >= 1.0 ) {
                     cm.set( "radius", p.getDouble( "radius2" ) );
+                    sc.percentage = 1.0;
                     sc.state = TweenAnimationExecutionState.FINISHED;
                 }
-                sc.percentage = ( (Double) cm.get( "radius" ) - p.getDouble( "radius1" ) ) / ( p.getDouble( "radius2" ) - p.getDouble( "radius1" ) );
+                
             }
             
         };
     }
     
     /**
-     * Fabrica uma função de interpolação para transparência.
+     * Fabrica uma função de interpolação para transparência com suavização.
      * 
      * @param <ComponentType> Tipo do componente.
      * @return A função de interpolação.
      */
-    public static <ComponentType> TweenAnimationUpdateFunction<ComponentType> tweenAlpha() {
+    public static <ComponentType> EasingTweenAnimationUpdateFunction<ComponentType> tweenAlpha() {
         return ( 
             double delta, 
+            double deltaP,
             TweenAnimationProperties p,
             TweenAnimationComponentMapper<ComponentType> cm, 
+            DoubleFunction<Double> ef,
             TweenAnimationStateContainer sc ) -> {
             
             if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
                 sc.state = TweenAnimationExecutionState.RUNNING;
                 cm.set( "x", p.getDouble( "x1" ) );
                 cm.set( "y", p.getDouble( "y1" ) );
-                cm.set( "alpha", p.getInt( "alpha1" ) );
                 
             }
             
             if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
-                cm.set( "alpha", (int) ( (Integer) cm.get( "alpha" ) + p.getDouble( "velAlpha" ) * delta ) );
-                if ( (Integer) cm.get( "alpha" ) >= p.getInt( "alpha2" ) ) {
+                
+                sc.percentage += deltaP * delta;
+                cm.set( "alpha", (int) ( p.getInt( "alpha1" ) + ( p.getInt( "alpha2" ) - p.getInt( "alpha1" ) ) * ef.apply( sc.percentage ) ) );
+                
+                if ( sc.percentage >= 1.0 ) {
                     cm.set( "alpha", p.getInt( "alpha2" ) );
+                    sc.percentage = 1.0;
                     sc.state = TweenAnimationExecutionState.FINISHED;
                 }
-                sc.percentage = ( (Integer) cm.get( "alpha" ) - p.getDouble( "alpha1" ) ) / ( p.getDouble( "alpha2" ) - p.getDouble( "alpha1" ) );
+                
             }
             
         };
@@ -210,27 +225,32 @@ public interface UpdateFunctionsFactory {
      * @param <ComponentType> Tipo do componente.
      * @return A função de interpolação.
      */
-    public static <ComponentType> TweenAnimationUpdateFunction<ComponentType> tweenRotation() {
+    public static <ComponentType> EasingTweenAnimationUpdateFunction<ComponentType> tweenRotation() {
         return ( 
             double delta, 
+            double deltaP,
             TweenAnimationProperties p,
             TweenAnimationComponentMapper<ComponentType> cm, 
+            DoubleFunction<Double> ef,
             TweenAnimationStateContainer sc ) -> {
             
             if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
                 sc.state = TweenAnimationExecutionState.RUNNING;
                 cm.set( "x", p.getDouble( "x1" ) );
                 cm.set( "y", p.getDouble( "y1" ) );
-                cm.set( "angle", p.getDouble( "angle1" ) );
             }
             
             if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
-                cm.set( "angle", (Double) cm.get( "angle" ) + p.getDouble( "velAngle" ) * delta );
-                if ( (Double) cm.get( "angle" ) >= p.getDouble( "angle2" ) ) {
+                
+                sc.percentage += deltaP * delta;
+                cm.set( "angle", p.getDouble( "angle1" ) + ( p.getDouble( "angle2" ) - p.getDouble( "angle1" ) ) * ef.apply( sc.percentage ) );
+                
+                if ( sc.percentage >= 1.0 ) {
                     cm.set( "angle", p.getDouble( "angle2" ) );
+                    sc.percentage = 1.0;
                     sc.state = TweenAnimationExecutionState.FINISHED;
                 }
-                sc.percentage = ( (Double) cm.get( "angle" ) - p.getDouble( "angle1" ) ) / ( p.getDouble( "angle2" ) - p.getDouble( "angle1" ) );
+                
             }
             
         };

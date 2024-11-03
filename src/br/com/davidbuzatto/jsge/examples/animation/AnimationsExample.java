@@ -16,13 +16,15 @@
  */
 package br.com.davidbuzatto.jsge.examples.animation;
 
-import br.com.davidbuzatto.jsge.animation.FrameByFrameAnimation;
-import br.com.davidbuzatto.jsge.animation.TweenAnimation;
+import br.com.davidbuzatto.jsge.animation.frame.FrameByFrameAnimation;
 import br.com.davidbuzatto.jsge.animation.frame.DrawableAnimationFrame;
 import br.com.davidbuzatto.jsge.animation.frame.ImageAnimationFrame;
-import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationEasingFunctions;
+import br.com.davidbuzatto.jsge.animation.tween.TweenAnimation;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationProperties;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationComponentMapper;
+import br.com.davidbuzatto.jsge.animation.tween.easing.EasingTweenAnimation;
+import br.com.davidbuzatto.jsge.animation.tween.easing.TweenAnimationEasingFunctions;
+import br.com.davidbuzatto.jsge.animation.tween.timing.TimingTweenAnimation;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
@@ -54,10 +56,18 @@ public class AnimationsExample extends EngineFrame {
     private FrameByFrameAnimation<DrawableAnimationFrame> drawableAnimation;
     private Color[] colors = { RED, GREEN, GOLD, ORANGE, BLUE, PINK, VIOLET };
     
-    private TweenAnimation<Rectangle> mtaPos;
-    private TweenAnimation<Circle> mtaRadius;
-    private TweenAnimation<AlphaCircleSector> mtaAlpha;
-    private TweenAnimation<Polygon> mtaRotation;
+    private EasingTweenAnimation<Rectangle> etaPos;
+    private EasingTweenAnimation<Circle> etaRadiusg;
+    private EasingTweenAnimation<AlphaCircleSector> etaAlpha;
+    private EasingTweenAnimation<Polygon> etaRotation;
+    
+    private TweenAnimation<Rectangle> taPos;
+    private TweenAnimation<Circle> taRadius;
+    private TweenAnimation<AlphaCircleSector> taAlpha;
+    private TweenAnimation<Polygon> taRotation;
+    
+    private TimingTweenAnimation<Polygon> tAnim;
+    
     private Image easingFunctionImage;
     
     private static Pair[] easingFunctions = {
@@ -196,7 +206,7 @@ public class AnimationsExample extends EngineFrame {
      * Cria o exemplo.
      */
     public AnimationsExample() {
-        super( 870, 600, "Animations", 60, true );
+        super( 875, 800, "Animations", 60, true );
     }
     
     @Override
@@ -229,8 +239,125 @@ public class AnimationsExample extends EngineFrame {
         
         /**
          * Os mapeadores servem como ponte de comunicação entre as funções de 
-         * atualização (TweenAnimationUpdateFunction) e os componentes que
-         * serão atualizados.
+         * atualização (nesse caso EasingTweenAnimationUpdateFunction) e os
+         * componentes que serão atualizados.
+         */
+        TweenAnimationComponentMapper<Rectangle> posMapperEasing = new TweenAnimationComponentMapper<>( new Rectangle( 0, 0, 80, 80 ) ){
+            
+            @Override
+            public void set( String property, Object value ) {
+                switch ( property ) {
+                    case "x" -> component.x = (Double) value;
+                    case "y" -> component.y = (Double) value;
+                }
+            }
+            
+            @Override
+            public Object get( String property ) {
+                switch ( property ) {
+                    case "x" -> {
+                        return component.x;
+                    }
+                    case "y" -> {
+                        return component.y;
+                    }
+                }
+                return null;
+            }
+            
+        };
+        
+        TweenAnimationComponentMapper<Circle> radiusMapperEasing = new TweenAnimationComponentMapper<>( new Circle( 0, 0, 0 ) ){
+            
+            @Override
+            public void set( String property, Object value ) {
+                switch ( property ) {
+                    case "x" -> component.x = (Double) value;
+                    case "y" -> component.y = (Double) value;
+                    case "radius" -> component.radius = (Double) value;
+                }
+            }
+            
+            @Override
+            public Object get( String property ) {
+                switch ( property ) {
+                    case "x" -> {
+                        return component.x;
+                    }
+                    case "y" -> {
+                        return component.y;
+                    }
+                    case "radius" -> {
+                        return component.radius;
+                    }
+                }
+                return null;
+            }
+            
+        };
+        
+        TweenAnimationComponentMapper<AlphaCircleSector> alphaMapperEasing = new TweenAnimationComponentMapper<>( new AlphaCircleSector( 0, 0, 40, 30, 330 ) ){
+            
+            @Override
+            public void set( String property, Object value ) {
+                switch ( property ) {
+                    case "x" -> component.x = (Double) value;
+                    case "y" -> component.y = (Double) value;
+                    case "alpha" -> component.alpha = (Integer) value;
+                }
+            }
+            
+            @Override
+            public Object get( String property ) {
+                switch ( property ) {
+                    case "x" -> {
+                        return component.x;
+                    }
+                    case "y" -> {
+                        return component.y;
+                    }
+                    case "alpha" -> {
+                        return component.alpha;
+                    }
+                }
+                return null;
+            }
+            
+        };
+        
+        TweenAnimationComponentMapper<Polygon> rotationMapperEasing = new TweenAnimationComponentMapper<>( new Polygon( 0, 0, 5, 40 ) ){
+            
+            @Override
+            public void set( String property, Object value ) {
+                switch ( property ) {
+                    case "x" -> component.x = (Double) value;
+                    case "y" -> component.y = (Double) value;
+                    case "angle" -> component.rotation = (Double) value;
+                }
+            }
+            
+            @Override
+            public Object get( String property ) {
+                switch ( property ) {
+                    case "x" -> {
+                        return component.x;
+                    }
+                    case "y" -> {
+                        return component.y;
+                    }
+                    case "angle" -> {
+                        return component.rotation;
+                    }
+                }
+                return null;
+            }
+            
+        };
+        
+        /**
+         * Os mapeadores servem como ponte de comunicação entre as funções de 
+         * atualização (nesse caso TweenAnimationUpdateFunction) e os
+         * componentes que serão atualizados.
          */
         TweenAnimationComponentMapper<Rectangle> posMapper = new TweenAnimationComponentMapper<>( new Rectangle( 0, 0, 80, 80 ) ){
             
@@ -322,7 +449,7 @@ public class AnimationsExample extends EngineFrame {
                 switch ( property ) {
                     case "x" -> component.x = (Double) value;
                     case "y" -> component.y = (Double) value;
-                    case "rotation" -> component.rotation = (Double) value;
+                    case "angle" -> component.rotation = (Double) value;
                 }
             }
             
@@ -335,7 +462,7 @@ public class AnimationsExample extends EngineFrame {
                     case "y" -> {
                         return component.y;
                     }
-                    case "rotation" -> {
+                    case "angle" -> {
                         return component.rotation;
                     }
                 }
@@ -350,32 +477,62 @@ public class AnimationsExample extends EngineFrame {
          * Todos esses parâmetros poderão ser acessos e alterados caso necessário
          * dentro da função de atualização correspondente.
          */
-        TweenAnimationProperties pPos = TweenAnimationProperties.of( 
-            "x1", 50,
+        TweenAnimationProperties pPosEasing = TweenAnimationProperties.of( 
+            "x1", 40,
             "y1", 345,
-            "x2", 340,
-            "velX", 300
+            "x2", 340
         );
         
-        TweenAnimationProperties pRadius = TweenAnimationProperties.of( 
+        TweenAnimationProperties pRadiusEasing = TweenAnimationProperties.of( 
             "x1", 520,
             "y1", 385,
             "radius1", 10, 
             "radius2", 40
         );
         
-        TweenAnimationProperties pAlpha = TweenAnimationProperties.of( 
-            "x1", 660,
+        TweenAnimationProperties pAlphaEasing = TweenAnimationProperties.of( 
+            "x1", 655,
             "y1", 385,
             "alpha1", 0, 
             "alpha2", 255
         );
         
-        TweenAnimationProperties pRotation = TweenAnimationProperties.of( 
+        TweenAnimationProperties pRotationEasing = TweenAnimationProperties.of( 
             "x1", 790,
             "y1", 385,
             "angle1", 0.0, 
             "angle2", 360.0
+        );
+        
+        TweenAnimationProperties pPos = TweenAnimationProperties.of( 
+            "x1", 40,
+            "y1", 435,
+            "x2", 340,
+            "velX", 150
+        );
+        
+        TweenAnimationProperties pRadius = TweenAnimationProperties.of( 
+            "x1", 520,
+            "y1", 475,
+            "radius1", 10, 
+            "radius2", 40,
+            "velRadius", 15
+        );
+        
+        TweenAnimationProperties pAlpha = TweenAnimationProperties.of( 
+            "x1", 655,
+            "y1", 475,
+            "alpha1", 0, 
+            "alpha2", 255,
+            "velAlpha", 128
+        );
+        
+        TweenAnimationProperties pRotation = TweenAnimationProperties.of( 
+            "x1", 790,
+            "y1", 475,
+            "angle1", 0.0, 
+            "angle2", 360.0,
+            "velAngle", 180.0
         );
         
         fimH = 15;
@@ -384,36 +541,60 @@ public class AnimationsExample extends EngineFrame {
         easingFunctionPair = easingFunctions[currentEasingFunction];
         easingFunctionImage = DrawingUtils.plot( easingFunctionPair.function, 200, 200, fimH, fimV, BLACK, BLUE );
         
-        mtaPos = new TweenAnimation<>(
-            pPos,                                              // propriedades
-            posMapper,                                         // mapeador
-            UpdateFunctionsFactory.<Rectangle>tweenXEasing(),  // função de atualização
+        etaPos = new EasingTweenAnimation<>(
+            pPosEasing,                                        // propriedades
+            posMapperEasing,                                   // mapeador
+            EasingUpdateFunctionsFactory.<Rectangle>tweenX(),  // função de atualização
             easingFunctionPair.function,                       // função de suavização
             0.5                                                // 50% por segundo (2 segundos para executar a interpolação inteira)
         );
         
-        mtaRadius = new TweenAnimation<>(
+        etaRadiusg = new EasingTweenAnimation<>(
+            pRadiusEasing,
+            radiusMapperEasing,
+            EasingUpdateFunctionsFactory.<Circle>tweenRadius(),
+            easingFunctionPair.function,
+            0.5
+        );
+        
+        etaAlpha = new EasingTweenAnimation<>(
+            pAlphaEasing,
+            alphaMapperEasing,
+            EasingUpdateFunctionsFactory.<AlphaCircleSector>tweenAlpha(),
+            easingFunctionPair.function,
+            0.5
+        );
+        
+        etaRotation = new EasingTweenAnimation<>(
+            pRotationEasing,
+            rotationMapperEasing,
+            EasingUpdateFunctionsFactory.<Polygon>tweenRotation(),
+            easingFunctionPair.function,
+            0.5
+        );
+        
+        taPos = new TweenAnimation<>(
+            pPos,                                              // propriedades
+            posMapper,                                         // mapeador
+            UpdateFunctionsFactory.<Rectangle>tweenX()         // função de atualização
+        );
+        
+        taRadius = new TweenAnimation<>(
             pRadius,
             radiusMapper,
-            UpdateFunctionsFactory.<Circle>tweenRadiusEasing(),
-            easingFunctionPair.function,
-            0.5
+            UpdateFunctionsFactory.<Circle>tweenRadius()
         );
         
-        mtaAlpha = new TweenAnimation<>(
+        taAlpha = new TweenAnimation<>(
             pAlpha,
             alphaMapper,
-            UpdateFunctionsFactory.<AlphaCircleSector>tweenAlphaEasing(),
-            easingFunctionPair.function,
-            0.5
+            UpdateFunctionsFactory.<AlphaCircleSector>tweenAlpha()
         );
         
-        mtaRotation = new TweenAnimation<>(
+        taRotation = new TweenAnimation<>(
             pRotation,
             rotationMapper,
-            UpdateFunctionsFactory.<Polygon>tweenRotationEasing(),
-            easingFunctionPair.function,
-            0.5
+            UpdateFunctionsFactory.<Polygon>tweenRotation()
         );
         
         setDefaultFontSize( 20 );
@@ -427,10 +608,16 @@ public class AnimationsExample extends EngineFrame {
         
         imageAnimation.update( delta );
         drawableAnimation.update( delta );
-        mtaPos.update( delta );
-        mtaRadius.update( delta );
-        mtaAlpha.update( delta );
-        mtaRotation.update( delta );
+        
+        etaPos.update( delta );
+        etaRadiusg.update( delta );
+        etaAlpha.update( delta );
+        etaRotation.update( delta );
+        
+        taPos.update( delta );
+        taRadius.update( delta );
+        taAlpha.update( delta );
+        taRotation.update( delta );
         
         prevEFR.checkOver( mousePos );
         nextEFR.checkOver( mousePos );
@@ -485,22 +672,29 @@ public class AnimationsExample extends EngineFrame {
         drawLine( 450, 20, 450, 250, BLACK );
         drawLine( 20, 250, 450, 250, BLACK );
         
-        drawText( String.format( "tween animations [easing] (%.2f%%)", mtaPos.getPercentage() * 100 ), 20, 270, BLACK );
-        drawText( "position:", 20, 300, BLACK );
-        mtaPos.getComponent().fill( this, VIOLET );
-        mtaPos.getComponent().draw( this, BLACK );
+        fillRectangle( 10, 270, getScreenWidth() - 20, 310, ColorUtils.fade( LIGHTGRAY, 0.2 ) );
+        fillRectangle( 20, 310, 420, 225, ColorUtils.fade( VIOLET, 0.2 ) );
+        fillRectangle( 465, 310, 110, 225, ColorUtils.fade( LIME, 0.2 ) );
+        fillRectangle( 595, 310, 115, 225, ColorUtils.fade( ORANGE, 0.2 ) );
+        fillRectangle( 730, 310, 125, 225, ColorUtils.fade( MAROON, 0.2 ) );
         
-        drawText( "radius:", 480, 300, BLACK );
-        mtaRadius.getComponent().fill( this, LIME );
-        mtaRadius.getComponent().draw( this, BLACK );
+        String tEasing = String.format( "tween animations [easing] (%.2f%%)", etaPos.getPercentage() * 100 );
+        drawText( tEasing, getScreenWidth() / 2 - measureText( tEasing ) / 2, 280, BLACK );
+        drawText( "position", 190, 320, BLACK );
+        etaPos.getComponent().fill( this, VIOLET );
+        etaPos.getComponent().draw( this, BLACK );
         
-        drawText( "alpha:", 620, 300, BLACK );
-        mtaAlpha.getComponent().fill( this, ColorUtils.fade( ORANGE, mtaAlpha.getComponent().alpha / 255.0 ) );
-        mtaAlpha.getComponent().draw( this, ColorUtils.fade( BLACK, mtaAlpha.getComponent().alpha / 255.0 ) );
+        drawText( "radius", 485, 320, BLACK );
+        etaRadiusg.getComponent().fill( this, LIME );
+        etaRadiusg.getComponent().draw( this, BLACK );
         
-        drawText( "rotation:", 740, 300, BLACK );
-        mtaRotation.getComponent().fill( this, MAROON );
-        mtaRotation.getComponent().draw( this, BLACK );
+        drawText( "alpha", 620, 320, BLACK );
+        etaAlpha.getComponent().fill( this, ColorUtils.fade( ORANGE, etaAlpha.getComponent().alpha / 255.0 ) );
+        etaAlpha.getComponent().draw( this, ColorUtils.fade( BLACK, etaAlpha.getComponent().alpha / 255.0 ) );
+        
+        drawText( "rotation", 745, 320, BLACK );
+        etaRotation.getComponent().fill( this, MAROON );
+        etaRotation.getComponent().draw( this, BLACK );
         
         drawText( "tween animations options", 460, 20, BLACK );
         drawText( "easing function:", 460, 60, BLACK );
@@ -512,27 +706,48 @@ public class AnimationsExample extends EngineFrame {
         drawText( easingFunctionPair.name, 460 + easingFunctionImage.getWidth(), 80 + easingFunctionImage.getHeight() / 2 - 10, BLACK );
         
         fillCircle( 
-            ( 460 + fimH ) + ( easingFunctionImage.getWidth() - fimH * 2 ) * mtaPos.getPercentage(), 
-            ( 80 + easingFunctionImage.getHeight() - fimV ) - ( easingFunctionImage.getHeight() - fimV * 2 ) * easingFunctionPair.function.apply( mtaPos.getPercentage() ), 
+            ( 460 + fimH ) + ( easingFunctionImage.getWidth() - fimH * 2 ) * etaPos.getPercentage(), 
+            ( 80 + easingFunctionImage.getHeight() - fimV ) - ( easingFunctionImage.getHeight() - fimV * 2 ) * easingFunctionPair.function.apply( etaPos.getPercentage() ), 
             5, ColorUtils.fade( DARKBLUE, 0.8 ) );
         
-        drawText( String.format( "tween animations [no easing] (%.2f%%)", mtaPos.getPercentage() * 100 ), 20, 450, BLACK );
+        String tNoEasing = String.format( "tween animations [no easing] (%.2f%%)", taPos.getPercentage() * 100 );
+        drawText( tNoEasing, getScreenWidth() / 2 - measureText( tNoEasing ) / 2, 550, BLACK );
+        taPos.getComponent().fill( this, VIOLET );
+        taPos.getComponent().draw( this, BLACK );
+        taRadius.getComponent().fill( this, LIME );
+        taRadius.getComponent().draw( this, BLACK );
+        taAlpha.getComponent().fill( this, ColorUtils.fade( ORANGE, taAlpha.getComponent().alpha / 255.0 ) );
+        taAlpha.getComponent().draw( this, ColorUtils.fade( BLACK, taAlpha.getComponent().alpha / 255.0 ) );
+        taRotation.getComponent().fill( this, MAROON );
+        taRotation.getComponent().draw( this, BLACK );
+        
+        String time = String.format( "time animation (%.2fs/%.2fs) | arrows to change time and reset", 10.0, 10.0 );
+        drawText( time, getScreenWidth() / 2 - measureText( time ) / 2, 600, BLACK );
         
         drawFPS( 10, 10 );
         
     }
     
     private void resetTweenAnimations() {
-        mtaPos.reset();
-        mtaRadius.reset();
-        mtaAlpha.reset();
-        mtaRotation.reset();
+        
+        etaPos.reset();
+        etaRadiusg.reset();
+        etaAlpha.reset();
+        etaRotation.reset();
+        
+        taPos.reset();
+        taRadius.reset();
+        taAlpha.reset();
+        taRotation.reset();
+        
         easingFunctionPair = easingFunctions[currentEasingFunction];
         easingFunctionImage = DrawingUtils.plot( easingFunctionPair.function, 200, 200, fimH, fimV, BLACK, BLUE );
-        mtaPos.setEasingFunction( easingFunctionPair.function );
-        mtaRadius.setEasingFunction( easingFunctionPair.function );
-        mtaAlpha.setEasingFunction( easingFunctionPair.function );
-        mtaRotation.setEasingFunction( easingFunctionPair.function );
+        
+        etaPos.setEasingFunction( easingFunctionPair.function );
+        etaRadiusg.setEasingFunction( easingFunctionPair.function );
+        etaAlpha.setEasingFunction( easingFunctionPair.function );
+        etaRotation.setEasingFunction( easingFunctionPair.function );
+        
     }
     
     /**
