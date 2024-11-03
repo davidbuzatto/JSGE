@@ -22,8 +22,7 @@ import br.com.davidbuzatto.jsge.animation.frame.DrawableAnimationFrame;
 import br.com.davidbuzatto.jsge.animation.frame.ImageAnimationFrame;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationEasingFunctions;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationProperties;
-import br.com.davidbuzatto.jsge.animation.tween.proxy.ComponentProxy;
-import br.com.davidbuzatto.jsge.animation.tween.proxy.ComponentProxyAdapter;
+import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationComponentMapper;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
@@ -237,60 +236,116 @@ public class AnimationsExample extends EngineFrame {
          * propriedades dos componenets e os métodos get devem ser usados
          * para ler tais propriedades.
          */
-        ComponentProxy<Rectangle> proxyPos = new ComponentProxyAdapter<>( new Rectangle( 0, 0, 80, 80 ) ){
+        TweenAnimationComponentMapper<Rectangle> posMapper = new TweenAnimationComponentMapper<>( new Rectangle( 0, 0, 80, 80 ) ){
+            
             @Override
-            public void setX( double x ) {
-                component.x = x;
+            public void set( String property, Object value ) {
+                switch ( property ) {
+                    case "x" -> component.x = (Double) value;
+                    case "y" -> component.y = (Double) value;
+                }
             }
+            
             @Override
-            public void setY( double y ) {
-                component.y = y;
+            public Object get( String property ) {
+                switch ( property ) {
+                    case "x" -> {
+                        return component.x;
+                    }
+                    case "y" -> {
+                        return component.y;
+                    }
+                }
+                return null;
             }
+            
         };
         
-        ComponentProxy<Circle> proxyRadius = new ComponentProxyAdapter<>( new Circle( 0, 0, 0 ) ){
+        TweenAnimationComponentMapper<Circle> radiusMapper = new TweenAnimationComponentMapper<>( new Circle( 0, 0, 0 ) ){
+            
             @Override
-            public void setX( double x ) {
-                component.x = x;
+            public void set( String property, Object value ) {
+                switch ( property ) {
+                    case "x" -> component.x = (Double) value;
+                    case "y" -> component.y = (Double) value;
+                    case "radius" -> component.radius = (Double) value;
+                }
             }
+            
             @Override
-            public void setY( double y ) {
-                component.y = y;
+            public Object get( String property ) {
+                switch ( property ) {
+                    case "x" -> {
+                        return component.x;
+                    }
+                    case "y" -> {
+                        return component.y;
+                    }
+                    case "radius" -> {
+                        return component.radius;
+                    }
+                }
+                return null;
             }
-            @Override
-            public void setRadius( double radius ) {
-                component.radius = radius;
-            }
+            
         };
         
-        ComponentProxy<AlphaCircleSector> proxyAlpha = new ComponentProxyAdapter<>( new AlphaCircleSector( 0, 0, 40, 30, 330 ) ){
+        TweenAnimationComponentMapper<AlphaCircleSector> alphaMapper = new TweenAnimationComponentMapper<>( new AlphaCircleSector( 0, 0, 40, 30, 330 ) ){
+            
             @Override
-            public void setX( double x ) {
-                component.x = x;
+            public void set( String property, Object value ) {
+                switch ( property ) {
+                    case "x" -> component.x = (Double) value;
+                    case "y" -> component.y = (Double) value;
+                    case "alpha" -> component.alpha = (Integer) value;
+                }
             }
+            
             @Override
-            public void setY( double y ) {
-                component.y = y;
+            public Object get( String property ) {
+                switch ( property ) {
+                    case "x" -> {
+                        return component.x;
+                    }
+                    case "y" -> {
+                        return component.y;
+                    }
+                    case "alpha" -> {
+                        return component.alpha;
+                    }
+                }
+                return null;
             }
-            @Override
-            public void setAlpha( int alpha ) {
-                component.alpha = alpha;
-            }
+            
         };
         
-        ComponentProxy<Polygon> proxyRotation = new ComponentProxyAdapter<>( new Polygon( 0, 0, 5, 40 ) ){
+        TweenAnimationComponentMapper<Polygon> rotationMapper = new TweenAnimationComponentMapper<>( new Polygon( 0, 0, 5, 40 ) ){
+            
             @Override
-            public void setX( double x ) {
-                component.x = x;
+            public void set( String property, Object value ) {
+                switch ( property ) {
+                    case "x" -> component.x = (Double) value;
+                    case "y" -> component.y = (Double) value;
+                    case "rotation" -> component.rotation = (Double) value;
+                }
             }
+            
             @Override
-            public void setY( double y ) {
-                component.y = y;
+            public Object get( String property ) {
+                switch ( property ) {
+                    case "x" -> {
+                        return component.x;
+                    }
+                    case "y" -> {
+                        return component.y;
+                    }
+                    case "rotation" -> {
+                        return component.rotation;
+                    }
+                }
+                return null;
             }
-            @Override
-            public void setRotation( double rotation ) {
-                component.rotation = rotation;
-            }
+            
         };
         
         /**
@@ -339,28 +394,28 @@ public class AnimationsExample extends EngineFrame {
         
         mtaPos = new TweenAnimation<>(
             pPos,
-            proxyPos,
+            posMapper,
             UpdateFunctionsFactory.<Rectangle>tweenXEasing(),
             easingFunctionPair.function
         );
         
         mtaRadius = new TweenAnimation<>(
             pRadius,
-            proxyRadius,
+            radiusMapper,
             UpdateFunctionsFactory.<Circle>tweenRadiusEasing(),
             easingFunctionPair.function
         );
         
         mtaAlpha = new TweenAnimation<>(
             pAlpha,
-            proxyAlpha,
+            alphaMapper,
             UpdateFunctionsFactory.<AlphaCircleSector>tweenAlphaEasing(),
             easingFunctionPair.function
         );
         
         mtaRotation = new TweenAnimation<>(
             pRotation,
-            proxyRotation,
+            rotationMapper,
             UpdateFunctionsFactory.<Polygon>tweenRotationEasing(),
             easingFunctionPair.function
         );

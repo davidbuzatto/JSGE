@@ -16,7 +16,7 @@
  */
 package br.com.davidbuzatto.jsge.animation;
 
-import br.com.davidbuzatto.jsge.animation.tween.proxy.ComponentProxy;
+import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationComponentMapper;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationExecutionState;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationStateContainer;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationProperties;
@@ -31,7 +31,7 @@ import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationUpdateFunction;
  */
 public class TweenAnimation<ComponentType> {
     
-    private ComponentProxy<ComponentType> componentProxy;
+    private TweenAnimationComponentMapper<ComponentType> componentMapper;
     private TweenAnimationUpdateFunction<ComponentType> updateFunction;
     private DoubleFunction<Double> easingFunction;
     private TweenAnimationProperties properties;
@@ -41,32 +41,32 @@ public class TweenAnimation<ComponentType> {
      * Constroi uma nova animação de interpolada.
      * 
      * @param properties As propriedades utilizadas para o controle da animação.
-     * @param proxy Um proxy do componente que será manipulado na animação.
+     * @param mapper Um mapeador de propriedades do componente que será manipulado na animação.
      * @param updateFunction A função de atualização de animação.
      */
     public TweenAnimation( 
         TweenAnimationProperties properties,
-        ComponentProxy<ComponentType> proxy, 
+        TweenAnimationComponentMapper<ComponentType> mapper, 
         TweenAnimationUpdateFunction<ComponentType> updateFunction ) {
-        this( properties, proxy, updateFunction, null );
+        this( properties, mapper, updateFunction, null );
     }
     
     /**
      * Constroi uma nova animação interpolada.
      * 
      * @param properties As propriedades utilizadas para o controle da animação.
-     * @param proxy Um proxy do componente que será manipulado na animação.
+     * @param mapper Um mapeador de propriedades do componente que será manipulado na animação.
      * @param updateFunction A função de atualização de animação.
      * @param easingFunction A função de suavização da animação.
      */
     public TweenAnimation( 
         TweenAnimationProperties properties,
-        ComponentProxy<ComponentType> proxy, 
+        TweenAnimationComponentMapper<ComponentType> mapper, 
         TweenAnimationUpdateFunction<ComponentType> updateFunction, 
         DoubleFunction<Double> easingFunction ) {
         
         this.properties = properties;
-        this.componentProxy = proxy;
+        this.componentMapper = mapper;
         this.updateFunction = updateFunction;
         this.easingFunction = easingFunction;
         
@@ -80,7 +80,7 @@ public class TweenAnimation<ComponentType> {
      * @param delta Variação do tempo.
      */
     public void update( double delta ) {
-        updateFunction.accept( delta, properties, componentProxy, easingFunction, stateContainer );
+        updateFunction.accept(delta, properties, componentMapper, easingFunction, stateContainer );
     }
     
     /**
@@ -89,7 +89,7 @@ public class TweenAnimation<ComponentType> {
      * @return O componente manipulado na animação.
      */
     public ComponentType getComponent() {
-        return componentProxy.getComponent();
+        return componentMapper.getComponent();
     }
     
     /**
@@ -138,8 +138,8 @@ public class TweenAnimation<ComponentType> {
         stateContainer.percentage = 0.0;
     }
 
-    public void setComponentProxy( ComponentProxy<ComponentType> componentProxy ) {
-        this.componentProxy = componentProxy;
+    public void setComponentMapper( TweenAnimationComponentMapper<ComponentType> componentMapper ) {
+        this.componentMapper = componentMapper;
     }
 
     public void setUpdateFunction( TweenAnimationUpdateFunction<ComponentType> updateFunction ) {

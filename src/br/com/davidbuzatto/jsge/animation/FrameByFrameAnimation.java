@@ -37,18 +37,35 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
     
     private List<FrameType> frames;
     
+    /**
+     * Cria uma animação quadro a quadro.
+     * 
+     * @param timeToNextFrame Tempo para a transição de um quadro para outro.
+     * @param frames Quadros da animação.
+     */
     public FrameByFrameAnimation( double timeToNextFrame, List<FrameType> frames ) {
         this.timeToNextFrame = timeToNextFrame;
         this.frames = frames;
         this.maxFrames = frames.size();
     }
     
+    /**
+     * Cria uma animação quadro a quadro.
+     * 
+     * @param timesToNextFrame Tempos para a transição dos quadros.
+     * @param frames Quadros da animação.
+     */
     public FrameByFrameAnimation( double[] timesToNextFrame, List<FrameType> frames ) {
         this.timesToNextFrame = timesToNextFrame;
         this.frames = frames;
         this.maxFrames = frames.size();
     }
     
+    /**
+     * Atualiza a animação.
+     * 
+     * @param delta Variação do tempo.
+     */
     public void update( double delta ) {
         
         timeCounter += delta;
@@ -67,14 +84,30 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
         
     }
     
+    /**
+     * Obtém o quadro atual.
+     * 
+     * @return O quadro atual da animação.
+     */
     public FrameType getCurrentFrame() {
         return frames.get( currentFrame );
     }
     
+    /**
+     * Obtém a posição do quadro atual da animação.
+     * 
+     * @return A posição do quadro atual da animação.
+     */
     public int getCurrentFramePosition() {
         return currentFrame;
     }
     
+    /**
+     * Obtém um quadro específico da animação.
+     * 
+     * @param index O índice do quadro.
+     * @return Um quadro específico da animação ou null caso não exista.
+     */
     public FrameType getFrame( int index ) {
         if ( index >= 0 && index < frames.size() ) {
             return frames.get( index );

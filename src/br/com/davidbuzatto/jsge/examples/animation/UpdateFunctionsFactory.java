@@ -20,7 +20,7 @@ import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationExecutionState;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationProperties;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationStateContainer;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationUpdateFunction;
-import br.com.davidbuzatto.jsge.animation.tween.proxy.ComponentProxy;
+import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationComponentMapper;
 import java.util.function.DoubleFunction;
 
 /**
@@ -35,23 +35,23 @@ public class UpdateFunctionsFactory {
         return ( 
             double delta, 
             TweenAnimationProperties p,
-            ComponentProxy<ComponentType> componentProxy, 
+            TweenAnimationComponentMapper<ComponentType> componentMapper, 
             DoubleFunction<Double> easingFunction,
             TweenAnimationStateContainer stateContainer ) -> {
             
             if ( stateContainer.state == TweenAnimationExecutionState.INITIALIZED ) {
                 stateContainer.state = TweenAnimationExecutionState.RUNNING;
-                componentProxy.setX( p.getDouble( "x1" ) );
-                componentProxy.setY( p.getDouble( "y1" ) );
+                componentMapper.set( "x", p.getDouble( "x1" ) );
+                componentMapper.set( "y", p.getDouble( "y1" ) );
             }
             
             if ( stateContainer.state == TweenAnimationExecutionState.RUNNING ) {
                 
                 stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
-                componentProxy.setX( p.getDouble( "x1" ) + ( p.getDouble( "x2" ) - p.getDouble( "x1" ) ) * easingFunction.apply( stateContainer.percentage ) );
+                componentMapper.set( "x", p.getDouble( "x1" ) + ( p.getDouble( "x2" ) - p.getDouble( "x1" ) ) * easingFunction.apply( stateContainer.percentage ) );
                 
                 if ( stateContainer.percentage >= 1.0 ) {
-                    componentProxy.setX( p.getDouble( "x2" ) );
+                    componentMapper.set( "x", p.getDouble( "x2" ) );
                     stateContainer.percentage = 1.0;
                     stateContainer.state = TweenAnimationExecutionState.FINISHED;
                 }
@@ -65,23 +65,23 @@ public class UpdateFunctionsFactory {
         return ( 
             double delta, 
             TweenAnimationProperties p,
-            ComponentProxy<ComponentType> componentProxy, 
+            TweenAnimationComponentMapper<ComponentType> componentMapper, 
             DoubleFunction<Double> easingFunction,
             TweenAnimationStateContainer stateContainer ) -> {
             
             if ( stateContainer.state == TweenAnimationExecutionState.INITIALIZED ) {
                 stateContainer.state = TweenAnimationExecutionState.RUNNING;
-                componentProxy.setX( p.getDouble( "x1" ) );
-                componentProxy.setY( p.getDouble( "y1" ) );
+                componentMapper.set( "x", p.getDouble( "x1" ) );
+                componentMapper.set( "y", p.getDouble( "y1" ) );
             }
             
             if ( stateContainer.state == TweenAnimationExecutionState.RUNNING ) {
                 
                 stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
-                componentProxy.setY( p.getDouble( "y1" ) + ( p.getDouble( "y2" ) - p.getDouble( "y1" ) ) * easingFunction.apply( stateContainer.percentage ) );
+                componentMapper.set( "y", p.getDouble( "y1" ) + ( p.getDouble( "y2" ) - p.getDouble( "y1" ) ) * easingFunction.apply( stateContainer.percentage ) );
                 
                 if ( stateContainer.percentage >= 1.0 ) {
-                    componentProxy.setY( p.getDouble( "y2" ) );
+                    componentMapper.set( "y", p.getDouble( "y2" ) );
                     stateContainer.percentage = 1.0;
                     stateContainer.state = TweenAnimationExecutionState.FINISHED;
                 }
@@ -95,25 +95,25 @@ public class UpdateFunctionsFactory {
         return ( 
             double delta, 
             TweenAnimationProperties p,
-            ComponentProxy<ComponentType> componentProxy, 
+            TweenAnimationComponentMapper<ComponentType> componentMapper, 
             DoubleFunction<Double> easingFunction,
             TweenAnimationStateContainer stateContainer ) -> {
             
             if ( stateContainer.state == TweenAnimationExecutionState.INITIALIZED ) {
                 stateContainer.state = TweenAnimationExecutionState.RUNNING;
-                componentProxy.setX( p.getDouble( "x1" ) );
-                componentProxy.setY( p.getDouble( "y1" ) );
+                componentMapper.set( "x", p.getDouble( "x1" ) );
+                componentMapper.set( "y", p.getDouble( "y1" ) );
             }
             
             if ( stateContainer.state == TweenAnimationExecutionState.RUNNING ) {
                 
                 stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
-                componentProxy.setX( p.getDouble( "x1" ) + ( p.getDouble( "x2" ) - p.getDouble( "x1" ) ) * easingFunction.apply( stateContainer.percentage ) );
-                componentProxy.setY( p.getDouble( "y1" ) + ( p.getDouble( "y2" ) - p.getDouble( "y1" ) ) * easingFunction.apply( stateContainer.percentage ) );
+                componentMapper.set( "x", p.getDouble( "x1" ) + ( p.getDouble( "x2" ) - p.getDouble( "x1" ) ) * easingFunction.apply( stateContainer.percentage ) );
+                componentMapper.set( "y", p.getDouble( "y1" ) + ( p.getDouble( "y2" ) - p.getDouble( "y1" ) ) * easingFunction.apply( stateContainer.percentage ) );
                 
                 if ( stateContainer.percentage >= 1.0 ) {
-                    componentProxy.setX( p.getDouble( "x2" ) );
-                    componentProxy.setY( p.getDouble( "y2" ) );
+                    componentMapper.set( "x", p.getDouble( "x2" ) );
+                    componentMapper.set( "y", p.getDouble( "y2" ) );
                     stateContainer.percentage = 1.0;
                     stateContainer.state = TweenAnimationExecutionState.FINISHED;
                 }
@@ -127,23 +127,23 @@ public class UpdateFunctionsFactory {
         return ( 
             double delta, 
             TweenAnimationProperties p,
-            ComponentProxy<ComponentType> componentProxy, 
+            TweenAnimationComponentMapper<ComponentType> componentMapper, 
             DoubleFunction<Double> easingFunction,
             TweenAnimationStateContainer stateContainer ) -> {
             
             if ( stateContainer.state == TweenAnimationExecutionState.INITIALIZED ) {
                 stateContainer.state = TweenAnimationExecutionState.RUNNING;
-                componentProxy.setX( p.getDouble( "x1" ) );
-                componentProxy.setY( p.getDouble( "y1" ) );
+                componentMapper.set( "x", p.getDouble( "x1" ) );
+                componentMapper.set( "y", p.getDouble( "y1" ) );
             }
             
             if ( stateContainer.state == TweenAnimationExecutionState.RUNNING ) {
                 
                 stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
-                componentProxy.setRadius( p.getDouble( "radius1" ) + ( p.getDouble( "radius2" ) - p.getDouble( "radius1" ) ) * easingFunction.apply( stateContainer.percentage ) );
+                componentMapper.set( "radius", p.getDouble( "radius1" ) + ( p.getDouble( "radius2" ) - p.getDouble( "radius1" ) ) * easingFunction.apply( stateContainer.percentage ) );
                 
                 if ( stateContainer.percentage >= 1.0 ) {
-                    componentProxy.setRadius( p.getDouble( "radius2" ) );
+                    componentMapper.set( "radius", p.getDouble( "radius2" ) );
                     stateContainer.percentage = 1.0;
                     stateContainer.state = TweenAnimationExecutionState.FINISHED;
                 }
@@ -157,24 +157,24 @@ public class UpdateFunctionsFactory {
         return ( 
             double delta, 
             TweenAnimationProperties p,
-            ComponentProxy<ComponentType> componentProxy, 
+            TweenAnimationComponentMapper<ComponentType> componentMapper, 
             DoubleFunction<Double> easingFunction,
             TweenAnimationStateContainer stateContainer ) -> {
             
             if ( stateContainer.state == TweenAnimationExecutionState.INITIALIZED ) {
                 stateContainer.state = TweenAnimationExecutionState.RUNNING;
-                componentProxy.setX( p.getDouble( "x1" ) );
-                componentProxy.setY( p.getDouble( "y1" ) );
+                componentMapper.set( "x", p.getDouble( "x1" ) );
+                componentMapper.set( "y", p.getDouble( "y1" ) );
                 
             }
             
             if ( stateContainer.state == TweenAnimationExecutionState.RUNNING ) {
                 
                 stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
-                componentProxy.setAlpha( (int) ( p.getInt( "alpha1" ) + ( p.getInt( "alpha2" ) - p.getInt( "alpha1" ) ) * easingFunction.apply( stateContainer.percentage ) ) );
+                componentMapper.set( "alpha", (int) ( p.getInt( "alpha1" ) + ( p.getInt( "alpha2" ) - p.getInt( "alpha1" ) ) * easingFunction.apply( stateContainer.percentage ) ) );
                 
                 if ( stateContainer.percentage >= 1.0 ) {
-                    componentProxy.setAlpha( p.getInt( "alpha2" ) );
+                    componentMapper.set( "alpha", p.getInt( "alpha2" ) );
                     stateContainer.percentage = 1.0;
                     stateContainer.state = TweenAnimationExecutionState.FINISHED;
                 }
@@ -188,23 +188,23 @@ public class UpdateFunctionsFactory {
         return ( 
             double delta, 
             TweenAnimationProperties p,
-            ComponentProxy<ComponentType> componentProxy, 
+            TweenAnimationComponentMapper<ComponentType> componentMapper, 
             DoubleFunction<Double> easingFunction,
             TweenAnimationStateContainer stateContainer ) -> {
             
             if ( stateContainer.state == TweenAnimationExecutionState.INITIALIZED ) {
                 stateContainer.state = TweenAnimationExecutionState.RUNNING;
-                componentProxy.setX( p.getDouble( "x1" ) );
-                componentProxy.setY( p.getDouble( "y1" ) );
+                componentMapper.set( "x", p.getDouble( "x1" ) );
+                componentMapper.set( "y", p.getDouble( "y1" ) );
             }
             
             if ( stateContainer.state == TweenAnimationExecutionState.RUNNING ) {
                 
                 stateContainer.percentage += p.getDouble( "velPercentage" ) * delta;
-                componentProxy.setRotation( p.getDouble( "angle1" ) + ( p.getDouble( "angle2" ) - p.getDouble( "angle1" ) ) * easingFunction.apply( stateContainer.percentage ) );
+                componentMapper.set( "rotation", p.getDouble( "angle1" ) + ( p.getDouble( "angle2" ) - p.getDouble( "angle1" ) ) * easingFunction.apply( stateContainer.percentage ) );
                 
                 if ( stateContainer.percentage >= 1.0 ) {
-                    componentProxy.setRotation( p.getDouble( "angle2" ) );
+                    componentMapper.set( "rotation", p.getDouble( "angle2" ) );
                     stateContainer.percentage = 1.0;
                     stateContainer.state = TweenAnimationExecutionState.FINISHED;
                 }
@@ -218,20 +218,20 @@ public class UpdateFunctionsFactory {
         return ( 
             double delta, 
             TweenAnimationProperties p,
-            ComponentProxy<ComponentType> componentProxy, 
+            TweenAnimationComponentMapper<ComponentType> componentMapper, 
             DoubleFunction<Double> easingFunction,
             TweenAnimationStateContainer stateContainer ) -> {
             
             if ( stateContainer.state == TweenAnimationExecutionState.INITIALIZED ) {
                 stateContainer.state = TweenAnimationExecutionState.RUNNING;
-                componentProxy.setX( p.getDouble( "x1" ) );
-                componentProxy.setY( p.getDouble( "y1" ) );
+                componentMapper.set( "x", p.getDouble( "x1" ) );
+                componentMapper.set( "y", p.getDouble( "y1" ) );
             }
             
             if ( stateContainer.state == TweenAnimationExecutionState.RUNNING ) {
-                componentProxy.setX( componentProxy.getX() + delta * p.getDouble( "velX" ) );
-                if ( componentProxy.getX() >= p.getDouble( "x2" ) ) {
-                    componentProxy.setX( p.getDouble( "x2" ) );
+                componentMapper.set( "x", (Double) componentMapper.get( "x" ) + delta * p.getDouble( "velX" ) );
+                if ( (Double) componentMapper.get( "x" ) >= p.getDouble( "x2" ) ) {
+                    componentMapper.set( "x", p.getDouble( "x2" ) );
                     stateContainer.state = TweenAnimationExecutionState.FINISHED;
                 }
             }
@@ -243,20 +243,20 @@ public class UpdateFunctionsFactory {
         return ( 
             double delta, 
             TweenAnimationProperties p,
-            ComponentProxy<ComponentType> componentProxy, 
+            TweenAnimationComponentMapper<ComponentType> componentMapper, 
             DoubleFunction<Double> easingFunction,
             TweenAnimationStateContainer stateContainer ) -> {
             
             if ( stateContainer.state == TweenAnimationExecutionState.INITIALIZED ) {
                 stateContainer.state = TweenAnimationExecutionState.RUNNING;
-                componentProxy.setX( p.getDouble( "x1" ) );
-                componentProxy.setY( p.getDouble( "y1" ) );
+                componentMapper.set( "x", p.getDouble( "x1" ) );
+                componentMapper.set( "y", p.getDouble( "y1" ) );
             }
             
             if ( stateContainer.state == TweenAnimationExecutionState.RUNNING ) {
-                componentProxy.setY( componentProxy.getY() + delta * p.getDouble( "velY" ) );
-                if ( componentProxy.getY() >= p.getDouble( "y2" ) ) {
-                    componentProxy.setY( p.getDouble( "y2" ) );
+                componentMapper.set( "y", (Double) componentMapper.get( "y" ) + delta * p.getDouble( "velY" ) );
+                if ( (Double) componentMapper.get( "y" ) >= p.getDouble( "y2" ) ) {
+                    componentMapper.set( "y", p.getDouble( "y2" ) );
                     stateContainer.state = TweenAnimationExecutionState.FINISHED;
                 }
             }
@@ -268,29 +268,29 @@ public class UpdateFunctionsFactory {
         return ( 
             double delta, 
             TweenAnimationProperties p,
-            ComponentProxy<ComponentType> componentProxy, 
+            TweenAnimationComponentMapper<ComponentType> componentMapper, 
             DoubleFunction<Double> easingFunction,
             TweenAnimationStateContainer stateContainer ) -> {
             
             if ( stateContainer.state == TweenAnimationExecutionState.INITIALIZED ) {
                 stateContainer.state = TweenAnimationExecutionState.RUNNING;
-                componentProxy.setX( p.getDouble( "x1" ) );
-                componentProxy.setY( p.getDouble( "y1" ) );
+                componentMapper.set( "x", p.getDouble( "x1" ) );
+                componentMapper.set( "y", p.getDouble( "y1" ) );
             }
             
             if ( stateContainer.state == TweenAnimationExecutionState.RUNNING ) {
                 
-                componentProxy.setX( componentProxy.getX() + delta * p.getDouble( "velX" ) );
-                componentProxy.setY( componentProxy.getY() + delta * p.getDouble( "velY" ) );
+                componentMapper.set( "x", (Double) componentMapper.get( "x" ) + delta * p.getDouble( "velX" ) );
+                componentMapper.set( "y", (Double) componentMapper.get( "y" ) + delta * p.getDouble( "velY" ) );
                 boolean stop = false;
                 
-                if ( componentProxy.getX() >= p.getDouble( "x2" ) ) {
-                    componentProxy.setX( p.getDouble( "x2" ) );
+                if ( (Double) componentMapper.get( "x" ) >= p.getDouble( "x2" ) ) {
+                    componentMapper.set( "x", p.getDouble( "x2" ) );
                     stop = true;
                 }
                 
-                if ( componentProxy.getY() >= p.getDouble( "y2" ) ) {
-                    componentProxy.setY( p.getDouble( "y2" ) );
+                if ( (Double) componentMapper.get( "y" ) >= p.getDouble( "y2" ) ) {
+                    componentMapper.set( "y", p.getDouble( "y2" ) );
                     stop = true;
                 }
                 

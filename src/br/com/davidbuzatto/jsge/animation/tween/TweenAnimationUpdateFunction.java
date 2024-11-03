@@ -16,7 +16,6 @@
  */
 package br.com.davidbuzatto.jsge.animation.tween;
 
-import br.com.davidbuzatto.jsge.animation.tween.proxy.ComponentProxy;
 import java.util.function.DoubleFunction;
 
 /**
@@ -34,14 +33,14 @@ public interface TweenAnimationUpdateFunction<ComponentType> {
      * 
      * @param delta Variação no tempo.
      * @param properties Propriedades para inicialização e manutenção do estado da animação.
-     * @param componentProxy Proxie que realiza a interface entre o componente manipulado e a função de atualização.
+     * @param componentMapper Mapeador de propriedades que realiza a interface entre o componente manipulado e a função de atualização.
      * @param easingFunction Função de suavização.
      * @param stateContainer Mantém o estado da animação.
      */
     public void accept( 
         double delta, 
         TweenAnimationProperties properties,
-        ComponentProxy<ComponentType> componentProxy, 
+        TweenAnimationComponentMapper<ComponentType> componentMapper, 
         DoubleFunction<Double> easingFunction,
         TweenAnimationStateContainer stateContainer
     );
