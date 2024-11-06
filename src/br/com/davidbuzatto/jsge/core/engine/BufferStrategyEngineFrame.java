@@ -2950,6 +2950,52 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
     }
 
     /**
+     * Altera o limite de aparagem da junta de esquadria do contorno padrão.
+     * 
+     * @param miterLimit O limite para aparar o a junta de esquadria.
+     */
+    public void setDefaultStrokeMiterLimit( float miterLimit ) {
+        defaultStroke = StrokeUtils.cloneStrokeMiterLimit( miterLimit, defaultStroke );
+    }
+    
+    /**
+     * Altera o array que representa o padrão de traço do contorno padrão.
+     * 
+     * @param dashArray O array que representa o padrão de traço.
+     */
+    public void setDefaultStrokeDashArray( float[] dashArray ) {
+        defaultStroke = StrokeUtils.cloneStrokeDashArray( dashArray, defaultStroke );
+    }
+    
+    /**
+     * Altera o deslocamento do início do padrão de traço do contorno padrão.
+     * 
+     * @param dashPhase O deslocamento do início do padrão de traço.
+     */
+    public void setDefaultStrokeDashPhase( float dashPhase ) {
+        defaultStroke = StrokeUtils.cloneStrokeDashPhase( dashPhase, defaultStroke );
+    }
+    
+    /**
+     * Altera o deslocamento do início do padrão de traço do contorno padrão.
+     * 
+     * @param dashArray O array que representa o padrão de traço.
+     * @param dashPhase O deslocamento do início do padrão de traço.
+     */
+    public void setDefaultStrokeDashArrayAndPhase( float[] dashArray, float dashPhase ) {
+        defaultStroke = StrokeUtils.cloneStrokeDashArrayAndPhase( dashArray, dashPhase, defaultStroke );
+    }
+    
+    /**
+     * Obtém o contorno padrão.
+     * 
+     * @return O contorno padrão.
+     */
+    public BasicStroke getDefaultStroke() {
+        return defaultStroke;
+    }
+
+    /**
      * Altera o contorno do contexto gráfico.
      * 
      * @param stroke Contorno a ser usado.
@@ -2985,6 +3031,60 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
      */
     public void setStrokeLineJoin( int lineJoin ) {
         g2d.setStroke( StrokeUtils.cloneStrokeLineJoin( lineJoin, g2d.getStroke() ) );
+    }
+    
+    /**
+     * Altera o limite de aparagem da junta de esquadria do contorno corrente.
+     * 
+     * @param miterLimit O limite para aparar o a junta de esquadria.
+     */
+    public void setStrokeMiterLimit( float miterLimit ) {
+        g2d.setStroke( StrokeUtils.cloneStrokeMiterLimit( miterLimit, g2d.getStroke() ) );
+    }
+    
+    /**
+     * Altera o array que representa o padrão de traço do contorno corrente.
+     * 
+     * @param dashArray O array que representa o padrão de traço.
+     */
+    public void setStrokeDashArray( float[] dashArray ) {
+        g2d.setStroke( StrokeUtils.cloneStrokeDashArray( dashArray, g2d.getStroke() ) );
+    }
+    
+    /**
+     * Altera o deslocamento do início do padrão de traço do contorno corrente.
+     * 
+     * @param dashPhase O deslocamento do início do padrão de traço.
+     */
+    public void setStrokeDashPhase( float dashPhase ) {
+        g2d.setStroke( StrokeUtils.cloneStrokeDashPhase( dashPhase, g2d.getStroke() ) );
+    }
+    
+    /**
+     * Altera o deslocamento do início do padrão de traço do contorno corrente.
+     * 
+     * @param dashArray O array que representa o padrão de traço.
+     * @param dashPhase O deslocamento do início do padrão de traço.
+     */
+    public void setStrokeDashArrayAndPhase( float[] dashArray, float dashPhase ) {
+        g2d.setStroke( StrokeUtils.cloneStrokeDashArrayAndPhase( dashArray, dashPhase, g2d.getStroke() ) );
+    }
+    
+    /**
+     * Reseta o contorno corrent do contexto gráfico para o definido no
+     * contorno padrão.
+     */
+    public void resetStrokeToDefault() {
+        g2d.setStroke( defaultStroke );
+    }
+    
+    /**
+     * Obtém o contorno corrente do contexto gráfico.
+     * 
+     * @return O contorno corrente do contexto gráfico.
+     */
+    public BasicStroke getStroke() {
+        return (BasicStroke) g2d.getStroke();
     }
 
     

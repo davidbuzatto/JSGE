@@ -35,7 +35,7 @@ public class ScratchPad extends EngineFrame {
     @Override
     public void create() {
     }
-
+    
     @Override
     public void update( double delta ) {
     }

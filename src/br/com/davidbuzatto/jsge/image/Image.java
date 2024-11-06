@@ -55,6 +55,9 @@ import java.awt.image.BufferedImage;
  * Possui a maioria, senão todos os métodos de desenho da engine,
  * entretanto, o desenho é feito na imagem.
  * 
+ * Atenção: Todos os métodos de configuração atuam globalmente e não por
+ * instância!
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class Image {
@@ -2049,6 +2052,57 @@ public class Image {
      */
     public static void setStrokeLineJoin( int lineJoin ) {
         stroke = StrokeUtils.cloneStrokeLineJoin( lineJoin, stroke );
+    }
+    
+    /**
+     * Altera o limite de aparagem da junta de esquadria do contorno corrente 
+     * que é usado para os processos de desenho do contexto gráfico das imagens.
+     * 
+     * @param miterLimit O limite para aparar o a junta de esquadria.
+     */
+    public static void setStrokeMiterLimit( float miterLimit ) {
+        stroke = StrokeUtils.cloneStrokeMiterLimit( miterLimit, stroke );
+    }
+    
+    /**
+     * Altera o array que representa o padrão de traço do contorno corrente
+     * que é usado para os processos de desenho do contexto gráfico das imagens.
+     * 
+     * @param dashArray O array que representa o padrão de traço.
+     */
+    public static void setStrokeDashArray( float[] dashArray ) {
+        stroke = StrokeUtils.cloneStrokeDashArray( dashArray, stroke );
+    }
+    
+    /**
+     * Altera o deslocamento do início do padrão de traço do contorno corrente
+     * que é usado para os processos de desenho do contexto gráfico das imagens.
+     * 
+     * @param dashPhase O deslocamento do início do padrão de traço.
+     */
+    public static void setStrokeDashPhase( float dashPhase ) {
+        stroke = StrokeUtils.cloneStrokeDashPhase( dashPhase, stroke );
+    }
+    
+    /**
+     * Altera o deslocamento do início do padrão de traço do contorno corrente
+     * que é usado para os processos de desenho do contexto gráfico das imagens.
+     * 
+     * @param dashArray O array que representa o padrão de traço.
+     * @param dashPhase O deslocamento do início do padrão de traço.
+     */
+    public static void setStrokeDashArrayAndPhase( float[] dashArray, float dashPhase ) {
+        stroke = StrokeUtils.cloneStrokeDashArrayAndPhase( dashArray, dashPhase, stroke );
+    }
+    
+    /**
+     * Obtém o contorno corrente que é usado para os processos de desenho do
+     * contexto gráfico das imagens.
+     * 
+     * @return O contorno corrente do contexto gráfico.
+     */
+    public static BasicStroke getStroke() {
+        return stroke;
     }
     
     /**
