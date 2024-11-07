@@ -3701,6 +3701,7 @@ public abstract class EngineFrame extends JFrame {
 
         public DrawingPanel() {
             setBackground( null );
+            setIgnoreRepaint( true );
         }
         
         @Override
