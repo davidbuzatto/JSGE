@@ -733,18 +733,34 @@ public class AnimationsExample extends EngineFrame {
         
         clearBackground( WHITE );
         
+        fillRectangle( 10, 10, 430, 250, ColorUtils.fade( LIGHTGRAY, 0.2 ) );
         drawText( "image animation (frame by frame)", 20, 50, BLACK );
         for ( int i = 0; i < 4; i++ ) {
             drawImage( imageAnimation.getCurrentFrame().image, 20 + i * 40, 80 );
         }
-        drawText( String.format( "%.2fs to next frame\nuse mouse wheel to change!", imageAnimation.getTimeToNextFrame() ), 190, 85, 14, BLACK );
+        drawText( String.format( "%.2fs to next frame\nuse the mouse wheel to change!", imageAnimation.getTimeToNextFrame() ), 190, 85, 14, BLACK );
         
         drawText( "drawable animation (frame by frame)", 20, 150, BLACK );
         drawableAnimation.getCurrentFrame().fill( this, colors[drawableAnimation.getCurrentFramePosition()] );
         drawableAnimation.getCurrentFrame().draw( this, BLACK );
         
-        drawLine( 450, 20, 450, 250, BLACK );
-        drawLine( 20, 250, 450, 250, BLACK );
+        //drawLine( 450, 20, 450, 250, BLACK );
+        //drawLine( 20, 250, 450, 250, BLACK );
+        
+        fillRectangle( 450, 10, getScreenWidth() - 460, 250, ColorUtils.fade( LIGHTGRAY, 0.2 ) );
+        drawText( "tween animation control:", 460, 20, BLACK );
+        drawText( "easing function:", 460, 60, BLACK );
+        drawText( String.format( "%02d/%02d", currentEasingFunction + 1, easingFunctions.length ), 780, 60, BLACK );
+        prevEFR.draw( this );
+        nextEFR.draw( this );
+        repeatEFR.draw( this );
+        drawImage( easingFunctionImage, 460, 80 );
+        drawText( easingFunctionPair.name, 460 + easingFunctionImage.getWidth(), 80 + easingFunctionImage.getHeight() / 2 - 10, BLACK );
+        
+        fillCircle( 
+            ( 460 + fimH ) + ( easingFunctionImage.getWidth() - fimH * 2 ) * etaPos.getPercentage(), 
+            ( 80 + easingFunctionImage.getHeight() - fimV ) - ( easingFunctionImage.getHeight() - fimV * 2 ) * easingFunctionPair.function.apply( etaPos.getPercentage() ), 
+            5, ColorUtils.fade( DARKBLUE, 0.8 ) );
         
         fillRectangle( 10, 270, getScreenWidth() - 20, 305, ColorUtils.fade( LIGHTGRAY, 0.2 ) );
         fillRectangle( 20, 310, 420, 225, ColorUtils.fade( VIOLET, 0.2 ) );
@@ -770,20 +786,6 @@ public class AnimationsExample extends EngineFrame {
         etaRotation.getComponent().fill( this, MAROON );
         etaRotation.getComponent().draw( this, BLACK );
         
-        drawText( "tween animation control:", 460, 20, BLACK );
-        drawText( "easing function:", 460, 60, BLACK );
-        drawText( String.format( "%02d/%02d", currentEasingFunction + 1, easingFunctions.length ), 780, 60, BLACK );
-        prevEFR.draw( this );
-        nextEFR.draw( this );
-        repeatEFR.draw( this );
-        drawImage( easingFunctionImage, 460, 80 );
-        drawText( easingFunctionPair.name, 460 + easingFunctionImage.getWidth(), 80 + easingFunctionImage.getHeight() / 2 - 10, BLACK );
-        
-        fillCircle( 
-            ( 460 + fimH ) + ( easingFunctionImage.getWidth() - fimH * 2 ) * etaPos.getPercentage(), 
-            ( 80 + easingFunctionImage.getHeight() - fimV ) - ( easingFunctionImage.getHeight() - fimV * 2 ) * easingFunctionPair.function.apply( etaPos.getPercentage() ), 
-            5, ColorUtils.fade( DARKBLUE, 0.8 ) );
-        
         String tNoEasing = String.format( "tween animation [without easing] (%.2f%%)", taPos.getPercentage() * 100 );
         drawText( tNoEasing, getScreenWidth() / 2 - measureText( tNoEasing ) / 2, 550, BLACK );
         taPos.getComponent().fill( this, VIOLET );
@@ -807,10 +809,10 @@ public class AnimationsExample extends EngineFrame {
                   
                   <left>: reset
                   """, 20, 655, 14, BLACK );
-        timingAnim.getComponent().fill( this, PINK );
+        timingAnim.getComponent().fill( this, BLUE );
         timingAnim.getComponent().draw( this, BLACK );
         
-        drawFPS( 10, 10 );
+        drawFPS( 20, 20 );
         
     }
     

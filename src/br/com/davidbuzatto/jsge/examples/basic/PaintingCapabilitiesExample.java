@@ -53,7 +53,7 @@ public class PaintingCapabilitiesExample extends EngineFrame {
      * Cria o exemplo.
      */
     public PaintingCapabilitiesExample() {
-        super( 630, 420, "Paiting Capabilities", 60, true );
+        super( 630, 420, "Painting Capabilities", 60, true );
     }
     
     @Override

@@ -18,7 +18,6 @@ package br.com.davidbuzatto.jsge.collision.aabb;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Um nó da AABBQuadtree, representado por um quadrante com coordenadas inicias,
@@ -105,8 +104,7 @@ public class AABBQuadtreeNode {
         this.xCenter = ( x1 + x2 ) / 2;
         this.yCenter = ( y1 + y2 ) / 2;
         this.depth = depth;
-        this.aabbs = new CopyOnWriteArrayList<>();
-        //this.aabbs = new ArrayList<>();
+        this.aabbs = new ArrayList<>();
     }
 
 }

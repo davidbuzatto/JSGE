@@ -16,7 +16,6 @@
  */
 package br.com.davidbuzatto.jsge.collision.aabb;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -37,9 +36,9 @@ public class AABBQuadtree {
     private int maxDepth;
     
     /**
-     * Array de AABBs da árvore.
+     * Lista de AABBs da árvore.
      */
-    private AABB[] aabbs;
+    private List<AABB> aabbs;
     
     /**
      * Enumeração para os tipos dos nós da quadtree.
@@ -58,7 +57,7 @@ public class AABBQuadtree {
      * @param maxDepth Maior profundidade da árvore.
      * @param shape Formato dos nós da árvore.
      */
-    public AABBQuadtree( AABB[] aabbs, int width, int height, int maxDepth, Shape shape ) {
+    public AABBQuadtree( List<AABB> aabbs, int width, int height, int maxDepth, Shape shape ) {
         this.aabbs = aabbs;
         this.maxDepth = maxDepth;
         reshape( width, height, shape );
@@ -72,7 +71,7 @@ public class AABBQuadtree {
      * @param height Altura da árvore (retângulo mais externo).
      * @param maxDepth Maior profundidade da árvore.
      */
-    public AABBQuadtree( AABB[] aabbs, int width, int height, int maxDepth ) {
+    public AABBQuadtree( List<AABB> aabbs, int width, int height, int maxDepth ) {
         this( aabbs, width, height, maxDepth, Shape.SQUARE );
     }
 
@@ -183,7 +182,7 @@ public class AABBQuadtree {
      */
     public void update() {
         resetNodes( root );
-        root.aabbs.addAll( Arrays.asList( aabbs ) );
+        root.aabbs.addAll( aabbs );
         for ( AABB aabb : aabbs ) {
             aabb.nearby = null;
         }
@@ -193,9 +192,9 @@ public class AABBQuadtree {
     /**
      * Obtém as AABBs.
      * 
-     * @return Um array de AABBs.
+     * @return Uma lista de AABBs.
      */
-    public AABB[] getAABBs() {
+    public List<AABB> getAABBs() {
         return aabbs;
     }
 
@@ -213,7 +212,7 @@ public class AABBQuadtree {
      * 
      * @param aabbs Novas AABBs. 
      */
-    public void setAABBs( AABB[] aabbs ) {
+    public void setAABBs( List<AABB> aabbs ) {
         this.aabbs = aabbs;
     }
 
@@ -226,7 +225,7 @@ public class AABBQuadtree {
         if ( this.maxDepth != maxDepth ) {
             this.maxDepth = ( maxDepth < 1 || maxDepth > 10 ) ? this.maxDepth : maxDepth;
             root = buildQuadtree( root.x1, root.y1, root.x2, root.y2, 0 );
-            root.aabbs.addAll( Arrays.asList( aabbs ) );
+            root.aabbs.addAll( aabbs );
         }
     }
 

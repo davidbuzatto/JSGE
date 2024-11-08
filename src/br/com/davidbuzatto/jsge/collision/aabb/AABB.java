@@ -111,7 +111,7 @@ public class AABB {
     }
 
     /**
-     * Reposiciona a AABB.
+     * Move a AABB.
      * 
      * @param deltaX Variação em x.
      * @param deltaY Variação em y.
@@ -122,17 +122,31 @@ public class AABB {
         x2 += deltaX;
         y2 += deltaY;
     }
+    
+    /**
+     * Reposiciona a AABB.
+     * 
+     * @param x1 Coordenada x do vértice superior esquerdo.
+     * @param y1 Coordenada y do vértice superior esquerdo.
+     */
+    public void moveTo( double x1, double y1 ) {
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x1 + this.width;
+        this.y2 = y1 + this.height;
+    }
 
     /**
      * Configura o tamanho da AABB, recalculando x2 e y2.
-     * @param w
-     * @param h 
+     * 
+     * @param width Largura.
+     * @param height Altura.
      */
-    public void setSize( double w, double h ) {
-        x2 = x1 + w;
-        y2 = y1 + h;
-        width = x2 - x1;
-        height = y2 - y1;
+    public void setSize( double width, double height ) {
+        x2 = x1 + width;
+        y2 = y1 + height;
+        this.width = x2 - x1;
+        this.height = y2 - y1;
     }
 
 }

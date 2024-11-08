@@ -500,6 +500,7 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
                 }
 
                 try {
+                    Thread.yield();
                     Thread.sleep( waitTime );
                 } catch ( InterruptedException exc ) {
                     traceLogError( CoreUtils.stackTraceToString( exc ) );

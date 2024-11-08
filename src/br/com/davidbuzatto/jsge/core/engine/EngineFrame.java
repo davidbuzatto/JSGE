@@ -502,6 +502,7 @@ public abstract class EngineFrame extends JFrame {
                 }
 
                 try {
+                    Thread.yield();
                     Thread.sleep( waitTime );
                 } catch ( InterruptedException exc ) {
                     traceLogError( CoreUtils.stackTraceToString( exc ) );

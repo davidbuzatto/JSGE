@@ -33,6 +33,7 @@ import br.com.davidbuzatto.jsge.math.CurveUtils;
 import br.com.davidbuzatto.jsge.math.MathUtils;
 import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -98,7 +99,7 @@ public class CollisionDetectionExample extends EngineFrame {
     private int numberOfAABBs;
     private int maxTreeDepth;
     
-    private AABB[] aabbs;
+    private List<AABB> aabbs;
     private Vector2[] vels;
     private AABBQuadtree quadtree;
     private List<Rectangle> overlaps;
@@ -148,7 +149,7 @@ public class CollisionDetectionExample extends EngineFrame {
         aabbNearbyColor = ColorUtils.fade( LIME, 0.7 );
         aabbOverlapColor = ColorUtils.fade( BLUE, 0.7 );
         
-        numberOfAABBs = 200;
+        numberOfAABBs = 50;
         maxTreeDepth = 5;
 
         initAABBs();
@@ -294,12 +295,15 @@ public class CollisionDetectionExample extends EngineFrame {
         polygon.draw( this, BLACK );
 
         moveableLine.draw( this, moveableLineColor );
-
+        drawText( "move me!", moveableLine.x1 + 20, moveableLine.y1 - 10, -45, 14, BLACK );
+        
         moveableRect.fill( this, moveableRectColor );
         moveableRect.draw( this, BLACK );
+        drawText( "move me!", moveableRect.x + 20, moveableRect.y + 20, 14, BLACK );
 
         moveableCircle.fill( this, moveableCircleColor );
         moveableCircle.draw( this, BLACK );
+        drawText( "move\nme!", moveableCircle.x - 15, moveableCircle.y - 14, 14, BLACK );
 
         if ( overlapRec != null ) {
             overlapRec.fill( this, PINK );
@@ -339,14 +343,18 @@ public class CollisionDetectionExample extends EngineFrame {
 
     private void initAABBs() {
         
-        aabbs = new AABB[numberOfAABBs];
+        aabbs = new ArrayList<>();
         vels = new Vector2[numberOfAABBs];
         
-        for ( int i = 0; i < aabbs.length; i++ ) {
-            aabbs[i] = new AABB();
-            aabbs[i].setSize( MathUtils.getRandomValue( 5, qtHeight / 15 ), MathUtils.getRandomValue( 5, qtHeight / 15 ) );
+        for ( int i = 0; i < numberOfAABBs; i++ ) {
+            
+            AABB aabb = new AABB();
+            aabb.setSize( MathUtils.getRandomValue( 5, qtHeight / 15 ), MathUtils.getRandomValue( 5, qtHeight / 15 ) );
+            aabb.move( MathUtils.getRandomValue( 1, (int) ( qtWidth - aabb.x2 - aabb.x1 - 2 ) ), MathUtils.getRandomValue( 1, (int) ( qtHeight - aabb.y2 - aabb.y1 - 2 ) ) );
+            aabbs.add( aabb );
+            
             vels[i] = new Vector2( MathUtils.getRandomValue( -100, 100 ), MathUtils.getRandomValue( -100, 100 ) );
-            aabbs[i].move( MathUtils.getRandomValue( 1, (int) ( qtWidth - aabbs[i].x2 - aabbs[i].x1 - 2 ) ), MathUtils.getRandomValue( 1, (int) ( qtHeight - aabbs[i].y2 - aabbs[i].y1 - 2 ) ) );
+            
         }
         
     }
@@ -368,9 +376,12 @@ public class CollisionDetectionExample extends EngineFrame {
                 drawRectangle( qtX + node.x1, qtY + node.y1, node.x2 - node.x1, node.y2 - node.y1, qnOutlineColor );
             }
             
-            for ( AABB a : node.aabbs ) {
-                for ( AABB b : node.aabbs ) {
-                    if ( a != b ) {
+            int size = node.aabbs.size();
+            for ( int i = 0; i < size; i++ ) {
+                for ( int j = i+1; j < size; j++ ) {
+                    try {
+                        AABB a = node.aabbs.get( i );
+                        AABB b = node.aabbs.get( j );
                         Rectangle ra = new Rectangle( a.x1, a.y1, a.x2 - a.x1, a.y2 - a.y1 );
                         Rectangle rb = new Rectangle( b.x1, b.y1, b.x2 - b.x1, b.y2 - b.y1 );
                         if ( CollisionUtils.checkCollisionRectangles( ra, rb ) ) {
@@ -379,6 +390,7 @@ public class CollisionDetectionExample extends EngineFrame {
                             ri.y += qtY;
                             overlaps.add( ri );
                         }
+                    } catch ( IndexOutOfBoundsException | NullPointerException exc ) {
                     }
                 }
             }
@@ -405,15 +417,31 @@ public class CollisionDetectionExample extends EngineFrame {
             
             Vector2 vel = vels[k++];
             
-            if ( aabb.x1 <= 0 || aabb.x2 >= qtWidth ) {
+            aabb.move( vel.x * delta, vel.y * delta );
+            
+            if ( aabb.x1 <= 0 ) {
+                aabb.moveTo( 0, aabb.y1 );
+                vel.x = -vel.x;
+            } else if ( aabb.x2 >= qtWidth ) {
+                aabb.moveTo( qtWidth - aabb.width, aabb.y1 );
+                vel.x = -vel.x;
+            }
+            
+            if ( aabb.y1 <= 0 ) {
+                aabb.moveTo( aabb.x1, 0 );
+                vel.y = -vel.y;
+            } else if ( aabb.y2 >= qtHeight ) {
+                aabb.moveTo( aabb.x1, qtHeight - aabb.height );
+                vel.y = -vel.y;
+            }
+            
+            /*if ( aabb.x1 <= 0 || aabb.x2 >= qtWidth ) {
                 vel.x = -vel.x;
             }
             
             if ( aabb.y1 <= 0 || aabb.y2 >= qtHeight ) {
                 vel.y = -vel.y;
-            }
-            
-            aabb.move( vel.x * delta, vel.y * delta );
+            }*/
             
         }
         
