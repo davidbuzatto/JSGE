@@ -101,8 +101,9 @@
         
         
         <!-- compacta fontes -->
-        <zip destfile="${artefatoSrc}.zip"
-             basedir="${src.dir}"/>
+        <zip destfile="${artefatoSrc}.zip">
+            <zipfileset dir="${src.dir}" prefix="src"/>
+        </zip>
         
         <!-- move para pasta dist -->
         <move file="${artefatoSrc}.zip" todir="${dist.dir}"/>
@@ -112,8 +113,9 @@
         <antcall target="-javadoc-build"/>
         
         <!-- compacta a documentação -->
-        <zip destfile="${dist.dir}/${artefatoJavadoc}.zip"
-             basedir="${dist.dir}/javadoc"/>
+        <zip destfile="${dist.dir}/${artefatoJavadoc}.zip">
+            <zipfileset dir="${dist.dir}/javadoc" prefix="javadoc"/>
+        </zip>
         
         <!-- apaga o diretório do build da documentação -->
         <delete includeEmptyDirs="true">
