@@ -115,7 +115,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnCollisionDetection">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Collision Detection and Points at Lines and Curves"/>
+        <Property name="text" type="java.lang.String" value="Collision Detection, Points at Lines and Curves and AABBQuadtree"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCollisionDetectionActionPerformed"/>

@@ -14,13 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.math;
+package br.com.davidbuzatto.jsge.collision;
 
 import br.com.davidbuzatto.jsge.geom.Circle;
 import br.com.davidbuzatto.jsge.geom.Line;
 import br.com.davidbuzatto.jsge.geom.Polygon;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.geom.Triangle;
+import br.com.davidbuzatto.jsge.math.Vector2;
 
 /**
  * Interface com métodos estáticos utilitários para detecção de colisão.

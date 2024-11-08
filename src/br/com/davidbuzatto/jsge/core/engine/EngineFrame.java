@@ -383,6 +383,7 @@ public abstract class EngineFrame extends JFrame {
         // configura a engine
         setTitle( windowTitle );
         setAlwaysOnTop( alwaysOnTop );
+        setIgnoreRepaint( true );
 
         if ( fullScreen ) {
             setResizable( false );

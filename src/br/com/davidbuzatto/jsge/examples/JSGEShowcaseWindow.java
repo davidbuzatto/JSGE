@@ -96,7 +96,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
             }
         });
 
-        btnCollisionDetection.setText("Collision Detection and Points at Lines and Curves");
+        btnCollisionDetection.setText("Collision Detection, Points at Lines and Curves and AABBQuadtree");
         btnCollisionDetection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCollisionDetectionActionPerformed(evt);

@@ -38,7 +38,7 @@ import br.com.davidbuzatto.jsge.geom.RoundRectangle;
 import br.com.davidbuzatto.jsge.geom.Star;
 import br.com.davidbuzatto.jsge.geom.Triangle;
 import br.com.davidbuzatto.jsge.image.Image;
-import br.com.davidbuzatto.jsge.math.CollisionUtils;
+import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 import java.util.ArrayList;

@@ -16,10 +16,10 @@
  */
 package br.com.davidbuzatto.jsge.examples.basic;
 
+import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.Vector2;
-import br.com.davidbuzatto.jsge.math.CollisionUtils;
 import br.com.davidbuzatto.jsge.math.MathUtils;
 import br.com.davidbuzatto.jsge.sound.Music;
 import br.com.davidbuzatto.jsge.sound.Sound;

@@ -19,7 +19,7 @@ package br.com.davidbuzatto.jsge.examples.particles;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.math.Vector2;
-import br.com.davidbuzatto.jsge.math.CollisionUtils;
+import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.math.MathUtils;
 import java.awt.Color;
 

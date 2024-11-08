@@ -16,7 +16,12 @@
  */
 package br.com.davidbuzatto.jsge.examples.basic;
 
+import br.com.davidbuzatto.jsge.collision.CollisionUtils;
+import br.com.davidbuzatto.jsge.collision.aabb.AABB;
+import br.com.davidbuzatto.jsge.collision.aabb.AABBQuadtree;
+import br.com.davidbuzatto.jsge.collision.aabb.AABBQuadtreeNode;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.geom.Circle;
 import br.com.davidbuzatto.jsge.geom.CubicCurve;
 import br.com.davidbuzatto.jsge.geom.Line;
@@ -24,10 +29,12 @@ import br.com.davidbuzatto.jsge.geom.Polygon;
 import br.com.davidbuzatto.jsge.geom.QuadCurve;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.geom.Triangle;
-import br.com.davidbuzatto.jsge.math.Vector2;
-import br.com.davidbuzatto.jsge.math.CollisionUtils;
 import br.com.davidbuzatto.jsge.math.CurveUtils;
+import br.com.davidbuzatto.jsge.math.MathUtils;
+import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Exemplos de utilização dos métodos de detecção de colisão e de pontos
@@ -78,36 +85,76 @@ public class CollisionDetectionExample extends EngineFrame {
     private String textRectGeom;
     private String textCircleGeom;
     
+    private Color qnOutlineColor;
+    private Color commonQnColor;
+    private Color aabbColor;
+    private Color aabbNearbyColor;
+    private Color aabbOverlapColor;
+    
+    private int qtX;
+    private int qtY;
+    private int qtWidth;
+    private int qtHeight;
+    private int numberOfAABBs;
+    private int maxTreeDepth;
+    
+    private AABB[] aabbs;
+    private Vector2[] vels;
+    private AABBQuadtree quadtree;
+    private List<Rectangle> overlaps;
+    
     /**
      * Cria o exemplo.
      */
     public CollisionDetectionExample() {
-        super( 800, 450, "Collision Detection", 60, true );
+        super( 800, 710, "Collision Detection, Points at Lines and Curves and AABBQuadtree", 60, true );
     }
     
     @Override
     public void create() {
         
+        setDefaultFontSize( 20 );
         amountVel = 1;
         
-        line = new Line( 270, 10, 340, 80 );
-        rectangle = new Rectangle( 280, 90, 50, 80 );
-        circle = new Circle( 305, 210, 30 );
-        triangle = new Triangle( 305, 250, 345, 320, 265, 320 );
-        polygon = new Polygon( 305, 380, 5, 45, 0 );
+        line = new Line( 15, 160, 85, 230 );
+        rectangle = new Rectangle( 25, 240, 50, 80 );
+        circle = new Circle( 50, 360, 30 );
+        triangle = new Triangle( 50, 400, 90, 470, 10, 470 );
+        polygon = new Polygon( 50, 530, 5, 45, 0 );
 
-        moveableLine = new Line( 420, 80, 490, 10 );
-        moveableRect = new Rectangle( 400, 105, 100, 50 );
-        moveableCircle = new Circle( 450, 210, 30 );
+        moveableLine = new Line( 150, 230, 220, 160 );
+        moveableRect = new Rectangle( 135, 255, 100, 50 );
+        moveableCircle = new Circle( 185, 350, 30 );
 
-        lineForPoint = new Line( 600, 50, 700, 150 ) ;
-        quadForPoint = new QuadCurve( 600, 180, 700, 200, 700, 280 ) ;
-        cubicForPoint = new CubicCurve( 600, 310, 600, 340, 700, 370, 700, 410 );
+        lineForPoint = new Line( 10, 580, 240, 700 ) ;
+        quadForPoint = new QuadCurve( 280, 580, 430, 580, 520, 700 ) ;
+        cubicForPoint = new CubicCurve( 560, 580, 635, 580, 715, 700, 790, 700 );
 
         textPointGeom = "none";
         textLineGeom = "none";
         textRectGeom = "none";
         textCircleGeom = "none";
+        
+        // quadtree
+        qtX = 260;
+        qtY = 30;
+        qtWidth = getScreenWidth() - qtX - 10;
+        qtHeight = qtWidth;
+        
+        qnOutlineColor = new Color( 0, 0, 0 );
+        commonQnColor = ColorUtils.fade( LIGHTGRAY, 0.5 );
+        
+        aabbColor = ColorUtils.fade( GOLD, 0.7 );
+        aabbNearbyColor = ColorUtils.fade( LIME, 0.7 );
+        aabbOverlapColor = ColorUtils.fade( BLUE, 0.7 );
+        
+        numberOfAABBs = 200;
+        maxTreeDepth = 5;
+
+        initAABBs();
+        quadtree = new AABBQuadtree( aabbs, qtWidth, qtHeight, maxTreeDepth );
+        
+        overlaps = new CopyOnWriteArrayList<>();
         
     }
     
@@ -220,6 +267,10 @@ public class CollisionDetectionExample extends EngineFrame {
             moveableCircleColor = noOverlapColor;
         }
         
+        // quadtree
+        updateAABBLocations( delta );
+        quadtree.update();
+        
     }
     
     @Override
@@ -268,15 +319,106 @@ public class CollisionDetectionExample extends EngineFrame {
         fillCircle( pointForQuad, 10, GREEN );
         fillCircle( pointForCubic, 10, BLUE );
 
-        drawText( " Point x Geom: " + textPointGeom, 10, 40, 20, BLACK );
-        drawText( "  Line x Geom: " + textLineGeom, 10, 70, 20, BLACK );
-        drawText( "  Rect x Geom: " + textRectGeom, 10, 100, 20, BLACK );
-        drawText( "Circle x Geom: " + textCircleGeom, 10, 130, 20, BLACK );
+        drawText( " Point x Geom: " + textPointGeom, 10, 40, BLACK );
+        drawText( "  Line x Geom: " + textLineGeom, 10, 70, BLACK );
+        drawText( "  Rect x Geom: " + textRectGeom, 10, 100, BLACK );
+        drawText( "Circle x Geom: " + textCircleGeom, 10, 130, BLACK );
+        
+        // quadtree
+        drawText( String.format( "AABBQuadtree (AABBs: %d, maxDepth: %d) ", numberOfAABBs, maxTreeDepth ), qtX, qtY - 20, BLACK );
+        drawQuadTree();
+        drawAABBs();
+        
+        for ( Rectangle r : overlaps ) {
+            r.fill( this, aabbOverlapColor );
+        }
         
         drawFPS( 10, 10 );
 
     }
 
+    private void initAABBs() {
+        
+        aabbs = new AABB[numberOfAABBs];
+        vels = new Vector2[numberOfAABBs];
+        
+        for ( int i = 0; i < aabbs.length; i++ ) {
+            aabbs[i] = new AABB();
+            aabbs[i].setSize( MathUtils.getRandomValue( 5, qtHeight / 15 ), MathUtils.getRandomValue( 5, qtHeight / 15 ) );
+            vels[i] = new Vector2( MathUtils.getRandomValue( -100, 100 ), MathUtils.getRandomValue( -100, 100 ) );
+            aabbs[i].move( MathUtils.getRandomValue( 1, (int) ( qtWidth - aabbs[i].x2 - aabbs[i].x1 - 2 ) ), MathUtils.getRandomValue( 1, (int) ( qtHeight - aabbs[i].y2 - aabbs[i].y1 - 2 ) ) );
+        }
+        
+    }
+    
+    private void drawAABBs() {
+        for ( AABB aabb : aabbs ) {
+            fillRectangle( qtX + aabb.x1, qtY + aabb.y1, aabb.width, aabb.height, aabb.nearby == null ? aabbColor : aabbNearbyColor );
+        }
+    }
+    
+    private void drawQuadnode( AABBQuadtreeNode node ) {
+        
+        if ( node.depth < maxTreeDepth ) {
+            
+            if ( node.aabbs.size() > 1 ) {
+                if ( node.depth == maxTreeDepth - 1 ) {
+                    fillRectangle( qtX + node.x1, qtY + node.y1, node.x2 - node.x1, node.y2 - node.y1, commonQnColor );
+                }
+                drawRectangle( qtX + node.x1, qtY + node.y1, node.x2 - node.x1, node.y2 - node.y1, qnOutlineColor );
+            }
+            
+            for ( AABB a : node.aabbs ) {
+                for ( AABB b : node.aabbs ) {
+                    if ( a != b ) {
+                        Rectangle ra = new Rectangle( a.x1, a.y1, a.x2 - a.x1, a.y2 - a.y1 );
+                        Rectangle rb = new Rectangle( b.x1, b.y1, b.x2 - b.x1, b.y2 - b.y1 );
+                        if ( CollisionUtils.checkCollisionRectangles( ra, rb ) ) {
+                            Rectangle ri = CollisionUtils.getCollisionRectangle( ra, rb );
+                            ri.x += qtX;
+                            ri.y += qtY;
+                            overlaps.add( ri );
+                        }
+                    }
+                }
+            }
+            
+            drawQuadnode( node.nw );
+            drawQuadnode( node.ne );
+            drawQuadnode( node.sw );
+            drawQuadnode( node.se );
+            
+        }
+        
+    }
+    
+    private void drawQuadTree() {
+        overlaps.clear();
+        drawQuadnode( quadtree.getRoot() );
+    }
+    
+    private void updateAABBLocations( double delta ) {
+        
+        int k = 0;
+        
+        for ( AABB aabb : aabbs ) {
+            
+            Vector2 vel = vels[k++];
+            
+            if ( aabb.x1 <= 0 || aabb.x2 >= qtWidth ) {
+                vel.x = -vel.x;
+            }
+            
+            if ( aabb.y1 <= 0 || aabb.y2 >= qtHeight ) {
+                vel.y = -vel.y;
+            }
+            
+            aabb.move( vel.x * delta, vel.y * delta );
+            
+        }
+        
+    }
+    
     /**
      * Executa o exemplo.
      * @param args Argumentos.
