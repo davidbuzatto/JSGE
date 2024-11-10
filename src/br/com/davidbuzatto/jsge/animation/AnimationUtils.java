@@ -35,7 +35,7 @@ public interface AnimationUtils {
      * @param images Uma lista de imagens.
      * @return Uma lista de ImageAnimationFrame
      */
-    public static List<ImageAnimationFrame> newImageAnimationFrameList( List<Image> images ) {
+    public static List<ImageAnimationFrame> getImageAnimationFrameList( List<Image> images ) {
         
         List<ImageAnimationFrame> frames = new ArrayList<>();
         
@@ -59,7 +59,7 @@ public interface AnimationUtils {
      * @param backwards Se o mapa de sprites deve ser mapeado do fim para o começo.
      * @return Uma lista de SpriteMapAnimationFrame
      */
-    public static List<SpriteMapAnimationFrame> newSpriteMapAnimationFrameList( Image spriteMapImage, int quantity, int x, int y, double width, double height, boolean backwards ) {
+    public static List<SpriteMapAnimationFrame> getSpriteMapAnimationFrameList( Image spriteMapImage, int quantity, int x, int y, double width, double height, boolean backwards ) {
         
         List<SpriteMapAnimationFrame> frames = new ArrayList<>();
         
@@ -89,8 +89,8 @@ public interface AnimationUtils {
      * @param height Altura do recorte do mapa de sprite.
      * @return Uma lista de SpriteMapAnimationFrame
      */
-    public static List<SpriteMapAnimationFrame> newSpriteMapAnimationFrameList( Image spriteMapImage, int quantity, int x, int y, double width, double height ) {
-        return newSpriteMapAnimationFrameList( spriteMapImage, quantity, x, y, width, height, false );
+    public static List<SpriteMapAnimationFrame> getSpriteMapAnimationFrameList( Image spriteMapImage, int quantity, int x, int y, double width, double height ) {
+        return AnimationUtils.getSpriteMapAnimationFrameList( spriteMapImage, quantity, x, y, width, height, false );
     }
     
     /**
@@ -103,8 +103,8 @@ public interface AnimationUtils {
      * @param backwards Se o mapa de sprites deve ser mapeado do fim para o começo.
      * @return Uma lista de SpriteMapAnimationFrame
      */
-    public static List<SpriteMapAnimationFrame> newSpriteMapAnimationFrameList( Image spriteMapImage, int quantity, double width, double height, boolean backwards ) {
-        return newSpriteMapAnimationFrameList( spriteMapImage, quantity, 0, 0, width, height, backwards );
+    public static List<SpriteMapAnimationFrame> getSpriteMapAnimationFrameList( Image spriteMapImage, int quantity, double width, double height, boolean backwards ) {
+        return AnimationUtils.getSpriteMapAnimationFrameList( spriteMapImage, quantity, 0, 0, width, height, backwards );
     }
     
     /**
@@ -117,8 +117,8 @@ public interface AnimationUtils {
      * @param height Altura do recorte do mapa de sprite.
      * @return Uma lista de SpriteMapAnimationFrame
      */
-    public static List<SpriteMapAnimationFrame> newSpriteMapAnimationFrameList( Image spriteMapImage, int quantity, double width, double height ) {
-        return newSpriteMapAnimationFrameList( spriteMapImage, quantity, 0, 0, width, height, false );
+    public static List<SpriteMapAnimationFrame> getSpriteMapAnimationFrameList( Image spriteMapImage, int quantity, double width, double height ) {
+        return AnimationUtils.getSpriteMapAnimationFrameList( spriteMapImage, quantity, 0, 0, width, height, false );
     }
     
 }

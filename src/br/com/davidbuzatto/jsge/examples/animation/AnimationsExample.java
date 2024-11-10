@@ -59,15 +59,24 @@ public class AnimationsExample extends EngineFrame {
     private FrameByFrameAnimation<DrawableAnimationFrame> drawableAnimation;
     private Color[] colors = { RED, GREEN, GOLD, ORANGE, BLUE, PINK, VIOLET };
     
-    private FrameByFrameAnimation<SpriteMapAnimationFrame> spriteAnimationIdleRight;
-    private FrameByFrameAnimation<SpriteMapAnimationFrame> spriteAnimationIdleLeft;
-    private FrameByFrameAnimation<SpriteMapAnimationFrame> spriteAnimationWalkRight;
-    private FrameByFrameAnimation<SpriteMapAnimationFrame> spriteAnimationWalkLeft;
+    private static final double GRAVITY = 20;
     private Vector2 spritePos;
+    private Vector2 spriteDim;
     private Vector2 spriteVel;
     private double spriteWalkSpeed;
+    private double spriteJumpSpeed;
+    private double spriteMaxFallSpeed;
     private boolean spriteTurnedRight;
     private boolean spriteIdle;
+    private boolean spriteWalking;
+    private boolean spriteJumping;
+    private Rectangle floorRectangle;
+    private FrameByFrameAnimation<SpriteMapAnimationFrame> spriteAnimationIdleRight;
+    private FrameByFrameAnimation<SpriteMapAnimationFrame> spriteAnimationIdleLeft;
+    private FrameByFrameAnimation<SpriteMapAnimationFrame> spriteAnimationWalkingRight;
+    private FrameByFrameAnimation<SpriteMapAnimationFrame> spriteAnimationWalkingLeft;
+    private FrameByFrameAnimation<SpriteMapAnimationFrame> spriteAnimationJumpingRight;
+    private FrameByFrameAnimation<SpriteMapAnimationFrame> spriteAnimationJumpingLeft;
     
     private EasingTweenAnimation<Rectangle> etaPos;
     private EasingTweenAnimation<Circle> etaRadiusg;
@@ -246,43 +255,65 @@ public class AnimationsExample extends EngineFrame {
         drawableFrames.add( new DrawableAnimationFrame( new CubicCurve( 320, 195, 365, 140, 385, 250, 430, 195 ) ) );
         drawableAnimation = new FrameByFrameAnimation<>( 0.5, drawableFrames );
         
+        spritePos = new Vector2( 150, 840 );
+        spriteDim = new Vector2( 64, 64 );
+        spriteVel = new Vector2();
+        spriteWalkSpeed = 200;
+        spriteJumpSpeed = 400;
+        spriteMaxFallSpeed = 400;
+        spriteTurnedRight = true;
+        spriteIdle = true;
+        spriteWalking = false;
+        spriteJumping = false;
+        floorRectangle = new Rectangle( 150, 904, getScreenWidth() - 175, 10 );
+        
         spriteAnimationIdleRight = new FrameByFrameAnimation<>( 
             0.1, 
-            AnimationUtils.newSpriteMapAnimationFrameList( 
+            AnimationUtils.getSpriteMapAnimationFrameList( 
                 loadImage( "resources/images/spriteMapIdle.png" ), 
-                4, 64, 64
+                4, spriteDim.x, spriteDim.y
             )
         );
         
         spriteAnimationIdleLeft = new FrameByFrameAnimation<>( 
             0.1, 
-            AnimationUtils.newSpriteMapAnimationFrameList( 
+            AnimationUtils.getSpriteMapAnimationFrameList( 
                 loadImage( "resources/images/spriteMapIdle.png" ).flipHorizontal(), 
-                4, 64, 64, true
+                4, spriteDim.x, spriteDim.y, true
             )
         );
         
-        spriteAnimationWalkRight = new FrameByFrameAnimation<>( 
+        spriteAnimationWalkingRight = new FrameByFrameAnimation<>( 
             0.05, 
-            AnimationUtils.newSpriteMapAnimationFrameList( 
-                loadImage( "resources/images/spriteMapWalk.png" ), 
-                6, 64, 64
+            AnimationUtils.getSpriteMapAnimationFrameList( 
+                loadImage( "resources/images/spriteMapWalking.png" ), 
+                6, spriteDim.x, spriteDim.y
             )
         );
         
-        spriteAnimationWalkLeft = new FrameByFrameAnimation<>( 
+        spriteAnimationWalkingLeft = new FrameByFrameAnimation<>( 
             0.05, 
-            AnimationUtils.newSpriteMapAnimationFrameList( 
-                loadImage( "resources/images/spriteMapWalk.png" ).flipHorizontal(), 
-                6, 64, 64, true
+            AnimationUtils.getSpriteMapAnimationFrameList( 
+                loadImage( "resources/images/spriteMapWalking.png" ).flipHorizontal(), 
+                6, spriteDim.x, spriteDim.y, true
             )
         );
         
-        spritePos = new Vector2( 150, 840 );
-        spriteVel = new Vector2();
-        spriteWalkSpeed = 200;
-        spriteTurnedRight = true;
-        spriteIdle = true;
+        spriteAnimationJumpingRight = new FrameByFrameAnimation<>( 
+            0.1, 
+            AnimationUtils.getSpriteMapAnimationFrameList( 
+                loadImage( "resources/images/spriteMapJumping.png" ), 
+                8, spriteDim.x, spriteDim.y
+            )
+        );
+        
+        spriteAnimationJumpingLeft = new FrameByFrameAnimation<>( 
+            0.1, 
+            AnimationUtils.getSpriteMapAnimationFrameList( 
+                loadImage( "resources/images/spriteMapJumping.png" ).flipHorizontal(), 
+                8, spriteDim.x, spriteDim.y, true
+            )
+        );
         
         prevEFR = new Button( new Rectangle( 660, 52, 30, 30 ), false );
         nextEFR = new Button( new Rectangle( 700, 52, 30, 30 ), true );
@@ -713,8 +744,10 @@ public class AnimationsExample extends EngineFrame {
         
         spriteAnimationIdleRight.update( delta );
         spriteAnimationIdleLeft.update( delta );
-        spriteAnimationWalkRight.update( delta );
-        spriteAnimationWalkLeft.update( delta );
+        spriteAnimationWalkingRight.update( delta );
+        spriteAnimationWalkingLeft.update( delta );
+        spriteAnimationJumpingRight.update( delta );
+        spriteAnimationJumpingLeft.update( delta );
         
         if ( isKeyDown( KEY_A ) ) {
             spriteVel.x = -spriteWalkSpeed;
@@ -729,11 +762,28 @@ public class AnimationsExample extends EngineFrame {
             spriteIdle = true;
         }
         
+        if ( isKeyPressed( KEY_SPACE ) ) {
+            spriteVel.y = -spriteJumpSpeed;
+            spriteJumping = true;
+        }
+        
         spritePos.x += spriteVel.x * delta;
+        spritePos.y += spriteVel.y * delta;
+        
         if ( spritePos.x <= 130 ) {
             spritePos.x = 130;
-        } else if ( spritePos.x + 64 >= getScreenWidth() - 10 ) {
-            spritePos.x = getScreenWidth() - 10 - 64;
+        } else if ( spritePos.x + spriteDim.x >= getScreenWidth() - 10 ) {
+            spritePos.x = getScreenWidth() - 10 - spriteDim.x;
+        }
+        
+        if ( spritePos.y + spriteDim.y > floorRectangle.y ) {
+            spritePos.y = floorRectangle.y - spriteDim.y;
+            spriteJumping = false;
+        }
+        
+        spriteVel.y += GRAVITY;
+        if ( spriteVel.y > spriteMaxFallSpeed ) {
+            spriteVel.y = spriteMaxFallSpeed;
         }
         
         etaPos.update( delta );
@@ -919,21 +969,30 @@ public class AnimationsExample extends EngineFrame {
         timingAnim.getComponent().draw( this, BLACK );
         
         drawText( "sprite map animation (frame by frame)", 20, 810, BLACK );
-        drawText( "<A>: move left\n<D>: move right", 20, 860, 14, BLACK );
+        drawText( "<A>: move left\n<D>: move right\n<SPACE>: jump", 20, 860, 14, BLACK );
         fillRectangle( 10, 800, getScreenWidth() - 20, 130, ColorUtils.fade( LIGHTGRAY, 0.2 ) );
-        fillRectangle( 150, 904, getScreenWidth() - 175, 10, PINK );
-        drawRectangle( 150, 904, getScreenWidth() - 175, 10, BLACK );
-        if ( spriteIdle ) {
+        floorRectangle.fill( this, PINK );
+        floorRectangle.draw( this, BLACK );
+        
+        if ( spriteJumping ) {
             if ( spriteTurnedRight ) {
-                spriteAnimationIdleRight.getCurrentFrame().draw( this, spritePos.x, spritePos.y );
+                spriteAnimationJumpingRight.getCurrentFrame().draw( this, spritePos.x, spritePos.y );
             } else {
-                spriteAnimationIdleLeft.getCurrentFrame().draw( this, spritePos.x, spritePos.y );
+                spriteAnimationJumpingLeft.getCurrentFrame().draw( this, spritePos.x, spritePos.y );
             }
         } else {
-            if ( spriteTurnedRight ) {
-                spriteAnimationWalkRight.getCurrentFrame().draw( this, spritePos.x, spritePos.y );
+            if ( spriteIdle ) {
+                if ( spriteTurnedRight ) {
+                    spriteAnimationIdleRight.getCurrentFrame().draw( this, spritePos.x, spritePos.y );
+                } else {
+                    spriteAnimationIdleLeft.getCurrentFrame().draw( this, spritePos.x, spritePos.y );
+                }
             } else {
-                spriteAnimationWalkLeft.getCurrentFrame().draw( this, spritePos.x, spritePos.y );
+                if ( spriteTurnedRight ) {
+                    spriteAnimationWalkingRight.getCurrentFrame().draw( this, spritePos.x, spritePos.y );
+                } else {
+                    spriteAnimationWalkingLeft.getCurrentFrame().draw( this, spritePos.x, spritePos.y );
+                }
             }
         }
         
