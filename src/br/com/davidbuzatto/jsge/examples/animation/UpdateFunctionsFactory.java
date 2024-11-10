@@ -16,7 +16,7 @@
  */
 package br.com.davidbuzatto.jsge.examples.animation;
 
-import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationExecutionState;
+import br.com.davidbuzatto.jsge.animation.AnimationExecutionState;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationProperties;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationStateContainer;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationUpdateFunction;
@@ -43,17 +43,17 @@ public interface UpdateFunctionsFactory {
             TweenAnimationComponentMapper<ComponentType> cm, 
             TweenAnimationStateContainer sc ) -> {
             
-            if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
-                sc.state = TweenAnimationExecutionState.RUNNING;
+            if ( sc.state == AnimationExecutionState.INITIALIZED ) {
+                sc.state = AnimationExecutionState.RUNNING;
                 cm.set( "x", p.getDouble( "x1" ) );
                 cm.set( "y", p.getDouble( "y1" ) );
             }
             
-            if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
+            if ( sc.state == AnimationExecutionState.RUNNING ) {
                 cm.set( "x", (Double) cm.get( "x" ) + p.getDouble( "velX" ) * delta );
                 if ( (Double) cm.get( "x" ) >= p.getDouble( "x2" ) ) {
                     cm.set( "x", p.getDouble( "x2" ) );
-                    sc.state = TweenAnimationExecutionState.FINISHED;
+                    sc.state = AnimationExecutionState.FINISHED;
                 }
                 sc.percentage = ( (Double) cm.get( "x" ) - p.getDouble( "x1" ) ) / ( p.getDouble( "x2" ) - p.getDouble( "x1" ) );
             }
@@ -74,17 +74,17 @@ public interface UpdateFunctionsFactory {
             TweenAnimationComponentMapper<ComponentType> cm, 
             TweenAnimationStateContainer sc ) -> {
             
-            if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
-                sc.state = TweenAnimationExecutionState.RUNNING;
+            if ( sc.state == AnimationExecutionState.INITIALIZED ) {
+                sc.state = AnimationExecutionState.RUNNING;
                 cm.set( "x", p.getDouble( "x1" ) );
                 cm.set( "y", p.getDouble( "y1" ) );
             }
             
-            if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
+            if ( sc.state == AnimationExecutionState.RUNNING ) {
                 cm.set( "y", (Double) cm.get( "y" ) + delta * p.getDouble( "velY" ) );
                 if ( (Double) cm.get( "y" ) >= p.getDouble( "y2" ) ) {
                     cm.set( "y", p.getDouble( "y2" ) );
-                    sc.state = TweenAnimationExecutionState.FINISHED;
+                    sc.state = AnimationExecutionState.FINISHED;
                 }
                 sc.percentage = ( (Double) cm.get( "y" ) - p.getDouble( "y1" ) ) / ( p.getDouble( "y2" ) - p.getDouble( "y1" ) );
             }
@@ -105,13 +105,13 @@ public interface UpdateFunctionsFactory {
             TweenAnimationComponentMapper<ComponentType> cm, 
             TweenAnimationStateContainer sc ) -> {
             
-            if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
-                sc.state = TweenAnimationExecutionState.RUNNING;
+            if ( sc.state == AnimationExecutionState.INITIALIZED ) {
+                sc.state = AnimationExecutionState.RUNNING;
                 cm.set( "x", p.getDouble( "x1" ) );
                 cm.set( "y", p.getDouble( "y1" ) );
             }
             
-            if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
+            if ( sc.state == AnimationExecutionState.RUNNING ) {
                 
                 cm.set( "x", (Double) cm.get( "x" ) + delta * p.getDouble( "velX" ) );
                 cm.set( "y", (Double) cm.get( "y" ) + delta * p.getDouble( "velY" ) );
@@ -128,7 +128,7 @@ public interface UpdateFunctionsFactory {
                 }
                 
                 if ( stop ) {
-                    sc.state = TweenAnimationExecutionState.FINISHED;
+                    sc.state = AnimationExecutionState.FINISHED;
                 }
                 
                 double sum = ( (Double) cm.get( "x" ) - p.getDouble( "x1" ) ) / ( p.getDouble( "x2" ) - p.getDouble( "x1" ) );
@@ -152,18 +152,18 @@ public interface UpdateFunctionsFactory {
             TweenAnimationComponentMapper<ComponentType> cm, 
             TweenAnimationStateContainer sc ) -> {
             
-            if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
-                sc.state = TweenAnimationExecutionState.RUNNING;
+            if ( sc.state == AnimationExecutionState.INITIALIZED ) {
+                sc.state = AnimationExecutionState.RUNNING;
                 cm.set( "x", p.getDouble( "x1" ) );
                 cm.set( "y", p.getDouble( "y1" ) );
                 cm.set( "radius", p.getDouble( "radius1" ) );
             }
             
-            if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
+            if ( sc.state == AnimationExecutionState.RUNNING ) {
                 cm.set( "radius", (Double) cm.get( "radius" ) + p.getDouble( "velRadius" ) * delta );
                 if ( (Double) cm.get( "radius" ) >= p.getDouble( "radius2" ) ) {
                     cm.set( "radius", p.getDouble( "radius2" ) );
-                    sc.state = TweenAnimationExecutionState.FINISHED;
+                    sc.state = AnimationExecutionState.FINISHED;
                 }
                 sc.percentage = ( (Double) cm.get( "radius" ) - p.getDouble( "radius1" ) ) / ( p.getDouble( "radius2" ) - p.getDouble( "radius1" ) );
             }
@@ -184,19 +184,19 @@ public interface UpdateFunctionsFactory {
             TweenAnimationComponentMapper<ComponentType> cm, 
             TweenAnimationStateContainer sc ) -> {
             
-            if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
-                sc.state = TweenAnimationExecutionState.RUNNING;
+            if ( sc.state == AnimationExecutionState.INITIALIZED ) {
+                sc.state = AnimationExecutionState.RUNNING;
                 cm.set( "x", p.getDouble( "x1" ) );
                 cm.set( "y", p.getDouble( "y1" ) );
                 cm.set( "alpha", p.getInt( "alpha1" ) );
                 
             }
             
-            if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
+            if ( sc.state == AnimationExecutionState.RUNNING ) {
                 cm.set( "alpha", (int) ( (Integer) cm.get( "alpha" ) + p.getDouble( "velAlpha" ) * delta ) );
                 if ( (Integer) cm.get( "alpha" ) >= p.getInt( "alpha2" ) ) {
                     cm.set( "alpha", p.getInt( "alpha2" ) );
-                    sc.state = TweenAnimationExecutionState.FINISHED;
+                    sc.state = AnimationExecutionState.FINISHED;
                 }
                 sc.percentage = ( (Integer) cm.get( "alpha" ) - p.getDouble( "alpha1" ) ) / ( p.getDouble( "alpha2" ) - p.getDouble( "alpha1" ) );
             }
@@ -217,18 +217,18 @@ public interface UpdateFunctionsFactory {
             TweenAnimationComponentMapper<ComponentType> cm, 
             TweenAnimationStateContainer sc ) -> {
             
-            if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
-                sc.state = TweenAnimationExecutionState.RUNNING;
+            if ( sc.state == AnimationExecutionState.INITIALIZED ) {
+                sc.state = AnimationExecutionState.RUNNING;
                 cm.set( "x", p.getDouble( "x1" ) );
                 cm.set( "y", p.getDouble( "y1" ) );
                 cm.set( "angle", p.getDouble( "angle1" ) );
             }
             
-            if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
+            if ( sc.state == AnimationExecutionState.RUNNING ) {
                 cm.set( "angle", (Double) cm.get( "angle" ) + p.getDouble( "velAngle" ) * delta );
                 if ( (Double) cm.get( "angle" ) >= p.getDouble( "angle2" ) ) {
                     cm.set( "angle", p.getDouble( "angle2" ) );
-                    sc.state = TweenAnimationExecutionState.FINISHED;
+                    sc.state = AnimationExecutionState.FINISHED;
                 }
                 sc.percentage = ( (Double) cm.get( "angle" ) - p.getDouble( "angle1" ) ) / ( p.getDouble( "angle2" ) - p.getDouble( "angle1" ) );
             }

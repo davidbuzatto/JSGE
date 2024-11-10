@@ -14,14 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.animation.tween;
+package br.com.davidbuzatto.jsge.animation;
 
 /**
- * O estado de execução uma animação interpolada.
+ * O estado de execução uma animação.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public enum TweenAnimationExecutionState {
+public enum AnimationExecutionState {
     
     /** A animação foi criada e inicializada. */
     INITIALIZED,
@@ -33,6 +33,6 @@ public enum TweenAnimationExecutionState {
     PAUSED,
     
     /** A animação terminou. */
-    FINISHED
+    FINISHED;
     
 }

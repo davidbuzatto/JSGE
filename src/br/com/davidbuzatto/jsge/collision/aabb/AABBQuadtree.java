@@ -45,7 +45,7 @@ public class AABBQuadtree {
      */
     public static enum Shape {
         SQUARE,
-        RECTANGULAR
+        RECTANGULAR;
     }
 
     /**

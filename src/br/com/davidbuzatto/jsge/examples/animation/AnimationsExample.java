@@ -16,6 +16,7 @@
  */
 package br.com.davidbuzatto.jsge.examples.animation;
 
+import br.com.davidbuzatto.jsge.animation.AnimationExecutionState;
 import br.com.davidbuzatto.jsge.animation.frame.FrameByFrameAnimation;
 import br.com.davidbuzatto.jsge.animation.frame.DrawableAnimationFrame;
 import br.com.davidbuzatto.jsge.animation.frame.ImageAnimationFrame;
@@ -224,13 +225,13 @@ public class AnimationsExample extends EngineFrame {
         imageAnimation = new FrameByFrameAnimation<>( 0.1, imageFrames );
         
         List<DrawableAnimationFrame> drawableFrames = new ArrayList<>();
-        drawableFrames.add( new DrawableAnimationFrame( new Rectangle( 20, 180, 50, 50 ) ) );
-        drawableFrames.add( new DrawableAnimationFrame( new RoundRectangle( 70, 180, 50, 50, 20 ) ) );
-        drawableFrames.add( new DrawableAnimationFrame( new Circle( 145, 205, 25 ) ) );
-        drawableFrames.add( new DrawableAnimationFrame( new Polygon( 195, 205, 5, 25 ) ) );
-        drawableFrames.add( new DrawableAnimationFrame( new Star( 245, 205, 6, 25, 30 ) ) );
-        drawableFrames.add( new DrawableAnimationFrame( new Ring( 295, 205, 10, 25, 60, 300 ) ) );
-        drawableFrames.add( new DrawableAnimationFrame( new CubicCurve( 320, 205, 365, 150, 385, 260, 430, 205 ) ) );
+        drawableFrames.add( new DrawableAnimationFrame( new Rectangle( 20, 170, 50, 50 ) ) );
+        drawableFrames.add( new DrawableAnimationFrame( new RoundRectangle( 70, 170, 50, 50, 20 ) ) );
+        drawableFrames.add( new DrawableAnimationFrame( new Circle( 145, 195, 25 ) ) );
+        drawableFrames.add( new DrawableAnimationFrame( new Polygon( 195, 195, 5, 25 ) ) );
+        drawableFrames.add( new DrawableAnimationFrame( new Star( 245, 195, 6, 25, 30 ) ) );
+        drawableFrames.add( new DrawableAnimationFrame( new Ring( 295, 195, 10, 25, 60, 300 ) ) );
+        drawableFrames.add( new DrawableAnimationFrame( new CubicCurve( 320, 195, 365, 140, 385, 250, 430, 195 ) ) );
         drawableAnimation = new FrameByFrameAnimation<>( 0.5, drawableFrames );
         
         prevEFR = new Button( new Rectangle( 660, 52, 30, 30 ), false );
@@ -726,6 +727,22 @@ public class AnimationsExample extends EngineFrame {
             resetTimingAnimation( t );
         }
         
+        if ( isKeyPressed( KEY_F1 ) ) {
+            imageAnimation.pause();
+        }
+        
+        if ( isKeyPressed( KEY_F2 ) ) {
+            imageAnimation.resume();
+        }
+        
+        if ( isKeyPressed( KEY_F3 ) ) {
+            drawableAnimation.reset();
+        }
+        
+        if ( isKeyPressed( KEY_F4 ) ) {
+            drawableAnimation.setLooping( !drawableAnimation.isLooping() );
+        }
+        
     }
     
     @Override
@@ -733,16 +750,30 @@ public class AnimationsExample extends EngineFrame {
         
         clearBackground( WHITE );
         
-        fillRectangle( 10, 10, 430, 250, ColorUtils.fade( LIGHTGRAY, 0.2 ) );
-        drawText( "image animation (frame by frame)", 20, 50, BLACK );
+        fillRectangle( 10, 10, 430, 110, ColorUtils.fade( LIGHTGRAY, 0.2 ) );
+        drawText( "image animation (frame by frame)", 20, 20, BLACK );
         for ( int i = 0; i < 4; i++ ) {
-            drawImage( imageAnimation.getCurrentFrame().image, 20 + i * 40, 80 );
+            drawImage( imageAnimation.getCurrentFrame().image, 20 + i * 40, 50 );
         }
-        drawText( String.format( "%.2fs to next frame\nuse the mouse wheel to change!", imageAnimation.getTimeToNextFrame() ), 190, 85, 14, BLACK );
+        drawText( String.format( "%.2fs to next frame\nuse the mouse wheel to change!", imageAnimation.getTimeToNextFrame() ), 190, 55, 14, BLACK );
+        drawText( 
+            String.format( 
+                "state: %s (<F1>: pause, <F2>: resume)",
+                imageAnimation.getState() == AnimationExecutionState.RUNNING ? "running" : "paused"
+            ),
+            20, 100, 14, BLACK
+        );
         
-        drawText( "drawable animation (frame by frame)", 20, 150, BLACK );
+        fillRectangle( 10, 130, 430, 130, ColorUtils.fade( LIGHTGRAY, 0.2 ) );
+        drawText( "drawable animation (frame by frame)", 20, 140, BLACK );
         drawableAnimation.getCurrentFrame().fill( this, colors[drawableAnimation.getCurrentFramePosition()] );
         drawableAnimation.getCurrentFrame().draw( this, BLACK );
+        drawText( 
+            String.format( 
+                "looping %s (<F3>: reset, <F4> enable/disable)", drawableAnimation.isLooping() ? "enabled" : "disabled"
+            ), 
+            20, 240, 14, BLACK
+        );
         
         //drawLine( 450, 20, 450, 250, BLACK );
         //drawLine( 20, 250, 450, 250, BLACK );
@@ -812,7 +843,7 @@ public class AnimationsExample extends EngineFrame {
         timingAnim.getComponent().fill( this, BLUE );
         timingAnim.getComponent().draw( this, BLACK );
         
-        drawFPS( 20, 20 );
+        //drawFPS( 10, 10 );
         
     }
     

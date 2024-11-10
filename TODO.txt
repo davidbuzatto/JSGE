@@ -1,6 +1,1 @@
-Permitir carga de imagens fora do contexto da janela da engine (no ImageUtils).
 Criar animação com mapa de imagem!
-Configurar para rodar em loop ou não cada animação frame por frame. ou qualquer uma na vdd.
-Permitir que imagem sejam transformadas a partir delas mesmas.
-Alinhamento de texto ao usar drawText?
-Mais versões de desenhos para figuras, passando por exemplo Vector2 para a dimensão.

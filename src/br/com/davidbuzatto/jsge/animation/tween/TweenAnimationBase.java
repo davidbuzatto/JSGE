@@ -16,6 +16,8 @@
  */
 package br.com.davidbuzatto.jsge.animation.tween;
 
+import br.com.davidbuzatto.jsge.animation.AnimationExecutionState;
+
 /**
  * Uma animação interpolada base.
  * 
@@ -39,7 +41,7 @@ public abstract class TweenAnimationBase<ComponentType> {
         TweenAnimationComponentMapper<ComponentType> componentMapper ) {
         this.properties = properties;
         this.componentMapper = componentMapper;
-        this.stateContainer = new TweenAnimationStateContainer( TweenAnimationExecutionState.INITIALIZED );
+        this.stateContainer = new TweenAnimationStateContainer( AnimationExecutionState.INITIALIZED );
     }
     
     /**
@@ -63,7 +65,7 @@ public abstract class TweenAnimationBase<ComponentType> {
      * 
      * @return O estado da animação.
      */
-    public TweenAnimationExecutionState getState() {
+    public AnimationExecutionState getState() {
         return stateContainer.state;
     }
     
@@ -91,25 +93,25 @@ public abstract class TweenAnimationBase<ComponentType> {
      * de atualização.
      */
     public void pause() {
-        stateContainer.state = TweenAnimationExecutionState.PAUSED;
+        stateContainer.state = AnimationExecutionState.PAUSED;
     }
     
     /**
-     * Retoma uma animação. Esse método apenas muda o estado da animação.
+     * Retoma a animação. Esse método apenas muda o estado da animação.
      * O processo de retomar de fato deve ser implementado na função
      * de atualização.
      */
     public void resume() {
-        stateContainer.state = TweenAnimationExecutionState.RUNNING;
+        stateContainer.state = AnimationExecutionState.RUNNING;
     }
     
     /**
-     * Reseta uma animação. Esse método apenas muda o estado da animação.
+     * Reseta a animação. Esse método apenas muda o estado da animação.
      * O processo de resetar de fato deve ser implementado na função
      * de atualização.
      */
     public void reset() {
-        stateContainer.state = TweenAnimationExecutionState.INITIALIZED;
+        stateContainer.state = AnimationExecutionState.INITIALIZED;
         stateContainer.percentage = 0.0;
         stateContainer.executionTime = 0.0;
     }

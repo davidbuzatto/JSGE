@@ -16,6 +16,8 @@
  */
 package br.com.davidbuzatto.jsge.animation.tween;
 
+import br.com.davidbuzatto.jsge.animation.AnimationExecutionState;
+
 /**
  * Contém o estado de uma animação de interpolada que consiste no estado de
  * execução e na porcentagem da execução.
@@ -25,7 +27,7 @@ package br.com.davidbuzatto.jsge.animation.tween;
 public class TweenAnimationStateContainer {
     
     /** O estado de execução da animação. */
-    public TweenAnimationExecutionState state;
+    public AnimationExecutionState state;
     
     /** A porcentagem de execução da animação. Varia de 0 a 1. */
     public double percentage;
@@ -38,7 +40,7 @@ public class TweenAnimationStateContainer {
      * 
      * @param initialState Estado inicial.
      */
-    public TweenAnimationStateContainer( TweenAnimationExecutionState initialState ) {
+    public TweenAnimationStateContainer( AnimationExecutionState initialState ) {
         this.state = initialState;
         this.percentage = 0.0;
         this.executionTime = 0.0;

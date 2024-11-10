@@ -16,6 +16,7 @@
  */
 package br.com.davidbuzatto.jsge.image;
 
+import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.core.utils.StrokeUtils;
 import br.com.davidbuzatto.jsge.geom.Arc;
@@ -1941,6 +1942,280 @@ public class Image {
      */
     public void drawImage( Image image, Rectangle source, Rectangle dest, double originX, double originY, double rotation ) {
         drawImage( image, source, dest, originX, originY, rotation, null );
+    }
+    
+    
+    
+    //**************************************************************************
+    // Métodos para transformação da imagem corrente.
+    //**************************************************************************
+    
+    /**
+     * Redimensiona a imagem corrente.
+     * 
+     * @param newImageWidth A nova altura.
+     * @param newImageHeight A nova largura.
+     * @return A imagem corrente, permitindo encadeamento.
+     */
+    public Image resize( int newImageWidth, int newImageHeight ) {
+        Image newImage = ImageUtils.imageResize( this, newImageWidth, newImageHeight );
+        buffImage = newImage.buffImage;
+        return this;
+    }
+    
+    /**
+     * Cria uma cópia redimensionada da imagem corrente.
+     * 
+     * @param newImageWidth A nova altura.
+     * @param newImageHeight A nova largura.
+     * @return A cópia redimensionada da imagem corrente.
+     */
+    public Image copyResize( int newImageWidth, int newImageHeight ) {
+        return ImageUtils.imageResize( this, newImageWidth, newImageHeight );
+    }
+    
+    /**
+     * Inverte verticalmente a imagem corrente.
+     * 
+     * @return A imagem corrente, permitindo encadeamento.
+     */
+    public Image flipVertical() {
+        Image newImage = ImageUtils.imageFlipVertical( this );
+        buffImage = newImage.buffImage;
+        return this;
+    }
+    
+    /**
+     * Cria uma cópia invertida verticalmente da imagem corrente.
+     * 
+     * @return A cópia invertida verticalmente da imagem corrente.
+     */
+    public Image copyFlipVertical() {
+        return ImageUtils.imageFlipVertical( this );
+    }
+    
+    /**
+     * Inverte horizontalmente a imagem corrente.
+     * 
+     * @return A imagem corrente, permitindo encadeamento.
+     */
+    public Image flipHorizontal() {
+        Image newImage = ImageUtils.imageFlipHorizontal( this );
+        buffImage = newImage.buffImage;
+        return this;
+    }
+    
+    /**
+     * Cria uma cópia invertida horizontalmente da imagem corrente.
+     * 
+     * @return A cópia invertida horizontalmente da imagem corrente.
+     */
+    public Image copyFlipHorizontal() {
+        return ImageUtils.imageFlipHorizontal( this );
+    }
+    
+    /**
+     * Rotaciona a imagem corrente.
+     *     
+     * @param rotation Rotação em graus (sentido horário).
+     * @return A imagem corrente, permitindo encadeamento.
+     */
+    public Image rotate( double rotation ) {
+        Image newImage = ImageUtils.imageRotate( this, rotation );
+        buffImage = newImage.buffImage;
+        return this;
+    }
+    
+    /**
+     * Cria uma cópia rotacionada da imagem corrente.
+     *     
+     * @param rotation Rotação em graus (sentido horário).
+     * @return A cópia rotacionada da imagem corrente.
+     */
+    public Image copyRotate( double rotation ) {
+        return ImageUtils.imageRotate( this, rotation );
+    }
+    
+    /**
+     * Rotaciona em 90 graus (sentido horário) a imagem corrente.
+     * 
+     * @return A imagem corrente, permitindo encadeamento.
+     */
+    public Image rotateCW() {
+        Image newImage = ImageUtils.imageRotateCW( this );
+        buffImage = newImage.buffImage;
+        return this;
+    }
+    
+    /**
+     * Cria uma cópia rotacionada em 90 graus (sentido horário) da imagem corrente.
+     * 
+     * @return A cópia rotacionada em 90 graus (sentido horário) da imagem corrente.
+     */
+    public Image copyRotateCW() {
+        return ImageUtils.imageRotateCW( this );
+    }
+    
+    /**
+     * Rotaciona em 90 graus (sentido anti-horário) a imagem corrente.
+     * 
+     * @return A imagem corrente, permitindo encadeamento.
+     */
+    public Image rotateCCW() {
+        Image newImage = ImageUtils.imageRotateCCW( this );
+        buffImage = newImage.buffImage;
+        return this;
+    }
+    
+    /**
+     * Cria uma cópia rotacionada em 90 graus (sentido anti-horário) da imagem corrente.
+     * 
+     * @return A cópia rotacionada em 90 graus (sentido anti-horário) da imagem corrente.
+     */
+    public Image copyRotateCCW() {
+        return ImageUtils.imageRotateCCW( this );
+    }
+    
+    /**
+     * Altera a tonalidade da imagem corrente.
+     * 
+     * @param color A cor que será usada para tonalizar a imagem.
+     * @return A imagem corrente, permitindo encadeamento.
+     */
+    public Image colorTint( Color color ) {
+        Image newImage = ImageUtils.imageColorTint( this, color );
+        buffImage = newImage.buffImage;
+        return this;
+    }
+    
+    /**
+     * Cria uma cópia com a tonalidade alterada da imagem corrente.
+     * 
+     * @param color A cor que será usada para tonalizar a imagem.
+     * @return A cópia da imagem corrente com a tonalidade alterada.
+     */
+    public Image copyColorTint( Color color ) {
+        return ImageUtils.imageColorTint( this, color );
+    }
+    
+    /**
+     * Inverte as cores da imagem corrente.
+     * 
+     * @return A imagem corrente, permitindo encadeamento.
+     */
+    public Image colorInvert() {
+        Image newImage = ImageUtils.imageColorInvert( this );
+        buffImage = newImage.buffImage;
+        return this;
+    }
+    
+    /**
+     * Cria uma cópia invertendo as cores da imagem corrente.
+     * 
+     * @return A cópia da imagem corrente com as cores invertidas.
+     */
+    public Image copyColorInvert() {
+        return ImageUtils.imageColorInvert( this );
+    }
+    
+    /**
+     * Torna as cores da imagem corrente em escala de cinza.
+     * 
+     * @return A imagem corrente, permitindo encadeamento.
+     */
+    public Image colorGrayscale() {
+        Image newImage = ImageUtils.imageColorGrayscale( this );
+        buffImage = newImage.buffImage;
+        return this;
+    }
+    
+    /**
+     * Cria uma cópia da imagem corrente em escala de cinza.
+     * 
+     * @return A cópia da imagem corrente com as cores em escala de cinza.
+     */
+    public Image copyColorGrayscale() {
+        return ImageUtils.imageColorGrayscale( this );
+    }
+    
+    /**
+     * Ajuste no contraste da imagem corrente. O fator de contraste vai de 
+     * -1.0 a 1.0.
+     * 
+     * @param contrast O fator de contraste de -1.0 a 1.0.
+     * @return A imagem corrente, permitindo encadeamento.
+     */
+    public Image colorContrast( double contrast ) {
+        Image newImage = ImageUtils.imageColorContrast( this, contrast );
+        buffImage = newImage.buffImage;
+        return this;
+    }
+    
+    /**
+     * Cria uma cópia com ajuste no contraste da imagem corrente.
+     * O fator de contraste vai de -1.0 a 1.0.
+     * 
+     * @param contrast O fator de contraste de -1.0 a 1.0.
+     * @return A cópia da imagem corrente com ajuste no contraste.
+     */
+    public Image copyColorContrast( double contrast ) {
+        return ImageUtils.imageColorContrast( this, contrast );
+    }
+    
+    /**
+     * Ajusta o brilho da imagem corrente. O fator de brilho vai de -1.0 a 1.0.
+     * 
+     * @param brightness O fator de brilho de -1.0 a 1.0.
+     * @return A imagem corrente, permitindo encadeamento.
+     */
+    public Image colorBrightness( double brightness ) {
+        Image newImage = ImageUtils.imageColorBrightness( this, brightness );
+        buffImage = newImage.buffImage;
+        return this;
+    }
+    
+    /**
+     * Cria uma cópia com ajuste no brilho da imagem corrente.
+     * O fator de brilho vai de -1.0 a 1.0.
+     * 
+     * @param brightness O fator de brilho de -1.0 a 1.0.
+     * @return A cópia da imagem corrente com ajuste no brilho.
+     */
+    public Image copyColorBrightness( double brightness ) {
+        return ImageUtils.imageColorBrightness( this, brightness );
+    }
+    
+    /**
+     * Troca uma cor da imagem corrente por outra.
+     * 
+     * @param color A cor que será substituída.
+     * @param replace A cor que substituirá a outra cor.
+     * @return A imagem corrente, permitindo encadeamento.
+     */
+    public Image colorReplace( Color color, Color replace ) {
+        Image newImage = ImageUtils.imageColorReplace( this, color, replace );
+        buffImage = newImage.buffImage;
+        return this;
+    }
+    
+    /**
+     * Cria uma cópia trocando uma cor da imagem corrente por outra.
+     * 
+     * @param color A cor que será substituída.
+     * @param replace A cor que substituirá a outra cor.
+     * @return A cópia da imagem corrente com as cores trocadas.
+     */
+    public Image copyColorReplace( Color color, Color replace ) {
+        return ImageUtils.imageColorReplace( this, color, replace );
+    }
+    
+    /**
+     * Cria uma cópia da imagem corrente.
+     * 
+     * @return Uma cópia da imagem corrente.
+     */
+    public Image copy() {
+        return new Image( ImageUtils.copyBufferedImage( buffImage ) );
     }
     
     

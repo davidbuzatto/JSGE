@@ -16,7 +16,7 @@
  */
 package br.com.davidbuzatto.jsge.examples.animation;
 
-import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationExecutionState;
+import br.com.davidbuzatto.jsge.animation.AnimationExecutionState;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationProperties;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationStateContainer;
 import br.com.davidbuzatto.jsge.animation.tween.easing.EasingTweenAnimationUpdateFunction;
@@ -46,13 +46,13 @@ public interface EasingUpdateFunctionsFactory {
             DoubleFunction<Double> ef,
             TweenAnimationStateContainer sc ) -> {
             
-            if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
-                sc.state = TweenAnimationExecutionState.RUNNING;
+            if ( sc.state == AnimationExecutionState.INITIALIZED ) {
+                sc.state = AnimationExecutionState.RUNNING;
                 cm.set( "x", p.getDouble( "x1" ) );
                 cm.set( "y", p.getDouble( "y1" ) );
             }
             
-            if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
+            if ( sc.state == AnimationExecutionState.RUNNING ) {
                 
                 sc.percentage += deltaP * delta;
                 cm.set( "x", p.getDouble( "x1" ) + ( p.getDouble( "x2" ) - p.getDouble( "x1" ) ) * ef.apply( sc.percentage ) );
@@ -60,7 +60,7 @@ public interface EasingUpdateFunctionsFactory {
                 if ( sc.percentage >= 1.0 ) {
                     cm.set( "x", p.getDouble( "x2" ) );
                     sc.percentage = 1.0;
-                    sc.state = TweenAnimationExecutionState.FINISHED;
+                    sc.state = AnimationExecutionState.FINISHED;
                 }
                 
             }
@@ -83,13 +83,13 @@ public interface EasingUpdateFunctionsFactory {
             DoubleFunction<Double> ef,
             TweenAnimationStateContainer sc ) -> {
             
-            if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
-                sc.state = TweenAnimationExecutionState.RUNNING;
+            if ( sc.state == AnimationExecutionState.INITIALIZED ) {
+                sc.state = AnimationExecutionState.RUNNING;
                 cm.set( "x", p.getDouble( "x1" ) );
                 cm.set( "y", p.getDouble( "y1" ) );
             }
             
-            if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
+            if ( sc.state == AnimationExecutionState.RUNNING ) {
                 
                 sc.percentage += deltaP * delta;
                 cm.set( "y", p.getDouble( "y1" ) + ( p.getDouble( "y2" ) - p.getDouble( "y1" ) ) * ef.apply( sc.percentage ) );
@@ -97,7 +97,7 @@ public interface EasingUpdateFunctionsFactory {
                 if ( sc.percentage >= 1.0 ) {
                     cm.set( "y", p.getDouble( "y2" ) );
                     sc.percentage = 1.0;
-                    sc.state = TweenAnimationExecutionState.FINISHED;
+                    sc.state = AnimationExecutionState.FINISHED;
                 }
                 
             }
@@ -120,13 +120,13 @@ public interface EasingUpdateFunctionsFactory {
             DoubleFunction<Double> ef,
             TweenAnimationStateContainer sc ) -> {
             
-            if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
-                sc.state = TweenAnimationExecutionState.RUNNING;
+            if ( sc.state == AnimationExecutionState.INITIALIZED ) {
+                sc.state = AnimationExecutionState.RUNNING;
                 cm.set( "x", p.getDouble( "x1" ) );
                 cm.set( "y", p.getDouble( "y1" ) );
             }
             
-            if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
+            if ( sc.state == AnimationExecutionState.RUNNING ) {
                 
                 sc.percentage += deltaP * delta;
                 cm.set( "x", p.getDouble( "x1" ) + ( p.getDouble( "x2" ) - p.getDouble( "x1" ) ) * ef.apply( sc.percentage ) );
@@ -136,7 +136,7 @@ public interface EasingUpdateFunctionsFactory {
                     cm.set( "x", p.getDouble( "x2" ) );
                     cm.set( "y", p.getDouble( "y2" ) );
                     sc.percentage = 1.0;
-                    sc.state = TweenAnimationExecutionState.FINISHED;
+                    sc.state = AnimationExecutionState.FINISHED;
                 }
                 
             }
@@ -159,13 +159,13 @@ public interface EasingUpdateFunctionsFactory {
             DoubleFunction<Double> ef,
             TweenAnimationStateContainer sc ) -> {
             
-            if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
-                sc.state = TweenAnimationExecutionState.RUNNING;
+            if ( sc.state == AnimationExecutionState.INITIALIZED ) {
+                sc.state = AnimationExecutionState.RUNNING;
                 cm.set( "x", p.getDouble( "x1" ) );
                 cm.set( "y", p.getDouble( "y1" ) );
             }
             
-            if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
+            if ( sc.state == AnimationExecutionState.RUNNING ) {
                 
                 sc.percentage += deltaP * delta;
                 cm.set( "radius", p.getDouble( "radius1" ) + ( p.getDouble( "radius2" ) - p.getDouble( "radius1" ) ) * ef.apply( sc.percentage ) );
@@ -173,7 +173,7 @@ public interface EasingUpdateFunctionsFactory {
                 if ( sc.percentage >= 1.0 ) {
                     cm.set( "radius", p.getDouble( "radius2" ) );
                     sc.percentage = 1.0;
-                    sc.state = TweenAnimationExecutionState.FINISHED;
+                    sc.state = AnimationExecutionState.FINISHED;
                 }
                 
             }
@@ -196,14 +196,14 @@ public interface EasingUpdateFunctionsFactory {
             DoubleFunction<Double> ef,
             TweenAnimationStateContainer sc ) -> {
             
-            if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
-                sc.state = TweenAnimationExecutionState.RUNNING;
+            if ( sc.state == AnimationExecutionState.INITIALIZED ) {
+                sc.state = AnimationExecutionState.RUNNING;
                 cm.set( "x", p.getDouble( "x1" ) );
                 cm.set( "y", p.getDouble( "y1" ) );
                 
             }
             
-            if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
+            if ( sc.state == AnimationExecutionState.RUNNING ) {
                 
                 sc.percentage += deltaP * delta;
                 cm.set( "alpha", (int) ( p.getInt( "alpha1" ) + ( p.getInt( "alpha2" ) - p.getInt( "alpha1" ) ) * ef.apply( sc.percentage ) ) );
@@ -211,7 +211,7 @@ public interface EasingUpdateFunctionsFactory {
                 if ( sc.percentage >= 1.0 ) {
                     cm.set( "alpha", p.getInt( "alpha2" ) );
                     sc.percentage = 1.0;
-                    sc.state = TweenAnimationExecutionState.FINISHED;
+                    sc.state = AnimationExecutionState.FINISHED;
                 }
                 
             }
@@ -234,13 +234,13 @@ public interface EasingUpdateFunctionsFactory {
             DoubleFunction<Double> ef,
             TweenAnimationStateContainer sc ) -> {
             
-            if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
-                sc.state = TweenAnimationExecutionState.RUNNING;
+            if ( sc.state == AnimationExecutionState.INITIALIZED ) {
+                sc.state = AnimationExecutionState.RUNNING;
                 cm.set( "x", p.getDouble( "x1" ) );
                 cm.set( "y", p.getDouble( "y1" ) );
             }
             
-            if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
+            if ( sc.state == AnimationExecutionState.RUNNING ) {
                 
                 sc.percentage += deltaP * delta;
                 cm.set( "angle", p.getDouble( "angle1" ) + ( p.getDouble( "angle2" ) - p.getDouble( "angle1" ) ) * ef.apply( sc.percentage ) );
@@ -248,7 +248,7 @@ public interface EasingUpdateFunctionsFactory {
                 if ( sc.percentage >= 1.0 ) {
                     cm.set( "angle", p.getDouble( "angle2" ) );
                     sc.percentage = 1.0;
-                    sc.state = TweenAnimationExecutionState.FINISHED;
+                    sc.state = AnimationExecutionState.FINISHED;
                 }
                 
             }

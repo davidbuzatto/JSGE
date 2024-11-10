@@ -16,7 +16,7 @@
  */
 package br.com.davidbuzatto.jsge.animation.frame;
 
-import br.com.davidbuzatto.jsge.animation.frame.AnimationFrame;
+import br.com.davidbuzatto.jsge.animation.AnimationExecutionState;
 import java.util.List;
 
 /**
@@ -34,31 +34,60 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
     
     private int currentFrame;
     private int maxFrames;
+    private boolean looping;
+    
+    private AnimationExecutionState state;
     
     private List<FrameType> frames;
+    
+    /**
+     * Cria uma animação quadro a quadro com repetição (looping).
+     * 
+     * @param timeToNextFrame Tempo para a transição de um quadro para outro em segundos.
+     * @param frames Quadros da animação.
+     */
+    public FrameByFrameAnimation( double timeToNextFrame, List<FrameType> frames ) {
+        this( timeToNextFrame, frames, true );
+    }
     
     /**
      * Cria uma animação quadro a quadro.
      * 
      * @param timeToNextFrame Tempo para a transição de um quadro para outro em segundos.
      * @param frames Quadros da animação.
+     * @param looping Se a animação deve ser executada indefinidamente.
      */
-    public FrameByFrameAnimation( double timeToNextFrame, List<FrameType> frames ) {
+    public FrameByFrameAnimation( double timeToNextFrame, List<FrameType> frames, boolean looping ) {
         this.timeToNextFrame = timeToNextFrame;
         this.frames = frames;
         this.maxFrames = frames.size();
+        this.looping = looping;
+        this.state = AnimationExecutionState.INITIALIZED;
     }
     
     /**
-     * Cria uma animação quadro a quadro.
+     * Cria uma animação quadro a quadro com repetição (looping).
      * 
      * @param timesToNextFrame Tempos para a transição dos quadros em segundos.
      * @param frames Quadros da animação.
      */
     public FrameByFrameAnimation( double[] timesToNextFrame, List<FrameType> frames ) {
+        this( timesToNextFrame, frames, true );
+    }
+    
+    /**
+     * Cria uma animação quadro a quadro com repetição (looping).
+     * 
+     * @param timesToNextFrame Tempos para a transição dos quadros em segundos.
+     * @param frames Quadros da animação.
+     * @param looping Se a animação deve ser executada indefinidamente.
+     */
+    public FrameByFrameAnimation( double[] timesToNextFrame, List<FrameType> frames, boolean looping ) {
         this.timesToNextFrame = timesToNextFrame;
         this.frames = frames;
         this.maxFrames = frames.size();
+        this.looping = looping;
+        this.state = AnimationExecutionState.INITIALIZED;
     }
     
     /**
@@ -68,18 +97,30 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
      */
     public void update( double delta ) {
         
-        timeCounter += delta;
+        if ( currentFrame == 0 && state == AnimationExecutionState.INITIALIZED ) {
+            state = AnimationExecutionState.RUNNING;
+        }
         
-        if ( timesToNextFrame == null ) {
-            if ( timeCounter >= timeToNextFrame ) {
-                timeCounter = 0;
-                currentFrame = ( currentFrame + 1 ) % maxFrames;
+        if ( state == AnimationExecutionState.RUNNING ) {
+            
+            timeCounter += delta;
+
+            if ( timesToNextFrame == null ) {
+                if ( timeCounter >= timeToNextFrame ) {
+                    timeCounter = 0;
+                    currentFrame = ( currentFrame + 1 ) % maxFrames;
+                }
+            } else {
+                if ( timeCounter >= timesToNextFrame[currentFrame] ) {
+                    timeCounter = 0;
+                    currentFrame = ( currentFrame + 1 ) % maxFrames;
+                }
             }
-        } else {
-            if ( timeCounter >= timesToNextFrame[currentFrame] ) {
-                timeCounter = 0;
-                currentFrame = ( currentFrame + 1 ) % maxFrames;
+            
+            if ( !looping && currentFrame == maxFrames - 1 ) {
+                state = AnimationExecutionState.FINISHED;
             }
+            
         }
         
     }
@@ -149,6 +190,56 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
             return frames.get( index );
         }
         return null;
+    }
+
+    /**
+     * Obtém o estado da animação.
+     * 
+     * @return O estado da animação.
+     */
+    public AnimationExecutionState getState() {
+        return state;
+    }
+
+    /**
+     * Retorna se a animação está configurada para executar em loop (laço).
+     * 
+     * @return Verdadeiro caso a animação esteja em loop, falso caso contrário.
+     */
+    public boolean isLooping() {
+        return looping;
+    }
+
+    /**
+     * Configura se a animação deve executar indefinidamente (loop, laço).
+     * 
+     * @param looping Se a animação deve executar em loop (laço)
+     */
+    public void setLooping( boolean looping ) {
+        this.looping = looping;
+    }
+    
+    /**
+     * Pausa a animação.
+     */
+    public void pause() {
+        state = AnimationExecutionState.PAUSED;
+    }
+    
+    /**
+     * Retoma a animação.
+     */
+    public void resume() {
+        state = AnimationExecutionState.RUNNING;
+    }
+    
+    /**
+     * Reseta a animação.
+     */
+    public void reset() {
+        state = AnimationExecutionState.INITIALIZED;
+        currentFrame = 0;
+        timeCounter = 0;
     }
     
 }

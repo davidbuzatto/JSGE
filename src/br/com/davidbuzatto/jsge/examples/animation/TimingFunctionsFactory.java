@@ -16,7 +16,7 @@
  */
 package br.com.davidbuzatto.jsge.examples.animation;
 
-import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationExecutionState;
+import br.com.davidbuzatto.jsge.animation.AnimationExecutionState;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationProperties;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationStateContainer;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationComponentMapper;
@@ -44,22 +44,22 @@ public interface TimingFunctionsFactory {
             TweenAnimationComponentMapper<ComponentType> cm, 
             TweenAnimationStateContainer sc ) -> {
             
-            if ( sc.state == TweenAnimationExecutionState.INITIALIZED ) {
-                sc.state = TweenAnimationExecutionState.RUNNING;
+            if ( sc.state == AnimationExecutionState.INITIALIZED ) {
+                sc.state = AnimationExecutionState.RUNNING;
                 cm.set( "x", p.getDouble( "x" ) );
                 cm.set( "y", p.getDouble( "y" ) );
                 cm.set( "radius", p.getDouble( "radius" ) );
                 cm.set( "angle", p.getDouble( "angle" ) );
             }
             
-            if ( sc.state == TweenAnimationExecutionState.RUNNING ) {
+            if ( sc.state == AnimationExecutionState.RUNNING ) {
                 sc.executionTime += delta;
                 cm.set( "x", (Double) cm.get( "x" ) + p.getDouble( "velX" ) * delta );
                 cm.set( "y", p.getDouble( "y" ) + 50 * Math.sin( Math.toRadians( (Double) cm.get( "angle" ) ) ) );
                 cm.set( "angle", (Double) cm.get( "angle" ) + p.getDouble( "velAngle" ) * delta );
                 cm.set( "radius", (Double) cm.get( "radius" ) + p.getDouble( "velRadius" ) * delta );
                 if ( sc.executionTime >= total ) {
-                    sc.state = TweenAnimationExecutionState.FINISHED;
+                    sc.state = AnimationExecutionState.FINISHED;
                     sc.executionTime = total;
                 }
                 

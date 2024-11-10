@@ -73,8 +73,6 @@ import java.awt.geom.Line2D;
 import java.awt.geom.QuadCurve2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -87,7 +85,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.LogManager;
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -1061,6 +1058,17 @@ public abstract class EngineFrame extends JFrame {
     public void drawRectangle( Vector2 pos, double width, double height, Paint paint ) {
         drawRectangle( pos.x, pos.y, width, height, paint );
     }
+    
+    /**
+     * Desenha um retângulo.
+     * 
+     * @param pos Vértice superior esquerdo.
+     * @param dim Dimensões (x: largura, y: altura).
+     * @param paint Paint para o desenho.
+     */
+    public void drawRectangle( Vector2 pos, Vector2 dim, Paint paint ) {
+        drawRectangle( pos.x, pos.y, dim.x, dim.y, paint );
+    }
 
     /**
      * Desenha um retângulo.
@@ -1096,6 +1104,17 @@ public abstract class EngineFrame extends JFrame {
      */
     public void fillRectangle( Vector2 pos, double width, double height, Paint paint ) {
         fillRectangle( pos.x, pos.y, width, height, paint );
+    }
+    
+    /**
+     * Pinta um retângulo.
+     * 
+     * @param pos Vértice superior esquerdo.
+     * @param dim Dimensões (x: largura, y: altura).
+     * @param paint Paint para o desenho.
+     */
+    public void fillRectangle( Vector2 pos, Vector2 dim, Paint paint ) {
+        fillRectangle( pos.x, pos.y, dim.x, dim.y, paint );
     }
 
     /**
@@ -1144,6 +1163,19 @@ public abstract class EngineFrame extends JFrame {
      */
     public void drawRectangle( Vector2 pos, double width, double height, Vector2 origin, double rotation, Paint paint ) {
         drawRectangle( pos.x, pos.y, width, height, origin.x, origin.y, rotation, paint );
+    }
+    
+    /**
+     * Desenha um retângulo rotacionado.
+     * 
+     * @param pos Vértice superior esquerdo.
+     * @param dim Dimensões (x: largura, y: altura).
+     * @param origin pivô da rotação.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param paint Paint para o desenho.
+     */
+    public void drawRectangle( Vector2 pos, Vector2 dim, Vector2 origin, double rotation, Paint paint ) {
+        drawRectangle( pos.x, pos.y, dim.x, dim.y, origin.x, origin.y, rotation, paint );
     }
 
     /**
@@ -1195,6 +1227,19 @@ public abstract class EngineFrame extends JFrame {
     public void fillRectangle( Vector2 pos, double width, double height, Vector2 origin, double rotation, Paint paint ) {
         fillRectangle( pos.x, pos.y, width, height, origin.x, origin.y, rotation, paint );
     }
+    
+    /**
+     * Pinta um retângulo rotacionado.
+     * 
+     * @param pos Vértice superior esquerdo.
+     * @param dim Dimensões (x: largura, y: altura).
+     * @param origin pivô da rotação.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param paint Paint para o desenho.
+     */
+    public void fillRectangle( Vector2 pos, Vector2 dim, Vector2 origin, double rotation, Paint paint ) {
+        fillRectangle( pos.x, pos.y, dim.x, dim.y, origin.x, origin.y, rotation, paint );
+    }
 
     /**
      * Pinta um retângulo rotacionado.
@@ -1235,6 +1280,18 @@ public abstract class EngineFrame extends JFrame {
     public void drawRoundRectangle( Vector2 pos, double width, double height, double roundness, Paint paint ) {
         drawRoundRectangle( pos.x, pos.y, width, height, roundness, paint );
     }
+    
+    /**
+     * Desenha um retângulo com cantos arredondados.
+     * 
+     * @param pos Vértice superior esquerdo do retângulo.
+     * @param dim Dimensões (x: largura, y: altura).
+     * @param roundness Arredondamento dos cantos.
+     * @param paint Paint para o desenho.
+     */
+    public void drawRoundRectangle( Vector2 pos, Vector2 dim, double roundness, Paint paint ) {
+        drawRoundRectangle( pos.x, pos.y, dim.x, dim.y, roundness, paint );
+    }
 
     /**
      * Desenha um retângulo com cantos arredondados.
@@ -1272,6 +1329,18 @@ public abstract class EngineFrame extends JFrame {
      */
     public void fillRoundRectangle( Vector2 pos, double width, double height, double roundness, Paint paint ) {
         fillRoundRectangle( pos.x, pos.y, width, height, roundness, paint );
+    }
+    
+    /**
+     * Pinta um retângulo com cantos arredondados.
+     * 
+     * @param pos Vértice superior esquerdo do retângulo.
+     * @param dim Dimensões (x: largura, y: altura).
+     * @param roundness Arredondamento dos cantos.
+     * @param paint Paint para o desenho.
+     */
+    public void fillRoundRectangle( Vector2 pos, Vector2 dim, double roundness, Paint paint ) {
+        fillRoundRectangle( pos.x, pos.y, dim.x, dim.y, roundness, paint );
     }
 
     /**
@@ -3072,15 +3141,7 @@ public abstract class EngineFrame extends JFrame {
      * @return Uma imagem.
      */
     public Image loadImage( String filePath ) {
-        
-        try {
-            return new Image( ImageIO.read( new File( filePath ) ) );
-        } catch ( IOException exc ) {
-            traceLogError(CoreUtils.stackTraceToString( exc ) );
-        }
-        
-        return ImageUtils.createTextImage( "error", 20, Font.BOLD, WHITE, BLACK );
-        
+        return ImageUtils.loadImage( filePath );
     }
     
     /**
@@ -3090,15 +3151,7 @@ public abstract class EngineFrame extends JFrame {
      * @return Uma imagem.
      */
     public Image loadImage( InputStream input ) {
-        
-        try {
-            return new Image( ImageIO.read( input ) );
-        } catch ( IOException exc ) {
-            traceLogError(CoreUtils.stackTraceToString( exc ) );
-        }
-        
-        return ImageUtils.createTextImage( "error", 20, Font.BOLD, WHITE, BLACK );
-        
+        return ImageUtils.loadImage( input );
     }
     
     /**
@@ -3108,15 +3161,7 @@ public abstract class EngineFrame extends JFrame {
      * @return Uma imagem.
      */
     public Image loadImage( URL url ) {
-        
-        try {
-            return new Image( ImageIO.read( url ) );
-        } catch ( IOException exc ) {
-            traceLogError(CoreUtils.stackTraceToString( exc ) );
-        }
-        
-        return ImageUtils.createTextImage( "error", 20, Font.BOLD, WHITE, BLACK );
-        
+        return ImageUtils.loadImage( url );
     }
     
     /**

@@ -16,12 +16,20 @@
  */
 package br.com.davidbuzatto.jsge.image;
 
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
+import br.com.davidbuzatto.jsge.core.utils.CoreUtils;
+import br.com.davidbuzatto.jsge.core.utils.TraceLogUtils;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import javax.imageio.ImageIO;
 
 /**
  * Interface com métodos estáticos utilitários para tratamento de imagens.
@@ -43,7 +51,7 @@ public interface ImageUtils {
         Image newImage = new Image( newImageWidth, newImageHeight );
         
         Graphics2D g2d = newImage.createGraphics();
-        g2d.drawImage(image.buffImage, 0, 0, newImageWidth, newImageHeight, 0, 0, image.getWidth(), image.getHeight(), null );
+        g2d.drawImage( image.buffImage, 0, 0, newImageWidth, newImageHeight, 0, 0, image.getWidth(), image.getHeight(), null );
         g2d.dispose();
         
         return newImage;
@@ -347,7 +355,7 @@ public interface ImageUtils {
      * @param y Coordenada y do pixel.
      * @return A cor do pixel.
      */
-    public static Color getImageColor( Image image, int x, int y ) {
+    public static Color getRGB( Image image, int x, int y ) {
         return new Color( image.getRGB( x, y ), true );
     }
     
@@ -410,6 +418,60 @@ public interface ImageUtils {
         }
         
         return newImage;
+        
+    }
+    
+    /**
+     * Carrega uma imagem.
+     * 
+     * @param filePath Caminho do arquivo da imagem.
+     * @return Uma imagem.
+     */
+    public static Image loadImage( String filePath ) {
+        
+        try {
+            return new Image( ImageIO.read( new File( filePath ) ) );
+        } catch ( IOException exc ) {
+            TraceLogUtils.traceLogError( CoreUtils.stackTraceToString( exc ) );
+        }
+        
+        return createTextImage( "error", 20, Font.BOLD, EngineFrame.WHITE, EngineFrame.BLACK );
+        
+    }
+    
+    /**
+     * Carrega uma imagem.
+     * 
+     * @param input Um input stream para uma imagem.
+     * @return Uma imagem.
+     */
+    public static Image loadImage( InputStream input ) {
+        
+        try {
+            return new Image( ImageIO.read( input ) );
+        } catch ( IOException exc ) {
+            TraceLogUtils.traceLogError(CoreUtils.stackTraceToString( exc ) );
+        }
+        
+        return createTextImage( "error", 20, Font.BOLD, EngineFrame.WHITE, EngineFrame.BLACK );
+        
+    }
+    
+    /**
+     * Carrega uma imagem.
+     * 
+     * @param url Uma URL para uma imagem.
+     * @return Uma imagem.
+     */
+    public static Image loadImage( URL url ) {
+        
+        try {
+            return new Image( ImageIO.read( url ) );
+        } catch ( IOException exc ) {
+            TraceLogUtils.traceLogError(CoreUtils.stackTraceToString( exc ) );
+        }
+        
+        return createTextImage( "error", 20, Font.BOLD, EngineFrame.WHITE, EngineFrame.BLACK );
         
     }
     
