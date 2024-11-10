@@ -452,6 +452,7 @@ public abstract class EngineFrame extends JFrame {
                     traceLogError( CoreUtils.stackTraceToString( exc ) );
                 }
                 
+                inputManager.consumeKeyActions();
                 resetMouseButtonsState();
                 resetKeysState();
                 
@@ -4059,6 +4060,18 @@ public abstract class EngineFrame extends JFrame {
 
             return keys;
 
+        }
+        
+        /**
+         * Consome todas as ações das teclas.
+         */
+        public void consumeKeyActions() {
+            for ( Map.Entry<Integer, List<GameAction>> e : keyActionsMap.entrySet() ) {
+                for ( GameAction ga : e.getValue() ) {
+                    if ( ga.isPressed() ) {
+                    }
+                }
+            }
         }
         
         /**
