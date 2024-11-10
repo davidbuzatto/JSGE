@@ -30,15 +30,15 @@ public class ImageAnimationFrame implements AnimationFrame {
     /**
      * A imagem do quadro de animação.
      */
-    public final Image image;
+    public final Image baseImage;
     
     /**
      * Cria um quadro de animação de imagem.
      * 
-     * @param image Imagem do quadro.
+     * @param baseImage Imagem do quadro.
      */
-    public ImageAnimationFrame( Image image ) {
-        this.image = image;
+    public ImageAnimationFrame( Image baseImage ) {
+        this.baseImage = baseImage;
     }
     
     /**
@@ -49,7 +49,33 @@ public class ImageAnimationFrame implements AnimationFrame {
      * @param y Coordenada y.
      */
     public void draw( EngineFrame engine, double x, double y ) {
-        engine.drawImage( image, x, y );
+        engine.drawImage( baseImage, x, y );
+    }
+    
+    /**
+     * Desenha o quadro de animação.
+     * 
+     * @param engine A engine.
+     * @param x Coordenada x.
+     * @param y Coordenada y.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     */
+    public void draw( EngineFrame engine, double x, double y, double rotation ) {
+        engine.drawImage( baseImage, x, y, rotation );
+    }
+    
+    /**
+     * Desenha o quadro de animação.
+     * 
+     * @param engine A engine.
+     * @param x Coordenada x.
+     * @param y Coordenada y.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     */
+    public void draw( EngineFrame engine, double x, double y, double originX, double originY, double rotation ) {
+        engine.drawImage( baseImage, x, y, originX, originY, rotation );
     }
     
     /**
@@ -61,7 +87,35 @@ public class ImageAnimationFrame implements AnimationFrame {
      * @param bgColor Cor de fundo.
      */
     public void draw( EngineFrame engine, double x, double y, Color bgColor ) {
-        engine.drawImage( image, x, y, bgColor );
+        engine.drawImage( baseImage, x, y, bgColor );
+    }
+    
+    /**
+     * Desenha o quadro de animação.
+     * 
+     * @param engine A engine.
+     * @param x Coordenada x.
+     * @param y Coordenada y.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     * @param bgColor Cor de fundo.
+     */
+    public void draw( EngineFrame engine, double x, double y, double rotation, Color bgColor ) {
+        engine.drawImage( baseImage, x, y, rotation, bgColor );
+    }
+    
+    /**
+     * Desenha o quadro de animação.
+     * 
+     * @param engine A engine.
+     * @param x Coordenada x.
+     * @param y Coordenada y.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     * @param bgColor Cor de fundo.
+     */
+    public void draw( EngineFrame engine, double x, double y, double originX, double originY, double rotation, Color bgColor ) {
+        engine.drawImage( baseImage, x, y, originX, originY, rotation, bgColor );
     }
     
 }

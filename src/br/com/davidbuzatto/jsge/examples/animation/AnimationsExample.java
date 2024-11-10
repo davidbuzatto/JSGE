@@ -17,9 +17,11 @@
 package br.com.davidbuzatto.jsge.examples.animation;
 
 import br.com.davidbuzatto.jsge.animation.AnimationExecutionState;
+import br.com.davidbuzatto.jsge.animation.AnimationUtils;
 import br.com.davidbuzatto.jsge.animation.frame.FrameByFrameAnimation;
 import br.com.davidbuzatto.jsge.animation.frame.DrawableAnimationFrame;
 import br.com.davidbuzatto.jsge.animation.frame.ImageAnimationFrame;
+import br.com.davidbuzatto.jsge.animation.frame.SpriteMapAnimationFrame;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimation;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationProperties;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationComponentMapper;
@@ -56,6 +58,16 @@ public class AnimationsExample extends EngineFrame {
     private FrameByFrameAnimation<ImageAnimationFrame> imageAnimation;
     private FrameByFrameAnimation<DrawableAnimationFrame> drawableAnimation;
     private Color[] colors = { RED, GREEN, GOLD, ORANGE, BLUE, PINK, VIOLET };
+    
+    private FrameByFrameAnimation<SpriteMapAnimationFrame> spriteAnimationIdleRight;
+    private FrameByFrameAnimation<SpriteMapAnimationFrame> spriteAnimationIdleLeft;
+    private FrameByFrameAnimation<SpriteMapAnimationFrame> spriteAnimationWalkRight;
+    private FrameByFrameAnimation<SpriteMapAnimationFrame> spriteAnimationWalkLeft;
+    private Vector2 spritePos;
+    private Vector2 spriteVel;
+    private double spriteWalkSpeed;
+    private boolean spriteTurnedRight;
+    private boolean spriteIdle;
     
     private EasingTweenAnimation<Rectangle> etaPos;
     private EasingTweenAnimation<Circle> etaRadiusg;
@@ -207,7 +219,7 @@ public class AnimationsExample extends EngineFrame {
      * Cria o exemplo.
      */
     public AnimationsExample() {
-        super( 875, 800, "Animations", 60, true );
+        super( 875, 940, "Animations", 60, true );
     }
     
     @Override
@@ -233,6 +245,44 @@ public class AnimationsExample extends EngineFrame {
         drawableFrames.add( new DrawableAnimationFrame( new Ring( 295, 195, 10, 25, 60, 300 ) ) );
         drawableFrames.add( new DrawableAnimationFrame( new CubicCurve( 320, 195, 365, 140, 385, 250, 430, 195 ) ) );
         drawableAnimation = new FrameByFrameAnimation<>( 0.5, drawableFrames );
+        
+        spriteAnimationIdleRight = new FrameByFrameAnimation<>( 
+            0.1, 
+            AnimationUtils.newSpriteMapAnimationFrameList( 
+                loadImage( "resources/images/spriteMapIdle.png" ), 
+                4, 64, 64
+            )
+        );
+        
+        spriteAnimationIdleLeft = new FrameByFrameAnimation<>( 
+            0.1, 
+            AnimationUtils.newSpriteMapAnimationFrameList( 
+                loadImage( "resources/images/spriteMapIdle.png" ).flipHorizontal(), 
+                4, 64, 64, true
+            )
+        );
+        
+        spriteAnimationWalkRight = new FrameByFrameAnimation<>( 
+            0.05, 
+            AnimationUtils.newSpriteMapAnimationFrameList( 
+                loadImage( "resources/images/spriteMapWalk.png" ), 
+                6, 64, 64
+            )
+        );
+        
+        spriteAnimationWalkLeft = new FrameByFrameAnimation<>( 
+            0.05, 
+            AnimationUtils.newSpriteMapAnimationFrameList( 
+                loadImage( "resources/images/spriteMapWalk.png" ).flipHorizontal(), 
+                6, 64, 64, true
+            )
+        );
+        
+        spritePos = new Vector2( 150, 840 );
+        spriteVel = new Vector2();
+        spriteWalkSpeed = 200;
+        spriteTurnedRight = true;
+        spriteIdle = true;
         
         prevEFR = new Button( new Rectangle( 660, 52, 30, 30 ), false );
         nextEFR = new Button( new Rectangle( 700, 52, 30, 30 ), true );
@@ -661,6 +711,31 @@ public class AnimationsExample extends EngineFrame {
         imageAnimation.update( delta );
         drawableAnimation.update( delta );
         
+        spriteAnimationIdleRight.update( delta );
+        spriteAnimationIdleLeft.update( delta );
+        spriteAnimationWalkRight.update( delta );
+        spriteAnimationWalkLeft.update( delta );
+        
+        if ( isKeyDown( KEY_A ) ) {
+            spriteVel.x = -spriteWalkSpeed;
+            spriteTurnedRight = false;
+            spriteIdle = false;
+        } else if ( isKeyDown( KEY_D ) ) {
+            spriteVel.x = spriteWalkSpeed;
+            spriteTurnedRight = true;
+            spriteIdle = false;
+        } else {
+            spriteVel.x = 0;
+            spriteIdle = true;
+        }
+        
+        spritePos.x += spriteVel.x * delta;
+        if ( spritePos.x <= 130 ) {
+            spritePos.x = 130;
+        } else if ( spritePos.x + 64 >= getScreenWidth() - 10 ) {
+            spritePos.x = getScreenWidth() - 10 - 64;
+        }
+        
         etaPos.update( delta );
         etaRadiusg.update( delta );
         etaAlpha.update( delta );
@@ -753,7 +828,7 @@ public class AnimationsExample extends EngineFrame {
         fillRectangle( 10, 10, 430, 110, ColorUtils.fade( LIGHTGRAY, 0.2 ) );
         drawText( "image animation (frame by frame)", 20, 20, BLACK );
         for ( int i = 0; i < 4; i++ ) {
-            drawImage( imageAnimation.getCurrentFrame().image, 20 + i * 40, 50 );
+            drawImage(imageAnimation.getCurrentFrame().baseImage, 20 + i * 40, 50 );
         }
         drawText( String.format( "%.2fs to next frame\nuse the mouse wheel to change!", imageAnimation.getTimeToNextFrame() ), 190, 55, 14, BLACK );
         drawText( 
@@ -828,7 +903,7 @@ public class AnimationsExample extends EngineFrame {
         taRotation.getComponent().fill( this, MAROON );
         taRotation.getComponent().draw( this, BLACK );
         
-        fillRectangle( 10, 585, getScreenWidth() - 20, getScreenHeight() - 595, ColorUtils.fade( LIGHTGRAY, 0.2 ) );
+        fillRectangle( 10, 585, getScreenWidth() - 20, 205, ColorUtils.fade( LIGHTGRAY, 0.2 ) );
         String tLabel = String.format( "timing animation (%.2fs/%.2fs)", timingAnim.getExecutionTime(), timingAnim.getTotalExecutionTime() );
         drawText( tLabel, getScreenWidth() / 2 - measureText( tLabel ) / 2, 600, BLACK );
         drawText( """
@@ -843,7 +918,26 @@ public class AnimationsExample extends EngineFrame {
         timingAnim.getComponent().fill( this, BLUE );
         timingAnim.getComponent().draw( this, BLACK );
         
-        //drawFPS( 10, 10 );
+        drawText( "sprite map animation (frame by frame)", 20, 810, BLACK );
+        drawText( "<A>: move left\n<D>: move right", 20, 860, 14, BLACK );
+        fillRectangle( 10, 800, getScreenWidth() - 20, 130, ColorUtils.fade( LIGHTGRAY, 0.2 ) );
+        fillRectangle( 150, 904, getScreenWidth() - 175, 10, PINK );
+        drawRectangle( 150, 904, getScreenWidth() - 175, 10, BLACK );
+        if ( spriteIdle ) {
+            if ( spriteTurnedRight ) {
+                spriteAnimationIdleRight.getCurrentFrame().draw( this, spritePos.x, spritePos.y );
+            } else {
+                spriteAnimationIdleLeft.getCurrentFrame().draw( this, spritePos.x, spritePos.y );
+            }
+        } else {
+            if ( spriteTurnedRight ) {
+                spriteAnimationWalkRight.getCurrentFrame().draw( this, spritePos.x, spritePos.y );
+            } else {
+                spriteAnimationWalkLeft.getCurrentFrame().draw( this, spritePos.x, spritePos.y );
+            }
+        }
+        
+        drawFPS( getScreenWidth() - 90, 20 );
         
     }
     
