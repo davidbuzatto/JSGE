@@ -108,17 +108,28 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
             if ( timesToNextFrame == null ) {
                 if ( timeCounter >= timeToNextFrame ) {
                     timeCounter = 0;
-                    currentFrame = ( currentFrame + 1 ) % maxFrames;
+                    currentFrame++;
+                    //currentFrame = ( currentFrame + 1 ) % maxFrames;
                 }
             } else {
                 if ( timeCounter >= timesToNextFrame[currentFrame] ) {
                     timeCounter = 0;
-                    currentFrame = ( currentFrame + 1 ) % maxFrames;
+                    currentFrame++;
+                    //currentFrame = ( currentFrame + 1 ) % maxFrames;
                 }
             }
             
-            if ( !looping && currentFrame == maxFrames - 1 ) {
+            /*if ( !looping && currentFrame == maxFrames - 1 ) {
                 state = AnimationExecutionState.FINISHED;
+            }*/
+            
+            // para uma animação chegar ao final ela precisa alcançar o próximo
+            // frame que "não existe".
+            if ( currentFrame == maxFrames ) {
+                currentFrame = 0;
+                if ( !looping ) {
+                    state = AnimationExecutionState.FINISHED;
+                }
             }
             
         }
