@@ -35,6 +35,8 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
     private int currentFrame;
     private int maxFrames;
     private boolean looping;
+    private boolean runBackwards;
+    private boolean stopAtLastFrameWhenFinished;
     
     private AnimationExecutionState state;
     
@@ -97,38 +99,58 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
      */
     public void update( double delta ) {
         
-        if ( currentFrame == 0 && state == AnimationExecutionState.INITIALIZED ) {
-            state = AnimationExecutionState.RUNNING;
+        if ( runBackwards ) {
+            if ( currentFrame == maxFrames - 1 && state == AnimationExecutionState.INITIALIZED ) {
+                state = AnimationExecutionState.RUNNING;
+            }
+        } else {
+            if ( currentFrame == 0 && state == AnimationExecutionState.INITIALIZED ) {
+                state = AnimationExecutionState.RUNNING;
+            }
         }
         
         if ( state == AnimationExecutionState.RUNNING ) {
             
             timeCounter += delta;
-
-            if ( timesToNextFrame == null ) {
-                if ( timeCounter >= timeToNextFrame ) {
-                    timeCounter = 0;
+            
+            double timeToWait = timesToNextFrame == null ? 
+                timeToNextFrame : 
+                timesToNextFrame[currentFrame%timesToNextFrame.length];
+            
+            if ( timeCounter >= timeToWait ) {
+                timeCounter = 0;
+                if ( runBackwards ) {
+                    currentFrame--;
+                } else {
                     currentFrame++;
-                    //currentFrame = ( currentFrame + 1 ) % maxFrames;
-                }
-            } else {
-                if ( timeCounter >= timesToNextFrame[currentFrame] ) {
-                    timeCounter = 0;
-                    currentFrame++;
-                    //currentFrame = ( currentFrame + 1 ) % maxFrames;
                 }
             }
-            
-            /*if ( !looping && currentFrame == maxFrames - 1 ) {
-                state = AnimationExecutionState.FINISHED;
-            }*/
-            
-            // para uma animação chegar ao final ela precisa alcançar o próximo
-            // frame que "não existe".
-            if ( currentFrame == maxFrames ) {
-                currentFrame = 0;
-                if ( !looping ) {
-                    state = AnimationExecutionState.FINISHED;
+                
+            if ( runBackwards ) {
+                if ( currentFrame == -1 ) {
+                    if ( looping ) {
+                        currentFrame = maxFrames - 1;
+                    } else {
+                        state = AnimationExecutionState.FINISHED;
+                        if ( stopAtLastFrameWhenFinished ) {
+                            currentFrame = 0;
+                        } else {
+                            currentFrame = maxFrames - 1;
+                        }
+                    }
+                }
+            } else {
+                if ( currentFrame == maxFrames ) {
+                    if ( looping ) {
+                        currentFrame = 0;
+                    } else {
+                        state = AnimationExecutionState.FINISHED;
+                        if ( stopAtLastFrameWhenFinished ) {
+                            currentFrame = maxFrames - 1;
+                        } else {
+                            currentFrame = 0;
+                        }
+                    }
                 }
             }
             
@@ -191,6 +213,17 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
     }
     
     /**
+     * Configura o quadro atual da animação caso se deseje controlar programativamente a mudança de quadros.
+     * 
+     * @param index O índice do quadro.
+     */
+    public void setCurrentFramePosition( int index ) {
+        if ( index >= 0 && index < frames.size() ) {
+            currentFrame = index;
+        }
+    }
+    
+    /**
      * Obtém um quadro específico da animação.
      * 
      * @param index O índice do quadro.
@@ -229,6 +262,44 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
     public void setLooping( boolean looping ) {
         this.looping = looping;
     }
+
+    /**
+     * Retorna se está executando ao contrário.
+     * 
+     * @return Verdadeiro caso esteja executando ao contrário. Falso caso contrário.
+     */
+    public boolean isRunBackwards() {
+        return runBackwards;
+    }
+
+    /**
+     * Configura se a animação deve executar ao contrário.
+     * 
+     * @param runBackwards Verdadeiro se deve executar ao contrário, falso caso contrário.
+     */
+    public void setRunBackwards( boolean runBackwards ) {
+        this.runBackwards = runBackwards;
+        reset();
+    }
+
+    /**
+     * Retorna se a animação sem loop para no último quadro quando finalizada.
+     * 
+     * @return Verdadeiro caso a animação para no último quadro ao ser finalizada. Falso caso contrário.
+     */
+    public boolean isStopAtLastFrameWhenFinished() {
+        return stopAtLastFrameWhenFinished;
+    }
+
+    /**
+     * Configura se animação deve parar no último quadro quando finalizar. O comportamento
+     * padrão é voltar ao quadro inicial.
+     * 
+     * @param stopAtLastFrameWhenFinished Verdadeiro se deve parar no útlimo quadro. Falso caso contrário.
+     */
+    public void setStopAtLastFrameWhenFinished( boolean stopAtLastFrameWhenFinished ) {
+        this.stopAtLastFrameWhenFinished = stopAtLastFrameWhenFinished;
+    }
     
     /**
      * Pausa a animação.
@@ -249,7 +320,11 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
      */
     public void reset() {
         state = AnimationExecutionState.INITIALIZED;
-        currentFrame = 0;
+        if ( runBackwards ) {
+            currentFrame = maxFrames - 1;
+        } else {
+            currentFrame = 0;
+        }
         timeCounter = 0;
     }
     

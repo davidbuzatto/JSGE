@@ -254,6 +254,8 @@ public class AnimationsExample extends EngineFrame {
         drawableFrames.add( new DrawableAnimationFrame( new Ring( 295, 195, 10, 25, 60, 300 ) ) );
         drawableFrames.add( new DrawableAnimationFrame( new CubicCurve( 320, 195, 365, 140, 385, 250, 430, 195 ) ) );
         drawableAnimation = new FrameByFrameAnimation<>( 0.5, drawableFrames );
+        //drawableAnimation.setRunBackwards( true );
+        //drawableAnimation.setStopAtLastFrameWhenFinished( true );
         
         spritePos = new Vector2( 150, 840 );
         spriteDim = new Vector2( 64, 64 );
