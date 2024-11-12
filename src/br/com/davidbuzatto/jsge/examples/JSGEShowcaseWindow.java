@@ -27,6 +27,7 @@ import br.com.davidbuzatto.jsge.examples.basic.SoundAndMusicExample;
 import br.com.davidbuzatto.jsge.examples.basic.UserInteractionExample;
 import br.com.davidbuzatto.jsge.examples.ball.BouncingBallExample;
 import br.com.davidbuzatto.jsge.examples.animation.AnimationsExample;
+import br.com.davidbuzatto.jsge.examples.basic.GamepadsExample;
 import br.com.davidbuzatto.jsge.examples.camera.CameraExample;
 import br.com.davidbuzatto.jsge.examples.particles.ParticlesExample;
 
@@ -67,6 +68,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         btnCamera = new javax.swing.JButton();
         btnSoundAndMusic = new javax.swing.JButton();
         btnAnimations = new javax.swing.JButton();
+        btnGamepads = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -159,6 +161,13 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
             }
         });
 
+        btnGamepads.setText("Gamepads");
+        btnGamepads.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGamepadsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,7 +187,8 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
                     .addComponent(btnCamera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSoundAndMusic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnPaintingCapabilities, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAnimations, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAnimations, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGamepads, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -210,6 +220,8 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
                 .addComponent(btnSoundAndMusic)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAnimations)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGamepads)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -265,6 +277,10 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         new AnimationsExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnAnimationsActionPerformed
 
+    private void btnGamepadsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGamepadsActionPerformed
+        new GamepadsExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+    }//GEN-LAST:event_btnGamepadsActionPerformed
+
     /**
      * Executa o Showcase.
      * 
@@ -311,6 +327,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnColorMethods;
     private javax.swing.JButton btnDrawingPrimitiveMethods;
     private javax.swing.JButton btnDrawingPrimitiveObjects;
+    private javax.swing.JButton btnGamepads;
     private javax.swing.JButton btnImageLoadingAndProcessing;
     private javax.swing.JButton btnPaintingCapabilities;
     private javax.swing.JButton btnParticles;

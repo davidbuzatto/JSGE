@@ -1,11 +1,6 @@
 Suporte à gamepads:
     Implementar os métodos que estão faltando;
-    Separar as classes do gamepad;
-    Criar uma GamepadInput manager;
-    Criar constantes para os identificadores dos gamepads
-    Testar a consulta de gamepads que não existem.
-    Fixar em no máximo 4.
     Testar;
-    Criar exemplo (melhorar o atual, colocando também informações sobre os quatro estados dos botões pressionáveis)
-    Documentar tudo;
+    Melhorar o exemplo, colocando também informações sobre os quatro estados dos botões pressionáveis)
     Organizar arquivos nativos;
+    Ajustar o build para copiar os arquivos nativos.
