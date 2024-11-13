@@ -3563,6 +3563,21 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
     /**
      * Retorna se um botão do gamepad foi pressionado uma vez.
      * 
+     * Atenção: todo o mecanismo de gerenciamento de gamepads se baseia numa
+     * implementação onde os gatilhos de baixo, tanto esquerdo (L2/LT),
+     * quanto direito (R2/RT), funionam variando o eixo Z no intervalo de -1.0 a 1.0. 
+     * Usando controles antigos/padrão para Windows.
+     * 
+     * O gatilho esquerdo varia Z de 0.0 (não pressionado) a 1.0 (totalmente pressionado).
+     * O gatilho direito varia Z de 0.0 (não pressionado) a -1.0 (totalmente pressionado).
+     * 
+     * Quando ambos os gatilhos não estão pressionados, o valor de Z é 0.0 e
+     * quando ambos estão pressionados totalmente, o valor de Z também é 0.0, pois
+     * ambos se anulam.
+     * 
+     * Sendo assim, as verificações de pressionado/não pressionado não funcionam
+     * apropriadamente para tais botões.
+     * 
      * @param gamepadId Identificador do gamepad.
      * @param button O botão.
      * @return Verdadeiro se o botão foi pressionado uma vez, falso caso contrário.
@@ -3573,6 +3588,21 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
 
     /**
      * Retorna se um botão do gamepad está pressionado.
+     * 
+     * Atenção: todo o mecanismo de gerenciamento de gamepads se baseia numa
+     * implementação onde os gatilhos de baixo, tanto esquerdo (L2/LT),
+     * quanto direito (R2/RT), funionam variando o eixo Z no intervalo de -1.0 a 1.0. 
+     * Usando controles antigos/padrão para Windows.
+     * 
+     * O gatilho esquerdo varia Z de 0.0 (não pressionado) a 1.0 (totalmente pressionado).
+     * O gatilho direito varia Z de 0.0 (não pressionado) a -1.0 (totalmente pressionado).
+     * 
+     * Quando ambos os gatilhos não estão pressionados, o valor de Z é 0.0 e
+     * quando ambos estão pressionados totalmente, o valor de Z também é 0.0, pois
+     * ambos se anulam.
+     * 
+     * Sendo assim, as verificações de pressionado/não pressionado não funcionam
+     * apropriadamente para tais botões.
      * 
      * @param gamepadId Identificador do gamepad.
      * @param button O botão.
@@ -3585,6 +3615,21 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
     /**
      * Retorna se um botão do gamepad foi solto.
      * 
+     * Atenção: todo o mecanismo de gerenciamento de gamepads se baseia numa
+     * implementação onde os gatilhos de baixo, tanto esquerdo (L2/LT),
+     * quanto direito (R2/RT), funionam variando o eixo Z no intervalo de -1.0 a 1.0. 
+     * Usando controles antigos/padrão para Windows.
+     * 
+     * O gatilho esquerdo varia Z de 0.0 (não pressionado) a 1.0 (totalmente pressionado).
+     * O gatilho direito varia Z de 0.0 (não pressionado) a -1.0 (totalmente pressionado).
+     * 
+     * Quando ambos os gatilhos não estão pressionados, o valor de Z é 0.0 e
+     * quando ambos estão pressionados totalmente, o valor de Z também é 0.0, pois
+     * ambos se anulam.
+     * 
+     * Sendo assim, as verificações de pressionado/não pressionado não funcionam
+     * apropriadamente para tais botões.
+     * 
      * @param gamepadId Identificador do gamepad.
      * @param button O botão.
      * @return Verdadeiro se o botão foi solto, falso caso contrário.
@@ -3596,6 +3641,21 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
     /**
      * Retorna se um botão do gamepad não está pressionado.
      * 
+     * Atenção: todo o mecanismo de gerenciamento de gamepads se baseia numa
+     * implementação onde os gatilhos de baixo, tanto esquerdo (L2/LT),
+     * quanto direito (R2/RT), funionam variando o eixo Z no intervalo de -1.0 a 1.0. 
+     * Usando controles antigos/padrão para Windows.
+     * 
+     * O gatilho esquerdo varia Z de 0.0 (não pressionado) a 1.0 (totalmente pressionado).
+     * O gatilho direito varia Z de 0.0 (não pressionado) a -1.0 (totalmente pressionado).
+     * 
+     * Quando ambos os gatilhos não estão pressionados, o valor de Z é 0.0 e
+     * quando ambos estão pressionados totalmente, o valor de Z também é 0.0, pois
+     * ambos se anulam.
+     * 
+     * Sendo assim, as verificações de pressionado/não pressionado não funcionam
+     * apropriadamente para tais botões.
+     * 
      * @param gamepadId Identificador do gamepad.
      * @param button O botão.
      * @return Verdadeiro se o botão não está pressionado, falso caso contrário.
@@ -3606,6 +3666,21 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
 
     /**
      * Retorna o valor do movimento de um eixo do gamepad.
+     * 
+     * Atenção: todo o mecanismo de gerenciamento de gamepads se baseia numa
+     * implementação onde os gatilhos de baixo, tanto esquerdo (L2/LT),
+     * quanto direito (R2/RT), funionam variando o eixo Z no intervalo de -1.0 a 1.0. 
+     * Usando controles antigos/padrão para Windows.
+     * 
+     * O gatilho esquerdo varia Z de 0.0 (não pressionado) a 1.0 (totalmente pressionado).
+     * O gatilho direito varia Z de 0.0 (não pressionado) a -1.0 (totalmente pressionado).
+     * 
+     * Quando ambos os gatilhos não estão pressionados, o valor de Z é 0.0 e
+     * quando ambos estão pressionados totalmente, o valor de Z também é 0.0, pois
+     * ambos se anulam.
+     * 
+     * Sendo assim, as verificações de pressionado/não pressionado não funcionam
+     * apropriadamente para tais botões.
      * 
      * @param gamepadId Identificador do gamepad.
      * @param axis O eixo.
