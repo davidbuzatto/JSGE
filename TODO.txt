@@ -1,3 +1,4 @@
 Suporte à gamepads:
     Terminar exemplo para englobar dois controles.
+    Replicar no BufferStrategyEngineFrame.
     Revisar o tratamento dos gatilhos. Ainda não estou satisfeito...
