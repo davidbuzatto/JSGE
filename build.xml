@@ -92,6 +92,11 @@
             <fileset dir="resources"/>
         </copy>
         
+        <!-- copia as bibliotecas nativas do JInput para a pasta lib -->
+        <copy todir="${dist.dir}/lib">
+            <fileset dir="lib/jinput-2.0.10-natives-all"/>
+        </copy>
+        
         <!-- renomeia a pasta lib para a pasta de binários -->
         <move file="${dist.dir}/lib" tofile="${dist.dir}/${artefatoBin}"/>
         

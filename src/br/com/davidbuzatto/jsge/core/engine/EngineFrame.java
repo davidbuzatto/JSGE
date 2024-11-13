@@ -4464,10 +4464,6 @@ public abstract class EngineFrame extends JFrame {
 
     /** 
      * Classe interna para gerenciamento da entrada dos gamepads.
-     * 
-     * -Djava.library.path=lib/natives para indicar o caminho das bibliotecas
-     * nativas. Opção que será adotada é uma cópia das biblitotecas no diretório
-     * em que a aplicação vai executar.
      *
      * @author Prof. Dr. David Buzatto
      */
@@ -4536,7 +4532,7 @@ public abstract class EngineFrame extends JFrame {
             int i = 0;
 
             for ( Controller c : foundControllers ) {
-                acquireGamepadData( c, gamepads[i] );
+                acquireGamepadData( c, gamepads[i++] );
             }
 
         }
@@ -4561,7 +4557,7 @@ public abstract class EngineFrame extends JFrame {
 
                     Component component = components[i];
                     Identifier componentIdentifier = component.getIdentifier();
-
+                    
                     // botões contém apenas números no nome
                     if ( componentIdentifier.getName().matches( "^[0-9]*$" ) ) {
 
@@ -4708,41 +4704,41 @@ public abstract class EngineFrame extends JFrame {
 
                 // botões "normais"
                 if ( button >= 0 && button <= 9 ) {
-                    return g.isButtonPressed( button );
+                    return g.isButtonDown( button ) && !g.isLastButtonDown( button );
                 }
-
+                
                 // gatilho esquerdo
                 if ( button == 44 ) {
-                    return g.getZ() > 0.0;
+                    return g.isTriggerButtonDown( 0 ) && !g.isLastTriggerButtonDown( 0 );
                 }
 
                 // gatilho direito
                 if ( button == 55 ) {
-                    return g.getZ() < -0.0001;
+                    return g.isTriggerButtonDown( 1 ) && !g.isLastTriggerButtonDown( 1 );
                 }
 
                 // dpad
                 if ( button >= 10 && button <= 13 ) {
                     switch ( button ) {
                         case GAMEPAD_BUTTON_LEFT_FACE_UP:
-                            return g.isHatSwitchButtonPressed( 1 ) || 
-                                   g.isHatSwitchButtonPressed( 2 ) || 
-                                   g.isHatSwitchButtonPressed( 3 );
+                            return ( g.isHatSwitchButtonDown( 1 ) && !g.isLastHatSwitchButtonDown( 1 ) ) ||
+                                   ( g.isHatSwitchButtonDown( 2 ) && !g.isLastHatSwitchButtonDown( 2 ) ) ||
+                                   ( g.isHatSwitchButtonDown( 3 ) && !g.isLastHatSwitchButtonDown( 3 ) );
                         case GAMEPAD_BUTTON_LEFT_FACE_RIGHT:
-                            return g.isHatSwitchButtonPressed( 3 ) || 
-                                   g.isHatSwitchButtonPressed( 4 ) || 
-                                   g.isHatSwitchButtonPressed( 5 );
+                            return ( g.isHatSwitchButtonDown( 3 ) && !g.isLastHatSwitchButtonDown( 3 ) ) ||
+                                   ( g.isHatSwitchButtonDown( 4 ) && !g.isLastHatSwitchButtonDown( 4 ) ) ||
+                                   ( g.isHatSwitchButtonDown( 5 ) && !g.isLastHatSwitchButtonDown( 5 ) );
                         case GAMEPAD_BUTTON_LEFT_FACE_DOWN:
-                            return g.isHatSwitchButtonPressed( 5 ) || 
-                                   g.isHatSwitchButtonPressed( 6 ) || 
-                                   g.isHatSwitchButtonPressed( 7 );
+                            return ( g.isHatSwitchButtonDown( 5 ) && !g.isLastHatSwitchButtonDown( 5 ) ) ||
+                                   ( g.isHatSwitchButtonDown( 6 ) && !g.isLastHatSwitchButtonDown( 6 ) ) ||
+                                   ( g.isHatSwitchButtonDown( 7 ) && !g.isLastHatSwitchButtonDown( 7 ) );
                         case GAMEPAD_BUTTON_LEFT_FACE_LEFT:
-                            return g.isHatSwitchButtonPressed( 7 ) || 
-                                   g.isHatSwitchButtonPressed( 8 ) ||
-                                   g.isHatSwitchButtonPressed( 1 );
+                            return ( g.isHatSwitchButtonDown( 7 ) && !g.isLastHatSwitchButtonDown( 7 ) ) ||
+                                   ( g.isHatSwitchButtonDown( 8 ) && !g.isLastHatSwitchButtonDown( 8 ) ) ||
+                                   ( g.isHatSwitchButtonDown( 1 ) && !g.isLastHatSwitchButtonDown( 1 ) );
                     }
                 }
-            
+                
             }
             
             return false;
@@ -4760,9 +4756,50 @@ public abstract class EngineFrame extends JFrame {
             
             if ( isGamepadAvailable( gamepadId ) ) {
                 
+                Gamepad g = gamepads[gamepadId];
+
+                // botões "normais"
+                if ( button >= 0 && button <= 9 ) {
+                    return g.isButtonDown( button );
+                }
+
+                // gatilho esquerdo
+                if ( button == 44 ) {
+                    g.setTriggerButtonState( 0, g.getZ() > 0.0 );
+                    return g.isTriggerButtonDown( 0 );
+                }
+
+                // gatilho direito
+                if ( button == 55 ) {
+                    g.setTriggerButtonState( 1, g.getZ() < -0.0001 );
+                    return g.isTriggerButtonDown( 1 );
+                }
+
+                // dpad
+                if ( button >= 10 && button <= 13 ) {
+                    switch ( button ) {
+                        case GAMEPAD_BUTTON_LEFT_FACE_UP:
+                            return g.isHatSwitchButtonDown( 1 ) || 
+                                   g.isHatSwitchButtonDown( 2 ) || 
+                                   g.isHatSwitchButtonDown( 3 );
+                        case GAMEPAD_BUTTON_LEFT_FACE_RIGHT:
+                            return g.isHatSwitchButtonDown( 3 ) || 
+                                   g.isHatSwitchButtonDown( 4 ) || 
+                                   g.isHatSwitchButtonDown( 5 );
+                        case GAMEPAD_BUTTON_LEFT_FACE_DOWN:
+                            return g.isHatSwitchButtonDown( 5 ) || 
+                                   g.isHatSwitchButtonDown( 6 ) || 
+                                   g.isHatSwitchButtonDown( 7 );
+                        case GAMEPAD_BUTTON_LEFT_FACE_LEFT:
+                            return g.isHatSwitchButtonDown( 7 ) || 
+                                   g.isHatSwitchButtonDown( 8 ) ||
+                                   g.isHatSwitchButtonDown( 1 );
+                    }
+                }
+            
             }
             
-            return gamepads[gamepadId].isButtonPressed( button );
+            return false;
             
         }
 
@@ -4777,9 +4814,48 @@ public abstract class EngineFrame extends JFrame {
             
             if ( isGamepadAvailable( gamepadId ) ) {
                 
+                Gamepad g = gamepads[gamepadId];
+
+                // botões "normais"
+                if ( button >= 0 && button <= 9 ) {
+                    return !g.isButtonDown( button ) && g.isLastButtonDown( button );
+                }
+                
+                // gatilho esquerdo
+                if ( button == 44 ) {
+                    return !g.isTriggerButtonDown( 0 ) && g.isLastTriggerButtonDown( 0 );
+                }
+
+                // gatilho direito
+                if ( button == 55 ) {
+                    return !g.isTriggerButtonDown( 1 ) && g.isLastTriggerButtonDown( 1 );
+                }
+
+                // dpad
+                if ( button >= 10 && button <= 13 ) {
+                    switch ( button ) {
+                        case GAMEPAD_BUTTON_LEFT_FACE_UP:
+                            return ( !g.isHatSwitchButtonDown( 1 ) && g.isLastHatSwitchButtonDown( 1 ) ) ||
+                                   ( !g.isHatSwitchButtonDown( 2 ) && g.isLastHatSwitchButtonDown( 2 ) ) ||
+                                   ( !g.isHatSwitchButtonDown( 3 ) && g.isLastHatSwitchButtonDown( 3 ) );
+                        case GAMEPAD_BUTTON_LEFT_FACE_RIGHT:
+                            return ( !g.isHatSwitchButtonDown( 3 ) && g.isLastHatSwitchButtonDown( 3 ) ) ||
+                                   ( !g.isHatSwitchButtonDown( 4 ) && g.isLastHatSwitchButtonDown( 4 ) ) ||
+                                   ( !g.isHatSwitchButtonDown( 5 ) && g.isLastHatSwitchButtonDown( 5 ) );
+                        case GAMEPAD_BUTTON_LEFT_FACE_DOWN:
+                            return ( !g.isHatSwitchButtonDown( 5 ) && g.isLastHatSwitchButtonDown( 5 ) ) ||
+                                   ( !g.isHatSwitchButtonDown( 6 ) && g.isLastHatSwitchButtonDown( 6 ) ) ||
+                                   ( !g.isHatSwitchButtonDown( 7 ) && g.isLastHatSwitchButtonDown( 7 ) );
+                        case GAMEPAD_BUTTON_LEFT_FACE_LEFT:
+                            return ( !g.isHatSwitchButtonDown( 7 ) && g.isLastHatSwitchButtonDown( 7 ) ) ||
+                                   ( !g.isHatSwitchButtonDown( 8 ) && g.isLastHatSwitchButtonDown( 8 ) ) ||
+                                   ( !g.isHatSwitchButtonDown( 1 ) && g.isLastHatSwitchButtonDown( 1 ) );
+                    }
+                }
+                
             }
             
-            return !gamepads[gamepadId].isButtonPressed( button );
+            return false;
             
         }
 
@@ -4791,13 +4867,10 @@ public abstract class EngineFrame extends JFrame {
          * @return Verdadeiro se o botão não está pressionado, falso caso contrário.
          */
         public boolean isGamepadButtonUp( int gamepadId, int button ) {
-            
             if ( isGamepadAvailable( gamepadId ) ) {
-                
+                return !isGamepadButtonDown( gamepadId, button );
             }
-            
-            return !gamepads[gamepadId].isButtonPressed( button );
-            
+            return false;
         }
 
         /**
@@ -4820,6 +4893,8 @@ public abstract class EngineFrame extends JFrame {
                         return gamepads[gamepadId].getRx();
                     case GAMEPAD_AXIS_RIGHT_Y:
                         return gamepads[gamepadId].getRy();
+                    case GAMEPAD_AXIS_Z:
+                        return gamepads[gamepadId].getZ();
                     case GAMEPAD_AXIS_LEFT_TRIGGER:
                         return gamepads[gamepadId].getZ();
                     case GAMEPAD_AXIS_RIGHT_TRIGGER:
@@ -4837,7 +4912,7 @@ public abstract class EngineFrame extends JFrame {
     
     
     /**
-     * Representação de um gamepad.
+     * Representação de um gamepad/joystick/controle.
      * 
      * @author Prof. Dr. David Buzatto
      */
@@ -4849,10 +4924,12 @@ public abstract class EngineFrame extends JFrame {
         private int id;
         private String name;
         private boolean available;
-        private boolean[] pressedButtons;
-        private boolean[] lastPressedButtons;
-        private boolean[] pressedHatSwitchButtons;
-        private boolean[] lastPressedHatSwitchButtons;
+        private boolean[] downButtons;
+        private boolean[] lastDownButtons;
+        private boolean[] downTriggerButtons;
+        private boolean[] lastDownTriggerButtons;
+        private boolean[] downHatSwitchButtons;
+        private boolean[] lastDownHatSwitchButtons;
         private float hatSwitch;
         private double x;
         private double y;
@@ -4863,45 +4940,82 @@ public abstract class EngineFrame extends JFrame {
 
         public Gamepad( int id ) {
             this.id = id;
-            this.pressedButtons = new boolean[20];
-            this.lastPressedButtons = new boolean[20];
-            this.pressedHatSwitchButtons = new boolean[HAT_SWITCH_BUTTONS_LENGTH];
-            this.lastPressedHatSwitchButtons = new boolean[HAT_SWITCH_BUTTONS_LENGTH];
+            this.downButtons = new boolean[20];
+            this.lastDownButtons = new boolean[20];
+            this.downTriggerButtons = new boolean[2];
+            this.lastDownTriggerButtons = new boolean[20];
+            this.downHatSwitchButtons = new boolean[HAT_SWITCH_BUTTONS_LENGTH];
+            this.lastDownHatSwitchButtons = new boolean[HAT_SWITCH_BUTTONS_LENGTH];
         }
 
         public void setButtonState( int button, boolean value ) {
-            if ( button < pressedButtons.length ) {
-                pressedButtons[button] = value;
+            if ( button < downButtons.length ) {
+                downButtons[button] = value;
+            }
+        }
+        
+        public void setTriggerButtonState( int button, boolean value ) {
+            if ( button < downTriggerButtons.length ) {
+                downTriggerButtons[button] = value;
             }
         }
 
         public void setHatSwitchButtonState( int button, boolean value ) {
-            if ( button < pressedHatSwitchButtons.length ) {
-                pressedHatSwitchButtons[button] = value;
+            if ( button < downHatSwitchButtons.length ) {
+                downHatSwitchButtons[button] = value;
             }
         }
 
         public void resetHatSwitchButtons() {
-            System.arraycopy( HAT_SWITCH_DEFAULT_VALUES, 0, pressedHatSwitchButtons, 0, HAT_SWITCH_BUTTONS_LENGTH );
+            System.arraycopy( HAT_SWITCH_DEFAULT_VALUES, 0, downHatSwitchButtons, 0, HAT_SWITCH_BUTTONS_LENGTH );
         }
 
-        public boolean isButtonPressed( int button ) {
-            if ( button < pressedButtons.length ) {
-                return pressedButtons[button];
+        public boolean isButtonDown( int button ) {
+            if ( button < downButtons.length ) {
+                return downButtons[button];
+            }
+            return false;
+        }
+        
+        public boolean isLastButtonDown( int button ) {
+            if ( button < lastDownButtons.length ) {
+                return lastDownButtons[button];
+            }
+            return false;
+        }
+        
+        public boolean isTriggerButtonDown( int button ) {
+            if ( button < downTriggerButtons.length ) {
+                return downTriggerButtons[button];
+            }
+            return false;
+        }
+        
+        public boolean isLastTriggerButtonDown( int button ) {
+            if ( button < lastDownTriggerButtons.length ) {
+                return lastDownTriggerButtons[button];
             }
             return false;
         }
 
-        public boolean isHatSwitchButtonPressed( int button ) {
-            if ( button < pressedHatSwitchButtons.length ) {
-                return pressedHatSwitchButtons[button];
+        public boolean isHatSwitchButtonDown( int button ) {
+            if ( button < downHatSwitchButtons.length ) {
+                return downHatSwitchButtons[button];
+            }
+            return false;
+        }
+        
+        public boolean isLastHatSwitchButtonDown( int button ) {
+            if ( button < lastDownHatSwitchButtons.length ) {
+                return lastDownHatSwitchButtons[button];
             }
             return false;
         }
 
         public void copyLastState() {
-            System.arraycopy( pressedButtons, 0, lastPressedButtons, 0, pressedButtons.length );
-            System.arraycopy( pressedHatSwitchButtons, 0, lastPressedHatSwitchButtons, 0, pressedHatSwitchButtons.length );
+            System.arraycopy( downButtons, 0, lastDownButtons, 0, downButtons.length );
+            System.arraycopy( downTriggerButtons, 0, lastDownTriggerButtons, 0, downTriggerButtons.length );
+            System.arraycopy( downHatSwitchButtons, 0, lastDownHatSwitchButtons, 0, downHatSwitchButtons.length );
         }
 
         public float getHatSwitch() {
@@ -4988,15 +5102,15 @@ public abstract class EngineFrame extends JFrame {
             sb.append( "Gamepad: " ).append( id ).append( " " ).append( name );
 
             sb.append( "\nbuttons: " );
-            for ( int i = 0; i < pressedButtons.length; i++ ) {
-                if ( pressedButtons[i] ) {
+            for ( int i = 0; i < downButtons.length; i++ ) {
+                if ( downButtons[i] ) {
                     sb.append( String.format( "%d ", i ) );
                 }
             }
 
             sb.append( "\nhat switch: " ).append( hatSwitch ).append( " " );
-            for ( int i = 0; i < pressedHatSwitchButtons.length; i++ ) {
-                if ( pressedHatSwitchButtons[i] ) {
+            for ( int i = 0; i < downHatSwitchButtons.length; i++ ) {
+                if ( downHatSwitchButtons[i] ) {
                     sb.append( String.format( "%d ", i ) );
                 }
             }
@@ -5427,11 +5541,14 @@ public abstract class EngineFrame extends JFrame {
     /** Eixo y do analógico direito. */
     public static final int GAMEPAD_AXIS_RIGHT_Y             = 3;
     
-    /** Nível de pressão do gatilho esquerdo. Varia de [0..1]. */
-    public static final int GAMEPAD_AXIS_LEFT_TRIGGER        = 4;
+    /** Eixo z (gatilhos de baixo). Varia entre [1..-1] */
+    public static final int GAMEPAD_AXIS_Z                   = 4;
     
-    /** Nível de pressão do gatilho esquerdo. Varia de [0..1]. */
-    public static final int GAMEPAD_AXIS_RIGHT_TRIGGER       = 5;
+    /** Nível de pressão do gatilho esquerdo. Varia entre [0..1]. */
+    public static final int GAMEPAD_AXIS_LEFT_TRIGGER        = 5;
+    
+    /** Nível de pressão do gatilho esquerdo. Varia entre [0..1]. */
+    public static final int GAMEPAD_AXIS_RIGHT_TRIGGER       = 6;
     
     
     

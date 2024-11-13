@@ -1,6 +1,3 @@
 Suporte à gamepads:
-    Implementar os métodos que estão faltando;
-    Testar;
-    Melhorar o exemplo, colocando também informações sobre os quatro estados dos botões pressionáveis)
-    Organizar arquivos nativos;
-    Ajustar o build para copiar os arquivos nativos.
+    Terminar exemplo para englobar dois controles.
+    Revisar o tratamento dos gatilhos. Ainda não estou satisfeito...

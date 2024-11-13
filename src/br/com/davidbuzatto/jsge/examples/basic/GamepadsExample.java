@@ -25,73 +25,125 @@ import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
  */
 public class GamepadsExample extends EngineFrame {
 
-    private boolean l1Pressed;
-    private boolean l2Pressed;
-    private boolean r1Pressed;
-    private boolean r2Pressed;
+    private boolean l1Down;
+    private boolean l2Down;
+    private boolean r1Down;
+    private boolean r2Down;
     
-    private boolean leftPressed;
-    private boolean upPressed;
-    private boolean rightPressed;
-    private boolean downPressed;
+    private boolean leftDown;
+    private boolean upDown;
+    private boolean rightDown;
+    private boolean downDown;
     
-    private boolean middleLeftPressed;
-    private boolean middleRightPressed;
-    private boolean leftThumbPressed;
-    private boolean rightThumbPressed;
+    private boolean middleLeftDown;
+    private boolean middleRightDown;
+    private boolean leftThumbDown;
+    private boolean rightThumbDown;
     
-    private boolean squarePressed;
-    private boolean trianglePressed;
-    private boolean circlePressed;
-    private boolean xPressed;
+    private boolean squareDown;
+    private boolean triangleDown;
+    private boolean circleDown;
+    private boolean xDown;
     
     private double lx;
     private double ly;
     private double rx;
     private double ry;
+    private double z;
     private double leftTriggerPressure;
     private double rightTriggerPressure;
+    
+    private int[] buttons;
+    private String[] labels;
+    
+    private boolean[][] states;
+    
+    private int currentGamepad;
     
     /**
      * Cria o exemplo.
      */
     public GamepadsExample() {
-        super( 800, 500, "Gamepads", 60, true );
+        super( 620, 390, "Gamepads", 60, true );
     }
     
     @Override
     public void create() {
+        
+        buttons = new int[]{
+            GAMEPAD_BUTTON_LEFT_FACE_LEFT,
+            GAMEPAD_BUTTON_LEFT_FACE_UP,
+            GAMEPAD_BUTTON_LEFT_FACE_RIGHT,
+            GAMEPAD_BUTTON_LEFT_FACE_DOWN,
+            GAMEPAD_BUTTON_MIDDLE_LEFT,
+            GAMEPAD_BUTTON_MIDDLE_RIGHT,
+            GAMEPAD_BUTTON_LEFT_THUMB,
+            GAMEPAD_BUTTON_RIGHT_THUMB,
+            GAMEPAD_BUTTON_RIGHT_FACE_LEFT,
+            GAMEPAD_BUTTON_RIGHT_FACE_UP,
+            GAMEPAD_BUTTON_RIGHT_FACE_RIGHT,
+            GAMEPAD_BUTTON_RIGHT_FACE_DOWN,
+            GAMEPAD_BUTTON_LEFT_TRIGGER_1,
+            GAMEPAD_BUTTON_LEFT_TRIGGER_2,
+            GAMEPAD_BUTTON_RIGHT_TRIGGER_1,
+            GAMEPAD_BUTTON_RIGHT_TRIGGER_2
+        };
+        
+        labels = new String[]{
+            "left", "up", "right", "down", "select", "start", "left thumb", "right thumb",
+            "Square/X", "Triangle/Y", "Circle/B", "Cross/A", "L1/LB", "L2/LT", "R1/RB", "R2/RT"
+        };
+        
+        states = new boolean[buttons.length][4];
+        currentGamepad = GAMEPAD_1;
+        
     }
 
     @Override
     public void update( double delta ) {
         
-        l1Pressed = isGamepadButtonPressed( GAMEPAD_1, GAMEPAD_BUTTON_LEFT_TRIGGER_1 );
-        l2Pressed = isGamepadButtonPressed( GAMEPAD_1, GAMEPAD_BUTTON_LEFT_TRIGGER_2 );
-        r1Pressed = isGamepadButtonPressed( GAMEPAD_1, GAMEPAD_BUTTON_RIGHT_TRIGGER_1 );
-        r2Pressed = isGamepadButtonPressed( GAMEPAD_1, GAMEPAD_BUTTON_RIGHT_TRIGGER_2 );
+        l1Down = isGamepadButtonDown( currentGamepad, GAMEPAD_BUTTON_LEFT_TRIGGER_1 );
+        l2Down = isGamepadButtonDown( currentGamepad, GAMEPAD_BUTTON_LEFT_TRIGGER_2 );
+        r1Down = isGamepadButtonDown( currentGamepad, GAMEPAD_BUTTON_RIGHT_TRIGGER_1 );
+        r2Down = isGamepadButtonDown( currentGamepad, GAMEPAD_BUTTON_RIGHT_TRIGGER_2 );
         
-        leftPressed = isGamepadButtonPressed( GAMEPAD_1, GAMEPAD_BUTTON_LEFT_FACE_LEFT );
-        upPressed = isGamepadButtonPressed( GAMEPAD_1, GAMEPAD_BUTTON_LEFT_FACE_UP );
-        rightPressed = isGamepadButtonPressed( GAMEPAD_1, GAMEPAD_BUTTON_LEFT_FACE_RIGHT );
-        downPressed = isGamepadButtonPressed( GAMEPAD_1, GAMEPAD_BUTTON_LEFT_FACE_DOWN );
+        leftDown = isGamepadButtonDown( currentGamepad, GAMEPAD_BUTTON_LEFT_FACE_LEFT );
+        upDown = isGamepadButtonDown( currentGamepad, GAMEPAD_BUTTON_LEFT_FACE_UP );
+        rightDown = isGamepadButtonDown( currentGamepad, GAMEPAD_BUTTON_LEFT_FACE_RIGHT );
+        downDown = isGamepadButtonDown( currentGamepad, GAMEPAD_BUTTON_LEFT_FACE_DOWN );
         
-        middleLeftPressed = isGamepadButtonPressed( GAMEPAD_1, GAMEPAD_BUTTON_MIDDLE_LEFT );
-        middleRightPressed = isGamepadButtonPressed( GAMEPAD_1, GAMEPAD_BUTTON_MIDDLE_RIGHT );
-        leftThumbPressed = isGamepadButtonPressed( GAMEPAD_1, GAMEPAD_BUTTON_LEFT_THUMB );
-        rightThumbPressed = isGamepadButtonPressed( GAMEPAD_1, GAMEPAD_BUTTON_RIGHT_THUMB );
+        middleLeftDown = isGamepadButtonDown( currentGamepad, GAMEPAD_BUTTON_MIDDLE_LEFT );
+        middleRightDown = isGamepadButtonDown( currentGamepad, GAMEPAD_BUTTON_MIDDLE_RIGHT );
+        leftThumbDown = isGamepadButtonDown( currentGamepad, GAMEPAD_BUTTON_LEFT_THUMB );
+        rightThumbDown = isGamepadButtonDown( currentGamepad, GAMEPAD_BUTTON_RIGHT_THUMB );
         
-        trianglePressed = isGamepadButtonPressed( GAMEPAD_1, GAMEPAD_BUTTON_RIGHT_FACE_UP );
-        circlePressed = isGamepadButtonPressed( GAMEPAD_1, GAMEPAD_BUTTON_RIGHT_FACE_RIGHT );
-        xPressed = isGamepadButtonPressed( GAMEPAD_1, GAMEPAD_BUTTON_RIGHT_FACE_DOWN );
-        squarePressed = isGamepadButtonPressed( GAMEPAD_1, GAMEPAD_BUTTON_RIGHT_FACE_LEFT );
+        triangleDown = isGamepadButtonDown( currentGamepad, GAMEPAD_BUTTON_RIGHT_FACE_UP );
+        circleDown = isGamepadButtonDown( currentGamepad, GAMEPAD_BUTTON_RIGHT_FACE_RIGHT );
+        xDown = isGamepadButtonDown( currentGamepad, GAMEPAD_BUTTON_RIGHT_FACE_DOWN );
+        squareDown = isGamepadButtonDown( currentGamepad, GAMEPAD_BUTTON_RIGHT_FACE_LEFT );
         
-        lx = getGamepadAxisMovement( GAMEPAD_1, GAMEPAD_AXIS_LEFT_X );
-        ly = getGamepadAxisMovement( GAMEPAD_1, GAMEPAD_AXIS_LEFT_Y );
-        rx = getGamepadAxisMovement( GAMEPAD_1, GAMEPAD_AXIS_RIGHT_X );
-        ry = getGamepadAxisMovement( GAMEPAD_1, GAMEPAD_AXIS_RIGHT_Y );
-        leftTriggerPressure = getGamepadAxisMovement( GAMEPAD_1, GAMEPAD_AXIS_LEFT_TRIGGER );
-        rightTriggerPressure = getGamepadAxisMovement( GAMEPAD_1, GAMEPAD_AXIS_RIGHT_TRIGGER );
+        lx = getGamepadAxisMovement( currentGamepad, GAMEPAD_AXIS_LEFT_X );
+        ly = getGamepadAxisMovement( currentGamepad, GAMEPAD_AXIS_LEFT_Y );
+        rx = getGamepadAxisMovement( currentGamepad, GAMEPAD_AXIS_RIGHT_X );
+        ry = getGamepadAxisMovement( currentGamepad, GAMEPAD_AXIS_RIGHT_Y );
+        z = getGamepadAxisMovement( currentGamepad, GAMEPAD_AXIS_Z );
+        leftTriggerPressure = getGamepadAxisMovement( currentGamepad, GAMEPAD_AXIS_LEFT_TRIGGER );
+        rightTriggerPressure = getGamepadAxisMovement( currentGamepad, GAMEPAD_AXIS_RIGHT_TRIGGER );
+        
+        for ( int i = 0; i < states.length; i++ ) {
+            states[i][0] = isGamepadButtonPressed( currentGamepad, buttons[i] );
+            states[i][1] = isGamepadButtonReleased( currentGamepad, buttons[i] );
+            states[i][2] = isGamepadButtonDown( currentGamepad, buttons[i] );
+            states[i][3] = isGamepadButtonUp( currentGamepad, buttons[i] );
+        }
+        
+        if ( isKeyPressed( KEY_SPACE ) ) {
+            if ( currentGamepad == GAMEPAD_1 ) {
+                currentGamepad = GAMEPAD_2;
+            } else {
+                currentGamepad = GAMEPAD_1;
+            }
+        }
         
     }
     
@@ -100,36 +152,61 @@ public class GamepadsExample extends EngineFrame {
         
         clearBackground( WHITE );
         
-        fillRectangle( 50, 100 - 50 * leftTriggerPressure, 50, 50 * leftTriggerPressure, PINK );
-        drawRectangle( 50, 50, 50, 50, BLACK );
-        fillRectangle( 150, 50, 50, 50, l2Pressed ? GREEN : BLUE );
-        fillRectangle( 150, 150, 50, 50, l1Pressed ? GREEN : BLUE );
+        fillRectangle( 40, 60, 60, 30, l2Down ? GOLD : GRAY );
+        fillRectangle( 40, 90 - 30 * leftTriggerPressure, 60, 30 * leftTriggerPressure, BLUE );
+        fillRectangle( 40, 110, 60, 30, l1Down ? GOLD : GRAY );
         
-        fillRectangle( 650, 100 - 50 * rightTriggerPressure, 50, 50 * rightTriggerPressure, PINK );
-        drawRectangle( 650, 50, 50, 50, BLACK );
-        fillRectangle( 550, 50, 50, 50, r2Pressed ? GREEN : BLUE );
-        fillRectangle( 550, 150, 50, 50, r1Pressed ? GREEN : BLUE );
+        fillRectangle( 320, 60, 60, 30, r2Down ? GOLD : GRAY );
+        fillRectangle( 320, 90 - 30 * rightTriggerPressure, 60, 30 * rightTriggerPressure, BLUE );
+        fillRectangle( 320, 110, 60, 30, r1Down ? GOLD : GRAY );
         
-        fillRectangle( 100, 300, 50, 50, leftPressed ? GREEN : BLUE );
-        fillRectangle( 150, 250, 50, 50, upPressed ? GREEN : BLUE );
-        fillRectangle( 200, 300, 50, 50, rightPressed ? GREEN : BLUE );
-        fillRectangle( 150, 350, 50, 50, downPressed ? GREEN : BLUE );
+        fillRectangle( 160, 60, 100 * ( z + 1 ) / 2, 30, BLUE );
+        drawRectangle( 160, 60, 100, 29, BLACK );
+        drawText( String.format( "%+.3f", z ), 175, 68, 20, BLACK );
         
-        fillRectangle( 300, 300, 50, 50, middleLeftPressed ? GREEN : BLUE );
-        fillRectangle( 400, 300, 50, 50, middleRightPressed ? GREEN : BLUE );
+        fillRectangle( 10, 210, 40, 40, leftDown ? GOLD : GRAY );
+        fillRectangle( 50, 170, 40, 40, upDown ? GOLD : GRAY );
+        fillRectangle( 90, 210, 40, 40, rightDown ? GOLD : GRAY );
+        fillRectangle( 50, 250, 40, 40, downDown ? GOLD : GRAY );
         
-        fillCircle( 275, 425, 50, LIGHTGRAY );
-        fillRectangle( 250, 400, 50, 50, leftThumbPressed ? GREEN : BLUE );
-        fillCircle( 275 + 50 * lx, 425 + 50 * ly, 20, BLACK );
+        fillRectangle( 160, 220, 40, 20, middleLeftDown ? GOLD : GRAY );
+        fillRectangle( 220, 220, 40, 20, middleRightDown ? GOLD : GRAY );
         
-        fillCircle( 475, 425, 50, LIGHTGRAY );
-        fillRectangle( 450, 400, 50, 50, rightThumbPressed ? GREEN : BLUE );
-        fillCircle( 475 + 50 * rx, 425 + 50 * ry, 20, BLACK );
+        fillCircle( 135, 340, 40, LIGHTGRAY );
+        fillCircle( 135, 340, 20, leftThumbDown ? GOLD : GRAY );
+        fillCircle( 135 + 25 * lx, 340 + 25 * ly, 15, BLACK );
         
-        fillRectangle( 500, 300, 50, 50, squarePressed ? GREEN : BLUE );
-        fillRectangle( 550, 250, 50, 50, trianglePressed ? GREEN : BLUE );
-        fillRectangle( 600, 300, 50, 50, circlePressed ? GREEN : BLUE );
-        fillRectangle( 550, 350, 50, 50, xPressed ? GREEN : BLUE );
+        fillCircle( 285, 340, 40, LIGHTGRAY );
+        fillCircle( 285, 340, 20, rightThumbDown ? GOLD : GRAY );
+        fillCircle( 285 + 25 * rx, 340 + 25 * ry, 15, BLACK );
+        
+        fillCircle( 310, 230, 20, squareDown ? PINK.darker() : GRAY );
+        fillCircle( 350, 190, 20, triangleDown ? LIME.darker(): GRAY );
+        fillCircle( 390, 230, 20, circleDown ? RED.darker() : GRAY );
+        fillCircle( 350, 270, 20, xDown ? BLUE.darker() : GRAY );
+        
+        setStrokeLineWidth( 4 );
+        drawPolygon( 310, 230, 4, 15, 45, PINK );
+        drawPolygon( 350, 190, 3, 12, 30, LIME );
+        drawCircle( 390, 228, 12, RED );
+        drawLine( 342, 262, 358, 278, BLUE );
+        drawLine( 342, 278, 358, 262, BLUE );
+        
+        setStrokeLineWidth( 1 );
+        int xt = 530;
+        int yt = 60;
+        int w = 20;
+        drawText( "pressed", xt+5, yt-10, -45, 14, BLACK );
+        drawText( "released", xt+25, yt-10, -45, 14, BLACK );
+        drawText( "down", xt+45, yt-10, -45, 14, BLACK );
+        drawText( "up", xt+65, yt-10, -45, 14, BLACK );
+        for ( int i = 0; i < states.length; i++ ) {
+            drawText( labels[i], xt - 10 - measureText( labels[i], 14 ), yt + 5 + w * i, 14, BLACK );
+            for ( int j = 0; j < states[i].length; j++ ) {
+                fillRectangle( xt + w * j, yt + w * i, w, w, states[i][j] ? GOLD : GRAY );
+                drawRectangle( xt + w * j, yt + w * i, w, w, BLACK );
+            }
+        }
         
         drawFPS( 10, 10 );
         
