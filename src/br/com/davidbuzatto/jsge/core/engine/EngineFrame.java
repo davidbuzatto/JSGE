@@ -455,7 +455,7 @@ public abstract class EngineFrame extends JFrame {
 
                 timeBefore = System.currentTimeMillis();
                 
-                gpInputManager.next();
+                gpInputManager.prepareToNextCycle();
                 
                 try {
                     update( frameTime / 1000.0 ); // getFrameTime();
@@ -4586,7 +4586,7 @@ public abstract class EngineFrame extends JFrame {
                         float hatSwitch = component.getPollData();
                         int dpadCode = (int) ( component.getPollData() * 1000 ) / 125;
                         gamepad.setHatSwitch( hatSwitch );
-                        gamepad.resetHatSwitchButtons();
+                        gamepad.resetHatSwitchButtonsState();
                         gamepad.setHatSwitchButtonState( dpadCode, true );
                         continue;
                     }
@@ -4647,7 +4647,7 @@ public abstract class EngineFrame extends JFrame {
         /**
          * Vai para o próximo passo.
          */
-        public void next() {
+        public void prepareToNextCycle() {
             if ( !foundControllers.isEmpty() ) {
                 prepareGamepadsToNextCycle();
                 acquireAllGamepadData();
@@ -4926,12 +4926,12 @@ public abstract class EngineFrame extends JFrame {
         private int id;
         private String name;
         private boolean available;
-        private boolean[] downButtons;
-        private boolean[] lastDownButtons;
-        private boolean[] downTriggerButtons;
-        private boolean[] lastDownTriggerButtons;
-        private boolean[] downHatSwitchButtons;
-        private boolean[] lastDownHatSwitchButtons;
+        private boolean[] buttonsState;
+        private boolean[] previousButtonsState;
+        private boolean[] triggerButtonsState;
+        private boolean[] previousTriggerButtonsState;
+        private boolean[] hatSwitchButtonsState;
+        private boolean[] previousHatSwitchButtonsState;
         private float hatSwitch;
         private double x;
         private double y;
@@ -4942,82 +4942,82 @@ public abstract class EngineFrame extends JFrame {
 
         public Gamepad( int id ) {
             this.id = id;
-            this.downButtons = new boolean[20];
-            this.lastDownButtons = new boolean[20];
-            this.downTriggerButtons = new boolean[2];
-            this.lastDownTriggerButtons = new boolean[20];
-            this.downHatSwitchButtons = new boolean[HAT_SWITCH_BUTTONS_LENGTH];
-            this.lastDownHatSwitchButtons = new boolean[HAT_SWITCH_BUTTONS_LENGTH];
+            this.buttonsState = new boolean[20];
+            this.previousButtonsState = new boolean[20];
+            this.triggerButtonsState = new boolean[2];
+            this.previousTriggerButtonsState = new boolean[20];
+            this.hatSwitchButtonsState = new boolean[HAT_SWITCH_BUTTONS_LENGTH];
+            this.previousHatSwitchButtonsState = new boolean[HAT_SWITCH_BUTTONS_LENGTH];
         }
 
         public void setButtonState( int button, boolean value ) {
-            if ( button < downButtons.length ) {
-                downButtons[button] = value;
+            if ( button < buttonsState.length ) {
+                buttonsState[button] = value;
             }
         }
         
         public void setTriggerButtonState( int button, boolean value ) {
-            if ( button < downTriggerButtons.length ) {
-                downTriggerButtons[button] = value;
+            if ( button < triggerButtonsState.length ) {
+                triggerButtonsState[button] = value;
             }
         }
 
         public void setHatSwitchButtonState( int button, boolean value ) {
-            if ( button < downHatSwitchButtons.length ) {
-                downHatSwitchButtons[button] = value;
+            if ( button < hatSwitchButtonsState.length ) {
+                hatSwitchButtonsState[button] = value;
             }
         }
 
-        public void resetHatSwitchButtons() {
-            System.arraycopy( HAT_SWITCH_DEFAULT_VALUES, 0, downHatSwitchButtons, 0, HAT_SWITCH_BUTTONS_LENGTH );
+        public void resetHatSwitchButtonsState() {
+            System.arraycopy( HAT_SWITCH_DEFAULT_VALUES, 0, hatSwitchButtonsState, 0, HAT_SWITCH_BUTTONS_LENGTH );
         }
 
         public boolean isButtonDown( int button ) {
-            if ( button < downButtons.length ) {
-                return downButtons[button];
+            if ( button < buttonsState.length ) {
+                return buttonsState[button];
             }
             return false;
         }
         
         public boolean isLastButtonDown( int button ) {
-            if ( button < lastDownButtons.length ) {
-                return lastDownButtons[button];
+            if ( button < previousButtonsState.length ) {
+                return previousButtonsState[button];
             }
             return false;
         }
         
         public boolean isTriggerButtonDown( int button ) {
-            if ( button < downTriggerButtons.length ) {
-                return downTriggerButtons[button];
+            if ( button < triggerButtonsState.length ) {
+                return triggerButtonsState[button];
             }
             return false;
         }
         
         public boolean isLastTriggerButtonDown( int button ) {
-            if ( button < lastDownTriggerButtons.length ) {
-                return lastDownTriggerButtons[button];
+            if ( button < previousTriggerButtonsState.length ) {
+                return previousTriggerButtonsState[button];
             }
             return false;
         }
 
         public boolean isHatSwitchButtonDown( int button ) {
-            if ( button < downHatSwitchButtons.length ) {
-                return downHatSwitchButtons[button];
+            if ( button < hatSwitchButtonsState.length ) {
+                return hatSwitchButtonsState[button];
             }
             return false;
         }
         
         public boolean isLastHatSwitchButtonDown( int button ) {
-            if ( button < lastDownHatSwitchButtons.length ) {
-                return lastDownHatSwitchButtons[button];
+            if ( button < previousHatSwitchButtonsState.length ) {
+                return previousHatSwitchButtonsState[button];
             }
             return false;
         }
 
         public void copyLastState() {
-            System.arraycopy( downButtons, 0, lastDownButtons, 0, downButtons.length );
-            System.arraycopy( downTriggerButtons, 0, lastDownTriggerButtons, 0, downTriggerButtons.length );
-            System.arraycopy( downHatSwitchButtons, 0, lastDownHatSwitchButtons, 0, downHatSwitchButtons.length );
+            System.arraycopy( buttonsState, 0, previousButtonsState, 0, buttonsState.length );
+            System.arraycopy( triggerButtonsState, 0, previousTriggerButtonsState, 0, triggerButtonsState.length );
+            System.arraycopy( hatSwitchButtonsState, 0, previousHatSwitchButtonsState, 0, hatSwitchButtonsState.length );
         }
 
         public float getHatSwitch() {
@@ -5104,15 +5104,15 @@ public abstract class EngineFrame extends JFrame {
             sb.append( "Gamepad: " ).append( id ).append( " " ).append( name );
 
             sb.append( "\nbuttons: " );
-            for ( int i = 0; i < downButtons.length; i++ ) {
-                if ( downButtons[i] ) {
+            for ( int i = 0; i < buttonsState.length; i++ ) {
+                if ( buttonsState[i] ) {
                     sb.append( String.format( "%d ", i ) );
                 }
             }
 
             sb.append( "\nhat switch: " ).append( hatSwitch ).append( " " );
-            for ( int i = 0; i < downHatSwitchButtons.length; i++ ) {
-                if ( downHatSwitchButtons[i] ) {
+            for ( int i = 0; i < hatSwitchButtonsState.length; i++ ) {
+                if ( hatSwitchButtonsState[i] ) {
                     sb.append( String.format( "%d ", i ) );
                 }
             }
