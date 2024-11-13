@@ -46,7 +46,6 @@ import java.awt.AWTException;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -87,6 +86,10 @@ import java.util.logging.LogManager;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import net.java.games.input.Component;
+import net.java.games.input.Component.Identifier;
+import net.java.games.input.Controller;
+import net.java.games.input.ControllerEnvironment;
 
 /**
  * Cópia da classe Engine, mas utilizando BufferedStrategy para o desenho.
@@ -256,6 +259,11 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
     /** Armazena o código da última tecla pressionada. */
     private int lastPressedKeyCode = KEY_NULL;
     
+    /**
+     * Gerenciador das entradas dos gamepads.
+     */
+    private GamepadInputManager gpInputManager;
+    
     /** Qual o cursor do momento. */
     private Cursor currentCursor;
     
@@ -372,6 +380,7 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
         currentCursor = getCursor();
         
         prepareInputManager();
+        gpInputManager = new GamepadInputManager();
 
         // configura a engine
         setTitle( windowTitle );
@@ -450,6 +459,8 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
             while ( running ) {
 
                 timeBefore = System.currentTimeMillis();
+                
+                gpInputManager.next();
                 
                 try {
                     update( frameTime / 1000.0 ); // getFrameTime();
@@ -3526,6 +3537,87 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
     
     
     //**************************************************************************
+    // Métodos para gerenciamento dos gamepads.
+    //**************************************************************************
+    
+    /**
+     * Verifica se um gamepad está disponível.
+     * 
+     * @param gamepadId Identificador do gamepad.
+     * @return Verdadeiro se o gamepad está disponível, falso caso contrário.
+     */
+    public boolean isGamepadAvailable( int gamepadId ) {
+        return gpInputManager.isGamepadAvailable( gamepadId );
+    }
+
+    /**
+     * Obtém o nome interno do gamepad.
+     * 
+     * @param gamepadId Identificador do gamepad.
+     * @return O nome interno do gamepad.
+     */
+    public String getGamepadName( int gamepadId ) {
+        return gpInputManager.getGamepadName( gamepadId );
+    }
+
+    /**
+     * Retorna se um botão do gamepad foi pressionado uma vez.
+     * 
+     * @param gamepadId Identificador do gamepad.
+     * @param button O botão.
+     * @return Verdadeiro se o botão foi pressionado uma vez, falso caso contrário.
+     */
+    public boolean isGamepadButtonPressed( int gamepadId, int button ) {
+        return gpInputManager.isGamepadButtonPressed( gamepadId, button );
+    }
+
+    /**
+     * Retorna se um botão do gamepad está pressionado.
+     * 
+     * @param gamepadId Identificador do gamepad.
+     * @param button O botão.
+     * @return Verdadeiro se o botão está pressionado, falso caso contrário.
+     */
+    public boolean isGamepadButtonDown( int gamepadId, int button ) {
+        return gpInputManager.isGamepadButtonDown( gamepadId, button );
+    }
+
+    /**
+     * Retorna se um botão do gamepad foi solto.
+     * 
+     * @param gamepadId Identificador do gamepad.
+     * @param button O botão.
+     * @return Verdadeiro se o botão foi solto, falso caso contrário.
+     */
+    public boolean isGamepadButtonReleased( int gamepadId, int button ) {
+        return gpInputManager.isGamepadButtonReleased( gamepadId, button );
+    }
+
+    /**
+     * Retorna se um botão do gamepad não está pressionado.
+     * 
+     * @param gamepadId Identificador do gamepad.
+     * @param button O botão.
+     * @return Verdadeiro se o botão não está pressionado, falso caso contrário.
+     */
+    public boolean isGamepadButtonUp( int gamepadId, int button ) {
+        return gpInputManager.isGamepadButtonUp( gamepadId, button );
+    }
+
+    /**
+     * Retorna o valor do movimento de um eixo do gamepad.
+     * 
+     * @param gamepadId Identificador do gamepad.
+     * @param axis O eixo.
+     * @return O valor do movimento de um eixo do gamepad.
+     */
+    public double getGamepadAxisMovement( int gamepadId, int axis ) {
+        return gpInputManager.getGamepadAxisMovement( gamepadId, axis );
+    }
+    
+    
+    
+    //**************************************************************************
     // Métodos para controle da câmera
     //**************************************************************************
     
@@ -3801,7 +3893,7 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
 
         private java.awt.Point mouseLocation;
         private java.awt.Point centerLocation;
-        private Component comp;
+        private java.awt.Component comp;
         private Robot robot;
         private boolean isRecentering;
         
@@ -3809,7 +3901,7 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
          * Cria um novo InputManager que ouve as entradas de um componente 
          * específico.
          */
-        public InputManager( Component comp ) {
+        public InputManager( java.awt.Component comp ) {
 
             this.comp = comp;
             mouseLocation = new java.awt.Point();
@@ -4362,6 +4454,675 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
 
     
     
+    /** 
+     * Classe interna para gerenciamento da entrada dos gamepads.
+     *
+     * @author Prof. Dr. David Buzatto
+     */
+    private class GamepadInputManager {
+    
+        private List<Controller> foundControllers;
+        private Gamepad[] gamepads;
+
+        public GamepadInputManager() {
+            createGamepadEnvinronment();
+        }
+
+        /**
+         * Prepara o ambiente para 4 gamepads.
+         */
+        private void createGamepadEnvinronment() {
+
+            gamepads = new Gamepad[4];
+
+            for ( int i = 0; i < gamepads.length; i++ ) {
+                gamepads[i] = new Gamepad( i );
+            }
+
+            searchForControllers();
+
+        }
+
+        /**
+         * Faz a busca pelos controles disponíveis do tipo Controller.Type.GAMEPAD.
+         * São tratados até quatro gamepads.
+         */
+        private void searchForControllers() {
+            
+            foundControllers = new ArrayList<>();
+            
+            try {
+                
+                Controller[] controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
+
+                for ( int i = 0; i < controllers.length; i++ ) {
+
+                    Controller controller = controllers[i];
+
+                    if ( controller.getType() == Controller.Type.GAMEPAD ) {
+                        foundControllers.add( controller );
+                        gamepads[foundControllers.size()-1].setName( controller.getName() );
+                    }
+
+                    if ( foundControllers.size() == 4 ) {
+                        break;
+                    }
+
+                }
+                
+            } catch ( Exception exc ) {
+                traceLogError( CoreUtils.stackTraceToString( exc ) );
+            }
+
+        }
+
+        /**
+         * Obtém os dados para os gamepads disponíveis.
+         */
+        private void acquireAllGamepadData() {
+
+            int i = 0;
+
+            for ( Controller c : foundControllers ) {
+                acquireGamepadData( c, gamepads[i++] );
+            }
+
+        }
+        
+        /**
+         * Processa um Controller e popula o gamepad correspondente.
+         * São usados no máximo 20 botões comuns o que já passa bastante a
+         * quantidade de botões em um gamepad normal.
+         */
+        private void acquireGamepadData( Controller controller, Gamepad gamepad ) {
+
+            // se há dados
+            if ( controller.poll() ) {
+
+                // configura como disponível
+                gamepad.setAvailable( true );
+
+                // percorre todos os componentes do controle
+                net.java.games.input.Component[] components = controller.getComponents();
+
+                for ( int i = 0; i < components.length; i++ ) {
+
+                    Component component = components[i];
+                    Identifier componentIdentifier = component.getIdentifier();
+                    
+                    // botões contém apenas números no nome
+                    if ( componentIdentifier.getName().matches( "^[0-9]*$" ) ) {
+
+                        // o botão está pressionado?
+                        boolean isPressed = true;
+                        if ( component.getPollData() == 0.0f ) {
+                            isPressed = false;
+                        }
+
+                        // índice do botão
+                        int buttonIndex = Integer.parseInt( component.getIdentifier().toString() );
+                        
+                        if ( buttonIndex < 20 ) {
+                            gamepad.setButtonState( buttonIndex, isPressed );
+                        }
+
+                        // pula para a próxima iteração, não precisa testar outros tipos
+                        continue;
+
+                    }
+
+                    // hat switch
+                    if ( componentIdentifier == Component.Identifier.Axis.POV ) {
+                        float hatSwitch = component.getPollData();
+                        int dpadCode = (int) ( component.getPollData() * 1000 ) / 125;
+                        gamepad.setHatSwitch( hatSwitch );
+                        gamepad.resetHatSwitchButtons();
+                        gamepad.setHatSwitchButtonState( dpadCode, true );
+                        continue;
+                    }
+
+                    // eixos
+                    if ( component.isAnalog() ) {
+
+                        float axisValue = component.getPollData();
+
+                        // eixo x
+                        if ( componentIdentifier == Component.Identifier.Axis.X ) {
+                            gamepad.setX( axisValue );
+                            continue;
+                        }
+
+                        // eixo y
+                        if ( componentIdentifier == Component.Identifier.Axis.Y ) {
+                            gamepad.setY( axisValue );
+                            continue;
+                        }
+
+                        // eixo z
+                        if ( componentIdentifier == Component.Identifier.Axis.Z ) {                            
+                            gamepad.setZ( axisValue );
+                            continue;
+                        }
+
+                        // eixo rx
+                        if ( componentIdentifier == Component.Identifier.Axis.RX ) {
+                            gamepad.setRx( axisValue );
+                            continue;
+                        }
+
+                        // eixo ry
+                        if ( componentIdentifier == Component.Identifier.Axis.RY ) {
+                            gamepad.setRy( axisValue );
+                            continue;
+                        }
+
+                        // eixo rz
+                        if ( componentIdentifier == Component.Identifier.Axis.RZ ) {
+                            gamepad.setRz( axisValue );
+                            continue;
+                        }
+
+                    }
+
+                }
+
+                //System.out.println( gamepad );
+
+            } else {
+                traceLogError( "Gamepad %d disconnected", gamepad.getId() );
+            }
+
+        }
+
+        /**
+         * Vai para o próximo passo.
+         */
+        public void next() {
+            if ( !foundControllers.isEmpty() ) {
+                prepareGamepadsToNextCycle();
+                acquireAllGamepadData();
+            }
+        }
+
+        /**
+         * Prepara os gamepads para um novo ciclo.
+         */
+        private void prepareGamepadsToNextCycle() {
+            for ( Gamepad gp : gamepads ) {
+                gp.setAvailable( false );
+                gp.copyLastState();
+            }
+        }
+
+        /**
+         * Verifica se um gamepad está disponível.
+         * 
+         * @param gamepadId Identificador do gamepad.
+         * @return Verdadeiro se o gamepad está disponível, falso caso contrário.
+         */
+        public boolean isGamepadAvailable( int gamepadId ) {
+            if ( gamepadId >= GAMEPAD_1 && gamepadId <= GAMEPAD_4 ) {
+                return gamepads[gamepadId].isAvailable();
+            }
+            traceLogError( "Invalid gamepad %d.", gamepadId );
+            return false;
+        }
+
+        /**
+         * Obtém o nome interno do gamepad.
+         * 
+         * @param gamepadId Identificador do gamepad.
+         * @return O nome interno do gamepad.
+         */
+        public String getGamepadName( int gamepadId ) {
+            if ( isGamepadAvailable( gamepadId ) ) {
+                return gamepads[gamepadId].getName();
+            }
+            return null;
+        }
+
+        /**
+         * Retorna se um botão do gamepad foi pressionado uma vez.
+         * 
+         * @param gamepadId Identificador do gamepad.
+         * @param button O botão.
+         * @return Verdadeiro se o botão foi pressionado uma vez, falso caso contrário.
+         */
+        public boolean isGamepadButtonPressed( int gamepadId, int button ) {
+            
+            if ( isGamepadAvailable( gamepadId ) ) {
+                
+                Gamepad g = gamepads[gamepadId];
+
+                // botões "normais"
+                if ( button >= 0 && button <= 9 ) {
+                    return g.isButtonDown( button ) && !g.isLastButtonDown( button );
+                }
+                
+                // gatilho esquerdo
+                if ( button == 44 ) {
+                    return g.isTriggerButtonDown( 0 ) && !g.isLastTriggerButtonDown( 0 );
+                }
+
+                // gatilho direito
+                if ( button == 55 ) {
+                    return g.isTriggerButtonDown( 1 ) && !g.isLastTriggerButtonDown( 1 );
+                }
+
+                // dpad
+                if ( button >= 10 && button <= 13 ) {
+                    switch ( button ) {
+                        case GAMEPAD_BUTTON_LEFT_FACE_UP:
+                            return ( g.isHatSwitchButtonDown( 1 ) && !g.isLastHatSwitchButtonDown( 1 ) ) ||
+                                   ( g.isHatSwitchButtonDown( 2 ) && !g.isLastHatSwitchButtonDown( 2 ) ) ||
+                                   ( g.isHatSwitchButtonDown( 3 ) && !g.isLastHatSwitchButtonDown( 3 ) );
+                        case GAMEPAD_BUTTON_LEFT_FACE_RIGHT:
+                            return ( g.isHatSwitchButtonDown( 3 ) && !g.isLastHatSwitchButtonDown( 3 ) ) ||
+                                   ( g.isHatSwitchButtonDown( 4 ) && !g.isLastHatSwitchButtonDown( 4 ) ) ||
+                                   ( g.isHatSwitchButtonDown( 5 ) && !g.isLastHatSwitchButtonDown( 5 ) );
+                        case GAMEPAD_BUTTON_LEFT_FACE_DOWN:
+                            return ( g.isHatSwitchButtonDown( 5 ) && !g.isLastHatSwitchButtonDown( 5 ) ) ||
+                                   ( g.isHatSwitchButtonDown( 6 ) && !g.isLastHatSwitchButtonDown( 6 ) ) ||
+                                   ( g.isHatSwitchButtonDown( 7 ) && !g.isLastHatSwitchButtonDown( 7 ) );
+                        case GAMEPAD_BUTTON_LEFT_FACE_LEFT:
+                            return ( g.isHatSwitchButtonDown( 7 ) && !g.isLastHatSwitchButtonDown( 7 ) ) ||
+                                   ( g.isHatSwitchButtonDown( 8 ) && !g.isLastHatSwitchButtonDown( 8 ) ) ||
+                                   ( g.isHatSwitchButtonDown( 1 ) && !g.isLastHatSwitchButtonDown( 1 ) );
+                    }
+                }
+                
+            }
+            
+            return false;
+
+        }
+
+        /**
+         * Retorna se um botão do gamepad está pressionado.
+         * 
+         * @param gamepadId Identificador do gamepad.
+         * @param button O botão.
+         * @return Verdadeiro se o botão está pressionado, falso caso contrário.
+         */
+        public boolean isGamepadButtonDown( int gamepadId, int button ) {
+            
+            if ( isGamepadAvailable( gamepadId ) ) {
+                
+                Gamepad g = gamepads[gamepadId];
+
+                // botões "normais"
+                if ( button >= 0 && button <= 9 ) {
+                    return g.isButtonDown( button );
+                }
+
+                // gatilho esquerdo
+                if ( button == 44 ) {
+                    g.setTriggerButtonState( 0, g.getZ() > 0.0 );
+                    return g.isTriggerButtonDown( 0 );
+                }
+
+                // gatilho direito
+                if ( button == 55 ) {
+                    g.setTriggerButtonState( 1, g.getZ() < -0.0001 );
+                    return g.isTriggerButtonDown( 1 );
+                }
+
+                // dpad
+                if ( button >= 10 && button <= 13 ) {
+                    switch ( button ) {
+                        case GAMEPAD_BUTTON_LEFT_FACE_UP:
+                            return g.isHatSwitchButtonDown( 1 ) || 
+                                   g.isHatSwitchButtonDown( 2 ) || 
+                                   g.isHatSwitchButtonDown( 3 );
+                        case GAMEPAD_BUTTON_LEFT_FACE_RIGHT:
+                            return g.isHatSwitchButtonDown( 3 ) || 
+                                   g.isHatSwitchButtonDown( 4 ) || 
+                                   g.isHatSwitchButtonDown( 5 );
+                        case GAMEPAD_BUTTON_LEFT_FACE_DOWN:
+                            return g.isHatSwitchButtonDown( 5 ) || 
+                                   g.isHatSwitchButtonDown( 6 ) || 
+                                   g.isHatSwitchButtonDown( 7 );
+                        case GAMEPAD_BUTTON_LEFT_FACE_LEFT:
+                            return g.isHatSwitchButtonDown( 7 ) || 
+                                   g.isHatSwitchButtonDown( 8 ) ||
+                                   g.isHatSwitchButtonDown( 1 );
+                    }
+                }
+            
+            }
+            
+            return false;
+            
+        }
+
+        /**
+         * Retorna se um botão do gamepad foi solto.
+         * 
+         * @param gamepadId Identificador do gamepad.
+         * @param button O botão.
+         * @return Verdadeiro se o botão foi solto, falso caso contrário.
+         */
+        public boolean isGamepadButtonReleased( int gamepadId, int button ) {
+            
+            if ( isGamepadAvailable( gamepadId ) ) {
+                
+                Gamepad g = gamepads[gamepadId];
+
+                // botões "normais"
+                if ( button >= 0 && button <= 9 ) {
+                    return !g.isButtonDown( button ) && g.isLastButtonDown( button );
+                }
+                
+                // gatilho esquerdo
+                if ( button == 44 ) {
+                    return !g.isTriggerButtonDown( 0 ) && g.isLastTriggerButtonDown( 0 );
+                }
+
+                // gatilho direito
+                if ( button == 55 ) {
+                    return !g.isTriggerButtonDown( 1 ) && g.isLastTriggerButtonDown( 1 );
+                }
+
+                // dpad
+                if ( button >= 10 && button <= 13 ) {
+                    switch ( button ) {
+                        case GAMEPAD_BUTTON_LEFT_FACE_UP:
+                            return ( !g.isHatSwitchButtonDown( 1 ) && g.isLastHatSwitchButtonDown( 1 ) ) ||
+                                   ( !g.isHatSwitchButtonDown( 2 ) && g.isLastHatSwitchButtonDown( 2 ) ) ||
+                                   ( !g.isHatSwitchButtonDown( 3 ) && g.isLastHatSwitchButtonDown( 3 ) );
+                        case GAMEPAD_BUTTON_LEFT_FACE_RIGHT:
+                            return ( !g.isHatSwitchButtonDown( 3 ) && g.isLastHatSwitchButtonDown( 3 ) ) ||
+                                   ( !g.isHatSwitchButtonDown( 4 ) && g.isLastHatSwitchButtonDown( 4 ) ) ||
+                                   ( !g.isHatSwitchButtonDown( 5 ) && g.isLastHatSwitchButtonDown( 5 ) );
+                        case GAMEPAD_BUTTON_LEFT_FACE_DOWN:
+                            return ( !g.isHatSwitchButtonDown( 5 ) && g.isLastHatSwitchButtonDown( 5 ) ) ||
+                                   ( !g.isHatSwitchButtonDown( 6 ) && g.isLastHatSwitchButtonDown( 6 ) ) ||
+                                   ( !g.isHatSwitchButtonDown( 7 ) && g.isLastHatSwitchButtonDown( 7 ) );
+                        case GAMEPAD_BUTTON_LEFT_FACE_LEFT:
+                            return ( !g.isHatSwitchButtonDown( 7 ) && g.isLastHatSwitchButtonDown( 7 ) ) ||
+                                   ( !g.isHatSwitchButtonDown( 8 ) && g.isLastHatSwitchButtonDown( 8 ) ) ||
+                                   ( !g.isHatSwitchButtonDown( 1 ) && g.isLastHatSwitchButtonDown( 1 ) );
+                    }
+                }
+                
+            }
+            
+            return false;
+            
+        }
+
+        /**
+         * Retorna se um botão do gamepad não está pressionado.
+         * 
+         * @param gamepadId Identificador do gamepad.
+         * @param button O botão.
+         * @return Verdadeiro se o botão não está pressionado, falso caso contrário.
+         */
+        public boolean isGamepadButtonUp( int gamepadId, int button ) {
+            if ( isGamepadAvailable( gamepadId ) ) {
+                return !isGamepadButtonDown( gamepadId, button );
+            }
+            return false;
+        }
+
+        /**
+         * Retorna o valor do movimento de um eixo do gamepad.
+         * 
+         * @param gamepadId Identificador do gamepad.
+         * @param axis O eixo.
+         * @return O valor do movimento de um eixo do gamepad.
+         */
+        public double getGamepadAxisMovement( int gamepadId, int axis ) {
+
+            if ( isGamepadAvailable( gamepadId ) ) {
+                
+                switch ( axis ) {
+                    case GAMEPAD_AXIS_LEFT_X:
+                        return gamepads[gamepadId].getX();
+                    case GAMEPAD_AXIS_LEFT_Y:
+                        return gamepads[gamepadId].getY();
+                    case GAMEPAD_AXIS_RIGHT_X:
+                        return gamepads[gamepadId].getRx();
+                    case GAMEPAD_AXIS_RIGHT_Y:
+                        return gamepads[gamepadId].getRy();
+                    case GAMEPAD_AXIS_Z:
+                        return gamepads[gamepadId].getZ();
+                    case GAMEPAD_AXIS_LEFT_TRIGGER:
+                        return gamepads[gamepadId].getZ();
+                    case GAMEPAD_AXIS_RIGHT_TRIGGER:
+                        return -gamepads[gamepadId].getZ();
+                }
+                
+            }
+            
+            return 0;
+
+        }
+    
+    }
+    
+    
+    
+    /**
+     * Representação de um gamepad/joystick/controle.
+     * 
+     * @author Prof. Dr. David Buzatto
+     */
+    private class Gamepad {
+
+        private static final int HAT_SWITCH_BUTTONS_LENGTH = 9;
+        private static final boolean[] HAT_SWITCH_DEFAULT_VALUES = new boolean[HAT_SWITCH_BUTTONS_LENGTH];
+
+        private int id;
+        private String name;
+        private boolean available;
+        private boolean[] downButtons;
+        private boolean[] lastDownButtons;
+        private boolean[] downTriggerButtons;
+        private boolean[] lastDownTriggerButtons;
+        private boolean[] downHatSwitchButtons;
+        private boolean[] lastDownHatSwitchButtons;
+        private float hatSwitch;
+        private double x;
+        private double y;
+        private double z;
+        private double rx;
+        private double ry;
+        private double rz;
+
+        public Gamepad( int id ) {
+            this.id = id;
+            this.downButtons = new boolean[20];
+            this.lastDownButtons = new boolean[20];
+            this.downTriggerButtons = new boolean[2];
+            this.lastDownTriggerButtons = new boolean[20];
+            this.downHatSwitchButtons = new boolean[HAT_SWITCH_BUTTONS_LENGTH];
+            this.lastDownHatSwitchButtons = new boolean[HAT_SWITCH_BUTTONS_LENGTH];
+        }
+
+        public void setButtonState( int button, boolean value ) {
+            if ( button < downButtons.length ) {
+                downButtons[button] = value;
+            }
+        }
+        
+        public void setTriggerButtonState( int button, boolean value ) {
+            if ( button < downTriggerButtons.length ) {
+                downTriggerButtons[button] = value;
+            }
+        }
+
+        public void setHatSwitchButtonState( int button, boolean value ) {
+            if ( button < downHatSwitchButtons.length ) {
+                downHatSwitchButtons[button] = value;
+            }
+        }
+
+        public void resetHatSwitchButtons() {
+            System.arraycopy( HAT_SWITCH_DEFAULT_VALUES, 0, downHatSwitchButtons, 0, HAT_SWITCH_BUTTONS_LENGTH );
+        }
+
+        public boolean isButtonDown( int button ) {
+            if ( button < downButtons.length ) {
+                return downButtons[button];
+            }
+            return false;
+        }
+        
+        public boolean isLastButtonDown( int button ) {
+            if ( button < lastDownButtons.length ) {
+                return lastDownButtons[button];
+            }
+            return false;
+        }
+        
+        public boolean isTriggerButtonDown( int button ) {
+            if ( button < downTriggerButtons.length ) {
+                return downTriggerButtons[button];
+            }
+            return false;
+        }
+        
+        public boolean isLastTriggerButtonDown( int button ) {
+            if ( button < lastDownTriggerButtons.length ) {
+                return lastDownTriggerButtons[button];
+            }
+            return false;
+        }
+
+        public boolean isHatSwitchButtonDown( int button ) {
+            if ( button < downHatSwitchButtons.length ) {
+                return downHatSwitchButtons[button];
+            }
+            return false;
+        }
+        
+        public boolean isLastHatSwitchButtonDown( int button ) {
+            if ( button < lastDownHatSwitchButtons.length ) {
+                return lastDownHatSwitchButtons[button];
+            }
+            return false;
+        }
+
+        public void copyLastState() {
+            System.arraycopy( downButtons, 0, lastDownButtons, 0, downButtons.length );
+            System.arraycopy( downTriggerButtons, 0, lastDownTriggerButtons, 0, downTriggerButtons.length );
+            System.arraycopy( downHatSwitchButtons, 0, lastDownHatSwitchButtons, 0, downHatSwitchButtons.length );
+        }
+
+        public float getHatSwitch() {
+            return hatSwitch;
+        }
+
+        public void setHatSwitch( float hatSwitch ) {
+            this.hatSwitch = hatSwitch;
+        }
+
+        public double getX() {
+            return x;
+        }
+
+        public void setX( double x ) {
+            this.x = x;
+        }
+
+        public double getY() {
+            return y;
+        }
+
+        public void setY( double y ) {
+            this.y = y;
+        }
+
+        public double getZ() {
+            return z;
+        }
+
+        public void setZ( double z ) {
+            this.z = z;
+        }
+
+        public double getRx() {
+            return rx;
+        }
+
+        public void setRx( double rx ) {
+            this.rx = rx;
+        }
+
+        public double getRy() {
+            return ry;
+        }
+
+        public void setRy( double ry ) {
+            this.ry = ry;
+        }
+
+        public double getRz() {
+            return rz;
+        }
+
+        public void setRz( double rz ) {
+            this.rz = rz;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName( String name ) {
+            this.name = name;
+        }
+
+        public boolean isAvailable() {
+            return available;
+        }
+
+        public void setAvailable( boolean available ) {
+            this.available = available;
+        }
+
+        @Override
+        public String toString() {
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.append( "Gamepad: " ).append( id ).append( " " ).append( name );
+
+            sb.append( "\nbuttons: " );
+            for ( int i = 0; i < downButtons.length; i++ ) {
+                if ( downButtons[i] ) {
+                    sb.append( String.format( "%d ", i ) );
+                }
+            }
+
+            sb.append( "\nhat switch: " ).append( hatSwitch ).append( " " );
+            for ( int i = 0; i < downHatSwitchButtons.length; i++ ) {
+                if ( downHatSwitchButtons[i] ) {
+                    sb.append( String.format( "%d ", i ) );
+                }
+            }
+
+            sb.append( "\naxes: " )
+                .append( String.format( "x: %.2f ", x ) )
+                .append( String.format( "y: %.2f ", y ) )
+                .append( String.format( "z: %.2f ", z ) )
+                .append( String.format( "rx: %.2f ", rx ) )
+                .append( String.format( "ry: %.2f ", ry ) )
+                .append( String.format( "rz: %.2f ", rz ) );
+
+            return sb.toString();
+
+        }
+
+    }
+    
+    
+    
     //**************************************************************************
     // Constantes para teclas.
     //**************************************************************************
@@ -4684,6 +5445,106 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
     public static final int MOUSE_BUTTON_RIGHT   = MouseEvent.BUTTON3;
     
 
+    
+    //**************************************************************************
+    // Constantes identificadores de gamepads.
+    //**************************************************************************
+    
+    /** Gamepad 1 */
+    public static final int GAMEPAD_1 = 0;
+    
+    /** Gamepad 2 */
+    public static final int GAMEPAD_2 = 1;
+    
+    /** Gamepad 3 */
+    public static final int GAMEPAD_3 = 2;
+    
+    /** Gamepad 4 */
+    public static final int GAMEPAD_4 = 3;
+    
+    
+    
+    //**************************************************************************
+    // Constantes para botões dos gamepads.
+    //**************************************************************************
+    
+    /** Botão desconhecido (para tratamento de erros apenas). */
+    public static final int GAMEPAD_BUTTON_UNKNOWN = -1;
+    
+    /** Botão para baixo do pad digital (dpad) esquerdo */
+    public static final int GAMEPAD_BUTTON_LEFT_FACE_DOWN    = 10;
+    
+    /** Botão para direita do pad digital (dpad) esquerdo */
+    public static final int GAMEPAD_BUTTON_LEFT_FACE_RIGHT   = 11;
+    
+    /** Botão para esquerda do pad digital (dpad) esquerdo */
+    public static final int GAMEPAD_BUTTON_LEFT_FACE_LEFT    = 12;
+    
+    /** Botão para cima do pad digital (dpad) esquerdo */
+    public static final int GAMEPAD_BUTTON_LEFT_FACE_UP      = 13;
+    
+    /** Botão para baixo dos botões da direita. PS: X / Xbox: A */
+    public static final int GAMEPAD_BUTTON_RIGHT_FACE_DOWN   = 0;
+    
+    /** Botão para direita dos botões da direita. PS: Círculo / Xbox: B */
+    public static final int GAMEPAD_BUTTON_RIGHT_FACE_RIGHT  = 1;
+    
+    /** Botão para esquerda dos botões da direita. PS: Quadrado / Xbox: X */
+    public static final int GAMEPAD_BUTTON_RIGHT_FACE_LEFT   = 2;
+    
+    /** Botão para cima dos botões da direita. PS: Triângulo / Xbox: Y */
+    public static final int GAMEPAD_BUTTON_RIGHT_FACE_UP     = 3;
+    
+    /** Gatilho de cima da esquerda. PS: L1 / Xbox: LB */
+    public static final int GAMEPAD_BUTTON_LEFT_TRIGGER_1    = 4;
+    
+    /** Gatilho de baixo da esquerda. PS: L2 / Xbox: LT */
+    public static final int GAMEPAD_BUTTON_LEFT_TRIGGER_2    = 44;
+    
+    /** Gatilho de cima da direita. PS: R1 / Xbox: RB */
+    public static final int GAMEPAD_BUTTON_RIGHT_TRIGGER_1   = 5;
+    
+    /** Gatilho de baixo da direita. PS: R2 / Xbox: RT */
+    public static final int GAMEPAD_BUTTON_RIGHT_TRIGGER_2   = 55;
+    
+    /** Botão da esquerda do centro. "Select". */
+    public static final int GAMEPAD_BUTTON_MIDDLE_LEFT       = 6;
+    
+    /** Botão da direita do centro. "Start". */
+    public static final int GAMEPAD_BUTTON_MIDDLE_RIGHT      = 7;
+    
+    /** Botão do analógico esquerdo. */
+    public static final int GAMEPAD_BUTTON_LEFT_THUMB        = 8;
+    
+    /** Botão do analógico direito. */
+    public static final int GAMEPAD_BUTTON_RIGHT_THUMB       = 9;
+    
+    //**************************************************************************
+    // Constantes para os eixos dos gamepads.
+    //**************************************************************************
+    
+    /** Eixo x do analógico esquerdo. */
+    public static final int GAMEPAD_AXIS_LEFT_X              = 0;
+    
+    /** Eixo y do analógico esquerdo. */
+    public static final int GAMEPAD_AXIS_LEFT_Y              = 1;
+    
+    /** Eixo x do analógico direito. */
+    public static final int GAMEPAD_AXIS_RIGHT_X             = 2;
+    
+    /** Eixo y do analógico direito. */
+    public static final int GAMEPAD_AXIS_RIGHT_Y             = 3;
+    
+    /** Eixo z (gatilhos de baixo). Varia entre [1..-1] */
+    public static final int GAMEPAD_AXIS_Z                   = 4;
+    
+    /** Nível de pressão do gatilho esquerdo. Varia entre [0..1]. */
+    public static final int GAMEPAD_AXIS_LEFT_TRIGGER        = 5;
+    
+    /** Nível de pressão do gatilho esquerdo. Varia entre [0..1]. */
+    public static final int GAMEPAD_AXIS_RIGHT_TRIGGER       = 6;
+    
+    
     
     //**************************************************************************
     // Constantes para o cursor do mouse.

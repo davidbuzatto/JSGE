@@ -4462,6 +4462,8 @@ public abstract class EngineFrame extends JFrame {
         
     }
 
+    
+    
     /** 
      * Classe interna para gerenciamento da entrada dos gamepads.
      *
@@ -4637,7 +4639,7 @@ public abstract class EngineFrame extends JFrame {
                 //System.out.println( gamepad );
 
             } else {
-                traceLogError( "Gamepad %d disconnected", gamepad.getId() );
+                traceLogError( "Gamepad %d disconnected", gamepad.getId() + 1 );
             }
 
         }
@@ -5128,6 +5130,8 @@ public abstract class EngineFrame extends JFrame {
         }
 
     }
+    
+    
     
     //**************************************************************************
     // Constantes para teclas.

@@ -1,4 +1,15 @@
 Suporte à gamepads:
-    Terminar exemplo para englobar dois controles.
-    Replicar no BufferStrategyEngineFrame.
     Revisar o tratamento dos gatilhos. Ainda não estou satisfeito...
+        Ideia -> controlar a variação, se subiu, desceu até um limite etc.
+
+
+Documentação nos métodos de entrada de gamepads caso não consiga resolver acima.
+Atenção: Os gatilhos de baixo, tanto esquerdo (L2/LT), quanto direito (R2/RT),
+têm funcionamento um tanto peculiar, dada a implementação da biblioteca
+JInput. Ambos atuam em conjunto, alterando o valor do eixo z, para controles
+padrão para PC. Sendo assim, as propriedades de pressionamento podem 
+ocorrer de forma um tanto errática. Em controles em que não há gerenciamento
+da pressão... terminar esse texto caso necessário.
+
+
+Raylib varia de -1 a 1 (não pressionado/pressionado) os valores.
