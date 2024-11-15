@@ -98,18 +98,20 @@ public class ColorMethodsExample extends EngineFrame {
         
         int radius = 180;
         int bQuantity = 6;
+        int step = 15;
         int x = getScreenWidth() - radius - 50; 
         int y = getScreenHeight() / 2;
+        double iTurn = -97.5;
         
         for ( double r = radius; r > 0; r -= radius / bQuantity ) {
-            for ( int i = 0; i < 360; i += 15 ) {
-                fillCircleSector( x, y, r, i, i + 16, ColorUtils.colorFromHSV( i - 90, 1, r / radius ) );
+            for ( int i = 0; i < 360; i += step ) {
+                fillCircleSector( x, y, r, i + iTurn, i + iTurn + step + 1, ColorUtils.colorFromHSV( i, 1, r / radius ) );
             }
         }
         
-        for ( int i = 0; i < 360; i += 15 ) {
-            double xp = x + Math.cos( Math.toRadians( i - 90 + 7.5 ) ) * ( radius + 15 );
-            double yp = y + Math.sin( Math.toRadians( i - 90 + 7.5 ) ) * ( radius + 15 );
+        for ( int i = 0; i < 360; i += step ) {
+            double xp = x + Math.cos( Math.toRadians( i + iTurn + 7.5 ) ) * ( radius + 15 );
+            double yp = y + Math.sin( Math.toRadians( i + iTurn + 7.5 ) ) * ( radius + 15 );
             String s = String.valueOf( i );
             int w = measureText( s, 16 );
             drawText( String.valueOf( i ), xp - w / 2, yp - 4, 16, BLACK );
