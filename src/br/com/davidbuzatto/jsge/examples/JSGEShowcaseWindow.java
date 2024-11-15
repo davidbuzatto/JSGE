@@ -17,6 +17,7 @@
 package br.com.davidbuzatto.jsge.examples;
 
 import br.com.davidbuzatto.jsge.core.utils.CoreUtils;
+import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.examples.basic.CollisionDetectionExample;
 import br.com.davidbuzatto.jsge.examples.basic.ColorMethodsExample;
 import br.com.davidbuzatto.jsge.examples.basic.DrawingWithPrimitivesMethodsExample;
@@ -44,6 +45,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     public JSGEShowcaseWindow() {
         initComponents();
         setTitle( String.format( "JSGE Showcase - %s", CoreUtils.getVersion() ) );
+        setIconImage( DrawingUtils.createLogo().buffImage );
     }
 
     /**
