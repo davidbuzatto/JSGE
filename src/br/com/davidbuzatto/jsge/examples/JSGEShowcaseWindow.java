@@ -77,7 +77,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHeader.setText("JSGE Showcase - Prof. Dr. David Buzatto");
 
-        btnDrawingPrimitiveMethods.setText("Drawing with Primitives Methods");
+        btnDrawingPrimitiveMethods.setText("Drawing with Primitive Methods");
         btnDrawingPrimitiveMethods.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDrawingPrimitiveMethodsActionPerformed(evt);

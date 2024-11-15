@@ -94,7 +94,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnDrawingPrimitiveMethods">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Drawing with Primitives Methods"/>
+        <Property name="text" type="java.lang.String" value="Drawing with Primitive Methods"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDrawingPrimitiveMethodsActionPerformed"/>
