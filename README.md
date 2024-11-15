@@ -1,7 +1,7 @@
 # JSimple Game Engine (JSGE)
 
 
-# Sobre
+## Sobre
 A JSGE é uma engine simples para desenvolvimento de jogos e simulações em Java. Ela atua como uma camada de abstração ao [Java2D](https://docs.oracle.com/javase/tutorial/2d/index.html), tornando as operações de desenho mais transparentes e gerenciando diversas funcionalidades inerentes ao desenvolvimento de jogos. A motivação para seu desenvolvimento inicial foi prover aos meus alunos, estudantes das disciplinas introdutórias de programação orientada a objetos, uma forma mais simples desenharem figuras geométricas em Java. Essa abstração inicial cresceu ao ponto de eu decidir implementar uma engine que tem funcionamento e filosofia iguais à excelente engine de jogos [Raylib](www.raylib.com). A documentação provida no código fonte e disponibilizada via Javadoc está em português, pois meu foco são meus alunos, mas nada impede que futuramente seja traduzida para inglês.
 
 
@@ -16,12 +16,12 @@ Ainda, o showcase pode ser visto executando-se o arquivo JSGE-vx.x.x-bin.jar con
 
 ---
 
-# About
+## About
 Simple engine for developing games and basic simulations. Implemented using the Raylib engine (www.raylib.com) as a base.
 
 
 ## How to use
-The easiest way to use it is to download one of the templates available at https://github.com/davidbuzatto/Templates-JSGE and start developing. Many of the features are exemplified in the examples presented in the showcase, all contained in the [br.com.davidbuzatto.jsge.examples](https://github.com/davidbuzatto/JSGE/tree/master/src/br/com/davidbuzatto/jsge/exemplos) package. In fact, every user is encouraged to explore the engine's source code to understand how things work and what features are available. In the releases there is also a .zip file with the engine's documentation (writen in brazilian portuguese).
+The easiest way to use it is to download one of the templates available at https://github.com/davidbuzatto/Templates-JSGE and start developing. Many of the features are exemplified in the examples presented in the showcase, all contained in the [br.com.davidbuzatto.jsge.examples](https://github.com/davidbuzatto/JSGE/tree/master/src/br/com/davidbuzatto/jsge/exemples) package. In fact, every user is encouraged to explore the engine's source code to understand how things work and what features are available. In the releases there is also a .zip file with the engine's documentation (writen in brazilian portuguese).
 
 Note that the engine depends on some native libraries for managing controls/gamepads/joysticks, these are part of [JInput](https://jinput.github.io/jinput/). No NetBeans template [these files](https://github.com/davidbuzatto/JSGE/tree/master/lib/jinput-2.0.10-natives-all) will be copied to the distribution directory automatically when the project is checked. No VS Code template is required to do this task manually.
 
