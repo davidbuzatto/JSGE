@@ -2,8 +2,6 @@
 
 <img align="left" style="width:260px" src="https://github.com/davidbuzatto/JSGE/blob/master/resources/images/logoJSGE.png" width="288px">
 
-
-## Sobre
 A JSGE é uma engine simples para desenvolvimento de jogos e simulações em Java. Ela atua como uma camada de abstração ao [Java2D](https://docs.oracle.com/javase/tutorial/2d/index.html), tornando as operações de desenho mais transparentes e gerenciando diversas funcionalidades inerentes ao desenvolvimento de jogos. A motivação para seu desenvolvimento inicial foi prover aos meus alunos, estudantes das disciplinas introdutórias de programação orientada a objetos, uma forma mais simples de desenhar figuras geométricas em Java. Essa abstração inicial cresceu ao ponto de eu decidir implementar uma engine que tem funcionamento e filosofia iguais à excelente engine de jogos [Raylib](https://www.raylib.com). A documentação provida no código fonte e disponibilizada via Javadoc está em português, pois meu foco são meus alunos, mas nada impede que futuramente seja traduzida para inglês.
 
 ---
