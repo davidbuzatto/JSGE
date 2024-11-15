@@ -16,11 +16,14 @@
  */
 package br.com.davidbuzatto.jsge.core.utils;
 
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.image.Image;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Paint;
 import java.awt.RenderingHints;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Path2D;
@@ -303,6 +306,70 @@ public interface DrawingUtils {
         g2d.dispose();
         
         return new Image( img );
+        
+    }
+    
+    /**
+     * Cria uma imagem do logo da JSGE.
+     * 
+     * @return Uma imagem do logo da JSGE.
+     */
+    public static Image createLogo() {
+        
+        int w = 512;
+        int x = 0;
+        int y = 0;
+        int wi = 40;
+        
+        Image logo = new Image( w, w );
+        
+        Rectangle re = new Rectangle( x, y, w, w );
+        Rectangle ri = new Rectangle( x + wi, y + wi, w - wi * 2, w - wi * 2 );
+        
+        double right = ri.x + ri.width;
+        double down = ri.y + ri.height;
+        
+        Color c1 = new Color( 9, 110, 201 );
+        Color c2 = new Color( 177, 130, 148 );
+        Color c3 = new Color( 242, 147, 14 );        
+        Paint g = PaintUtils.getLinearGradientPaint( ri.x, ri.y, right, down, new float[]{ 0.0f, 0.5f, 1.0f }, new Color[]{ c1, c2, c3 } );
+        
+        logo.fillRectangle( re, g );
+        logo.fillRectangle( ri, EngineFrame.RAYWHITE );
+        
+        int sw = 18;
+        int lh = 7 * sw;
+        int lw = 5 * sw;
+        int margin = sw;
+        
+        // j
+        logo.fillRectangle( right - margin - sw * 2 - lw, down - margin - sw - lh * 2 - sw * 2, sw, sw, EngineFrame.BLACK );
+        logo.fillRectangle( right - margin - sw * 2 - lw, down - margin - sw - lh * 2, sw, lh, EngineFrame.BLACK );
+        logo.fillRectangle( right - margin - sw * 2 - lw - sw, down - margin - sw * 2 - lh, sw * 2, sw, EngineFrame.BLACK );
+        
+        // s
+        logo.fillRectangle( right - margin - sw * 5, down - margin - sw - lh * 2, sw * 5, sw, EngineFrame.BLACK );
+        logo.fillRectangle( right - margin - sw * 5, down - margin - lh * 2, sw, sw, EngineFrame.BLACK );
+        logo.fillRectangle( right - margin - sw * 5, down - margin + sw - lh * 2, sw * 5, sw, EngineFrame.BLACK );
+        logo.fillRectangle( right - margin - sw, down - margin + sw * 2 - lh * 2, sw, sw, EngineFrame.BLACK );
+        logo.fillRectangle( right - margin - sw * 5, down - margin + sw * 3 - lh * 2, sw * 5, sw, EngineFrame.BLACK );
+        
+        // g
+        logo.fillRectangle( right - margin - sw * 6 - lw, down - margin - lh, sw * 5, sw, EngineFrame.BLACK );
+        logo.fillRectangle( right - margin - sw * 6 - lw, down - margin + sw - lh, sw, sw * 3, EngineFrame.BLACK );
+        logo.fillRectangle( right - margin - sw * 2 - lw, down - margin + sw - lh, sw, sw * 5, EngineFrame.BLACK );
+        logo.fillRectangle( right - margin - sw * 6 - lw, down - margin + sw * 4 - lh, sw * 5, sw, EngineFrame.BLACK );
+        logo.fillRectangle( right - margin - sw * 6 - lw, down - margin + sw * 6 - lh, sw * 5, sw, EngineFrame.BLACK );
+        
+        // e
+        logo.fillRectangle( right - margin - sw * 5, down - margin - lh, sw * 5, sw, EngineFrame.BLACK );
+        logo.fillRectangle( right - margin - sw * 5, down - margin + sw - lh, sw, sw, EngineFrame.BLACK );
+        logo.fillRectangle( right - margin - sw, down - margin + sw - lh, sw, sw, EngineFrame.BLACK );
+        logo.fillRectangle( right - margin - sw * 5, down - margin + sw * 2 - lh, sw * 5, sw, EngineFrame.BLACK );
+        logo.fillRectangle( right - margin - sw * 5, down - margin + sw * 3 - lh, sw, sw, EngineFrame.BLACK );
+        logo.fillRectangle( right - margin - sw * 5, down - margin + sw * 4 - lh, sw * 5, sw, EngineFrame.BLACK );
+        
+        return logo;
         
     }
     
