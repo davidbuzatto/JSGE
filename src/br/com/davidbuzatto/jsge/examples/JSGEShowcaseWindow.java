@@ -20,8 +20,8 @@ import br.com.davidbuzatto.jsge.core.utils.CoreUtils;
 import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.examples.basic.CollisionDetectionExample;
 import br.com.davidbuzatto.jsge.examples.basic.ColorMethodsExample;
-import br.com.davidbuzatto.jsge.examples.basic.DrawingWithPrimitivesMethodsExample;
-import br.com.davidbuzatto.jsge.examples.basic.DrawingWithPrimitivesObjectsExample;
+import br.com.davidbuzatto.jsge.examples.basic.DrawingWithPrimitiveMethodsExample;
+import br.com.davidbuzatto.jsge.examples.basic.DrawingWithPrimitiveObjectsExample;
 import br.com.davidbuzatto.jsge.examples.basic.ImageLoadingProcessingExample;
 import br.com.davidbuzatto.jsge.examples.basic.PaintingCapabilitiesExample;
 import br.com.davidbuzatto.jsge.examples.basic.SoundAndMusicExample;
@@ -232,11 +232,11 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDrawingPrimitiveMethodsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDrawingPrimitiveMethodsActionPerformed
-        new DrawingWithPrimitivesMethodsExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        new DrawingWithPrimitiveMethodsExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnDrawingPrimitiveMethodsActionPerformed
 
     private void btnDrawingPrimitiveObjectsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDrawingPrimitiveObjectsActionPerformed
-        new DrawingWithPrimitivesObjectsExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        new DrawingWithPrimitiveObjectsExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnDrawingPrimitiveObjectsActionPerformed
 
     private void btnCollisionDetectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCollisionDetectionActionPerformed

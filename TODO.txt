@@ -1,2 +1,6 @@
+Traduzir documentação para inglês;
+Ajustar nome das classes de desenho;
+Criar método de redimensionamento para porcentagem.
+
 Suporte à gamepads:
     Endereçar o problema do eixo Z futuramente.

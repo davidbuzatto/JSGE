@@ -38,7 +38,7 @@ import br.com.davidbuzatto.jsge.geom.Triangle;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class DrawingWithPrimitivesObjectsExample extends EngineFrame {
+public class DrawingWithPrimitiveObjectsExample extends EngineFrame {
     
     private Line line;
     private Rectangle rectangle;
@@ -59,7 +59,7 @@ public class DrawingWithPrimitivesObjectsExample extends EngineFrame {
     /**
      * Cria o exemplo.
      */
-    public DrawingWithPrimitivesObjectsExample() {
+    public DrawingWithPrimitiveObjectsExample() {
         super( 500, 560, "Drawing with Primitive Objects", 60, true );
     }
     
@@ -157,7 +157,7 @@ public class DrawingWithPrimitivesObjectsExample extends EngineFrame {
      * @param args Argumentos.
      */
     public static void main( String[] args ) {
-        new DrawingWithPrimitivesObjectsExample();
+        new DrawingWithPrimitiveObjectsExample();
     }
 
 }

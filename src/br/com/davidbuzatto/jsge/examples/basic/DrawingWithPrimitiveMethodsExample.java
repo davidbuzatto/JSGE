@@ -26,7 +26,7 @@ import br.com.davidbuzatto.jsge.math.Vector2;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class DrawingWithPrimitivesMethodsExample extends EngineFrame {
+public class DrawingWithPrimitiveMethodsExample extends EngineFrame {
     
     private Vector2[] pointsQuadCurve;
     private Vector2[] pointsCubicCurve;
@@ -35,7 +35,7 @@ public class DrawingWithPrimitivesMethodsExample extends EngineFrame {
     /**
      * Cria o exemplo.
      */
-    public DrawingWithPrimitivesMethodsExample() {
+    public DrawingWithPrimitiveMethodsExample() {
         super( 720, 560, "Drawing with Primitive Methods", 60, true );
     }
     
@@ -186,7 +186,7 @@ public class DrawingWithPrimitivesMethodsExample extends EngineFrame {
      * @param args Argumentos.
      */
     public static void main( String[] args ) {
-        new DrawingWithPrimitivesMethodsExample();
+        new DrawingWithPrimitiveMethodsExample();
     }
 
 }

@@ -16,7 +16,6 @@
  */
 package br.com.davidbuzatto.jsge.image;
 
-import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.core.utils.StrokeUtils;
 import br.com.davidbuzatto.jsge.geom.Arc;
@@ -1953,8 +1952,8 @@ public class Image {
     /**
      * Redimensiona a imagem corrente.
      * 
-     * @param newImageWidth A nova altura.
-     * @param newImageHeight A nova largura.
+     * @param newImageWidth A nova largura.
+     * @param newImageHeight A nova altura.
      * @return A imagem corrente, permitindo encadeamento.
      */
     public Image resize( int newImageWidth, int newImageHeight ) {
@@ -1964,14 +1963,60 @@ public class Image {
     }
     
     /**
+     * Redimensiona a imagem corrente.
+     * 
+     * @param newImageWidth A nova largura. A nova altura será calculada
+     * proporcionamente em relação à nova largura.
+     * @return A imagem corrente, permitindo encadeamento.
+     */
+    public Image resize( int newImageWidth ) {
+        Image newImage = ImageUtils.imageResize( this, newImageWidth );
+        buffImage = newImage.buffImage;
+        return this;
+    }
+    
+    /**
+     * Redimensiona a imagem corrente.
+     * 
+     * @param percentage A porcentagem de redimensionamento da imagem.
+     * @return A imagem corrente, permitindo encadeamento.
+     */
+    public Image resize( double percentage ) {
+        Image newImage = ImageUtils.imageResize( this, percentage );
+        buffImage = newImage.buffImage;
+        return this;
+    }
+    
+    /**
      * Cria uma cópia redimensionada da imagem corrente.
      * 
-     * @param newImageWidth A nova altura.
-     * @param newImageHeight A nova largura.
+     * @param newImageWidth A nova largura.
+     * @param newImageHeight A nova altura.
      * @return A cópia redimensionada da imagem corrente.
      */
     public Image copyResize( int newImageWidth, int newImageHeight ) {
         return ImageUtils.imageResize( this, newImageWidth, newImageHeight );
+    }
+    
+    /**
+     * Cria uma cópia redimensionada da imagem corrente.
+     * 
+     * @param newImageWidth A nova largura. A nova altura será calculada
+     * proporcionamente em relação à nova largura.
+     * @return A cópia redimensionada da imagem corrente.
+     */
+    public Image copyResize( int newImageWidth ) {
+        return ImageUtils.imageResize( this, newImageWidth );
+    }
+    
+    /**
+     * Cria uma cópia redimensionada da imagem corrente.
+     * 
+     * @param percentage A porcentagem de redimensionamento da imagem.
+     * @return A cópia redimensionada da imagem corrente.
+     */
+    public Image copyResize( double percentage ) {
+        return ImageUtils.imageResize( this, percentage );
     }
     
     /**

@@ -42,12 +42,55 @@ public interface ImageUtils {
      * Cria uma imagem redimensionada da imagem original.
      * 
      * @param image Uma imagem.
-     * @param newImageWidth A altura da nova imagem.
-     * @param newImageHeight A largura da nova imagem.
+     * @param newImageWidth A largura da nova imagem.
+     * @param newImageHeight A altura da nova imagem.
      * @return Uma nova imagem redimensionada.
      */
     public static Image imageResize( Image image, int newImageWidth, int newImageHeight ) {
         
+        Image newImage = new Image( newImageWidth, newImageHeight );
+        
+        Graphics2D g2d = newImage.createGraphics();
+        g2d.drawImage( image.buffImage, 0, 0, newImageWidth, newImageHeight, 0, 0, image.getWidth(), image.getHeight(), null );
+        g2d.dispose();
+        
+        return newImage;
+        
+    }
+    
+    /**
+     * Cria uma imagem redimensionada da imagem original.
+     * 
+     * @param image Uma imagem.
+     * @param newImageWidth A largura da nova imagem. A altura será calculada
+     * proporcionamente em relação à nova largura.
+     * @return Uma nova imagem redimensionada.
+     */
+    public static Image imageResize( Image image, int newImageWidth ) {
+        
+        double percentage = ( (double) newImageWidth ) / image.getWidth();
+        int newImageHeight = (int) ( image.getHeight() * percentage );
+        Image newImage = new Image( newImageWidth, newImageHeight );
+        
+        Graphics2D g2d = newImage.createGraphics();
+        g2d.drawImage( image.buffImage, 0, 0, newImageWidth, newImageHeight, 0, 0, image.getWidth(), image.getHeight(), null );
+        g2d.dispose();
+        
+        return newImage;
+        
+    }
+    
+    /**
+     * Cria uma imagem redimensionada da imagem original.
+     * 
+     * @param image Uma imagem.
+     * @param percentage A porcentagem de redimensionamento da imagem.
+     * @return Uma nova imagem redimensionada.
+     */
+    public static Image imageResize( Image image, double percentage ) {
+        
+        int newImageWidth = (int) ( image.getWidth() * percentage );
+        int newImageHeight = (int) ( image.getHeight() * percentage );
         Image newImage = new Image( newImageWidth, newImageHeight );
         
         Graphics2D g2d = newImage.createGraphics();
