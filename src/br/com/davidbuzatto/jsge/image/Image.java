@@ -16,6 +16,8 @@
  */
 package br.com.davidbuzatto.jsge.image;
 
+import br.com.davidbuzatto.jsge.core.Drawable;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.core.utils.StrokeUtils;
 import br.com.davidbuzatto.jsge.geom.Arc;
@@ -1978,7 +1980,7 @@ public class Image {
     /**
      * Redimensiona a imagem corrente.
      * 
-     * @param percentage A porcentagem de redimensionamento da imagem.
+     * @param percentage A porcentagem (0 a 1) de redimensionamento da imagem.
      * @return A imagem corrente, permitindo encadeamento.
      */
     public Image resize( double percentage ) {
@@ -2261,6 +2263,249 @@ public class Image {
      */
     public Image copy() {
         return new Image( ImageUtils.copyBufferedImage( buffImage ) );
+    }
+    
+    
+    
+    //**************************************************************************
+    // Métodos para desenhar a imagem em uma instância da engine.
+    //**************************************************************************
+    
+    /**
+     * Desenha a imagem corrente com fundo colorido.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param bgColor Uma cor de fundo.
+     */
+    public void draw( EngineFrame engine, double x, double y, Color bgColor ) {
+        engine.drawImage( this, x, y, bgColor );
+    }
+    
+    /**
+     * Desenha a imagem corrente.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     */
+    public void draw( EngineFrame engine, double x, double y ) {
+        engine.drawImage( this, x, y );
+    }
+    
+    /**
+     * Desenha a imagem corrente rotacionada com fundo colorido.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     * @param bgColor Uma cor de fundo.
+     */
+    public void draw( EngineFrame engine, double x, double y, double rotation, Color bgColor ) {
+        engine.drawImage( this, x, y, rotation, bgColor );
+    }
+    
+    /**
+     * Desenha a imagem corrente rotacionada.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     */
+    public void draw( EngineFrame engine, double x, double y, double rotation ) {
+        engine.drawImage( this, x, y, rotation );
+    }
+    
+    /**
+     * Desenha a imagem corrente rotacionada com fundo colorido.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     * @param bgColor Uma cor de fundo.
+     */
+    public void draw( EngineFrame engine, double x, double y, double originX, double originY, double rotation, Color bgColor ) {
+        engine.drawImage( this, x, y, originX, originY, rotation, bgColor );
+    }
+    
+    /**
+     * Desenha a imagem corrente rotacionada.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     */
+    public void draw( EngineFrame engine, double x, double y, double originX, double originY, double rotation ) {
+        engine.drawImage( this, x, y, originX, originY, rotation );
+    }
+    
+    /**
+     * Desenha o recorte da imagem corrente com fundo colorido.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param bgColor Uma cor de fundo.
+     */
+    public void draw( EngineFrame engine, Rectangle source, double x, double y, Color bgColor ) {
+        engine.drawImage( this, source, x, y, bgColor );
+    }
+    
+    /**
+     * Desenha o recorte da imagem corrente.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     */
+    public void draw( EngineFrame engine, Rectangle source, double x, double y ) {
+        engine.drawImage( this, source, x, y );
+    }
+    
+    /**
+     * Desenha o recorte rotacionado da imagem corrente com fundo colorido.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     * @param bgColor Uma cor de fundo.
+     */
+    public void draw( EngineFrame engine, Rectangle source, double x, double y, double rotation, Color bgColor ) {
+        engine.drawImage( this, source, x, y, rotation, bgColor );
+    }
+    
+    /**
+     * Desenha o recorte rotacionado da imagem corrente.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     */
+    public void draw( EngineFrame engine, Rectangle source, double x, double y, double rotation ) {
+        engine.drawImage( this, source, x, y, rotation );
+    }
+    
+    /**
+     * Desenha o recorte rotacionado da imagem corrente com fundo colorido.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     * @param bgColor Uma cor de fundo.
+     */
+    public void draw( EngineFrame engine, Rectangle source, double x, double y, double originX, double originY, double rotation, Color bgColor ) {
+        engine.drawImage( this, source, x, y, originX, originY, rotation, bgColor );
+    }
+    
+    /**
+     * Desenha o recorte rotacionado da imagem corrente.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param x Coordenada x do desenho da imagem.
+     * @param y Coordenada y do desenho da imagem.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     */
+    public void draw( EngineFrame engine, Rectangle source, double x, double y, double originX, double originY, double rotation ) {
+        engine.drawImage( this, source, x, y, originX, originY, rotation );
+    }
+    
+    /**
+     * Desenha o recorte da imagem corrente em um retângulo de destino com fundo colorido.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param dest Um retângulo de destino que define a posição e dimensões que a imagem será desenhada.
+     * @param bgColor Uma cor de fundo.
+     */
+    public void draw( EngineFrame engine, Rectangle source, Rectangle dest, Color bgColor ) {
+        engine.drawImage( this, source, dest, bgColor );
+    }
+    
+    /**
+     * Desenha o recorte da imagem corrente em um retângulo de destino.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param dest Um retângulo de destino que define a posição e dimensões que a imagem será desenhada.
+     */
+    public void draw( EngineFrame engine, Rectangle source, Rectangle dest ) {
+        engine.drawImage( this, source, dest );
+    }
+    
+    /**
+     * Desenha o recorte rotacionado da imagem corrente em um retângulo de destino com fundo colorido.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param dest Um retângulo de destino que define a posição e dimensões que a imagem será desenhada.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     * @param bgColor Uma cor de fundo.
+     */
+    public void draw( EngineFrame engine, Rectangle source, Rectangle dest, double rotation, Color bgColor ) {
+        engine.drawImage( this, source, dest, rotation, bgColor );
+    }
+    
+    /**
+     * Desenha o recorte rotacionado da imagem corrente em um retângulo de destino.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param dest Um retângulo de destino que define a posição e dimensões que a imagem será desenhada.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     */
+    public void draw( EngineFrame engine, Rectangle source, Rectangle dest, double rotation ) {
+        engine.drawImage( this, source, dest, rotation );
+    }
+    
+    /**
+     * Desenha o recorte rotacionado da imagem corrente em um retângulo de destino com fundo colorido.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param dest Um retângulo de destino que define a posição e dimensões que a imagem será desenhada.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     * @param bgColor Uma cor de fundo.
+     */
+    public void draw( EngineFrame engine, Rectangle source, Rectangle dest, double originX, double originY, double rotation, Color bgColor ) {
+        engine.drawImage( this, source, dest, originX, originY, rotation, bgColor );
+    }
+    
+    /**
+     * Desenha o recorte rotacionado da imagem corrente em um retângulo de destino.
+     * 
+     * @param engine EngineFrame utilizada.
+     * @param source Um retângulo que delimita o recorte da imagem que será desenhado.
+     * @param dest Um retângulo de destino que define a posição e dimensões que a imagem será desenhada.
+     * @param originX Coordenada x do eixo de rotação.
+     * @param originY Coordenada y do eixo de rotação.
+     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     */
+    public void draw( EngineFrame engine, Rectangle source, Rectangle dest, double originX, double originY, double rotation ) {
+        engine.drawImage( this, source, dest, originX, originY, rotation );
     }
     
     

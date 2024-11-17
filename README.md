@@ -13,6 +13,10 @@ Qualquer IDE ou sistema de build para Java tem a capacidade de realizar essa tar
 
 Ainda, o showcase pode ser visto executando-se o arquivo JSGE-vx.x.x-bin.jar contido nos pacotes binários ou executando o projeto da engine.
 
+## Dependências
+- [Java Stream Player](https://github.com/goxr3plus/java-stream-player): processamento de som;
+- [JInput](https://github.com/jinput/jinput): manipulação de joysticks/gamepads/controles.
+
 ---
 
 <img align="left" style="width:260px" src="https://github.com/davidbuzatto/JSGE/blob/master/resources/images/logoJSGE.png" width="288px">

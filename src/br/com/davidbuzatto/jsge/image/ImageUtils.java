@@ -84,7 +84,7 @@ public interface ImageUtils {
      * Cria uma imagem redimensionada da imagem original.
      * 
      * @param image Uma imagem.
-     * @param percentage A porcentagem de redimensionamento da imagem.
+     * @param percentage A porcentagem (0 a 1) de redimensionamento da imagem.
      * @return Uma nova imagem redimensionada.
      */
     public static Image imageResize( Image image, double percentage ) {
