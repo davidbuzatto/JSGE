@@ -89,7 +89,8 @@ public class SoundAndMusicExample extends EngineFrame {
         
     }
     
-    private Sound sound;
+    private Sound soundOgg;
+    private Sound soundWav;
     private Music music;
     private Button btnPlay;
     private Button btnStop;
@@ -139,9 +140,14 @@ public class SoundAndMusicExample extends EngineFrame {
         
         Vector2 mousePos = getMousePositionPoint();
         
+        if ( isMouseButtonPressed( MOUSE_BUTTON_MIDDLE ) ) {
+            soundOgg = loadSound( "resources/sfx/example.ogg" );
+            soundOgg.play();
+        }
+        
         if ( isMouseButtonPressed( MOUSE_BUTTON_RIGHT ) ) {
-            sound = loadSound( "resources/sfx/coin.wav" );
-            sound.play();
+            soundWav = loadSound( "resources/sfx/coin.wav" );
+            soundWav.play();
         }
         
         btnPlay.update( mousePos );
@@ -221,7 +227,8 @@ public class SoundAndMusicExample extends EngineFrame {
         setFontSize( 20 );
         setFontStyle( FONT_BOLD );
         
-        drawText( "Right click to play\ncoin sound effect!", 10, 10, BLACK );
+        drawText( "Middle click to play an\nOgg Vorbis example!", 10, 10, BLACK );
+        drawText( "Right click to play a\ncoin sound effect!", 340, 10, BLACK );
         
         fillRectangle( 10, 60, 350, 20, LIGHTGRAY );
         if ( music.isPlaying() || music.isPaused() ) {
