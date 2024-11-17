@@ -15,7 +15,7 @@ Ainda, o showcase pode ser visto executando-se o arquivo JSGE-vx.x.x-bin.jar con
 
 ## Dependências
 - [Java Stream Player](https://github.com/goxr3plus/java-stream-player): processamento de som;
-- [JInput](https://github.com/jinput/jinput): manipulação de joysticks/gamepads/controles.
+- [JInput](https://github.com/jinput/jinput): gerenciamento de controles/gamepads/joysticks.
 
 ---
 
@@ -31,3 +31,7 @@ Note that the engine depends on some native libraries for managing controls/game
 Any Java IDE or build system has the ability to perform this copying task, leaving the user load configured. When running your program, keep in mind that the native libraries must be visible to the JVM, either by leaving these files in the same directory as the game execution, or by telling the JVM where to look for such files (-Djava.library.path option) or by making them visible under the operating system PATH variable.
 
 However, the showcase can be seen by running the JSGE-vx.x.x-bin.jar file contained in the binary packages or by running the engine project.
+
+## Dependencies
+- [Java Stream Player](https://github.com/goxr3plus/java-stream-player): sound processing;
+- [JInput](https://github.com/jinput/jinput): control/gamepad/joystick management.
