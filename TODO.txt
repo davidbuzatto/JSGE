@@ -1,4 +1,5 @@
 Traduzir documentação para inglês?
+Criar animações de sprite maps baseado na largura (criação automática da quantidade).
 
 Suporte à gamepads:
     Endereçar o problema do eixo Z futuramente.
