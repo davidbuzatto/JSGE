@@ -16,6 +16,9 @@
  */
 package br.com.davidbuzatto.jsge.collision.aabb;
 
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
+import java.awt.Color;
 import java.util.List;
 
 /**
@@ -25,6 +28,12 @@ import java.util.List;
  */
 public class AABBQuadtree {
     
+    private static final Color OUTLINE_COLOR = EngineFrame.BLACK;
+    private static final Color COMMON_COLOR = ColorUtils.fade( EngineFrame.GRAY, 0.3 );
+    private static final Color AABB_COLOR = ColorUtils.fade( EngineFrame.GOLD, 1 );
+    private static final Color INACTIVE_AABB_COLOR = ColorUtils.fade( EngineFrame.RED, 1 );
+    private static final Color NEARBY_AABB_COLOR = ColorUtils.fade( EngineFrame.LIME, 1 );
+        
     /**
      * Raiz.
      */
@@ -179,14 +188,29 @@ public class AABBQuadtree {
     
     /**
      * Atualiza a árvore.
+     * Apenas AABBs ativas são inseridas.
      */
     public void update() {
+        
         resetNodes( root );
-        root.aabbs.addAll( aabbs );
+        
+        // entram apenas AABBs ativas na raiz
+        // o que é propagado posteriormente
+        for ( AABB aabb : aabbs ) {
+            if ( aabb.active ) {
+                root.aabbs.add( aabb );
+            }
+        }
+        
+        // todos as AABBs (implementação anterior)
+        //root.aabbs.addAll( aabbs );
+        
         for ( AABB aabb : aabbs ) {
             aabb.nearby = null;
         }
+        
         insert( root );
+        
     }
 
     /**
@@ -216,6 +240,15 @@ public class AABBQuadtree {
         this.aabbs = aabbs;
     }
 
+    /**
+     * Obtém a profundidade máxima da quadtree.
+     * 
+     * @return A profundidade máxima.
+     */
+    public int getMaxDepth() {
+        return maxDepth;
+    }
+    
     /**
      * Configura a profundidade máxima.
      * 
@@ -249,13 +282,94 @@ public class AABBQuadtree {
     /**
      * Configura as AABBs que estão próximas.
      * 
+     * A configuração é feita apenas quando o alvo (target) é uma 
+     * AABB dinâmica.
+     * 
      * @param aabbs A lista de AABBs.
      * @param target O alvo, ou seja, a AABB próxima.
      */
     private void setNearby( List<AABB> aabbs, AABB target ) {
-        for ( AABB aabb : aabbs ) {
-            aabb.nearby = target;
+        if ( target.type == AABB.Type.DYNAMIC ) {
+            for ( AABB aabb : aabbs ) {
+                aabb.nearby = target;
+            }
         }
+    }
+    
+    /**
+     * Desenha a quadtree.
+     * 
+     * @param engine A engine.
+     * @param x Coordenada x do desenho.
+     * @param y Coordenada y do desenho.
+     */
+    public void draw( EngineFrame engine, double x, double y ) {
+        draw( engine, x, y, 1.0 );
+    }
+    
+    /**
+     * Desenha a quadtree.
+     * 
+     * @param engine A engine.
+     * @param x Coordenada x do desenho.
+     * @param y Coordenada y do desenho.
+     * @param scale A escala do desenho.
+     */
+    public void draw( EngineFrame engine, double x, double y, double scale ) {
+        drawAABBs( engine, x, y, scale );
+        drawQuadnode( engine, root, x, y, scale );
+    }
+    
+    private void drawAABBs( EngineFrame engine, double x, double y, double scale ) {
+        for ( AABB aabb : aabbs ) {
+            engine.fillRectangle( 
+                x + aabb.x1 * scale, 
+                y + aabb.y1 * scale, 
+                aabb.width * scale, 
+                aabb.height * scale, 
+                aabb.nearby == null ? 
+                    aabb.active ? 
+                        AABB_COLOR
+                        : 
+                        INACTIVE_AABB_COLOR
+                    : 
+                    NEARBY_AABB_COLOR
+            );
+        }
+    }
+    
+    private void drawQuadnode( EngineFrame engine, AABBQuadtreeNode node, double x, double y, double scale ) {
+        
+        if ( node.depth < getMaxDepth() ) {
+            
+            int size = node.aabbs.size();
+            
+            if ( size > 1 ) {
+                if ( node.depth == getMaxDepth() - 1 ) {
+                    engine.fillRectangle( 
+                        x + node.x1 * scale, 
+                        y + node.y1 * scale, 
+                        ( node.x2 - node.x1 ) * scale, 
+                        ( node.y2 - node.y1 ) * scale, 
+                        COMMON_COLOR
+                    );
+                }
+                engine.drawRectangle( 
+                    x + node.x1 * scale, 
+                    y + node.y1 * scale, 
+                    ( node.x2 - node.x1 ) * scale, 
+                    ( node.y2 - node.y1 ) * scale, 
+                    OUTLINE_COLOR
+                );
+            }
+            
+            drawQuadnode( engine, node.nw, x, y, scale );
+            drawQuadnode( engine, node.ne, x, y, scale );
+            drawQuadnode( engine, node.sw, x, y, scale );
+            drawQuadnode( engine, node.se, x, y, scale );
+            
+        }
+        
     }
 
 }

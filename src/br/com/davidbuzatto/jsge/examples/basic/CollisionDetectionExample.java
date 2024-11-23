@@ -330,12 +330,7 @@ public class CollisionDetectionExample extends EngineFrame {
         
         // quadtree
         drawText( String.format( "AABBQuadtree (AABBs: %d, maxDepth: %d) ", numberOfAABBs, maxTreeDepth ), qtX, qtY - 20, BLACK );
-        drawQuadTree();
-        drawAABBs();
-        
-        for ( Rectangle r : overlaps ) {
-            r.fill( this, aabbOverlapColor );
-        }
+        drawQuadTree( qtX, qtY );
         
         drawFPS( 10, 10 );
 
@@ -351,6 +346,7 @@ public class CollisionDetectionExample extends EngineFrame {
             AABB aabb = new AABB();
             aabb.setSize( MathUtils.getRandomValue( 5, qtHeight / 15 ), MathUtils.getRandomValue( 5, qtHeight / 15 ) );
             aabb.move( MathUtils.getRandomValue( 1, (int) ( qtWidth - aabb.x2 - aabb.x1 - 2 ) ), MathUtils.getRandomValue( 1, (int) ( qtHeight - aabb.y2 - aabb.y1 - 2 ) ) );
+            aabb.type = AABB.Type.DYNAMIC;
             aabbs.add( aabb );
             
             vels[i] = new Vector2( MathUtils.getRandomValue( -100, 100 ), MathUtils.getRandomValue( -100, 100 ) );
@@ -359,54 +355,52 @@ public class CollisionDetectionExample extends EngineFrame {
         
     }
     
-    private void drawAABBs() {
-        for ( AABB aabb : aabbs ) {
-            fillRectangle( qtX + aabb.x1, qtY + aabb.y1, aabb.width, aabb.height, aabb.nearby == null ? aabbColor : aabbNearbyColor );
-        }
-    }
-    
-    private void drawQuadnode( AABBQuadtreeNode node ) {
+    private void calculateOverlaps( AABBQuadtreeNode node ) {
         
-        if ( node.depth < maxTreeDepth ) {
-            
-            if ( node.aabbs.size() > 1 ) {
-                if ( node.depth == maxTreeDepth - 1 ) {
-                    fillRectangle( qtX + node.x1, qtY + node.y1, node.x2 - node.x1, node.y2 - node.y1, commonQnColor );
-                }
-                drawRectangle( qtX + node.x1, qtY + node.y1, node.x2 - node.x1, node.y2 - node.y1, qnOutlineColor );
-            }
+        if ( node.depth < quadtree.getMaxDepth() ) {
             
             int size = node.aabbs.size();
+            
             for ( int i = 0; i < size; i++ ) {
                 for ( int j = i+1; j < size; j++ ) {
                     try {
                         AABB a = node.aabbs.get( i );
                         AABB b = node.aabbs.get( j );
-                        Rectangle ra = new Rectangle( a.x1, a.y1, a.x2 - a.x1, a.y2 - a.y1 );
-                        Rectangle rb = new Rectangle( b.x1, b.y1, b.x2 - b.x1, b.y2 - b.y1 );
-                        if ( CollisionUtils.checkCollisionRectangles( ra, rb ) ) {
-                            Rectangle ri = CollisionUtils.getCollisionRectangle( ra, rb );
-                            ri.x += qtX;
-                            ri.y += qtY;
-                            overlaps.add( ri );
+                        if ( a.type != AABB.Type.STATIC || b.type != AABB.Type.STATIC ) {
+                            Rectangle ra = new Rectangle( a.x1, a.y1, ( a.x2 - a.x1 ), ( a.y2 - a.y1 ) );
+                            Rectangle rb = new Rectangle( b.x1, b.y1, ( b.x2 - b.x1 ), ( b.y2 - b.y1 ) );
+                            if ( CollisionUtils.checkCollisionRectangles( ra, rb ) ) {
+                                Rectangle ri = CollisionUtils.getCollisionRectangle( ra, rb );
+                                ri.x += qtX;
+                                ri.y += qtY;
+                                overlaps.add( ri );
+                            }
                         }
                     } catch ( IndexOutOfBoundsException | NullPointerException exc ) {
                     }
                 }
             }
             
-            drawQuadnode( node.nw );
-            drawQuadnode( node.ne );
-            drawQuadnode( node.sw );
-            drawQuadnode( node.se );
+            calculateOverlaps( node.nw );
+            calculateOverlaps( node.ne );
+            calculateOverlaps( node.sw );
+            calculateOverlaps( node.se );
             
         }
         
     }
     
-    private void drawQuadTree() {
+    private void drawQuadTree( double x, double y ) {
+        
         overlaps.clear();
-        drawQuadnode( quadtree.getRoot() );
+        calculateOverlaps( quadtree.getRoot() );
+        
+        quadtree.draw( this, x, y );
+        
+        for ( Rectangle r : overlaps ) {
+            r.fill( this, aabbOverlapColor );
+        }
+        
     }
     
     private void updateAABBLocations( double delta ) {

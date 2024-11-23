@@ -19,10 +19,33 @@ package br.com.davidbuzatto.jsge.collision.aabb;
 /**
  * Representação de uma Axis-aligned Bounding Box (AABB).
  * 
+ * Mantém algumas propriedades para guiar a execução da AABBQuadtree, como
+ * o tipo da AABB (estática ou dinâmica), se é uma AABB ativa e qual o objeto
+ * que faz referência.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class AABB {
 
+    /**
+     * Tipo da AABB.
+     */
+    public static enum Type {
+        
+        /**
+         * Tipo estático. Indica que na quadtree AABBs estáticas não interagem
+         * entre si, apenas com AABBs dinâmicas.
+         */
+        STATIC,
+        
+        /**
+         * Tipo dinâmico. Indique que na quadtree AABBs dinâmicas interagem
+         * tanto com AABBs estáticas quando dinâmicas.
+         */
+        DYNAMIC;
+        
+    }
+    
     /**
      * Coordenada x do vértice superior esquerdo.
      */
@@ -54,39 +77,69 @@ public class AABB {
     public double height;
     
     /**
+     * Tipo da AABB.
+     */
+    public Type type;
+    
+    /**
+     * Indica se a AABB está ativa.
+     */
+    public boolean active;
+    
+    /**
+     * Objeto referenciado por essa AABB, ou seja, o objeto que deu origem 
+     * a essa AABB.
+     */
+    public Object referencedObject;
+    
+    /**
      * Uma AABB que está próxima.
      */
     public AABB nearby;
 
     /**
-     * Constroi uma AABB com o vértice superior esquerdo em 0, 0 e vértice
-     * inferior direito em 50, 50.
+     * Constroi uma AABB estática com o vértice superior esquerdo em 0, 0 e
+     * vértice inferior direito em 50, 50 que não referencia nenhum objeto.
      */
     public AABB() {
-        x1 = 0;
-        y1 = 0;
-        x2 = 50;
-        y2 = 50;
-        width = x2;
-        height = y2;
-        nearby = null;
+        this( 0, 0, 50, 50, Type.STATIC, null );
     }
 
     /**
-     * Constroi uma AABB.
+     * Constroi uma AABB estática.
      * 
      * @param x1 Coordenada x do vértice superior esquerdo.
      * @param y1 Coordenada y do vértice superior esquerdo.
      * @param x2 Coordenada x do vértice inferior direito.
      * @param y2 Coordenada y do vértice inferior direito. 
+     * @param referencedObject Objeto referenciado por essa AABB, ou seja, o
+     * objeto que deu origem à mesma.
      */
-    public AABB( int x1, int y1, int x2, int y2 ) {
+    public AABB( double x1, double y1, double x2, double y2, Object referencedObject ) {
+        this( x1, y1, x2, y2, Type.STATIC, referencedObject );
+    }
+    
+    /**
+     * Constroi uma AABB ativa.
+     * 
+     * @param x1 Coordenada x do vértice superior esquerdo.
+     * @param y1 Coordenada y do vértice superior esquerdo.
+     * @param x2 Coordenada x do vértice inferior direito.
+     * @param y2 Coordenada y do vértice inferior direito. 
+     * @param type Tipo da AABB.
+     * @param referencedObject Objeto referenciado por essa AABB, ou seja, o
+     * objeto que deu origem à mesma.
+     */
+    public AABB( double x1, double y1, double x2, double y2, Type type, Object referencedObject ) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
         this.width = x2 - x1;
         this.height = y2 - y1;
+        this.type = type;
+        this.active = true;
+        this.referencedObject = referencedObject;
         this.nearby = null;
     }
 

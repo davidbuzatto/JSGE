@@ -16,6 +16,7 @@
  */
 package br.com.davidbuzatto.jsge.collision;
 
+import br.com.davidbuzatto.jsge.collision.aabb.AABB;
 import br.com.davidbuzatto.jsge.geom.Circle;
 import br.com.davidbuzatto.jsge.geom.Line;
 import br.com.davidbuzatto.jsge.geom.Polygon;
@@ -49,6 +50,34 @@ public interface CollisionUtils {
         return ( 
             ( rec1.x < ( rec2.x + rec2.width ) &&  ( rec1.x + rec1.width ) > rec2.x ) &&
             ( rec1.y < ( rec2.y + rec2.height ) && ( rec1.y + rec1.height ) > rec2.y )
+        );
+    }
+    
+    /**
+     * Verifica se duas AABBs colidiram.
+     * 
+     * @param aabb1 Uma AABB.
+     * @param aabb2 Outra AABB.
+     * @return Verdadeiro caso as duas AABBs tenham colidido, falso caso contrário.
+     */
+    public static boolean checkCollisionAABBs( AABB aabb1, AABB aabb2 ) {
+        return ( 
+            ( aabb1.x1 < ( aabb2.x1 + aabb2.width ) &&  ( aabb1.x1 + aabb1.width ) > aabb2.x1 ) &&
+            ( aabb1.y1 < ( aabb2.y1 + aabb2.height ) && ( aabb1.y1 + aabb1.height ) > aabb2.y1 )
+        );
+    }
+    
+    /**
+     * Verifica se um retângulo colidiu com uma AABB.
+     * 
+     * @param rect Um retângulo.
+     * @param aabb Uma AABB.
+     * @return Verdadeiro caso o retângulo colidiu com a AABB, falso caso contrário.
+     */
+    public static boolean checkCollisionRectangleAABB( Rectangle rect, AABB aabb ) {
+        return ( 
+            ( rect.x < ( aabb.x1 + aabb.width ) &&  ( rect.x + rect.width ) > aabb.x1 ) &&
+            ( rect.y < ( aabb.y1 + aabb.height ) && ( rect.y + rect.height ) > aabb.y1 )
         );
     }
 
@@ -199,6 +228,55 @@ public interface CollisionUtils {
     public static boolean checkCollisionCircleRectangle( Circle circle, Rectangle rec ) {
         return checkCollisionCircleRectangle( new Vector2( circle.x, circle.y ), circle.radius, rec );
     }
+    
+    /**
+     * Verifica se um círculo, definido por um ponto e pelo raio, colidiu
+     * com uma AABB.
+     * 
+     * @param center Ponto do centro do círculo.
+     * @param radius Raio do círculo.
+     * @param aabb A AABB.
+     * @return Verdadeiro caso o círculo tenha colidido com a AABB, falso caso contrário.
+     */
+    public static boolean checkCollisionCircleAABB( Vector2 center, double radius, AABB aabb ) {
+
+        double recCenterX = aabb.x1 + aabb.width / 2.0;
+        double recCenterY = aabb.y1 + aabb.height / 2.0;
+
+        double dx = Math.abs( center.x - recCenterX );
+        double dy = Math.abs( center.y - recCenterY );
+
+        if ( dx > ( aabb.width / 2.0 + radius ) ) {
+            return false;
+        }
+        if ( dy > ( aabb.height / 2.0 + radius ) ) { 
+            return false;
+        }
+
+        if ( dx <= ( aabb.width / 2.0 ) ) { 
+            return true;
+        }
+        if ( dy <= ( aabb.height / 2.0 ) ) { 
+            return true;
+        }
+
+        double cornerDistanceSq = ( dx - aabb.width / 2.0 ) * ( dx - aabb.width / 2.0 ) +
+                                  ( dy - aabb.height / 2.0 ) * ( dy - aabb.height / 2.0 );
+
+        return cornerDistanceSq <= ( radius * radius );
+
+    }
+
+    /**
+     * Verifica se um círculo colidiu com uma AABB.
+     * 
+     * @param circle O círculo.
+     * @param aabb A AABB.
+     * @return Verdadeiro caso o círculo tenha colidido com a AABB, falso caso contrário.
+     */
+    public static boolean checkCollisionCircleAABB( Circle circle, AABB aabb ) {
+        return checkCollisionCircleAABB( new Vector2( circle.x, circle.y ), circle.radius, aabb );
+    }
 
     /**
      * Verifica se um ponto, definido pela coordenada inicial, colidiu com um retângulo.
@@ -226,6 +304,34 @@ public interface CollisionUtils {
      */
     public static boolean checkCollisionPointRectangle( Vector2 point, Rectangle rec ) {
         return checkCollisionPointRectangle( point.x, point.y, rec );
+    }
+    
+    /**
+     * Verifica se um ponto, definido pela coordenada inicial, colidiu com uma AABB.
+     * 
+     * @param x Coordenada x do ponto.
+     * @param y Coordenada y do ponto.
+     * @param aabb A AABB.
+     * @return Verdadeiro caso o ponto tenha colidido com a AABB, falso caso contrário.
+     */
+    public static boolean checkCollisionPointAABB( double x, double y, AABB aabb ) {
+        return ( 
+            ( x >= aabb.x1 ) && 
+            ( x < ( aabb.x1 + aabb.width ) ) && 
+            ( y >= aabb.y1 ) && 
+            ( y < ( aabb.y1 + aabb.height ) )
+        );
+    }
+
+    /**
+     * Verifica se um ponto colidiu com uma AABB.
+     * 
+     * @param point O ponto.
+     * @param aabb A AABB.
+     * @return Verdadeiro caso o ponto tenha colidido com a AABB, falso caso contrário.
+     */
+    public static boolean checkCollisionPointAABB( Vector2 point, AABB aabb ) {
+        return checkCollisionPointAABB( point.x, point.y, aabb );
     }
 
     /**
@@ -456,6 +562,68 @@ public interface CollisionUtils {
         double top = ( rec1.y > rec2.y ) ? rec1.y : rec2.y;
         double bottom1 = rec1.y + rec1.height;
         double bottom2 = rec2.y + rec2.height;
+        double bottom = ( bottom1 < bottom2 ) ? bottom1 : bottom2;
+
+        if ( ( left < right ) && ( top < bottom ) ) {
+            overlap.x = left;
+            overlap.y = top;
+            overlap.width = right - left;
+            overlap.height = bottom - top;
+        }
+
+        return overlap;
+
+    }
+    
+    /**
+     * Calcula o retângulo da sobreposição entre duas AABBs.
+     * 
+     * @param aabb1 Uma AABB.
+     * @param aabb2 Outra AABB.
+     * @return O retângulo da sobreposição entre duas AABBs.
+     */
+    public static Rectangle getCollisionRectangle( AABB aabb1, AABB aabb2 ) {
+        
+        Rectangle overlap = new Rectangle();
+
+        double left = ( aabb1.x1 > aabb2.x1 ) ? aabb1.x1 : aabb2.x1;
+        double right1 = aabb1.x1 + aabb1.width;
+        double right2 = aabb2.x1 + aabb2.width;
+        double right = ( right1 < right2 ) ? right1 : right2;
+        double top = ( aabb1.y1 > aabb2.y1 ) ? aabb1.y1 : aabb2.y1;
+        double bottom1 = aabb1.y1 + aabb1.height;
+        double bottom2 = aabb2.y1 + aabb2.height;
+        double bottom = ( bottom1 < bottom2 ) ? bottom1 : bottom2;
+
+        if ( ( left < right ) && ( top < bottom ) ) {
+            overlap.x = left;
+            overlap.y = top;
+            overlap.width = right - left;
+            overlap.height = bottom - top;
+        }
+
+        return overlap;
+
+    }
+    
+    /**
+     * Calcula o retângulo da sobreposição entre um retângulo e uma AABB.
+     * 
+     * @param rect Um retângulo.
+     * @param aabb Uma AABB.
+     * @return O retângulo da sobreposição entre um retângulo e uma AABB.
+     */
+    public static Rectangle getCollisionRectangle( Rectangle rect, AABB aabb ) {
+        
+        Rectangle overlap = new Rectangle();
+
+        double left = ( rect.x > aabb.x1 ) ? rect.x : aabb.x1;
+        double right1 = rect.x + rect.width;
+        double right2 = aabb.x1 + aabb.width;
+        double right = ( right1 < right2 ) ? right1 : right2;
+        double top = ( rect.y > aabb.y1 ) ? rect.y : aabb.y1;
+        double bottom1 = rect.y + rect.height;
+        double bottom2 = aabb.y1 + aabb.height;
         double bottom = ( bottom1 < bottom2 ) ? bottom1 : bottom2;
 
         if ( ( left < right ) && ( top < bottom ) ) {

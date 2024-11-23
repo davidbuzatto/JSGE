@@ -1,6 +1,5 @@
 Traduzir documentação para inglês?
-Criar animações de sprite maps baseado na largura (criação automática da quantidade).
-Permitir desenhar uma animação diretamente pela instância ao invés de ter que pegar o frame.
 
 Suporte à gamepads:
-    Endereçar o problema do eixo Z futuramente.
+    Testar joystick ps4/ps5;
+    Endereçar o "problema" do eixo Z futuramente?
