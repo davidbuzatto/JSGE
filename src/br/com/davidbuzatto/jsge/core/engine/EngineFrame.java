@@ -22,6 +22,7 @@ import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.core.utils.CoreUtils;
 import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.core.utils.StrokeUtils;
+import br.com.davidbuzatto.jsge.font.FontUtils;
 import br.com.davidbuzatto.jsge.geom.Arc;
 import br.com.davidbuzatto.jsge.geom.Circle;
 import br.com.davidbuzatto.jsge.geom.CircleSector;
@@ -72,6 +73,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.QuadCurve2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
+import java.io.File;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -348,8 +350,8 @@ public abstract class EngineFrame extends JFrame {
         startTime = System.currentTimeMillis();
         setTargetFPS( targetFPS );
 
-        defaultFont = new Font( Font.MONOSPACED, Font.BOLD, 10 );
-        defaultFPSFont = new Font( Font.MONOSPACED, Font.BOLD, 20 );
+        defaultFont = FontUtils.DEFAULT_FONT;
+        defaultFPSFont = FontUtils.DEFAULT_FPS_FONT;
         defaultStroke = new BasicStroke( 1 );
 
         this.antialiasing = antialiasing;
@@ -3464,6 +3466,43 @@ public abstract class EngineFrame extends JFrame {
      */
     public void drawImage( Image image, Rectangle source, Rectangle dest, double originX, double originY, double rotation ) {
         drawImage( image, source, dest, originX, originY, rotation, null );
+    }
+    
+    
+    
+    //**************************************************************************
+    // Métodos para carga de fontes.
+    //**************************************************************************
+    
+    /**
+     * Carrega uma nova fonte e a registra no GraphicsEnvinronment.
+     * 
+     * @param filePath Caminho do arquivo da fonte.
+     * @return A fonte carregada.
+     */
+    public static Font loadFont( String filePath ) {
+        return FontUtils.loadFont( filePath );
+    }
+    
+    /**
+     * Carrega uma nova fonte e a registra no GraphicsEnvinronment.
+     * 
+     * @param fontFile O arquivo da fonte.
+     * @return A fonte carregada.
+     */
+    public static Font loadFont( File fontFile ) {
+        return FontUtils.loadFont( fontFile );
+    }
+    
+    /**
+     * Carrega uma nova fonte e a registra no GraphicsEnvinronment.
+     * 
+     * @param inputStream InputStream para a fonte.
+     * @param fontType O tipo da fonte (Font.TRUETYPE_FONT ou Font.TYPE1_FONT).
+     * @return A fonte carregada.
+     */
+    public static Font loadFont( InputStream inputStream, int fontType ) {
+        return FontUtils.loadFont( inputStream, fontType );
     }
     
     

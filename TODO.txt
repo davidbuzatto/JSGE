@@ -1,3 +1,4 @@
+Separar a engine do componente?
 Traduzir documentação para inglês?
 
 Suporte à gamepads:

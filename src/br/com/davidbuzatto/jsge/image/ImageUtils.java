@@ -493,7 +493,7 @@ public interface ImageUtils {
         try {
             return new Image( ImageIO.read( input ) );
         } catch ( IOException exc ) {
-            TraceLogUtils.traceLogError(CoreUtils.stackTraceToString( exc ) );
+            TraceLogUtils.traceLogError( CoreUtils.stackTraceToString( exc ) );
         }
         
         return createTextImage( "error", 20, Font.BOLD, EngineFrame.WHITE, EngineFrame.BLACK );
@@ -511,7 +511,7 @@ public interface ImageUtils {
         try {
             return new Image( ImageIO.read( url ) );
         } catch ( IOException exc ) {
-            TraceLogUtils.traceLogError(CoreUtils.stackTraceToString( exc ) );
+            TraceLogUtils.traceLogError( CoreUtils.stackTraceToString( exc ) );
         }
         
         return createTextImage( "error", 20, Font.BOLD, EngineFrame.WHITE, EngineFrame.BLACK );
