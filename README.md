@@ -34,4 +34,4 @@ However, the showcase can be seen by running the JSGE-vx.x.x-bin.jar file contai
 
 ## Dependencies
 - [Java Stream Player](https://github.com/goxr3plus/java-stream-player): sound processing;
-- [JInput](https://github.com/jinput/jinput): control/gamepad/joystick management.
+- [JInput](https://github.com/jinput/jinput): controller/gamepad/joystick management.
