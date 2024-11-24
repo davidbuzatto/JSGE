@@ -16,6 +16,10 @@
  */
 package br.com.davidbuzatto.jsge.collision.aabb;
 
+import br.com.davidbuzatto.jsge.core.Drawable;
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import java.awt.Paint;
+
 /**
  * Representação de uma Axis-aligned Bounding Box (AABB).
  * 
@@ -25,7 +29,7 @@ package br.com.davidbuzatto.jsge.collision.aabb;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class AABB {
+public class AABB implements Drawable {
 
     /**
      * Tipo da AABB.
@@ -200,6 +204,16 @@ public class AABB {
         y2 = y1 + height;
         this.width = x2 - x1;
         this.height = y2 - y1;
+    }
+    
+    @Override
+    public void draw( EngineFrame engine, Paint paint ) {
+        engine.drawAABB( this, paint );
+    }
+
+    @Override
+    public void fill( EngineFrame engine, Paint paint ) {
+        engine.fillAABB( this, paint );
     }
 
 }

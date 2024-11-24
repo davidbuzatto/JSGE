@@ -16,7 +16,7 @@
  */
 package br.com.davidbuzatto.jsge.image;
 
-import br.com.davidbuzatto.jsge.core.Drawable;
+import br.com.davidbuzatto.jsge.collision.aabb.AABB;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.core.utils.StrokeUtils;
@@ -315,7 +315,7 @@ public class Image {
      * @param rotation Rotação em graus (sentido horário).
      * @param paint Paint para o desenho.
      */
-    public void drawRectanglePro( double x, double y, double width, double height, double originX, double originY, double rotation, Paint paint ) {
+    public void drawRectangle( double x, double y, double width, double height, double originX, double originY, double rotation, Paint paint ) {
 
         Graphics2D g2d = createGraphics();
         g2d.setPaint( paint );
@@ -337,8 +337,8 @@ public class Image {
      * @param rotation Rotação em graus (sentido horário).
      * @param paint Paint para o desenho.
      */
-    public void drawRectanglePro( Vector2 pos, double width, double height, Vector2 origin, double rotation, Paint paint ) {
-        drawRectanglePro( pos.x, pos.y, width, height, origin.x, origin.y, rotation, paint );
+    public void drawRectangle( Vector2 pos, double width, double height, Vector2 origin, double rotation, Paint paint ) {
+        drawRectangle( pos.x, pos.y, width, height, origin.x, origin.y, rotation, paint );
     }
 
     /**
@@ -349,8 +349,8 @@ public class Image {
      * @param rotation Rotação em graus (sentido horário).
      * @param paint Paint para o desenho.
      */
-    public void drawRectanglePro( Rectangle rectangle, Vector2 origin, double rotation, Paint paint ) {
-        drawRectanglePro( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, paint );
+    public void drawRectangle( Rectangle rectangle, Vector2 origin, double rotation, Paint paint ) {
+        drawRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, paint );
     }
 
     /**
@@ -365,7 +365,7 @@ public class Image {
      * @param rotation Rotação em graus (sentido horário).
      * @param paint Paint para o desenho.
      */
-    public void fillRectanglePro( double x, double y, double width, double height, double originX, double originY, double rotation, Paint paint ) {
+    public void fillRectangle( double x, double y, double width, double height, double originX, double originY, double rotation, Paint paint ) {
 
         Graphics2D g2d = createGraphics();
         g2d.setPaint( paint );
@@ -387,8 +387,8 @@ public class Image {
      * @param rotation Rotação em graus (sentido horário).
      * @param paint Paint para o desenho.
      */
-    public void fillRectanglePro( Vector2 pos, double width, double height, Vector2 origin, double rotation, Paint paint ) {
-        fillRectanglePro( pos.x, pos.y, width, height, origin.x, origin.y, rotation, paint );
+    public void fillRectangle( Vector2 pos, double width, double height, Vector2 origin, double rotation, Paint paint ) {
+        fillRectangle( pos.x, pos.y, width, height, origin.x, origin.y, rotation, paint );
     }
 
     /**
@@ -399,10 +399,30 @@ public class Image {
      * @param rotation Rotação em graus (sentido horário).
      * @param paint Paint para o desenho.
      */
-    public void fillRectanglePro( Rectangle rectangle, Vector2 origin, double rotation, Paint paint ) {
-        fillRectanglePro( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, paint );
+    public void fillRectangle( Rectangle rectangle, Vector2 origin, double rotation, Paint paint ) {
+        fillRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, paint );
     }
 
+    /**
+     * Desenha uma AABB.
+     * 
+     * @param aabb Uma AABB.
+     * @param paint Paint para o desenho.
+     */
+    public void drawAABB( AABB aabb, Paint paint ) {
+        drawRectangle( aabb.x1, aabb.y1, aabb.width, aabb.height, paint );
+    }
+    
+    /**
+     * Pinta uma AABB.
+     * 
+     * @param aabb Uma AABB.
+     * @param paint Paint para o desenho.
+     */
+    public void fillAABB( AABB aabb, Paint paint ) {
+        fillRectangle( aabb.x1, aabb.y1, aabb.width, aabb.height, paint );
+    }
+    
     /**
      * Desenha um retângulo com cantos arredondados.
      * 

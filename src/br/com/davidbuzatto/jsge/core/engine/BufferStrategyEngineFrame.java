@@ -16,6 +16,7 @@
  */
 package br.com.davidbuzatto.jsge.core.engine;
 
+import br.com.davidbuzatto.jsge.collision.aabb.AABB;
 import br.com.davidbuzatto.jsge.core.Camera2D;
 import br.com.davidbuzatto.jsge.core.utils.TraceLogUtils;
 import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
@@ -1294,6 +1295,28 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
      */
     public void fillRectangle( Rectangle rectangle, Vector2 origin, double rotation, Paint paint ) {
         fillRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, paint );
+    }
+    
+    /**
+     * Desenha uma AABB.
+     * 
+     * @param aabb Uma AABB.
+     * @param paint Paint para o desenho.
+     */
+    public void drawAABB( AABB aabb, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.draw( new Rectangle2D.Double( aabb.x1, aabb.y1, aabb.width, aabb.height ) );
+    }
+    
+    /**
+     * Pinta uma AABB.
+     * 
+     * @param aabb Uma AABB.
+     * @param paint Paint para o desenho.
+     */
+    public void fillAABB( AABB aabb, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.fill( new Rectangle2D.Double( aabb.x1, aabb.y1, aabb.width, aabb.height ) );
     }
 
     /**
