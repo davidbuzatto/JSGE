@@ -266,44 +266,6 @@ public class Image {
     }
 
     /**
-     * Pinta um retângulo.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo.
-     * @param width Largura.
-     * @param height Altura.
-     * @param paint Paint para o desenho.
-     */
-    public void fillRectangle( double x, double y, double width, double height, Paint paint ) {
-        Graphics2D g2d = createGraphics();
-        g2d.setPaint( paint );
-        g2d.fill( new Rectangle2D.Double( x, y, width, height ) );
-        g2d.dispose();
-    }
-
-    /**
-     * Pinta um retângulo.
-     * 
-     * @param pos Vértice superior esquerdo.
-     * @param width Largura.
-     * @param height Altura.
-     * @param paint Paint para o desenho.
-     */
-    public void fillRectangle( Vector2 pos, double width, double height, Paint paint ) {
-        fillRectangle( pos.x, pos.y, width, height, paint );
-    }
-
-    /**
-     * Pinta um retângulo.
-     * 
-     * @param rectangle Um retângulo.
-     * @param paint Paint para o desenho.
-     */
-    public void fillRectangle( Rectangle rectangle, Paint paint ) {
-        fillRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, paint );
-    }
-
-    /**
      * Desenha um retângulo rotacionado.
      * 
      * @param x Coordenada x do vértice superior esquerdo do retângulo.
@@ -354,6 +316,44 @@ public class Image {
     }
 
     /**
+     * Pinta um retângulo.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param paint Paint para o desenho.
+     */
+    public void fillRectangle( double x, double y, double width, double height, Paint paint ) {
+        Graphics2D g2d = createGraphics();
+        g2d.setPaint( paint );
+        g2d.fill( new Rectangle2D.Double( x, y, width, height ) );
+        g2d.dispose();
+    }
+
+    /**
+     * Pinta um retângulo.
+     * 
+     * @param pos Vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param paint Paint para o desenho.
+     */
+    public void fillRectangle( Vector2 pos, double width, double height, Paint paint ) {
+        fillRectangle( pos.x, pos.y, width, height, paint );
+    }
+
+    /**
+     * Pinta um retângulo.
+     * 
+     * @param rectangle Um retângulo.
+     * @param paint Paint para o desenho.
+     */
+    public void fillRectangle( Rectangle rectangle, Paint paint ) {
+        fillRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, paint );
+    }
+    
+    /**
      * Pinta um retângulo rotacionado.
      * 
      * @param x Coordenada x do vértice superior esquerdo do retângulo.
@@ -401,6 +401,15 @@ public class Image {
      */
     public void fillRectangle( Rectangle rectangle, Vector2 origin, double rotation, Paint paint ) {
         fillRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, paint );
+    }
+    
+    /**
+     * Limpa a imagem usando uma cor.
+     * 
+     * @param paint Cor a ser usada.
+     */
+    public void clearBackground( Paint paint ) {
+        fillRectangle( 0, 0, getWidth(), getHeight(), paint );
     }
 
     /**

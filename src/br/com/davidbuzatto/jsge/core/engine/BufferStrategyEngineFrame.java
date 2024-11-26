@@ -2678,7 +2678,7 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
     /**
      * Limpa o fundo da tela de desenho.
      * 
-     * @param paint Cor a ser usada.
+     * @param paint Paint a ser usado.
      */
     public void clearBackground( Paint paint ) {
         fillRectangle( 0, 0, getScreenWidth(), getScreenHeight(), paint );

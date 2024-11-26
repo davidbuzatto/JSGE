@@ -1,5 +1,7 @@
 Separar a engine do componente?
 Traduzir documentação para inglês?
+Colocar versão no logo?
+Fonte igual da raylib?
 
 Suporte à gamepads:
     Testar joystick ps4/ps5;
