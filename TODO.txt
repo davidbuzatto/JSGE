@@ -1,3 +1,8 @@
+Implementar inversão de cor;
+Complementar exemplo das cores mostrando as transformações do lado esquerdo;
+Tornar as classes matemáticas e de formas serializáveis;
+
+Separar o exemplos?
 Separar a engine do componente?
 Traduzir documentação para inglês?
 Colocar versão no logo?
