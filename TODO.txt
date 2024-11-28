@@ -2,6 +2,11 @@ Implementar inversão de cor;
 Complementar exemplo das cores mostrando as transformações do lado esquerdo;
 Tornar as classes matemáticas e de formas serializáveis;
 
+Antialiasing em textos:
+    g2d.setRenderingHint(
+        RenderingHints.KEY_TEXT_ANTIALIASING,
+        RenderingHints.VALUE_TEXT_ANTIALIAS_ON );
+
 Separar o exemplos?
 Separar a engine do componente?
 Traduzir documentação para inglês?
