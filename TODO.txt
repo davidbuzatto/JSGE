@@ -6,6 +6,9 @@ Antialiasing em textos:
     g2d.setRenderingHint(
         RenderingHints.KEY_TEXT_ANTIALIASING,
         RenderingHints.VALUE_TEXT_ANTIALIAS_ON );
+        
+Suavização da linhas:
+    https://www.codeproject.com/Articles/1093960/2D-Polyline-Vertex-Smoothing
 
 Separar o exemplos?
 Separar a engine do componente?
