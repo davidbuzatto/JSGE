@@ -19,13 +19,16 @@ package br.com.davidbuzatto.jsge.geom;
 import br.com.davidbuzatto.jsge.core.Drawable;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import java.awt.Paint;
+import java.io.Serializable;
 
 /**
  * Classe para representação de um arco em duas dimensões.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class EllipseSector implements Drawable {
+public class EllipseSector implements Drawable, Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     /**
      * Coordenada x do centro.

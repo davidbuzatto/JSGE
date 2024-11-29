@@ -16,12 +16,16 @@
  */
 package br.com.davidbuzatto.jsge.math;
 
+import java.io.Serializable;
+
 /**
  * Classe para representação de um quatérnio.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class Quaternion implements Cloneable {
+public class Quaternion implements Cloneable, Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     /**
      * Coordenada x.

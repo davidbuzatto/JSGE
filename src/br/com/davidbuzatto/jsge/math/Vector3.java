@@ -16,6 +16,8 @@
  */
 package br.com.davidbuzatto.jsge.math;
 
+import java.io.Serializable;
+
 /**
  * Classe para representação de um vetor de três dimensões.
  * 
@@ -24,7 +26,9 @@ package br.com.davidbuzatto.jsge.math;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class Vector3 implements Cloneable {
+public class Vector3 implements Cloneable, Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     /**
      * Coordenada x.

@@ -2772,6 +2772,24 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
     }
 
     /**
+     * Retorna se a suavização do contexto gráfico está ativa.
+     * 
+     * @return Verdadeiro caso a suavização esteja ativada, falso caso contrário.
+     */
+    public boolean isAntialiasing() {
+        return antialiasing;
+    }
+
+    /**
+     * Altera a flag de controle da suavização do contexto gráfico.
+     * 
+     * @param antialiasing O estado da flag.
+     */
+    public void setAntialiasing( boolean antialiasing ) {
+        this.antialiasing = antialiasing;
+    }
+    
+    /**
      * Rotaciona o contexto gráfico atual a partir da coordenada (0, 0).
      * Observação: Utilize apenas no método draw!
      * 

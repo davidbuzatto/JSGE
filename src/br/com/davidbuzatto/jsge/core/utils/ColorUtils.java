@@ -83,6 +83,32 @@ public interface ColorUtils {
             color.getAlpha() * tint.getAlpha() / 255
         );
     }
+    
+    /**
+     * Gera a cor invertida da cor passada.
+     * 
+     * @param color A cor.
+     * @return A cor invertida.
+     */
+    public static Color colorInvert( Color color ) {
+        return new Color( 
+            255 - color.getRed(), 
+            255 - color.getGreen(), 
+            255 - color.getBlue(), 
+            color.getAlpha()
+        );
+    }
+    
+    /**
+     * Gera a cor em escala de cinza da cor passada.
+     * 
+     * @param color A cor.
+     * @return A cor em escala de cinza.
+     */
+    public static Color colorGrayscale( Color color ) {
+        int gray = ( color.getRed() + color.getGreen() + color.getBlue() ) / 3;
+        return new Color( gray, gray, gray, color.getAlpha() );
+    }
 
     /**
      * Obtém uma cor com correção em relação ao brilho. O fator de brilho vai de 

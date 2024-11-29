@@ -28,6 +28,7 @@ import br.com.davidbuzatto.jsge.examples.basic.SoundAndMusicExample;
 import br.com.davidbuzatto.jsge.examples.basic.UserInteractionExample;
 import br.com.davidbuzatto.jsge.examples.ball.BouncingBallExample;
 import br.com.davidbuzatto.jsge.examples.animation.AnimationsExample;
+import br.com.davidbuzatto.jsge.examples.basic.CurveSmoothingExample;
 import br.com.davidbuzatto.jsge.examples.basic.GamepadsExample;
 import br.com.davidbuzatto.jsge.examples.camera.CameraExample;
 import br.com.davidbuzatto.jsge.examples.particles.ParticlesExample;
@@ -62,6 +63,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         btnDrawingPrimitiveObjects = new javax.swing.JButton();
         btnPaintingCapabilities = new javax.swing.JButton();
         btnCollisionDetection = new javax.swing.JButton();
+        btnCurveSmoothing = new javax.swing.JButton();
         btnImageLoadingAndProcessing = new javax.swing.JButton();
         btnUserInteraction = new javax.swing.JButton();
         btnColorMethods = new javax.swing.JButton();
@@ -104,6 +106,13 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         btnCollisionDetection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCollisionDetectionActionPerformed(evt);
+            }
+        });
+
+        btnCurveSmoothing.setText("Curve Smoothing");
+        btnCurveSmoothing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCurveSmoothingActionPerformed(evt);
             }
         });
 
@@ -190,7 +199,8 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
                     .addComponent(btnSoundAndMusic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnPaintingCapabilities, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAnimations, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGamepads, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnGamepads, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCurveSmoothing, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -206,6 +216,8 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
                 .addComponent(btnPaintingCapabilities)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCollisionDetection)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCurveSmoothing)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnImageLoadingAndProcessing)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -283,6 +295,10 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         new GamepadsExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnGamepadsActionPerformed
 
+    private void btnCurveSmoothingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCurveSmoothingActionPerformed
+        new CurveSmoothingExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+    }//GEN-LAST:event_btnCurveSmoothingActionPerformed
+
     /**
      * Executa o Showcase.
      * 
@@ -327,6 +343,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnCamera;
     private javax.swing.JButton btnCollisionDetection;
     private javax.swing.JButton btnColorMethods;
+    private javax.swing.JButton btnCurveSmoothing;
     private javax.swing.JButton btnDrawingPrimitiveMethods;
     private javax.swing.JButton btnDrawingPrimitiveObjects;
     private javax.swing.JButton btnGamepads;

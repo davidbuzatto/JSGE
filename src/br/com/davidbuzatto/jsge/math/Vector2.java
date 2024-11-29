@@ -16,13 +16,17 @@
  */
 package br.com.davidbuzatto.jsge.math;
 
+import java.io.Serializable;
+
 /**
  * Classe para representação de um vetor de duas dimensões.
  * Também é usada para representar pontos 2D em várias partes da API da Engine.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class Vector2 implements Cloneable {
+public class Vector2 implements Cloneable, Serializable {
+    
+    private static final long serialVersionUID = 1L;
 
     /**
      * Coordenada x.

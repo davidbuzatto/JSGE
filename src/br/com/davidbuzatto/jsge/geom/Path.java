@@ -20,13 +20,16 @@ import br.com.davidbuzatto.jsge.core.Drawable;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import java.awt.Paint;
 import java.awt.geom.Path2D;
+import java.io.Serializable;
 
 /**
  * Classe para representação de um caminho em duas dimensões.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class Path implements Drawable {
+public class Path implements Drawable, Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     /**
      * Path2D desse caminho.

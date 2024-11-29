@@ -16,12 +16,16 @@
  */
 package br.com.davidbuzatto.jsge.math;
 
+import java.io.Serializable;
+
 /**
  * Uma matriz.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class Matrix implements Cloneable {
+public class Matrix implements Cloneable, Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     /** Linha 1, coluna 1 */
     public double m0;

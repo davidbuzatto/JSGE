@@ -19,13 +19,16 @@ package br.com.davidbuzatto.jsge.geom;
 import br.com.davidbuzatto.jsge.core.Drawable;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import java.awt.Paint;
+import java.io.Serializable;
 
 /**
  * Classe para representação de uma curva Bézier cúbica.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class CubicCurve implements Drawable {
+public class CubicCurve implements Drawable, Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     /**
      * Coordenada x do ponto inicial.

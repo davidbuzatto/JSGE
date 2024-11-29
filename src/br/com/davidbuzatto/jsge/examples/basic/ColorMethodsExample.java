@@ -41,6 +41,7 @@ public class ColorMethodsExample extends EngineFrame {
     @Override
     public void create() {
         baseColor = LIME;
+        setDefaultFontSize( 20 );
     }
 
     @Override
@@ -80,13 +81,22 @@ public class ColorMethodsExample extends EngineFrame {
         }
         
         fillRectangle( 10, 30, 50, 50, baseColor );
+        drawText( "base", 70, 50, BLACK );
         fillRectangle( 10, 80, 50, 50, ColorUtils.colorAlpha( baseColor, 0.5 ) );
+        drawText( "50% alpha", 70, 100, BLACK );
         fillRectangle( 10, 130, 50, 50, ColorUtils.colorTint( baseColor, WHITE ) );
-        fillRectangle( 10, 180, 50, 50, ColorUtils.colorBrightness( baseColor, -0.5 ) );
-        fillRectangle( 10, 230, 50, 50, ColorUtils.colorContrast( baseColor, -0.5 ) );
+        drawText( "white tint", 70, 150, BLACK );
+        fillRectangle( 10, 180, 50, 50, ColorUtils.colorInvert( baseColor ) );
+        drawText( "inverted", 70, 200, BLACK );
+        fillRectangle( 10, 230, 50, 50, ColorUtils.colorGrayscale( baseColor ) );
+        drawText( "grayscale", 70, 250, BLACK );
+        fillRectangle( 10, 280, 50, 50, ColorUtils.colorBrightness( baseColor, -0.5 ) );
+        drawText( "-0.5 brightness", 70, 300, BLACK );
+        fillRectangle( 10, 330, 50, 50, ColorUtils.colorContrast( baseColor, -0.5 ) );
+        drawText( "-0.5 contrast", 70, 350, BLACK );
         
         String message = "right click me ;)";
-        drawText( message, 10, getScreenHeight() - 30, 20, BLACK );
+        drawText( message, 10, getScreenHeight() - 30, BLACK );
         
         drawHSVCircle();
         

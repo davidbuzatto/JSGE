@@ -16,6 +16,8 @@
  */
 package br.com.davidbuzatto.jsge.math;
 
+import java.io.Serializable;
+
 /**
  * Classe para representação de um vetor de quatro dimensões.
  * 
@@ -23,7 +25,9 @@ package br.com.davidbuzatto.jsge.math;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class Vector4 implements Cloneable {
+public class Vector4 implements Cloneable, Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     /**
      * Coordenada x.

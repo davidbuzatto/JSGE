@@ -19,6 +19,8 @@ package br.com.davidbuzatto.jsge.math;
 import br.com.davidbuzatto.jsge.geom.CubicCurve;
 import br.com.davidbuzatto.jsge.geom.Line;
 import br.com.davidbuzatto.jsge.geom.QuadCurve;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Interface com métodos utilitários para curvas.
@@ -169,6 +171,177 @@ public interface CurveUtils {
      */
     public static Vector2 getPointAtCubicCurve( CubicCurve cubicCurve, double amount ) {
         return getPointAtCubicCurve( cubicCurve.x1, cubicCurve.y1, cubicCurve.c1x, cubicCurve.c1y, cubicCurve.c2x, cubicCurve.c2y, cubicCurve.x2, cubicCurve.y2, amount );
+    }
+    
+    /**
+     * Aplica o algoritmo de Chaikin em uma curva representada por uma lista de 
+     * pontos, retornando uma nova lista de pontos que corresponde à curva
+     * suavizada.
+     * 
+     * Referências:
+     *     https://www.codeproject.com/Articles/1093960/2D-Polyline-Vertex-Smoothing
+     *     https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+     * 
+     * @param points Pontos que serão processados.
+     * @param tension Tensão [0..1]
+     * @param iterations Quantidade iterações [1..10]
+     * @return Uma lista de pontos que representa uma curva suavizada ou uma
+     * lista vazia caso a lista de pontos contenha menos que 3 pontos.
+     */
+    public static List<Vector2> getCurveSmoothingChaikin( List<Vector2> points, double tension, int iterations ) {
+        
+        List<Vector2> newList = new ArrayList<>();
+        
+        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // checks
+        if ( points == null || points.size() < 3 ) {
+            return newList;
+        }
+
+        if ( iterations < 1 ) {
+            iterations = 1;
+        } else if ( iterations > 10 ) {
+            iterations = 10;
+        }
+
+        if ( tension < 0 ) {
+            tension = 0;
+        } else if ( tension > 1 ) {
+            tension = 1;
+        }
+
+        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // the tension factor defines a scale between corner cutting distance in segment half length, i.e. between 0.05 and 0.45
+        // the opposite corner will be cut by the inverse (i.e. 1-cutting distance) to keep symmetry
+        // with a tension value of 0.5 this amounts to 0.25 = 1/4 and 0.75 = 3/4 the original Chaikin values
+        double cutdist = 0.05 + ( tension * 0.4 );
+
+        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // make a copy of the pointlist and feed it to the iteration
+        for ( Vector2 point : points ) {
+            newList.add( new Vector2( point.x, point.y ) );
+        }
+
+        for ( int i = 0; i <= iterations; i++ ) {
+            newList = getSmootherChaikin( newList, cutdist );
+        }
+
+        return newList;
+
+    }
+    
+    private static List<Vector2> getSmootherChaikin( List<Vector2> points, double cuttingDist ) {
+        
+        List<Vector2> newList = new ArrayList<>();
+
+        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // always add the first point
+        newList.add( new Vector2( points.get( 0 ).x, points.get( 0 ).y ) );
+        
+        for ( int i = 0; i < points.size() - 1; i++ ) {
+            
+            Vector2 p1 = points.get( i );
+            Vector2 p2 = points.get( i + 1 );
+            
+            Vector2 q = new Vector2(
+                ( 1 - cuttingDist ) * p1.x + cuttingDist * p2.x,
+                ( 1 - cuttingDist ) * p1.y + cuttingDist * p2.y
+            );
+            
+            Vector2 r = new Vector2(
+                cuttingDist * p1.x + ( 1 - cuttingDist ) * p2.x,
+                cuttingDist * p1.y + ( 1 - cuttingDist ) * p2.y
+            );
+            
+            newList.add( q );
+            newList.add( r );
+            
+        }
+
+        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // always add the last point
+        newList.add( new Vector2( points.get( points.size() - 1 ).x, points.get( points.size() - 1 ).y ) );
+
+        return newList;
+        
+    }
+    
+    /**
+     * Aplica o algoritmo de Catmull-Rom em uma curva representada por uma lista de 
+     * pontos, retornando uma nova lista de pontos que corresponde à curva
+     * suavizada.
+     * 
+     * @param points A lista de pontos.
+     * @param interpolationPoints A quantidade de pontos de interpolação.
+     * @return Uma lista de pontos que representa uma curva suavizada ou uma
+     * lista vazia caso a lista de pontos contenha menos que 3 pontos.
+     */
+    public static List<Vector2> getSplineInterpolationCatmullRom( List<Vector2> points, int interpolationPoints ) {
+        
+        List<Vector2> spline = new ArrayList<>();
+        
+        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // The Catmull-Rom Spline, requires at least 4 points so it is possible to extrapolate from 3 points, but not from 2.
+        // you would get a straight line anyway
+        if ( points.size() < 3 ) {
+            return spline;
+        }
+
+        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // could throw an error on the following, but it is easily fixed implicitly
+        if ( interpolationPoints < 1 ) {
+            interpolationPoints = 1;
+        }
+
+        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // create a new pointlist to do splining on
+        // if you don't do this, the original pointlist gets extended with the exptrapolated points
+        List<Vector2> spoints = new ArrayList<>();
+        for( Vector2 p : points ) {
+            spoints.add( new Vector2( p.x, p.y ) );
+        }
+        
+        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // always extrapolate the first and last point out
+        double dx = spoints.get(1).x - spoints.get(0).x;
+        double dy = spoints.get(1).y - spoints.get(0).y;
+        spoints.add( 0, new Vector2( spoints.get(0).x - dx, spoints.get(0).y - dy ) );
+        dx = spoints.get(spoints.size()-1).x - spoints.get(spoints.size()-2).x;
+        dy = spoints.get(spoints.size()-1).y - spoints.get(spoints.size()-2).y;
+        spoints.add( new Vector2( spoints.get(spoints.size()-1).x + dx, spoints.get(spoints.size()-1).y + dy ) );
+
+        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // Note the nrOfInterpolatedPoints acts as a kind of tension factor between 0 and 1 because it is normalised
+        // to 1/nrOfInterpolatedPoints. It can never be 0
+        double t;
+        Vector2 spoint;
+        
+        for ( int i = 0; i <= spoints.size() - 4; i++ ) {
+            
+            for ( int intp = 0; intp <= interpolationPoints - 1; intp++ ) {
+                
+                t = 1.0 / interpolationPoints * intp;
+                Vector2 i0 = spoints.get( i );
+                Vector2 i1 = spoints.get( i + 1 );
+                Vector2 i2 = spoints.get( i + 2 );
+                Vector2 i3 = spoints.get( i + 3 );
+                double t2 = t * t;
+                double t3 = t2 * t;
+                
+                spline.add( new Vector2(
+                    0.5 * ( 2 * i1.x + ( -1 * i0.x + i2.x ) * t + ( 2 * i0.x - 5 * i1.x + 4 * i2.x - i3.x ) * t2 + ( -1 * i0.x + 3 * i1.x - 3 * i2.x + i3.x ) * t3 ),
+                    0.5 * ( 2 * i1.y + ( -1 * i0.y + i2.y ) * t + ( 2 * i0.y - 5 * i1.y + 4 * i2.y - i3.y ) * t2 + ( -1 * i0.y + 3 * i1.y - 3 * i2.y + i3.y ) * t3 )
+                ));
+                
+            }
+            
+        }
+
+        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // add the last point, but skip the interpolated last point, so second last...
+        spline.add( spoints.get(spoints.size() - 2) );
+        return spline;
+            
     }
     
 }
