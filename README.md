@@ -14,7 +14,7 @@ Qualquer IDE ou sistema de build para Java tem a capacidade de realizar essa tar
 Ainda, o showcase pode ser visto executando-se o arquivo JSGE-vx.x.x-bin.jar contido nos pacotes binários ou executando o projeto da engine.
 
 ## Dependências
-- [Java Stream Player](https://github.com/goxr3plus/java-stream-player): processamento de som;
+- [Java Stream Player](https://github.com/goxr3plus/java-stream-player): processamento de áudio;
 - [JInput](https://github.com/jinput/jinput): gerenciamento de controles/gamepads/joysticks.
 
 ---
@@ -33,5 +33,5 @@ Any Java IDE or build system has the ability to perform this copying task, leavi
 However, the showcase can be seen by running the JSGE-vx.x.x-bin.jar file contained in the binary packages or by running the engine project.
 
 ## Dependencies
-- [Java Stream Player](https://github.com/goxr3plus/java-stream-player): sound processing;
+- [Java Stream Player](https://github.com/goxr3plus/java-stream-player): audio processing;
 - [JInput](https://github.com/jinput/jinput): controller/gamepad/joystick management.
