@@ -42,6 +42,7 @@
                   <Component id="btnAnimations" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnGamepads" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnCurveSmoothing" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnScissor" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -74,6 +75,8 @@
               <Component id="btnParticles" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnCamera" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnScissor" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnSoundAndMusic" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -181,6 +184,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCameraActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnScissor">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Scissor"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnScissorActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnSoundAndMusic">

@@ -80,7 +80,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.net.URL;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -110,9 +112,14 @@ public abstract class EngineFrame extends JFrame {
     private DrawingPanel drawingPanel;
 
     /**
-     * Referência ao contexto gráfico do painel de desenho.
+     * Referência ao contexto gráfico corrente do painel de desenho.
      */
     private Graphics2D g2d;
+    
+    /**
+     * Pilha de contextos gráficos. 
+     */
+    private Deque<Graphics2D> g2dStack;
 
     /**
      * Fonte padrão.
@@ -385,6 +392,8 @@ public abstract class EngineFrame extends JFrame {
         });
         exitKeyCode = KEY_ESCAPE;
         currentCursor = getCursor();
+        
+        g2dStack = new ArrayDeque<>();
         
         prepareInputManager();
         gpInputManager = new GamepadInputManager();
@@ -3757,16 +3766,14 @@ public abstract class EngineFrame extends JFrame {
         
         if ( !mode2DActive ) {
             
-            baseGraphics = g2d;
-            cameraGraphics = (Graphics2D) g2d.create();
+            copyAndSaveGraphics2D();
             
             // referência: MathUtils.getCameraMatrix2D
-            cameraGraphics.translate( camera.offset.x, camera.offset.y );
-            cameraGraphics.scale( camera.zoom, camera.zoom );
-            cameraGraphics.rotate( Math.toRadians( camera.rotation ) );
-            cameraGraphics.translate( -camera.target.x, -camera.target.y );
+            g2d.translate( camera.offset.x, camera.offset.y );
+            g2d.scale( camera.zoom, camera.zoom );
+            g2d.rotate( Math.toRadians( camera.rotation ) );
+            g2d.translate( -camera.target.x, -camera.target.y );
             
-            g2d = cameraGraphics;
             mode2DActive = true;
             
         }
@@ -3778,10 +3785,202 @@ public abstract class EngineFrame extends JFrame {
      */
     public void endMode2D() {
         if ( mode2DActive ) {
-            g2d = baseGraphics;
-            cameraGraphics.dispose();
+            disposeAndRestoreGraphics2D();
             mode2DActive = false;
         }
+    }
+    
+    
+    
+    //**************************************************************************
+    // Métodos para controle de recortes de desenho
+    //**************************************************************************
+    
+    /**
+     * Inicia o modo de recorte para um retângulo.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo.
+     * @param width Largura.
+     * @param height Altura.
+     */
+    public void beginScissorMode( double x, double y, double width, double height ) {
+        copyAndSaveGraphics2D();
+        g2d.setClip( (int) x, (int) y, (int) width, (int) height );
+    }
+    
+    /**
+     * Inicia o modo de recorte para um arco.
+     * 
+     * @param arc O arco.
+     */
+    public void beginScissorMode( Arc arc ) {
+        copyAndSaveGraphics2D();
+        double extent = arc.endAngle - arc.startAngle;
+        g2d.setClip( new Arc2D.Double( arc.x - arc.radiusH, arc.y - arc.radiusV, arc.radiusH * 2, arc.radiusV * 2, -arc.startAngle, -extent, Arc2D.CHORD ) );
+    }
+    
+    /**
+     * Inicia o modo de recorte para um círculo.
+     * 
+     * @param circle O círculo.
+     */
+    public void beginScissorMode( Circle circle ) {
+        copyAndSaveGraphics2D();
+        g2d.setClip( new Ellipse2D.Double( circle.x - circle.radius, circle.y - circle.radius, circle.radius * 2, circle.radius * 2 ) );
+    }
+    
+    /**
+     * Inicia o modo de recorte para um setor circular.
+     * 
+     * @param circleSector O setor circular.
+     */
+    public void beginScissorMode( CircleSector circleSector ) {
+        copyAndSaveGraphics2D();
+        double extent = circleSector.endAngle - circleSector.startAngle;
+        g2d.setClip( new Arc2D.Double( circleSector.x - circleSector.radius, circleSector.y - circleSector.radius, circleSector.radius * 2, circleSector.radius * 2, -circleSector.startAngle, -extent, Arc2D.PIE ) );
+    }
+    
+    /**
+     * Inicia o modo de recorte para uma curva Bézier cúbica.
+     * 
+     * @param cubicCurve A curva Bézier cúbica.
+     */
+    public void beginScissorMode( CubicCurve cubicCurve ) {
+        copyAndSaveGraphics2D();
+        g2d.setClip( new CubicCurve2D.Double( cubicCurve.x1, cubicCurve.y1, cubicCurve.c1x, cubicCurve.c1y, cubicCurve.c2x, cubicCurve.c2y, cubicCurve.x2, cubicCurve.y2 ) );
+    }
+    
+    /**
+     * Inicia o modo de recorte para uma elipse.
+     * 
+     * @param ellipse A elipse.
+     */
+    public void beginScissorMode( Ellipse ellipse ) {
+        copyAndSaveGraphics2D();
+        g2d.setClip( new Ellipse2D.Double( ellipse.x - ellipse.radiusH, ellipse.y - ellipse.radiusV, ellipse.radiusH * 2, ellipse.radiusV * 2 ) );
+    }
+    
+    /**
+     * Inicia o modo de recorte para um setor de elipse.
+     * 
+     * @param ellipseSector O setor de elipse.
+     */
+    public void beginScissorMode( EllipseSector ellipseSector ) {
+        copyAndSaveGraphics2D();
+        double extent = ellipseSector.endAngle - ellipseSector.startAngle;
+        g2d.setClip( new Arc2D.Double( ellipseSector.x - ellipseSector.radiusH, ellipseSector.y - ellipseSector.radiusV, ellipseSector.radiusH * 2, ellipseSector.radiusV * 2, -ellipseSector.startAngle, -extent, Arc2D.PIE ) );
+    }
+
+    /**
+     * Inicia o modo de recorte para um caminho.
+     * 
+     * @param path O caminho.
+     */
+    public void beginScissorMode( Path path ) {
+        copyAndSaveGraphics2D();
+        g2d.setClip( path.path );
+    }
+    
+    /**
+     * Inicia o modo de recorte para um polígono.
+     * 
+     * @param polygon O polígono.
+     */
+    public void beginScissorMode( Polygon polygon ) {
+        copyAndSaveGraphics2D();
+        g2d.setClip( DrawingUtils.createPolygon( polygon.x, polygon.y, polygon.sides, polygon.radius, polygon.rotation ) );
+    }
+    
+    /**
+     * Inicia o modo de recorte para uma curva Bézier quadrática.
+     * 
+     * @param quadCurve A curva Bézier quadrática.
+     */
+    public void beginScissorMode( QuadCurve quadCurve ) {
+        copyAndSaveGraphics2D();
+        g2d.setClip( new QuadCurve2D.Double( quadCurve.x1, quadCurve.y1, quadCurve.cx, quadCurve.cy, quadCurve.x2, quadCurve.y2 ) );
+    }
+    
+    /**
+     * Inicia o modo de recorte para um retângulo.
+     * 
+     * @param rectangle O retângulo.
+     */
+    public void beginScissorMode( Rectangle rectangle )  {
+        beginScissorMode( rectangle.x, rectangle.y, rectangle.width, rectangle.height );
+    }
+    
+    /**
+     * Inicia o modo de recorte para um anel.
+     * 
+     * @param ring O anel.
+     */
+    public void beginScissorMode( Ring ring ) {
+        copyAndSaveGraphics2D();
+        g2d.setClip( DrawingUtils.createRing( ring.x, ring.y, ring.innerRadius, ring.outerRadius, ring.startAngle, ring.endAngle ) );
+    }
+    
+    /**
+     * Inicia o modo de recorte para um retângulo de cantos arredondados.
+     * 
+     * @param roundRectangle O retângulo de cantos arredondados.
+     */
+    public void beginScissorMode( RoundRectangle roundRectangle ) {
+        copyAndSaveGraphics2D();
+        g2d.setClip( new RoundRectangle2D.Double( roundRectangle.x, roundRectangle.y, roundRectangle.width, roundRectangle.height, roundRectangle.roundness, roundRectangle.roundness ) );
+    }
+    
+    /**
+     * Inicia o modo de recorte para uma estrela.
+     * 
+     * @param star A estrela.
+     */
+    public void beginScissorMode( Star star ) {
+        copyAndSaveGraphics2D();
+        g2d.setClip( DrawingUtils.createStar( star.x, star.y, star.tips, star.radius, star.rotation ) );
+    }
+    
+    /**
+     * Inicia o modo de recorte para um triângulo.
+     * 
+     * @param triangle O triângulo.
+     */
+    public void beginScissorMode( Triangle triangle ) {
+        copyAndSaveGraphics2D();
+        g2d.setClip( DrawingUtils.createTriangle( triangle.x1, triangle.y1, triangle.x2, triangle.y2, triangle.x3, triangle.y3 ) );
+    }
+    
+    /**
+     * Finaliza o modo de recorte corrente.
+     */
+    public void endScissorMode() {
+        disposeAndRestoreGraphics2D();
+    }
+    
+    
+    
+    //**************************************************************************
+    // Métodos para controle dos contextos gráficos.
+    //**************************************************************************
+    
+    /**
+     * Cria uma cópia do contexto gráfico corrente e salva uma referência
+     * ao contexto gráfico anterior.
+     */
+    private void copyAndSaveGraphics2D() {
+        Graphics2D newG2d = (Graphics2D) g2d.create();
+        g2dStack.push( g2d );
+        g2d = newG2d;
+    }
+    
+    /**
+     * Descarta o contexto gráfico corrente e recupera o contexto gráfico
+     * salvo anteriormente.
+     */
+    private void disposeAndRestoreGraphics2D() {
+        g2d.dispose();
+        g2d = g2dStack.pop();
     }
     
     

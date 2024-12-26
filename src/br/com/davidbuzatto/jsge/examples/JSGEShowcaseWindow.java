@@ -30,6 +30,7 @@ import br.com.davidbuzatto.jsge.examples.ball.BouncingBallExample;
 import br.com.davidbuzatto.jsge.examples.animation.AnimationsExample;
 import br.com.davidbuzatto.jsge.examples.basic.CurveSmoothingExample;
 import br.com.davidbuzatto.jsge.examples.basic.GamepadsExample;
+import br.com.davidbuzatto.jsge.examples.basic.ScissorExample;
 import br.com.davidbuzatto.jsge.examples.camera.CameraExample;
 import br.com.davidbuzatto.jsge.examples.particles.ParticlesExample;
 
@@ -70,6 +71,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         btnBouncingBall = new javax.swing.JButton();
         btnParticles = new javax.swing.JButton();
         btnCamera = new javax.swing.JButton();
+        btnScissor = new javax.swing.JButton();
         btnSoundAndMusic = new javax.swing.JButton();
         btnAnimations = new javax.swing.JButton();
         btnGamepads = new javax.swing.JButton();
@@ -158,6 +160,13 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
             }
         });
 
+        btnScissor.setText("Scissor");
+        btnScissor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnScissorActionPerformed(evt);
+            }
+        });
+
         btnSoundAndMusic.setText("Sound and Music");
         btnSoundAndMusic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,7 +209,8 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
                     .addComponent(btnPaintingCapabilities, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAnimations, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGamepads, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCurveSmoothing, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCurveSmoothing, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnScissor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -230,6 +240,8 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
                 .addComponent(btnParticles)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCamera)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnScissor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSoundAndMusic)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -299,6 +311,10 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         new CurveSmoothingExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnCurveSmoothingActionPerformed
 
+    private void btnScissorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScissorActionPerformed
+        new ScissorExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+    }//GEN-LAST:event_btnScissorActionPerformed
+
     /**
      * Executa o Showcase.
      * 
@@ -350,6 +366,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnImageLoadingAndProcessing;
     private javax.swing.JButton btnPaintingCapabilities;
     private javax.swing.JButton btnParticles;
+    private javax.swing.JButton btnScissor;
     private javax.swing.JButton btnSoundAndMusic;
     private javax.swing.JButton btnUserInteraction;
     private javax.swing.JLabel lblHeader;
