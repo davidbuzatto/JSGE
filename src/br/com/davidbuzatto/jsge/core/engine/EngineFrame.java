@@ -4080,9 +4080,9 @@ public abstract class EngineFrame extends JFrame {
             comp.addMouseWheelListener( this );
             
             /*
-            * permite a entrada da tecla TAB e outras teclas normalmente usadas
-            * pelo focus traversal.
-            */
+             * permite a entrada da tecla TAB e outras teclas normalmente usadas
+             * pelo focus traversal.
+             */
             comp.setFocusTraversalKeysEnabled( false );
 
         }
