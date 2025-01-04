@@ -1,3 +1,9 @@
+Expandir API de desenho;
+   - adicionar métodos para mais variações
+   - adicionar métodos que invocam versões mais simples do Java2D (drawLine etc.)
+Adicionar build pelo maven para gerar pacotes de código e documentação
+apropriadamente (arquivos .jar).
+
 Separar o exemplos?
 Separar a engine do componente?
 Traduzir documentação para inglês?

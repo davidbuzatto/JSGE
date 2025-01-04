@@ -56,6 +56,7 @@ import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.RenderingHints;
 import java.awt.Robot;
+import java.awt.Shape;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -67,6 +68,8 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.font.GlyphVector;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Arc2D;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Ellipse2D;
@@ -74,12 +77,18 @@ import java.awt.geom.Line2D;
 import java.awt.geom.QuadCurve2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.ImageObserver;
+import java.awt.image.RenderedImage;
+import java.awt.image.renderable.RenderableImage;
 import java.io.File;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.net.URL;
+import java.text.AttributedCharacterIterator;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -2812,6 +2821,17 @@ public abstract class EngineFrame extends JFrame {
     public void scale( double x, double y ) {
         g2d.scale( x, y );
     }
+    
+    /**
+     * Executa o cisalhamento do contexto gráfico atual.
+     * Observação: Utilize apenas no método draw!
+     * 
+     * @param x Novo cisalhamento em x.
+     * @param y Novo cisalhamento em y.
+     */
+    public void shear( double x, double y ) {
+        g2d.shear( x, y );
+    }
 
     /**
      * Desenha o quantidade de FPS (quadros por segundo) atual.
@@ -3516,6 +3536,549 @@ public abstract class EngineFrame extends JFrame {
      */
     public void drawImage( Image image, Rectangle source, Rectangle dest, double originX, double originY, double rotation ) {
         drawImage( image, source, dest, originX, originY, rotation, null );
+    }
+    
+    
+    
+    //**************************************************************************
+    // Métodos de desenho mapeados diretamente de Graphics e Graphics2D.
+    //**************************************************************************
+    
+    /**
+     * Desenha uma forma.
+     * Mapeamento para o método draw de Graphics2D.
+     * 
+     * @param shape A forma que se quer desenhar.
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics2D#draw
+     */
+    public void g2Draw( Shape shape, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.draw( shape );
+    }
+    
+    /**
+     * Desenha uma linha.
+     * Mapeamento para o método drawLine de Graphics.
+     * 
+     * @param startX Coordenada x do ponto inicial.
+     * @param startY Coordenada y do ponto inicial.
+     * @param endX Coordenada x do ponto final.
+     * @param endY Coordenada y do ponto final.
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics#drawLine
+     */
+    public void g2DrawLine( int startX, int startY, int endX, int endY, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.drawLine( startX, startY, endX, endY );
+    }
+    
+    /**
+     * Desenha um retângulo.
+     * Mapeamento para o método drawRect de Graphics.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics#drawRect
+     */
+    public void g2DrawRect( int x, int y, int width, int height, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.drawRect( x, y, width, height );
+    }
+    
+    /**
+     * Desenha um retângulo com cantos arredondados.
+     * Mapeamento para o método drawRoundRect de Graphics.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param arcWidth A largura do arco de arredondamento.
+     * @param arcHeight A altura do arco de arredondamento.
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics#drawRoundRect
+     */
+    public void g2DrawRoundRect( int x, int y, int width, int height, int arcWidth, int arcHeight, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.drawRoundRect( x, y, width, height, arcWidth, arcHeight );
+    }
+    
+    /**
+     * Desenha um retângulo "3D".
+     * Mapeamento para o método draw3DRect de Graphics.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param raised Se o efeito 3D mostra o retângulo levantado. 
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics#draw3DRect
+     */
+    public void g2Draw3DRect( int x, int y, int width, int height, boolean raised, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.draw3DRect( x, y, width, height, raised );
+    }
+    
+    /**
+     * Desenha uma elipse.
+     * Mapeamento para o método drawOval de Graphics.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo onde a 
+     * elipse está inscrita.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo onde a 
+     * elipse está inscrita.
+     * @param width Largura do retângulo onde a elispe está inscrita.
+     * @param height Altura do retângulo onde a elispe está inscrita.
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics#drawOval
+     */
+    public void g2DrawOval( int x, int y, int width, int height, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.drawOval( x, y, width, height );
+    }
+    
+    /**
+     * Desenha um arco.
+     * Mapeamento para o método drawArc de Graphics.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo onde o 
+     * arco está inscrito.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo onde o 
+     * arco está inscrito.
+     * @param width Largura do retângulo onde o arco está inscrito.
+     * @param height Altura do retângulo onde o arco está inscrito.
+     * @param startAngle Ângulo de início, em graus.
+     * @param arcAngle Tamanho do ângulo do arco, em graus, sentido anti-horário.
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics#drawOval
+     */
+    public void g2DrawArc( int x, int y, int width, int height, int startAngle, int arcAngle, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.drawArc(x, y, width, height, startAngle, arcAngle );
+    }
+    
+    /**
+     * Desenha um polígono.
+     * Mapeamento para o método drawPolygon de Graphics.
+     * 
+     * @param polygon O polígono.
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics#drawPolygon
+     */
+    public void g2DrawPolygon( java.awt.Polygon polygon, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.drawPolygon( polygon );
+    }
+    
+    /**
+     * Desenha um polígono.
+     * Mapeamento para o método drawPolygon de Graphics.
+     * 
+     * @param xVertices Array de coordenadas x dos vértices.
+     * @param yVertices Array de coordenadas y dos vértices.
+     * @param nVertices Quantidade de vértices.
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics#drawPolygon
+     */
+    public void g2DrawPolygon( int[] xVertices, int[] yVertices, int nVertices, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.drawPolygon( xVertices, yVertices, nVertices );
+    }
+    
+    /**
+     * Desenha uma linha poligonal.
+     * Mapeamento para o método drawPolyline de Graphics.
+     * 
+     * @param xVertices Array de coordenadas x dos vértices.
+     * @param yVertices Array de coordenadas y dos vértices.
+     * @param nVertices Quantidade de vértices.
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics#drawPolyline
+     */
+    public void g2DrawPolyline( int[] xVertices, int[] yVertices, int nVertices, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.drawPolyline( xVertices, yVertices, nVertices );
+    }
+    
+    /**
+     * Pinta uma forma.
+     * Mapeamento para o método fill de Graphics2D.
+     * 
+     * @param shape A forma que se quer desenhar.
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics2D#fill
+     */
+    public void g2Fill( Shape shape, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.fill( shape );
+    }
+    
+    /**
+     * Pinta um retângulo.
+     * Mapeamento para o método fillRect de Graphics.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics#fillRect
+     */
+    public void g2FillRect( int x, int y, int width, int height, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.fillRect( x, y, width, height );
+    }
+    
+    /**
+     * Pinta um retângulo com cantos arredondados.
+     * Mapeamento para o método fillRoundRect de Graphics.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param arcWidth A largura do arco de arredondamento.
+     * @param arcHeight A altura do arco de arredondamento.
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics#fillRoundRect
+     */
+    public void g2FillRoundRect( int x, int y, int width, int height, int arcWidth, int arcHeight, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.fillRoundRect( x, y, width, height, arcWidth, arcHeight );
+    }
+    
+    /**
+     * Pinta um retângulo "3D".
+     * Mapeamento para o método fill3DRect de Graphics.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param raised Se o efeito 3D mostra o retângulo levantado. 
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics#fill3DRect
+     */
+    public void g2Fill3DRect( int x, int y, int width, int height, boolean raised, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.fill3DRect( x, y, width, height, raised );
+    }
+    
+    /**
+     * Pinta uma elipse.
+     * Mapeamento para o método fillOval de Graphics.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo onde a 
+     * elipse está inscrita.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo onde a 
+     * elipse está inscrita.
+     * @param width Largura do retângulo onde a elispe está inscrita.
+     * @param height Altura do retângulo onde a elispe está inscrita.
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics#fillOval
+     */
+    public void g2FillOval( int x, int y, int width, int height, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.fillOval( x, y, width, height );
+    }
+    
+    /**
+     * Pinta um arco.
+     * Mapeamento para o método fillArc de Graphics.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo onde o 
+     * arco está inscrito.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo onde o 
+     * arco está inscrito.
+     * @param width Largura do retângulo onde o arco está inscrito.
+     * @param height Altura do retângulo onde o arco está inscrito.
+     * @param startAngle Ângulo de início, em graus.
+     * @param arcAngle Tamanho do ângulo do arco, em graus, sentido anti-horário.
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics#fillArc
+     */
+    public void g2FillArc( int x, int y, int width, int height, int startAngle, int arcAngle, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.fillArc( x, y, width, height, startAngle, arcAngle );
+    }
+    
+    /**
+     * Pinta um polígono.
+     * Mapeamento para o método fillPolygon de Graphics.
+     * 
+     * @param polygon O polígono.
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics#fillPolygon
+     */
+    public void g2FillPolygon( java.awt.Polygon polygon, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.fillPolygon( polygon );
+    }
+    
+    /**
+     * Pinta um polígono.
+     * Mapeamento para o método fillPolygon de Graphics.
+     * 
+     * @param xVertices Array de coordenadas x dos vértices.
+     * @param yVertices Array de coordenadas y dos vértices.
+     * @param nVertices Quantidade de vértices.
+     * @param paint Paint para o desenho.
+     * @see java.awt.Graphics#fillPolygon
+     */
+    public void g2FillPolygon( int[] xVertices, int[] yVertices, int nVertices, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.fillPolygon( xVertices, yVertices, nVertices );
+    }
+    
+    /**
+     * Desenha uma imagem.
+     * Mapeamento para o método drawImage de Graphics2D.
+     * 
+     * @param image A imagem.
+     * @param transform A transformação que será aplicada na imagem.
+     * @param obs Um observador da imagem.
+     * @see java.awt.Graphics2D#drawImage
+     */
+    public void g2DrawImage( java.awt.Image image, AffineTransform transform, ImageObserver obs ) {
+        g2d.drawImage( image, transform, obs );
+    }
+    
+    /**
+     * Desenha uma imagem.
+     * Mapeamento para o método drawImage de Graphics2D.
+     * 
+     * @param image A imagem.
+     * @param op O operador da imagem.
+     * @param x Coordenada x do desenho da imagem. 
+     * @param y Coordenada y do desenho da imagem.
+     * @see java.awt.Graphics2D#drawImage
+     */
+    public void g2DrawImage( BufferedImage image, BufferedImageOp op, int x, int y ) {
+        g2d.drawImage( image, op, x, y );
+    }
+    
+    /**
+     * Desenha uma imagem.
+     * Mapeamento para o método drawImage de Graphics.
+     * 
+     * @param image A imagem.
+     * @param x Coordenada x do desenho da imagem. 
+     * @param y Coordenada y do desenho da imagem.
+     * @param obs Um observador da imagem.
+     * @see java.awt.Graphics#drawImage
+     */
+    public void g2DrawImage( java.awt.Image image, int x, int y, ImageObserver obs ) {
+        g2d.drawImage( image, x, y, obs );
+    }
+    
+    /**
+     * Desenha uma imagem.
+     * Mapeamento para o método drawImage de Graphics.
+     * 
+     * @param image A imagem.
+     * @param x Coordenada x do desenho da imagem. 
+     * @param y Coordenada y do desenho da imagem.
+     * @param bgColor A cor de fundo.
+     * @param obs Um observador da imagem.
+     * @see java.awt.Graphics#drawImage
+     */
+    public void g2DrawImage( java.awt.Image image, int x, int y, Color bgColor, ImageObserver obs ) {
+        g2d.drawImage( image, x, y, bgColor, obs );
+    }
+    
+    /**
+     * Desenha uma imagem.
+     * Mapeamento para o método drawImage de Graphics.
+     * 
+     * @param image A imagem.
+     * @param x Coordenada x do desenho da imagem. 
+     * @param y Coordenada y do desenho da imagem.
+     * @param width Largura do pedaço da imagem que será renderizado.
+     * @param height Altura do pedaço da imagem que será renderizado.
+     * @param obs Um observador da imagem.
+     * @see java.awt.Graphics#drawImage
+     */
+    public void g2DrawImage( java.awt.Image image, int x, int y, int width, int height, ImageObserver obs ) {
+        g2d.drawImage( image, x, y, width, height, obs );
+    }
+    
+    /**
+     * Desenha uma imagem.
+     * Mapeamento para o método drawImage de Graphics.
+     * 
+     * @param image A imagem.
+     * @param x Coordenada x do desenho da imagem. 
+     * @param y Coordenada y do desenho da imagem.
+     * @param width Largura do pedaço da imagem que será renderizado.
+     * @param height Altura do pedaço da imagem que será renderizado.
+     * @param bgColor A cor de fundo.
+     * @param obs Um observador da imagem.
+     * @see java.awt.Graphics#drawImage
+     */
+    public void g2DrawImage( java.awt.Image image, int x, int y, int width, int height, Color bgColor, ImageObserver obs ) {
+        g2d.drawImage( image, x, y, width, height, bgColor, obs );
+    }
+    
+    /**
+     * Desenha uma imagem.
+     * Mapeamento para o método drawImage de Graphics.
+     * 
+     * @param image A imagem.
+     * @param dx1 Coordenada x do vértice superior esquerdo do retângulo de destino.
+     * @param dy1 Coordenada y do vértice superior esquerdo do retângulo de destino.
+     * @param dx2 Coordenada x do vértice inferior direito do retângulo de destino.
+     * @param dy2 Coordenada y do vértice inferior direito do retângulo de destino.
+     * @param sx1 Coordenada x do vértice superior esquerdo do retângulo fonte.
+     * @param sy1 Coordenada y do vértice superior esquerdo do retângulo fonte.
+     * @param sx2 Coordenada x do vértice inferior direito do retângulo fonte.
+     * @param sy2 Coordenada y do vértice inferior direito do retângulo fonte.
+     * @param obs Um observador da imagem.
+     * @see java.awt.Graphics#drawImage
+     */
+    public void g2DrawImage( java.awt.Image image, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2, ImageObserver obs ) {
+        g2d.drawImage( image, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, obs );
+    }
+    
+    /**
+     * Desenha uma imagem.
+     * Mapeamento para o método drawImage de Graphics.
+     * 
+     * @param image A imagem.
+     * @param dx1 Coordenada x do vértice superior esquerdo do retângulo de destino.
+     * @param dy1 Coordenada y do vértice superior esquerdo do retângulo de destino.
+     * @param dx2 Coordenada x do vértice inferior direito do retângulo de destino.
+     * @param dy2 Coordenada y do vértice inferior direito do retângulo de destino.
+     * @param sx1 Coordenada x do vértice superior esquerdo do retângulo fonte.
+     * @param sy1 Coordenada y do vértice superior esquerdo do retângulo fonte.
+     * @param sx2 Coordenada x do vértice inferior direito do retângulo fonte.
+     * @param sy2 Coordenada y do vértice inferior direito do retângulo fonte.
+     * @param bgColor A cor de fundo.
+     * @param obs Um observador da imagem.
+     * @see java.awt.Graphics#drawImage
+     */
+    public void g2DrawImage( java.awt.Image image, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2, Color bgColor, ImageObserver obs ) {
+        g2d.drawImage( image, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, bgColor, obs );
+    }
+    
+    /**
+     * Desenha uma imagem renderizável.
+     * Mapeamento do método drawRenderableImage de Graphics2D.
+     * 
+     * @param image A imagem.
+     * @param transform A transformação que será aplicada na imagem.
+     * @see java.awt.Graphics2D#drawRenderableImage
+     */
+    public void g2DrawRenderableImage( RenderableImage image, AffineTransform transform ) {
+        g2d.drawRenderableImage( image, transform );
+    }
+    
+    /**
+     * Desenha uma imagem renderizada.
+     * Mapeamento do método drawRenderedImage de Graphics2D.
+     * 
+     * @param image A imagem.
+     * @param transform A transformação que será aplicada na imagem.
+     * * @see java.awt.Graphics2D#drawRenderedImage
+     */
+    public void g2DrawRenderedImage( RenderedImage image, AffineTransform transform ) {
+        g2d.drawRenderedImage( image, transform );
+    }
+    
+    /**
+     * Desenha os caracteres.
+     * Mapeamento do método drawChars de Graphics.
+     * 
+     * @param data Caracteres a serem desenhados.
+     * @param offset Deslocamento dos dados no array.
+     * @param length Quantidade de caracteres a serem desenhados.
+     * @param x Coordenada x do desenho.
+     * @param y Coordenada y do desenho.
+     * @param paint Paint do desenho.
+     * @see java.awt.Graphics#drawChars
+     */
+    public void g2DrawChars( char[] data, int offset, int length, int x, int y, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.drawChars( data, offset, length, x, y );
+    }
+    
+    /**
+     * Desenha um GlyphVector.
+     * Mapeamento do método drawGlyphVector de Graphics2D.
+     * 
+     * @param gv O GlyphVector.
+     * @param x Coordenada x do desenho.
+     * @param y Coordenada y do desenho.
+     * @param paint Paint do desenho.
+     * @see java.awt.Graphics2D#drawGlyphVector
+     */
+    public void g2DrawGlyphVector( GlyphVector gv, float x, float y, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.drawGlyphVector( gv, x, y );
+    }
+    
+    /**
+     * Desenha uma String.
+     * Mapeamento do método drawString de Graphics.
+     * 
+     * @param iterator O iterador de caracteres.
+     * @param x Coordenada x do desenho.
+     * @param y Coordenada y do desenho.
+     * @param paint Paint do desenho.
+     * @see java.awt.Graphics#drawString
+     */
+    public void g2DrawString( AttributedCharacterIterator iterator, int x, int y, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.drawString( iterator, x, y );
+    }
+    
+    /**
+     * Desenha uma String.
+     * Mapeamento do método drawString de Graphics2D.
+     * 
+     * @param iterator O iterador de caracteres.
+     * @param x Coordenada x do desenho.
+     * @param y Coordenada y do desenho.
+     * @param paint Paint do desenho.
+     * @see java.awt.Graphics2D#drawString
+     */
+    public void g2DrawString( AttributedCharacterIterator iterator, float x, float y, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.drawString( iterator, x, y );
+    }
+    
+    /**
+     * Desenha uma String.
+     * Mapeamento do método drawString de Graphics.
+     * 
+     * @param string A string a ser desenhada.
+     * @param x Coordenada x do desenho.
+     * @param y Coordenada y do desenho.
+     * @param paint Paint do desenho.
+     * @see java.awt.Graphics#drawString
+     */
+    public void g2DrawString( String string, int x, int y, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.drawString( string, x, y );
+    }
+    
+    /**
+     * Desenha uma String.
+     * Mapeamento do método drawString de Graphics2D.
+     * 
+     * @param string A string a ser desenhada.
+     * @param x Coordenada x do desenho.
+     * @param y Coordenada y do desenho.
+     * @param paint Paint do desenho.
+     * @see java.awt.Graphics2D#drawString
+     */
+    public void g2DrawString( String string, float x, float y, Paint paint ) {
+        g2d.setPaint( paint );
+        g2d.drawString( string, x, y );
     }
     
     
