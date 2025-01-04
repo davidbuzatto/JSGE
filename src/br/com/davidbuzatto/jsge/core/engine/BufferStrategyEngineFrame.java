@@ -1231,6 +1231,21 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
      * Desenha um retângulo rotacionado.
      * 
      * @param pos Vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param originX Coordenada x do pivô da rotação.
+     * @param originY Coordenada y do pivô da rotação.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param paint Paint para o desenho.
+     */
+    public void drawRectangle( Vector2 pos, double width, double height, double originX, double originY, double rotation, Paint paint ) {
+        drawRectangle( pos.x, pos.y, width, height, originX, originY, rotation, paint );
+    }
+    
+    /**
+     * Desenha um retângulo rotacionado.
+     * 
+     * @param pos Vértice superior esquerdo.
      * @param dim Dimensões (x: largura, y: altura).
      * @param origin pivô da rotação.
      * @param rotation Rotação em graus (sentido horário).
@@ -1238,6 +1253,20 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
      */
     public void drawRectangle( Vector2 pos, Vector2 dim, Vector2 origin, double rotation, Paint paint ) {
         drawRectangle( pos.x, pos.y, dim.x, dim.y, origin.x, origin.y, rotation, paint );
+    }
+    
+    /**
+     * Desenha um retângulo rotacionado.
+     * 
+     * @param pos Vértice superior esquerdo.
+     * @param dim Dimensões (x: largura, y: altura).
+     * @param originX Coordenada x do pivô da rotação.
+     * @param originY Coordenada y do pivô da rotação.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param paint Paint para o desenho.
+     */
+    public void drawRectangle( Vector2 pos, Vector2 dim, double originX, double originY, double rotation, Paint paint ) {
+        drawRectangle( pos.x, pos.y, dim.x, dim.y, originX, originY, rotation, paint );
     }
 
     /**
@@ -1250,6 +1279,19 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
      */
     public void drawRectangle( Rectangle rectangle, Vector2 origin, double rotation, Paint paint ) {
         drawRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, paint );
+    }
+    
+    /**
+     * Desenha um retângulo rotacionado.
+     * 
+     * @param rectangle Um retângulo.
+     * @param originX Coordenada x do pivô da rotação.
+     * @param originY Coordenada y do pivô da rotação.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param paint Paint para o desenho.
+     */
+    public void drawRectangle( Rectangle rectangle, double originX, double originY, double rotation, Paint paint ) {
+        drawRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, originX, originY, rotation, paint );
     }
 
     /**
@@ -1294,6 +1336,21 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
      * Pinta um retângulo rotacionado.
      * 
      * @param pos Vértice superior esquerdo.
+     * @param width Largura.
+     * @param height Altura.
+     * @param originX Coordenada x do pivô da rotação.
+     * @param originY Coordenada y do pivô da rotação.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param paint Paint para o desenho.
+     */
+    public void fillRectangle( Vector2 pos, double width, double height, double originX, double originY, double rotation, Paint paint ) {
+        fillRectangle( pos.x, pos.y, width, height, originX, originY, rotation, paint );
+    }
+    
+    /**
+     * Pinta um retângulo rotacionado.
+     * 
+     * @param pos Vértice superior esquerdo.
      * @param dim Dimensões (x: largura, y: altura).
      * @param origin pivô da rotação.
      * @param rotation Rotação em graus (sentido horário).
@@ -1306,6 +1363,20 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
     /**
      * Pinta um retângulo rotacionado.
      * 
+     * @param pos Vértice superior esquerdo.
+     * @param dim Dimensões (x: largura, y: altura).
+     * @param originX Coordenada x do pivô da rotação.
+     * @param originY Coordenada y do pivô da rotação.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param paint Paint para o desenho.
+     */
+    public void fillRectangle( Vector2 pos, Vector2 dim, double originX, double originY, double rotation, Paint paint ) {
+        fillRectangle( pos.x, pos.y, dim.x, dim.y, originX, originY, rotation, paint );
+    }
+    
+    /**
+     * Pinta um retângulo rotacionado.
+     * 
      * @param rectangle Um retângulo.
      * @param origin pivô da rotação.
      * @param rotation Rotação em graus (sentido horário).
@@ -1313,6 +1384,19 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
      */
     public void fillRectangle( Rectangle rectangle, Vector2 origin, double rotation, Paint paint ) {
         fillRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, origin.x, origin.y, rotation, paint );
+    }
+    
+    /**
+     * Pinta um retângulo rotacionado.
+     * 
+     * @param rectangle Um retângulo.
+     * @param originX Coordenada x do pivô da rotação.
+     * @param originY Coordenada y do pivô da rotação.
+     * @param rotation Rotação em graus (sentido horário).
+     * @param paint Paint para o desenho.
+     */
+    public void fillRectangle( Rectangle rectangle, double originX, double originY, double rotation, Paint paint ) {
+        fillRectangle( rectangle.x, rectangle.y, rectangle.width, rectangle.height, originX, originY, rotation, paint );
     }
     
     /**
