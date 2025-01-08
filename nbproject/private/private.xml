@@ -2,15 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/Jogos/JSimpleGameEngine/JSGE/src/br/com/davidbuzatto/jsge/core/engine/imgui/GuiComponentState.java</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/Jogos/JSimpleGameEngine/JSGE/src/br/com/davidbuzatto/jsge/core/engine/imgui/GuiLabel.java</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/Jogos/JSimpleGameEngine/JSGE/src/br/com/davidbuzatto/jsge/core/engine/imgui/GuiComponent.java</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/Jogos/JSimpleGameEngine/JSGE/src/br/com/davidbuzatto/jsge/tests/IMGUITests.java</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/Jogos/JSimpleGameEngine/JSGE/src/br/com/davidbuzatto/jsge/core/engine/imgui/GuiButton.java</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/Jogos/JSimpleGameEngine/JSGE/src/br/com/davidbuzatto/jsge/core/engine/imgui/GuiTextComponent.java</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/Jogos/JSimpleGameEngine/JSGE/src/br/com/davidbuzatto/jsge/examples/animation/AnimationsExample.java</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/Jogos/JSimpleGameEngine/JSGE/src/br/com/davidbuzatto/jsge/core/engine/imgui/GuiLabelButton.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
