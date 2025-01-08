@@ -37,17 +37,23 @@ public class GuiLabelButton extends GuiTextComponent {
     @Override
     public void update( double delta ) {
         
-        Vector2 mousePos = e.getMousePositionPoint();
-        
-        if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
-            state = GuiComponentState.MOUSE_OVER;
-            if ( e.isMouseButtonPressed( e.MOUSE_BUTTON_LEFT ) ) {
-                state = GuiComponentState.MOUSE_PRESSED;
-            } else if ( e.isMouseButtonDown( e.MOUSE_BUTTON_LEFT ) ) {
-                state = GuiComponentState.MOUSE_DOWN;
+        if ( visible && enabled ) {
+            
+            Vector2 mousePos = e.getMousePositionPoint();
+
+            if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
+                mouseState = GuiComponentState.MOUSE_OVER;
+                if ( e.isMouseButtonPressed( e.MOUSE_BUTTON_LEFT ) ) {
+                    mouseState = GuiComponentState.MOUSE_PRESSED;
+                } else if ( e.isMouseButtonDown( e.MOUSE_BUTTON_LEFT ) ) {
+                    mouseState = GuiComponentState.MOUSE_DOWN;
+                }
+            } else {
+                mouseState = GuiComponentState.MOUSE_OUT;
             }
+        
         } else {
-            state = GuiComponentState.MOUSE_OUT;
+            mouseState = GuiComponentState.MOUSE_OUT;
         }
         
     }
@@ -55,25 +61,35 @@ public class GuiLabelButton extends GuiTextComponent {
     @Override
     public void draw() {
         
-        switch ( state ) {
-            case MOUSE_OUT:
-                drawText( MOUSE_OUT_TEXT_COLOR );
-                break;
-            case MOUSE_OVER:
-                drawText( MOUSE_OVER_TEXT_COLOR );
-                break;
-            case MOUSE_PRESSED:
-                drawText( MOUSE_DOWN_TEXT_COLOR );
-                break;
-            case MOUSE_DOWN:
-                drawText( MOUSE_DOWN_TEXT_COLOR );
-                break;
+        if ( visible ) {
+            
+            if ( enabled ) {
+
+                switch ( mouseState ) {
+                    case MOUSE_OUT:
+                        drawText( MOUSE_OUT_TEXT_COLOR );
+                        break;
+                    case MOUSE_OVER:
+                        drawText( MOUSE_OVER_TEXT_COLOR );
+                        break;
+                    case MOUSE_PRESSED:
+                        drawText( MOUSE_DOWN_TEXT_COLOR );
+                        break;
+                    case MOUSE_DOWN:
+                        drawText( MOUSE_DOWN_TEXT_COLOR );
+                        break;
+                }
+
+            } else {
+                drawText( DISABLED_TEXT_COLOR );
+            }
+            
         }
         
     }
     
     public boolean isPressed() {
-        return state == GuiComponentState.MOUSE_PRESSED;
+        return mouseState == GuiComponentState.MOUSE_PRESSED;
     }
     
 }

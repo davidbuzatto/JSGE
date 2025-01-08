@@ -1,3 +1,4 @@
+Usar fonte padrão.
 Criar componentes immediate mode! (v1.5.0)
 
 Retirado da raygui:
@@ -11,14 +12,8 @@ Retirado da raygui:
 *       - ScrollPanel   --> StatusBar
 *       - TabBar        --> Button
 *
-*     # Basic Controls
-*       - Label
-*       - LabelButton   --> Label
-*       - Button
-*       - Toggle
-*       - ToggleGroup   --> Toggle
+*     # Basic Control
 *       - ToggleSlider
-*       - CheckBox
 *       - ComboBox
 *       - DropdownBox
 *       - TextBox

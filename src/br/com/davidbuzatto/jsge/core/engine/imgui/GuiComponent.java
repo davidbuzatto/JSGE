@@ -27,9 +27,15 @@ import java.awt.Color;
  */
 public abstract class GuiComponent {
     
+    private static int idCounter;
+    private int id;
+    
     protected Rectangle bounds;
     protected EngineFrame e;
-    protected GuiComponentState state;
+    protected GuiComponentState mouseState = GuiComponentState.MOUSE_OUT;
+    protected boolean enabled = true;
+    protected boolean visible = true;
+    
     protected static final int FONT_SIZE = 12;
     protected static final int LINE_WIDTH = 2;
     
@@ -45,12 +51,65 @@ public abstract class GuiComponent {
     protected static final Color MOUSE_DOWN_BORDER_COLOR = new Color( 4, 146, 199 );
     protected static final Color MOUSE_DOWN_TEXT_COLOR = new Color( 54, 139, 175 );
     
+    protected static final Color DISABLED_BACKGROUND_COLOR = new Color( 230, 233, 233 );
+    protected static final Color DISABLED_BORDER_COLOR = new Color( 181, 193, 194 );
+    protected static final Color DISABLED_TEXT_COLOR = new Color( 174, 183, 184 );
+    
     public abstract void update( double delta );
     public abstract void draw();
     
-    protected void drawBoundsAsRectangle( Color backgroundColor, Color borderColor ) {
+    public GuiComponent() {
+        this.id = idCounter++;
+    }
+    
+    protected void drawBoundsAsRectangle( Color borderColor, boolean fillInternal ) {
+        e.drawRectangle( bounds, borderColor );
+        if ( fillInternal ) {
+            e.fillRectangle( bounds.x + 2, bounds.y + 2, bounds.width - 3, bounds.height - 3, borderColor );
+        }
+    }
+    
+    protected void fillBoundsAsRectangle( Color backgroundColor, Color borderColor ) {
         e.fillRectangle( bounds, backgroundColor );
         e.drawRectangle( bounds, borderColor );
+    }
+    
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled( boolean enabled ) {
+        this.enabled = enabled;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible( boolean visible ) {
+        this.visible = visible;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals( Object obj ) {
+        if ( this == obj ) {
+            return true;
+        }
+        if ( obj == null ) {
+            return false;
+        }
+        if ( getClass() != obj.getClass() ) {
+            return false;
+        }
+        final GuiComponent other = (GuiComponent) obj;
+        return this.id == other.id;
     }
     
 }

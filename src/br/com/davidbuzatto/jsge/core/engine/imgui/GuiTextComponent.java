@@ -38,6 +38,15 @@ public abstract class GuiTextComponent extends GuiComponent {
                 textColor );
     }
     
+    protected void drawTextAfterBounds( Color textColor ) {
+        e.drawText(
+                text,
+                bounds.x + bounds.width + 5,
+                bounds.y + bounds.height / 2 - FONT_SIZE / 4,
+                FONT_SIZE,
+                textColor );
+    }
+    
     protected void drawCenteredText( Color textColor ) {
         if ( textWidth == -1 ) {
             textWidth = e.measureText( text, FONT_SIZE );
@@ -48,6 +57,11 @@ public abstract class GuiTextComponent extends GuiComponent {
                 bounds.y + bounds.height / 2 - FONT_SIZE / 4,
                 FONT_SIZE,
                 textColor );
+    }
+
+    public void setText( String text ) {
+        this.text = text;
+        textWidth = e.measureText( text, FONT_SIZE );
     }
 
 }

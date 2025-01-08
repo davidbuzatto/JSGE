@@ -22,13 +22,15 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.Vector2;
 
 /**
- * Um componente botão.
+ * Um componente caixa de seleção.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class GuiButton extends GuiTextComponent {
+public class GuiCheckBox extends GuiTextComponent {
     
-    public GuiButton( double x, double y, double width, double height, String text, EngineFrame engine ) {
+    protected boolean selected;
+    
+    public GuiCheckBox( double x, double y, double width, double height, String text, EngineFrame engine ) {
         this.bounds = new Rectangle( x, y, width, height );
         this.text = text;
         this.e = engine;
@@ -45,6 +47,7 @@ public class GuiButton extends GuiTextComponent {
                 mouseState = GuiComponentState.MOUSE_OVER;
                 if ( e.isMouseButtonPressed( e.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_PRESSED;
+                    selected = !selected;
                 } else if ( e.isMouseButtonDown( e.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_DOWN;
                 }
@@ -63,36 +66,44 @@ public class GuiButton extends GuiTextComponent {
         
         if ( visible ) {
             
-            e.setStrokeLineWidth( LINE_WIDTH );
+            e.setStrokeLineWidth( 1 );
 
             if ( enabled ) {
 
                 switch ( mouseState ) {
                     case MOUSE_OUT:
-                        fillBoundsAsRectangle( MOUSE_OUT_BACKGROUND_COLOR, MOUSE_OUT_BORDER_COLOR );
-                        drawCenteredText( MOUSE_OUT_TEXT_COLOR );
+                        drawBoundsAsRectangle( MOUSE_OUT_BORDER_COLOR, selected );
+                        drawTextAfterBounds( MOUSE_OUT_TEXT_COLOR );
                         break;
                     case MOUSE_OVER:
-                        fillBoundsAsRectangle( MOUSE_OVER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR );
-                        drawCenteredText( MOUSE_OVER_TEXT_COLOR );
+                        drawBoundsAsRectangle( MOUSE_OVER_BORDER_COLOR, selected );
+                        drawTextAfterBounds( MOUSE_OVER_TEXT_COLOR );
                         break;
                     case MOUSE_PRESSED:
-                        fillBoundsAsRectangle( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
-                        drawCenteredText( MOUSE_DOWN_TEXT_COLOR );
+                        drawBoundsAsRectangle( MOUSE_DOWN_BORDER_COLOR, selected );
+                        drawTextAfterBounds( MOUSE_DOWN_TEXT_COLOR );
                         break;
                     case MOUSE_DOWN:
-                        fillBoundsAsRectangle( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
-                        drawCenteredText( MOUSE_DOWN_TEXT_COLOR );
+                        drawBoundsAsRectangle( MOUSE_DOWN_BORDER_COLOR, selected );
+                        drawTextAfterBounds( MOUSE_DOWN_TEXT_COLOR );
                         break;
                 }
 
             } else {
-                fillBoundsAsRectangle( DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR );
-                drawCenteredText( DISABLED_TEXT_COLOR );
+                drawBoundsAsRectangle( DISABLED_BORDER_COLOR, selected );
+                drawTextAfterBounds( DISABLED_TEXT_COLOR );
             }
             
         }
         
+    }
+
+    public void setSelected( boolean selected ) {
+        this.selected = selected;
+    }
+    
+    public boolean isSelected() {
+        return this.selected;
     }
     
     public boolean isPressed() {

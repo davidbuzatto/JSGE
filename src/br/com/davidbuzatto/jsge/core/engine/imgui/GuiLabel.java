@@ -38,7 +38,13 @@ public class GuiLabel extends GuiTextComponent {
     
     @Override
     public void draw() {
-        drawText( MOUSE_OUT_TEXT_COLOR );
+        if ( visible ) {
+            if ( enabled ) {
+                drawText( MOUSE_OUT_TEXT_COLOR );
+            } else {
+                drawText( DISABLED_TEXT_COLOR );
+            }
+        }
     }
     
 }
