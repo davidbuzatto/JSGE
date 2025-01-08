@@ -236,7 +236,7 @@ public class AnimationsExample extends EngineFrame {
         
         /**
          * Cada animação baseada em frames precisa de uma lista de imagens
-         * ou de componenets desenháveis (interface Drawable).
+         * ou de componentes desenháveis (interface Drawable).
          */
         List<ImageAnimationFrame> imageFrames = new ArrayList<>();
         imageFrames.add( new ImageAnimationFrame( loadImage( "resources/images/coin0.png" ) ) );
