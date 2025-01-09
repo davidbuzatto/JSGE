@@ -42,14 +42,14 @@ public class GuiToogleButton extends GuiCheckBox {
 
             if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
                 mouseState = GuiComponentState.MOUSE_OVER;
-                if ( e.isMouseButtonPressed( e.MOUSE_BUTTON_LEFT ) ) {
+                if ( e.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_PRESSED;
                     if ( buttonGroup != null ) {
                         buttonGroup.toogle( this );
                     } else {
                         selected = !selected;
                     }
-                } else if ( e.isMouseButtonDown( e.MOUSE_BUTTON_LEFT ) ) {
+                } else if ( e.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_DOWN;
                 }
             } else {

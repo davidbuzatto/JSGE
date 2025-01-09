@@ -43,7 +43,7 @@ public class GuiLabelButton extends GuiTextComponent {
 
             if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
                 mouseState = GuiComponentState.MOUSE_OVER;
-                if ( e.isMouseButtonPressed( e.MOUSE_BUTTON_LEFT ) ) {
+                if ( e.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_PRESSED;
                 } else if ( e.isMouseButtonDown( e.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_DOWN;
