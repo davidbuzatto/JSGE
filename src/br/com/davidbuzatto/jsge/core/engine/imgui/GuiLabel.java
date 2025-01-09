@@ -44,6 +44,7 @@ public class GuiLabel extends GuiTextComponent {
             } else {
                 drawText( DISABLED_TEXT_COLOR );
             }
+            drawBounds();
         }
     }
     

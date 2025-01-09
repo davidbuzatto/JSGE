@@ -38,6 +38,15 @@ public abstract class GuiTextComponent extends GuiComponent {
                 textColor );
     }
     
+    protected void drawText( Color textColor, double xOffset, double yOffset ) {
+        e.drawText(
+                text,
+                bounds.x + xOffset,
+                bounds.y + bounds.height / 2 - FONT_SIZE / 4 + yOffset,
+                FONT_SIZE,
+                textColor );
+    }
+    
     protected void drawTextAfterBounds( Color textColor ) {
         e.drawText(
                 text,

@@ -84,6 +84,8 @@ public class GuiLabelButton extends GuiTextComponent {
                 drawText( DISABLED_TEXT_COLOR );
             }
             
+            drawBounds();
+            
         }
         
     }

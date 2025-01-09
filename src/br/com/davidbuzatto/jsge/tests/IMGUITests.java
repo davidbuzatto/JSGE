@@ -23,7 +23,8 @@ import br.com.davidbuzatto.jsge.core.engine.imgui.GuiComponent;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiLabel;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiLabelButton;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiToogleButton;
-import br.com.davidbuzatto.jsge.core.engine.imgui.GuiToogleButtonGroup;
+import br.com.davidbuzatto.jsge.core.engine.imgui.GuiButtonGroup;
+import br.com.davidbuzatto.jsge.core.engine.imgui.GuiRadioButton;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,14 +41,22 @@ public class IMGUITests extends EngineFrame {
     private GuiButton btn;
     private GuiLabelButton labelBtn;
     private GuiCheckBox check;
+    private GuiRadioButton radioBtn1;
+    private GuiRadioButton radioBtn2;
+    private GuiRadioButton radioBtn3;
+    private GuiButtonGroup buttonGroupRadio;
     private GuiToogleButton toogleBtn;
     private GuiToogleButton toogleBtn1;
     private GuiToogleButton toogleBtn2;
     private GuiToogleButton toogleBtn3;
-    private GuiToogleButtonGroup buttonGroup;
+    private GuiButtonGroup buttonGroupToogle;
     
     private GuiCheckBox checkEnabled;
     private GuiCheckBox checkVisible;
+    private GuiCheckBox checkDrawBounds;
+    
+    private int btnPressCount;
+    private int labelBtnPressCount;
     
     /**
      * Cria o teste.
@@ -61,33 +70,46 @@ public class IMGUITests extends EngineFrame {
         
         label = new GuiLabel( 10, 10, 200, 30, "Label", this );
         btn = new GuiButton( 10, 50, 200, 30, "Button", this );
-        labelBtn = new GuiLabelButton( 10, 90, 200, 30, "Label (Button)", this );
-        check = new GuiCheckBox( 10, 130, 200, 30, "Check Box", this );
-        toogleBtn = new GuiToogleButton( 10, 170, 200, 30, "Toggle Button", this );
+        labelBtn = new GuiLabelButton( 10, 90, 100, 30, "Label (Button)", this );
+        check = new GuiCheckBox( 10, 130, 100, 20, "Check Box", this );
         
-        buttonGroup = new GuiToogleButtonGroup();
-        toogleBtn1 = new GuiToogleButton( 10, 210, 80, 30, "Option 1", this );
+        buttonGroupRadio = new GuiButtonGroup();
+        radioBtn1 = new GuiRadioButton( 10, 170, 80, 20, "Radio 1", this );
+        radioBtn1.setSelected( true );
+        radioBtn1.setButtonGroup( buttonGroupRadio );
+        radioBtn2 = new GuiRadioButton( 100, 170, 80, 20, "Radio 2", this );
+        radioBtn2.setButtonGroup( buttonGroupRadio );
+        radioBtn3 = new GuiRadioButton( 190, 170, 80, 20, "Radio 3", this );
+        radioBtn3.setButtonGroup( buttonGroupRadio );
+        
+        toogleBtn = new GuiToogleButton( 10, 210, 200, 30, "Toggle Button", this );
+        buttonGroupToogle = new GuiButtonGroup();
+        toogleBtn1 = new GuiToogleButton( 10, 250, 80, 30, "Option 1", this );
         toogleBtn1.setSelected( true );
-        toogleBtn1.setButtonGroup( buttonGroup );
-        toogleBtn2 = new GuiToogleButton( 90, 210, 80, 30, "Option 2", this );
-        toogleBtn2.setButtonGroup( buttonGroup );
-        toogleBtn3 = new GuiToogleButton( 170, 210, 80, 30, "Option 3", this );
-        toogleBtn3.setButtonGroup( buttonGroup );
+        toogleBtn1.setButtonGroup( buttonGroupToogle );
+        toogleBtn2 = new GuiToogleButton( 90, 250, 80, 30, "Option 2", this );
+        toogleBtn2.setButtonGroup( buttonGroupToogle );
+        toogleBtn3 = new GuiToogleButton( 170, 250, 80, 30, "Option 3", this );
+        toogleBtn3.setButtonGroup( buttonGroupToogle );
         
         components = new ArrayList<>();
         components.add( label );
         components.add( btn );
         components.add( labelBtn );
         components.add( check );
+        components.add( radioBtn1 );
+        components.add( radioBtn2 );
+        components.add( radioBtn3 );
         components.add( toogleBtn );
         components.add( toogleBtn1 );
         components.add( toogleBtn2 );
         components.add( toogleBtn3 );
         
-        checkEnabled = new GuiCheckBox( 600, 10, 30, 30, "Enabled", this );
+        checkEnabled = new GuiCheckBox( 400, 10, 20, 20, "Enabled", this );
         checkEnabled.setSelected( true );
-        checkVisible = new GuiCheckBox( 700, 10, 30, 30, "Visible", this );
+        checkVisible = new GuiCheckBox( 400, 40, 20, 20, "Visible", this );
         checkVisible.setSelected( true );
+        checkDrawBounds = new GuiCheckBox( 400, 70, 20, 20, "Draw bounds", this );
         
     }
     
@@ -98,8 +120,17 @@ public class IMGUITests extends EngineFrame {
             c.update( delta );
         }
         
+        if ( btn.isPressed() ) {
+            btnPressCount++;
+        }
+        
+        if ( labelBtn.isPressed() ) {
+            labelBtnPressCount++;
+        }
+        
         checkEnabled.update( delta );
         checkVisible.update( delta );
+        checkDrawBounds.update( delta );
         
         if ( checkEnabled.isPressed() ) {
             for ( GuiComponent c : components ) {
@@ -110,6 +141,15 @@ public class IMGUITests extends EngineFrame {
         if ( checkVisible.isPressed() ) {
             for ( GuiComponent c : components ) {
                 c.setVisible( checkVisible.isSelected() );
+            }
+        }
+        
+        if ( checkDrawBounds.isPressed() ) {
+            for ( GuiComponent c : components ) {
+                c.setDrawBounds( checkDrawBounds.isSelected() );
+                checkEnabled.setDrawBounds( checkDrawBounds.isSelected() );
+                checkVisible.setDrawBounds( checkDrawBounds.isSelected() );
+                checkDrawBounds.setDrawBounds( checkDrawBounds.isSelected() );
             }
         }
         
@@ -124,8 +164,12 @@ public class IMGUITests extends EngineFrame {
             c.draw();
         }
         
+        drawText( "press count: " + btnPressCount, btn.getBounds().x + btn.getBounds().width + 5, btn.getBounds().y + btn.getBounds().height / 2 - 3, 12, LIGHTGRAY );
+        drawText( "press count: " + labelBtnPressCount, labelBtn.getBounds().x + labelBtn.getBounds().width + 5, labelBtn.getBounds().y + labelBtn.getBounds().height / 2 - 3, 12, LIGHTGRAY );
+        
         checkEnabled.draw();
         checkVisible.draw();
+        checkDrawBounds.draw();
         
     }
     

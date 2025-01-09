@@ -18,22 +18,19 @@ package br.com.davidbuzatto.jsge.core.engine.imgui;
 
 import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
-import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.Vector2;
 
 /**
- * Um componente caixa de seleção.
+ * Um componente botão de radio.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class GuiCheckBox extends GuiTextComponent {
+public class GuiRadioButton extends GuiToogleButton {
     
-    protected boolean selected;
+    private GuiButtonGroup buttonGroup;
     
-    public GuiCheckBox( double x, double y, double width, double height, String text, EngineFrame engine ) {
-        this.bounds = new Rectangle( x, y, width, height );
-        this.text = text;
-        this.e = engine;
+    public GuiRadioButton( double x, double y, double width, double height, String text, EngineFrame engine ) {
+        super( x, y, width, height, text, engine );
     }
     
     @Override
@@ -47,7 +44,11 @@ public class GuiCheckBox extends GuiTextComponent {
                 mouseState = GuiComponentState.MOUSE_OVER;
                 if ( e.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_PRESSED;
-                    selected = !selected;
+                    if ( buttonGroup != null ) {
+                        buttonGroup.toogle( this );
+                    } else {
+                        selected = !selected;
+                    }
                 } else if ( e.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_DOWN;
                 }
@@ -67,30 +68,30 @@ public class GuiCheckBox extends GuiTextComponent {
         if ( visible ) {
             
             e.setStrokeLineWidth( 1 );
-            
+
             if ( enabled ) {
 
                 switch ( mouseState ) {
                     case MOUSE_OUT:
-                        drawCheckBox( MOUSE_OUT_BORDER_COLOR, 20, selected );
+                        drawRadio( MOUSE_OUT_BORDER_COLOR, 10, selected );
                         drawText( MOUSE_OUT_TEXT_COLOR, 25, 0 );
                         break;
                     case MOUSE_OVER:
-                        drawCheckBox( MOUSE_OVER_BORDER_COLOR, 20, selected );
+                        drawRadio( MOUSE_OVER_BORDER_COLOR, 10, selected );
                         drawText( MOUSE_OVER_TEXT_COLOR, 25, 0 );
                         break;
                     case MOUSE_PRESSED:
-                        drawCheckBox( MOUSE_DOWN_BORDER_COLOR, 20, selected );
+                        drawRadio( MOUSE_DOWN_BORDER_COLOR, 10, selected );
                         drawText( MOUSE_DOWN_TEXT_COLOR, 25, 0 );
                         break;
                     case MOUSE_DOWN:
-                        drawCheckBox( MOUSE_DOWN_BORDER_COLOR, 20, selected );
+                        drawRadio( MOUSE_DOWN_BORDER_COLOR, 10, selected );
                         drawText( MOUSE_DOWN_TEXT_COLOR, 25, 0 );
                         break;
                 }
 
             } else {
-                drawCheckBox( DISABLED_BORDER_COLOR, 20, selected );
+                drawRadio( DISABLED_BORDER_COLOR, 10, selected );
                 drawText( DISABLED_TEXT_COLOR, 25, 0 );
             }
             
@@ -99,7 +100,7 @@ public class GuiCheckBox extends GuiTextComponent {
         }
         
     }
-
+    
     public void setSelected( boolean selected ) {
         this.selected = selected;
     }
@@ -110,6 +111,11 @@ public class GuiCheckBox extends GuiTextComponent {
     
     public boolean isPressed() {
         return mouseState == GuiComponentState.MOUSE_PRESSED;
+    }
+
+    public void setButtonGroup( GuiButtonGroup buttonGroup ) {
+        this.buttonGroup = buttonGroup;
+        this.buttonGroup.addToogleButton( this );
     }
     
 }

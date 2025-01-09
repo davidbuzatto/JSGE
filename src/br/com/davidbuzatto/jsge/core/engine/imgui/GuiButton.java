@@ -91,6 +91,8 @@ public class GuiButton extends GuiTextComponent {
                 drawCenteredText( DISABLED_TEXT_COLOR );
             }
             
+            drawBounds();
+            
         }
         
     }

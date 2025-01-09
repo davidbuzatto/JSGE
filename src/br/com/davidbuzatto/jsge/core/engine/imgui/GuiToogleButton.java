@@ -27,7 +27,7 @@ import br.com.davidbuzatto.jsge.math.Vector2;
  */
 public class GuiToogleButton extends GuiCheckBox {
     
-    private GuiToogleButtonGroup buttonGroup;
+    private GuiButtonGroup buttonGroup;
     
     public GuiToogleButton( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
@@ -100,6 +100,8 @@ public class GuiToogleButton extends GuiCheckBox {
                 drawCenteredText( DISABLED_TEXT_COLOR );
             }
             
+            drawBounds();
+            
         }
         
     }
@@ -116,7 +118,7 @@ public class GuiToogleButton extends GuiCheckBox {
         return mouseState == GuiComponentState.MOUSE_PRESSED;
     }
 
-    public void setButtonGroup( GuiToogleButtonGroup buttonGroup ) {
+    public void setButtonGroup( GuiButtonGroup buttonGroup ) {
         this.buttonGroup = buttonGroup;
         this.buttonGroup.addToogleButton( this );
     }
