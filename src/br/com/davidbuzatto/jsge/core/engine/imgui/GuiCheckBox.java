@@ -44,16 +44,12 @@ public class GuiCheckBox extends GuiTextComponent {
             Vector2 mousePos = e.getMousePositionPoint();
 
             if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
-                System.out.println( "aaa" );
                 mouseState = GuiComponentState.MOUSE_OVER;
                 if ( e.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    System.out.println( "xxx" );
                     mouseState = GuiComponentState.MOUSE_PRESSED;
                     selected = !selected;
                 } else if ( e.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_DOWN;
-                } else {
-                    System.out.println( "bbb" );
                 }
             } else {
                 mouseState = GuiComponentState.MOUSE_OUT;

@@ -582,6 +582,12 @@ public abstract class EngineFrame extends JFrame {
         mouseButtonLeftProcessed = false;
         mouseButtonMiddleProcessed = false;
         mouseButtonRightProcessed = false;
+        mouseLeftActionInitial.isPressed();
+        mouseLeftAction.isPressed();
+        mouseMiddleActionInitial.isPressed();
+        mouseMiddleAction.isPressed();
+        mouseRightActionInitial.isPressed();
+        mouseRightAction.isPressed();
     }
     
     private void processMouseButtonsState( int button ) {
