@@ -68,9 +68,9 @@ public class IMGUITests extends EngineFrame {
     @Override
     public void create() {
         
-        label = new GuiLabel( 10, 10, 200, 30, "Label", this );
+        label = new GuiLabel( 10, 10, 80, 30, "Label", this );
         btn = new GuiButton( 10, 50, 200, 30, "Button", this );
-        labelBtn = new GuiLabelButton( 10, 90, 100, 30, "Label (Button)", this );
+        labelBtn = new GuiLabelButton( 10, 90, 90, 30, "Label Button", this );
         check = new GuiCheckBox( 10, 130, 100, 20, "Check Box", this );
         
         buttonGroupRadio = new GuiButtonGroup();
@@ -105,11 +105,11 @@ public class IMGUITests extends EngineFrame {
         components.add( toggleBtn2 );
         components.add( toggleBtn3 );
         
-        checkEnabled = new GuiCheckBox( 400, 10, 20, 20, "Enabled", this );
+        checkEnabled = new GuiCheckBox( 400, 10, 100, 20, "Enabled", this );
         checkEnabled.setSelected( true );
-        checkVisible = new GuiCheckBox( 400, 40, 20, 20, "Visible", this );
+        checkVisible = new GuiCheckBox( 400, 40, 100, 20, "Visible", this );
         checkVisible.setSelected( true );
-        checkDrawBounds = new GuiCheckBox( 400, 70, 20, 20, "Draw bounds", this );
+        checkDrawBounds = new GuiCheckBox( 400, 70, 100, 20, "Draw bounds", this );
         
     }
     
