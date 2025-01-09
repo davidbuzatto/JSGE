@@ -22,7 +22,7 @@ import br.com.davidbuzatto.jsge.core.engine.imgui.GuiCheckBox;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiComponent;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiLabel;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiLabelButton;
-import br.com.davidbuzatto.jsge.core.engine.imgui.GuiToogleButton;
+import br.com.davidbuzatto.jsge.core.engine.imgui.GuiToggleButton;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiButtonGroup;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiRadioButton;
 import java.util.ArrayList;
@@ -45,11 +45,11 @@ public class IMGUITests extends EngineFrame {
     private GuiRadioButton radioBtn2;
     private GuiRadioButton radioBtn3;
     private GuiButtonGroup buttonGroupRadio;
-    private GuiToogleButton toogleBtn;
-    private GuiToogleButton toogleBtn1;
-    private GuiToogleButton toogleBtn2;
-    private GuiToogleButton toogleBtn3;
-    private GuiButtonGroup buttonGroupToogle;
+    private GuiToggleButton toggleBtn;
+    private GuiToggleButton toggleBtn1;
+    private GuiToggleButton toggleBtn2;
+    private GuiToggleButton toggleBtn3;
+    private GuiButtonGroup buttonGroupToggle;
     
     private GuiCheckBox checkEnabled;
     private GuiCheckBox checkVisible;
@@ -82,15 +82,15 @@ public class IMGUITests extends EngineFrame {
         radioBtn3 = new GuiRadioButton( 190, 170, 80, 20, "Radio 3", this );
         radioBtn3.setButtonGroup( buttonGroupRadio );
         
-        toogleBtn = new GuiToogleButton( 10, 210, 200, 30, "Toggle Button", this );
-        buttonGroupToogle = new GuiButtonGroup();
-        toogleBtn1 = new GuiToogleButton( 10, 250, 80, 30, "Option 1", this );
-        toogleBtn1.setSelected( true );
-        toogleBtn1.setButtonGroup( buttonGroupToogle );
-        toogleBtn2 = new GuiToogleButton( 90, 250, 80, 30, "Option 2", this );
-        toogleBtn2.setButtonGroup( buttonGroupToogle );
-        toogleBtn3 = new GuiToogleButton( 170, 250, 80, 30, "Option 3", this );
-        toogleBtn3.setButtonGroup( buttonGroupToogle );
+        toggleBtn = new GuiToggleButton( 10, 210, 200, 30, "Toggle Button", this );
+        buttonGroupToggle = new GuiButtonGroup();
+        toggleBtn1 = new GuiToggleButton( 10, 250, 80, 30, "Option 1", this );
+        toggleBtn1.setSelected( true );
+        toggleBtn1.setButtonGroup( buttonGroupToggle );
+        toggleBtn2 = new GuiToggleButton( 90, 250, 80, 30, "Option 2", this );
+        toggleBtn2.setButtonGroup( buttonGroupToggle );
+        toggleBtn3 = new GuiToggleButton( 170, 250, 80, 30, "Option 3", this );
+        toggleBtn3.setButtonGroup( buttonGroupToggle );
         
         components = new ArrayList<>();
         components.add( label );
@@ -100,10 +100,10 @@ public class IMGUITests extends EngineFrame {
         components.add( radioBtn1 );
         components.add( radioBtn2 );
         components.add( radioBtn3 );
-        components.add( toogleBtn );
-        components.add( toogleBtn1 );
-        components.add( toogleBtn2 );
-        components.add( toogleBtn3 );
+        components.add( toggleBtn );
+        components.add( toggleBtn1 );
+        components.add( toggleBtn2 );
+        components.add( toggleBtn3 );
         
         checkEnabled = new GuiCheckBox( 400, 10, 20, 20, "Enabled", this );
         checkEnabled.setSelected( true );

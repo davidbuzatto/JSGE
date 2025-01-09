@@ -25,11 +25,11 @@ import br.com.davidbuzatto.jsge.math.Vector2;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class GuiToogleButton extends GuiCheckBox {
+public class GuiToggleButton extends GuiCheckBox {
     
     private GuiButtonGroup buttonGroup;
     
-    public GuiToogleButton( double x, double y, double width, double height, String text, EngineFrame engine ) {
+    public GuiToggleButton( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
     }
     
@@ -45,7 +45,7 @@ public class GuiToogleButton extends GuiCheckBox {
                 if ( e.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_PRESSED;
                     if ( buttonGroup != null ) {
-                        buttonGroup.toogle( this );
+                        buttonGroup.toggle( this );
                     } else {
                         selected = !selected;
                     }
@@ -120,7 +120,7 @@ public class GuiToogleButton extends GuiCheckBox {
 
     public void setButtonGroup( GuiButtonGroup buttonGroup ) {
         this.buttonGroup = buttonGroup;
-        this.buttonGroup.addToogleButton( this );
+        this.buttonGroup.addToggleButton( this );
     }
     
 }

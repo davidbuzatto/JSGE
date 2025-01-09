@@ -26,21 +26,21 @@ import java.util.Set;
  */
 public class GuiButtonGroup {
     
-    private Set<GuiToogleButton> toogleButtons;
+    private Set<GuiToggleButton> toggleButtons;
     
     public GuiButtonGroup() {
-        toogleButtons = new HashSet<>();
+        toggleButtons = new HashSet<>();
     }
     
-    public void addToogleButton( GuiToogleButton toogleButton ) {
-        toogleButtons.add( toogleButton );
+    public void addToggleButton( GuiToggleButton toggleButton ) {
+        toggleButtons.add( toggleButton );
     }
     
-    public void toogle( GuiToogleButton target ) {
+    public void toggle( GuiToggleButton target ) {
         
-        GuiToogleButton selected = null;
+        GuiToggleButton selected = null;
         
-        for ( GuiToogleButton btn : toogleButtons ) {
+        for ( GuiToggleButton btn : toggleButtons ) {
             if ( btn.isSelected() ) {
                 selected = btn;
                 break;
@@ -50,7 +50,7 @@ public class GuiButtonGroup {
         if ( selected == null ) {
             target.selected = true;
         } else if ( selected != target ) {
-            for ( GuiToogleButton btn : toogleButtons ) {
+            for ( GuiToggleButton btn : toggleButtons ) {
                 btn.selected = false;
             }
             selected.selected = false;

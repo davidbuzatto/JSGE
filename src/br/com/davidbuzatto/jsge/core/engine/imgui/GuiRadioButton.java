@@ -25,7 +25,7 @@ import br.com.davidbuzatto.jsge.math.Vector2;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class GuiRadioButton extends GuiToogleButton {
+public class GuiRadioButton extends GuiToggleButton {
     
     private GuiButtonGroup buttonGroup;
     
@@ -45,7 +45,7 @@ public class GuiRadioButton extends GuiToogleButton {
                 if ( e.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_PRESSED;
                     if ( buttonGroup != null ) {
-                        buttonGroup.toogle( this );
+                        buttonGroup.toggle( this );
                     } else {
                         selected = !selected;
                     }
@@ -115,7 +115,7 @@ public class GuiRadioButton extends GuiToogleButton {
 
     public void setButtonGroup( GuiButtonGroup buttonGroup ) {
         this.buttonGroup = buttonGroup;
-        this.buttonGroup.addToogleButton( this );
+        this.buttonGroup.addToggleButton( this );
     }
     
 }
