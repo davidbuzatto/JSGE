@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Prof. Dr. David Buzatto
+ * Copyright (C) 2025 Prof. Dr. David Buzatto
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,27 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.tests;
+package br.com.davidbuzatto.jsge.examples.basic;
 
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiButton;
+import br.com.davidbuzatto.jsge.core.engine.imgui.GuiButtonGroup;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiCheckBox;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiComponent;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiLabel;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiLabelButton;
-import br.com.davidbuzatto.jsge.core.engine.imgui.GuiToggleButton;
-import br.com.davidbuzatto.jsge.core.engine.imgui.GuiButtonGroup;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiRadioButton;
+import br.com.davidbuzatto.jsge.core.engine.imgui.GuiToggleButton;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe de teste da immediate mode gui.
+ * Exemplo de uso dos componentes IMGUI.
  * 
  * @author Prof. Dr. David Buzatto
- */ 
-public class IMGUITests extends EngineFrame {
-    
+ */
+public class IMGUIExample extends EngineFrame {
+
     private List<GuiComponent> components;
     
     private GuiLabel label;
@@ -59,9 +59,9 @@ public class IMGUITests extends EngineFrame {
     private int labelButtonPressCount;
     
     /**
-     * Cria o teste.
+     * Cria o exemplo.
      */
-    public IMGUITests() {
+    public IMGUIExample() {
         super( 800, 800, "IMGUI", 60, true );
     }
     
@@ -119,7 +119,7 @@ public class IMGUITests extends EngineFrame {
         checkDrawBounds = new GuiCheckBox( xControllers, 70, 100, 20, "Draw bounds" );
         
     }
-    
+
     @Override
     public void update( double delta ) {
         
@@ -164,7 +164,6 @@ public class IMGUITests extends EngineFrame {
     
     @Override
     public void draw() {
-        
         clearBackground( WHITE );
         
         int hSep = 280;
@@ -220,11 +219,11 @@ public class IMGUITests extends EngineFrame {
     }
     
     /**
-     * Executa o teste.
+     * Executa o exemplo.
      * @param args Argumentos.
      */
     public static void main( String[] args ) {
-        new IMGUITests();
+        new IMGUIExample();
     }
     
 }

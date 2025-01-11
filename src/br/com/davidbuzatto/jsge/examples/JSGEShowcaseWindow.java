@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Prof. Dr. David Buzatto
+ * Copyright (C) 2025 Prof. Dr. David Buzatto
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,6 +30,7 @@ import br.com.davidbuzatto.jsge.examples.ball.BouncingBallExample;
 import br.com.davidbuzatto.jsge.examples.animation.AnimationsExample;
 import br.com.davidbuzatto.jsge.examples.basic.CurveSmoothingExample;
 import br.com.davidbuzatto.jsge.examples.basic.GamepadsExample;
+import br.com.davidbuzatto.jsge.examples.basic.IMGUIExample;
 import br.com.davidbuzatto.jsge.examples.basic.ScissorExample;
 import br.com.davidbuzatto.jsge.examples.camera.CameraExample;
 import br.com.davidbuzatto.jsge.examples.particles.ParticlesExample;
@@ -67,6 +68,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         btnCurveSmoothing = new javax.swing.JButton();
         btnImageLoadingAndProcessing = new javax.swing.JButton();
         btnUserInteraction = new javax.swing.JButton();
+        btnIMGUI = new javax.swing.JButton();
         btnColorMethods = new javax.swing.JButton();
         btnBouncingBall = new javax.swing.JButton();
         btnParticles = new javax.swing.JButton();
@@ -129,6 +131,13 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         btnUserInteraction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUserInteractionActionPerformed(evt);
+            }
+        });
+
+        btnIMGUI.setText("Immediate Mode Graphical User Interface (IMGUI)");
+        btnIMGUI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIMGUIActionPerformed(evt);
             }
         });
 
@@ -210,7 +219,8 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
                     .addComponent(btnAnimations, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGamepads, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCurveSmoothing, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnScissor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnScissor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnIMGUI, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -232,6 +242,8 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
                 .addComponent(btnImageLoadingAndProcessing)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUserInteraction)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnIMGUI)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnColorMethods)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -315,6 +327,10 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
         new ScissorExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_btnScissorActionPerformed
 
+    private void btnIMGUIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIMGUIActionPerformed
+        new IMGUIExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+    }//GEN-LAST:event_btnIMGUIActionPerformed
+
     /**
      * Executa o Showcase.
      * 
@@ -363,6 +379,7 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnDrawingPrimitiveMethods;
     private javax.swing.JButton btnDrawingPrimitiveObjects;
     private javax.swing.JButton btnGamepads;
+    private javax.swing.JButton btnIMGUI;
     private javax.swing.JButton btnImageLoadingAndProcessing;
     private javax.swing.JButton btnPaintingCapabilities;
     private javax.swing.JButton btnParticles;

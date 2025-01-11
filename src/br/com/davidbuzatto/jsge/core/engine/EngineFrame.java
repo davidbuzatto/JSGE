@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Prof. Dr. David Buzatto
+ * Copyright (C) 2025 Prof. Dr. David Buzatto
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -6152,12 +6152,8 @@ public abstract class EngineFrame extends JFrame {
         
         private static EngineFrame engine;
         
-        static void setEngine( EngineFrame engine ) throws IllegalStateException {
-            if ( DependencyContainer.engine == null ) {
-                DependencyContainer.engine = engine;
-            } else {
-                throw new IllegalStateException( "You can have only one Engine used for dependency injection." );
-            }
+        static void setEngine( EngineFrame engine ) {
+            DependencyContainer.engine = engine;
         }
         
     }
@@ -6165,11 +6161,8 @@ public abstract class EngineFrame extends JFrame {
     /**
      * Marca a instância chamadora como a engine utilizada para ser injetada
      * em componentes que necessitam da mesma.
-     * 
-     * @throws IllegalStateException Caso haja alguma engine configurada
-     * previamente.
      */
-    public void useAsDependency() throws IllegalStateException {
+    public void useAsDependency() {
         DependencyContainer.setEngine( this );
     }
     
