@@ -27,9 +27,19 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
 public class GuiLabel extends GuiTextComponent {
     
     public GuiLabel( double x, double y, double width, double height, String text, EngineFrame engine ) {
-        this.bounds = new Rectangle( x, y, width, height );
-        this.text = text;
-        this.e = engine;
+        super( x, y, width, height, text, engine );
+    }
+    
+    public GuiLabel( double x, double y, double width, double height, String text ) {
+        super( x, y, width, height, text );
+    }
+    
+    public GuiLabel( Rectangle bounds, String text, EngineFrame engine ) {
+        super( bounds, text, engine );
+    }
+    
+    public GuiLabel( Rectangle bounds, String text ) {
+        super( bounds, text );
     }
     
     @Override

@@ -16,7 +16,9 @@
  */
 package br.com.davidbuzatto.jsge.core.engine.imgui;
 
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import static br.com.davidbuzatto.jsge.core.engine.imgui.GuiComponent.FONT_SIZE;
+import br.com.davidbuzatto.jsge.geom.Rectangle;
 import java.awt.Color;
 
 /**
@@ -29,8 +31,26 @@ public abstract class GuiTextComponent extends GuiComponent {
     protected String text;
     protected int textWidth = -1;
 
+    public GuiTextComponent( Rectangle rectangle, String text, EngineFrame engine ) {
+        super( rectangle, engine );
+        this.text = text;
+    }
+    
+    public GuiTextComponent( Rectangle rectangle, String text ) {
+        super( rectangle );
+        this.text = text;
+    }
+    
+    public GuiTextComponent( double x, double y, double width, double height, String text, EngineFrame engine ) {
+        this( new Rectangle( x, y, width, height ), text, engine );
+    }
+    
+    public GuiTextComponent( double x, double y, double width, double height, String text ) {
+        this( new Rectangle( x, y, width, height ), text );
+    }
+    
     protected void drawText( Color textColor ) {
-        e.drawText(
+        engine.drawText(
                 text,
                 bounds.x,
                 bounds.y + bounds.height / 2 - FONT_SIZE / 4,
@@ -39,7 +59,7 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
     
     protected void drawText( Color textColor, double xOffset, double yOffset ) {
-        e.drawText(
+        engine.drawText(
                 text,
                 bounds.x + xOffset,
                 bounds.y + bounds.height / 2 - FONT_SIZE / 4 + yOffset,
@@ -48,9 +68,18 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
     
     protected void drawTextAfterBounds( Color textColor ) {
-        e.drawText(
+        engine.drawText(
                 text,
-                bounds.x + bounds.width + 5,
+                bounds.x + bounds.width,
+                bounds.y + bounds.height / 2 - FONT_SIZE / 4,
+                FONT_SIZE,
+                textColor );
+    }
+    
+    protected void drawTextAfterBounds( Color textColor, double xOffset ) {
+        engine.drawText(
+                text,
+                bounds.x + bounds.width + xOffset,
                 bounds.y + bounds.height / 2 - FONT_SIZE / 4,
                 FONT_SIZE,
                 textColor );
@@ -58,9 +87,9 @@ public abstract class GuiTextComponent extends GuiComponent {
     
     protected void drawCenteredText( Color textColor ) {
         if ( textWidth == -1 ) {
-            textWidth = e.measureText( text, FONT_SIZE );
+            textWidth = engine.measureText( text, FONT_SIZE );
         }
-        e.drawText(
+        engine.drawText(
                 text,
                 bounds.x + bounds.width / 2 - textWidth / 2,
                 bounds.y + bounds.height / 2 - FONT_SIZE / 4,
@@ -70,7 +99,7 @@ public abstract class GuiTextComponent extends GuiComponent {
 
     public void setText( String text ) {
         this.text = text;
-        textWidth = e.measureText( text, FONT_SIZE );
+        textWidth = engine.measureText( text, FONT_SIZE );
     }
 
 }

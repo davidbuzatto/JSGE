@@ -18,7 +18,9 @@ package br.com.davidbuzatto.jsge.core.engine.imgui;
 
 import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.Vector2;
+import java.awt.Color;
 
 /**
  * Um componente botão de radio.
@@ -33,23 +35,35 @@ public class GuiRadioButton extends GuiToggleButton {
         super( x, y, width, height, text, engine );
     }
     
+    public GuiRadioButton( double x, double y, double width, double height, String text ) {
+        super( x, y, width, height, text );
+    }
+    
+    public GuiRadioButton( Rectangle bounds, String text, EngineFrame engine ) {
+        super( bounds, text, engine );
+    }
+    
+    public GuiRadioButton( Rectangle bounds, String text ) {
+        super( bounds, text );
+    }
+    
     @Override
     public void update( double delta ) {
         
         if ( visible && enabled ) {
             
-            Vector2 mousePos = e.getMousePositionPoint();
+            Vector2 mousePos = engine.getMousePositionPoint();
 
             if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
                 mouseState = GuiComponentState.MOUSE_OVER;
-                if ( e.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
+                if ( engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_PRESSED;
                     if ( buttonGroup != null ) {
                         buttonGroup.toggle( this );
                     } else {
                         selected = !selected;
                     }
-                } else if ( e.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
+                } else if ( engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_DOWN;
                 }
             } else {
@@ -67,7 +81,7 @@ public class GuiRadioButton extends GuiToggleButton {
         
         if ( visible ) {
             
-            e.setStrokeLineWidth( 1 );
+            engine.setStrokeLineWidth( 1 );
 
             if ( enabled ) {
 
@@ -99,6 +113,15 @@ public class GuiRadioButton extends GuiToggleButton {
             
         }
         
+    }
+    
+    private void drawRadio( Color borderColor, double radioRadius, boolean fillInternal ) {
+        double x = bounds.x + radioRadius;
+        double y = bounds.y + bounds.height / 2;
+        engine.drawCircle( x, y, radioRadius, borderColor );
+        if ( fillInternal ) {
+            engine.fillCircle( x + 0.5, y + 0.5, radioRadius - 2, borderColor );
+        }
     }
     
     public void setSelected( boolean selected ) {

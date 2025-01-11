@@ -31,14 +31,15 @@ public abstract class GuiComponent {
     private int id;
     
     protected Rectangle bounds;
-    protected EngineFrame e;
+    protected EngineFrame engine;
+    
     protected GuiComponentState mouseState = GuiComponentState.MOUSE_OUT;
     protected boolean enabled = true;
     protected boolean visible = true;
     protected boolean drawBounds;
     
-    protected static final int FONT_SIZE = 12;
-    protected static final int LINE_WIDTH = 2;
+    public static final int FONT_SIZE = 12;
+    public static final int LINE_WIDTH = 2;
     
     protected static final Color MOUSE_OUT_BACKGROUND_COLOR = new Color( 201, 201, 201 );
     protected static final Color MOUSE_OUT_BORDER_COLOR = new Color( 131, 131, 131 );
@@ -59,51 +60,28 @@ public abstract class GuiComponent {
     public abstract void update( double delta );
     public abstract void draw();
     
-    public GuiComponent() {
+    public GuiComponent( Rectangle bounds, EngineFrame engine ) {
         this.id = idCounter++;
+        this.engine = engine;
+        this.bounds = bounds;
     }
     
-    protected void drawCheckBox( Color borderColor, double checkSize, boolean fillInternal ) {
-        double x = bounds.x;
-        double y = bounds.y + bounds.height / 2 - checkSize / 2;
-        e.drawRectangle( x, y, checkSize, checkSize, borderColor );
-        if ( fillInternal ) {
-            e.fillRectangle( x + 2, y + 2, checkSize - 3, checkSize - 3, borderColor );
-        }
+    public GuiComponent( double x, double y, double width, double height, EngineFrame engine ) {
+        this( new Rectangle( x, y, width, height ), engine );
     }
     
-    protected void drawCheckBox( Color borderColor, boolean fillInternal ) {
-        e.drawRectangle( bounds, borderColor );
-        if ( fillInternal ) {
-            e.fillRectangle( bounds.x + 2, bounds.y + 2, bounds.width - 3, bounds.height - 3, borderColor );
-        }
+    public GuiComponent( Rectangle bounds ) {
+        this( bounds, EngineFrame.getDependencyEngine() );
     }
     
-    protected void drawRadio( Color borderColor, double radioRadius, boolean fillInternal ) {
-        double x = bounds.x + radioRadius;
-        double y = bounds.y + bounds.height / 2;
-        e.drawCircle( x, y, radioRadius, borderColor );
-        if ( fillInternal ) {
-            e.fillCircle( x + 0.5, y + 0.5, radioRadius - 2, borderColor );
-        }
-    }
-    
-    protected void drawRadio( Color borderColor, boolean fillInternal ) {
-        e.drawEllipse( bounds.x + bounds.width / 2, bounds.y + bounds.height / 2, bounds.width / 2, bounds.height / 2, borderColor );
-        if ( fillInternal ) {
-            e.fillEllipse( bounds.x + bounds.width / 2 + 0.5, bounds.y + bounds.height / 2 + 0.5, bounds.width / 2 - 2, bounds.height / 2 - 2, borderColor );
-        }
-    }
-    
-    protected void fillBoundsAsRectangle( Color backgroundColor, Color borderColor ) {
-        e.fillRectangle( bounds, backgroundColor );
-        e.drawRectangle( bounds, borderColor );
+    public GuiComponent( double x, double y, double width, double height ) {
+        this( new Rectangle( x, y, width, height ) );
     }
     
     protected void drawBounds() {
         if ( drawBounds ) {
-            e.setStrokeLineWidth( 1 );
-            e.drawRectangle( bounds, EngineFrame.BLUE );
+            engine.setStrokeLineWidth( 1 );
+            engine.drawRectangle( bounds, EngineFrame.BLUE );
         }
     }
     

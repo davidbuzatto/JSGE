@@ -6131,6 +6131,54 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
     
     
     //**************************************************************************
+    // "Injeção de dependências"
+    //**************************************************************************
+    
+    /**
+     * Controle de "injeção de dependências" para os componentes
+     */
+    private static class DependencyContainer {
+        
+        private static BufferStrategyEngineFrame engine;
+        
+        static void setEngine( BufferStrategyEngineFrame engine ) throws IllegalStateException {
+            if ( DependencyContainer.engine == null ) {
+                DependencyContainer.engine = engine;
+            } else {
+                throw new IllegalStateException( "You can have only one Engine used for dependency injection." );
+            }
+        }
+        
+    }
+    
+    /**
+     * Marca a instância chamadora como a engine utilizada para ser injetada
+     * em componentes que necessitam da mesma.
+     * 
+     * @throws IllegalStateException Caso haja alguma engine configurada
+     * previamente.
+     */
+    public void useAsDependency() throws IllegalStateException {
+        DependencyContainer.setEngine( this );
+    }
+    
+    /**
+     * Obtém a engine configurada para ser injetada como dependência.
+     * 
+     * @return A engine configurada previamente para ser injetada como dependência.
+     * @throws IllegalStateException Caso não haja nenhuma engine configurada como
+     * dependência.
+     */
+    public static BufferStrategyEngineFrame getDependencyEngine() throws IllegalStateException {
+        if ( DependencyContainer.engine != null ) {
+            return DependencyContainer.engine;
+        }
+        throw new IllegalStateException( "You must set one engine instance to be used as dependency injection." );
+    }
+    
+    
+    
+    //**************************************************************************
     // Constantes para teclas.
     //**************************************************************************
     

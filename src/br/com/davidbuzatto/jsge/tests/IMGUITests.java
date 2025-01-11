@@ -32,31 +32,31 @@ import java.util.List;
  * Classe de teste da immediate mode gui.
  * 
  * @author Prof. Dr. David Buzatto
- */
+ */ 
 public class IMGUITests extends EngineFrame {
     
     private List<GuiComponent> components;
     
     private GuiLabel label;
-    private GuiButton btn;
-    private GuiLabelButton labelBtn;
-    private GuiCheckBox check;
-    private GuiRadioButton radioBtn1;
-    private GuiRadioButton radioBtn2;
-    private GuiRadioButton radioBtn3;
+    private GuiButton button;
+    private GuiLabelButton labelButton;
+    private GuiCheckBox checkBox;
+    private GuiRadioButton radioButton1;
+    private GuiRadioButton radioButton2;
+    private GuiRadioButton radioButton3;
     private GuiButtonGroup buttonGroupRadio;
-    private GuiToggleButton toggleBtn;
-    private GuiToggleButton toggleBtn1;
-    private GuiToggleButton toggleBtn2;
-    private GuiToggleButton toggleBtn3;
+    private GuiToggleButton toggleButton;
+    private GuiToggleButton toggleButton1;
+    private GuiToggleButton toggleButton2;
+    private GuiToggleButton toggleButton3;
     private GuiButtonGroup buttonGroupToggle;
     
     private GuiCheckBox checkEnabled;
     private GuiCheckBox checkVisible;
     private GuiCheckBox checkDrawBounds;
     
-    private int btnPressCount;
-    private int labelBtnPressCount;
+    private int buttonPressCount;
+    private int labelButtonPressCount;
     
     /**
      * Cria o teste.
@@ -68,48 +68,55 @@ public class IMGUITests extends EngineFrame {
     @Override
     public void create() {
         
-        label = new GuiLabel( 10, 10, 80, 30, "Label", this );
-        btn = new GuiButton( 10, 50, 200, 30, "Button", this );
-        labelBtn = new GuiLabelButton( 10, 90, 90, 30, "Label Button", this );
-        check = new GuiCheckBox( 10, 130, 100, 20, "Check Box", this );
+        useAsDependency();
+        
+        int x = 20;
+        int y = 20;
+        int vSpacing = 50;
+        
+        label = new GuiLabel( x, y, 80, 30, "Label" );
+        button = new GuiButton( x, y += vSpacing, 200, 30, "Button" );
+        labelButton = new GuiLabelButton( x, y += vSpacing, 90, 30, "Label Button" );
+        checkBox = new GuiCheckBox( x, y += vSpacing, 100, 30, "Check Box" );
         
         buttonGroupRadio = new GuiButtonGroup();
-        radioBtn1 = new GuiRadioButton( 10, 170, 80, 20, "Radio 1", this );
-        radioBtn1.setSelected( true );
-        radioBtn1.setButtonGroup( buttonGroupRadio );
-        radioBtn2 = new GuiRadioButton( 100, 170, 80, 20, "Radio 2", this );
-        radioBtn2.setButtonGroup( buttonGroupRadio );
-        radioBtn3 = new GuiRadioButton( 190, 170, 80, 20, "Radio 3", this );
-        radioBtn3.setButtonGroup( buttonGroupRadio );
+        radioButton1 = new GuiRadioButton( x, y += vSpacing, 80, 30, "Radio 1" );
+        radioButton1.setSelected( true );
+        radioButton1.setButtonGroup( buttonGroupRadio );
+        radioButton2 = new GuiRadioButton( x + 90, y, 80, 30, "Radio 2" );
+        radioButton2.setButtonGroup( buttonGroupRadio );
+        radioButton3 = new GuiRadioButton( x + 180, y, 80, 30, "Radio 3" );
+        radioButton3.setButtonGroup( buttonGroupRadio );
         
-        toggleBtn = new GuiToggleButton( 10, 210, 200, 30, "Toggle Button", this );
+        toggleButton = new GuiToggleButton( x, y += vSpacing, 200, 30, "Toggle Button" );
         buttonGroupToggle = new GuiButtonGroup();
-        toggleBtn1 = new GuiToggleButton( 10, 250, 80, 30, "Option 1", this );
-        toggleBtn1.setSelected( true );
-        toggleBtn1.setButtonGroup( buttonGroupToggle );
-        toggleBtn2 = new GuiToggleButton( 90, 250, 80, 30, "Option 2", this );
-        toggleBtn2.setButtonGroup( buttonGroupToggle );
-        toggleBtn3 = new GuiToggleButton( 170, 250, 80, 30, "Option 3", this );
-        toggleBtn3.setButtonGroup( buttonGroupToggle );
+        toggleButton1 = new GuiToggleButton( x, y += vSpacing, 80, 30, "Option 1" );
+        toggleButton1.setSelected( true );
+        toggleButton1.setButtonGroup( buttonGroupToggle );
+        toggleButton2 = new GuiToggleButton( x + 80, y, 80, 30, "Option 2" );
+        toggleButton2.setButtonGroup( buttonGroupToggle );
+        toggleButton3 = new GuiToggleButton( x + 160, y, 80, 30, "Option 3" );
+        toggleButton3.setButtonGroup( buttonGroupToggle );
         
         components = new ArrayList<>();
         components.add( label );
-        components.add( btn );
-        components.add( labelBtn );
-        components.add( check );
-        components.add( radioBtn1 );
-        components.add( radioBtn2 );
-        components.add( radioBtn3 );
-        components.add( toggleBtn );
-        components.add( toggleBtn1 );
-        components.add( toggleBtn2 );
-        components.add( toggleBtn3 );
+        components.add( button );
+        components.add( labelButton );
+        components.add( checkBox );
+        components.add( radioButton1 );
+        components.add( radioButton2 );
+        components.add( radioButton3 );
+        components.add( toggleButton );
+        components.add( toggleButton1 );
+        components.add( toggleButton2 );
+        components.add( toggleButton3 );
         
-        checkEnabled = new GuiCheckBox( 400, 10, 100, 20, "Enabled", this );
+        int xControllers = 520;
+        checkEnabled = new GuiCheckBox( xControllers, 10, 100, 20, "Enabled" );
         checkEnabled.setSelected( true );
-        checkVisible = new GuiCheckBox( 400, 40, 100, 20, "Visible", this );
+        checkVisible = new GuiCheckBox( xControllers, 40, 100, 20, "Visible" );
         checkVisible.setSelected( true );
-        checkDrawBounds = new GuiCheckBox( 400, 70, 100, 20, "Draw bounds", this );
+        checkDrawBounds = new GuiCheckBox( xControllers, 70, 100, 20, "Draw bounds" );
         
     }
     
@@ -120,12 +127,12 @@ public class IMGUITests extends EngineFrame {
             c.update( delta );
         }
         
-        if ( btn.isPressed() ) {
-            btnPressCount++;
+        if ( button.isPressed() ) {
+            buttonPressCount++;
         }
         
-        if ( labelBtn.isPressed() ) {
-            labelBtnPressCount++;
+        if ( labelButton.isPressed() ) {
+            labelButtonPressCount++;
         }
         
         checkEnabled.update( delta );
@@ -160,16 +167,55 @@ public class IMGUITests extends EngineFrame {
         
         clearBackground( WHITE );
         
+        int hSep = 280;
+        int dataMargin = hSep + 25;
+        drawGrid( 10, 10, 10, 500, 50, hSep );
+        
         for ( GuiComponent c : components ) {
             c.draw();
         }
         
-        drawText( "press count: " + btnPressCount, btn.getBounds().x + btn.getBounds().width + 5, btn.getBounds().y + btn.getBounds().height / 2 - 3, 12, LIGHTGRAY );
-        drawText( "press count: " + labelBtnPressCount, labelBtn.getBounds().x + labelBtn.getBounds().width + 5, labelBtn.getBounds().y + labelBtn.getBounds().height / 2 - 3, 12, LIGHTGRAY );
+        drawText( "press count: " + buttonPressCount, dataMargin, button.getBounds().y + button.getBounds().height / 2 - 3, 12, DARKGRAY );
+        drawText( "press count: " + labelButtonPressCount, dataMargin, labelButton.getBounds().y + labelButton.getBounds().height / 2 - 3, 12, DARKGRAY );
+        drawText( checkBox.isSelected() ? "selected" : "unselected", dataMargin, checkBox.getBounds().y + checkBox.getBounds().height / 2 - 3, 12, DARKGRAY );
+        
+        int selectedRadio = 0;
+        if ( radioButton1.isSelected() ) {
+            selectedRadio = 1;
+        } else if ( radioButton2.isSelected() ) {
+            selectedRadio = 2;
+        } else if ( radioButton3.isSelected() ) {
+            selectedRadio = 3;
+        }
+        drawText( "radio " + selectedRadio, dataMargin, radioButton1.getBounds().y + radioButton1.getBounds().height / 2 - 3, 12, DARKGRAY );
+        
+        drawText( toggleButton.isSelected() ? "selected" : "unselected", dataMargin, toggleButton.getBounds().y + toggleButton.getBounds().height / 2 - 3, 12, DARKGRAY );
+        
+        int selectedOtion = 0;
+        if ( toggleButton1.isSelected() ) {
+            selectedOtion = 1;
+        } else if ( toggleButton2.isSelected() ) {
+            selectedOtion = 2;
+        } else if ( toggleButton3.isSelected() ) {
+            selectedOtion = 3;
+        }
+        drawText( "option " + selectedOtion, dataMargin, toggleButton1.getBounds().y + toggleButton1.getBounds().height / 2 - 3, 12, DARKGRAY );
         
         checkEnabled.draw();
         checkVisible.draw();
         checkDrawBounds.draw();
+        
+    }
+    
+    private void drawGrid( int lines, int x, int y, int width, int height, int hSep ) {
+        
+        for ( int i = 0; i <= lines; i++ ) {
+            drawLine( x, y + height * i, x + width, y + height * i, BLACK );
+        }
+        
+        drawLine( x, y, x, y + height * lines, BLACK );
+        drawLine( x + hSep, y, x + hSep, y + height * lines, BLACK );
+        drawLine( x + width, y, x + width, y + height * lines, BLACK );
         
     }
     

@@ -20,6 +20,7 @@ import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.Vector2;
+import java.awt.Color;
 
 /**
  * Um componente botão.
@@ -29,9 +30,19 @@ import br.com.davidbuzatto.jsge.math.Vector2;
 public class GuiButton extends GuiTextComponent {
     
     public GuiButton( double x, double y, double width, double height, String text, EngineFrame engine ) {
-        this.bounds = new Rectangle( x, y, width, height );
-        this.text = text;
-        this.e = engine;
+        super( x, y, width, height, text, engine );
+    }
+    
+    public GuiButton( double x, double y, double width, double height, String text ) {
+        super( x, y, width, height, text );
+    }
+    
+    public GuiButton( Rectangle bounds, String text, EngineFrame engine ) {
+        super( bounds, text, engine );
+    }
+    
+    public GuiButton( Rectangle bounds, String text ) {
+        super( bounds, text );
     }
     
     @Override
@@ -39,13 +50,13 @@ public class GuiButton extends GuiTextComponent {
         
         if ( visible && enabled ) {
             
-            Vector2 mousePos = e.getMousePositionPoint();
+            Vector2 mousePos = engine.getMousePositionPoint();
 
             if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
                 mouseState = GuiComponentState.MOUSE_OVER;
-                if ( e.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
+                if ( engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_PRESSED;
-                } else if ( e.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
+                } else if ( engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_DOWN;
                 }
             } else {
@@ -63,31 +74,31 @@ public class GuiButton extends GuiTextComponent {
         
         if ( visible ) {
             
-            e.setStrokeLineWidth( LINE_WIDTH );
+            engine.setStrokeLineWidth( LINE_WIDTH );
 
             if ( enabled ) {
 
                 switch ( mouseState ) {
                     case MOUSE_OUT:
-                        fillBoundsAsRectangle( MOUSE_OUT_BACKGROUND_COLOR, MOUSE_OUT_BORDER_COLOR );
+                        drawButton( MOUSE_OUT_BACKGROUND_COLOR, MOUSE_OUT_BORDER_COLOR );
                         drawCenteredText( MOUSE_OUT_TEXT_COLOR );
                         break;
                     case MOUSE_OVER:
-                        fillBoundsAsRectangle( MOUSE_OVER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR );
+                        drawButton( MOUSE_OVER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR );
                         drawCenteredText( MOUSE_OVER_TEXT_COLOR );
                         break;
                     case MOUSE_PRESSED:
-                        fillBoundsAsRectangle( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
+                        drawButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
                         drawCenteredText( MOUSE_DOWN_TEXT_COLOR );
                         break;
                     case MOUSE_DOWN:
-                        fillBoundsAsRectangle( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
+                        drawButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
                         drawCenteredText( MOUSE_DOWN_TEXT_COLOR );
                         break;
                 }
 
             } else {
-                fillBoundsAsRectangle( DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR );
+                drawButton( DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR );
                 drawCenteredText( DISABLED_TEXT_COLOR );
             }
             
@@ -95,6 +106,11 @@ public class GuiButton extends GuiTextComponent {
             
         }
         
+    }
+    
+    private void drawButton( Color backgroundColor, Color borderColor ) {
+        engine.fillRectangle( bounds, backgroundColor );
+        engine.drawRectangle( bounds, borderColor );
     }
     
     public boolean isPressed() {

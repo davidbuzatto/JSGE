@@ -29,9 +29,19 @@ import br.com.davidbuzatto.jsge.math.Vector2;
 public class GuiLabelButton extends GuiTextComponent {
     
     public GuiLabelButton( double x, double y, double width, double height, String text, EngineFrame engine ) {
-        this.bounds = new Rectangle( x, y, width, height );
-        this.text = text;
-        this.e = engine;
+        super( x, y, width, height, text, engine );
+    }
+    
+    public GuiLabelButton( double x, double y, double width, double height, String text ) {
+        super( x, y, width, height, text );
+    }
+    
+    public GuiLabelButton( Rectangle bounds, String text, EngineFrame engine ) {
+        super( bounds, text, engine );
+    }
+    
+    public GuiLabelButton( Rectangle bounds, String text ) {
+        super( bounds, text );
     }
     
     @Override
@@ -39,13 +49,13 @@ public class GuiLabelButton extends GuiTextComponent {
         
         if ( visible && enabled ) {
             
-            Vector2 mousePos = e.getMousePositionPoint();
+            Vector2 mousePos = engine.getMousePositionPoint();
 
             if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
                 mouseState = GuiComponentState.MOUSE_OVER;
-                if ( e.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
+                if ( engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_PRESSED;
-                } else if ( e.isMouseButtonDown( e.MOUSE_BUTTON_LEFT ) ) {
+                } else if ( engine.isMouseButtonDown( engine.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_DOWN;
                 }
             } else {

@@ -20,6 +20,7 @@ import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.Vector2;
+import java.awt.Color;
 
 /**
  * Um componente caixa de seleção.
@@ -31,9 +32,19 @@ public class GuiCheckBox extends GuiTextComponent {
     protected boolean selected;
     
     public GuiCheckBox( double x, double y, double width, double height, String text, EngineFrame engine ) {
-        this.bounds = new Rectangle( x, y, width, height );
-        this.text = text;
-        this.e = engine;
+        super( x, y, width, height, text, engine );
+    }
+    
+    public GuiCheckBox( double x, double y, double width, double height, String text ) {
+        super( x, y, width, height, text );
+    }
+    
+    public GuiCheckBox( Rectangle bounds, String text, EngineFrame engine ) {
+        super( bounds, text, engine );
+    }
+    
+    public GuiCheckBox( Rectangle bounds, String text ) {
+        super( bounds, text );
     }
     
     @Override
@@ -41,14 +52,14 @@ public class GuiCheckBox extends GuiTextComponent {
         
         if ( visible && enabled ) {
             
-            Vector2 mousePos = e.getMousePositionPoint();
+            Vector2 mousePos = engine.getMousePositionPoint();
 
             if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
                 mouseState = GuiComponentState.MOUSE_OVER;
-                if ( e.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
+                if ( engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_PRESSED;
                     selected = !selected;
-                } else if ( e.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
+                } else if ( engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_DOWN;
                 }
             } else {
@@ -66,7 +77,7 @@ public class GuiCheckBox extends GuiTextComponent {
         
         if ( visible ) {
             
-            e.setStrokeLineWidth( 1 );
+            engine.setStrokeLineWidth( 1 );
             
             if ( enabled ) {
 
@@ -98,6 +109,15 @@ public class GuiCheckBox extends GuiTextComponent {
             
         }
         
+    }
+    
+    private void drawCheckBox( Color borderColor, double checkSize, boolean fillInternal ) {
+        double x = bounds.x;
+        double y = bounds.y + bounds.height / 2 - checkSize / 2;
+        engine.drawRectangle( x, y, checkSize, checkSize, borderColor );
+        if ( fillInternal ) {
+            engine.fillRectangle( x + 2, y + 2, checkSize - 3, checkSize - 3, borderColor );
+        }
     }
 
     public void setSelected( boolean selected ) {

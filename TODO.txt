@@ -1,41 +1,26 @@
-Usar fonte padrão.
 Criar componentes immediate mode! (v1.5.0)
 
 Retirado da raygui:
 
-*   CONTROLS PROVIDED:
-*     # Container/separators Controls
-*       - WindowBox     --> StatusBar, Panel
-*       - GroupBox      --> Line
-*       - Line
-*       - Panel         --> StatusBar
-*       - ScrollPanel   --> StatusBar
-*       - TabBar        --> Button
-*
-*     # Basic Control
-*       - ToggleSlider
-*       - ComboBox
-*       - DropdownBox
-*       - TextBox
-*       - ValueBox      --> TextBox
-*       - Spinner       --> Button, ValueBox
-*       - Slider
-*       - SliderBar     --> Slider
-*       - ProgressBar
-*       - StatusBar
-*       - DummyRec
-*       - Grid
-*
-*     # Advance Controls
-*       - ListView
-*       - ColorPicker   --> ColorPanel, ColorBarHue
-*       - MessageBox    --> Window, Label, Button
-*       - TextInputBox  --> Window, Label, TextBox, Button
+# Basic Control
+  - ProgressBar (JProgressBar)
+  - Spinner     (JSpinner)
+  - Slider      (JSlider)
+  - TextBox     (JTextField)
+  - ComboBox    (JComboBox) -> implica em rolagem
+  - ListBox     (JList)     -> implica em rolagem
 
+# Container/separators Controls
+  - Line        Linha com a cor de contorno
+  - Panel       (JPanel) -> retângulo com borda
+  - GroupBox    (JPanel) -> retângulo com borda com título
+  - WindowBox   (JPanel) -> retângulo com borda, com barra de título e botões (botão de fechar apenas)
+  - TabPanel    Um painel com as abas acima (cada uma com seu título)
 
-
-
-
+# Advance Control
+  - ColorPicker   --> ColorPanel, ColorBarHue ->usar como base o JColorChooser?
+  - MessageBox    --> Window, Label, Button
+  - TextInputBox  --> Window, Label, TextBox, Button
 
 Adicionar build pelo maven para gerar pacotes de código e documentação
 apropriadamente (arquivos .jar)?
@@ -43,8 +28,6 @@ apropriadamente (arquivos .jar)?
 Separar o exemplos?
 Separar a engine do componente?
 Traduzir documentação para inglês?
-Colocar versão no logo?
-Fonte igual da raylib?
 
 Suporte à gamepads:
     Testar joystick ps4/ps5;
