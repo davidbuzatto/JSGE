@@ -26,6 +26,7 @@ import br.com.davidbuzatto.jsge.core.engine.imgui.GuiLabel;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiLabelButton;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiLine;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiPanel;
+import br.com.davidbuzatto.jsge.core.engine.imgui.GuiProgressBar;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiRadioButton;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiToggleButton;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiWindowBox;
@@ -56,7 +57,7 @@ public class IMGUIExample extends EngineFrame {
     private GuiToggleButton toggleButton2;
     private GuiToggleButton toggleButton3;
     private GuiButtonGroup buttonGroupToggle;
-    private GuiLabel labelProgressBar;
+    private GuiProgressBar progressBar;
     private GuiLabel labelSpinner;
     private GuiLabel labelSlider;
     private GuiLabel labelTextBox;
@@ -84,6 +85,10 @@ public class IMGUIExample extends EngineFrame {
     
     private int buttonPressCount;
     private int labelButtonPressCount;
+    
+    private double progressCount;
+    private double progressTime;
+    
     
     /**
      * Cria o exemplo.
@@ -125,7 +130,7 @@ public class IMGUIExample extends EngineFrame {
         toggleButton3 = new GuiToggleButton( x + 160, y, 80, 30, "Option 3" );
         toggleButton3.setButtonGroup( buttonGroupToggle );
         
-        labelProgressBar = new GuiLabel( x, y += vSpacing, 260, 30, "Progress Bar (working in progress)" );
+        progressBar = new GuiProgressBar( x, y += vSpacing + 5, 180, 20, 0, 0, 50 );
         labelSpinner = new GuiLabel( x, y += vSpacing, 260, 30, "Spinner (working in progress)" );
         labelSlider = new GuiLabel( x, y += vSpacing, 260, 30, "Slider (working in progress)" );
         labelTextBox = new GuiLabel( x, y += vSpacing, 260, 30, "Text Box (working in progress)" );
@@ -135,6 +140,8 @@ public class IMGUIExample extends EngineFrame {
         labelMessageBox = new GuiLabel( x, y += vSpacing, 260, 30, "Message Box (working in progress)" );
         labelTextInputBox = new GuiLabel( x, y += vSpacing, 260, 30, "Text Input Box (working in progress)" );
 
+        progressTime = 0.05;
+        
         components = new ArrayList<>();
         components.add( label );
         components.add( button );
@@ -147,7 +154,7 @@ public class IMGUIExample extends EngineFrame {
         components.add( toggleButton1 );
         components.add( toggleButton2 );
         components.add( toggleButton3 );
-        components.add( labelProgressBar );
+        components.add( progressBar );
         components.add( labelSpinner );
         components.add( labelSlider );
         components.add( labelTextBox );
@@ -239,6 +246,12 @@ public class IMGUIExample extends EngineFrame {
             draggedComponent = null;
         }
         
+        progressCount += delta;
+        if ( progressCount > progressTime ) {
+            progressBar.setValue( progressBar.getValue() + 0.1 );
+            progressCount = 0;
+        }
+        
         checkEnabled.update( delta );
         checkVisible.update( delta );
         checkDrawBounds.update( delta );
@@ -310,6 +323,8 @@ public class IMGUIExample extends EngineFrame {
             selectedOtion = 3;
         }
         drawText( "option " + selectedOtion, dataMargin, toggleButton1.getBounds().y + toggleButton1.getBounds().height / 2 - 3, 12, GRAY );
+        
+        drawText( String.format( "%.0f%% (%.2f)", progressBar.getPercentage() * 100, progressBar.getValue() ), dataMargin, progressBar.getBounds().y + progressBar.getBounds().height / 2 - 3, 12, GRAY );
         
         checkEnabled.draw();
         checkVisible.draw();

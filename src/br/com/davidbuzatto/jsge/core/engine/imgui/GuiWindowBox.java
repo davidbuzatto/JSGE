@@ -29,12 +29,65 @@ import java.awt.Color;
  */
 public class GuiWindowBox extends GuiTextComponent {
     
-    private GuiButton closeButton;
+    private GuiButtonClose closeButton;
     private Rectangle titleBarBounds;
+    
+    private class GuiButtonClose extends GuiButton {
+        
+        public GuiButtonClose( double x, double y, double width, double height, EngineFrame engine ) {
+            super( x, y, width, height, "", engine );
+        }
+        
+        public GuiButtonClose( double x, double y, double width, double height ) {
+            super( x, y, width, height, "" );
+        }
+
+        @Override
+        public void draw() {
+            
+            super.draw();
+            
+            if ( visible ) {
+
+                engine.setStrokeLineWidth( LINE_WIDTH );
+
+                if ( enabled ) {
+
+                    switch ( mouseState ) {
+                        case MOUSE_OUT:
+                            drawButtonLabel( MOUSE_OUT_TEXT_COLOR );
+                            break;
+                        case MOUSE_OVER:
+                            drawButtonLabel( MOUSE_OVER_TEXT_COLOR );
+                            break;
+                        case MOUSE_PRESSED:
+                            drawButtonLabel( MOUSE_DOWN_TEXT_COLOR );
+                            break;
+                        case MOUSE_DOWN:
+                            drawButtonLabel( MOUSE_DOWN_TEXT_COLOR );
+                            break;
+                    }
+
+                } else {
+                    drawButtonLabel( DISABLED_TEXT_COLOR );
+                }
+
+            }
+            
+        }
+        
+        private void drawButtonLabel( Color color ) {
+            int pad = 6;
+            engine.drawLine( bounds.x + pad, bounds.y + pad, bounds.x + bounds.width - pad, bounds.y + bounds.height - pad, color );
+            engine.drawLine( bounds.x + pad, bounds.y + bounds.height - pad, bounds.x + bounds.width - pad, bounds.y + pad, color );
+        }
+        
+        
+    }
     
     public GuiWindowBox( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
-        createChildremComponents();
+        createChildremComponents( engine );
     }
     
     public GuiWindowBox( double x, double y, double width, double height, String text ) {
@@ -44,7 +97,7 @@ public class GuiWindowBox extends GuiTextComponent {
     
     public GuiWindowBox( double x, double y, double width, double height, EngineFrame engine ) {
         super( x, y, width, height, null, engine );
-        createChildremComponents();
+        createChildremComponents( engine );
     }
     
     public GuiWindowBox( double x, double y, double width, double height ) {
@@ -54,7 +107,7 @@ public class GuiWindowBox extends GuiTextComponent {
     
     public GuiWindowBox( Rectangle bounds, String text, EngineFrame engine ) {
         super( bounds, text, engine );
-        createChildremComponents();
+        createChildremComponents( engine );
     }
     
     public GuiWindowBox( Rectangle bounds, String text ) {
@@ -64,7 +117,7 @@ public class GuiWindowBox extends GuiTextComponent {
     
     public GuiWindowBox( Rectangle bounds, EngineFrame engine ) {
         super( bounds, null, engine );
-        createChildremComponents();
+        createChildremComponents( engine );
     }
     
     public GuiWindowBox( Rectangle bounds ) {
@@ -72,9 +125,14 @@ public class GuiWindowBox extends GuiTextComponent {
         createChildremComponents();
     }
     
+    private void createChildremComponents( EngineFrame engine ) {
+        titleBarBounds = new Rectangle( bounds.x, bounds.y, bounds.width, 25 );
+        closeButton = new GuiButtonClose( bounds.x + bounds.width - 22, bounds.y + 3, 19, 19, engine );
+    }
+    
     private void createChildremComponents() {
         titleBarBounds = new Rectangle( bounds.x, bounds.y, bounds.width, 25 );
-        closeButton = new GuiButton( bounds.x + bounds.width - 22, bounds.y + 3, 19, 19, "x" );
+        closeButton = new GuiButtonClose( bounds.x + bounds.width - 22, bounds.y + 3, 19, 19 );
     }
     
     @Override
