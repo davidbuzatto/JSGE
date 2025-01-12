@@ -10,13 +10,6 @@ Retirado da raygui:
   - ComboBox    (JComboBox) -> implica em rolagem
   - ListBox     (JList)     -> implica em rolagem
 
-# Container/separators Controls
-  - Line        Linha com a cor de contorno
-  - Panel       (JPanel) -> retângulo com borda
-  - GroupBox    (JPanel) -> retângulo com borda com título
-  - WindowBox   (JPanel) -> retângulo com borda, com barra de título e botões (botão de fechar apenas)
-  - TabPanel    Um painel com as abas acima (cada uma com seu título)
-
 # Advance Control
   - ColorPicker   --> ColorPanel, ColorBarHue ->usar como base o JColorChooser?
   - MessageBox    --> Window, Label, Button

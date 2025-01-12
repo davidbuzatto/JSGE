@@ -39,7 +39,7 @@ public abstract class GuiComponent {
     protected boolean drawBounds;
     
     public static final int FONT_SIZE = 12;
-    public static final int LINE_WIDTH = 2;
+    public static final int LINE_WIDTH = 1;
     
     protected static final Color MOUSE_OUT_BACKGROUND_COLOR = new Color( 201, 201, 201 );
     protected static final Color MOUSE_OUT_BORDER_COLOR = new Color( 131, 131, 131 );
@@ -56,6 +56,20 @@ public abstract class GuiComponent {
     protected static final Color DISABLED_BACKGROUND_COLOR = new Color( 230, 233, 233 );
     protected static final Color DISABLED_BORDER_COLOR = new Color( 181, 193, 194 );
     protected static final Color DISABLED_TEXT_COLOR = new Color( 174, 183, 184 );
+    
+    protected static final Color CONTAINER_BORDER_COLOR = new Color( 144, 171, 181 );
+    protected static final Color CONTAINER_TEXT_COLOR = new Color( 144, 171, 181 );
+    protected static final Color CONTAINER_BACKGROUNG_COLOR = new Color( 245, 245, 245 );
+    protected static final Color CONTAINER_TITLE_BAR_BORDER_COLOR = new Color( 131, 131, 131 );
+    protected static final Color CONTAINER_TITLE_BAR_BACKGROUND_COLOR = new Color( 201, 201, 201 );
+    protected static final Color CONTAINER_TITLE_BAR_TEXT_COLOR = new Color( 104, 104, 104 );
+    
+    protected static final Color DISABLED_CONTAINER_BORDER_COLOR = new Color( 181, 193, 194 );
+    protected static final Color DISABLED_CONTAINER_TEXT_COLOR = new Color( 181, 193, 194 );
+    protected static final Color DISABLED_CONTAINER_BACKGROUND_COLOR = new Color( 230, 233, 233 );
+    protected static final Color DISABLED_CONTAINER_TITLE_BAR_BORDER_COLOR = new Color( 181, 193, 194 );
+    protected static final Color DISABLED_CONTAINER_TITLE_BAR_BACKGROUND_COLOR = new Color( 230, 233, 233 );
+    protected static final Color DISABLED_CONTAINER_TITLE_BAR_TEXT_COLOR = new Color( 181, 193, 194 );
     
     public abstract void update( double delta );
     public abstract void draw();
@@ -111,6 +125,11 @@ public abstract class GuiComponent {
 
     public Rectangle getBounds() {
         return bounds;
+    }
+    
+    public void move( double xAmount, double yAmount ) {
+        bounds.x += xAmount;
+        bounds.y += yAmount;
     }
 
     @Override

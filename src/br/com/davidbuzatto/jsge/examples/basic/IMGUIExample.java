@@ -21,10 +21,16 @@ import br.com.davidbuzatto.jsge.core.engine.imgui.GuiButton;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiButtonGroup;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiCheckBox;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiComponent;
+import br.com.davidbuzatto.jsge.core.engine.imgui.GuiGroupBox;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiLabel;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiLabelButton;
+import br.com.davidbuzatto.jsge.core.engine.imgui.GuiLine;
+import br.com.davidbuzatto.jsge.core.engine.imgui.GuiPanel;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiRadioButton;
 import br.com.davidbuzatto.jsge.core.engine.imgui.GuiToggleButton;
+import br.com.davidbuzatto.jsge.core.engine.imgui.GuiWindowBox;
+import br.com.davidbuzatto.jsge.math.Vector2;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +56,27 @@ public class IMGUIExample extends EngineFrame {
     private GuiToggleButton toggleButton2;
     private GuiToggleButton toggleButton3;
     private GuiButtonGroup buttonGroupToggle;
+    private GuiLabel labelProgressBar;
+    private GuiLabel labelSpinner;
+    private GuiLabel labelSlider;
+    private GuiLabel labelTextBox;
+    private GuiLabel labelComboBox;
+    private GuiLabel labelListBox;
+    private GuiLabel labelColorPicker;
+    private GuiLabel labelMessageBox;
+    private GuiLabel labelTextInputBox;
+    
+    private GuiLine line;
+    private GuiLine lineUntitled;
+    private GuiGroupBox groupBox;
+    private GuiGroupBox groupBoxUntitled;
+    private GuiPanel panel;
+    private GuiPanel panelUntitled;
+    private GuiWindowBox window;
+    private GuiWindowBox windowUntitled;
+    
+    private GuiComponent draggedComponent;
+    private Vector2 previousMousePos;
     
     private GuiCheckBox checkEnabled;
     private GuiCheckBox checkVisible;
@@ -62,7 +89,7 @@ public class IMGUIExample extends EngineFrame {
      * Cria o exemplo.
      */
     public IMGUIExample() {
-        super( 800, 800, "IMGUI", 60, true );
+        super( 900, 840, "IMGUI", 60, true );
     }
     
     @Override
@@ -71,7 +98,7 @@ public class IMGUIExample extends EngineFrame {
         useAsDependency();
         
         int x = 20;
-        int y = 20;
+        int y = 40;
         int vSpacing = 50;
         
         label = new GuiLabel( x, y, 80, 30, "Label" );
@@ -98,6 +125,16 @@ public class IMGUIExample extends EngineFrame {
         toggleButton3 = new GuiToggleButton( x + 160, y, 80, 30, "Option 3" );
         toggleButton3.setButtonGroup( buttonGroupToggle );
         
+        labelProgressBar = new GuiLabel( x, y += vSpacing, 260, 30, "Progress Bar (working in progress)" );
+        labelSpinner = new GuiLabel( x, y += vSpacing, 260, 30, "Spinner (working in progress)" );
+        labelSlider = new GuiLabel( x, y += vSpacing, 260, 30, "Slider (working in progress)" );
+        labelTextBox = new GuiLabel( x, y += vSpacing, 260, 30, "Text Box (working in progress)" );
+        labelComboBox = new GuiLabel( x, y += vSpacing, 260, 30, "Combo Box (working in progress)" );
+        labelListBox = new GuiLabel( x, y += vSpacing, 260, 30, "List Box (working in progress)" );
+        labelColorPicker = new GuiLabel( x, y += vSpacing, 260, 30, "Color Picker (working in progress)" );
+        labelMessageBox = new GuiLabel( x, y += vSpacing, 260, 30, "Message Box (working in progress)" );
+        labelTextInputBox = new GuiLabel( x, y += vSpacing, 260, 30, "Text Input Box (working in progress)" );
+
         components = new ArrayList<>();
         components.add( label );
         components.add( button );
@@ -110,18 +147,53 @@ public class IMGUIExample extends EngineFrame {
         components.add( toggleButton1 );
         components.add( toggleButton2 );
         components.add( toggleButton3 );
+        components.add( labelProgressBar );
+        components.add( labelSpinner );
+        components.add( labelSlider );
+        components.add( labelTextBox );
+        components.add( labelComboBox );
+        components.add( labelListBox );
+        components.add( labelColorPicker );
+        components.add( labelMessageBox );
+        components.add( labelTextInputBox );
         
-        int xControllers = 520;
-        checkEnabled = new GuiCheckBox( xControllers, 10, 100, 20, "Enabled" );
+        x = 450;
+        y = 55;
+        vSpacing = 120;
+        
+        line = new GuiLine( x, y, 150, 50, "Line" );
+        lineUntitled = new GuiLine( x + 170, y, 150, 50 );
+        groupBox = new GuiGroupBox( x, y += vSpacing - 30, 150, 70, "Group Box" );
+        groupBoxUntitled = new GuiGroupBox( x + 170, y, 150, 70 );
+        panel = new GuiPanel( x, y += vSpacing - 25, 150, 80, "Panel" );
+        panelUntitled = new GuiPanel( x + 170, y, 150, 80 );
+        window = new GuiWindowBox( x, y += vSpacing - 20, 150, 80, "Window Box" );
+        windowUntitled = new GuiWindowBox( x + 170, y, 150, 80 );
+        
+        components.add( line );
+        components.add( lineUntitled );
+        components.add( groupBox );
+        components.add( groupBoxUntitled );
+        components.add( panel );
+        components.add( panelUntitled );
+        components.add( window );
+        components.add( windowUntitled );
+        
+        x = 790;
+        y = 30;
+        vSpacing = 30;
+        checkEnabled = new GuiCheckBox( x, y, 100, 20, "Enabled" );
         checkEnabled.setSelected( true );
-        checkVisible = new GuiCheckBox( xControllers, 40, 100, 20, "Visible" );
+        checkVisible = new GuiCheckBox( x, y += vSpacing, 100, 20, "Visible" );
         checkVisible.setSelected( true );
-        checkDrawBounds = new GuiCheckBox( xControllers, 70, 100, 20, "Draw bounds" );
+        checkDrawBounds = new GuiCheckBox( x, y += vSpacing, 100, 20, "Draw bounds" );
         
     }
 
     @Override
     public void update( double delta ) {
+        
+        Vector2 mousePos = getMousePositionPoint();
         
         for ( GuiComponent c : components ) {
             c.update( delta );
@@ -133,6 +205,38 @@ public class IMGUIExample extends EngineFrame {
         
         if ( labelButton.isPressed() ) {
             labelButtonPressCount++;
+        }
+        
+        if ( panel.isTitleBarPressed() ) {
+            draggedComponent = panel;
+        }
+        
+        if ( panelUntitled.isTitleBarPressed() ) {
+            draggedComponent = panelUntitled;
+        }
+        
+        if ( window.isCloseButtonPressed() ) {
+            window.setVisible( false );
+        }
+        
+        if ( window.isTitleBarPressed() ) {
+            draggedComponent = window;
+        }
+        
+        if ( windowUntitled.isCloseButtonPressed() ) {
+            windowUntitled.setVisible( false );
+        }
+        
+        if ( windowUntitled.isTitleBarPressed() ) {
+            draggedComponent = windowUntitled;
+        }
+        
+        if ( isMouseButtonDown( MOUSE_BUTTON_LEFT ) ) {
+            if ( draggedComponent != null ) {
+                draggedComponent.move( mousePos.x - previousMousePos.x, mousePos.y - previousMousePos.y );
+            }
+        } else if ( isMouseButtonUp( MOUSE_BUTTON_LEFT ) ) {
+            draggedComponent = null;
         }
         
         checkEnabled.update( delta );
@@ -160,23 +264,30 @@ public class IMGUIExample extends EngineFrame {
             }
         }
         
+        previousMousePos = mousePos;
+        
     }
     
     @Override
     public void draw() {
+        
         clearBackground( WHITE );
         
         int hSep = 280;
         int dataMargin = hSep + 25;
-        drawGrid( 10, 10, 10, 500, 50, hSep );
+        drawGrid( 16, 10, 30, 420, 50, hSep, LIGHTGRAY );
+        drawGrid( 4, 440, 30, 340, 100, 170, LIGHTGRAY );
+        
+        drawText( "Controls", 10, 10, 20, GRAY );
+        drawText( "Containers/Separators", 440, 10, 20, GRAY );
         
         for ( GuiComponent c : components ) {
             c.draw();
         }
         
-        drawText( "press count: " + buttonPressCount, dataMargin, button.getBounds().y + button.getBounds().height / 2 - 3, 12, DARKGRAY );
-        drawText( "press count: " + labelButtonPressCount, dataMargin, labelButton.getBounds().y + labelButton.getBounds().height / 2 - 3, 12, DARKGRAY );
-        drawText( checkBox.isSelected() ? "selected" : "unselected", dataMargin, checkBox.getBounds().y + checkBox.getBounds().height / 2 - 3, 12, DARKGRAY );
+        drawText( "press count: " + buttonPressCount, dataMargin, button.getBounds().y + button.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( "press count: " + labelButtonPressCount, dataMargin, labelButton.getBounds().y + labelButton.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( checkBox.isSelected() ? "selected" : "unselected", dataMargin, checkBox.getBounds().y + checkBox.getBounds().height / 2 - 3, 12, GRAY );
         
         int selectedRadio = 0;
         if ( radioButton1.isSelected() ) {
@@ -186,9 +297,9 @@ public class IMGUIExample extends EngineFrame {
         } else if ( radioButton3.isSelected() ) {
             selectedRadio = 3;
         }
-        drawText( "radio " + selectedRadio, dataMargin, radioButton1.getBounds().y + radioButton1.getBounds().height / 2 - 3, 12, DARKGRAY );
+        drawText( "radio " + selectedRadio, dataMargin, radioButton1.getBounds().y + radioButton1.getBounds().height / 2 - 3, 12, GRAY );
         
-        drawText( toggleButton.isSelected() ? "selected" : "unselected", dataMargin, toggleButton.getBounds().y + toggleButton.getBounds().height / 2 - 3, 12, DARKGRAY );
+        drawText( toggleButton.isSelected() ? "selected" : "unselected", dataMargin, toggleButton.getBounds().y + toggleButton.getBounds().height / 2 - 3, 12, GRAY );
         
         int selectedOtion = 0;
         if ( toggleButton1.isSelected() ) {
@@ -198,7 +309,7 @@ public class IMGUIExample extends EngineFrame {
         } else if ( toggleButton3.isSelected() ) {
             selectedOtion = 3;
         }
-        drawText( "option " + selectedOtion, dataMargin, toggleButton1.getBounds().y + toggleButton1.getBounds().height / 2 - 3, 12, DARKGRAY );
+        drawText( "option " + selectedOtion, dataMargin, toggleButton1.getBounds().y + toggleButton1.getBounds().height / 2 - 3, 12, GRAY );
         
         checkEnabled.draw();
         checkVisible.draw();
@@ -206,15 +317,15 @@ public class IMGUIExample extends EngineFrame {
         
     }
     
-    private void drawGrid( int lines, int x, int y, int width, int height, int hSep ) {
+    private void drawGrid( int lines, int x, int y, int width, int height, int hSep, Color color ) {
         
         for ( int i = 0; i <= lines; i++ ) {
-            drawLine( x, y + height * i, x + width, y + height * i, BLACK );
+            drawLine( x, y + height * i, x + width, y + height * i, color );
         }
         
-        drawLine( x, y, x, y + height * lines, BLACK );
-        drawLine( x + hSep, y, x + hSep, y + height * lines, BLACK );
-        drawLine( x + width, y, x + width, y + height * lines, BLACK );
+        drawLine( x, y, x, y + height * lines, color );
+        drawLine( x + hSep, y, x + hSep, y + height * lines, color );
+        drawLine( x + width, y, x + width, y + height * lines, color );
         
     }
     
