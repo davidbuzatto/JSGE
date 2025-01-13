@@ -61,7 +61,7 @@ public interface MathUtils {
      * @param start Valor inicial.
      * @param end Valor final.
      * @param value O valor.
-     * @return A porcentagem do valor em relação ao intervalo compreendido entre min e max.
+     * @return A porcentagem do valor em relação ao intervalo compreendido entre start e end.
      */
     public static double inverseLerp( double start, double end, double value ) {
         return ( value - start ) / ( end - start );
