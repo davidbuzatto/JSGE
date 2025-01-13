@@ -98,9 +98,25 @@ public class GuiProgressBar extends GuiComponent {
     public void setValue( double value ) {
         this.value = MathUtils.clamp( value, min, max );
     }
+
+    public double getMin() {
+        return min;
+    }
+
+    public void setMin( double min ) {
+        this.min = min;
+    }
+
+    public double getMax() {
+        return max;
+    }
+
+    public void setMax( double max ) {
+        this.max = max;
+    }
     
     public double getPercentage() {
-        return MathUtils.clamp( value / ( max - min ), 0, 1 );
+        return MathUtils.clamp( MathUtils.inverseLerp( min, max, value ), 0, 1 );
     }
     
 }

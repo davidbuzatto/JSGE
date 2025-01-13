@@ -54,6 +54,18 @@ public interface MathUtils {
     public static double lerp( double start, double end, double amount ) {
         return start + amount * ( end - start );
     }
+    
+    /**
+     * Realiza a interpolação linear inversa entre dois valores.
+     * 
+     * @param start Valor inicial.
+     * @param end Valor final.
+     * @param value O valor.
+     * @return A porcentagem do valor em relação ao intervalo compreendido entre min e max.
+     */
+    public static double inverseLerp( double start, double end, double value ) {
+        return ( value - start ) / ( end - start );
+    }
 
     /**
      * Limita um valor entre dois valores.
