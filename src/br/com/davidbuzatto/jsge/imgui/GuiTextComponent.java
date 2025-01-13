@@ -14,10 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.core.engine.imgui;
+package br.com.davidbuzatto.jsge.imgui;
 
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
-import static br.com.davidbuzatto.jsge.core.engine.imgui.GuiComponent.FONT_SIZE;
+import static br.com.davidbuzatto.jsge.imgui.GuiComponent.FONT_SIZE;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import java.awt.Color;
 

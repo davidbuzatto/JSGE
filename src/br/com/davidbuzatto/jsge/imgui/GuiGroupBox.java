@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.core.engine.imgui;
+package br.com.davidbuzatto.jsge.imgui;
 
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
@@ -25,37 +25,37 @@ import java.awt.Color;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class GuiLine extends GuiTextComponent {
+public class GuiGroupBox extends GuiTextComponent {
     
-    public GuiLine( double x, double y, double width, double height, String text, EngineFrame engine ) {
+    public GuiGroupBox( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
     }
     
-    public GuiLine( double x, double y, double width, double height, String text ) {
+    public GuiGroupBox( double x, double y, double width, double height, String text ) {
         super( x, y, width, height, text );
     }
     
-    public GuiLine( double x, double y, double width, double height, EngineFrame engine ) {
+    public GuiGroupBox( double x, double y, double width, double height, EngineFrame engine ) {
         super( x, y, width, height, null, engine );
     }
     
-    public GuiLine( double x, double y, double width, double height ) {
+    public GuiGroupBox( double x, double y, double width, double height ) {
         super( x, y, width, height, null );
     }
     
-    public GuiLine( Rectangle bounds, String text, EngineFrame engine ) {
+    public GuiGroupBox( Rectangle bounds, String text, EngineFrame engine ) {
         super( bounds, text, engine );
     }
     
-    public GuiLine( Rectangle bounds, String text ) {
+    public GuiGroupBox( Rectangle bounds, String text ) {
         super( bounds, text );
     }
     
-    public GuiLine( Rectangle bounds, EngineFrame engine ) {
+    public GuiGroupBox( Rectangle bounds, EngineFrame engine ) {
         super( bounds, null, engine );
     }
     
-    public GuiLine( Rectangle bounds ) {
+    public GuiGroupBox( Rectangle bounds ) {
         super( bounds, null );
     }
     
@@ -68,26 +68,29 @@ public class GuiLine extends GuiTextComponent {
         if ( visible ) {
             engine.setStrokeLineWidth( LINE_WIDTH );
             if ( enabled ) {
-                drawLine( CONTAINER_BORDER_COLOR, CONTAINER_TEXT_COLOR);
+                drawGroupBox( CONTAINER_BORDER_COLOR, CONTAINER_TEXT_COLOR);
             } else {
-                drawLine( DISABLED_CONTAINER_BORDER_COLOR, DISABLED_CONTAINER_TEXT_COLOR );
+                drawGroupBox( DISABLED_CONTAINER_BORDER_COLOR, DISABLED_CONTAINER_TEXT_COLOR );
             }
             drawBounds();
         }
     }
     
-    private void drawLine( Color borderColor, Color textColor ) {
+    private void drawGroupBox( Color borderColor, Color textColor ) {
         
         if ( textWidth == -1 && text != null ) {
             textWidth = engine.measureText( text, FONT_SIZE );
         }
         
         if ( text != null ) {
-            engine.drawLine( bounds.x, bounds.y + bounds.height / 2, bounds.x + 6, bounds.y + bounds.height / 2, borderColor );
-            engine.drawLine( bounds.x + textWidth + 16, bounds.y + bounds.height / 2, bounds.x + bounds.width, bounds.y + bounds.height / 2, borderColor );
-            engine.drawText( text, bounds.x + 12, bounds.y + bounds.height / 2 - 3, FONT_SIZE, textColor );
+            engine.drawLine( bounds.x, bounds.y, bounds.x + 6, bounds.y, borderColor );
+            engine.drawLine( bounds.x + textWidth + 16, bounds.y, bounds.x + bounds.width, bounds.y, borderColor );
+            engine.drawLine( bounds.x, bounds.y, bounds.x, bounds.y + bounds.height, borderColor );
+            engine.drawLine( bounds.x + bounds.width, bounds.y, bounds.x + bounds.width, bounds.y + bounds.height, borderColor );
+            engine.drawLine( bounds.x, bounds.y + bounds.height, bounds.x + bounds.width, bounds.y + bounds.height, borderColor );
+            engine.drawText( text, bounds.x + 12, bounds.y - 3, FONT_SIZE, textColor );
         } else {
-            engine.drawLine( bounds.x, bounds.y + bounds.height / 2, bounds.x + bounds.width, bounds.y + bounds.height / 2, borderColor );
+            engine.drawRectangle( bounds, borderColor );
         }
         
     }

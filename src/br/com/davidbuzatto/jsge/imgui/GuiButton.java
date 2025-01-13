@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.core.engine.imgui;
+package br.com.davidbuzatto.jsge.imgui;
 
 import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
@@ -23,27 +23,25 @@ import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
- * Um componente caixa de seleção.
+ * Um componente botão.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class GuiCheckBox extends GuiTextComponent {
+public class GuiButton extends GuiTextComponent {
     
-    protected boolean selected;
-    
-    public GuiCheckBox( double x, double y, double width, double height, String text, EngineFrame engine ) {
+    public GuiButton( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
     }
     
-    public GuiCheckBox( double x, double y, double width, double height, String text ) {
+    public GuiButton( double x, double y, double width, double height, String text ) {
         super( x, y, width, height, text );
     }
     
-    public GuiCheckBox( Rectangle bounds, String text, EngineFrame engine ) {
+    public GuiButton( Rectangle bounds, String text, EngineFrame engine ) {
         super( bounds, text, engine );
     }
     
-    public GuiCheckBox( Rectangle bounds, String text ) {
+    public GuiButton( Rectangle bounds, String text ) {
         super( bounds, text );
     }
     
@@ -58,7 +56,6 @@ public class GuiCheckBox extends GuiTextComponent {
                 mouseState = GuiComponentState.MOUSE_OVER;
                 if ( engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_PRESSED;
-                    selected = !selected;
                 } else if ( engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                     mouseState = GuiComponentState.MOUSE_DOWN;
                 }
@@ -77,32 +74,32 @@ public class GuiCheckBox extends GuiTextComponent {
         
         if ( visible ) {
             
-            engine.setStrokeLineWidth( 1 );
-            
+            engine.setStrokeLineWidth( LINE_WIDTH );
+
             if ( enabled ) {
 
                 switch ( mouseState ) {
                     case MOUSE_OUT:
-                        drawCheckBox( MOUSE_OUT_BORDER_COLOR, 20, selected );
-                        drawText( MOUSE_OUT_TEXT_COLOR, 25, 0 );
+                        drawButton( MOUSE_OUT_BACKGROUND_COLOR, MOUSE_OUT_BORDER_COLOR );
+                        drawCenteredText( MOUSE_OUT_TEXT_COLOR );
                         break;
                     case MOUSE_OVER:
-                        drawCheckBox( MOUSE_OVER_BORDER_COLOR, 20, selected );
-                        drawText( MOUSE_OVER_TEXT_COLOR, 25, 0 );
+                        drawButton( MOUSE_OVER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR );
+                        drawCenteredText( MOUSE_OVER_TEXT_COLOR );
                         break;
                     case MOUSE_PRESSED:
-                        drawCheckBox( MOUSE_DOWN_BORDER_COLOR, 20, selected );
-                        drawText( MOUSE_DOWN_TEXT_COLOR, 25, 0 );
+                        drawButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
+                        drawCenteredText( MOUSE_DOWN_TEXT_COLOR );
                         break;
                     case MOUSE_DOWN:
-                        drawCheckBox( MOUSE_DOWN_BORDER_COLOR, 20, selected );
-                        drawText( MOUSE_DOWN_TEXT_COLOR, 25, 0 );
+                        drawButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
+                        drawCenteredText( MOUSE_DOWN_TEXT_COLOR );
                         break;
                 }
 
             } else {
-                drawCheckBox( DISABLED_BORDER_COLOR, 20, selected );
-                drawText( DISABLED_TEXT_COLOR, 25, 0 );
+                drawButton( DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR );
+                drawCenteredText( DISABLED_TEXT_COLOR );
             }
             
             drawBounds();
@@ -111,21 +108,9 @@ public class GuiCheckBox extends GuiTextComponent {
         
     }
     
-    private void drawCheckBox( Color borderColor, double checkSize, boolean fillInternal ) {
-        double x = bounds.x;
-        double y = bounds.y + bounds.height / 2 - checkSize / 2;
-        engine.drawRectangle( x, y, checkSize, checkSize, borderColor );
-        if ( fillInternal ) {
-            engine.fillRectangle( x + 2, y + 2, checkSize - 3, checkSize - 3, borderColor );
-        }
-    }
-
-    public void setSelected( boolean selected ) {
-        this.selected = selected;
-    }
-    
-    public boolean isSelected() {
-        return this.selected;
+    private void drawButton( Color backgroundColor, Color borderColor ) {
+        engine.fillRectangle( bounds, backgroundColor );
+        engine.drawRectangle( bounds, borderColor );
     }
     
     public boolean isPressed() {
