@@ -171,8 +171,8 @@ public class GuiWindowBox extends GuiTextComponent {
                 drawWindowBox( DISABLED_CONTAINER_BORDER_COLOR, DISABLED_CONTAINER_BACKGROUND_COLOR, DISABLED_CONTAINER_TITLE_BAR_BORDER_COLOR, DISABLED_CONTAINER_TITLE_BAR_BACKGROUND_COLOR, DISABLED_CONTAINER_TITLE_BAR_TEXT_COLOR );
             }
             drawBounds();
+            closeButton.draw();
         }
-        closeButton.draw();
     }
     
     private void drawWindowBox( Color borderColor, Color backgroundColor, Color titleBarBorderColor, Color titleBarBackgroundColor, Color titleBarTextColor ) {

@@ -28,6 +28,7 @@ import br.com.davidbuzatto.jsge.imgui.GuiLine;
 import br.com.davidbuzatto.jsge.imgui.GuiPanel;
 import br.com.davidbuzatto.jsge.imgui.GuiProgressBar;
 import br.com.davidbuzatto.jsge.imgui.GuiRadioButton;
+import br.com.davidbuzatto.jsge.imgui.GuiSpinner;
 import br.com.davidbuzatto.jsge.imgui.GuiToggleButton;
 import br.com.davidbuzatto.jsge.imgui.GuiWindowBox;
 import br.com.davidbuzatto.jsge.math.Vector2;
@@ -58,7 +59,7 @@ public class IMGUIExample extends EngineFrame {
     private GuiToggleButton toggleButton3;
     private GuiButtonGroup buttonGroupToggle;
     private GuiProgressBar progressBar;
-    private GuiLabel labelSpinner;
+    private GuiSpinner spinner;
     private GuiLabel labelSlider;
     private GuiLabel labelTextBox;
     private GuiLabel labelComboBox;
@@ -131,14 +132,14 @@ public class IMGUIExample extends EngineFrame {
         toggleButton3.setButtonGroup( buttonGroupToggle );
         
         progressBar = new GuiProgressBar( x, y += vSpacing + 5, 180, 20, 0, 0, 50 );
-        labelSpinner = new GuiLabel( x, y += vSpacing, 260, 30, "Spinner (working in progress)" );
-        labelSlider = new GuiLabel( x, y += vSpacing, 260, 30, "Slider (working in progress)" );
-        labelTextBox = new GuiLabel( x, y += vSpacing, 260, 30, "Text Box (working in progress)" );
-        labelComboBox = new GuiLabel( x, y += vSpacing, 260, 30, "Combo Box (working in progress)" );
-        labelListBox = new GuiLabel( x, y += vSpacing, 260, 30, "List Box (working in progress)" );
-        labelColorPicker = new GuiLabel( x, y += vSpacing, 260, 30, "Color Picker (working in progress)" );
-        labelMessageBox = new GuiLabel( x, y += vSpacing, 260, 30, "Message Box (working in progress)" );
-        labelTextInputBox = new GuiLabel( x, y += vSpacing, 260, 30, "Text Input Box (working in progress)" );
+        spinner = new GuiSpinner( x, y += vSpacing - 5, 150, 30, 0, 0, 10 );
+        labelSlider = new GuiLabel( x, y += vSpacing, 260, 30, "Slider (work in progress)" );
+        labelTextBox = new GuiLabel( x, y += vSpacing, 260, 30, "Text Box (work in progress)" );
+        labelComboBox = new GuiLabel( x, y += vSpacing, 260, 30, "Combo Box (work in progress)" );
+        labelListBox = new GuiLabel( x, y += vSpacing, 260, 30, "List Box (work in progress)" );
+        labelColorPicker = new GuiLabel( x, y += vSpacing, 260, 30, "Color Picker (work in progress)" );
+        labelMessageBox = new GuiLabel( x, y += vSpacing, 260, 30, "Message Box (work in progress)" );
+        labelTextInputBox = new GuiLabel( x, y += vSpacing, 260, 30, "Text Input Box (work in progress)" );
 
         progressTime = 0.05;
         
@@ -155,7 +156,7 @@ public class IMGUIExample extends EngineFrame {
         components.add( toggleButton2 );
         components.add( toggleButton3 );
         components.add( progressBar );
-        components.add( labelSpinner );
+        components.add( spinner );
         components.add( labelSlider );
         components.add( labelTextBox );
         components.add( labelComboBox );
@@ -325,6 +326,7 @@ public class IMGUIExample extends EngineFrame {
         drawText( "option " + selectedOtion, dataMargin, toggleButton1.getBounds().y + toggleButton1.getBounds().height / 2 - 3, 12, GRAY );
         
         drawText( String.format( "%.0f%% (%.2f)", progressBar.getPercentage() * 100, progressBar.getValue() ), dataMargin, progressBar.getBounds().y + progressBar.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( String.format( "value: %d", spinner.getValue() ), dataMargin, spinner.getBounds().y + spinner.getBounds().height / 2 - 3, 12, GRAY );
         
         checkEnabled.draw();
         checkVisible.draw();

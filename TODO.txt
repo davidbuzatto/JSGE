@@ -5,8 +5,6 @@ Criar componentes immediate mode! (v1.5.0)
 Retirado da raygui:
 
 # Basic Control
-  - ProgressBar (JProgressBar)
-  - Spinner     (JSpinner)
   - Slider      (JSlider)
   - TextBox     (JTextField)
   - ComboBox    (JComboBox) -> implica em rolagem
