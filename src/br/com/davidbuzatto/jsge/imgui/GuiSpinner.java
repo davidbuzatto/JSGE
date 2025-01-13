@@ -16,11 +16,9 @@
  */
 package br.com.davidbuzatto.jsge.imgui;
 
-import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.MathUtils;
-import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
@@ -88,7 +86,6 @@ public class GuiSpinner extends GuiComponent {
             int pad = 5;
             engine.fillPolygon( bounds.x + bounds.width / 2, bounds.y + bounds.height / 2, 3, bounds.width / 2 - pad, arrowAngle, color );
         }
-        
         
     }
     

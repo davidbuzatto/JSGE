@@ -6131,28 +6131,28 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
     
     
     //**************************************************************************
-    // "Injeção de dependências"
+    // "Injeção de dependências" para IMGUI.
     //**************************************************************************
     
     /**
-     * Controle de "injeção de dependências" para os componentes
+     * Controle de "injeção de dependências" para os componentes IMGUI.
      */
-    private static class DependencyContainer {
+    private static class IMGUIDependencyContainer {
         
         private static BufferStrategyEngineFrame engine;
         
         static void setEngine( BufferStrategyEngineFrame engine ) {
-            DependencyContainer.engine = engine;
+            IMGUIDependencyContainer.engine = engine;
         }
         
     }
     
     /**
      * Marca a instância chamadora como a engine utilizada para ser injetada
-     * em componentes que necessitam da mesma.
+     * em componentes IMGUI que necessitam da mesma.
      */
-    public void useAsDependency() {
-        DependencyContainer.setEngine( this );
+    public void useAsDependencyForIMGUI() {
+        IMGUIDependencyContainer.setEngine( this );
     }
     
     /**
@@ -6163,8 +6163,8 @@ public abstract class BufferStrategyEngineFrame extends JFrame {
      * dependência.
      */
     public static BufferStrategyEngineFrame getDependencyEngine() throws IllegalStateException {
-        if ( DependencyContainer.engine != null ) {
-            return DependencyContainer.engine;
+        if ( IMGUIDependencyContainer.engine != null ) {
+            return IMGUIDependencyContainer.engine;
         }
         throw new IllegalStateException( "You must set one engine instance to be used as dependency injection." );
     }

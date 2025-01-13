@@ -28,6 +28,7 @@ import br.com.davidbuzatto.jsge.imgui.GuiLine;
 import br.com.davidbuzatto.jsge.imgui.GuiPanel;
 import br.com.davidbuzatto.jsge.imgui.GuiProgressBar;
 import br.com.davidbuzatto.jsge.imgui.GuiRadioButton;
+import br.com.davidbuzatto.jsge.imgui.GuiSlider;
 import br.com.davidbuzatto.jsge.imgui.GuiSpinner;
 import br.com.davidbuzatto.jsge.imgui.GuiToggleButton;
 import br.com.davidbuzatto.jsge.imgui.GuiWindowBox;
@@ -60,7 +61,7 @@ public class IMGUIExample extends EngineFrame {
     private GuiButtonGroup buttonGroupToggle;
     private GuiProgressBar progressBar;
     private GuiSpinner spinner;
-    private GuiLabel labelSlider;
+    private GuiSlider slider;
     private GuiLabel labelTextBox;
     private GuiLabel labelComboBox;
     private GuiLabel labelListBox;
@@ -101,7 +102,7 @@ public class IMGUIExample extends EngineFrame {
     @Override
     public void create() {
         
-        useAsDependency();
+        useAsDependencyForIMGUI();
         
         int x = 20;
         int y = 40;
@@ -133,7 +134,7 @@ public class IMGUIExample extends EngineFrame {
         
         progressBar = new GuiProgressBar( x, y += vSpacing + 5, 180, 20, 0, 0, 50 );
         spinner = new GuiSpinner( x, y += vSpacing - 5, 150, 30, 0, 0, 10 );
-        labelSlider = new GuiLabel( x, y += vSpacing, 260, 30, "Slider (work in progress)" );
+        slider = new GuiSlider( x, y += vSpacing, 180, 30, 25, 1, 50 );
         labelTextBox = new GuiLabel( x, y += vSpacing, 260, 30, "Text Box (work in progress)" );
         labelComboBox = new GuiLabel( x, y += vSpacing, 260, 30, "Combo Box (work in progress)" );
         labelListBox = new GuiLabel( x, y += vSpacing, 260, 30, "List Box (work in progress)" );
@@ -157,7 +158,7 @@ public class IMGUIExample extends EngineFrame {
         components.add( toggleButton3 );
         components.add( progressBar );
         components.add( spinner );
-        components.add( labelSlider );
+        components.add( slider );
         components.add( labelTextBox );
         components.add( labelComboBox );
         components.add( labelListBox );
@@ -327,6 +328,7 @@ public class IMGUIExample extends EngineFrame {
         
         drawText( String.format( "%.0f%% (%.2f)", progressBar.getPercentage() * 100, progressBar.getValue() ), dataMargin, progressBar.getBounds().y + progressBar.getBounds().height / 2 - 3, 12, GRAY );
         drawText( String.format( "value: %d", spinner.getValue() ), dataMargin, spinner.getBounds().y + spinner.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( String.format( "value: %.2f", slider.getValue() ), dataMargin, slider.getBounds().y + slider.getBounds().height / 2 - 3, 12, GRAY );
         
         checkEnabled.draw();
         checkVisible.draw();
