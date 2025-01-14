@@ -21,8 +21,7 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
 import java.awt.Color;
 
 /**
- * Um componente de grupo, utilizado para deliminar espaços na interface
- * gráfica.
+ * Um container do tipo grupo.
  * 
  * @author Prof. Dr. David Buzatto
  */

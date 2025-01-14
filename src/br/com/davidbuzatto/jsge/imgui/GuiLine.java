@@ -21,7 +21,7 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
 import java.awt.Color;
 
 /**
- * Um componente separador em linha.
+ * Um separador do tipo linha.
  * 
  * @author Prof. Dr. David Buzatto
  */

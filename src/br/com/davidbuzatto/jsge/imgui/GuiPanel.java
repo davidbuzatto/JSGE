@@ -23,7 +23,7 @@ import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
- * Um componente de painel.
+ * Um container do tipo painel.
  * 
  * @author Prof. Dr. David Buzatto
  */

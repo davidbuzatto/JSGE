@@ -23,7 +23,7 @@ import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
- * Um componente de janela.
+ * Um container do tipo janela.
  * 
  * @author Prof. Dr. David Buzatto
  */
