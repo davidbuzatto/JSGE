@@ -31,6 +31,7 @@ public class GuiWindowBox extends GuiTextComponent {
     
     private GuiButtonClose closeButton;
     private Rectangle titleBarBounds;
+    private boolean titleBarPressed;
     
     public GuiWindowBox( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
@@ -43,8 +44,7 @@ public class GuiWindowBox extends GuiTextComponent {
     }
     
     public GuiWindowBox( double x, double y, double width, double height, EngineFrame engine ) {
-        super( x, y, width, height, null, engine );
-        initComponents( engine );
+        this( x, y, width, height, null, engine );
     }
     
     public GuiWindowBox( double x, double y, double width, double height ) {
@@ -63,8 +63,7 @@ public class GuiWindowBox extends GuiTextComponent {
     }
     
     public GuiWindowBox( Rectangle bounds, EngineFrame engine ) {
-        super( bounds, null, engine );
-        initComponents( engine );
+        this( bounds, null, engine );
     }
     
     public GuiWindowBox( Rectangle bounds ) {
@@ -85,6 +84,8 @@ public class GuiWindowBox extends GuiTextComponent {
     @Override
     public void update( double delta ) {
         
+        super.update( delta );
+        
         if ( visible && enabled ) {
             
             closeButton.update( delta );
@@ -92,18 +93,11 @@ public class GuiWindowBox extends GuiTextComponent {
             Vector2 mousePos = engine.getMousePositionPoint();
 
             if ( CollisionUtils.checkCollisionPointRectangle( mousePos, titleBarBounds ) ) {
-                mouseState = GuiComponentMouseState.MOUSE_OVER;
-                if ( engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    mouseState = GuiComponentMouseState.MOUSE_PRESSED;
-                } else if ( engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    mouseState = GuiComponentMouseState.MOUSE_DOWN;
-                }
-            } else {
-                mouseState = GuiComponentMouseState.MOUSE_OUT;
+                titleBarPressed = engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT );
             }
             
         } else {
-            mouseState = GuiComponentMouseState.MOUSE_OUT;
+            titleBarPressed = false;
         }
         
     }
@@ -113,9 +107,21 @@ public class GuiWindowBox extends GuiTextComponent {
         if ( visible ) {
             engine.setStrokeLineWidth( LINE_WIDTH );
             if ( enabled ) {
-                drawWindowBox( CONTAINER_BORDER_COLOR, CONTAINER_BACKGROUNG_COLOR, CONTAINER_TITLE_BAR_BORDER_COLOR, CONTAINER_TITLE_BAR_BACKGROUND_COLOR, CONTAINER_TITLE_BAR_TEXT_COLOR );
+                drawWindowBox( 
+                        CONTAINER_BORDER_COLOR, 
+                        CONTAINER_BACKGROUNG_COLOR, 
+                        CONTAINER_TITLE_BAR_BORDER_COLOR, 
+                        CONTAINER_TITLE_BAR_BACKGROUND_COLOR, 
+                        CONTAINER_TITLE_BAR_TEXT_COLOR
+                );
             } else {
-                drawWindowBox( DISABLED_CONTAINER_BORDER_COLOR, DISABLED_CONTAINER_BACKGROUND_COLOR, DISABLED_CONTAINER_TITLE_BAR_BORDER_COLOR, DISABLED_CONTAINER_TITLE_BAR_BACKGROUND_COLOR, DISABLED_CONTAINER_TITLE_BAR_TEXT_COLOR );
+                drawWindowBox( 
+                        DISABLED_CONTAINER_BORDER_COLOR, 
+                        DISABLED_CONTAINER_BACKGROUND_COLOR, 
+                        DISABLED_CONTAINER_TITLE_BAR_BORDER_COLOR, 
+                        DISABLED_CONTAINER_TITLE_BAR_BACKGROUND_COLOR, 
+                        DISABLED_CONTAINER_TITLE_BAR_TEXT_COLOR
+                );
             }
             drawBounds();
             closeButton.draw();
@@ -169,7 +175,7 @@ public class GuiWindowBox extends GuiTextComponent {
         if ( closeButton.isPressed() ) {
             return false;
         }
-        return mouseState == GuiComponentMouseState.MOUSE_PRESSED;
+        return titleBarPressed;
     }
     
     private class GuiButtonClose extends GuiButton {

@@ -47,24 +47,25 @@ public class GuiTextField extends GuiComponent {
     
     public GuiTextField( double x, double y, double width, double height, String value, EngineFrame engine ) {
         super( x, y, width, height, engine );
-        setValue( value );
-        this.showCaret = true;
+        initData( value );
     }
     
     public GuiTextField( double x, double y, double width, double height, String value ) {
         super( x, y, width, height );
-        setValue( value );
-        this.showCaret = true;
+        initData( value );
     }
     
     public GuiTextField( Rectangle bounds, String value, EngineFrame engine ) {
         super( bounds, engine );
-        setValue( value );
-        this.showCaret = true;
+        initData( value );
     }
     
     public GuiTextField( Rectangle bounds, String value ) {
         super( bounds );
+        initData( value );
+    }
+    
+    private void initData( String value ) {
         setValue( value );
         this.showCaret = true;
     }

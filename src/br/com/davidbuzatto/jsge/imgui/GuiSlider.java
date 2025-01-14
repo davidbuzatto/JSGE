@@ -33,38 +33,37 @@ public class GuiSlider extends GuiComponent {
     private double value;
     private double min;
     private double max;
+    
     private GuiSliderButton sliderButton;
     
     public GuiSlider( double x, double y, double width, double height, int value, int min, int max, EngineFrame engine ) {
         super( x, y, width, height, engine );
-        this.value = value;
-        this.min = min;
-        this.max = max;
+        initData( value, min, max );
         initComponents( 10 );
     }
     
     public GuiSlider( double x, double y, double width, double height, int value, int min, int max ) {
         super( x, y, width, height );
-        this.value = value;
-        this.min = min;
-        this.max = max;
+        initData( value, min, max );
         initComponents( 10 );
     }
     
     public GuiSlider( Rectangle bounds, int value, int min, int max, EngineFrame engine ) {
         super( bounds, engine );
-        this.value = value;
-        this.min = min;
-        this.max = max;
+        initData( value, min, max );
         initComponents( 10 );
     }
     
     public GuiSlider( Rectangle bounds, int value, int min, int max ) {
         super( bounds );
+        initData( value, min, max );
+        initComponents( 10 );
+    }
+    
+    private void initData( int value, int min, int max ) {
         this.value = value;
         this.min = min;
         this.max = max;
-        initComponents( 10 );
     }
     
     private void initComponents( double sliderRadius ) {

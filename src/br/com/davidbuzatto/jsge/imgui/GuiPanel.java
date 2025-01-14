@@ -43,8 +43,7 @@ public class GuiPanel extends GuiTextComponent {
     }
     
     public GuiPanel( double x, double y, double width, double height, EngineFrame engine ) {
-        super( x, y, width, height, null, engine );
-        initComponents();
+        this( x, y, width, height, null, engine );
     }
     
     public GuiPanel( double x, double y, double width, double height ) {
@@ -63,8 +62,7 @@ public class GuiPanel extends GuiTextComponent {
     }
     
     public GuiPanel( Rectangle bounds, EngineFrame engine ) {
-        super( bounds, null, engine );
-        initComponents();
+        this( bounds, null, engine );
     }
     
     public GuiPanel( Rectangle bounds ) {
@@ -87,8 +85,6 @@ public class GuiPanel extends GuiTextComponent {
 
             if ( CollisionUtils.checkCollisionPointRectangle( mousePos, titleBarBounds ) ) {
                 titleBarPressed = engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT );
-            } else {
-                mouseState = GuiComponentMouseState.MOUSE_OUT;
             }
             
         } else {

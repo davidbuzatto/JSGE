@@ -36,7 +36,7 @@ public class GuiLine extends GuiTextComponent {
     }
     
     public GuiLine( double x, double y, double width, double height, EngineFrame engine ) {
-        super( x, y, width, height, null, engine );
+        this( x, y, width, height, null, engine );
     }
     
     public GuiLine( double x, double y, double width, double height ) {
@@ -52,7 +52,7 @@ public class GuiLine extends GuiTextComponent {
     }
     
     public GuiLine( Rectangle bounds, EngineFrame engine ) {
-        super( bounds, null, engine );
+        this( bounds, null, engine );
     }
     
     public GuiLine( Rectangle bounds ) {

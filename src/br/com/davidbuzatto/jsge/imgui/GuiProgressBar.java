@@ -32,30 +32,27 @@ public class GuiProgressBar extends GuiComponent {
     private double min;
     private double max;
     
-    // TODO: melhorar a chamada de construtores, está horrível...
     public GuiProgressBar( double x, double y, double width, double height, double value, double min, double max, EngineFrame engine ) {
         super( x, y, width, height, engine );
-        this.value = value;
-        this.min = min;
-        this.max = max;
+        initData( value, min, max );
     }
     
     public GuiProgressBar( double x, double y, double width, double height, double value, double min, double max ) {
         super( x, y, width, height );
-        this.value = value;
-        this.min = min;
-        this.max = max;
+        initData( value, min, max );
     }
     
     public GuiProgressBar( Rectangle bounds, double value, double min, double max, EngineFrame engine ) {
         super( bounds, engine );
-        this.value = value;
-        this.min = min;
-        this.max = max;
+        initData( value, min, max );
     }
     
     public GuiProgressBar( Rectangle bounds, double value, double min, double max ) {
         super( bounds );
+        initData( value, min, max );
+    }
+    
+    private void initData( double value, double min, double max ) {
         this.value = value;
         this.min = min;
         this.max = max;

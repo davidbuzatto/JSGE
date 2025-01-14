@@ -36,7 +36,7 @@ public class GuiGroupBox extends GuiTextComponent {
     }
     
     public GuiGroupBox( double x, double y, double width, double height, EngineFrame engine ) {
-        super( x, y, width, height, null, engine );
+        this( x, y, width, height, null, engine );
     }
     
     public GuiGroupBox( double x, double y, double width, double height ) {
@@ -52,7 +52,7 @@ public class GuiGroupBox extends GuiTextComponent {
     }
     
     public GuiGroupBox( Rectangle bounds, EngineFrame engine ) {
-        super( bounds, null, engine );
+        this( bounds, null, engine );
     }
     
     public GuiGroupBox( Rectangle bounds ) {
