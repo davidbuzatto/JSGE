@@ -75,7 +75,7 @@ public class GuiProgressBar extends GuiComponent {
             if ( enabled ) {
                 drawProgressBar( MOUSE_OUT_BACKGROUND_COLOR, MOUSE_OUT_BORDER_COLOR, PROGRESS_BAR_BACKGROUND_COLOR );
             } else {
-                drawProgressBar( DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR, DISABLED_PROGRESS_BAR_BACKGROUND_COLOR );
+                drawProgressBar( DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR, PROGRESS_BAR_BACKGROUND_COLOR );
             }
             
             drawBounds();

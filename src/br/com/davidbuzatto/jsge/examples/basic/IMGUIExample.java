@@ -30,6 +30,7 @@ import br.com.davidbuzatto.jsge.imgui.GuiProgressBar;
 import br.com.davidbuzatto.jsge.imgui.GuiRadioButton;
 import br.com.davidbuzatto.jsge.imgui.GuiSlider;
 import br.com.davidbuzatto.jsge.imgui.GuiSpinner;
+import br.com.davidbuzatto.jsge.imgui.GuiTextField;
 import br.com.davidbuzatto.jsge.imgui.GuiToggleButton;
 import br.com.davidbuzatto.jsge.imgui.GuiWindowBox;
 import br.com.davidbuzatto.jsge.math.Vector2;
@@ -62,7 +63,7 @@ public class IMGUIExample extends EngineFrame {
     private GuiProgressBar progressBar;
     private GuiSpinner spinner;
     private GuiSlider slider;
-    private GuiLabel labelTextBox;
+    private GuiTextField textField;
     private GuiLabel labelComboBox;
     private GuiLabel labelListBox;
     private GuiLabel labelColorPicker;
@@ -135,7 +136,7 @@ public class IMGUIExample extends EngineFrame {
         progressBar = new GuiProgressBar( x, y += vSpacing + 5, 180, 20, 0, 0, 50 );
         spinner = new GuiSpinner( x, y += vSpacing - 5, 150, 30, 0, 0, 10 );
         slider = new GuiSlider( x, y += vSpacing, 180, 30, 25, 1, 50 );
-        labelTextBox = new GuiLabel( x, y += vSpacing, 260, 30, "Text Box (work in progress)" );
+        textField = new GuiTextField( x, y += vSpacing, 260, 30, "" );
         labelComboBox = new GuiLabel( x, y += vSpacing, 260, 30, "Combo Box (work in progress)" );
         labelListBox = new GuiLabel( x, y += vSpacing, 260, 30, "List Box (work in progress)" );
         labelColorPicker = new GuiLabel( x, y += vSpacing, 260, 30, "Color Picker (work in progress)" );
@@ -159,7 +160,7 @@ public class IMGUIExample extends EngineFrame {
         components.add( progressBar );
         components.add( spinner );
         components.add( slider );
-        components.add( labelTextBox );
+        components.add( textField );
         components.add( labelComboBox );
         components.add( labelListBox );
         components.add( labelColorPicker );
@@ -329,6 +330,7 @@ public class IMGUIExample extends EngineFrame {
         drawText( String.format( "%.0f%% (%.2f)", progressBar.getPercentage() * 100, progressBar.getValue() ), dataMargin, progressBar.getBounds().y + progressBar.getBounds().height / 2 - 3, 12, GRAY );
         drawText( String.format( "value: %d", spinner.getValue() ), dataMargin, spinner.getBounds().y + spinner.getBounds().height / 2 - 3, 12, GRAY );
         drawText( String.format( "value: %.2f", slider.getValue() ), dataMargin, slider.getBounds().y + slider.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( String.format( "size: %d", textField.getValue().length() ), dataMargin, textField.getBounds().y + slider.getBounds().height / 2 - 3, 12, GRAY );
         
         checkEnabled.draw();
         checkVisible.draw();

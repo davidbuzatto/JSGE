@@ -2,11 +2,11 @@ Criar componentes immediate mode! (v1.5.0)
     Melhorar a organização do código e dos nomes de métodos etc.
     Melhorar a invocação dos construtores (reaproveitar!!!)
     Documentar componentes apropriadamente.
+    Organizar as cores.
 
 Retirado da raygui:
 
 # Basic Control
-  - TextBox     (JTextField)
   - ComboBox    (JComboBox) -> implica em rolagem
   - ListBox     (JList)     -> implica em rolagem
 

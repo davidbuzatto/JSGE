@@ -196,9 +196,9 @@ public class GuiSlider extends GuiComponent {
             engine.setStrokeLineWidth( LINE_WIDTH );
 
             if ( enabled ) {
-                drawSlider( CONTAINER_BACKGROUNG_COLOR, MOUSE_OUT_BORDER_COLOR, 4 );
+                drawSlider( CONTAINER_BACKGROUNG_COLOR, MOUSE_OUT_BORDER_COLOR, MOUSE_DOWN_BACKGROUND_COLOR, 4 );
             } else {
-                drawSlider( DISABLED_CONTAINER_BACKGROUND_COLOR, DISABLED_BORDER_COLOR, 4 );
+                drawSlider( DISABLED_CONTAINER_BACKGROUND_COLOR, DISABLED_BORDER_COLOR, MOUSE_DOWN_BACKGROUND_COLOR, 4 );
             }
             
             drawBounds();
@@ -207,8 +207,9 @@ public class GuiSlider extends GuiComponent {
         
     }
     
-    private void drawSlider( Color backgroundColor, Color borderColor, double sliderHeight ) {
+    private void drawSlider( Color backgroundColor, Color borderColor, Color valueColor, double sliderHeight ) {
         engine.fillRectangle( bounds.x, bounds.y + bounds.height / 2 - sliderHeight / 2, bounds.width, sliderHeight, backgroundColor );
+        engine.fillRectangle( bounds.x, bounds.y + bounds.height / 2 - sliderHeight / 2, sliderButton.bounds.x - bounds.x, sliderHeight, valueColor );
         engine.drawRectangle( bounds.x, bounds.y + bounds.height / 2 - sliderHeight / 2, bounds.width, sliderHeight, borderColor );
         sliderButton.draw();
     }

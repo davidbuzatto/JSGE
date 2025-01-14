@@ -71,7 +71,7 @@ public abstract class GuiComponent {
     protected static final Color DISABLED_CONTAINER_TITLE_BAR_BACKGROUND_COLOR = new Color( 230, 233, 233 );
     protected static final Color DISABLED_CONTAINER_TITLE_BAR_TEXT_COLOR = new Color( 181, 193, 194 );
     
-    protected static final Color PROGRESS_BAR_BACKGROUND_COLOR = new Color( 201, 239, 254 );
+    protected static final Color PROGRESS_BAR_BACKGROUND_COLOR = new Color( 151, 232, 255 );
     protected static final Color DISABLED_PROGRESS_BAR_BACKGROUND_COLOR = new Color( 230, 233, 233 );
     
     public abstract void update( double delta );
