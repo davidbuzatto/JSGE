@@ -22,7 +22,7 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
 import java.awt.Color;
 
 /**
- * Componentes de texto.
+ * Componentes que contém texto na representação gráfica.
  * 
  * @author Prof. Dr. David Buzatto
  */

@@ -16,13 +16,11 @@
  */
 package br.com.davidbuzatto.jsge.imgui;
 
-import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
-import br.com.davidbuzatto.jsge.math.Vector2;
 
 /**
- * Um componente label (etiqueta) que se comporta como um botão.
+ * Um componente etiqueta que se comporta como um botão.
  * 
  * @author Prof. Dr. David Buzatto
  */
@@ -45,30 +43,6 @@ public class GuiLabelButton extends GuiTextComponent {
     }
     
     @Override
-    public void update( double delta ) {
-        
-        if ( visible && enabled ) {
-            
-            Vector2 mousePos = engine.getMousePositionPoint();
-
-            if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
-                mouseState = GuiComponentState.MOUSE_OVER;
-                if ( engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    mouseState = GuiComponentState.MOUSE_PRESSED;
-                } else if ( engine.isMouseButtonDown( engine.MOUSE_BUTTON_LEFT ) ) {
-                    mouseState = GuiComponentState.MOUSE_DOWN;
-                }
-            } else {
-                mouseState = GuiComponentState.MOUSE_OUT;
-            }
-        
-        } else {
-            mouseState = GuiComponentState.MOUSE_OUT;
-        }
-        
-    }
-    
-    @Override
     public void draw() {
         
         if ( visible ) {
@@ -77,7 +51,7 @@ public class GuiLabelButton extends GuiTextComponent {
 
                 switch ( mouseState ) {
                     case MOUSE_OUT:
-                        drawText( MOUSE_OUT_TEXT_COLOR );
+                        drawText( TEXT_COLOR );
                         break;
                     case MOUSE_OVER:
                         drawText( MOUSE_OVER_TEXT_COLOR );
@@ -98,10 +72,6 @@ public class GuiLabelButton extends GuiTextComponent {
             
         }
         
-    }
-    
-    public boolean isPressed() {
-        return mouseState == GuiComponentState.MOUSE_PRESSED;
     }
     
 }

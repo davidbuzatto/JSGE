@@ -30,71 +30,69 @@ import java.awt.Color;
 public class GuiPanel extends GuiTextComponent {
     
     private Rectangle titleBarBounds;
+    private boolean titleBarPressed;
     
     public GuiPanel( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
-        createChildremComponents();
+        initComponents();
     }
     
     public GuiPanel( double x, double y, double width, double height, String text ) {
         super( x, y, width, height, text );
-        createChildremComponents();
+        initComponents();
     }
     
     public GuiPanel( double x, double y, double width, double height, EngineFrame engine ) {
         super( x, y, width, height, null, engine );
-        createChildremComponents();
+        initComponents();
     }
     
     public GuiPanel( double x, double y, double width, double height ) {
         super( x, y, width, height, null );
-        createChildremComponents();
+        initComponents();
     }
     
     public GuiPanel( Rectangle bounds, String text, EngineFrame engine ) {
         super( bounds, text, engine );
-        createChildremComponents();
+        initComponents();
     }
     
     public GuiPanel( Rectangle bounds, String text ) {
         super( bounds, text );
-        createChildremComponents();
+        initComponents();
     }
     
     public GuiPanel( Rectangle bounds, EngineFrame engine ) {
         super( bounds, null, engine );
-        createChildremComponents();
+        initComponents();
     }
     
     public GuiPanel( Rectangle bounds ) {
         super( bounds, null );
-        createChildremComponents();
+        initComponents();
     }
     
-    private void createChildremComponents() {
+    private void initComponents() {
         titleBarBounds = new Rectangle( bounds.x, bounds.y, bounds.width, 25 );
     }
     
     @Override
     public void update( double delta ) {
         
+        super.update( delta );
+        
         if ( text != null && visible && enabled ) {
             
             Vector2 mousePos = engine.getMousePositionPoint();
 
             if ( CollisionUtils.checkCollisionPointRectangle( mousePos, titleBarBounds ) ) {
-                mouseState = GuiComponentState.MOUSE_OVER;
-                if ( engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    mouseState = GuiComponentState.MOUSE_PRESSED;
-                } else if ( engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    mouseState = GuiComponentState.MOUSE_DOWN;
-                }
+                titleBarPressed = engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT );
             } else {
-                mouseState = GuiComponentState.MOUSE_OUT;
+                mouseState = GuiComponentMouseState.MOUSE_OUT;
             }
             
         } else {
-            mouseState = GuiComponentState.MOUSE_OUT;
+            titleBarPressed = false;
         }
         
     }
@@ -140,7 +138,7 @@ public class GuiPanel extends GuiTextComponent {
     }
     
     public boolean isTitleBarPressed() {
-        return mouseState == GuiComponentState.MOUSE_PRESSED;
+        return titleBarPressed;
     }
     
 }

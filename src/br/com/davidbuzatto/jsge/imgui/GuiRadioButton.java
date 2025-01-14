@@ -16,10 +16,8 @@
  */
 package br.com.davidbuzatto.jsge.imgui;
 
-import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
-import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
@@ -28,8 +26,6 @@ import java.awt.Color;
  * @author Prof. Dr. David Buzatto
  */
 public class GuiRadioButton extends GuiToggleButton {
-    
-    private GuiButtonGroup buttonGroup;
     
     public GuiRadioButton( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
@@ -48,35 +44,6 @@ public class GuiRadioButton extends GuiToggleButton {
     }
     
     @Override
-    public void update( double delta ) {
-        
-        if ( visible && enabled ) {
-            
-            Vector2 mousePos = engine.getMousePositionPoint();
-
-            if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
-                mouseState = GuiComponentState.MOUSE_OVER;
-                if ( engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    mouseState = GuiComponentState.MOUSE_PRESSED;
-                    if ( buttonGroup != null ) {
-                        buttonGroup.toggle( this );
-                    } else {
-                        selected = !selected;
-                    }
-                } else if ( engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    mouseState = GuiComponentState.MOUSE_DOWN;
-                }
-            } else {
-                mouseState = GuiComponentState.MOUSE_OUT;
-            }
-            
-        } else {
-            mouseState = GuiComponentState.MOUSE_OUT;
-        }
-        
-    }
-    
-    @Override
     public void draw() {
         
         if ( visible ) {
@@ -87,25 +54,25 @@ public class GuiRadioButton extends GuiToggleButton {
 
                 switch ( mouseState ) {
                     case MOUSE_OUT:
-                        drawRadio( MOUSE_OUT_BORDER_COLOR, 10, selected );
-                        drawText( MOUSE_OUT_TEXT_COLOR, 25, 0 );
+                        drawRadioButton(BORDER_COLOR, 10, selected );
+                        drawText( TEXT_COLOR, 25, 0 );
                         break;
                     case MOUSE_OVER:
-                        drawRadio( MOUSE_OVER_BORDER_COLOR, 10, selected );
+                        drawRadioButton( MOUSE_OVER_BORDER_COLOR, 10, selected );
                         drawText( MOUSE_OVER_TEXT_COLOR, 25, 0 );
                         break;
                     case MOUSE_PRESSED:
-                        drawRadio( MOUSE_DOWN_BORDER_COLOR, 10, selected );
+                        drawRadioButton( MOUSE_DOWN_BORDER_COLOR, 10, selected );
                         drawText( MOUSE_DOWN_TEXT_COLOR, 25, 0 );
                         break;
                     case MOUSE_DOWN:
-                        drawRadio( MOUSE_DOWN_BORDER_COLOR, 10, selected );
+                        drawRadioButton( MOUSE_DOWN_BORDER_COLOR, 10, selected );
                         drawText( MOUSE_DOWN_TEXT_COLOR, 25, 0 );
                         break;
                 }
 
             } else {
-                drawRadio( DISABLED_BORDER_COLOR, 10, selected );
+                drawRadioButton( DISABLED_BORDER_COLOR, 10, selected );
                 drawText( DISABLED_TEXT_COLOR, 25, 0 );
             }
             
@@ -115,30 +82,13 @@ public class GuiRadioButton extends GuiToggleButton {
         
     }
     
-    private void drawRadio( Color borderColor, double radioRadius, boolean fillInternal ) {
+    private void drawRadioButton( Color borderColor, double radioRadius, boolean fillInternal ) {
         double x = bounds.x + radioRadius;
         double y = bounds.y + bounds.height / 2;
         engine.drawCircle( x, y, radioRadius, borderColor );
         if ( fillInternal ) {
             engine.fillCircle( x + 0.5, y + 0.5, radioRadius - 2, borderColor );
         }
-    }
-    
-    public void setSelected( boolean selected ) {
-        this.selected = selected;
-    }
-    
-    public boolean isSelected() {
-        return this.selected;
-    }
-    
-    public boolean isPressed() {
-        return mouseState == GuiComponentState.MOUSE_PRESSED;
-    }
-
-    public void setButtonGroup( GuiButtonGroup buttonGroup ) {
-        this.buttonGroup = buttonGroup;
-        this.buttonGroup.addToggleButton( this );
     }
     
 }

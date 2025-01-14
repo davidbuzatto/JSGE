@@ -29,7 +29,7 @@ import java.awt.Color;
  */
 public class GuiToggleButton extends GuiCheckBox {
     
-    private GuiButtonGroup buttonGroup;
+    protected GuiButtonGroup buttonGroup;
     
     public GuiToggleButton( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
@@ -55,23 +55,23 @@ public class GuiToggleButton extends GuiCheckBox {
             Vector2 mousePos = engine.getMousePositionPoint();
 
             if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
-                mouseState = GuiComponentState.MOUSE_OVER;
+                mouseState = GuiComponentMouseState.MOUSE_OVER;
                 if ( engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    mouseState = GuiComponentState.MOUSE_PRESSED;
+                    mouseState = GuiComponentMouseState.MOUSE_PRESSED;
                     if ( buttonGroup != null ) {
                         buttonGroup.toggle( this );
                     } else {
                         selected = !selected;
                     }
                 } else if ( engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    mouseState = GuiComponentState.MOUSE_DOWN;
+                    mouseState = GuiComponentMouseState.MOUSE_DOWN;
                 }
             } else {
-                mouseState = GuiComponentState.MOUSE_OUT;
+                mouseState = GuiComponentMouseState.MOUSE_OUT;
             }
             
         } else {
-            mouseState = GuiComponentState.MOUSE_OUT;
+            mouseState = GuiComponentMouseState.MOUSE_OUT;
         }
         
     }
@@ -88,29 +88,29 @@ public class GuiToggleButton extends GuiCheckBox {
                 switch ( mouseState ) {
                     case MOUSE_OUT:
                         if ( !selected ) {
-                            drawButton( MOUSE_OUT_BACKGROUND_COLOR, MOUSE_OUT_BORDER_COLOR );
-                            drawCenteredText( MOUSE_OUT_TEXT_COLOR );
+                            drawToggleButton( BACKGROUND_COLOR, BORDER_COLOR );
+                            drawCenteredText( TEXT_COLOR );
                         } else {
-                            drawButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
+                            drawToggleButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
                             drawCenteredText( MOUSE_DOWN_TEXT_COLOR );
                         }
                         break;
                     case MOUSE_OVER:
-                        drawButton( MOUSE_OVER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR );
+                        drawToggleButton( MOUSE_OVER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR );
                         drawCenteredText( MOUSE_OVER_TEXT_COLOR );
                         break;
                     case MOUSE_PRESSED:
-                        drawButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
+                        drawToggleButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
                         drawCenteredText( MOUSE_DOWN_TEXT_COLOR );
                         break;
                     case MOUSE_DOWN:
-                        drawButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
+                        drawToggleButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
                         drawCenteredText( MOUSE_DOWN_TEXT_COLOR );
                         break;
                 }
 
             } else {
-                drawButton( DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR );
+                drawToggleButton( DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR );
                 drawCenteredText( DISABLED_TEXT_COLOR );
             }
             
@@ -120,21 +120,9 @@ public class GuiToggleButton extends GuiCheckBox {
         
     }
     
-    private void drawButton( Color backgroundColor, Color borderColor ) {
+    private void drawToggleButton( Color backgroundColor, Color borderColor ) {
         engine.fillRectangle( bounds, backgroundColor );
         engine.drawRectangle( bounds, borderColor );
-    }
-    
-    public void setSelected( boolean selected ) {
-        this.selected = selected;
-    }
-    
-    public boolean isSelected() {
-        return this.selected;
-    }
-    
-    public boolean isPressed() {
-        return mouseState == GuiComponentState.MOUSE_PRESSED;
     }
 
     public void setButtonGroup( GuiButtonGroup buttonGroup ) {

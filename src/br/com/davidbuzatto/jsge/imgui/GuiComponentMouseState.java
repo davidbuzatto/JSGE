@@ -17,11 +17,11 @@
 package br.com.davidbuzatto.jsge.imgui;
 
 /**
- * Estado dos componentes.
+ * Estado do mouse em relaão aos componentes.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public enum GuiComponentState {
+public enum GuiComponentMouseState {
     MOUSE_OVER,
     MOUSE_OUT,
     MOUSE_PRESSED,

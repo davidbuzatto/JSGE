@@ -32,105 +32,52 @@ public class GuiWindowBox extends GuiTextComponent {
     private GuiButtonClose closeButton;
     private Rectangle titleBarBounds;
     
-    private class GuiButtonClose extends GuiButton {
-        
-        public GuiButtonClose( double x, double y, double width, double height, EngineFrame engine ) {
-            super( x, y, width, height, "", engine );
-        }
-        
-        public GuiButtonClose( double x, double y, double width, double height ) {
-            super( x, y, width, height, "" );
-        }
-
-        @Override
-        public void draw() {
-            
-            super.draw();
-            
-            if ( visible ) {
-
-                engine.setStrokeLineWidth( LINE_WIDTH );
-
-                if ( enabled ) {
-
-                    switch ( mouseState ) {
-                        case MOUSE_OUT:
-                            drawButtonLabel( MOUSE_OUT_TEXT_COLOR );
-                            break;
-                        case MOUSE_OVER:
-                            drawButtonLabel( MOUSE_OVER_TEXT_COLOR );
-                            break;
-                        case MOUSE_PRESSED:
-                            drawButtonLabel( MOUSE_DOWN_TEXT_COLOR );
-                            break;
-                        case MOUSE_DOWN:
-                            drawButtonLabel( MOUSE_DOWN_TEXT_COLOR );
-                            break;
-                    }
-
-                } else {
-                    drawButtonLabel( DISABLED_TEXT_COLOR );
-                }
-
-            }
-            
-        }
-        
-        private void drawButtonLabel( Color color ) {
-            int pad = 6;
-            engine.drawLine( bounds.x + pad, bounds.y + pad, bounds.x + bounds.width - pad, bounds.y + bounds.height - pad, color );
-            engine.drawLine( bounds.x + pad, bounds.y + bounds.height - pad, bounds.x + bounds.width - pad, bounds.y + pad, color );
-        }
-        
-        
-    }
-    
     public GuiWindowBox( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
-        createChildremComponents( engine );
+        initComponents( engine );
     }
     
     public GuiWindowBox( double x, double y, double width, double height, String text ) {
         super( x, y, width, height, text );
-        createChildremComponents();
+        initComponents();
     }
     
     public GuiWindowBox( double x, double y, double width, double height, EngineFrame engine ) {
         super( x, y, width, height, null, engine );
-        createChildremComponents( engine );
+        initComponents( engine );
     }
     
     public GuiWindowBox( double x, double y, double width, double height ) {
         super( x, y, width, height, null );
-        createChildremComponents();
+        initComponents();
     }
     
     public GuiWindowBox( Rectangle bounds, String text, EngineFrame engine ) {
         super( bounds, text, engine );
-        createChildremComponents( engine );
+        initComponents( engine );
     }
     
     public GuiWindowBox( Rectangle bounds, String text ) {
         super( bounds, text );
-        createChildremComponents();
+        initComponents();
     }
     
     public GuiWindowBox( Rectangle bounds, EngineFrame engine ) {
         super( bounds, null, engine );
-        createChildremComponents( engine );
+        initComponents( engine );
     }
     
     public GuiWindowBox( Rectangle bounds ) {
         super( bounds, null );
-        createChildremComponents();
+        initComponents();
     }
     
-    private void createChildremComponents( EngineFrame engine ) {
+    private void initComponents( EngineFrame engine ) {
         titleBarBounds = new Rectangle( bounds.x, bounds.y, bounds.width, 25 );
         closeButton = new GuiButtonClose( bounds.x + bounds.width - 22, bounds.y + 3, 19, 19, engine );
     }
     
-    private void createChildremComponents() {
+    private void initComponents() {
         titleBarBounds = new Rectangle( bounds.x, bounds.y, bounds.width, 25 );
         closeButton = new GuiButtonClose( bounds.x + bounds.width - 22, bounds.y + 3, 19, 19 );
     }
@@ -145,18 +92,18 @@ public class GuiWindowBox extends GuiTextComponent {
             Vector2 mousePos = engine.getMousePositionPoint();
 
             if ( CollisionUtils.checkCollisionPointRectangle( mousePos, titleBarBounds ) ) {
-                mouseState = GuiComponentState.MOUSE_OVER;
+                mouseState = GuiComponentMouseState.MOUSE_OVER;
                 if ( engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    mouseState = GuiComponentState.MOUSE_PRESSED;
+                    mouseState = GuiComponentMouseState.MOUSE_PRESSED;
                 } else if ( engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    mouseState = GuiComponentState.MOUSE_DOWN;
+                    mouseState = GuiComponentMouseState.MOUSE_DOWN;
                 }
             } else {
-                mouseState = GuiComponentState.MOUSE_OUT;
+                mouseState = GuiComponentMouseState.MOUSE_OUT;
             }
             
         } else {
-            mouseState = GuiComponentState.MOUSE_OUT;
+            mouseState = GuiComponentMouseState.MOUSE_OUT;
         }
         
     }
@@ -222,7 +169,59 @@ public class GuiWindowBox extends GuiTextComponent {
         if ( closeButton.isPressed() ) {
             return false;
         }
-        return mouseState == GuiComponentState.MOUSE_PRESSED;
+        return mouseState == GuiComponentMouseState.MOUSE_PRESSED;
+    }
+    
+    private class GuiButtonClose extends GuiButton {
+        
+        public GuiButtonClose( double x, double y, double width, double height, EngineFrame engine ) {
+            super( x, y, width, height, "", engine );
+        }
+        
+        public GuiButtonClose( double x, double y, double width, double height ) {
+            super( x, y, width, height, "" );
+        }
+
+        @Override
+        public void draw() {
+            
+            super.draw();
+            
+            if ( visible ) {
+
+                engine.setStrokeLineWidth( LINE_WIDTH );
+
+                if ( enabled ) {
+
+                    switch ( mouseState ) {
+                        case MOUSE_OUT:
+                            drawButtonLabel( TEXT_COLOR );
+                            break;
+                        case MOUSE_OVER:
+                            drawButtonLabel( MOUSE_OVER_TEXT_COLOR );
+                            break;
+                        case MOUSE_PRESSED:
+                            drawButtonLabel( MOUSE_DOWN_TEXT_COLOR );
+                            break;
+                        case MOUSE_DOWN:
+                            drawButtonLabel( MOUSE_DOWN_TEXT_COLOR );
+                            break;
+                    }
+
+                } else {
+                    drawButtonLabel( DISABLED_TEXT_COLOR );
+                }
+
+            }
+            
+        }
+        
+        private void drawButtonLabel( Color color ) {
+            int pad = 6;
+            engine.drawLine( bounds.x + pad, bounds.y + pad, bounds.x + bounds.width - pad, bounds.y + bounds.height - pad, color );
+            engine.drawLine( bounds.x + pad, bounds.y + bounds.height - pad, bounds.x + bounds.width - pad, bounds.y + pad, color );
+        }
+        
     }
     
 }

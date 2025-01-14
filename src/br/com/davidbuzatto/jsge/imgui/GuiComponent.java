@@ -16,8 +16,10 @@
  */
 package br.com.davidbuzatto.jsge.imgui;
 
+import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
+import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
@@ -33,54 +35,54 @@ public abstract class GuiComponent {
     protected Rectangle bounds;
     protected EngineFrame engine;
     
-    protected GuiComponentState mouseState = GuiComponentState.MOUSE_OUT;
-    protected boolean enabled = true;
-    protected boolean visible = true;
+    protected GuiComponentMouseState mouseState;
+    protected boolean enabled;
+    protected boolean visible;
     protected boolean drawBounds;
     
     public static final int FONT_SIZE = 12;
     public static final int LINE_WIDTH = 1;
     
-    protected static final Color MOUSE_OUT_BACKGROUND_COLOR = new Color( 201, 201, 201 );
-    protected static final Color MOUSE_OUT_BORDER_COLOR = new Color( 131, 131, 131 );
-    protected static final Color MOUSE_OUT_TEXT_COLOR = new Color( 104, 104, 104 );
+    public static final Color BACKGROUND_COLOR = new Color( 201, 201, 201 );
+    public static final Color BORDER_COLOR = new Color( 131, 131, 131 );
+    public static final Color TEXT_COLOR = new Color( 104, 104, 104 );
     
-    protected static final Color MOUSE_OVER_BACKGROUND_COLOR = new Color( 201, 239, 254 );
-    protected static final Color MOUSE_OVER_BORDER_COLOR = new Color( 91, 178, 217 );
-    protected static final Color MOUSE_OVER_TEXT_COLOR = new Color( 108, 155, 188 );
+    public static final Color MOUSE_OVER_BACKGROUND_COLOR = new Color( 201, 239, 254 );
+    public static final Color MOUSE_OVER_BORDER_COLOR = new Color( 91, 178, 217 );
+    public static final Color MOUSE_OVER_TEXT_COLOR = new Color( 108, 155, 188 );
     
-    protected static final Color MOUSE_DOWN_BACKGROUND_COLOR = new Color( 151, 232, 255 );
-    protected static final Color MOUSE_DOWN_BORDER_COLOR = new Color( 4, 146, 199 );
-    protected static final Color MOUSE_DOWN_TEXT_COLOR = new Color( 54, 139, 175 );
+    public static final Color MOUSE_DOWN_BACKGROUND_COLOR = new Color( 151, 232, 255 );
+    public static final Color MOUSE_DOWN_BORDER_COLOR = new Color( 4, 146, 199 );
+    public static final Color MOUSE_DOWN_TEXT_COLOR = new Color( 54, 139, 175 );
     
-    protected static final Color DISABLED_BACKGROUND_COLOR = new Color( 230, 233, 233 );
-    protected static final Color DISABLED_BORDER_COLOR = new Color( 181, 193, 194 );
-    protected static final Color DISABLED_TEXT_COLOR = new Color( 174, 183, 184 );
+    public static final Color DISABLED_BACKGROUND_COLOR = new Color( 230, 233, 233 );
+    public static final Color DISABLED_BORDER_COLOR = new Color( 181, 193, 194 );
+    public static final Color DISABLED_TEXT_COLOR = new Color( 174, 183, 184 );
     
-    protected static final Color CONTAINER_BORDER_COLOR = new Color( 144, 171, 181 );
-    protected static final Color CONTAINER_TEXT_COLOR = new Color( 144, 171, 181 );
-    protected static final Color CONTAINER_BACKGROUNG_COLOR = new Color( 245, 245, 245 );
-    protected static final Color CONTAINER_TITLE_BAR_BORDER_COLOR = new Color( 131, 131, 131 );
-    protected static final Color CONTAINER_TITLE_BAR_BACKGROUND_COLOR = new Color( 201, 201, 201 );
-    protected static final Color CONTAINER_TITLE_BAR_TEXT_COLOR = new Color( 104, 104, 104 );
+    public static final Color CONTAINER_BORDER_COLOR = new Color( 144, 171, 181 );
+    public static final Color CONTAINER_TEXT_COLOR = new Color( 144, 171, 181 );
+    public static final Color CONTAINER_BACKGROUNG_COLOR = new Color( 245, 245, 245 );
+    public static final Color CONTAINER_TITLE_BAR_BORDER_COLOR = new Color( 131, 131, 131 );
+    public static final Color CONTAINER_TITLE_BAR_BACKGROUND_COLOR = new Color( 201, 201, 201 );
+    public static final Color CONTAINER_TITLE_BAR_TEXT_COLOR = new Color( 104, 104, 104 );
     
-    protected static final Color DISABLED_CONTAINER_BORDER_COLOR = new Color( 181, 193, 194 );
-    protected static final Color DISABLED_CONTAINER_TEXT_COLOR = new Color( 181, 193, 194 );
-    protected static final Color DISABLED_CONTAINER_BACKGROUND_COLOR = new Color( 230, 233, 233 );
-    protected static final Color DISABLED_CONTAINER_TITLE_BAR_BORDER_COLOR = new Color( 181, 193, 194 );
-    protected static final Color DISABLED_CONTAINER_TITLE_BAR_BACKGROUND_COLOR = new Color( 230, 233, 233 );
-    protected static final Color DISABLED_CONTAINER_TITLE_BAR_TEXT_COLOR = new Color( 181, 193, 194 );
+    public static final Color DISABLED_CONTAINER_BORDER_COLOR = new Color( 181, 193, 194 );
+    public static final Color DISABLED_CONTAINER_TEXT_COLOR = new Color( 181, 193, 194 );
+    public static final Color DISABLED_CONTAINER_BACKGROUND_COLOR = new Color( 230, 233, 233 );
+    public static final Color DISABLED_CONTAINER_TITLE_BAR_BORDER_COLOR = new Color( 181, 193, 194 );
+    public static final Color DISABLED_CONTAINER_TITLE_BAR_BACKGROUND_COLOR = new Color( 230, 233, 233 );
+    public static final Color DISABLED_CONTAINER_TITLE_BAR_TEXT_COLOR = new Color( 181, 193, 194 );
     
-    protected static final Color PROGRESS_BAR_BACKGROUND_COLOR = new Color( 151, 232, 255 );
-    protected static final Color DISABLED_PROGRESS_BAR_BACKGROUND_COLOR = new Color( 230, 233, 233 );
-    
-    public abstract void update( double delta );
-    public abstract void draw();
+    public static final Color PROGRESS_BAR_BACKGROUND_COLOR = new Color( 151, 232, 255 );
+    public static final Color DISABLED_PROGRESS_BAR_BACKGROUND_COLOR = new Color( 230, 233, 233 );
     
     public GuiComponent( Rectangle bounds, EngineFrame engine ) {
         this.id = idCounter++;
         this.engine = engine;
         this.bounds = bounds;
+        this.mouseState = GuiComponentMouseState.MOUSE_OUT;
+        this.enabled = true;
+        this.visible = true;
     }
     
     public GuiComponent( double x, double y, double width, double height, EngineFrame engine ) {
@@ -93,6 +95,35 @@ public abstract class GuiComponent {
     
     public GuiComponent( double x, double y, double width, double height ) {
         this( new Rectangle( x, y, width, height ) );
+    }
+    
+    public void update( double delta ) {
+        
+        if ( visible && enabled ) {
+            
+            Vector2 mousePos = engine.getMousePositionPoint();
+
+            if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
+                mouseState = GuiComponentMouseState.MOUSE_OVER;
+                if ( engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
+                    mouseState = GuiComponentMouseState.MOUSE_PRESSED;
+                } else if ( engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
+                    mouseState = GuiComponentMouseState.MOUSE_DOWN;
+                }
+            } else {
+                mouseState = GuiComponentMouseState.MOUSE_OUT;
+            }
+            
+        } else {
+            mouseState = GuiComponentMouseState.MOUSE_OUT;
+        }
+        
+    }
+    
+    public abstract void draw();
+    
+    public boolean isPressed() {
+        return mouseState == GuiComponentMouseState.MOUSE_PRESSED;
     }
     
     protected void drawBounds() {

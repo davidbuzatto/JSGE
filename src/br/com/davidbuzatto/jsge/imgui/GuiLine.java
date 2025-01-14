@@ -21,7 +21,7 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
 import java.awt.Color;
 
 /**
- * Um componente de agrupamento.
+ * Um componente separador em linha.
  * 
  * @author Prof. Dr. David Buzatto
  */
@@ -57,10 +57,6 @@ public class GuiLine extends GuiTextComponent {
     
     public GuiLine( Rectangle bounds ) {
         super( bounds, null );
-    }
-    
-    @Override
-    public void update( double delta ) {
     }
     
     @Override

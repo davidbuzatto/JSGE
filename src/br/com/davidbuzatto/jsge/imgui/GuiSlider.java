@@ -35,109 +35,12 @@ public class GuiSlider extends GuiComponent {
     private double max;
     private GuiSliderButton sliderButton;
     
-    private class GuiSliderButton extends GuiButton {
-        
-        private final double radius;
-        private boolean dragging;
-        private Vector2 prevMousePos;
-        
-        public GuiSliderButton( double x, double y, double width, double height, double radius, EngineFrame engine ) {
-            super( x, y, width, height, "", engine );
-            this.radius = radius;
-        }
-        
-        public GuiSliderButton( double x, double y, double width, double height, double radius ) {
-            super( x, y, width, height, "" );
-            this.radius = radius;
-        }
-
-        public void update( double delta, Rectangle containerBounds ) {
-
-            if ( visible && enabled ) {
-
-                Vector2 mousePos = engine.getMousePositionPoint();
-
-                if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
-                    mouseState = GuiComponentState.MOUSE_OVER;
-                    if ( engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                        mouseState = GuiComponentState.MOUSE_PRESSED;
-                    } else if ( engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                        mouseState = GuiComponentState.MOUSE_DOWN;
-                        dragging = true;
-                    }
-                } else {
-                    mouseState = GuiComponentState.MOUSE_OUT;
-                }
-                
-                if ( engine.isMouseButtonUp( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    dragging = false;
-                }
-                
-                if ( dragging ) {
-                    mouseState = GuiComponentState.MOUSE_DOWN;
-                    bounds.x += mousePos.x - prevMousePos.x;
-                    if ( bounds.x + radius * 2 > containerBounds.x + containerBounds.width ) {
-                        bounds.x = containerBounds.x + containerBounds.width - radius * 2;
-                    } else if ( bounds.x < containerBounds.x ) {
-                        bounds.x = containerBounds.x;
-                    }
-                }
-                
-                prevMousePos = mousePos;
-
-            } else {
-                mouseState = GuiComponentState.MOUSE_OUT;
-            }
-
-        }
-    
-        @Override
-        public void draw() {
-            
-            if ( visible ) {
-
-                engine.setStrokeLineWidth( LINE_WIDTH );
-
-                if ( enabled ) {
-
-                    switch ( mouseState ) {
-                        case MOUSE_OUT:
-                            drawSliderButton( MOUSE_OUT_BACKGROUND_COLOR, MOUSE_OUT_BORDER_COLOR );
-                            break;
-                        case MOUSE_OVER:
-                            drawSliderButton( MOUSE_OVER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR );
-                            break;
-                        case MOUSE_PRESSED:
-                            drawSliderButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
-                            break;
-                        case MOUSE_DOWN:
-                            drawSliderButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
-                            break;
-                    }
-
-                } else {
-                    drawSliderButton( DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR );
-                }
-                
-                drawBounds();
-
-            }
-            
-        }
-        
-        private void drawSliderButton( Color backgroundColor, Color borderColor ) {
-            engine.fillCircle( bounds.x + bounds.width / 2, bounds.y + bounds.height / 2, radius, backgroundColor );
-            engine.drawCircle( bounds.x + bounds.width / 2, bounds.y + bounds.height / 2, radius, borderColor );
-        }
-        
-    }
-    
     public GuiSlider( double x, double y, double width, double height, int value, int min, int max, EngineFrame engine ) {
         super( x, y, width, height, engine );
         this.value = value;
         this.min = min;
         this.max = max;
-        createChildremComponents( 10 );
+        initComponents( 10 );
     }
     
     public GuiSlider( double x, double y, double width, double height, int value, int min, int max ) {
@@ -145,7 +48,7 @@ public class GuiSlider extends GuiComponent {
         this.value = value;
         this.min = min;
         this.max = max;
-        createChildremComponents( 10 );
+        initComponents( 10 );
     }
     
     public GuiSlider( Rectangle bounds, int value, int min, int max, EngineFrame engine ) {
@@ -153,7 +56,7 @@ public class GuiSlider extends GuiComponent {
         this.value = value;
         this.min = min;
         this.max = max;
-        createChildremComponents( 10 );
+        initComponents( 10 );
     }
     
     public GuiSlider( Rectangle bounds, int value, int min, int max ) {
@@ -161,10 +64,10 @@ public class GuiSlider extends GuiComponent {
         this.value = value;
         this.min = min;
         this.max = max;
-        createChildremComponents( 10 );
+        initComponents( 10 );
     }
     
-    private void createChildremComponents( double sliderRadius ) {
+    private void initComponents( double sliderRadius ) {
         sliderButton = new GuiSliderButton( bounds.x, bounds.y + bounds.height / 2 - sliderRadius, sliderRadius * 2, sliderRadius * 2, sliderRadius );
         updateSliderButtonPosition();
     }
@@ -172,11 +75,12 @@ public class GuiSlider extends GuiComponent {
     @Override
     public void update( double delta ) {
         
+        super.update( delta );
+        
         if ( visible && enabled ) {
             
             sliderButton.update( delta, bounds );
             
-            // calcula o valor
             double minSliderX = bounds.x + sliderButton.radius;
             double maxSliderX = bounds.x + bounds.width - sliderButton.radius;
             double sliderX = sliderButton.bounds.x + sliderButton.radius;
@@ -196,7 +100,7 @@ public class GuiSlider extends GuiComponent {
             engine.setStrokeLineWidth( LINE_WIDTH );
 
             if ( enabled ) {
-                drawSlider( CONTAINER_BACKGROUNG_COLOR, MOUSE_OUT_BORDER_COLOR, MOUSE_DOWN_BACKGROUND_COLOR, 4 );
+                drawSlider(CONTAINER_BACKGROUNG_COLOR, BORDER_COLOR, MOUSE_DOWN_BACKGROUND_COLOR, 4 );
             } else {
                 drawSlider( DISABLED_CONTAINER_BACKGROUND_COLOR, DISABLED_BORDER_COLOR, MOUSE_DOWN_BACKGROUND_COLOR, 4 );
             }
@@ -260,6 +164,103 @@ public class GuiSlider extends GuiComponent {
 
     public void setMax( double max ) {
         this.max = max;
+    }
+    
+    private class GuiSliderButton extends GuiButton {
+        
+        private final double radius;
+        private boolean dragging;
+        private Vector2 prevMousePos;
+        
+        public GuiSliderButton( double x, double y, double width, double height, double radius, EngineFrame engine ) {
+            super( x, y, width, height, "", engine );
+            this.radius = radius;
+        }
+        
+        public GuiSliderButton( double x, double y, double width, double height, double radius ) {
+            super( x, y, width, height, "" );
+            this.radius = radius;
+        }
+
+        public void update( double delta, Rectangle containerBounds ) {
+
+            if ( visible && enabled ) {
+
+                Vector2 mousePos = engine.getMousePositionPoint();
+
+                if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
+                    mouseState = GuiComponentMouseState.MOUSE_OVER;
+                    if ( engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
+                        mouseState = GuiComponentMouseState.MOUSE_PRESSED;
+                    } else if ( engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
+                        mouseState = GuiComponentMouseState.MOUSE_DOWN;
+                        dragging = true;
+                    }
+                } else {
+                    mouseState = GuiComponentMouseState.MOUSE_OUT;
+                }
+                
+                if ( engine.isMouseButtonUp( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
+                    dragging = false;
+                }
+                
+                if ( dragging ) {
+                    mouseState = GuiComponentMouseState.MOUSE_DOWN;
+                    bounds.x += mousePos.x - prevMousePos.x;
+                    if ( bounds.x + radius * 2 > containerBounds.x + containerBounds.width ) {
+                        bounds.x = containerBounds.x + containerBounds.width - radius * 2;
+                    } else if ( bounds.x < containerBounds.x ) {
+                        bounds.x = containerBounds.x;
+                    }
+                }
+                
+                prevMousePos = mousePos;
+
+            } else {
+                mouseState = GuiComponentMouseState.MOUSE_OUT;
+            }
+
+        }
+    
+        @Override
+        public void draw() {
+            
+            if ( visible ) {
+
+                engine.setStrokeLineWidth( LINE_WIDTH );
+
+                if ( enabled ) {
+
+                    switch ( mouseState ) {
+                        case MOUSE_OUT:
+                            drawSliderButton(BACKGROUND_COLOR, BORDER_COLOR );
+                            break;
+                        case MOUSE_OVER:
+                            drawSliderButton( MOUSE_OVER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR );
+                            break;
+                        case MOUSE_PRESSED:
+                            drawSliderButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
+                            break;
+                        case MOUSE_DOWN:
+                            drawSliderButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
+                            break;
+                    }
+
+                } else {
+                    drawSliderButton( DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR );
+                }
+                
+                drawBounds();
+
+            }
+            
+        }
+        
+        private void drawSliderButton( Color backgroundColor, Color borderColor ) {
+            engine.fillCircle( bounds.x + bounds.width / 2, bounds.y + bounds.height / 2, radius, backgroundColor );
+            engine.drawCircle( bounds.x + bounds.width / 2, bounds.y + bounds.height / 2, radius, borderColor );
+        }
+        
     }
     
 }

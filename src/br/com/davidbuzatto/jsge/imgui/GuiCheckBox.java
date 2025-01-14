@@ -16,10 +16,8 @@
  */
 package br.com.davidbuzatto.jsge.imgui;
 
-import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
-import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
@@ -50,24 +48,12 @@ public class GuiCheckBox extends GuiTextComponent {
     @Override
     public void update( double delta ) {
         
+        super.update( delta );
+        
         if ( visible && enabled ) {
-            
-            Vector2 mousePos = engine.getMousePositionPoint();
-
-            if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
-                mouseState = GuiComponentState.MOUSE_OVER;
-                if ( engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    mouseState = GuiComponentState.MOUSE_PRESSED;
-                    selected = !selected;
-                } else if ( engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    mouseState = GuiComponentState.MOUSE_DOWN;
-                }
-            } else {
-                mouseState = GuiComponentState.MOUSE_OUT;
+            if ( isPressed() ) {
+                selected = !selected;
             }
-            
-        } else {
-            mouseState = GuiComponentState.MOUSE_OUT;
         }
         
     }
@@ -83,8 +69,8 @@ public class GuiCheckBox extends GuiTextComponent {
 
                 switch ( mouseState ) {
                     case MOUSE_OUT:
-                        drawCheckBox( MOUSE_OUT_BORDER_COLOR, 20, selected );
-                        drawText( MOUSE_OUT_TEXT_COLOR, 25, 0 );
+                        drawCheckBox(BORDER_COLOR, 20, selected );
+                        drawText( TEXT_COLOR, 25, 0 );
                         break;
                     case MOUSE_OVER:
                         drawCheckBox( MOUSE_OVER_BORDER_COLOR, 20, selected );
@@ -126,10 +112,6 @@ public class GuiCheckBox extends GuiTextComponent {
     
     public boolean isSelected() {
         return this.selected;
-    }
-    
-    public boolean isPressed() {
-        return mouseState == GuiComponentState.MOUSE_PRESSED;
     }
     
 }

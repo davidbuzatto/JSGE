@@ -21,7 +21,8 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
 import java.awt.Color;
 
 /**
- * Um componente de agrupamento.
+ * Um componente de grupo, utilizado para deliminar espaços na interface
+ * gráfica.
  * 
  * @author Prof. Dr. David Buzatto
  */
@@ -57,10 +58,6 @@ public class GuiGroupBox extends GuiTextComponent {
     
     public GuiGroupBox( Rectangle bounds ) {
         super( bounds, null );
-    }
-    
-    @Override
-    public void update( double delta ) {
     }
     
     @Override

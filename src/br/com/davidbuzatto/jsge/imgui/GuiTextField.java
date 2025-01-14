@@ -30,41 +30,49 @@ import java.awt.Color;
  */
 public class GuiTextField extends GuiComponent {
     
+    private static final double CARET_BLINK_TIME = 0.3;
+    private static final double KEY_DELAY_TIME = 0.5;
+    
     private String value;
     private boolean hasFocus;
     private int caretPosition;
     
     private double caretBlinkCounter;
-    private final double caretBlinkTime = 0.3;
-    private boolean showCaret = true;
-    private int charWidth = -1;
-    private int maxVisibleChars = 0;
+    private boolean showCaret;
+    
+    private int charWidth;
+    private int maxVisibleChars;
     private double keyDelayCounter;
-    private final double keyDelayTime = 0.5;
     private int lastKey;
     
     public GuiTextField( double x, double y, double width, double height, String value, EngineFrame engine ) {
         super( x, y, width, height, engine );
         setValue( value );
+        this.showCaret = true;
     }
     
     public GuiTextField( double x, double y, double width, double height, String value ) {
         super( x, y, width, height );
         setValue( value );
+        this.showCaret = true;
     }
     
     public GuiTextField( Rectangle bounds, String value, EngineFrame engine ) {
         super( bounds, engine );
         setValue( value );
+        this.showCaret = true;
     }
     
     public GuiTextField( Rectangle bounds, String value ) {
         super( bounds );
         setValue( value );
+        this.showCaret = true;
     }
     
     @Override
     public void update( double delta ) {
+        
+        super.update( delta );
         
         if ( visible && enabled ) {
             
@@ -87,8 +95,8 @@ public class GuiTextField extends GuiComponent {
                 boolean delayOk = false;
                 
                 if ( !ok && key != EngineFrame.KEY_NULL ) {
-                    keyDelayCounter += engine.getFrameTime();
-                    if ( keyDelayCounter > keyDelayTime ) {
+                    keyDelayCounter += delta;
+                    if ( keyDelayCounter > KEY_DELAY_TIME ) {
                         delayOk = true;
                     }
                 }
@@ -156,8 +164,8 @@ public class GuiTextField extends GuiComponent {
                     
                 }
                 
-                caretBlinkCounter += engine.getFrameTime();
-                if ( caretBlinkCounter > caretBlinkTime ) {
+                caretBlinkCounter += delta;
+                if ( caretBlinkCounter > CARET_BLINK_TIME ) {
                     showCaret = !showCaret;
                     caretBlinkCounter = 0;
                 }
@@ -173,7 +181,7 @@ public class GuiTextField extends GuiComponent {
     @Override
     public void draw() {
         
-        if ( charWidth == -1 ) {
+        if ( charWidth == 0 ) {
             charWidth = engine.measureText( " ", FONT_SIZE );
             maxVisibleChars = (int) ( ( bounds.width - 8 ) / charWidth );
         }
@@ -186,7 +194,7 @@ public class GuiTextField extends GuiComponent {
                 if ( hasFocus ) {
                     drawTextField( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR, MOUSE_DOWN_TEXT_COLOR );
                 } else {
-                    drawTextField( CONTAINER_BACKGROUNG_COLOR, MOUSE_OUT_BORDER_COLOR, MOUSE_OUT_TEXT_COLOR );
+                    drawTextField(CONTAINER_BACKGROUNG_COLOR, BORDER_COLOR, TEXT_COLOR );
                 }
                 if ( hasFocus && showCaret ) {
                     double caretX = bounds.x + 5 + caretPosition * charWidth;
@@ -206,10 +214,6 @@ public class GuiTextField extends GuiComponent {
         engine.fillRectangle( bounds, backgroundColor );
         engine.drawRectangle( bounds, borderColor );
         engine.drawText( value, bounds.x + 5, bounds.y + bounds.height / 2 - 3, FONT_SIZE, textColor );
-    }
-    
-    public String getValue() {
-        return value;
     }
     
     public boolean isValid( int key ) {
@@ -235,6 +239,10 @@ public class GuiTextField extends GuiComponent {
         if ( visible == false ) {
             hasFocus = false;
         }
+    }
+    
+    public String getValue() {
+        return value;
     }
     
     public void setValue( String value ) {

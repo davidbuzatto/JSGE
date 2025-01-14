@@ -16,14 +16,12 @@
  */
 package br.com.davidbuzatto.jsge.imgui;
 
-import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
-import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
- * Um componente botão.
+ * Um componente de botão.
  * 
  * @author Prof. Dr. David Buzatto
  */
@@ -46,30 +44,6 @@ public class GuiButton extends GuiTextComponent {
     }
     
     @Override
-    public void update( double delta ) {
-        
-        if ( visible && enabled ) {
-            
-            Vector2 mousePos = engine.getMousePositionPoint();
-
-            if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {
-                mouseState = GuiComponentState.MOUSE_OVER;
-                if ( engine.isMouseButtonPressed( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    mouseState = GuiComponentState.MOUSE_PRESSED;
-                } else if ( engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
-                    mouseState = GuiComponentState.MOUSE_DOWN;
-                }
-            } else {
-                mouseState = GuiComponentState.MOUSE_OUT;
-            }
-            
-        } else {
-            mouseState = GuiComponentState.MOUSE_OUT;
-        }
-        
-    }
-    
-    @Override
     public void draw() {
         
         if ( visible ) {
@@ -80,8 +54,8 @@ public class GuiButton extends GuiTextComponent {
 
                 switch ( mouseState ) {
                     case MOUSE_OUT:
-                        drawButton( MOUSE_OUT_BACKGROUND_COLOR, MOUSE_OUT_BORDER_COLOR );
-                        drawCenteredText( MOUSE_OUT_TEXT_COLOR );
+                        drawButton(BACKGROUND_COLOR, BORDER_COLOR );
+                        drawCenteredText( TEXT_COLOR );
                         break;
                     case MOUSE_OVER:
                         drawButton( MOUSE_OVER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR );
@@ -111,10 +85,6 @@ public class GuiButton extends GuiTextComponent {
     private void drawButton( Color backgroundColor, Color borderColor ) {
         engine.fillRectangle( bounds, backgroundColor );
         engine.drawRectangle( bounds, borderColor );
-    }
-    
-    public boolean isPressed() {
-        return mouseState == GuiComponentState.MOUSE_PRESSED;
     }
     
 }

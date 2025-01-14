@@ -20,13 +20,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Um componente para gerenciamento das caixas de alternância e botões de radio.
+ * Um componente para gerenciamento da lógica de seleção das caixas de
+ * alternância e botões de radio.
  * 
  * @author Prof. Dr. David Buzatto
  */
 public class GuiButtonGroup {
     
-    private Set<GuiToggleButton> toggleButtons;
+    private final Set<GuiToggleButton> toggleButtons;
     
     public GuiButtonGroup() {
         toggleButtons = new HashSet<>();

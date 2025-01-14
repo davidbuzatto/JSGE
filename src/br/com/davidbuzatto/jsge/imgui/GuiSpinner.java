@@ -31,70 +31,16 @@ public class GuiSpinner extends GuiComponent {
     private int value;
     private int min;
     private int max;
+    
     private GuiButtonChangeValue leftButton;
     private GuiButtonChangeValue rightButton;
-    
-    private class GuiButtonChangeValue extends GuiButton {
-        
-        private double arrowAngle;
-        
-        public GuiButtonChangeValue( double x, double y, double width, double height, double arrowAngle, EngineFrame engine ) {
-            super( x, y, width, height, "", engine );
-            this.arrowAngle = arrowAngle;
-        }
-        
-        public GuiButtonChangeValue( double x, double y, double width, double height, double arrowAngle ) {
-            super( x, y, width, height, "" );
-            this.arrowAngle = arrowAngle;
-        }
-
-        @Override
-        public void draw() {
-            
-            super.draw();
-            
-            if ( visible ) {
-
-                engine.setStrokeLineWidth( LINE_WIDTH );
-
-                if ( enabled ) {
-
-                    switch ( mouseState ) {
-                        case MOUSE_OUT:
-                            drawButtonLabel( MOUSE_OUT_TEXT_COLOR );
-                            break;
-                        case MOUSE_OVER:
-                            drawButtonLabel( MOUSE_OVER_TEXT_COLOR );
-                            break;
-                        case MOUSE_PRESSED:
-                            drawButtonLabel( MOUSE_DOWN_TEXT_COLOR );
-                            break;
-                        case MOUSE_DOWN:
-                            drawButtonLabel( MOUSE_DOWN_TEXT_COLOR );
-                            break;
-                    }
-
-                } else {
-                    drawButtonLabel( DISABLED_TEXT_COLOR );
-                }
-
-            }
-            
-        }
-        
-        private void drawButtonLabel( Color color ) {
-            int pad = 5;
-            engine.fillPolygon( bounds.x + bounds.width / 2, bounds.y + bounds.height / 2, 3, bounds.width / 2 - pad, arrowAngle, color );
-        }
-        
-    }
     
     public GuiSpinner( double x, double y, double width, double height, int value, int min, int max, EngineFrame engine ) {
         super( x, y, width, height, engine );
         this.value = value;
         this.min = min;
         this.max = max;
-        createChildremComponents( 24 );
+        initComponents( 24 );
     }
     
     public GuiSpinner( double x, double y, double width, double height, int value, int min, int max ) {
@@ -102,7 +48,7 @@ public class GuiSpinner extends GuiComponent {
         this.value = value;
         this.min = min;
         this.max = max;
-        createChildremComponents( 24 );
+        initComponents( 24 );
     }
     
     public GuiSpinner( Rectangle bounds, int value, int min, int max, EngineFrame engine ) {
@@ -110,7 +56,7 @@ public class GuiSpinner extends GuiComponent {
         this.value = value;
         this.min = min;
         this.max = max;
-        createChildremComponents( 24 );
+        initComponents( 24 );
     }
     
     public GuiSpinner( Rectangle bounds, int value, int min, int max ) {
@@ -118,16 +64,18 @@ public class GuiSpinner extends GuiComponent {
         this.value = value;
         this.min = min;
         this.max = max;
-        createChildremComponents( 24 );
+        initComponents( 24 );
     }
     
-    private void createChildremComponents( double buttonSize ) {
+    private void initComponents( double buttonSize ) {
         leftButton = new GuiButtonChangeValue( bounds.x, bounds.y, buttonSize, bounds.height, 180 );
         rightButton = new GuiButtonChangeValue( bounds.x + bounds.width - buttonSize, bounds.y, buttonSize, bounds.height, 0 );
     }
     
     @Override
     public void update( double delta ) {
+        
+        super.update( delta );
         
         if ( visible && enabled ) {
             
@@ -154,7 +102,7 @@ public class GuiSpinner extends GuiComponent {
             engine.setStrokeLineWidth( LINE_WIDTH );
 
             if ( enabled ) {
-                drawSpinner( CONTAINER_BACKGROUNG_COLOR, MOUSE_OUT_BORDER_COLOR, MOUSE_OUT_TEXT_COLOR );
+                drawSpinner(CONTAINER_BACKGROUNG_COLOR, BORDER_COLOR, TEXT_COLOR );
             } else {
                 drawSpinner( DISABLED_CONTAINER_BACKGROUND_COLOR, DISABLED_BORDER_COLOR, DISABLED_TEXT_COLOR );
             }
@@ -228,6 +176,61 @@ public class GuiSpinner extends GuiComponent {
         if ( value < max ) {
             value++;
         }
+    }
+    
+    private class GuiButtonChangeValue extends GuiButton {
+        
+        private final double arrowAngle;
+        
+        public GuiButtonChangeValue( double x, double y, double width, double height, double arrowAngle, EngineFrame engine ) {
+            super( x, y, width, height, "", engine );
+            this.arrowAngle = arrowAngle;
+        }
+        
+        public GuiButtonChangeValue( double x, double y, double width, double height, double arrowAngle ) {
+            super( x, y, width, height, "" );
+            this.arrowAngle = arrowAngle;
+        }
+
+        @Override
+        public void draw() {
+            
+            super.draw();
+            
+            if ( visible ) {
+
+                engine.setStrokeLineWidth( LINE_WIDTH );
+
+                if ( enabled ) {
+
+                    switch ( mouseState ) {
+                        case MOUSE_OUT:
+                            drawButtonLabel( TEXT_COLOR );
+                            break;
+                        case MOUSE_OVER:
+                            drawButtonLabel( MOUSE_OVER_TEXT_COLOR );
+                            break;
+                        case MOUSE_PRESSED:
+                            drawButtonLabel( MOUSE_DOWN_TEXT_COLOR );
+                            break;
+                        case MOUSE_DOWN:
+                            drawButtonLabel( MOUSE_DOWN_TEXT_COLOR );
+                            break;
+                    }
+
+                } else {
+                    drawButtonLabel( DISABLED_TEXT_COLOR );
+                }
+
+            }
+            
+        }
+        
+        private void drawButtonLabel( Color color ) {
+            int pad = 5;
+            engine.fillPolygon( bounds.x + bounds.width / 2, bounds.y + bounds.height / 2, 3, bounds.width / 2 - pad, arrowAngle, color );
+        }
+        
     }
     
 }

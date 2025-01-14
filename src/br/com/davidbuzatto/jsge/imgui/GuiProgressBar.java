@@ -62,10 +62,6 @@ public class GuiProgressBar extends GuiComponent {
     }
     
     @Override
-    public void update( double delta ) {
-    }
-    
-    @Override
     public void draw() {
         
         if ( visible ) {
@@ -73,7 +69,7 @@ public class GuiProgressBar extends GuiComponent {
             engine.setStrokeLineWidth( LINE_WIDTH );
 
             if ( enabled ) {
-                drawProgressBar( MOUSE_OUT_BACKGROUND_COLOR, MOUSE_OUT_BORDER_COLOR, PROGRESS_BAR_BACKGROUND_COLOR );
+                drawProgressBar(BACKGROUND_COLOR, BORDER_COLOR, PROGRESS_BAR_BACKGROUND_COLOR );
             } else {
                 drawProgressBar( DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR, PROGRESS_BAR_BACKGROUND_COLOR );
             }

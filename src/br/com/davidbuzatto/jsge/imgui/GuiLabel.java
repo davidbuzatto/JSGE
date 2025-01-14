@@ -20,7 +20,7 @@ import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 
 /**
- * Um componente label (etiqueta).
+ * Um componente de etiqueta.
  * 
  * @author Prof. Dr. David Buzatto
  */
@@ -43,14 +43,10 @@ public class GuiLabel extends GuiTextComponent {
     }
     
     @Override
-    public void update( double delta ) {
-    }
-    
-    @Override
     public void draw() {
         if ( visible ) {
             if ( enabled ) {
-                drawText( MOUSE_OUT_TEXT_COLOR );
+                drawText( TEXT_COLOR );
             } else {
                 drawText( DISABLED_TEXT_COLOR );
             }
