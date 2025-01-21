@@ -27,46 +27,46 @@ import java.awt.Color;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class GuiWindowBox extends GuiTextComponent {
+public class GuiWindow extends GuiTextComponent {
     
     private GuiButtonClose closeButton;
     private Rectangle titleBarBounds;
     private boolean titleBarPressed;
     
-    public GuiWindowBox( double x, double y, double width, double height, String text, EngineFrame engine ) {
+    public GuiWindow( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
         initComponents( engine );
     }
     
-    public GuiWindowBox( double x, double y, double width, double height, String text ) {
+    public GuiWindow( double x, double y, double width, double height, String text ) {
         super( x, y, width, height, text );
         initComponents();
     }
     
-    public GuiWindowBox( double x, double y, double width, double height, EngineFrame engine ) {
+    public GuiWindow( double x, double y, double width, double height, EngineFrame engine ) {
         this( x, y, width, height, null, engine );
     }
     
-    public GuiWindowBox( double x, double y, double width, double height ) {
+    public GuiWindow( double x, double y, double width, double height ) {
         super( x, y, width, height, null );
         initComponents();
     }
     
-    public GuiWindowBox( Rectangle bounds, String text, EngineFrame engine ) {
+    public GuiWindow( Rectangle bounds, String text, EngineFrame engine ) {
         super( bounds, text, engine );
         initComponents( engine );
     }
     
-    public GuiWindowBox( Rectangle bounds, String text ) {
+    public GuiWindow( Rectangle bounds, String text ) {
         super( bounds, text );
         initComponents();
     }
     
-    public GuiWindowBox( Rectangle bounds, EngineFrame engine ) {
+    public GuiWindow( Rectangle bounds, EngineFrame engine ) {
         this( bounds, null, engine );
     }
     
-    public GuiWindowBox( Rectangle bounds ) {
+    public GuiWindow( Rectangle bounds ) {
         super( bounds, null );
         initComponents();
     }

@@ -21,7 +21,7 @@ import br.com.davidbuzatto.jsge.imgui.GuiButton;
 import br.com.davidbuzatto.jsge.imgui.GuiButtonGroup;
 import br.com.davidbuzatto.jsge.imgui.GuiCheckBox;
 import br.com.davidbuzatto.jsge.imgui.GuiComponent;
-import br.com.davidbuzatto.jsge.imgui.GuiGroupBox;
+import br.com.davidbuzatto.jsge.imgui.GuiGroup;
 import br.com.davidbuzatto.jsge.imgui.GuiLabel;
 import br.com.davidbuzatto.jsge.imgui.GuiLabelButton;
 import br.com.davidbuzatto.jsge.imgui.GuiLine;
@@ -32,7 +32,7 @@ import br.com.davidbuzatto.jsge.imgui.GuiSlider;
 import br.com.davidbuzatto.jsge.imgui.GuiSpinner;
 import br.com.davidbuzatto.jsge.imgui.GuiTextField;
 import br.com.davidbuzatto.jsge.imgui.GuiToggleButton;
-import br.com.davidbuzatto.jsge.imgui.GuiWindowBox;
+import br.com.davidbuzatto.jsge.imgui.GuiWindow;
 import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -72,12 +72,12 @@ public class IMGUIExample extends EngineFrame {
     
     private GuiLine line;
     private GuiLine lineUntitled;
-    private GuiGroupBox groupBox;
-    private GuiGroupBox groupBoxUntitled;
+    private GuiGroup groupBox;
+    private GuiGroup groupBoxUntitled;
     private GuiPanel panel;
     private GuiPanel panelUntitled;
-    private GuiWindowBox window;
-    private GuiWindowBox windowUntitled;
+    private GuiWindow window;
+    private GuiWindow windowUntitled;
     
     private GuiComponent draggedComponent;
     private Vector2 previousMousePos;
@@ -173,12 +173,12 @@ public class IMGUIExample extends EngineFrame {
         
         line = new GuiLine( x, y, 150, 50, "Line" );
         lineUntitled = new GuiLine( x + 170, y, 150, 50 );
-        groupBox = new GuiGroupBox( x, y += vSpacing - 30, 150, 70, "Group Box" );
-        groupBoxUntitled = new GuiGroupBox( x + 170, y, 150, 70 );
+        groupBox = new GuiGroup( x, y += vSpacing - 30, 150, 70, "Group Box" );
+        groupBoxUntitled = new GuiGroup( x + 170, y, 150, 70 );
         panel = new GuiPanel( x, y += vSpacing - 25, 150, 80, "Panel" );
         panelUntitled = new GuiPanel( x + 170, y, 150, 80 );
-        window = new GuiWindowBox( x, y += vSpacing - 20, 150, 80, "Window Box" );
-        windowUntitled = new GuiWindowBox( x + 170, y, 150, 80 );
+        window = new GuiWindow( x, y += vSpacing - 20, 150, 80, "Window Box" );
+        windowUntitled = new GuiWindow( x + 170, y, 150, 80 );
         
         components.add( line );
         components.add( lineUntitled );

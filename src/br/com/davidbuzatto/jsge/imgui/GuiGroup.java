@@ -25,37 +25,37 @@ import java.awt.Color;
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class GuiGroupBox extends GuiTextComponent {
+public class GuiGroup extends GuiTextComponent {
     
-    public GuiGroupBox( double x, double y, double width, double height, String text, EngineFrame engine ) {
+    public GuiGroup( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
     }
     
-    public GuiGroupBox( double x, double y, double width, double height, String text ) {
+    public GuiGroup( double x, double y, double width, double height, String text ) {
         super( x, y, width, height, text );
     }
     
-    public GuiGroupBox( double x, double y, double width, double height, EngineFrame engine ) {
+    public GuiGroup( double x, double y, double width, double height, EngineFrame engine ) {
         this( x, y, width, height, null, engine );
     }
     
-    public GuiGroupBox( double x, double y, double width, double height ) {
+    public GuiGroup( double x, double y, double width, double height ) {
         super( x, y, width, height, null );
     }
     
-    public GuiGroupBox( Rectangle bounds, String text, EngineFrame engine ) {
+    public GuiGroup( Rectangle bounds, String text, EngineFrame engine ) {
         super( bounds, text, engine );
     }
     
-    public GuiGroupBox( Rectangle bounds, String text ) {
+    public GuiGroup( Rectangle bounds, String text ) {
         super( bounds, text );
     }
     
-    public GuiGroupBox( Rectangle bounds, EngineFrame engine ) {
+    public GuiGroup( Rectangle bounds, EngineFrame engine ) {
         this( bounds, null, engine );
     }
     
-    public GuiGroupBox( Rectangle bounds ) {
+    public GuiGroup( Rectangle bounds ) {
         super( bounds, null );
     }
     
