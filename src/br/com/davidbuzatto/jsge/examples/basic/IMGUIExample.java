@@ -206,7 +206,7 @@ public class IMGUIExample extends EngineFrame {
         buttonShowConfirmDialog = new GuiButton( x, y += vSpacing, 150, 30, "Show Confirm Dialog" );
         messageDialog = new GuiMessageDialog( "Message Dialog", "This is a message!", true );
         inputDialog = new GuiInputDialog( "Input Dialog", "Provide some data:", true );
-        confirmDialog = new GuiConfirmDialog( "Confirm Dialog", "Confirm...", true );
+        confirmDialog = new GuiConfirmDialog( "Confirm Dialog", "Hello!\nHow are you?", "fine", "happy", "hungry", true );
         
         messageDialogStatus = "";
         inputDialogStatus = "";
@@ -340,15 +340,15 @@ public class IMGUIExample extends EngineFrame {
             confirmDialog.hide();
         }
         
-        if ( confirmDialog.isOkButtonPressed() ) {
-            confirmDialogStatus = "ok";
+        String pressedButton = confirmDialog.getPressedButton();
+        if ( pressedButton != null ) {
+            confirmDialogStatus = String.format(  "\"%s\" pressed", pressedButton );
             confirmDialog.hide();
         }
         
         if ( confirmDialog.isTitleBarPressed() ) {
             draggedComponent = confirmDialog;
         }
-        
         
         checkEnabled.update( delta );
         checkVisible.update( delta );

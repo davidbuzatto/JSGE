@@ -31,12 +31,16 @@ public class GuiConfirmDialog extends GuiWindow {
     private static final Color OVERLAY_COLOR = new Color( 0, 0, 0, 100 );
     private static final double MIN_WIDTH = 250;
     private static final double MIN_HEIGHT = 100;
+    private static final double BUTTON_HEIGHT = 30;
     
     private String message;
     private boolean useOverlay;
     
     private GuiLabel messageLabel;
-    private GuiButton okButton;
+    private GuiButton button1;
+    private GuiButton button2;
+    private GuiButton button3;
+    private GuiButton[] buttons;
     
     private double messageWidth;
     private double messageHeight;
@@ -44,27 +48,56 @@ public class GuiConfirmDialog extends GuiWindow {
     
     private boolean boundsCalculationOk;
     
-    public GuiConfirmDialog( String title, String message, boolean useOverlay, EngineFrame engine ) {
+    public GuiConfirmDialog( String title, String message, String button1Text, String button2Text, String button3Text, boolean useOverlay, EngineFrame engine ) {
         super( 0, 0, 0, 0, title, engine );
-        initComponents( engine, message, useOverlay );
+        initComponents( engine, message, button1Text, button2Text, button3Text, useOverlay );
     }
     
-    public GuiConfirmDialog( String title, String message, boolean useOverlay ) {
+    public GuiConfirmDialog( String title, String message, String button1Text, String button2Text, String button3Text, boolean useOverlay ) {
         super( 0, 0, 0, 0, title );
-        initComponents( null, message, useOverlay );
+        initComponents( null, message, button1Text, button2Text, button3Text, useOverlay );
     }
     
-    private void initComponents( EngineFrame engine, String message, boolean useOverlay ) {
+    private void initComponents( EngineFrame engine, String message, String button1Text, String button2Text, String button3Text, boolean useOverlay ) {
         super.initComponents( engine );
         this.message = message;
         this.useOverlay = useOverlay;
         if ( engine == null ) {
             this.messageLabel = new GuiLabel( 0, 0, 0, 0, message );
-            this.okButton = new GuiButton( 0, 0, 40, 30, "OK" );
+            if ( button1Text != null && !button1Text.trim().isEmpty() ) {
+                this.button1 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, button1Text );
+            } else {
+                this.button1 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, "" );
+            }
+            if ( button2Text != null && !button2Text.trim().isEmpty() ) {
+                this.button2 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, button2Text );
+            } else {
+                this.button2 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, "" );
+            }
+            if ( button3Text != null && !button3Text.trim().isEmpty() ) {
+                this.button3 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, button3Text );
+            } else {
+                this.button3 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, "" );
+            }
         } else {
             this.messageLabel = new GuiLabel( 0, 0, 0, 0, message, engine );
-            this.okButton = new GuiButton( 0, 0, 40, 30, "OK", engine );
+            if ( button1Text != null && !button1Text.trim().isEmpty() ) {
+                this.button1 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, button1Text, engine );
+            } else {
+                this.button1 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, "", engine );
+            }
+            if ( button2Text != null && !button2Text.trim().isEmpty() ) {
+                this.button2 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, button2Text, engine );
+            } else {
+                this.button2 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, "", engine );
+            }
+            if ( button3Text != null && !button3Text.trim().isEmpty() ) {
+                this.button3 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, button3Text, engine );
+            } else {
+                this.button3 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, "", engine );
+            }
         }
+        buttons = new GuiButton[] { button1, button2, button3 };
         this.visible = false;
     }
     
@@ -86,7 +119,7 @@ public class GuiConfirmDialog extends GuiWindow {
             messageHeight = ma.length * r.height;
 
             double width = messageWidth + 2 * PADDING;
-            double height = messageHeight + 2 * PADDING + titleBarBounds.height + okButton.bounds.height + lineHeight;
+            double height = messageHeight + 2 * PADDING + titleBarBounds.height + buttons[0].bounds.height + lineHeight;
 
             if ( width < MIN_WIDTH ) {
                 width = MIN_WIDTH;
@@ -113,10 +146,14 @@ public class GuiConfirmDialog extends GuiWindow {
         super.update( delta );
         
         closeButton.setVisible( visible );
-        okButton.setVisible( visible );
-            
         closeButton.update( delta );
-        okButton.update( delta );
+        
+        for ( int i = 0; i < buttons.length; i++ ) {
+            if ( !buttons[i].text.isEmpty() ) {
+                buttons[i].setVisible( visible );
+                buttons[i].update( delta );
+            }
+        }
         
     }
     
@@ -134,7 +171,12 @@ public class GuiConfirmDialog extends GuiWindow {
             super.draw();
             
             messageLabel.draw();
-            okButton.draw();
+            
+            for ( int i = 0; i < buttons.length; i++ ) {
+                if ( !buttons[i].text.isEmpty() ) {
+                    buttons[i].draw();
+                }
+            }
             
         }
         
@@ -165,8 +207,25 @@ public class GuiConfirmDialog extends GuiWindow {
         super.setVisible( false );
     }
     
-    public boolean isOkButtonPressed() {
-        return okButton.isPressed();
+    public boolean isButton1Pressed() {
+        return button1.isPressed();
+    }
+    
+    public boolean isButton2Pressed() {
+        return button2.isPressed();
+    }
+    
+    public boolean isButton3Pressed() {
+        return button3.isPressed();
+    }
+    
+    public String getPressedButton() {
+        for ( int i = 0; i < buttons.length; i++ ) {
+            if ( buttons[i].isPressed() ) {
+                return buttons[i].text;
+            }
+        }
+        return null;
     }
     
     private void updateComponentsBounds() {
@@ -178,8 +237,8 @@ public class GuiConfirmDialog extends GuiWindow {
         
         messageLabel.bounds.x = bounds.x + PADDING;
         messageLabel.bounds.y = bounds.y + titleBarBounds.height + PADDING + lineHeight / 2;
-        okButton.bounds.x = bounds.x + bounds.width / 2 - okButton.bounds.width / 2;
-        okButton.bounds.y = bounds.y + bounds.height - PADDING - okButton.bounds.height;
+        
+        updateButtonsBounds();
         
     }
     
@@ -191,8 +250,39 @@ public class GuiConfirmDialog extends GuiWindow {
         messageLabel.bounds.x = bounds.x + PADDING;
         messageLabel.bounds.y = bounds.y + titleBarBounds.height + PADDING + lineHeight / 2;
         
-        okButton.bounds.x = bounds.x + bounds.width / 2 - okButton.bounds.width / 2;
-        okButton.bounds.y = bounds.y + bounds.height - PADDING - okButton.bounds.height;
+        updateButtonsBounds();
+        
+    }
+    
+    private void updateButtonsBounds() {
+        
+        int minWidth = 50;
+        int buttonPadding = 10;
+        
+        double w = 0;
+        int b = 0;
+        
+        for ( int i = 0; i < buttons.length; i++ ) {
+            if ( !buttons[i].text.isEmpty() ) {
+                buttons[i].bounds.width = engine.measureText( buttons[i].text, FONT_SIZE ) + buttonPadding * 2;
+                if ( buttons[i].bounds.width < minWidth ) {
+                    buttons[i].bounds.width = minWidth;
+                }
+                w += buttons[i].bounds.width;
+                b++;
+            }
+        }
+        
+        w += ( PADDING / 2 ) * ( b - 1 );
+        double start = bounds.x + bounds.width / 2 - w / 2;
+        
+        for ( int i = 0; i < buttons.length; i++ ) {
+            if ( i != 0 ) {
+                start += buttons[i-1].bounds.width + PADDING / 2;
+            }
+            buttons[i].bounds.x = start;
+            buttons[i].bounds.y = bounds.y + bounds.height - PADDING - buttons[i].bounds.height;
+        }
         
     }
     

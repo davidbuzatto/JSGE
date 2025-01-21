@@ -12,8 +12,6 @@ Retirado da raygui:
 
 # Advance Control
   - ColorPicker   --> ColorPanel, ColorBarHue ->usar como base o JColorChooser?
-  - MessageBox    --> Window, Label, Button
-  - TextInputBox  --> Window, Label, TextBox, Button
 
 Adicionar build pelo maven para gerar pacotes de código e documentação
 apropriadamente (arquivos .jar)?
