@@ -35,28 +35,12 @@ public class GuiLine extends GuiTextComponent {
         super( x, y, width, height, text );
     }
     
-    public GuiLine( double x, double y, double width, double height, EngineFrame engine ) {
-        this( x, y, width, height, null, engine );
-    }
-    
-    public GuiLine( double x, double y, double width, double height ) {
-        super( x, y, width, height, null );
-    }
-    
     public GuiLine( Rectangle bounds, String text, EngineFrame engine ) {
         super( bounds, text, engine );
     }
     
     public GuiLine( Rectangle bounds, String text ) {
         super( bounds, text );
-    }
-    
-    public GuiLine( Rectangle bounds, EngineFrame engine ) {
-        this( bounds, null, engine );
-    }
-    
-    public GuiLine( Rectangle bounds ) {
-        super( bounds, null );
     }
     
     @Override
@@ -78,7 +62,7 @@ public class GuiLine extends GuiTextComponent {
             textWidth = engine.measureText( text, FONT_SIZE );
         }
         
-        if ( text != null ) {
+        if ( textWidth > 0 ) {
             engine.drawLine( bounds.x, bounds.y + bounds.height / 2, bounds.x + 6, bounds.y + bounds.height / 2, borderColor );
             engine.drawLine( bounds.x + textWidth + 16, bounds.y + bounds.height / 2, bounds.x + bounds.width, bounds.y + bounds.height / 2, borderColor );
             engine.drawText( text, bounds.x + 12, bounds.y + bounds.height / 2 - 3, FONT_SIZE, textColor );

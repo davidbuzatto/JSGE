@@ -32,41 +32,23 @@ public class GuiPanel extends GuiTextComponent {
     private Rectangle titleBarBounds;
     private boolean titleBarPressed;
     
-    public GuiPanel( double x, double y, double width, double height, String text, EngineFrame engine ) {
-        super( x, y, width, height, text, engine );
+    public GuiPanel( double x, double y, double width, double height, String title, EngineFrame engine ) {
+        super( x, y, width, height, title, engine );
         initComponents();
     }
     
-    public GuiPanel( double x, double y, double width, double height, String text ) {
-        super( x, y, width, height, text );
+    public GuiPanel( double x, double y, double width, double height, String title ) {
+        super( x, y, width, height, title );
         initComponents();
     }
     
-    public GuiPanel( double x, double y, double width, double height, EngineFrame engine ) {
-        this( x, y, width, height, null, engine );
-    }
-    
-    public GuiPanel( double x, double y, double width, double height ) {
-        super( x, y, width, height, null );
+    public GuiPanel( Rectangle bounds, String title, EngineFrame engine ) {
+        super( bounds, title, engine );
         initComponents();
     }
     
-    public GuiPanel( Rectangle bounds, String text, EngineFrame engine ) {
-        super( bounds, text, engine );
-        initComponents();
-    }
-    
-    public GuiPanel( Rectangle bounds, String text ) {
-        super( bounds, text );
-        initComponents();
-    }
-    
-    public GuiPanel( Rectangle bounds, EngineFrame engine ) {
-        this( bounds, null, engine );
-    }
-    
-    public GuiPanel( Rectangle bounds ) {
-        super( bounds, null );
+    public GuiPanel( Rectangle bounds, String title ) {
+        super( bounds, title );
         initComponents();
     }
     

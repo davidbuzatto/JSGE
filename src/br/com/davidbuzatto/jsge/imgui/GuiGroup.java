@@ -27,36 +27,20 @@ import java.awt.Color;
  */
 public class GuiGroup extends GuiTextComponent {
     
-    public GuiGroup( double x, double y, double width, double height, String text, EngineFrame engine ) {
-        super( x, y, width, height, text, engine );
+    public GuiGroup( double x, double y, double width, double height, String title, EngineFrame engine ) {
+        super( x, y, width, height, title, engine );
     }
     
-    public GuiGroup( double x, double y, double width, double height, String text ) {
-        super( x, y, width, height, text );
+    public GuiGroup( double x, double y, double width, double height, String title ) {
+        super( x, y, width, height, title );
     }
     
-    public GuiGroup( double x, double y, double width, double height, EngineFrame engine ) {
-        this( x, y, width, height, null, engine );
+    public GuiGroup( Rectangle bounds, String title, EngineFrame engine ) {
+        super( bounds, title, engine );
     }
     
-    public GuiGroup( double x, double y, double width, double height ) {
-        super( x, y, width, height, null );
-    }
-    
-    public GuiGroup( Rectangle bounds, String text, EngineFrame engine ) {
-        super( bounds, text, engine );
-    }
-    
-    public GuiGroup( Rectangle bounds, String text ) {
-        super( bounds, text );
-    }
-    
-    public GuiGroup( Rectangle bounds, EngineFrame engine ) {
-        this( bounds, null, engine );
-    }
-    
-    public GuiGroup( Rectangle bounds ) {
-        super( bounds, null );
+    public GuiGroup( Rectangle bounds, String title ) {
+        super( bounds, title );
     }
     
     @Override
@@ -64,21 +48,21 @@ public class GuiGroup extends GuiTextComponent {
         if ( visible ) {
             engine.setStrokeLineWidth( LINE_WIDTH );
             if ( enabled ) {
-                drawGroupBox( CONTAINER_BORDER_COLOR, CONTAINER_TEXT_COLOR);
+                drawGroup( CONTAINER_BORDER_COLOR, CONTAINER_TEXT_COLOR);
             } else {
-                drawGroupBox( DISABLED_CONTAINER_BORDER_COLOR, DISABLED_CONTAINER_TEXT_COLOR );
+                drawGroup( DISABLED_CONTAINER_BORDER_COLOR, DISABLED_CONTAINER_TEXT_COLOR );
             }
             drawBounds();
         }
     }
     
-    private void drawGroupBox( Color borderColor, Color textColor ) {
+    private void drawGroup( Color borderColor, Color textColor ) {
         
         if ( textWidth == -1 && text != null ) {
             textWidth = engine.measureText( text, FONT_SIZE );
         }
         
-        if ( text != null ) {
+        if ( textWidth > 0 ) {
             engine.drawLine( bounds.x, bounds.y, bounds.x + 6, bounds.y, borderColor );
             engine.drawLine( bounds.x + textWidth + 16, bounds.y, bounds.x + bounds.width, bounds.y, borderColor );
             engine.drawLine( bounds.x, bounds.y, bounds.x, bounds.y + bounds.height, borderColor );

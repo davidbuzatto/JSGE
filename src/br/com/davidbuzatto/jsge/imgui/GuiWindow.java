@@ -29,56 +29,37 @@ import java.awt.Color;
  */
 public class GuiWindow extends GuiTextComponent {
     
-    private GuiButtonClose closeButton;
-    private Rectangle titleBarBounds;
-    private boolean titleBarPressed;
+    protected GuiButtonClose closeButton;
+    protected Rectangle titleBarBounds;
+    protected boolean titleBarPressed;
     
-    public GuiWindow( double x, double y, double width, double height, String text, EngineFrame engine ) {
-        super( x, y, width, height, text, engine );
+    public GuiWindow( double x, double y, double width, double height, String title, EngineFrame engine ) {
+        super( x, y, width, height, title, engine );
         initComponents( engine );
     }
     
-    public GuiWindow( double x, double y, double width, double height, String text ) {
-        super( x, y, width, height, text );
-        initComponents();
+    public GuiWindow( double x, double y, double width, double height, String title ) {
+        super( x, y, width, height, title );
+        initComponents( null );
     }
     
-    public GuiWindow( double x, double y, double width, double height, EngineFrame engine ) {
-        this( x, y, width, height, null, engine );
-    }
-    
-    public GuiWindow( double x, double y, double width, double height ) {
-        super( x, y, width, height, null );
-        initComponents();
-    }
-    
-    public GuiWindow( Rectangle bounds, String text, EngineFrame engine ) {
-        super( bounds, text, engine );
+    public GuiWindow( Rectangle bounds, String title, EngineFrame engine ) {
+        super( bounds, title, engine );
         initComponents( engine );
     }
     
-    public GuiWindow( Rectangle bounds, String text ) {
-        super( bounds, text );
-        initComponents();
+    public GuiWindow( Rectangle bounds, String title ) {
+        super( bounds, title );
+        initComponents( null );
     }
     
-    public GuiWindow( Rectangle bounds, EngineFrame engine ) {
-        this( bounds, null, engine );
-    }
-    
-    public GuiWindow( Rectangle bounds ) {
-        super( bounds, null );
-        initComponents();
-    }
-    
-    private void initComponents( EngineFrame engine ) {
+    protected void initComponents( EngineFrame engine ) {
         titleBarBounds = new Rectangle( bounds.x, bounds.y, bounds.width, 25 );
-        closeButton = new GuiButtonClose( bounds.x + bounds.width - 22, bounds.y + 3, 19, 19, engine );
-    }
-    
-    private void initComponents() {
-        titleBarBounds = new Rectangle( bounds.x, bounds.y, bounds.width, 25 );
-        closeButton = new GuiButtonClose( bounds.x + bounds.width - 22, bounds.y + 3, 19, 19 );
+        if ( engine == null ) {
+            closeButton = new GuiButtonClose( bounds.x + bounds.width - 22, bounds.y + 3, 19, 19 );
+        } else {
+            closeButton = new GuiButtonClose( bounds.x + bounds.width - 22, bounds.y + 3, 19, 19, engine );
+        }
     }
     
     @Override
@@ -107,7 +88,7 @@ public class GuiWindow extends GuiTextComponent {
         if ( visible ) {
             engine.setStrokeLineWidth( LINE_WIDTH );
             if ( enabled ) {
-                drawWindowBox( 
+                drawWindow( 
                         CONTAINER_BORDER_COLOR, 
                         CONTAINER_BACKGROUNG_COLOR, 
                         CONTAINER_TITLE_BAR_BORDER_COLOR, 
@@ -115,7 +96,7 @@ public class GuiWindow extends GuiTextComponent {
                         CONTAINER_TITLE_BAR_TEXT_COLOR
                 );
             } else {
-                drawWindowBox( 
+                drawWindow( 
                         DISABLED_CONTAINER_BORDER_COLOR, 
                         DISABLED_CONTAINER_BACKGROUND_COLOR, 
                         DISABLED_CONTAINER_TITLE_BAR_BORDER_COLOR, 
@@ -128,7 +109,7 @@ public class GuiWindow extends GuiTextComponent {
         }
     }
     
-    private void drawWindowBox( Color borderColor, Color backgroundColor, Color titleBarBorderColor, Color titleBarBackgroundColor, Color titleBarTextColor ) {
+    private void drawWindow( Color borderColor, Color backgroundColor, Color titleBarBorderColor, Color titleBarBackgroundColor, Color titleBarTextColor ) {
         
         if ( textWidth == -1 && text != null ) {
             textWidth = engine.measureText( text, FONT_SIZE );
@@ -178,7 +159,7 @@ public class GuiWindow extends GuiTextComponent {
         return titleBarPressed;
     }
     
-    private class GuiButtonClose extends GuiButton {
+    protected class GuiButtonClose extends GuiButton {
         
         public GuiButtonClose( double x, double y, double width, double height, EngineFrame engine ) {
             super( x, y, width, height, "", engine );

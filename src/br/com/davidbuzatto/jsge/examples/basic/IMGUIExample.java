@@ -21,10 +21,13 @@ import br.com.davidbuzatto.jsge.imgui.GuiButton;
 import br.com.davidbuzatto.jsge.imgui.GuiButtonGroup;
 import br.com.davidbuzatto.jsge.imgui.GuiCheckBox;
 import br.com.davidbuzatto.jsge.imgui.GuiComponent;
+import br.com.davidbuzatto.jsge.imgui.GuiConfirmDialog;
 import br.com.davidbuzatto.jsge.imgui.GuiGroup;
+import br.com.davidbuzatto.jsge.imgui.GuiInputDialog;
 import br.com.davidbuzatto.jsge.imgui.GuiLabel;
 import br.com.davidbuzatto.jsge.imgui.GuiLabelButton;
 import br.com.davidbuzatto.jsge.imgui.GuiLine;
+import br.com.davidbuzatto.jsge.imgui.GuiMessageDialog;
 import br.com.davidbuzatto.jsge.imgui.GuiPanel;
 import br.com.davidbuzatto.jsge.imgui.GuiProgressBar;
 import br.com.davidbuzatto.jsge.imgui.GuiRadioButton;
@@ -67,8 +70,6 @@ public class IMGUIExample extends EngineFrame {
     private GuiLabel labelComboBox;
     private GuiLabel labelListBox;
     private GuiLabel labelColorPicker;
-    private GuiLabel labelMessageBox;
-    private GuiLabel labelTextInputBox;
     
     private GuiLine line;
     private GuiLine lineUntitled;
@@ -78,6 +79,14 @@ public class IMGUIExample extends EngineFrame {
     private GuiPanel panelUntitled;
     private GuiWindow window;
     private GuiWindow windowUntitled;
+    
+    private GuiButton buttonShowMessageDialog;
+    private GuiButton buttonShowInputDialog;
+    private GuiButton buttonShowConfirmDialog;
+    
+    private GuiMessageDialog messageDialog;
+    private GuiInputDialog inputDialog;
+    private GuiConfirmDialog confirmDialog;
     
     private GuiComponent draggedComponent;
     private Vector2 previousMousePos;
@@ -91,6 +100,10 @@ public class IMGUIExample extends EngineFrame {
     
     private double progressCount;
     private double progressTime;
+    
+    private String messageDialogStatus;
+    private String inputDialogStatus;
+    private String confirmDialogStatus;
     
     
     /**
@@ -134,14 +147,12 @@ public class IMGUIExample extends EngineFrame {
         toggleButton3.setButtonGroup( buttonGroupToggle );
         
         progressBar = new GuiProgressBar( x, y += vSpacing + 5, 180, 20, 0, 0, 50 );
-        spinner = new GuiSpinner( x, y += vSpacing - 5, 150, 30, 0, 0, 10 );
+        spinner = new GuiSpinner( x, y += vSpacing - 5, 100, 30, 0, 0, 10 );
         slider = new GuiSlider( x, y += vSpacing, 180, 30, 25, 1, 50 );
         textField = new GuiTextField( x, y += vSpacing, 260, 30, "" );
         labelComboBox = new GuiLabel( x, y += vSpacing, 260, 30, "Combo Box (work in progress)" );
         labelListBox = new GuiLabel( x, y += vSpacing, 260, 30, "List Box (work in progress)" );
         labelColorPicker = new GuiLabel( x, y += vSpacing, 260, 30, "Color Picker (work in progress)" );
-        labelMessageBox = new GuiLabel( x, y += vSpacing, 260, 30, "Message Box (work in progress)" );
-        labelTextInputBox = new GuiLabel( x, y += vSpacing, 260, 30, "Text Input Box (work in progress)" );
 
         progressTime = 0.05;
         
@@ -164,21 +175,19 @@ public class IMGUIExample extends EngineFrame {
         components.add( labelComboBox );
         components.add( labelListBox );
         components.add( labelColorPicker );
-        components.add( labelMessageBox );
-        components.add( labelTextInputBox );
         
         x = 450;
         y = 55;
         vSpacing = 120;
         
         line = new GuiLine( x, y, 150, 50, "Line" );
-        lineUntitled = new GuiLine( x + 170, y, 150, 50 );
-        groupBox = new GuiGroup( x, y += vSpacing - 30, 150, 70, "Group Box" );
-        groupBoxUntitled = new GuiGroup( x + 170, y, 150, 70 );
+        lineUntitled = new GuiLine( x + 170, y, 150, 50, "" );
+        groupBox = new GuiGroup( x, y += vSpacing - 30, 150, 70, "Group" );
+        groupBoxUntitled = new GuiGroup( x + 170, y, 150, 70, "" );
         panel = new GuiPanel( x, y += vSpacing - 25, 150, 80, "Panel" );
-        panelUntitled = new GuiPanel( x + 170, y, 150, 80 );
-        window = new GuiWindow( x, y += vSpacing - 20, 150, 80, "Window Box" );
-        windowUntitled = new GuiWindow( x + 170, y, 150, 80 );
+        panelUntitled = new GuiPanel( x + 170, y, 150, 80, "" );
+        window = new GuiWindow( x, y += vSpacing - 20, 150, 80, "Window" );
+        windowUntitled = new GuiWindow( x + 170, y, 150, 80, "" );
         
         components.add( line );
         components.add( lineUntitled );
@@ -189,6 +198,20 @@ public class IMGUIExample extends EngineFrame {
         components.add( window );
         components.add( windowUntitled );
         
+        x = 450;
+        y = 490;
+        vSpacing = 50;
+        buttonShowMessageDialog = new GuiButton( x, y, 150, 30, "Show Message Dialog" );
+        buttonShowInputDialog = new GuiButton( x, y += vSpacing, 150, 30, "Show Input Dialog" );
+        buttonShowConfirmDialog = new GuiButton( x, y += vSpacing, 150, 30, "Show Confirm Dialog" );
+        messageDialog = new GuiMessageDialog( "Message Dialog", "This is a message!", true );
+        inputDialog = new GuiInputDialog( "Input Dialog", "Provide some data:", true );
+        confirmDialog = new GuiConfirmDialog( "Confirm Dialog", "Confirm...", true );
+        
+        messageDialogStatus = "";
+        inputDialogStatus = "";
+        confirmDialogStatus = "";
+                
         x = 790;
         y = 30;
         vSpacing = 30;
@@ -215,6 +238,12 @@ public class IMGUIExample extends EngineFrame {
         
         if ( labelButton.isPressed() ) {
             labelButtonPressCount++;
+        }
+        
+        progressCount += delta;
+        if ( progressCount > progressTime ) {
+            progressBar.setValue( progressBar.getValue() + 0.1 );
+            progressCount = 0;
         }
         
         if ( panel.isTitleBarPressed() ) {
@@ -249,11 +278,77 @@ public class IMGUIExample extends EngineFrame {
             draggedComponent = null;
         }
         
-        progressCount += delta;
-        if ( progressCount > progressTime ) {
-            progressBar.setValue( progressBar.getValue() + 0.1 );
-            progressCount = 0;
+        buttonShowMessageDialog.update( delta );
+        buttonShowInputDialog.update( delta );
+        buttonShowConfirmDialog.update( delta );
+        messageDialog.update( delta );
+        inputDialog.update( delta );
+        confirmDialog.update( delta );
+        
+        if ( buttonShowMessageDialog.isPressed() ) {
+            messageDialog.show();
         }
+        
+        if ( buttonShowInputDialog.isPressed() ) {
+            inputDialog.show();
+        }
+        
+        if ( buttonShowConfirmDialog.isPressed() ) {
+            confirmDialog.show();
+        }
+        
+        if ( messageDialog.isCloseButtonPressed() ) {
+            messageDialogStatus = "closed";
+            messageDialog.hide();
+        }
+        
+        if ( messageDialog.isOkButtonPressed() ) {
+            messageDialogStatus = "ok";
+            messageDialog.hide();
+        }
+        
+        if ( messageDialog.isTitleBarPressed() ) {
+            draggedComponent = messageDialog;
+        }
+        
+        if ( inputDialog.isCloseButtonPressed() ) {
+            inputDialogStatus = "closed";
+            inputDialog.hide();
+        }
+        
+        if ( inputDialog.isOkButtonPressed() ) {
+            inputDialogStatus = inputDialog.getValue();
+            inputDialog.hide();
+        }
+        
+        if ( inputDialog.isEnterKeyPressed() ) {
+            inputDialogStatus = inputDialog.getValue();
+            inputDialog.hide();
+        }
+        
+        if ( inputDialog.isCancelButtonPressed() ) {
+            inputDialogStatus = "canceled";
+            inputDialog.hide();
+        }
+        
+        if ( inputDialog.isTitleBarPressed() ) {
+            draggedComponent = inputDialog;
+        }
+        
+        if ( confirmDialog.isCloseButtonPressed() ) {
+            confirmDialogStatus = "closed";
+            confirmDialog.hide();
+        }
+        
+        if ( confirmDialog.isOkButtonPressed() ) {
+            confirmDialogStatus = "ok";
+            confirmDialog.hide();
+        }
+        
+        if ( confirmDialog.isTitleBarPressed() ) {
+            draggedComponent = confirmDialog;
+        }
+        
         
         checkEnabled.update( delta );
         checkVisible.update( delta );
@@ -291,11 +386,13 @@ public class IMGUIExample extends EngineFrame {
         
         int hSep = 280;
         int dataMargin = hSep + 25;
-        drawGrid( 16, 10, 30, 420, 50, hSep, LIGHTGRAY );
+        drawGrid( 14, 10, 30, 420, 50, hSep, LIGHTGRAY );
         drawGrid( 4, 440, 30, 340, 100, 170, LIGHTGRAY );
+        drawGrid( 3, 440, 480, 340, 50, 170, LIGHTGRAY );
         
         drawText( "Controls", 10, 10, 20, GRAY );
         drawText( "Containers/Separators", 440, 10, 20, GRAY );
+        drawText( "Dialogs", 440, 460, 20, GRAY );
         
         for ( GuiComponent c : components ) {
             c.draw();
@@ -330,7 +427,19 @@ public class IMGUIExample extends EngineFrame {
         drawText( String.format( "%.0f%% (%.2f)", progressBar.getPercentage() * 100, progressBar.getValue() ), dataMargin, progressBar.getBounds().y + progressBar.getBounds().height / 2 - 3, 12, GRAY );
         drawText( String.format( "value: %d", spinner.getValue() ), dataMargin, spinner.getBounds().y + spinner.getBounds().height / 2 - 3, 12, GRAY );
         drawText( String.format( "value: %.2f", slider.getValue() ), dataMargin, slider.getBounds().y + slider.getBounds().height / 2 - 3, 12, GRAY );
-        drawText( String.format( "size: %d", textField.getValue().length() ), dataMargin, textField.getBounds().y + slider.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( String.format( "size: %d", textField.getValue().length() ), dataMargin, textField.getBounds().y + textField.getBounds().height / 2 - 3, 12, GRAY );
+        
+        buttonShowMessageDialog.draw();
+        buttonShowInputDialog.draw();
+        buttonShowConfirmDialog.draw();
+        
+        drawText( messageDialogStatus, 620, buttonShowMessageDialog.getBounds().y + buttonShowMessageDialog.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( inputDialogStatus, 620, buttonShowInputDialog.getBounds().y + buttonShowInputDialog.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( confirmDialogStatus, 620, buttonShowConfirmDialog.getBounds().y + buttonShowConfirmDialog.getBounds().height / 2 - 3, 12, GRAY );
+        
+        messageDialog.draw();
+        inputDialog.draw();
+        confirmDialog.draw();
         
         checkEnabled.draw();
         checkVisible.draw();
