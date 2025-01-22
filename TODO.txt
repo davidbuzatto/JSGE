@@ -1,20 +1,7 @@
 Criar componentes immediate mode! (v1.5.0)
-    Documentar componentes apropriadamente.
+    - GuiList         -> implica em rolagem
+    - GuiDropdownList -> implica em rolagem (reaproveitar o GuiList)
+    - Verificar todos os componentes passando a engine explicitamente!
+    - Documentar OS componentes apropriadamente.
 
-Terminar linha na horizontal. Desenhar texto centralizado verticalmente.
-
-Verificar todos os componentes passando a engine explicitamente!
-
-  - GuiList -> implica em rolagem
-  - GuiDropdownList -> implica em rolagem (reaproveitar o GuiList)
-
-Adicionar build pelo maven para gerar pacotes de código e documentação
-apropriadamente (arquivos .jar)?
-
-Separar o exemplos?
-Separar a engine do componente?
-Traduzir documentação para inglês?
-
-Suporte à gamepads:
-    Testar joystick ps4/ps5;
-    Endereçar o "problema" do eixo Z futuramente?
+Separar o exemplos futuramente.

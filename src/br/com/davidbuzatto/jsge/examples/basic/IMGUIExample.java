@@ -152,8 +152,8 @@ public class IMGUIExample extends EngineFrame {
         
         progressBar = new GuiProgressBar( x, y += vSpacing + 5, 260, 20, 0, 0, 50 );
         spinner = new GuiSpinner( x, y += vSpacing - 5, 100, 30, 0, 0, 10 );
-        horizontalSlider = new GuiSlider( x, ( y += vSpacing ) + 25, 150, 30, 25, 1, 50 );
-        verticalSlider = new GuiSlider( x + 195, y, 30, 80, 25, 1, 50, GuiSlider.VERTICAL );
+        horizontalSlider = new GuiSlider( x, ( y += vSpacing ) + 25, 220, 30, 25, 1, 50 );
+        verticalSlider = new GuiSlider( x + 230, y, 30, 80, 25, 1, 50, GuiSlider.VERTICAL );
         textField = new GuiTextField( x, y += vSpacing * 2, 260, 30, "" );
         labelDropdownList = new GuiLabel( x, y += vSpacing, 260, 30, "Dropdown List (work in progress)" );
         labelList = new GuiLabel( x, y += vSpacing, 260, 30, "List (work in progress)" );
@@ -184,10 +184,10 @@ public class IMGUIExample extends EngineFrame {
         y = 55;
         vSpacing = 120;
         
-        horizontalLine = new GuiLine( x, y - 20, 150, 30, "Line" );
-        horizontalLineUntitled = new GuiLine( x + 170, y - 20, 150, 30, "" );
-        verticalLine = new GuiLine( x + 60, y + 10, 30, 60, "Line", GuiLine.VERTICAL );
-        verticalLineUntitled = new GuiLine( x + 230, y + 10, 30, 60, "", GuiLine.VERTICAL );
+        horizontalLine = new GuiLine( x, y + 10, 130, 30, "Line" );
+        horizontalLineUntitled = new GuiLine( x + 170, y +10, 130, 30, "" );
+        verticalLine = new GuiLine( x + 130, y - 20, 30, 90, "Line", GuiLine.VERTICAL );
+        verticalLineUntitled = new GuiLine( x + 300, y - 20, 30, 90, "", GuiLine.VERTICAL );
         groupBox = new GuiGroup( x, y += vSpacing - 30, 150, 70, "Group" );
         groupBoxUntitled = new GuiGroup( x + 170, y, 150, 70, "" );
         panel = new GuiPanel( x, y += vSpacing - 25, 150, 80, "Panel" );
