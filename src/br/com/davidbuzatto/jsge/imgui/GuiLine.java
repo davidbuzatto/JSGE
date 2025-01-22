@@ -27,20 +27,44 @@ import java.awt.Color;
  */
 public class GuiLine extends GuiTextComponent {
     
+    public static final int HORIZONTAL = 1;
+    public static final int VERTICAL = 2;
+    private int orientation;
+    
     public GuiLine( double x, double y, double width, double height, String text, EngineFrame engine ) {
-        super( x, y, width, height, text, engine );
+        this( x, y, width, height, text, HORIZONTAL, engine );
     }
     
     public GuiLine( double x, double y, double width, double height, String text ) {
-        super( x, y, width, height, text );
+        this( x, y, width, height, text, HORIZONTAL );
     }
     
     public GuiLine( Rectangle bounds, String text, EngineFrame engine ) {
-        super( bounds, text, engine );
+        this( bounds, text, HORIZONTAL, engine );
     }
     
     public GuiLine( Rectangle bounds, String text ) {
+        this( bounds, text, HORIZONTAL );
+    }
+    
+    public GuiLine( double x, double y, double width, double height, String text, int orientation, EngineFrame engine ) {
+        super( x, y, width, height, text, engine );
+        this.orientation = orientation;
+    }
+    
+    public GuiLine( double x, double y, double width, double height, String text, int orientation ) {
+        super( x, y, width, height, text );
+        this.orientation = orientation;
+    }
+    
+    public GuiLine( Rectangle bounds, String text, int orientation, EngineFrame engine ) {
+        super( bounds, text, engine );
+        this.orientation = orientation;
+    }
+    
+    public GuiLine( Rectangle bounds, String text, int orientation ) {
         super( bounds, text );
+        this.orientation = orientation;
     }
     
     @Override
@@ -62,12 +86,23 @@ public class GuiLine extends GuiTextComponent {
             textWidth = engine.measureText( text, FONT_SIZE );
         }
         
-        if ( textWidth > 0 ) {
-            engine.drawLine( bounds.x, bounds.y + bounds.height / 2, bounds.x + 6, bounds.y + bounds.height / 2, borderColor );
-            engine.drawLine( bounds.x + textWidth + 16, bounds.y + bounds.height / 2, bounds.x + bounds.width, bounds.y + bounds.height / 2, borderColor );
-            engine.drawText( text, bounds.x + 12, bounds.y + bounds.height / 2 - 3, FONT_SIZE, textColor );
+        if ( orientation == VERTICAL ) {
+            if ( textWidth > 0 ) {
+                engine.drawLine( bounds.x, bounds.y + bounds.height / 2, bounds.x + 6, bounds.y + bounds.height / 2, borderColor );
+                engine.drawLine( bounds.x + textWidth + 16, bounds.y + bounds.height / 2, bounds.x + bounds.width, bounds.y + bounds.height / 2, borderColor );
+                engine.drawText( text, bounds.x + 12, bounds.y + bounds.height / 2 - 3, FONT_SIZE, textColor );
+                engine.drawLine( bounds.x + bounds.width / 2, bounds.y, bounds.x + bounds.width / 2, bounds.y + bounds.height, borderColor );
+            } else {
+                engine.drawLine( bounds.x + bounds.width / 2, bounds.y, bounds.x + bounds.width / 2, bounds.y + bounds.height, borderColor );
+            }
         } else {
-            engine.drawLine( bounds.x, bounds.y + bounds.height / 2, bounds.x + bounds.width, bounds.y + bounds.height / 2, borderColor );
+            if ( textWidth > 0 ) {
+                engine.drawLine( bounds.x, bounds.y + bounds.height / 2, bounds.x + 6, bounds.y + bounds.height / 2, borderColor );
+                engine.drawLine( bounds.x + textWidth + 16, bounds.y + bounds.height / 2, bounds.x + bounds.width, bounds.y + bounds.height / 2, borderColor );
+                engine.drawText( text, bounds.x + 12, bounds.y + bounds.height / 2 - 3, FONT_SIZE, textColor );
+            } else {
+                engine.drawLine( bounds.x, bounds.y + bounds.height / 2, bounds.x + bounds.width, bounds.y + bounds.height / 2, borderColor );
+            }
         }
         
     }

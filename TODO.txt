@@ -1,13 +1,12 @@
 Criar componentes immediate mode! (v1.5.0)
     Documentar componentes apropriadamente.
 
-Realizar mais testes para o slider na vertical!
+Terminar linha na horizontal. Desenhar texto centralizado verticalmente.
 
-Retirado da raygui:
+Verificar todos os componentes passando a engine explicitamente!
 
-# Basic Control
-  - ComboBox    (JComboBox) -> implica em rolagem
-  - ListBox     (JList)     -> implica em rolagem
+  - GuiList -> implica em rolagem
+  - GuiDropdownList -> implica em rolagem (reaproveitar o GuiList)
 
 Adicionar build pelo maven para gerar pacotes de código e documentação
 apropriadamente (arquivos .jar)?

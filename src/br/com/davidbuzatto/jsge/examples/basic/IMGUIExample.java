@@ -66,14 +66,17 @@ public class IMGUIExample extends EngineFrame {
     private GuiButtonGroup buttonGroupToggle;
     private GuiProgressBar progressBar;
     private GuiSpinner spinner;
-    private GuiSlider slider;
+    private GuiSlider horizontalSlider;
+    private GuiSlider verticalSlider;
     private GuiTextField textField;
-    private GuiLabel labelComboBox;
-    private GuiLabel labelListBox;
+    private GuiLabel labelDropdownList;
+    private GuiLabel labelList;
     private GuiColorPicker colorPicker;
     
-    private GuiLine line;
-    private GuiLine lineUntitled;
+    private GuiLine horizontalLine;
+    private GuiLine horizontalLineUntitled;
+    private GuiLine verticalLine;
+    private GuiLine verticalLineUntitled;
     private GuiGroup groupBox;
     private GuiGroup groupBoxUntitled;
     private GuiPanel panel;
@@ -123,8 +126,8 @@ public class IMGUIExample extends EngineFrame {
         int y = 40;
         int vSpacing = 50;
         
-        label = new GuiLabel( x, y, 80, 30, "Label" );
-        button = new GuiButton( x, y += vSpacing, 200, 30, "Button" );
+        label = new GuiLabel( x, y, 40, 30, "Label" );
+        button = new GuiButton( x, y += vSpacing, 100, 30, "Button" );
         labelButton = new GuiLabelButton( x, y += vSpacing, 90, 30, "Label Button" );
         checkBox = new GuiCheckBox( x, y += vSpacing, 100, 30, "Check Box" );
         
@@ -137,7 +140,7 @@ public class IMGUIExample extends EngineFrame {
         radioButton3 = new GuiRadioButton( x + 180, y, 80, 30, "Radio 3" );
         radioButton3.setButtonGroup( buttonGroupRadio );
         
-        toggleButton = new GuiToggleButton( x, y += vSpacing, 200, 30, "Toggle Button" );
+        toggleButton = new GuiToggleButton( x, y += vSpacing, 120, 30, "Toggle Button" );
         buttonGroupToggle = new GuiButtonGroup();
         toggleButton1 = new GuiToggleButton( x, y += vSpacing, 80, 30, "Option 1" );
         toggleButton1.setSelected( true );
@@ -147,13 +150,13 @@ public class IMGUIExample extends EngineFrame {
         toggleButton3 = new GuiToggleButton( x + 160, y, 80, 30, "Option 3" );
         toggleButton3.setButtonGroup( buttonGroupToggle );
         
-        progressBar = new GuiProgressBar( x, y += vSpacing + 5, 180, 20, 0, 0, 50 );
+        progressBar = new GuiProgressBar( x, y += vSpacing + 5, 260, 20, 0, 0, 50 );
         spinner = new GuiSpinner( x, y += vSpacing - 5, 100, 30, 0, 0, 10 );
-        slider = new GuiSlider( x, y += vSpacing, 180, 30, 25, 1, 50 );
-        textField = new GuiTextField( x, y += vSpacing, 260, 30, "" );
-        labelComboBox = new GuiLabel( x, y += vSpacing, 260, 30, "Combo Box (work in progress)" );
-        labelListBox = new GuiLabel( x, y += vSpacing, 260, 30, "List Box (work in progress)" );
-        colorPicker = new GuiColorPicker( x + 10, y += vSpacing + 5, 100, 100, EngineFrame.LIME );
+        horizontalSlider = new GuiSlider( x, ( y += vSpacing ) + 25, 150, 30, 25, 1, 50 );
+        verticalSlider = new GuiSlider( x + 195, y, 30, 80, 25, 1, 50, GuiSlider.VERTICAL );
+        textField = new GuiTextField( x, y += vSpacing * 2, 260, 30, "" );
+        labelDropdownList = new GuiLabel( x, y += vSpacing, 260, 30, "Dropdown List (work in progress)" );
+        labelList = new GuiLabel( x, y += vSpacing, 260, 30, "List (work in progress)" );
 
         progressTime = 0.05;
         
@@ -171,18 +174,20 @@ public class IMGUIExample extends EngineFrame {
         components.add( toggleButton3 );
         components.add( progressBar );
         components.add( spinner );
-        components.add( slider );
+        components.add( horizontalSlider );
+        components.add( verticalSlider );
         components.add( textField );
-        components.add( labelComboBox );
-        components.add( labelListBox );
-        components.add( colorPicker );
+        components.add( labelDropdownList );
+        components.add( labelList );
         
         x = 450;
         y = 55;
         vSpacing = 120;
         
-        line = new GuiLine( x, y, 150, 50, "Line" );
-        lineUntitled = new GuiLine( x + 170, y, 150, 50, "" );
+        horizontalLine = new GuiLine( x, y - 20, 150, 30, "Line" );
+        horizontalLineUntitled = new GuiLine( x + 170, y - 20, 150, 30, "" );
+        verticalLine = new GuiLine( x + 60, y + 10, 30, 60, "Line", GuiLine.VERTICAL );
+        verticalLineUntitled = new GuiLine( x + 230, y + 10, 30, 60, "", GuiLine.VERTICAL );
         groupBox = new GuiGroup( x, y += vSpacing - 30, 150, 70, "Group" );
         groupBoxUntitled = new GuiGroup( x + 170, y, 150, 70, "" );
         panel = new GuiPanel( x, y += vSpacing - 25, 150, 80, "Panel" );
@@ -190,8 +195,10 @@ public class IMGUIExample extends EngineFrame {
         window = new GuiWindow( x, y += vSpacing - 20, 150, 80, "Window" );
         windowUntitled = new GuiWindow( x + 170, y, 150, 80, "" );
         
-        components.add( line );
-        components.add( lineUntitled );
+        components.add( horizontalLine );
+        components.add( horizontalLineUntitled );
+        components.add( verticalLine );
+        components.add( verticalLineUntitled );
         components.add( groupBox );
         components.add( groupBoxUntitled );
         components.add( panel );
@@ -212,7 +219,12 @@ public class IMGUIExample extends EngineFrame {
         messageDialogStatus = "";
         inputDialogStatus = "";
         confirmDialogStatus = "";
-                
+        
+        x = 465;
+        y = 695;
+        colorPicker = new GuiColorPicker( x, y, 100, 100, EngineFrame.LIME );
+        components.add( colorPicker );
+        
         x = 790;
         y = 30;
         vSpacing = 30;
@@ -387,14 +399,18 @@ public class IMGUIExample extends EngineFrame {
         
         int hSep = 280;
         int dataMargin = hSep + 25;
-        drawGrid( 13, 10, 30, 420, 50, hSep, LIGHTGRAY );
+        drawGrid( 9, 10, 30, 420, 50, hSep, LIGHTGRAY );
+        drawGrid( 1, 10, 480, 420, 100, hSep, LIGHTGRAY );
+        drawGrid( 2, 10, 580, 420, 50, hSep, LIGHTGRAY );
         drawGrid( 1, 10, 680, 420, 150, hSep, LIGHTGRAY );
         drawGrid( 4, 440, 30, 340, 100, 170, LIGHTGRAY );
         drawGrid( 3, 440, 480, 340, 50, 170, LIGHTGRAY );
+        drawGrid( 1, 440, 680, 340, 150, 170, LIGHTGRAY );
         
         drawText( "Controls", 10, 10, 20, GRAY );
         drawText( "Containers/Separators", 440, 10, 20, GRAY );
         drawText( "Dialogs", 440, 460, 20, GRAY );
+        drawText( "Color Picker", 440, 660, 20, GRAY );
         
         for ( GuiComponent c : components ) {
             c.draw();
@@ -428,10 +444,9 @@ public class IMGUIExample extends EngineFrame {
         
         drawText( String.format( "%.0f%% (%.2f)", progressBar.getPercentage() * 100, progressBar.getValue() ), dataMargin, progressBar.getBounds().y + progressBar.getBounds().height / 2 - 3, 12, GRAY );
         drawText( String.format( "value: %d", spinner.getValue() ), dataMargin, spinner.getBounds().y + spinner.getBounds().height / 2 - 3, 12, GRAY );
-        drawText( String.format( "value: %.2f", slider.getValue() ), dataMargin, slider.getBounds().y + slider.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( String.format( "value (h): %.2f", horizontalSlider.getValue() ), dataMargin, horizontalSlider.getBounds().y + horizontalSlider.getBounds().height / 2 - 25, 12, GRAY );
+        drawText( String.format( "value (v): %.2f", verticalSlider.getValue() ), dataMargin, verticalSlider.getBounds().y + verticalSlider.getBounds().height / 2 + 20, 12, GRAY );
         drawText( String.format( "size: %d", textField.getValue().length() ), dataMargin, textField.getBounds().y + textField.getBounds().height / 2 - 3, 12, GRAY );
-        
-        drawColoredRectangle( dataMargin + 5, colorPicker.getBounds().y + colorPicker.getBounds().height / 2 - 40, colorPicker.getColor() );
         
         buttonShowMessageDialog.draw();
         buttonShowInputDialog.draw();
@@ -444,6 +459,8 @@ public class IMGUIExample extends EngineFrame {
         messageDialog.draw();
         inputDialog.draw();
         confirmDialog.draw();
+        
+        drawColoredRectangle( 645, colorPicker.getBounds().y + colorPicker.getBounds().height / 2 - 40, colorPicker.getColor() );
         
         checkEnabled.draw();
         checkVisible.draw();

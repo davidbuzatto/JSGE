@@ -24,7 +24,8 @@ import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
- *
+ * Um componente seletor de cores.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class GuiColorPicker extends GuiComponent {
