@@ -20,6 +20,7 @@ import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.imgui.GuiButton;
 import br.com.davidbuzatto.jsge.imgui.GuiButtonGroup;
 import br.com.davidbuzatto.jsge.imgui.GuiCheckBox;
+import br.com.davidbuzatto.jsge.imgui.GuiColorPicker;
 import br.com.davidbuzatto.jsge.imgui.GuiComponent;
 import br.com.davidbuzatto.jsge.imgui.GuiConfirmDialog;
 import br.com.davidbuzatto.jsge.imgui.GuiGroup;
@@ -42,7 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Exemplo de uso dos componentes IMGUI.
+ * Exemplo de uso dos componentes IMGUI (Immediate Mode Graphical User Interface).
  * 
  * @author Prof. Dr. David Buzatto
  */
@@ -69,7 +70,7 @@ public class IMGUIExample extends EngineFrame {
     private GuiTextField textField;
     private GuiLabel labelComboBox;
     private GuiLabel labelListBox;
-    private GuiLabel labelColorPicker;
+    private GuiColorPicker colorPicker;
     
     private GuiLine line;
     private GuiLine lineUntitled;
@@ -152,7 +153,7 @@ public class IMGUIExample extends EngineFrame {
         textField = new GuiTextField( x, y += vSpacing, 260, 30, "" );
         labelComboBox = new GuiLabel( x, y += vSpacing, 260, 30, "Combo Box (work in progress)" );
         labelListBox = new GuiLabel( x, y += vSpacing, 260, 30, "List Box (work in progress)" );
-        labelColorPicker = new GuiLabel( x, y += vSpacing, 260, 30, "Color Picker (work in progress)" );
+        colorPicker = new GuiColorPicker( x + 10, y += vSpacing + 5, 100, 100, EngineFrame.LIME );
 
         progressTime = 0.05;
         
@@ -174,7 +175,7 @@ public class IMGUIExample extends EngineFrame {
         components.add( textField );
         components.add( labelComboBox );
         components.add( labelListBox );
-        components.add( labelColorPicker );
+        components.add( colorPicker );
         
         x = 450;
         y = 55;
@@ -386,7 +387,8 @@ public class IMGUIExample extends EngineFrame {
         
         int hSep = 280;
         int dataMargin = hSep + 25;
-        drawGrid( 14, 10, 30, 420, 50, hSep, LIGHTGRAY );
+        drawGrid( 13, 10, 30, 420, 50, hSep, LIGHTGRAY );
+        drawGrid( 1, 10, 680, 420, 150, hSep, LIGHTGRAY );
         drawGrid( 4, 440, 30, 340, 100, 170, LIGHTGRAY );
         drawGrid( 3, 440, 480, 340, 50, 170, LIGHTGRAY );
         
@@ -429,6 +431,8 @@ public class IMGUIExample extends EngineFrame {
         drawText( String.format( "value: %.2f", slider.getValue() ), dataMargin, slider.getBounds().y + slider.getBounds().height / 2 - 3, 12, GRAY );
         drawText( String.format( "size: %d", textField.getValue().length() ), dataMargin, textField.getBounds().y + textField.getBounds().height / 2 - 3, 12, GRAY );
         
+        drawColoredRectangle( dataMargin + 5, colorPicker.getBounds().y + colorPicker.getBounds().height / 2 - 40, colorPicker.getColor() );
+        
         buttonShowMessageDialog.draw();
         buttonShowInputDialog.draw();
         buttonShowConfirmDialog.draw();
@@ -456,6 +460,31 @@ public class IMGUIExample extends EngineFrame {
         drawLine( x, y, x, y + height * lines, color );
         drawLine( x + hSep, y, x + hSep, y + height * lines, color );
         drawLine( x + width, y, x + width, y + height * lines, color );
+        
+    }
+    
+    private void drawColoredRectangle( double x, double y, Color color ) {
+        
+        int w = 100;
+        int retSize = 5;
+        
+        for ( int i = 0; i < w; i += retSize ) {
+            for ( int j = 0; j < w; j += retSize ) {
+                fillRectangle( 
+                        x + j,
+                        y + i,
+                        retSize,
+                        retSize,
+                        i % 2 == 0 ?
+                                j % 2 == 0 ? EngineFrame.WHITE : EngineFrame.GRAY
+                                :
+                                j % 2 == 0 ? EngineFrame.GRAY : EngineFrame.WHITE
+                );
+            }
+        }
+        
+        fillRectangle( x, y, 100, 100, colorPicker.getColor() );
+        drawRectangle( x, y, 100, 100, GRAY );
         
     }
     

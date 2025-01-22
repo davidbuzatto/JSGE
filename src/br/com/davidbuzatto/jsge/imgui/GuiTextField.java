@@ -195,7 +195,11 @@ public class GuiTextField extends GuiComponent {
                 if ( hasFocus ) {
                     drawTextField( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR, MOUSE_DOWN_TEXT_COLOR );
                 } else {
-                    drawTextField(CONTAINER_BACKGROUNG_COLOR, BORDER_COLOR, TEXT_COLOR );
+                    if ( mouseState == GuiComponentMouseState.MOUSE_OVER ) {
+                        drawTextField( MOUSE_OVER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR, TEXT_COLOR );
+                    } else {
+                        drawTextField( CONTAINER_BACKGROUNG_COLOR, BORDER_COLOR, TEXT_COLOR );
+                    }
                 }
                 if ( hasFocus && showCaret ) {
                     double caretX = bounds.x + 5 + caretPosition * charWidth;

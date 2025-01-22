@@ -54,7 +54,7 @@ public class GuiButton extends GuiTextComponent {
 
                 switch ( mouseState ) {
                     case MOUSE_OUT:
-                        drawButton(BACKGROUND_COLOR, BORDER_COLOR );
+                        drawButton( BACKGROUND_COLOR, BORDER_COLOR );
                         drawCenteredText( TEXT_COLOR );
                         break;
                     case MOUSE_OVER:

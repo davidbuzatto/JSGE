@@ -1,17 +1,13 @@
 Criar componentes immediate mode! (v1.5.0)
-    Melhorar a organização do código e dos nomes de métodos etc.
-    Melhorar a invocação dos construtores (reaproveitar!!!)
     Documentar componentes apropriadamente.
-    Organizar as cores.
+
+Realizar mais testes para o slider na vertical!
 
 Retirado da raygui:
 
 # Basic Control
   - ComboBox    (JComboBox) -> implica em rolagem
   - ListBox     (JList)     -> implica em rolagem
-
-# Advance Control
-  - ColorPicker   --> ColorPanel, ColorBarHue ->usar como base o JColorChooser?
 
 Adicionar build pelo maven para gerar pacotes de código e documentação
 apropriadamente (arquivos .jar)?
