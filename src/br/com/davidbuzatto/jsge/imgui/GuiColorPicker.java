@@ -244,12 +244,24 @@ public class GuiColorPicker extends GuiComponent {
     public Color getColor() {
         return ColorUtils.fade( 
                 ColorUtils.colorFromHSV( 
-                        hueSlider.getValue(), 
-                        ( saturationAndValuePosition.x - bounds.x ) / bounds.width,
-                        1.0 - ( saturationAndValuePosition.y - bounds.y ) / bounds.height
+                        getHue(), 
+                        getSaturation(),
+                        getValue()
                 ), 
                 alphaSlider.getValue() / 255
         );
+    }
+    
+    public double getHue() {
+        return hueSlider.getValue();
+    }
+    
+    public double getSaturation() {
+        return ( saturationAndValuePosition.x - bounds.x ) / bounds.width;
+    }
+    
+    public double getValue() {
+        return 1.0 - ( saturationAndValuePosition.y - bounds.y ) / bounds.height;
     }
     
 }
