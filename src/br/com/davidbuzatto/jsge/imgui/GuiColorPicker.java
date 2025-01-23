@@ -162,7 +162,7 @@ public class GuiColorPicker extends GuiComponent {
         if ( !enabled ) {
             engine.fillRectangle( bounds, DISABLED_OVERLAY_COLOR );
         } else {
-            engine.fillRectangle( saturationAndValuePosition.x - 4, saturationAndValuePosition.y - 4, 8, 8, EngineFrame.WHITE );
+            engine.fillCircle( saturationAndValuePosition.x, saturationAndValuePosition.y, 4, EngineFrame.WHITE );
         }
         
         engine.drawRectangle( bounds, borderColor );

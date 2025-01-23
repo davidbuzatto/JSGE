@@ -113,7 +113,17 @@ public class GuiSlider extends GuiComponent {
         
         if ( visible && enabled ) {
             
+            Vector2 mousePos = engine.getMousePositionPoint();
             sliderButton.update( delta, bounds );
+            
+            if ( mouseState == GuiComponentMouseState.MOUSE_DOWN && sliderButton.mouseState == GuiComponentMouseState.MOUSE_OUT ) {
+                if ( trackOrientation == VERTICAL ) {
+                    sliderButton.bounds.y = mousePos.y - GuiSlider.SLIDER_RADIUS;
+                } else {
+                    sliderButton.bounds.x = mousePos.x - GuiSlider.SLIDER_RADIUS;
+                }
+                sliderButton.update( delta, bounds );
+            }
             
             if ( trackOrientation == VERTICAL ) {
                 
@@ -172,11 +182,15 @@ public class GuiSlider extends GuiComponent {
         if ( showTrack ) {
             if ( trackOrientation == VERTICAL ) {
                 engine.fillRectangle( bounds.x + bounds.width / 2 - sliderBarSize / 2, bounds.y, sliderBarSize, bounds.height, backgroundColor );
-                engine.fillRectangle( bounds.x + bounds.width / 2 - sliderBarSize / 2, sliderButton.bounds.y, sliderBarSize, bounds.y + bounds.height - sliderButton.bounds.y, valueColor );
+                if ( enabled ) {
+                    engine.fillRectangle( bounds.x + bounds.width / 2 - sliderBarSize / 2, sliderButton.bounds.y, sliderBarSize, bounds.y + bounds.height - sliderButton.bounds.y, valueColor );
+                }
                 engine.drawRectangle( bounds.x + bounds.width / 2 - sliderBarSize / 2, bounds.y, sliderBarSize, bounds.height, borderColor );
             } else { // horizontal
                 engine.fillRectangle( bounds.x, bounds.y + bounds.height / 2 - sliderBarSize / 2, bounds.width, sliderBarSize, backgroundColor );
-                engine.fillRectangle( bounds.x, bounds.y + bounds.height / 2 - sliderBarSize / 2, sliderButton.bounds.x - bounds.x, sliderBarSize, valueColor );
+                if ( enabled ) {
+                    engine.fillRectangle( bounds.x, bounds.y + bounds.height / 2 - sliderBarSize / 2, sliderButton.bounds.x - bounds.x, sliderBarSize, valueColor );
+                }
                 engine.drawRectangle( bounds.x, bounds.y + bounds.height / 2 - sliderBarSize / 2, bounds.width, sliderBarSize, borderColor );
             }
         }

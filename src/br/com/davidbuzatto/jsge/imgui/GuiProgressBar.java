@@ -80,7 +80,9 @@ public class GuiProgressBar extends GuiComponent {
     private void drawProgressBar( Color backgroundColor, Color borderColor, Color percentageColor ) {
         double width = bounds.width * getPercentage();
         engine.fillRectangle( bounds, backgroundColor );
-        engine.fillRectangle( bounds.x, bounds.y, width, bounds.height, percentageColor );
+        if ( enabled ) {
+            engine.fillRectangle( bounds.x, bounds.y, width, bounds.height, percentageColor );
+        }
         engine.drawRectangle( bounds, borderColor );
     }
 

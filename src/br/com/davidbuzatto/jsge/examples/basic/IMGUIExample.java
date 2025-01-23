@@ -264,7 +264,9 @@ public class IMGUIExample extends EngineFrame {
         
         progressCount += delta;
         if ( progressCount > progressTime ) {
-            progressBar.setValue( progressBar.getValue() + 0.1 );
+            if ( progressBar.isEnabled() ) {
+                progressBar.setValue( progressBar.getValue() + 0.1 );
+            }
             progressCount = 0;
         }
         

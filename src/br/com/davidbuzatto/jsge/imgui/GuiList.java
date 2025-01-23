@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Um componente de lista de elementos.
+ * Um componente de lista de items.
  * 
  * @author Prof. Dr. David Buzatto
  */
@@ -85,7 +85,10 @@ public class GuiList extends GuiComponent {
             if ( useScrollBar ) {
                 
                 double mouseWheelMove = engine.getMouseWheelMove();
-                scrollBar.setValue( scrollBar.getValue() + mouseWheelMove );
+                
+                if ( mouseState == GuiComponentMouseState.MOUSE_OVER ) {
+                    scrollBar.setValue( scrollBar.getValue() + mouseWheelMove );
+                }
                 
                 scrollBar.update( delta );
                 scrollOffset = heightDiff * ( 1 - ( scrollBar.getValue() / items.size() ) );
@@ -117,6 +120,7 @@ public class GuiList extends GuiComponent {
                     for ( ListItem item : items ) {
                         if ( item.checkCollision( mousePos ) ) {
                             newSelectedItem = item;
+                            break;
                         }
                     }
                     if ( newSelectedItem != null && newSelectedItem != selectedItem ) {
@@ -211,7 +215,7 @@ public class GuiList extends GuiComponent {
 
             Rectangle lastItemBounds = items.getLast().bounds;
             itemsHeight = lastItemBounds.y + lastItemBounds.height - bounds.y;
-            heightDiff = itemsHeight - bounds.height;
+            heightDiff = itemsHeight - bounds.height + 3;
 
             if ( lastItemBounds.y + lastItemBounds.height > bounds.y + bounds.height ) {
                 useScrollBar = true;
