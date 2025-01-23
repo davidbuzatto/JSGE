@@ -133,6 +133,18 @@ public abstract class GuiComponent {
         return mouseState == GuiComponentMouseState.MOUSE_PRESSED;
     }
     
+    public boolean isMouseDown() {
+        return mouseState == GuiComponentMouseState.MOUSE_DOWN;
+    }
+    
+    public boolean isMouseOut() {
+        return mouseState == GuiComponentMouseState.MOUSE_OUT;
+    }
+    
+    public boolean isMouseOver() {
+        return mouseState == GuiComponentMouseState.MOUSE_OVER;
+    }
+    
     protected void drawBounds() {
         if ( drawBounds ) {
             engine.setStrokeLineWidth( 1 );
@@ -167,7 +179,7 @@ public abstract class GuiComponent {
     public Rectangle getBounds() {
         return bounds;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 5;

@@ -1,5 +1,4 @@
 Criar componentes immediate mode! (v1.5.0)
-    - Verificar todos os componentes passando a engine explicitamente!
     - Documentar os componentes apropriadamente.
 
 Separar o exemplos futuramente.

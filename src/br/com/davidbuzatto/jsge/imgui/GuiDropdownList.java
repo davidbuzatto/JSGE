@@ -59,7 +59,12 @@ public class GuiDropdownList extends GuiComponent {
         
         int size = MathUtils.clamp( itemsText.size(), 1, 4 );
         
-        itemsList = new GuiList( bounds.x, bounds.y + bounds.height + 3, bounds.width - GuiSlider.SLIDER_RADIUS * 2, 3 + GuiList.ITEM_BOUND_HEIGHT * size + 3 * size, itemsText );
+        if ( engine == null ) {
+            itemsList = new GuiList( bounds.x, bounds.y + bounds.height + 3, bounds.width - GuiSlider.SLIDER_RADIUS * 2, 3 + GuiList.ITEM_BOUND_HEIGHT * size + 3 * size, itemsText );
+        } else {
+            itemsList = new GuiList( bounds.x, bounds.y + bounds.height + 3, bounds.width - GuiSlider.SLIDER_RADIUS * 2, 3 + GuiList.ITEM_BOUND_HEIGHT * size + 3 * size, itemsText, engine );
+        }
+        
         itemsList.setEnabled( false );
         itemsList.setVisible( false );
         

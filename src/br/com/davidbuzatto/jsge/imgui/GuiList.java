@@ -67,7 +67,13 @@ public class GuiList extends GuiComponent {
     }
     
     private void initComponents( EngineFrame engine, List<String> itemsText ) {
-        scrollBar = new GuiSlider( bounds.x + bounds.width, bounds.y, GuiSlider.SLIDER_RADIUS * 2, bounds.height, itemsText.size(), 0, itemsText.size(), GuiSlider.VERTICAL );
+        
+        if ( engine == null ) {
+            scrollBar = new GuiSlider( bounds.x + bounds.width, bounds.y, GuiSlider.SLIDER_RADIUS * 2, bounds.height, itemsText.size(), 0, itemsText.size(), GuiSlider.VERTICAL );
+        } else {
+            scrollBar = new GuiSlider( bounds.x + bounds.width, bounds.y, GuiSlider.SLIDER_RADIUS * 2, bounds.height, itemsText.size(), 0, itemsText.size(), GuiSlider.VERTICAL, engine );
+        }
+        
         this.itemsText = itemsText;
         this.items = new ArrayList<>();
         this.useScrollBar = true;

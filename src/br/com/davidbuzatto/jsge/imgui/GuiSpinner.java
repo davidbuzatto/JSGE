@@ -38,25 +38,25 @@ public class GuiSpinner extends GuiComponent {
     public GuiSpinner( double x, double y, double width, double height, int value, int min, int max, EngineFrame engine ) {
         super( x, y, width, height, engine );
         initData( value, min, max );
-        initComponents( 24 );
+        initComponents( engine, 24 );
     }
     
     public GuiSpinner( double x, double y, double width, double height, int value, int min, int max ) {
         super( x, y, width, height );
         initData( value, min, max );
-        initComponents( 24 );
+        initComponents( null, 24 );
     }
     
     public GuiSpinner( Rectangle bounds, int value, int min, int max, EngineFrame engine ) {
         super( bounds, engine );
         initData( value, min, max );
-        initComponents( 24 );
+        initComponents( engine, 24 );
     }
     
     public GuiSpinner( Rectangle bounds, int value, int min, int max ) {
         super( bounds );
         initData( value, min, max );
-        initComponents( 24 );
+        initComponents( null, 24 );
     }
     
     private void initData( int value, int min, int max ) {
@@ -65,9 +65,14 @@ public class GuiSpinner extends GuiComponent {
         this.max = max;
     }
     
-    private void initComponents( double buttonSize ) {
-        leftButton = new GuiButtonChangeValue( bounds.x, bounds.y, buttonSize, bounds.height, 180 );
-        rightButton = new GuiButtonChangeValue( bounds.x + bounds.width - buttonSize, bounds.y, buttonSize, bounds.height, 0 );
+    private void initComponents( EngineFrame engine, double buttonSize ) {
+        if ( engine == null ) {
+            leftButton = new GuiButtonChangeValue( bounds.x, bounds.y, buttonSize, bounds.height, 180 );
+            rightButton = new GuiButtonChangeValue( bounds.x + bounds.width - buttonSize, bounds.y, buttonSize, bounds.height, 0 );
+        } else {
+            leftButton = new GuiButtonChangeValue( bounds.x, bounds.y, buttonSize, bounds.height, 180, engine );
+            rightButton = new GuiButtonChangeValue( bounds.x + bounds.width - buttonSize, bounds.y, buttonSize, bounds.height, 0, engine );
+        }
     }
     
     @Override
