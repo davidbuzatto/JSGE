@@ -226,6 +226,11 @@ public abstract class EngineFrame extends JFrame {
     /** Ação para o a rolagem para baixo do mouse. */
     private GameAction mouseWheelDownAction;
     
+    /** Valor da rolagem para cima. */
+    private double mouseWheelUpValue;
+    /** Valor da rolagem para baixo. */
+    private double mouseWheelDownValue;
+    
     /** Indicação se o botão da esquerda do mouse foi processo do ciclo atual. */
     private boolean mouseButtonLeftProcessed;
     /** Indicação se o botão do meio do mouse foi processo do ciclo atual. */
@@ -467,7 +472,7 @@ public abstract class EngineFrame extends JFrame {
                    boolean antialiasing ) {
         this( windowWidth, windowHeight, windowTitle, targetFPS, antialiasing, false, false, false, false );
     }
-
+    
     private void start() {
 
         new Thread( () -> {
@@ -477,6 +482,8 @@ public abstract class EngineFrame extends JFrame {
                 timeBefore = System.currentTimeMillis();
                 
                 gpInputManager.prepareToNextCycle();
+                mouseWheelUpValue = mouseWheelUpAction.getAmount();
+                mouseWheelDownValue = mouseWheelDownAction.getAmount();
                 
                 try {
                     update( frameTime / 1000.0 ); // getFrameTime();
@@ -762,9 +769,9 @@ public abstract class EngineFrame extends JFrame {
      * @return A movimentação da roda de rolagem do mouse.
      */
     public double getMouseWheelMove() {
-        double vUp = mouseWheelUpAction.getAmount();
-        double vDown = mouseWheelDownAction.getAmount();
-        return vUp >= vDown ? vUp : -vDown;
+        //double mouseWheelUpValue = mouseWheelUpAction.getAmount();
+        //double mouseWheelDownValue = mouseWheelDownAction.getAmount();
+        return mouseWheelUpValue >= mouseWheelDownValue ? mouseWheelUpValue : -mouseWheelDownValue;
     }
 
     /**

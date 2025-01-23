@@ -115,7 +115,7 @@ public class IMGUIExample extends EngineFrame {
      * Cria o exemplo.
      */
     public IMGUIExample() {
-        super( 900, 840, "IMGUI", 60, true );
+        super( 905, 840, "IMGUI", 60, true );
     }
     
     @Override
@@ -459,7 +459,7 @@ public class IMGUIExample extends EngineFrame {
         drawText( String.format( "value (v): %.2f", verticalSlider.getValue() ), dataMargin, verticalSlider.getBounds().y + verticalSlider.getBounds().height / 2 + 20, 12, GRAY );
         drawText( String.format( "size: %d", textField.getValue().length() ), dataMargin, textField.getBounds().y + textField.getBounds().height / 2 - 3, 12, GRAY );
         drawText( String.format( "selected: %s", "wp" ), dataMargin, labelDropdownList.getBounds().y + labelDropdownList.getBounds().height / 2 - 3, 12, GRAY );
-        drawText( String.format( "selected: %s", list.getSelectedItem() ), dataMargin, list.getBounds().y + list.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( String.format( "selected: %s", list.getSelectedItemText() ), dataMargin, list.getBounds().y + list.getBounds().height / 2 - 3, 12, GRAY );
         
         buttonShowMessageDialog.draw();
         buttonShowInputDialog.draw();

@@ -299,7 +299,7 @@ public class GuiList extends GuiComponent {
         
     }
     
-    public String getSelectedItem() {
+    public String getSelectedItemText() {
         for ( ListItem item : items ) {
             if ( item.selected ) {
                 return item.text;
@@ -307,6 +307,18 @@ public class GuiList extends GuiComponent {
         }
         // não deve chegar aqui
         return null;
+    }
+    
+    public int getSelectedItemIndex() {
+        int index = -1;
+        for ( ListItem item : items ) {
+            index++;
+            if ( item.selected ) {
+                return index;
+            }
+        }
+        // não deve chegar aqui
+        return index;
     }
     
 }

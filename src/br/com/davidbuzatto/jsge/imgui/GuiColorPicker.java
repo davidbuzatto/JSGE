@@ -74,6 +74,8 @@ public class GuiColorPicker extends GuiComponent {
         
         hueSlider.setShowTrack( false );
         alphaSlider.setShowTrack( false );
+        hueSlider.setMouseWheelEnabled( false );
+        alphaSlider.setMouseWheelEnabled( false );
         
         saturationAndValuePosition = new Vector2( 
                 bounds.x + bounds.width * hsv[1],
@@ -93,6 +95,16 @@ public class GuiColorPicker extends GuiComponent {
             
             hueSlider.update( delta );
             alphaSlider.update( delta );
+            
+            double mouseWheelMove = engine.getMouseWheelMove();
+            
+            if ( hueSlider.mouseState == GuiComponentMouseState.MOUSE_OVER ) {
+                hueSlider.setValue( hueSlider.getValue() - mouseWheelMove * 5 );
+            }
+            
+            if ( alphaSlider.mouseState == GuiComponentMouseState.MOUSE_OVER ) {
+                alphaSlider.setValue( alphaSlider.getValue() + mouseWheelMove * 5 );
+            }
             
             if ( engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
                 if ( CollisionUtils.checkCollisionPointRectangle( mousePos, bounds ) ) {

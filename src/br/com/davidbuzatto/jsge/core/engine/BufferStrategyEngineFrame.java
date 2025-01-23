@@ -109,8 +109,12 @@ import net.java.games.input.ControllerEnvironment;
  * Cópia da classe Engine, mas utilizando BufferedStrategy para o desenho.
  * O desempenho parece ser pior!
  * 
+ * Essa classe será removida futuramente e não está sendo mais atualiza!
+ * Ela está sendo mantida para fins de consulta.
+ * 
  * @author Prof. Dr. David Buzatto
  */
+@Deprecated( forRemoval = true )
 public abstract class BufferStrategyEngineFrame extends JFrame {
 
     /**

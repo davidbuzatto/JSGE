@@ -41,6 +41,8 @@ public class GuiSlider extends GuiComponent {
     private int trackOrientation;
     private boolean showTrack;
     
+    private boolean mouseWheelEnabled;
+    
     public GuiSlider( double x, double y, double width, double height, double value, double min, double max, EngineFrame engine ) {
         this( x, y, width, height, value, min, max, HORIZONTAL, engine );
     }
@@ -87,6 +89,7 @@ public class GuiSlider extends GuiComponent {
         this.max = max;
         this.trackOrientation = trackOrientation;
         this.showTrack = true;
+        this.mouseWheelEnabled = true;
     }
     
     private void initComponents( EngineFrame engine, double sliderRadius ) {
@@ -115,6 +118,17 @@ public class GuiSlider extends GuiComponent {
             
             Vector2 mousePos = engine.getMousePositionPoint();
             sliderButton.update( delta, bounds );
+            
+            if ( mouseWheelEnabled ) {
+                if ( mouseState == GuiComponentMouseState.MOUSE_OVER ) {
+                    double mouseWheelMove = engine.getMouseWheelMove() * ( ( max - min ) / 10 );
+                    if ( min <= max ) {
+                        setValue( getValue() + mouseWheelMove );
+                    } else {
+                        setValue( getValue() - mouseWheelMove );
+                    }
+                }
+            }
             
             if ( mouseState == GuiComponentMouseState.MOUSE_DOWN && sliderButton.mouseState == GuiComponentMouseState.MOUSE_OUT ) {
                 if ( trackOrientation == VERTICAL ) {
@@ -238,7 +252,11 @@ public class GuiSlider extends GuiComponent {
     }
 
     public void setValue( double value ) {
-        this.value = MathUtils.clamp( value, min, max );
+        if ( min <= max ) {
+            this.value = MathUtils.clamp( value, min, max );
+        } else {
+            this.value = MathUtils.clamp( value, max, min );
+        }
         updateSliderButtonPosition();
     }
 
@@ -258,8 +276,20 @@ public class GuiSlider extends GuiComponent {
         this.max = max;
     }
 
+    public boolean isShowTrack() {
+        return showTrack;
+    }
+
     public void setShowTrack( boolean showTrack ) {
         this.showTrack = showTrack;
+    }
+
+    public boolean isMouseWheelEnabled() {
+        return mouseWheelEnabled;
+    }
+
+    public void setMouseWheelEnabled( boolean mouseWheelEnabled ) {
+        this.mouseWheelEnabled = mouseWheelEnabled;
     }
     
     private class GuiSliderButton extends GuiButton {
