@@ -48,16 +48,44 @@ public class GuiConfirmDialog extends GuiWindow {
     
     private boolean boundsCalculationOk;
     
+    /**
+     * 
+     * @param title
+     * @param message
+     * @param button1Text
+     * @param button2Text
+     * @param button3Text
+     * @param useOverlay
+     * @param engine 
+     */
     public GuiConfirmDialog( String title, String message, String button1Text, String button2Text, String button3Text, boolean useOverlay, EngineFrame engine ) {
         super( 0, 0, 0, 0, title, engine );
         initComponents( engine, message, button1Text, button2Text, button3Text, useOverlay );
     }
     
+    /**
+     * 
+     * @param title
+     * @param message
+     * @param button1Text
+     * @param button2Text
+     * @param button3Text
+     * @param useOverlay 
+     */
     public GuiConfirmDialog( String title, String message, String button1Text, String button2Text, String button3Text, boolean useOverlay ) {
         super( 0, 0, 0, 0, title );
         initComponents( null, message, button1Text, button2Text, button3Text, useOverlay );
     }
     
+    /**
+     * 
+     * @param engine
+     * @param message
+     * @param button1Text
+     * @param button2Text
+     * @param button3Text
+     * @param useOverlay 
+     */
     private void initComponents( EngineFrame engine, String message, String button1Text, String button2Text, String button3Text, boolean useOverlay ) {
         super.initComponents( engine );
         this.message = message;
@@ -189,13 +217,21 @@ public class GuiConfirmDialog extends GuiWindow {
 
     @Override
     public void setVisible( boolean visible ) {
-        throw new IllegalStateException( "You must use shot and hide methods." );
+        throw new IllegalStateException( "You must use show and hide methods." );
     }
     
+    /**
+     * 
+     */
     public void show() {
         show( engine.getScreenWidth() / 2 - bounds.width / 2, engine.getScreenHeight() / 2 - bounds.height / 2 );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y 
+     */
     public void show( double x, double y ) {
         bounds.x = x;
         bounds.y = y;
@@ -203,22 +239,41 @@ public class GuiConfirmDialog extends GuiWindow {
         super.setVisible( true );
     }
     
+    /**
+     * 
+     */
     public void hide() {
         super.setVisible( false );
     }
     
+    /**
+     * 
+     * @return 
+     */
     public boolean isButton1Pressed() {
         return button1.isMousePressed();
     }
     
+    /**
+     * 
+     * @return 
+     */
     public boolean isButton2Pressed() {
         return button2.isMousePressed();
     }
     
+    /**
+     * 
+     * @return 
+     */
     public boolean isButton3Pressed() {
         return button3.isMousePressed();
     }
     
+    /**
+     * 
+     * @return 
+     */
     public String getPressedButton() {
         for ( int i = 0; i < buttons.length; i++ ) {
             if ( buttons[i].isMousePressed() ) {

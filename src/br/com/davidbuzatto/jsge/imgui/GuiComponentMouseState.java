@@ -17,7 +17,7 @@
 package br.com.davidbuzatto.jsge.imgui;
 
 /**
- * Estado do mouse em relaão aos componentes.
+ * Enumeração que definite os tipos de estado do mouse em relação aos componentes.
  * 
  * @author Prof. Dr. David Buzatto
  */

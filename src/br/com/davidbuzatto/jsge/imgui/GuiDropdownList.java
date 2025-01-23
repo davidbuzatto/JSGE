@@ -33,21 +33,49 @@ public class GuiDropdownList extends GuiComponent {
     private GuiList itemsList;
     private boolean wasSelected;
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param itemsText
+     * @param engine 
+     */
     public GuiDropdownList( double x, double y, double width, double height, List<String> itemsText, EngineFrame engine ) {
         super( x, y, width, height, engine );
         initComponents( engine, itemsText );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param itemsText 
+     */
     public GuiDropdownList( double x, double y, double width, double height, List<String> itemsText ) {
         super( x, y, width, height );
         initComponents( null, itemsText );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param itemsText
+     * @param engine 
+     */
     public GuiDropdownList( Rectangle bounds, List<String> itemsText, EngineFrame engine ) {
         super( bounds, engine );
         initComponents( engine, itemsText );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param itemsText 
+     */
     public GuiDropdownList( Rectangle bounds, List<String> itemsText ) {
         super( bounds );
         initComponents( null, itemsText );
@@ -163,14 +191,26 @@ public class GuiDropdownList extends GuiComponent {
         itemsList.setEnabled( enabled );
     }
     
+    /**
+     * 
+     * @return 
+     */
     public String getSelectedItemText() {
         return itemsList.getSelectedItemText();
     }
     
+    /**
+     * 
+     * @return 
+     */
     public int getSelectedItemIndex() {
         return itemsList.getSelectedItemIndex();
     }
     
+    /**
+     * 
+     * @return 
+     */
     public boolean isDropdownListVisible() {
         return itemsList.isVisible();
     }

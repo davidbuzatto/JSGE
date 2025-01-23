@@ -23,22 +23,53 @@ import java.awt.Color;
 /**
  * Um container do tipo grupo.
  * 
+ * Atenção: nenhum container possui componentes filhos.
+ * Eles são apenas um artifício gráfico para agrupar componentes.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class GuiGroup extends GuiTextComponent {
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param title
+     * @param engine 
+     */
     public GuiGroup( double x, double y, double width, double height, String title, EngineFrame engine ) {
         super( x, y, width, height, title, engine );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param title 
+     */
     public GuiGroup( double x, double y, double width, double height, String title ) {
         super( x, y, width, height, title );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param title
+     * @param engine 
+     */
     public GuiGroup( Rectangle bounds, String title, EngineFrame engine ) {
         super( bounds, title, engine );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param title 
+     */
     public GuiGroup( Rectangle bounds, String title ) {
         super( bounds, title );
     }

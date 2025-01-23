@@ -32,26 +32,68 @@ public class GuiProgressBar extends GuiComponent {
     private double min;
     private double max;
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param value
+     * @param min
+     * @param max
+     * @param engine 
+     */
     public GuiProgressBar( double x, double y, double width, double height, double value, double min, double max, EngineFrame engine ) {
         super( x, y, width, height, engine );
         initData( value, min, max );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param value
+     * @param min
+     * @param max 
+     */
     public GuiProgressBar( double x, double y, double width, double height, double value, double min, double max ) {
         super( x, y, width, height );
         initData( value, min, max );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param value
+     * @param min
+     * @param max
+     * @param engine 
+     */
     public GuiProgressBar( Rectangle bounds, double value, double min, double max, EngineFrame engine ) {
         super( bounds, engine );
         initData( value, min, max );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param value
+     * @param min
+     * @param max 
+     */
     public GuiProgressBar( Rectangle bounds, double value, double min, double max ) {
         super( bounds );
         initData( value, min, max );
     }
     
+    /**
+     * 
+     * @param value
+     * @param min
+     * @param max 
+     */
     private void initData( double value, double min, double max ) {
         this.value = value;
         this.min = min;
@@ -86,30 +128,58 @@ public class GuiProgressBar extends GuiComponent {
         engine.drawRectangle( bounds, borderColor );
     }
 
+    /**
+     * 
+     * @return 
+     */
     public double getValue() {
         return value;
     }
 
+    /**
+     * 
+     * @param value 
+     */
     public void setValue( double value ) {
         this.value = MathUtils.clamp( value, min, max );
     }
 
+    /**
+     * 
+     * @return 
+     */
     public double getMin() {
         return min;
     }
 
+    /**
+     * 
+     * @param min 
+     */
     public void setMin( double min ) {
         this.min = min;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public double getMax() {
         return max;
     }
 
+    /**
+     * 
+     * @param max 
+     */
     public void setMax( double max ) {
         this.max = max;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public double getPercentage() {
         return MathUtils.clamp( MathUtils.inverseLerp( min, max, value ), 0, 1 );
     }

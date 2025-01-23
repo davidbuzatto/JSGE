@@ -20,7 +20,7 @@ import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 
 /**
- * Um componente etiqueta que se comporta como um botão.
+ * Um componente de etiqueta que se comporta como um botão.
  * 
  * @author Prof. Dr. David Buzatto
  */

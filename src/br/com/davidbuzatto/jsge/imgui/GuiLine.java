@@ -33,37 +33,97 @@ public class GuiLine extends GuiTextComponent {
     private int textHeight;
     private int charWidth;
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param text
+     * @param engine 
+     */
     public GuiLine( double x, double y, double width, double height, String text, EngineFrame engine ) {
         this( x, y, width, height, text, HORIZONTAL, engine );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param text 
+     */
     public GuiLine( double x, double y, double width, double height, String text ) {
         this( x, y, width, height, text, HORIZONTAL );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param text
+     * @param engine 
+     */
     public GuiLine( Rectangle bounds, String text, EngineFrame engine ) {
         this( bounds, text, HORIZONTAL, engine );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param text 
+     */
     public GuiLine( Rectangle bounds, String text ) {
         this( bounds, text, HORIZONTAL );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param text
+     * @param orientation
+     * @param engine 
+     */
     public GuiLine( double x, double y, double width, double height, String text, int orientation, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
         this.orientation = orientation;
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param text
+     * @param orientation 
+     */
     public GuiLine( double x, double y, double width, double height, String text, int orientation ) {
         super( x, y, width, height, text );
         this.orientation = orientation;
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param text
+     * @param orientation
+     * @param engine 
+     */
     public GuiLine( Rectangle bounds, String text, int orientation, EngineFrame engine ) {
         super( bounds, text, engine );
         this.orientation = orientation;
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param text
+     * @param orientation 
+     */
     public GuiLine( Rectangle bounds, String text, int orientation ) {
         super( bounds, text );
         this.orientation = orientation;

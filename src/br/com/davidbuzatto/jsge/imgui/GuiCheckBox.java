@@ -29,18 +29,46 @@ public class GuiCheckBox extends GuiTextComponent {
     
     protected boolean selected;
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param text
+     * @param engine 
+     */
     public GuiCheckBox( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param text 
+     */
     public GuiCheckBox( double x, double y, double width, double height, String text ) {
         super( x, y, width, height, text );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param text
+     * @param engine 
+     */
     public GuiCheckBox( Rectangle bounds, String text, EngineFrame engine ) {
         super( bounds, text, engine );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param text 
+     */
     public GuiCheckBox( Rectangle bounds, String text ) {
         super( bounds, text );
     }
@@ -106,10 +134,18 @@ public class GuiCheckBox extends GuiTextComponent {
         }
     }
 
+    /**
+     * 
+     * @param selected 
+     */
     public void setSelected( boolean selected ) {
         this.selected = selected;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public boolean isSelected() {
         return this.selected;
     }

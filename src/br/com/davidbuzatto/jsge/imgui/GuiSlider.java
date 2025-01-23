@@ -24,7 +24,7 @@ import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
- * Um componente deslizante.
+ * Um componente de controle deslizante.
  * 
  * @author Prof. Dr. David Buzatto
  */
@@ -43,40 +43,116 @@ public class GuiSlider extends GuiComponent {
     
     private boolean mouseWheelEnabled;
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param value
+     * @param min
+     * @param max
+     * @param engine 
+     */
     public GuiSlider( double x, double y, double width, double height, double value, double min, double max, EngineFrame engine ) {
         this( x, y, width, height, value, min, max, HORIZONTAL, engine );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param value
+     * @param min
+     * @param max 
+     */
     public GuiSlider( double x, double y, double width, double height, double value, double min, double max ) {
         this( x, y, width, height, value, min, max, HORIZONTAL );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param value
+     * @param min
+     * @param max
+     * @param engine 
+     */
     public GuiSlider( Rectangle bounds, double value, double min, double max, EngineFrame engine ) {
         this( bounds, value, min, max, HORIZONTAL, engine );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param value
+     * @param min
+     * @param max 
+     */
     public GuiSlider( Rectangle bounds, double value, double min, double max ) {
         this( bounds, value, min, max, HORIZONTAL );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param value
+     * @param min
+     * @param max
+     * @param trackOrientation
+     * @param engine 
+     */
     public GuiSlider( double x, double y, double width, double height, double value, double min, double max, int trackOrientation, EngineFrame engine ) {
         super( x, y, width, height, engine );
         initData( value, min, max, trackOrientation );
         initComponents( engine, SLIDER_RADIUS );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param value
+     * @param min
+     * @param max
+     * @param trackOrientation 
+     */
     public GuiSlider( double x, double y, double width, double height, double value, double min, double max, int trackOrientation ) {
         super( x, y, width, height );
         initData( value, min, max, trackOrientation );
         initComponents( null, SLIDER_RADIUS );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param value
+     * @param min
+     * @param max
+     * @param trackOrientation
+     * @param engine 
+     */
     public GuiSlider( Rectangle bounds, double value, double min, double max, int trackOrientation, EngineFrame engine ) {
         super( bounds, engine );
         initData( value, min, max, trackOrientation );
         initComponents( engine, SLIDER_RADIUS );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param value
+     * @param min
+     * @param max
+     * @param trackOrientation 
+     */
     public GuiSlider( Rectangle bounds, double value, double min, double max, int trackOrientation ) {
         super( bounds );
         initData( value, min, max, trackOrientation );
@@ -247,10 +323,18 @@ public class GuiSlider extends GuiComponent {
         sliderButton.setVisible( visible );
     }
     
+    /**
+     * 
+     * @return 
+     */
     public double getValue() {
         return value;
     }
 
+    /**
+     * 
+     * @param value 
+     */
     public void setValue( double value ) {
         if ( min <= max ) {
             this.value = MathUtils.clamp( value, min, max );
@@ -260,34 +344,66 @@ public class GuiSlider extends GuiComponent {
         updateSliderButtonPosition();
     }
 
+    /**
+     * 
+     * @return 
+     */
     public double getMin() {
         return min;
     }
 
+    /**
+     * 
+     * @param min 
+     */
     public void setMin( double min ) {
         this.min = min;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public double getMax() {
         return max;
     }
 
+    /**
+     * 
+     * @param max 
+     */
     public void setMax( double max ) {
         this.max = max;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public boolean isShowTrack() {
         return showTrack;
     }
 
+    /**
+     * 
+     * @param showTrack 
+     */
     public void setShowTrack( boolean showTrack ) {
         this.showTrack = showTrack;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public boolean isMouseWheelEnabled() {
         return mouseWheelEnabled;
     }
 
+    /**
+     * 
+     * @param mouseWheelEnabled 
+     */
     public void setMouseWheelEnabled( boolean mouseWheelEnabled ) {
         this.mouseWheelEnabled = mouseWheelEnabled;
     }

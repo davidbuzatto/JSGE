@@ -25,6 +25,9 @@ import java.awt.Color;
 /**
  * Um container do tipo painel.
  * 
+ * Atenção: nenhum container possui componentes filhos.
+ * Eles são apenas um artifício gráfico para agrupar componentes.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class GuiPanel extends GuiTextComponent {
@@ -32,21 +35,49 @@ public class GuiPanel extends GuiTextComponent {
     private Rectangle titleBarBounds;
     private boolean titleBarPressed;
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param title
+     * @param engine 
+     */
     public GuiPanel( double x, double y, double width, double height, String title, EngineFrame engine ) {
         super( x, y, width, height, title, engine );
         initComponents();
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param title 
+     */
     public GuiPanel( double x, double y, double width, double height, String title ) {
         super( x, y, width, height, title );
         initComponents();
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param title
+     * @param engine 
+     */
     public GuiPanel( Rectangle bounds, String title, EngineFrame engine ) {
         super( bounds, title, engine );
         initComponents();
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param title 
+     */
     public GuiPanel( Rectangle bounds, String title ) {
         super( bounds, title );
         initComponents();
@@ -115,6 +146,10 @@ public class GuiPanel extends GuiTextComponent {
         titleBarBounds.y += yAmount;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public boolean isTitleBarPressed() {
         return titleBarPressed;
     }

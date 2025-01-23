@@ -31,18 +31,46 @@ public class GuiToggleButton extends GuiCheckBox {
     
     protected GuiButtonGroup buttonGroup;
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param text
+     * @param engine 
+     */
     public GuiToggleButton( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param text 
+     */
     public GuiToggleButton( double x, double y, double width, double height, String text ) {
         super( x, y, width, height, text );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param text
+     * @param engine 
+     */
     public GuiToggleButton( Rectangle bounds, String text, EngineFrame engine ) {
         super( bounds, text, engine );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param text 
+     */
     public GuiToggleButton( Rectangle bounds, String text ) {
         super( bounds, text );
     }
@@ -125,6 +153,10 @@ public class GuiToggleButton extends GuiCheckBox {
         engine.drawRectangle( bounds, borderColor );
     }
 
+    /**
+     * 
+     * @param buttonGroup 
+     */
     public void setButtonGroup( GuiButtonGroup buttonGroup ) {
         this.buttonGroup = buttonGroup;
         this.buttonGroup.addToggleButton( this );

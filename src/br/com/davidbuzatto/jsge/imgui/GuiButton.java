@@ -27,18 +27,46 @@ import java.awt.Color;
  */
 public class GuiButton extends GuiTextComponent {
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param text
+     * @param engine 
+     */
     public GuiButton( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param text 
+     */
     public GuiButton( double x, double y, double width, double height, String text ) {
         super( x, y, width, height, text );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param text
+     * @param engine 
+     */
     public GuiButton( Rectangle bounds, String text, EngineFrame engine ) {
         super( bounds, text, engine );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param text 
+     */
     public GuiButton( Rectangle bounds, String text ) {
         super( bounds, text );
     }

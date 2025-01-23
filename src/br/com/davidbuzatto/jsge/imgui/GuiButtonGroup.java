@@ -29,14 +29,25 @@ public class GuiButtonGroup {
     
     private final Set<GuiToggleButton> toggleButtons;
     
+    /**
+     * 
+     */
     public GuiButtonGroup() {
         toggleButtons = new HashSet<>();
     }
     
+    /**
+     * 
+     * @param toggleButton 
+     */
     public void addToggleButton( GuiToggleButton toggleButton ) {
         toggleButtons.add( toggleButton );
     }
     
+    /**
+     * 
+     * @param target 
+     */
     public void toggle( GuiToggleButton target ) {
         
         GuiToggleButton selected = null;

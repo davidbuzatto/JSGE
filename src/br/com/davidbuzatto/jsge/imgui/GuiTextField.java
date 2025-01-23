@@ -24,7 +24,10 @@ import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
- * Um componente de campo de texto.
+ * Um componente de campo de texto. Este componente é um tanto rudimentar,
+ * aceitando apenas letras não acentuadas, dígitos e alguns sinais
+ * de pontuação, como vírgulas, pontos etc. Não há suporte para 
+ * diferenciação de letras maiúsculas e minúsculas.
  * 
  * @author Prof. Dr. David Buzatto
  */
@@ -45,21 +48,49 @@ public class GuiTextField extends GuiComponent {
     private double keyDelayCounter;
     private int lastKey;
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param value
+     * @param engine 
+     */
     public GuiTextField( double x, double y, double width, double height, String value, EngineFrame engine ) {
         super( x, y, width, height, engine );
         initData( value );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param value 
+     */
     public GuiTextField( double x, double y, double width, double height, String value ) {
         super( x, y, width, height );
         initData( value );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param value
+     * @param engine 
+     */
     public GuiTextField( Rectangle bounds, String value, EngineFrame engine ) {
         super( bounds, engine );
         initData( value );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param value 
+     */
     public GuiTextField( Rectangle bounds, String value ) {
         super( bounds );
         initData( value );
@@ -221,6 +252,11 @@ public class GuiTextField extends GuiComponent {
         engine.drawText( value, bounds.x + 5, bounds.y + bounds.height / 2 - 3, FONT_SIZE, textColor );
     }
     
+    /**
+     * 
+     * @param key
+     * @return 
+     */
     public boolean isValid( int key ) {
         return ( key >= EngineFrame.KEY_A && key <= EngineFrame.KEY_Z ) ||
                ( key >= EngineFrame.KEY_ZERO && key <= EngineFrame.KEY_NINE ) ||
@@ -246,10 +282,18 @@ public class GuiTextField extends GuiComponent {
         }
     }
     
+    /**
+     * 
+     * @return 
+     */
     public String getValue() {
         return value;
     }
     
+    /**
+     * 
+     * @param value 
+     */
     public void setValue( String value ) {
         if ( value == null ) {
             this.value = "";

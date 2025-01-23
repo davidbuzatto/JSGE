@@ -40,21 +40,49 @@ public class GuiColorPicker extends GuiComponent {
     private GuiSlider hueSlider;
     private GuiSlider alphaSlider;
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param initialColor
+     * @param engine 
+     */
     public GuiColorPicker( double x, double y, double width, double height, Color initialColor, EngineFrame engine ) {
         super( x, y, width, height, engine );
         initComponents( engine, initialColor );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param initialColor 
+     */
     public GuiColorPicker( double x, double y, double width, double height, Color initialColor ) {
         super( x, y, width, height );
         initComponents( null, initialColor );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param initialColor
+     * @param engine 
+     */
     public GuiColorPicker( Rectangle bounds, Color initialColor, EngineFrame engine ) {
         super( bounds, engine );
         initComponents( engine, initialColor );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param initialColor 
+     */
     public GuiColorPicker( Rectangle bounds, Color initialColor ) {
         super( bounds );
         initComponents( null, initialColor );
@@ -241,6 +269,10 @@ public class GuiColorPicker extends GuiComponent {
         alphaSlider.setEnabled( enabled );
     }
     
+    /**
+     * 
+     * @return 
+     */
     public Color getColor() {
         return ColorUtils.fade( 
                 ColorUtils.colorFromHSV( 
@@ -252,14 +284,26 @@ public class GuiColorPicker extends GuiComponent {
         );
     }
     
+    /**
+     * 
+     * @return 
+     */
     public double getHue() {
         return hueSlider.getValue();
     }
     
+    /**
+     * 
+     * @return 
+     */
     public double getSaturation() {
         return ( saturationAndValuePosition.x - bounds.x ) / bounds.width;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public double getValue() {
         return 1.0 - ( saturationAndValuePosition.y - bounds.y ) / bounds.height;
     }

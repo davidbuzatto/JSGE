@@ -31,24 +31,56 @@ public abstract class GuiTextComponent extends GuiComponent {
     protected String text;
     protected int textWidth = -1;
 
+    /**
+     * 
+     * @param rectangle
+     * @param text
+     * @param engine 
+     */
     public GuiTextComponent( Rectangle rectangle, String text, EngineFrame engine ) {
         super( rectangle, engine );
         this.text = text;
     }
     
+    /**
+     * 
+     * @param rectangle
+     * @param text 
+     */
     public GuiTextComponent( Rectangle rectangle, String text ) {
         super( rectangle );
         this.text = text;
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param text
+     * @param engine 
+     */
     public GuiTextComponent( double x, double y, double width, double height, String text, EngineFrame engine ) {
         this( new Rectangle( x, y, width, height ), text, engine );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param text 
+     */
     public GuiTextComponent( double x, double y, double width, double height, String text ) {
         this( new Rectangle( x, y, width, height ), text );
     }
     
+    /**
+     * 
+     * @param textColor 
+     */
     protected void drawText( Color textColor ) {
         engine.drawText(
                 text,
@@ -58,6 +90,12 @@ public abstract class GuiTextComponent extends GuiComponent {
                 textColor );
     }
     
+    /**
+     * 
+     * @param textColor
+     * @param xOffset
+     * @param yOffset 
+     */
     protected void drawText( Color textColor, double xOffset, double yOffset ) {
         engine.drawText(
                 text,
@@ -67,6 +105,10 @@ public abstract class GuiTextComponent extends GuiComponent {
                 textColor );
     }
     
+    /**
+     * 
+     * @param textColor 
+     */
     protected void drawTextAfterBounds( Color textColor ) {
         engine.drawText(
                 text,
@@ -76,6 +118,11 @@ public abstract class GuiTextComponent extends GuiComponent {
                 textColor );
     }
     
+    /**
+     * 
+     * @param textColor
+     * @param xOffset 
+     */
     protected void drawTextAfterBounds( Color textColor, double xOffset ) {
         engine.drawText(
                 text,
@@ -85,6 +132,10 @@ public abstract class GuiTextComponent extends GuiComponent {
                 textColor );
     }
     
+    /**
+     * 
+     * @param textColor 
+     */
     protected void drawCenteredText( Color textColor ) {
         if ( textWidth == -1 ) {
             textWidth = engine.measureText( text, FONT_SIZE );
@@ -97,6 +148,10 @@ public abstract class GuiTextComponent extends GuiComponent {
                 textColor );
     }
 
+    /**
+     * 
+     * @param text 
+     */
     public void setText( String text ) {
         this.text = text;
         textWidth = engine.measureText( text, FONT_SIZE );

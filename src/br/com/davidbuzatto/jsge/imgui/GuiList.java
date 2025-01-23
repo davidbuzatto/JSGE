@@ -46,21 +46,49 @@ public class GuiList extends GuiComponent {
     private double scrollOffset;
     private double prevScrollOffset;
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param itemsText
+     * @param engine 
+     */
     public GuiList( double x, double y, double width, double height, List<String> itemsText, EngineFrame engine ) {
         super( x, y, width, height, engine );
         initComponents( engine, itemsText );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param itemsText 
+     */
     public GuiList( double x, double y, double width, double height, List<String> itemsText ) {
         super( x, y, width, height );
         initComponents( null, itemsText );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param itemsText
+     * @param engine 
+     */
     public GuiList( Rectangle bounds, List<String> itemsText, EngineFrame engine ) {
         super( bounds, engine );
         initComponents( engine, itemsText );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param itemsText 
+     */
     public GuiList( Rectangle bounds, List<String> itemsText ) {
         super( bounds );
         initComponents( null, itemsText );
@@ -250,6 +278,10 @@ public class GuiList extends GuiComponent {
         }
     }
     
+    /**
+     * 
+     * @return 
+     */
     public String getSelectedItemText() {
         for ( ListItem item : items ) {
             if ( item.selected ) {
@@ -259,6 +291,10 @@ public class GuiList extends GuiComponent {
         return null;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public int getSelectedItemIndex() {
         int index = -1;
         for ( ListItem item : items ) {
@@ -274,6 +310,10 @@ public class GuiList extends GuiComponent {
         return itemTextHeight;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public boolean isMouseOutEntirely() {
         return mouseState == GuiComponentMouseState.MOUSE_OUT && scrollBar.mouseState == GuiComponentMouseState.MOUSE_OUT;
     }

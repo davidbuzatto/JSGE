@@ -44,11 +44,24 @@ public class GuiMessageDialog extends GuiWindow {
     
     private boolean boundsCalculationOk;
     
+    /**
+     * 
+     * @param title
+     * @param message
+     * @param useOverlay
+     * @param engine 
+     */
     public GuiMessageDialog( String title, String message, boolean useOverlay, EngineFrame engine ) {
         super( 0, 0, 0, 0, title, engine );
         initComponents( engine, message, useOverlay );
     }
     
+    /**
+     * 
+     * @param title
+     * @param message
+     * @param useOverlay 
+     */
     public GuiMessageDialog( String title, String message, boolean useOverlay ) {
         super( 0, 0, 0, 0, title );
         initComponents( null, message, useOverlay );
@@ -147,13 +160,21 @@ public class GuiMessageDialog extends GuiWindow {
 
     @Override
     public void setVisible( boolean visible ) {
-        throw new IllegalStateException( "You must use shot and hide methods." );
+        throw new IllegalStateException( "You must use show and hide methods." );
     }
     
+    /**
+     * 
+     */
     public void show() {
         show( engine.getScreenWidth() / 2 - bounds.width / 2, engine.getScreenHeight() / 2 - bounds.height / 2 );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y 
+     */
     public void show( double x, double y ) {
         bounds.x = x;
         bounds.y = y;
@@ -161,10 +182,17 @@ public class GuiMessageDialog extends GuiWindow {
         super.setVisible( true );
     }
     
+    /**
+     * 
+     */
     public void hide() {
         super.setVisible( false );
     }
     
+    /**
+     * 
+     * @return 
+     */
     public boolean isOkButtonPressed() {
         return okButton.isMousePressed();
     }

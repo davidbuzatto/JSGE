@@ -25,6 +25,9 @@ import java.awt.Color;
 /**
  * Um container do tipo janela.
  * 
+ * Atenção: nenhum container possui componentes filhos.
+ * Eles são apenas um artifício gráfico para agrupar componentes.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class GuiWindow extends GuiTextComponent {
@@ -33,21 +36,49 @@ public class GuiWindow extends GuiTextComponent {
     protected Rectangle titleBarBounds;
     protected boolean titleBarPressed;
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param title
+     * @param engine 
+     */
     public GuiWindow( double x, double y, double width, double height, String title, EngineFrame engine ) {
         super( x, y, width, height, title, engine );
         initComponents( engine );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param title 
+     */
     public GuiWindow( double x, double y, double width, double height, String title ) {
         super( x, y, width, height, title );
         initComponents( null );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param title
+     * @param engine 
+     */
     public GuiWindow( Rectangle bounds, String title, EngineFrame engine ) {
         super( bounds, title, engine );
         initComponents( engine );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param title 
+     */
     public GuiWindow( Rectangle bounds, String title ) {
         super( bounds, title );
         initComponents( null );
@@ -148,10 +179,18 @@ public class GuiWindow extends GuiTextComponent {
         closeButton.bounds.y += yAmount;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public boolean isCloseButtonPressed() {
         return closeButton.isMousePressed();
     }
     
+    /**
+     * 
+     * @return 
+     */
     public boolean isTitleBarPressed() {
         if ( closeButton.isMousePressed() ) {
             return false;

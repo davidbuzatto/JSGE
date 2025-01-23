@@ -35,36 +35,83 @@ public class GuiSpinner extends GuiComponent {
     private GuiButtonChangeValue leftButton;
     private GuiButtonChangeValue rightButton;
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param value
+     * @param min
+     * @param max
+     * @param engine 
+     */
     public GuiSpinner( double x, double y, double width, double height, int value, int min, int max, EngineFrame engine ) {
         super( x, y, width, height, engine );
         initData( value, min, max );
         initComponents( engine, 24 );
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param value
+     * @param min
+     * @param max 
+     */
     public GuiSpinner( double x, double y, double width, double height, int value, int min, int max ) {
         super( x, y, width, height );
         initData( value, min, max );
         initComponents( null, 24 );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param value
+     * @param min
+     * @param max
+     * @param engine 
+     */
     public GuiSpinner( Rectangle bounds, int value, int min, int max, EngineFrame engine ) {
         super( bounds, engine );
         initData( value, min, max );
         initComponents( engine, 24 );
     }
     
+    /**
+     * 
+     * @param bounds
+     * @param value
+     * @param min
+     * @param max 
+     */
     public GuiSpinner( Rectangle bounds, int value, int min, int max ) {
         super( bounds );
         initData( value, min, max );
         initComponents( null, 24 );
     }
     
+    /**
+     * 
+     * @param value
+     * @param min
+     * @param max 
+     */
     private void initData( int value, int min, int max ) {
         this.value = value;
         this.min = min;
         this.max = max;
     }
     
+    /**
+     * 
+     * @param engine
+     * @param buttonSize 
+     */
     private void initComponents( EngineFrame engine, double buttonSize ) {
         if ( engine == null ) {
             leftButton = new GuiButtonChangeValue( bounds.x, bounds.y, buttonSize, bounds.height, 180 );
@@ -145,26 +192,50 @@ public class GuiSpinner extends GuiComponent {
         rightButton.setVisible( visible );
     }
     
+    /**
+     * 
+     * @return 
+     */
     public int getValue() {
         return value;
     }
 
+    /**
+     * 
+     * @param value 
+     */
     public void setValue( int value ) {
         this.value = MathUtils.clamp( value, min, max );
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getMin() {
         return min;
     }
 
+    /**
+     * 
+     * @param min 
+     */
     public void setMin( int min ) {
         this.min = min;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getMax() {
         return max;
     }
 
+    /**
+     * 
+     * @param max 
+     */
     public void setMax( int max ) {
         this.max = max;
     }
