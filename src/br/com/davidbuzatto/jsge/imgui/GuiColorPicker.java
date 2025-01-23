@@ -42,12 +42,15 @@ public class GuiColorPicker extends GuiComponent {
     
     /**
      * 
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param initialColor
-     * @param engine 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param initialColor A cor inicial.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
     public GuiColorPicker( double x, double y, double width, double height, Color initialColor, EngineFrame engine ) {
         super( x, y, width, height, engine );
@@ -56,11 +59,13 @@ public class GuiColorPicker extends GuiComponent {
     
     /**
      * 
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param initialColor 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param initialColor A cor inicial.
      */
     public GuiColorPicker( double x, double y, double width, double height, Color initialColor ) {
         super( x, y, width, height );
@@ -69,9 +74,10 @@ public class GuiColorPicker extends GuiComponent {
     
     /**
      * 
-     * @param bounds
-     * @param initialColor
-     * @param engine 
+     * @param bounds Um retângulo que define os limites do componente.
+     * @param initialColor A cor inicial.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
     public GuiColorPicker( Rectangle bounds, Color initialColor, EngineFrame engine ) {
         super( bounds, engine );
@@ -80,8 +86,8 @@ public class GuiColorPicker extends GuiComponent {
     
     /**
      * 
-     * @param bounds
-     * @param initialColor 
+     * @param bounds Um retângulo que define os limites do componente.
+     * @param initialColor A cor inicial.
      */
     public GuiColorPicker( Rectangle bounds, Color initialColor ) {
         super( bounds );

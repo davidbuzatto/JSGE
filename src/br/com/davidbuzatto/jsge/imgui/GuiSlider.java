@@ -38,21 +38,24 @@ public class GuiSlider extends GuiComponent {
     private double max;
     
     private GuiSliderButton sliderButton;
-    private int trackOrientation;
+    private int orientation;
     private boolean showTrack;
     
     private boolean mouseWheelEnabled;
     
     /**
      * 
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param value
-     * @param min
-     * @param max
-     * @param engine 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param value O valor inicial do componente.
+     * @param min O valor mínimo do componente.
+     * @param max O valor máximo do componente.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
     public GuiSlider( double x, double y, double width, double height, double value, double min, double max, EngineFrame engine ) {
         this( x, y, width, height, value, min, max, HORIZONTAL, engine );
@@ -60,13 +63,15 @@ public class GuiSlider extends GuiComponent {
     
     /**
      * 
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param value
-     * @param min
-     * @param max 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param value O valor inicial do componente.
+     * @param min O valor mínimo do componente.
+     * @param max O valor máximo do componente. 
      */
     public GuiSlider( double x, double y, double width, double height, double value, double min, double max ) {
         this( x, y, width, height, value, min, max, HORIZONTAL );
@@ -74,11 +79,12 @@ public class GuiSlider extends GuiComponent {
     
     /**
      * 
-     * @param bounds
-     * @param value
-     * @param min
-     * @param max
-     * @param engine 
+     * @param bounds Um retângulo que define os limites do componente.
+     * @param value O valor inicial do componente.
+     * @param min O valor mínimo do componente.
+     * @param max O valor máximo do componente.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
     public GuiSlider( Rectangle bounds, double value, double min, double max, EngineFrame engine ) {
         this( bounds, value, min, max, HORIZONTAL, engine );
@@ -86,10 +92,10 @@ public class GuiSlider extends GuiComponent {
     
     /**
      * 
-     * @param bounds
-     * @param value
-     * @param min
-     * @param max 
+     * @param bounds Um retângulo que define os limites do componente.
+     * @param value O valor inicial do componente.
+     * @param min O valor mínimo do componente.
+     * @param max O valor máximo do componente. 
      */
     public GuiSlider( Rectangle bounds, double value, double min, double max ) {
         this( bounds, value, min, max, HORIZONTAL );
@@ -97,86 +103,92 @@ public class GuiSlider extends GuiComponent {
     
     /**
      * 
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param value
-     * @param min
-     * @param max
-     * @param trackOrientation
-     * @param engine 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param value O valor inicial do componente.
+     * @param min O valor mínimo do componente.
+     * @param max O valor máximo do componente.
+     * @param orientation Se o controle deslizante é horizontal ou vertical.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
-    public GuiSlider( double x, double y, double width, double height, double value, double min, double max, int trackOrientation, EngineFrame engine ) {
+    public GuiSlider( double x, double y, double width, double height, double value, double min, double max, int orientation, EngineFrame engine ) {
         super( x, y, width, height, engine );
-        initData( value, min, max, trackOrientation );
+        initData( value, min, max, orientation );
         initComponents( engine, SLIDER_RADIUS );
     }
     
     /**
      * 
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param value
-     * @param min
-     * @param max
-     * @param trackOrientation 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param value O valor inicial do componente.
+     * @param min O valor mínimo do componente.
+     * @param max O valor máximo do componente.
+     * @param orientation Se o controle deslizante é horizontal ou vertical.
      */
-    public GuiSlider( double x, double y, double width, double height, double value, double min, double max, int trackOrientation ) {
+    public GuiSlider( double x, double y, double width, double height, double value, double min, double max, int orientation ) {
         super( x, y, width, height );
-        initData( value, min, max, trackOrientation );
+        initData( value, min, max, orientation );
         initComponents( null, SLIDER_RADIUS );
     }
     
     /**
      * 
-     * @param bounds
-     * @param value
-     * @param min
-     * @param max
-     * @param trackOrientation
-     * @param engine 
+     * @param bounds Um retângulo que define os limites do componente.
+     * @param value O valor inicial do componente.
+     * @param min O valor mínimo do componente.
+     * @param max O valor máximo do componente.
+     * @param orientation Se o controle deslizante é horizontal ou vertical.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
-    public GuiSlider( Rectangle bounds, double value, double min, double max, int trackOrientation, EngineFrame engine ) {
+    public GuiSlider( Rectangle bounds, double value, double min, double max, int orientation, EngineFrame engine ) {
         super( bounds, engine );
-        initData( value, min, max, trackOrientation );
+        initData( value, min, max, orientation );
         initComponents( engine, SLIDER_RADIUS );
     }
     
     /**
      * 
-     * @param bounds
-     * @param value
-     * @param min
-     * @param max
-     * @param trackOrientation 
+     * @param bounds Um retângulo que define os limites do componente.
+     * @param value O valor inicial do componente.
+     * @param min O valor mínimo do componente.
+     * @param max O valor máximo do componente.
+     * @param orientation Se o controle deslizante é horizontal ou vertical.
      */
-    public GuiSlider( Rectangle bounds, double value, double min, double max, int trackOrientation ) {
+    public GuiSlider( Rectangle bounds, double value, double min, double max, int orientation ) {
         super( bounds );
-        initData( value, min, max, trackOrientation );
+        initData( value, min, max, orientation );
         initComponents( null, SLIDER_RADIUS );
     }
     
-    private void initData( double value, double min, double max, int trackOrientation ) {
+    private void initData( double value, double min, double max, int orientation ) {
         this.value = value;
         this.min = min;
         this.max = max;
-        this.trackOrientation = trackOrientation;
+        this.orientation = orientation;
         this.showTrack = true;
         this.mouseWheelEnabled = true;
     }
     
     private void initComponents( EngineFrame engine, double sliderRadius ) {
         if ( engine == null ) {
-            if ( trackOrientation == HORIZONTAL ) {
+            if ( orientation == HORIZONTAL ) {
                 sliderButton = new GuiSliderButton( bounds.x, bounds.y + bounds.height / 2 - sliderRadius, sliderRadius * 2, sliderRadius * 2, sliderRadius, true );
             } else {
                 sliderButton = new GuiSliderButton( bounds.x + bounds.width / 2 - sliderRadius, bounds.y, sliderRadius * 2, sliderRadius * 2, sliderRadius, false );
             }
         } else {
-            if ( trackOrientation == HORIZONTAL ) {
+            if ( orientation == HORIZONTAL ) {
                 sliderButton = new GuiSliderButton( bounds.x, bounds.y + bounds.height / 2 - sliderRadius, sliderRadius * 2, sliderRadius * 2, sliderRadius, true, engine );
             } else {
                 sliderButton = new GuiSliderButton( bounds.x + bounds.width / 2 - sliderRadius, bounds.y, sliderRadius * 2, sliderRadius * 2, sliderRadius, false, engine );
@@ -207,7 +219,7 @@ public class GuiSlider extends GuiComponent {
             }
             
             if ( mouseState == GuiComponentMouseState.MOUSE_DOWN && sliderButton.mouseState == GuiComponentMouseState.MOUSE_OUT ) {
-                if ( trackOrientation == VERTICAL ) {
+                if ( orientation == VERTICAL ) {
                     sliderButton.bounds.y = mousePos.y - GuiSlider.SLIDER_RADIUS;
                 } else {
                     sliderButton.bounds.x = mousePos.x - GuiSlider.SLIDER_RADIUS;
@@ -215,7 +227,7 @@ public class GuiSlider extends GuiComponent {
                 sliderButton.update( delta, bounds );
             }
             
-            if ( trackOrientation == VERTICAL ) {
+            if ( orientation == VERTICAL ) {
                 
                 double maxSliderY = bounds.y + sliderButton.radius;
                 double minSliderY = bounds.y + bounds.height - sliderButton.radius;
@@ -270,7 +282,7 @@ public class GuiSlider extends GuiComponent {
     
     private void drawSlider( Color backgroundColor, Color borderColor, Color valueColor, double sliderBarSize ) {
         if ( showTrack ) {
-            if ( trackOrientation == VERTICAL ) {
+            if ( orientation == VERTICAL ) {
                 engine.fillRectangle( bounds.x + bounds.width / 2 - sliderBarSize / 2, bounds.y, sliderBarSize, bounds.height, backgroundColor );
                 if ( enabled ) {
                     engine.fillRectangle( bounds.x + bounds.width / 2 - sliderBarSize / 2, sliderButton.bounds.y, sliderBarSize, bounds.y + bounds.height - sliderButton.bounds.y, valueColor );
@@ -289,7 +301,7 @@ public class GuiSlider extends GuiComponent {
     
     private void updateSliderButtonPosition() {
         
-        if ( trackOrientation == VERTICAL ) {
+        if ( orientation == VERTICAL ) {
             
             double maxSliderY = bounds.y + sliderButton.radius;
             double minSliderY = bounds.y + bounds.height - sliderButton.radius;
@@ -333,7 +345,7 @@ public class GuiSlider extends GuiComponent {
 
     /**
      * 
-     * @param value 
+     * @param value O valor inicial do componente. 
      */
     public void setValue( double value ) {
         if ( min <= max ) {
@@ -354,7 +366,7 @@ public class GuiSlider extends GuiComponent {
 
     /**
      * 
-     * @param min 
+     * @param min O valor mínimo do componente. 
      */
     public void setMin( double min ) {
         this.min = min;
@@ -370,7 +382,7 @@ public class GuiSlider extends GuiComponent {
 
     /**
      * 
-     * @param max 
+     * @param max O valor máximo do componente. 
      */
     public void setMax( double max ) {
         this.max = max;

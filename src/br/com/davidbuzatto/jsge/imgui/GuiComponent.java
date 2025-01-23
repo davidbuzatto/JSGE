@@ -40,46 +40,78 @@ public abstract class GuiComponent {
     protected boolean visible;
     protected boolean drawingBounds;
     
+    /** Tamanho padrão da fonte dos componentes. */
     public static final int FONT_SIZE = 12;
+    /** Largura padrão da linha utilizada nos componentes. */
     public static final int LINE_WIDTH = 1;
     
+    /** Cor padrão de fundo. */
     public static final Color BACKGROUND_COLOR = new Color( 201, 201, 201 );
+    /** Cor padrão da borda. */
     public static final Color BORDER_COLOR = new Color( 131, 131, 131 );
+    /** Cor padrão do texto. */
     public static final Color TEXT_COLOR = new Color( 104, 104, 104 );
     
+    /** Cor de fundo quando o mouse está em cima do componente. */
     public static final Color MOUSE_OVER_BACKGROUND_COLOR = new Color( 201, 239, 254 );
+    /** Cor da borda quando o mouse está em cima do componente. */
     public static final Color MOUSE_OVER_BORDER_COLOR = new Color( 91, 178, 217 );
+    /** Cor do texto quando o mouse está em cima do componente. */
     public static final Color MOUSE_OVER_TEXT_COLOR = new Color( 108, 155, 188 );
     
+    /** Cor de fundo quando o mouse está sendo pressionado no componente. */
     public static final Color MOUSE_DOWN_BACKGROUND_COLOR = new Color( 151, 232, 255 );
+    /** Cor da borda quando o mouse está sendo pressionado no componente. */
     public static final Color MOUSE_DOWN_BORDER_COLOR = new Color( 4, 146, 199 );
+    /** Cor do texto quando o mouse está sendo pressionado no componente. */
     public static final Color MOUSE_DOWN_TEXT_COLOR = new Color( 54, 139, 175 );
     
+    /** Cor de fundo quando o componente está desabilitado. */
     public static final Color DISABLED_BACKGROUND_COLOR = new Color( 230, 233, 233 );
+    /** Cor da borda quando o componente está desabilitado. */
     public static final Color DISABLED_BORDER_COLOR = new Color( 181, 193, 194 );
+    /** Cor do texto quando o componente está desabilitado. */
     public static final Color DISABLED_TEXT_COLOR = new Color( 174, 183, 184 );
     
-    public static final Color CONTAINER_BORDER_COLOR = new Color( 144, 171, 181 );
-    public static final Color CONTAINER_TEXT_COLOR = new Color( 144, 171, 181 );
+    /** Cor de fundo para os componentes contâineres. */
     public static final Color CONTAINER_BACKGROUNG_COLOR = new Color( 245, 245, 245 );
-    public static final Color CONTAINER_TITLE_BAR_BORDER_COLOR = new Color( 131, 131, 131 );
+    /** Cor da borda para os componentes contâineres. */
+    public static final Color CONTAINER_BORDER_COLOR = new Color( 144, 171, 181 );
+    /** Cor do texto para os componentes contâineres. */
+    public static final Color CONTAINER_TEXT_COLOR = new Color( 144, 171, 181 );
+    /** Cor de fundo para as barras de título dos componentes contâineres. */
     public static final Color CONTAINER_TITLE_BAR_BACKGROUND_COLOR = new Color( 201, 201, 201 );
+    /** Cor da borda para as barras de título dos componentes contâineres. */
+    public static final Color CONTAINER_TITLE_BAR_BORDER_COLOR = new Color( 131, 131, 131 );
+    /** Cor do texto para as barras de título dos componentes contâineres. */
     public static final Color CONTAINER_TITLE_BAR_TEXT_COLOR = new Color( 104, 104, 104 );
     
-    public static final Color DISABLED_CONTAINER_BORDER_COLOR = new Color( 181, 193, 194 );
-    public static final Color DISABLED_CONTAINER_TEXT_COLOR = new Color( 181, 193, 194 );
+    /** Cor de fundo para os componentes contâineres desabilitados. */
     public static final Color DISABLED_CONTAINER_BACKGROUND_COLOR = new Color( 230, 233, 233 );
-    public static final Color DISABLED_CONTAINER_TITLE_BAR_BORDER_COLOR = new Color( 181, 193, 194 );
+    /** Cor da borda para os componentes contâineres desabilitados. */
+    public static final Color DISABLED_CONTAINER_BORDER_COLOR = new Color( 181, 193, 194 );
+    /** Cor do texto para os componentes contâineres desabilitados. */
+    public static final Color DISABLED_CONTAINER_TEXT_COLOR = new Color( 181, 193, 194 );
+    /** Cor de fundo para as barras de título dos componentes contâineres desabilitados. */
     public static final Color DISABLED_CONTAINER_TITLE_BAR_BACKGROUND_COLOR = new Color( 230, 233, 233 );
+    /** Cor da borda para as barras de título dos componentes contâineres desabilitados. */
+    public static final Color DISABLED_CONTAINER_TITLE_BAR_BORDER_COLOR = new Color( 181, 193, 194 );
+    /** Cor do texto para as barras de título dos componentes contâineres desabilitados. */
     public static final Color DISABLED_CONTAINER_TITLE_BAR_TEXT_COLOR = new Color( 181, 193, 194 );
     
+    /** Cor de fundo para o progresso das barras de progresso. */
     public static final Color PROGRESS_BAR_BACKGROUND_COLOR = new Color( 151, 232, 255 );
+    /** Cor de fundo para o progresso das barras de progresso desabilitadas. */
     public static final Color DISABLED_PROGRESS_BAR_BACKGROUND_COLOR = new Color( 230, 233, 233 );
     
+    /** Cor de fundo para os contâineres de itens dos componentes de lista. */
     public static final Color LIST_CONTAINER_BACKGROUND_COLOR = new Color( 245, 245, 245 );
+    /** Cor de fundo para os contâineres de itens dos componentes de lista desabilitados. */
     public static final Color DISABLED_LIST_CONTAINER_BACKGROUND_COLOR = new Color( 245, 245, 245 );
     
+    /** Cor de fundo para a trila dos sliders usados como barras de rolagem. */
     public static final Color SCROLL_BAR_TRACK_COLOR = new Color( 220, 220, 220 );
+    /** Cor de fundo para a trila dos sliders desabiltiados usados como barras de rolagem. */
     public static final Color DISABLED_SCROLL_BAR_TRACK_COLOR = new Color( 220, 220, 220 );
     
     /**

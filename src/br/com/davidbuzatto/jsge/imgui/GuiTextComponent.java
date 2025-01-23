@@ -33,33 +33,37 @@ public abstract class GuiTextComponent extends GuiComponent {
 
     /**
      * 
-     * @param rectangle
-     * @param text
-     * @param engine 
+     * @param bounds
+     * @param text Texto utilizado no componente.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
-    public GuiTextComponent( Rectangle rectangle, String text, EngineFrame engine ) {
-        super( rectangle, engine );
+    public GuiTextComponent( Rectangle bounds, String text, EngineFrame engine ) {
+        super( bounds, engine );
         this.text = text;
     }
     
     /**
      * 
-     * @param rectangle
-     * @param text 
+     * @param bounds
+     * @param text Texto utilizado no componente. 
      */
-    public GuiTextComponent( Rectangle rectangle, String text ) {
-        super( rectangle );
+    public GuiTextComponent( Rectangle bounds, String text ) {
+        super( bounds );
         this.text = text;
     }
     
     /**
      * 
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param text
-     * @param engine 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param text Texto utilizado no componente.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
     public GuiTextComponent( double x, double y, double width, double height, String text, EngineFrame engine ) {
         this( new Rectangle( x, y, width, height ), text, engine );
@@ -67,11 +71,13 @@ public abstract class GuiTextComponent extends GuiComponent {
     
     /**
      * 
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param text 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param text Texto utilizado no componente. 
      */
     public GuiTextComponent( double x, double y, double width, double height, String text ) {
         this( new Rectangle( x, y, width, height ), text );
@@ -79,7 +85,7 @@ public abstract class GuiTextComponent extends GuiComponent {
     
     /**
      * 
-     * @param textColor 
+     * @param textColor Cor do texto.
      */
     protected void drawText( Color textColor ) {
         engine.drawText(
@@ -92,9 +98,9 @@ public abstract class GuiTextComponent extends GuiComponent {
     
     /**
      * 
-     * @param textColor
-     * @param xOffset
-     * @param yOffset 
+     * @param textColor Cor do texto.
+     * @param xOffset Deslocamento no eixo x.
+     * @param yOffset Deslocamento no eixo y.
      */
     protected void drawText( Color textColor, double xOffset, double yOffset ) {
         engine.drawText(
@@ -107,7 +113,7 @@ public abstract class GuiTextComponent extends GuiComponent {
     
     /**
      * 
-     * @param textColor 
+     * @param textColor Cor do texto.
      */
     protected void drawTextAfterBounds( Color textColor ) {
         engine.drawText(
@@ -120,8 +126,8 @@ public abstract class GuiTextComponent extends GuiComponent {
     
     /**
      * 
-     * @param textColor
-     * @param xOffset 
+     * @param textColor Cor do texto.
+     * @param xOffset Deslocamento no eixo x.
      */
     protected void drawTextAfterBounds( Color textColor, double xOffset ) {
         engine.drawText(
@@ -134,7 +140,7 @@ public abstract class GuiTextComponent extends GuiComponent {
     
     /**
      * 
-     * @param textColor 
+     * @param textColor Cor do texto.
      */
     protected void drawCenteredText( Color textColor ) {
         if ( textWidth == -1 ) {
@@ -150,7 +156,7 @@ public abstract class GuiTextComponent extends GuiComponent {
 
     /**
      * 
-     * @param text 
+     * @param text Texto utilizado no componente. 
      */
     public void setText( String text ) {
         this.text = text;

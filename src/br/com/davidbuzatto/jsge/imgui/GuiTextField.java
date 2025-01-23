@@ -50,12 +50,15 @@ public class GuiTextField extends GuiComponent {
     
     /**
      * 
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param value
-     * @param engine 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param value O valor inicial do componente.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
     public GuiTextField( double x, double y, double width, double height, String value, EngineFrame engine ) {
         super( x, y, width, height, engine );
@@ -64,11 +67,13 @@ public class GuiTextField extends GuiComponent {
     
     /**
      * 
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param value 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param value O valor inicial do componente. 
      */
     public GuiTextField( double x, double y, double width, double height, String value ) {
         super( x, y, width, height );
@@ -77,9 +82,10 @@ public class GuiTextField extends GuiComponent {
     
     /**
      * 
-     * @param bounds
-     * @param value
-     * @param engine 
+     * @param bounds Um retângulo que define os limites do componente.
+     * @param value O valor inicial do componente.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
     public GuiTextField( Rectangle bounds, String value, EngineFrame engine ) {
         super( bounds, engine );
@@ -88,8 +94,8 @@ public class GuiTextField extends GuiComponent {
     
     /**
      * 
-     * @param bounds
-     * @param value 
+     * @param bounds Um retângulo que define os limites do componente.
+     * @param value O valor inicial do componente. 
      */
     public GuiTextField( Rectangle bounds, String value ) {
         super( bounds );
@@ -292,7 +298,7 @@ public class GuiTextField extends GuiComponent {
     
     /**
      * 
-     * @param value 
+     * @param value O valor inicial do componente. 
      */
     public void setValue( String value ) {
         if ( value == null ) {

@@ -33,7 +33,7 @@ public class GuiMessageDialog extends GuiWindow {
     private static final double MIN_HEIGHT = 100;
     
     private String message;
-    private boolean useOverlay;
+    private boolean showOverlay;
     
     private GuiLabel messageLabel;
     private GuiButton okButton;
@@ -46,31 +46,32 @@ public class GuiMessageDialog extends GuiWindow {
     
     /**
      * 
-     * @param title
-     * @param message
-     * @param useOverlay
-     * @param engine 
+     * @param title O título do componente.
+     * @param message A mensagem do componente.
+     * @param showOverlay Verdadeiro para desenhar uma camada de sobreposição atrás do diálogo.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
-    public GuiMessageDialog( String title, String message, boolean useOverlay, EngineFrame engine ) {
+    public GuiMessageDialog( String title, String message, boolean showOverlay, EngineFrame engine ) {
         super( 0, 0, 0, 0, title, engine );
-        initComponents( engine, message, useOverlay );
+        initComponents( engine, message, showOverlay );
     }
     
     /**
      * 
-     * @param title
-     * @param message
-     * @param useOverlay 
+     * @param title O título do componente.
+     * @param message A mensagem do componente.
+     * @param showOverlay Verdadeiro para desenhar uma camada de sobreposição atrás do diálogo. 
      */
-    public GuiMessageDialog( String title, String message, boolean useOverlay ) {
+    public GuiMessageDialog( String title, String message, boolean showOverlay ) {
         super( 0, 0, 0, 0, title );
-        initComponents( null, message, useOverlay );
+        initComponents( null, message, showOverlay );
     }
     
-    private void initComponents( EngineFrame engine, String message, boolean useOverlay ) {
+    private void initComponents( EngineFrame engine, String message, boolean showOverlay ) {
         super.initComponents( engine );
         this.message = message;
-        this.useOverlay = useOverlay;
+        this.showOverlay = showOverlay;
         if ( engine == null ) {
             this.messageLabel = new GuiLabel( 0, 0, 0, 0, message );
             this.okButton = new GuiButton( 0, 0, 40, 30, "OK" );
@@ -140,7 +141,7 @@ public class GuiMessageDialog extends GuiWindow {
         
         if ( visible ) {
             
-            if ( useOverlay ) {
+            if ( showOverlay ) {
                 engine.fillRectangle( 0, 0, engine.getScreenWidth(), engine.getScreenHeight(), OVERLAY_COLOR );
             }
 
@@ -172,8 +173,10 @@ public class GuiMessageDialog extends GuiWindow {
     
     /**
      * 
-     * @param x
-     * @param y 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente. 
      */
     public void show( double x, double y ) {
         bounds.x = x;

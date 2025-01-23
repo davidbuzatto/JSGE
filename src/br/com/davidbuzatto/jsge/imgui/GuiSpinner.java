@@ -37,14 +37,17 @@ public class GuiSpinner extends GuiComponent {
     
     /**
      * 
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param value
-     * @param min
-     * @param max
-     * @param engine 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param value O valor inicial do componente.
+     * @param min O valor mínimo do componente.
+     * @param max O valor máximo do componente.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
     public GuiSpinner( double x, double y, double width, double height, int value, int min, int max, EngineFrame engine ) {
         super( x, y, width, height, engine );
@@ -54,13 +57,15 @@ public class GuiSpinner extends GuiComponent {
     
     /**
      * 
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param value
-     * @param min
-     * @param max 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param value O valor inicial do componente.
+     * @param min O valor mínimo do componente.
+     * @param max O valor máximo do componente. 
      */
     public GuiSpinner( double x, double y, double width, double height, int value, int min, int max ) {
         super( x, y, width, height );
@@ -70,11 +75,12 @@ public class GuiSpinner extends GuiComponent {
     
     /**
      * 
-     * @param bounds
-     * @param value
-     * @param min
-     * @param max
-     * @param engine 
+     * @param bounds Um retângulo que define os limites do componente.
+     * @param value O valor inicial do componente.
+     * @param min O valor mínimo do componente.
+     * @param max O valor máximo do componente.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
     public GuiSpinner( Rectangle bounds, int value, int min, int max, EngineFrame engine ) {
         super( bounds, engine );
@@ -84,10 +90,10 @@ public class GuiSpinner extends GuiComponent {
     
     /**
      * 
-     * @param bounds
-     * @param value
-     * @param min
-     * @param max 
+     * @param bounds Um retângulo que define os limites do componente.
+     * @param value O valor inicial do componente.
+     * @param min O valor mínimo do componente.
+     * @param max O valor máximo do componente. 
      */
     public GuiSpinner( Rectangle bounds, int value, int min, int max ) {
         super( bounds );
@@ -97,9 +103,9 @@ public class GuiSpinner extends GuiComponent {
     
     /**
      * 
-     * @param value
-     * @param min
-     * @param max 
+     * @param value O valor inicial do componente.
+     * @param min O valor mínimo do componente.
+     * @param max O valor máximo do componente. 
      */
     private void initData( int value, int min, int max ) {
         this.value = value;
@@ -109,7 +115,8 @@ public class GuiSpinner extends GuiComponent {
     
     /**
      * 
-     * @param engine
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      * @param buttonSize 
      */
     private void initComponents( EngineFrame engine, double buttonSize ) {
@@ -202,7 +209,7 @@ public class GuiSpinner extends GuiComponent {
 
     /**
      * 
-     * @param value 
+     * @param value O valor inicial do componente. 
      */
     public void setValue( int value ) {
         this.value = MathUtils.clamp( value, min, max );
@@ -218,7 +225,7 @@ public class GuiSpinner extends GuiComponent {
 
     /**
      * 
-     * @param min 
+     * @param min O valor mínimo do componente. 
      */
     public void setMin( int min ) {
         this.min = min;
@@ -234,7 +241,7 @@ public class GuiSpinner extends GuiComponent {
 
     /**
      * 
-     * @param max 
+     * @param max O valor máximo do componente. 
      */
     public void setMax( int max ) {
         this.max = max;

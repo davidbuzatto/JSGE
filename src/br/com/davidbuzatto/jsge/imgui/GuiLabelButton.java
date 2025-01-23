@@ -26,18 +26,52 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
  */
 public class GuiLabelButton extends GuiTextComponent {
     
+    /**
+     * 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param text Texto utilizado no componente.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
+     */
     public GuiLabelButton( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
     }
     
+    /**
+     * 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param text Texto utilizado no componente.
+     */
     public GuiLabelButton( double x, double y, double width, double height, String text ) {
         super( x, y, width, height, text );
     }
     
+    /**
+     * 
+     * @param bounds Um retângulo que define os limites do componente.
+     * @param text Texto utilizado no componente.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
+     */
     public GuiLabelButton( Rectangle bounds, String text, EngineFrame engine ) {
         super( bounds, text, engine );
     }
     
+    /**
+     * 
+     * @param bounds Um retângulo que define os limites do componente.
+     * @param text Texto utilizado no componente.
+     */
     public GuiLabelButton( Rectangle bounds, String text ) {
         super( bounds, text );
     }

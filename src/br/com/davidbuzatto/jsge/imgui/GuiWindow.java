@@ -38,12 +38,15 @@ public class GuiWindow extends GuiTextComponent {
     
     /**
      * 
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param title
-     * @param engine 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param title O título do componente.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
     public GuiWindow( double x, double y, double width, double height, String title, EngineFrame engine ) {
         super( x, y, width, height, title, engine );
@@ -52,11 +55,13 @@ public class GuiWindow extends GuiTextComponent {
     
     /**
      * 
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param title 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param title O título do componente. 
      */
     public GuiWindow( double x, double y, double width, double height, String title ) {
         super( x, y, width, height, title );
@@ -65,9 +70,10 @@ public class GuiWindow extends GuiTextComponent {
     
     /**
      * 
-     * @param bounds
-     * @param title
-     * @param engine 
+     * @param bounds Um retângulo que define os limites do componente.
+     * @param title O título do componente.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
     public GuiWindow( Rectangle bounds, String title, EngineFrame engine ) {
         super( bounds, title, engine );
@@ -76,8 +82,8 @@ public class GuiWindow extends GuiTextComponent {
     
     /**
      * 
-     * @param bounds
-     * @param title 
+     * @param bounds Um retângulo que define os limites do componente.
+     * @param title O título do componente. 
      */
     public GuiWindow( Rectangle bounds, String title ) {
         super( bounds, title );

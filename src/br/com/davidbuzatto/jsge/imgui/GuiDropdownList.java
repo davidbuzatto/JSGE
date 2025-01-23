@@ -35,12 +35,15 @@ public class GuiDropdownList extends GuiComponent {
     
     /**
      * 
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param itemsText
-     * @param engine 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param itemsText Lista com o texto dos itens da lista.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
     public GuiDropdownList( double x, double y, double width, double height, List<String> itemsText, EngineFrame engine ) {
         super( x, y, width, height, engine );
@@ -49,11 +52,13 @@ public class GuiDropdownList extends GuiComponent {
     
     /**
      * 
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param itemsText 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param width Largura do retângulo que define os limites do componente.
+     * @param height Altura do retângulo que define os limites do componente.
+     * @param itemsText Lista com o texto dos itens da lista.
      */
     public GuiDropdownList( double x, double y, double width, double height, List<String> itemsText ) {
         super( x, y, width, height );
@@ -62,9 +67,10 @@ public class GuiDropdownList extends GuiComponent {
     
     /**
      * 
-     * @param bounds
-     * @param itemsText
-     * @param engine 
+     * @param bounds Um retângulo que define os limites do componente.
+     * @param itemsText Lista com o texto dos itens da lista.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
     public GuiDropdownList( Rectangle bounds, List<String> itemsText, EngineFrame engine ) {
         super( bounds, engine );
@@ -73,8 +79,8 @@ public class GuiDropdownList extends GuiComponent {
     
     /**
      * 
-     * @param bounds
-     * @param itemsText 
+     * @param bounds Um retângulo que define os limites do componente.
+     * @param itemsText Lista com o texto dos itens da lista.
      */
     public GuiDropdownList( Rectangle bounds, List<String> itemsText ) {
         super( bounds );

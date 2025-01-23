@@ -34,7 +34,7 @@ public class GuiConfirmDialog extends GuiWindow {
     private static final double BUTTON_HEIGHT = 30;
     
     private String message;
-    private boolean useOverlay;
+    private boolean showOverlay;
     
     private GuiLabel messageLabel;
     private GuiButton button1;
@@ -50,46 +50,48 @@ public class GuiConfirmDialog extends GuiWindow {
     
     /**
      * 
-     * @param title
-     * @param message
-     * @param button1Text
-     * @param button2Text
-     * @param button3Text
-     * @param useOverlay
-     * @param engine 
+     * @param title O título do componente.
+     * @param message A mensagem do componente.
+     * @param button1Text Texto do primeiro botão.
+     * @param button2Text Texto do segundo botão.
+     * @param button3Text Texto do terceiro botão.
+     * @param showOverlay Verdadeiro para desenhar uma camada de sobreposição atrás do diálogo.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
      */
-    public GuiConfirmDialog( String title, String message, String button1Text, String button2Text, String button3Text, boolean useOverlay, EngineFrame engine ) {
+    public GuiConfirmDialog( String title, String message, String button1Text, String button2Text, String button3Text, boolean showOverlay, EngineFrame engine ) {
         super( 0, 0, 0, 0, title, engine );
-        initComponents( engine, message, button1Text, button2Text, button3Text, useOverlay );
+        initComponents( engine, message, button1Text, button2Text, button3Text, showOverlay );
     }
     
     /**
      * 
-     * @param title
-     * @param message
-     * @param button1Text
-     * @param button2Text
-     * @param button3Text
-     * @param useOverlay 
+     * @param title O título do componente.
+     * @param message A mensagem do componente.
+     * @param button1Text Texto do primeiro botão.
+     * @param button2Text Texto do segundo botão.
+     * @param button3Text Texto do terceiro botão.
+     * @param showOverlay Verdadeiro para desenhar uma camada de sobreposição atrás do diálogo. 
      */
-    public GuiConfirmDialog( String title, String message, String button1Text, String button2Text, String button3Text, boolean useOverlay ) {
+    public GuiConfirmDialog( String title, String message, String button1Text, String button2Text, String button3Text, boolean showOverlay ) {
         super( 0, 0, 0, 0, title );
-        initComponents( null, message, button1Text, button2Text, button3Text, useOverlay );
+        initComponents( null, message, button1Text, button2Text, button3Text, showOverlay );
     }
     
     /**
      * 
-     * @param engine
-     * @param message
-     * @param button1Text
-     * @param button2Text
-     * @param button3Text
-     * @param useOverlay 
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
+     * @param message A mensagem do componente.
+     * @param button1Text Texto do primeiro botão.
+     * @param button2Text Texto do segundo botão.
+     * @param button3Text Texto do terceiro botão.
+     * @param showOverlay Verdadeiro para desenhar uma camada de sobreposição atrás do diálogo. 
      */
-    private void initComponents( EngineFrame engine, String message, String button1Text, String button2Text, String button3Text, boolean useOverlay ) {
+    private void initComponents( EngineFrame engine, String message, String button1Text, String button2Text, String button3Text, boolean showOverlay ) {
         super.initComponents( engine );
         this.message = message;
-        this.useOverlay = useOverlay;
+        this.showOverlay = showOverlay;
         if ( engine == null ) {
             this.messageLabel = new GuiLabel( 0, 0, 0, 0, message );
             if ( button1Text != null && !button1Text.trim().isEmpty() ) {
@@ -192,7 +194,7 @@ public class GuiConfirmDialog extends GuiWindow {
         
         if ( visible ) {
             
-            if ( useOverlay ) {
+            if ( showOverlay ) {
                 engine.fillRectangle( 0, 0, engine.getScreenWidth(), engine.getScreenHeight(), OVERLAY_COLOR );
             }
 
@@ -229,8 +231,10 @@ public class GuiConfirmDialog extends GuiWindow {
     
     /**
      * 
-     * @param x
-     * @param y 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
+     * define os limites do componente.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
+     * define os limites do componente. 
      */
     public void show( double x, double y ) {
         bounds.x = x;

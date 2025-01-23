@@ -30,14 +30,14 @@ public class GuiButtonGroup {
     private final Set<GuiToggleButton> toggleButtons;
     
     /**
-     * 
+     * Cria um grupo de botões.
      */
     public GuiButtonGroup() {
         toggleButtons = new HashSet<>();
     }
     
     /**
-     * 
+     * Adiciona um botão de alternância ou botão de rádio à este grupo.
      * @param toggleButton 
      */
     public void addToggleButton( GuiToggleButton toggleButton ) {
@@ -45,8 +45,9 @@ public class GuiButtonGroup {
     }
     
     /**
+     * Alterna a seleção para o botão passado como parâmetro.
      * 
-     * @param target 
+     * @param target O botão que deve ser selecionado.
      */
     public void toggle( GuiToggleButton target ) {
         
