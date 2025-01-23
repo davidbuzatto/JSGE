@@ -959,13 +959,13 @@ public class AnimationsExample extends EngineFrame {
         String tLabel = String.format( "timing animation (%.2fs/%.2fs)", timingAnim.getExecutionTime(), timingAnim.getTotalExecutionTime() );
         drawText( tLabel, getScreenWidth() / 2 - measureText( tLabel ) / 2, 600, BLACK );
         drawText( """
-                    <up>: increase time
+                    <UP>: increase time
                           and reset
                   
-                  <down>: decrease time
+                  <DOWN>: decrease time
                           and reset
                   
-                  <left>: reset
+                  <LEFT>: reset
                   """, 20, 655, 14, BLACK );
         timingAnim.getComponent().fill( this, BLUE );
         timingAnim.getComponent().draw( this, BLACK );
