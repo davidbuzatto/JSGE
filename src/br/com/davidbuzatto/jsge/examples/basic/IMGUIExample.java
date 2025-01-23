@@ -503,6 +503,8 @@ public class IMGUIExample extends EngineFrame {
         checkVisible.draw();
         checkDrawBounds.draw();
         
+        drawFPS( checkDrawBounds.getX(), checkDrawBounds.getY() + checkDrawBounds.getHeight() + 10 );
+        
     }
     
     private void drawGrid( int lines, int x, int y, int width, int height, int hSep, Color color ) {

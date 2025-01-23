@@ -145,6 +145,22 @@ public abstract class GuiComponent {
         return mouseState == GuiComponentMouseState.MOUSE_OVER;
     }
     
+    public double getX() {
+        return bounds.x;
+    }
+    
+    public double getY() {
+        return bounds.y;
+    }
+    
+    public double getWidth() {
+        return bounds.width;
+    }
+    
+    public double getHeight() {
+        return bounds.height;
+    }
+    
     protected void drawBounds() {
         if ( drawBounds ) {
             engine.setStrokeLineWidth( 1 );
