@@ -18,9 +18,13 @@ package br.com.davidbuzatto.jsge.examples.basic;
 
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
+import br.com.davidbuzatto.jsge.imgui.GuiButton;
+import br.com.davidbuzatto.jsge.imgui.GuiColorPicker;
+import br.com.davidbuzatto.jsge.imgui.GuiComponent;
+import br.com.davidbuzatto.jsge.imgui.GuiWindow;
 import java.awt.Color;
-import javax.swing.JColorChooser;
-import javax.swing.SwingUtilities;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Exemplo de uso de alguns métodos para manipulação de cores.
@@ -31,29 +35,65 @@ public class ColorMethodsExample extends EngineFrame {
 
     private Color baseColor;
     
+    private List<GuiComponent> components;
+    private GuiWindow colorPickerWindow;
+    private GuiColorPicker colorPicker;
+    private GuiButton okButton;
+    private GuiButton cancelButton;
+    
+    private boolean showComponents;
+    private Color overlayColor = ColorUtils.fade( BLACK, 0.5 );
+    
     /**
      * Cria o exemplo.
      */
     public ColorMethodsExample() {
-        super( 800, 450, "Color Methods", 60, true, true, false, false, false );
+        super( 800, 450, "Color Methods", 60, true, false, false, false, false );
     }
     
     @Override
     public void create() {
+        
         baseColor = LIME;
         setDefaultFontSize( 20 );
+        
+        components = new ArrayList<>();
+        colorPickerWindow = new GuiWindow( getScreenWidth() / 2 - 121, getScreenHeight() / 2 - 157, 242, 314, "Choose a color!", this );
+        colorPicker = new GuiColorPicker( colorPickerWindow.getX() + 10, colorPickerWindow.getY() + 35, 200, 200, baseColor, this );
+        cancelButton = new GuiButton( colorPickerWindow.getX() + colorPickerWindow.getWidth() - 70, colorPicker.getY() + colorPicker.getHeight() + 40, 60, 30, "Cancel", this );
+        okButton = new GuiButton( cancelButton.getX() - 60, colorPicker.getY() + colorPicker.getHeight() + 40, 50, 30, "OK", this );
+        
+        components.add( colorPickerWindow );
+        components.add( colorPicker );
+        components.add( okButton );
+        components.add( cancelButton );
+        
     }
 
     @Override
     public void update( double delta ) {
+        
         if ( isMouseButtonPressed( MOUSE_BUTTON_RIGHT ) ) {
-            SwingUtilities.invokeLater(() -> {
-                Color c = JColorChooser.showDialog( null, "Choose a color!", baseColor );
-                if ( c != null ) {
-                    baseColor = c;
-                }
-            });
+            showComponents = true;
         }
+        
+        for ( GuiComponent c : components ) {
+            c.update( delta );
+        }
+        
+        if ( okButton.isMousePressed() ) {
+            baseColor = colorPicker.getColor();
+            showComponents = false;
+        }
+        
+        if ( cancelButton.isMousePressed() ) {
+            showComponents = false;
+        }
+        
+        if ( colorPickerWindow.isCloseButtonPressed() ) {
+            showComponents = false;
+        }
+        
     }
     
     @Override
@@ -101,6 +141,13 @@ public class ColorMethodsExample extends EngineFrame {
         drawHSVCircle();
         
         drawFPS( 10, 10 );
+        
+        if ( showComponents ) {
+            fillRectangle( 0, 0, getScreenWidth(), getScreenHeight(), overlayColor );
+            for ( GuiComponent c : components ) {
+                c.draw();
+            }
+        }
         
     }
     
