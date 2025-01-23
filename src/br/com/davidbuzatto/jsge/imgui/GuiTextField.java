@@ -259,4 +259,10 @@ public class GuiTextField extends GuiComponent {
         caretPosition = this.value.length();
     }
     
+    @Override
+    public void move( double xAmount, double yAmount ) {
+        bounds.x += xAmount;
+        bounds.y += yAmount;
+    }
+    
 }

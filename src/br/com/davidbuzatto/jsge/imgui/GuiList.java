@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class GuiList extends GuiComponent {
     
-    private static final int ITEM_BOUND_HEIGHT = 30;
+    public static final int ITEM_BOUND_HEIGHT = 30;
     private boolean initialized;
     
     private List<String> itemsText;
@@ -244,6 +244,45 @@ public class GuiList extends GuiComponent {
         }
     }
     
+    public String getSelectedItemText() {
+        for ( ListItem item : items ) {
+            if ( item.selected ) {
+                return item.text;
+            }
+        }
+        return null;
+    }
+    
+    public int getSelectedItemIndex() {
+        int index = -1;
+        for ( ListItem item : items ) {
+            index++;
+            if ( item.selected ) {
+                return index;
+            }
+        }
+        return index;
+    }
+
+    protected double getItemTextHeight() {
+        return itemTextHeight;
+    }
+    
+    public boolean isMouseOutEntirely() {
+        return mouseState == GuiComponentMouseState.MOUSE_OUT && scrollBar.mouseState == GuiComponentMouseState.MOUSE_OUT;
+    }
+    
+    @Override
+    public void move( double xAmount, double yAmount ) {
+        bounds.x += xAmount;
+        bounds.y += yAmount;
+        scrollBar.move( xAmount, yAmount );
+        for ( ListItem item : items ) {
+            item.bounds.x += xAmount;
+            item.bounds.y += yAmount;
+        }
+    }
+    
     private class ListItem {
         
         private final String text;
@@ -261,28 +300,28 @@ public class GuiList extends GuiComponent {
             
             double textWidth = engine.measureText( text, FONT_SIZE );
             
-            Color itemBackgroundColor = GuiComponent.BACKGROUND_COLOR;
-            Color itemBorderColor = GuiComponent.BORDER_COLOR;
-            Color itemTextColor = GuiComponent.TEXT_COLOR;
+            Color itemBackgroundColor = BACKGROUND_COLOR;
+            Color itemBorderColor = BORDER_COLOR;
+            Color itemTextColor = TEXT_COLOR;
             
             boolean drawBounds = true;
             
             if ( selected ) {
-                itemBackgroundColor = GuiComponent.MOUSE_DOWN_BACKGROUND_COLOR;
-                itemBorderColor = GuiComponent.MOUSE_DOWN_BORDER_COLOR;
-                itemTextColor = GuiComponent.MOUSE_DOWN_TEXT_COLOR;
+                itemBackgroundColor = MOUSE_DOWN_BACKGROUND_COLOR;
+                itemBorderColor = MOUSE_DOWN_BORDER_COLOR;
+                itemTextColor = MOUSE_DOWN_TEXT_COLOR;
             } else if ( mouseOver ) {
-                itemBackgroundColor = GuiComponent.MOUSE_OVER_BACKGROUND_COLOR;
-                itemBorderColor = GuiComponent.MOUSE_OVER_BORDER_COLOR;
-                itemTextColor = GuiComponent.MOUSE_OVER_TEXT_COLOR;
+                itemBackgroundColor = MOUSE_OVER_BACKGROUND_COLOR;
+                itemBorderColor = MOUSE_OVER_BORDER_COLOR;
+                itemTextColor = MOUSE_OVER_TEXT_COLOR;
             } else {
                 drawBounds = false;
             }
             
             if ( !enabled ) {
-                itemBackgroundColor = GuiComponent.DISABLED_BACKGROUND_COLOR;
-                itemBorderColor = GuiComponent.DISABLED_BORDER_COLOR;
-                itemTextColor = GuiComponent.DISABLED_TEXT_COLOR;
+                itemBackgroundColor = DISABLED_BACKGROUND_COLOR;
+                itemBorderColor = DISABLED_BORDER_COLOR;
+                itemTextColor = DISABLED_TEXT_COLOR;
             }
             
             if ( drawBounds ) {
@@ -297,28 +336,6 @@ public class GuiList extends GuiComponent {
             return CollisionUtils.checkCollisionPointRectangle( point, bounds );
         }
         
-    }
-    
-    public String getSelectedItemText() {
-        for ( ListItem item : items ) {
-            if ( item.selected ) {
-                return item.text;
-            }
-        }
-        // não deve chegar aqui
-        return null;
-    }
-    
-    public int getSelectedItemIndex() {
-        int index = -1;
-        for ( ListItem item : items ) {
-            index++;
-            if ( item.selected ) {
-                return index;
-            }
-        }
-        // não deve chegar aqui
-        return index;
     }
     
 }

@@ -114,4 +114,10 @@ public class GuiProgressBar extends GuiComponent {
         return MathUtils.clamp( MathUtils.inverseLerp( min, max, value ), 0, 1 );
     }
     
+    @Override
+    public void move( double xAmount, double yAmount ) {
+        bounds.x += xAmount;
+        bounds.y += yAmount;
+    }
+    
 }

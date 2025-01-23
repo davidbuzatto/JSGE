@@ -23,6 +23,7 @@ import br.com.davidbuzatto.jsge.imgui.GuiCheckBox;
 import br.com.davidbuzatto.jsge.imgui.GuiColorPicker;
 import br.com.davidbuzatto.jsge.imgui.GuiComponent;
 import br.com.davidbuzatto.jsge.imgui.GuiConfirmDialog;
+import br.com.davidbuzatto.jsge.imgui.GuiDropdownList;
 import br.com.davidbuzatto.jsge.imgui.GuiGroup;
 import br.com.davidbuzatto.jsge.imgui.GuiInputDialog;
 import br.com.davidbuzatto.jsge.imgui.GuiLabel;
@@ -70,7 +71,7 @@ public class IMGUIExample extends EngineFrame {
     private GuiSlider horizontalSlider;
     private GuiSlider verticalSlider;
     private GuiTextField textField;
-    private GuiLabel labelDropdownList;
+    private GuiDropdownList dropdownList;
     private GuiList list;
     private GuiColorPicker colorPicker;
     
@@ -78,8 +79,8 @@ public class IMGUIExample extends EngineFrame {
     private GuiLine horizontalLineUntitled;
     private GuiLine verticalLine;
     private GuiLine verticalLineUntitled;
-    private GuiGroup groupBox;
-    private GuiGroup groupBoxUntitled;
+    private GuiGroup group;
+    private GuiGroup groupUntitled;
     private GuiPanel panel;
     private GuiPanel panelUntitled;
     private GuiWindow window;
@@ -109,7 +110,6 @@ public class IMGUIExample extends EngineFrame {
     private String messageDialogStatus;
     private String inputDialogStatus;
     private String confirmDialogStatus;
-    
     
     /**
      * Cria o exemplo.
@@ -164,7 +164,7 @@ public class IMGUIExample extends EngineFrame {
         listItems.add( "four" );
         listItems.add( "five" );
         listItems.add( "six" );
-        labelDropdownList = new GuiLabel( x, y += vSpacing, 260, 30, "Dropdown List (work in progress)" );
+        dropdownList = new GuiDropdownList( x, y += vSpacing, 240, 30, listItems );
         list = new GuiList( x, y += vSpacing, 240, 130, listItems );
 
         progressTime = 0.05;
@@ -186,8 +186,8 @@ public class IMGUIExample extends EngineFrame {
         components.add( horizontalSlider );
         components.add( verticalSlider );
         components.add( textField );
-        components.add( labelDropdownList );
         components.add( list );
+        components.add( dropdownList );
         
         x = 450;
         y = 55;
@@ -197,8 +197,8 @@ public class IMGUIExample extends EngineFrame {
         horizontalLineUntitled = new GuiLine( x + 170, y +10, 130, 30, "" );
         verticalLine = new GuiLine( x + 130, y - 20, 30, 90, "Line", GuiLine.VERTICAL );
         verticalLineUntitled = new GuiLine( x + 300, y - 20, 30, 90, "", GuiLine.VERTICAL );
-        groupBox = new GuiGroup( x, y += vSpacing - 30, 150, 70, "Group" );
-        groupBoxUntitled = new GuiGroup( x + 170, y, 150, 70, "" );
+        group = new GuiGroup( x, y += vSpacing - 30, 150, 70, "Group" );
+        groupUntitled = new GuiGroup( x + 170, y, 150, 70, "" );
         panel = new GuiPanel( x, y += vSpacing - 25, 150, 80, "Panel" );
         panelUntitled = new GuiPanel( x + 170, y, 150, 80, "" );
         window = new GuiWindow( x, y += vSpacing - 20, 150, 80, "Window" );
@@ -208,8 +208,8 @@ public class IMGUIExample extends EngineFrame {
         components.add( horizontalLineUntitled );
         components.add( verticalLine );
         components.add( verticalLineUntitled );
-        components.add( groupBox );
-        components.add( groupBoxUntitled );
+        components.add( group );
+        components.add( groupUntitled );
         components.add( panel );
         components.add( panelUntitled );
         components.add( window );
@@ -251,7 +251,13 @@ public class IMGUIExample extends EngineFrame {
         Vector2 mousePos = getMousePositionPoint();
         
         for ( GuiComponent c : components ) {
-            c.update( delta );
+            if ( dropdownList.isDropdownListVisible()  ) {
+                if ( !c.equals( list ) ) {
+                    c.update( delta );
+                }
+            } else {
+                c.update( delta );
+            }
         }
         
         if ( button.isPressed() ) {
@@ -401,6 +407,24 @@ public class IMGUIExample extends EngineFrame {
         
         previousMousePos = mousePos;
         
+        /*int x = 0;
+        int y = 0;
+        if ( isKeyPressed( KEY_RIGHT ) ) {
+            x = 10;
+        } else if ( isKeyPressed( KEY_LEFT ) ) {
+            x = -10;
+        } else if ( isKeyPressed( KEY_UP ) ) {
+            y = -10;
+        } else if ( isKeyPressed( KEY_DOWN ) ) {
+            y = 10;
+        }
+        
+        if ( x != 0 || y != 0 ) {
+            for ( GuiComponent c : components ) {
+                c.move( x, y );
+            }
+        }*/
+        
     }
     
     @Override
@@ -458,7 +482,7 @@ public class IMGUIExample extends EngineFrame {
         drawText( String.format( "value (h): %.2f", horizontalSlider.getValue() ), dataMargin, horizontalSlider.getBounds().y + horizontalSlider.getBounds().height / 2 - 25, 12, GRAY );
         drawText( String.format( "value (v): %.2f", verticalSlider.getValue() ), dataMargin, verticalSlider.getBounds().y + verticalSlider.getBounds().height / 2 + 20, 12, GRAY );
         drawText( String.format( "size: %d", textField.getValue().length() ), dataMargin, textField.getBounds().y + textField.getBounds().height / 2 - 3, 12, GRAY );
-        drawText( String.format( "selected: %s", "wp" ), dataMargin, labelDropdownList.getBounds().y + labelDropdownList.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( String.format( "selected: %s", dropdownList.getSelectedItemText() ), dataMargin, dropdownList.getBounds().y + dropdownList.getBounds().height / 2 - 3, 12, GRAY );
         drawText( String.format( "selected: %s", list.getSelectedItemText() ), dataMargin, list.getBounds().y + list.getBounds().height / 2 - 3, 12, GRAY );
         
         buttonShowMessageDialog.draw();

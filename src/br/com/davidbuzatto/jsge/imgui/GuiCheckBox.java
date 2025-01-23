@@ -114,4 +114,10 @@ public class GuiCheckBox extends GuiTextComponent {
         return this.selected;
     }
     
+    @Override
+    public void move( double xAmount, double yAmount ) {
+        bounds.x += xAmount;
+        bounds.y += yAmount;
+    }
+    
 }

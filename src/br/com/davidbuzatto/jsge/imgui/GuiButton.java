@@ -86,5 +86,11 @@ public class GuiButton extends GuiTextComponent {
         engine.fillRectangle( bounds, backgroundColor );
         engine.drawRectangle( bounds, borderColor );
     }
+
+    @Override
+    public void move( double xAmount, double yAmount ) {
+        bounds.x += xAmount;
+        bounds.y += yAmount;
+    }
     
 }

@@ -127,6 +127,7 @@ public abstract class GuiComponent {
     }
     
     public abstract void draw();
+    public abstract void move( double xAmount, double yAmount );
     
     public boolean isPressed() {
         return mouseState == GuiComponentMouseState.MOUSE_PRESSED;
@@ -165,11 +166,6 @@ public abstract class GuiComponent {
 
     public Rectangle getBounds() {
         return bounds;
-    }
-    
-    public void move( double xAmount, double yAmount ) {
-        bounds.x += xAmount;
-        bounds.y += yAmount;
     }
 
     @Override

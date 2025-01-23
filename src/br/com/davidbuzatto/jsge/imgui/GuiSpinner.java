@@ -176,6 +176,14 @@ public class GuiSpinner extends GuiComponent {
         }
     }
     
+    @Override
+    public void move( double xAmount, double yAmount ) {
+        bounds.x += xAmount;
+        bounds.y += yAmount;
+        leftButton.move( xAmount, yAmount );
+        rightButton.move( xAmount, yAmount );
+    }
+    
     private class GuiButtonChangeValue extends GuiButton {
         
         private final double arrowAngle;
@@ -226,7 +234,7 @@ public class GuiSpinner extends GuiComponent {
         
         private void drawButtonLabel( Color color ) {
             int pad = 5;
-            engine.fillPolygon( bounds.x + bounds.width / 2, bounds.y + bounds.height / 2, 3, bounds.width / 2 - pad, arrowAngle, color );
+            engine.fillPolygon( bounds.x + bounds.width / 2, bounds.y + bounds.height / 2, 3, 6, arrowAngle, color );
         }
         
     }

@@ -54,4 +54,10 @@ public class GuiLabel extends GuiTextComponent {
         }
     }
     
+    @Override
+    public void move( double xAmount, double yAmount ) {
+        bounds.x += xAmount;
+        bounds.y += yAmount;
+    }
+    
 }

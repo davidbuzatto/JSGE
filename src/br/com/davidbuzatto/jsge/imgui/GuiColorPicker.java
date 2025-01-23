@@ -264,4 +264,14 @@ public class GuiColorPicker extends GuiComponent {
         return 1.0 - ( saturationAndValuePosition.y - bounds.y ) / bounds.height;
     }
     
+    @Override
+    public void move( double xAmount, double yAmount ) {
+        bounds.x += xAmount;
+        bounds.y += yAmount;
+        saturationAndValuePosition.x += xAmount;
+        saturationAndValuePosition.y += yAmount;
+        hueSlider.move( xAmount, yAmount );
+        alphaSlider.move( xAmount, yAmount );
+    }
+    
 }

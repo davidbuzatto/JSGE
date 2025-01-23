@@ -292,6 +292,14 @@ public class GuiSlider extends GuiComponent {
         this.mouseWheelEnabled = mouseWheelEnabled;
     }
     
+    @Override
+    public void move( double xAmount, double yAmount ) {
+        bounds.x += xAmount;
+        bounds.y += yAmount;
+        sliderButton.bounds.x += xAmount;
+        sliderButton.bounds.y += yAmount;
+    }
+    
     private class GuiSliderButton extends GuiButton {
         
         private final double radius;
