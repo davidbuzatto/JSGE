@@ -49,6 +49,7 @@ public class GuiConfirmDialog extends GuiWindow {
     private boolean boundsCalculationOk;
     
     /**
+     * Cria o componente.
      * 
      * @param title O título do componente.
      * @param message A mensagem do componente.
@@ -65,6 +66,11 @@ public class GuiConfirmDialog extends GuiWindow {
     }
     
     /**
+     * Cria o componente.
+     * 
+     * Essa versão do construtor depende da configuração "injetável" de uma
+     * instância de uma engine.
+     * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
      * 
      * @param title O título do componente.
      * @param message A mensagem do componente.
@@ -79,6 +85,7 @@ public class GuiConfirmDialog extends GuiWindow {
     }
     
     /**
+     * Cria o componente.
      * 
      * @param engine A instância da engine utilizada para desenhar e atualizar
      * o componente.

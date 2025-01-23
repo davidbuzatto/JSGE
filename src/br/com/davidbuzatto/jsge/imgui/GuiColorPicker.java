@@ -41,6 +41,7 @@ public class GuiColorPicker extends GuiComponent {
     private GuiSlider alphaSlider;
     
     /**
+     * Cria o componente.
      * 
      * @param x Coordenada x do vértice superior esquerdo do retângulo que 
      * define os limites do componente.
@@ -58,6 +59,11 @@ public class GuiColorPicker extends GuiComponent {
     }
     
     /**
+     * Cria o componente.
+     * 
+     * Essa versão do construtor depende da configuração "injetável" de uma
+     * instância de uma engine.
+     * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
      * 
      * @param x Coordenada x do vértice superior esquerdo do retângulo que 
      * define os limites do componente.
@@ -73,6 +79,7 @@ public class GuiColorPicker extends GuiComponent {
     }
     
     /**
+     * Cria o componente.
      * 
      * @param bounds Um retângulo que define os limites do componente.
      * @param initialColor A cor inicial.
@@ -85,6 +92,11 @@ public class GuiColorPicker extends GuiComponent {
     }
     
     /**
+     * Cria o componente.
+     * 
+     * Essa versão do construtor depende da configuração "injetável" de uma
+     * instância de uma engine.
+     * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
      * 
      * @param bounds Um retângulo que define os limites do componente.
      * @param initialColor A cor inicial.

@@ -49,6 +49,7 @@ public class GuiTextField extends GuiComponent {
     private int lastKey;
     
     /**
+     * Cria o componente.
      * 
      * @param x Coordenada x do vértice superior esquerdo do retângulo que 
      * define os limites do componente.
@@ -66,6 +67,11 @@ public class GuiTextField extends GuiComponent {
     }
     
     /**
+     * Cria o componente.
+     * 
+     * Essa versão do construtor depende da configuração "injetável" de uma
+     * instância de uma engine.
+     * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
      * 
      * @param x Coordenada x do vértice superior esquerdo do retângulo que 
      * define os limites do componente.
@@ -81,6 +87,7 @@ public class GuiTextField extends GuiComponent {
     }
     
     /**
+     * Cria o componente.
      * 
      * @param bounds Um retângulo que define os limites do componente.
      * @param value O valor inicial do componente.
@@ -93,6 +100,11 @@ public class GuiTextField extends GuiComponent {
     }
     
     /**
+     * Cria o componente.
+     * 
+     * Essa versão do construtor depende da configuração "injetável" de uma
+     * instância de uma engine.
+     * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
      * 
      * @param bounds Um retângulo que define os limites do componente.
      * @param value O valor inicial do componente. 

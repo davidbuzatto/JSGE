@@ -32,6 +32,7 @@ public abstract class GuiTextComponent extends GuiComponent {
     protected int textWidth = -1;
 
     /**
+     * Cria o componente.
      * 
      * @param bounds
      * @param text Texto utilizado no componente.
@@ -44,6 +45,11 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
     
     /**
+     * Cria o componente.
+     * 
+     * Essa versão do construtor depende da configuração "injetável" de uma
+     * instância de uma engine.
+     * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
      * 
      * @param bounds
      * @param text Texto utilizado no componente. 
@@ -54,6 +60,7 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
     
     /**
+     * Cria o componente.
      * 
      * @param x Coordenada x do vértice superior esquerdo do retângulo que 
      * define os limites do componente.
@@ -70,6 +77,11 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
     
     /**
+     * Cria o componente.
+     * 
+     * Essa versão do construtor depende da configuração "injetável" de uma
+     * instância de uma engine.
+     * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
      * 
      * @param x Coordenada x do vértice superior esquerdo do retângulo que 
      * define os limites do componente.

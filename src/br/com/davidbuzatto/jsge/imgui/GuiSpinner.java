@@ -36,6 +36,7 @@ public class GuiSpinner extends GuiComponent {
     private GuiButtonChangeValue rightButton;
     
     /**
+     * Cria o componente.
      * 
      * @param x Coordenada x do vértice superior esquerdo do retângulo que 
      * define os limites do componente.
@@ -56,6 +57,11 @@ public class GuiSpinner extends GuiComponent {
     }
     
     /**
+     * Cria o componente.
+     * 
+     * Essa versão do construtor depende da configuração "injetável" de uma
+     * instância de uma engine.
+     * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
      * 
      * @param x Coordenada x do vértice superior esquerdo do retângulo que 
      * define os limites do componente.
@@ -74,6 +80,7 @@ public class GuiSpinner extends GuiComponent {
     }
     
     /**
+     * Cria o componente.
      * 
      * @param bounds Um retângulo que define os limites do componente.
      * @param value O valor inicial do componente.
@@ -89,6 +96,11 @@ public class GuiSpinner extends GuiComponent {
     }
     
     /**
+     * Cria o componente.
+     * 
+     * Essa versão do construtor depende da configuração "injetável" de uma
+     * instância de uma engine.
+     * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
      * 
      * @param bounds Um retângulo que define os limites do componente.
      * @param value O valor inicial do componente.
@@ -101,24 +113,12 @@ public class GuiSpinner extends GuiComponent {
         initComponents( null, 24 );
     }
     
-    /**
-     * 
-     * @param value O valor inicial do componente.
-     * @param min O valor mínimo do componente.
-     * @param max O valor máximo do componente. 
-     */
     private void initData( int value, int min, int max ) {
         this.value = value;
         this.min = min;
         this.max = max;
     }
     
-    /**
-     * 
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
-     * @param buttonSize 
-     */
     private void initComponents( EngineFrame engine, double buttonSize ) {
         if ( engine == null ) {
             leftButton = new GuiButtonChangeValue( bounds.x, bounds.y, buttonSize, bounds.height, 180 );

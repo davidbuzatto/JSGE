@@ -49,6 +49,7 @@ public class GuiInputDialog extends GuiWindow {
     private boolean enterKeyPressed;
     
     /**
+     * Cria o componente.
      * 
      * @param title O título do componente.
      * @param message A mensagem do componente.
@@ -62,6 +63,11 @@ public class GuiInputDialog extends GuiWindow {
     }
     
     /**
+     * Cria o componente.
+     * 
+     * Essa versão do construtor depende da configuração "injetável" de uma
+     * instância de uma engine.
+     * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
      * 
      * @param title O título do componente.
      * @param message A mensagem do componente.

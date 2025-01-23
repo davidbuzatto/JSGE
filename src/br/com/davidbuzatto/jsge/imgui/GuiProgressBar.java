@@ -33,6 +33,7 @@ public class GuiProgressBar extends GuiComponent {
     private double max;
     
     /**
+     * Cria o componente.
      * 
      * @param x Coordenada x do vértice superior esquerdo do retângulo que 
      * define os limites do componente.
@@ -52,6 +53,11 @@ public class GuiProgressBar extends GuiComponent {
     }
     
     /**
+     * Cria o componente.
+     * 
+     * Essa versão do construtor depende da configuração "injetável" de uma
+     * instância de uma engine.
+     * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
      * 
      * @param x Coordenada x do vértice superior esquerdo do retângulo que 
      * define os limites do componente.
@@ -69,6 +75,7 @@ public class GuiProgressBar extends GuiComponent {
     }
     
     /**
+     * Cria o componente.
      * 
      * @param bounds Um retângulo que define os limites do componente.
      * @param value O valor inicial do componente.
@@ -83,6 +90,11 @@ public class GuiProgressBar extends GuiComponent {
     }
     
     /**
+     * Cria o componente.
+     * 
+     * Essa versão do construtor depende da configuração "injetável" de uma
+     * instância de uma engine.
+     * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
      * 
      * @param bounds Um retângulo que define os limites do componente.
      * @param value O valor inicial do componente.
@@ -94,12 +106,6 @@ public class GuiProgressBar extends GuiComponent {
         initData( value, min, max );
     }
     
-    /**
-     * 
-     * @param value O valor inicial do componente.
-     * @param min O valor mínimo do componente.
-     * @param max O valor máximo do componente. 
-     */
     private void initData( double value, double min, double max ) {
         this.value = value;
         this.min = min;

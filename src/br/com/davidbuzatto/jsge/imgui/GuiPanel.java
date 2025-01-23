@@ -36,6 +36,7 @@ public class GuiPanel extends GuiTextComponent {
     private boolean titleBarPressed;
     
     /**
+     * Cria o componente.
      * 
      * @param x Coordenada x do vértice superior esquerdo do retângulo que 
      * define os limites do componente.
@@ -53,6 +54,11 @@ public class GuiPanel extends GuiTextComponent {
     }
     
     /**
+     * Cria o componente.
+     * 
+     * Essa versão do construtor depende da configuração "injetável" de uma
+     * instância de uma engine.
+     * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
      * 
      * @param x Coordenada x do vértice superior esquerdo do retângulo que 
      * define os limites do componente.
@@ -68,6 +74,7 @@ public class GuiPanel extends GuiTextComponent {
     }
     
     /**
+     * Cria o componente.
      * 
      * @param bounds Um retângulo que define os limites do componente.
      * @param title O título do componente.
@@ -80,6 +87,11 @@ public class GuiPanel extends GuiTextComponent {
     }
     
     /**
+     * Cria o componente.
+     * 
+     * Essa versão do construtor depende da configuração "injetável" de uma
+     * instância de uma engine.
+     * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
      * 
      * @param bounds Um retângulo que define os limites do componente.
      * @param title O título do componente. 
