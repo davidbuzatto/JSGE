@@ -51,7 +51,7 @@ public class GuiCheckBox extends GuiTextComponent {
         super.update( delta );
         
         if ( visible && enabled ) {
-            if ( isPressed() ) {
+            if ( isMousePressed() ) {
                 selected = !selected;
             }
         }

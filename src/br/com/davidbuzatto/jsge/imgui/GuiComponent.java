@@ -129,7 +129,7 @@ public abstract class GuiComponent {
     public abstract void draw();
     public abstract void move( double xAmount, double yAmount );
     
-    public boolean isPressed() {
+    public boolean isMousePressed() {
         return mouseState == GuiComponentMouseState.MOUSE_PRESSED;
     }
     

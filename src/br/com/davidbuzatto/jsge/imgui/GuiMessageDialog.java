@@ -166,7 +166,7 @@ public class GuiMessageDialog extends GuiWindow {
     }
     
     public boolean isOkButtonPressed() {
-        return okButton.isPressed();
+        return okButton.isMousePressed();
     }
     
     private void updateComponentsBounds() {

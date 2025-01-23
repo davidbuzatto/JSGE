@@ -187,11 +187,11 @@ public class GuiInputDialog extends GuiWindow {
     }
     
     public boolean isOkButtonPressed() {
-        return okButton.isPressed();
+        return okButton.isMousePressed();
     }
     
     public boolean isCancelButtonPressed() {
-        return cancelButton.isPressed();
+        return cancelButton.isMousePressed();
     }
     
     public boolean isEnterKeyPressed() {

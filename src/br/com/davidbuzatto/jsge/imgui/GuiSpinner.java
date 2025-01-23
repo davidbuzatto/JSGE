@@ -85,11 +85,11 @@ public class GuiSpinner extends GuiComponent {
             leftButton.update( delta );
             rightButton.update( delta );
             
-            if ( leftButton.isPressed() ) {
+            if ( leftButton.isMousePressed() ) {
                 decrementValue();
             }
             
-            if ( rightButton.isPressed() ) {
+            if ( rightButton.isMousePressed() ) {
                 incrementValue();
             }
             

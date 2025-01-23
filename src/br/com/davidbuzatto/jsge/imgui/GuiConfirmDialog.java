@@ -208,20 +208,20 @@ public class GuiConfirmDialog extends GuiWindow {
     }
     
     public boolean isButton1Pressed() {
-        return button1.isPressed();
+        return button1.isMousePressed();
     }
     
     public boolean isButton2Pressed() {
-        return button2.isPressed();
+        return button2.isMousePressed();
     }
     
     public boolean isButton3Pressed() {
-        return button3.isPressed();
+        return button3.isMousePressed();
     }
     
     public String getPressedButton() {
         for ( int i = 0; i < buttons.length; i++ ) {
-            if ( buttons[i].isPressed() ) {
+            if ( buttons[i].isMousePressed() ) {
                 return buttons[i].text;
             }
         }

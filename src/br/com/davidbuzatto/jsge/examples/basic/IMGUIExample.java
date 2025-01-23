@@ -260,11 +260,11 @@ public class IMGUIExample extends EngineFrame {
             }
         }
         
-        if ( button.isPressed() ) {
+        if ( button.isMousePressed() ) {
             buttonPressCount++;
         }
         
-        if ( labelButton.isPressed() ) {
+        if ( labelButton.isMousePressed() ) {
             labelButtonPressCount++;
         }
         
@@ -315,15 +315,15 @@ public class IMGUIExample extends EngineFrame {
         inputDialog.update( delta );
         confirmDialog.update( delta );
         
-        if ( buttonShowMessageDialog.isPressed() ) {
+        if ( buttonShowMessageDialog.isMousePressed() ) {
             messageDialog.show();
         }
         
-        if ( buttonShowInputDialog.isPressed() ) {
+        if ( buttonShowInputDialog.isMousePressed() ) {
             inputDialog.show();
         }
         
-        if ( buttonShowConfirmDialog.isPressed() ) {
+        if ( buttonShowConfirmDialog.isMousePressed() ) {
             confirmDialog.show();
         }
         
@@ -384,19 +384,19 @@ public class IMGUIExample extends EngineFrame {
         checkVisible.update( delta );
         checkDrawBounds.update( delta );
         
-        if ( checkEnabled.isPressed() ) {
+        if ( checkEnabled.isMousePressed() ) {
             for ( GuiComponent c : components ) {
                 c.setEnabled( checkEnabled.isSelected() );
             }
         }
         
-        if ( checkVisible.isPressed() ) {
+        if ( checkVisible.isMousePressed() ) {
             for ( GuiComponent c : components ) {
                 c.setVisible( checkVisible.isSelected() );
             }
         }
         
-        if ( checkDrawBounds.isPressed() ) {
+        if ( checkDrawBounds.isMousePressed() ) {
             for ( GuiComponent c : components ) {
                 c.setDrawBounds( checkDrawBounds.isSelected() );
                 checkEnabled.setDrawBounds( checkDrawBounds.isSelected() );

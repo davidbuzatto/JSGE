@@ -149,11 +149,11 @@ public class GuiWindow extends GuiTextComponent {
     }
     
     public boolean isCloseButtonPressed() {
-        return closeButton.isPressed();
+        return closeButton.isMousePressed();
     }
     
     public boolean isTitleBarPressed() {
-        if ( closeButton.isPressed() ) {
+        if ( closeButton.isMousePressed() ) {
             return false;
         }
         return titleBarPressed;

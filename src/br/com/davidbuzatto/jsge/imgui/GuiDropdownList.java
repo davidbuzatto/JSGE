@@ -80,7 +80,7 @@ public class GuiDropdownList extends GuiComponent {
             Vector2 mousePos = engine.getMousePositionPoint();
             itemsList.update( delta );
             
-            if ( isPressed() ) {
+            if ( isMousePressed() ) {
                 itemsList.setVisible( true );
                 itemsList.setEnabled( true );
             }
@@ -91,7 +91,7 @@ public class GuiDropdownList extends GuiComponent {
                 wasSelected = false;
             }
             
-            if ( itemsList.isPressed() ) {
+            if ( itemsList.isMousePressed() ) {
                 wasSelected = true;
             }
             
