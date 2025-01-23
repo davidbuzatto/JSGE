@@ -81,8 +81,8 @@ public class GuiDropdownList extends GuiComponent {
             itemsList.update( delta );
             
             if ( isMousePressed() ) {
-                itemsList.setVisible( true );
-                itemsList.setEnabled( true );
+                itemsList.setVisible( !itemsList.isVisible() );
+                itemsList.setEnabled( !itemsList.isEnabled() );
             }
             
             if ( wasSelected ) {

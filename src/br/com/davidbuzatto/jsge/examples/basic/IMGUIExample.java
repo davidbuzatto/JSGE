@@ -16,6 +16,7 @@
  */
 package br.com.davidbuzatto.jsge.examples.basic;
 
+import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.imgui.GuiButton;
 import br.com.davidbuzatto.jsge.imgui.GuiButtonGroup;
@@ -115,7 +116,7 @@ public class IMGUIExample extends EngineFrame {
      * Cria o exemplo.
      */
     public IMGUIExample() {
-        super( 905, 840, "IMGUI", 60, true );
+        super( 935, 840, "IMGUI", 60, true );
     }
     
     @Override
@@ -157,14 +158,22 @@ public class IMGUIExample extends EngineFrame {
         verticalSlider = new GuiSlider( x + 230, y, 30, 80, 25, 1, 50, GuiSlider.VERTICAL );
         textField = new GuiTextField( x, y += vSpacing * 2, 260, 30, "" );
         
+        List<String> dropdownItems = new ArrayList<>();
+        dropdownItems.add( "pizza" );
+        dropdownItems.add( "carbonara" );
+        dropdownItems.add( "parmigiana" );
+        dropdownItems.add( "lasagna" );
+        dropdownItems.add( "risotto" );
+        dropdownItems.add( "arancino" );
+        dropdownList = new GuiDropdownList( x, y += vSpacing, 240, 30, dropdownItems );
+        
         List<String> listItems = new ArrayList<>();
-        listItems.add( "one" );
-        listItems.add( "two" );
-        listItems.add( "three" );
-        listItems.add( "four" );
-        listItems.add( "five" );
-        listItems.add( "six" );
-        dropdownList = new GuiDropdownList( x, y += vSpacing, 240, 30, listItems );
+        listItems.add( "gelato" );
+        listItems.add( "cannoli" );
+        listItems.add( "tiramisu" );
+        listItems.add( "cassata" );
+        listItems.add( "cantuccini" );
+        listItems.add( "babà al rum" );
         list = new GuiList( x, y += vSpacing, 240, 130, listItems );
 
         progressTime = 0.05;
@@ -189,7 +198,7 @@ public class IMGUIExample extends EngineFrame {
         components.add( list );
         components.add( dropdownList );
         
-        x = 450;
+        x = 480;
         y = 55;
         vSpacing = 120;
         
@@ -215,7 +224,7 @@ public class IMGUIExample extends EngineFrame {
         components.add( window );
         components.add( windowUntitled );
         
-        x = 450;
+        x = 480;
         y = 490;
         vSpacing = 50;
         buttonShowMessageDialog = new GuiButton( x, y, 150, 30, "Show Message Dialog" );
@@ -229,12 +238,12 @@ public class IMGUIExample extends EngineFrame {
         inputDialogStatus = "";
         confirmDialogStatus = "";
         
-        x = 465;
+        x = 495;
         y = 695;
         colorPicker = new GuiColorPicker( x, y, 100, 100, EngineFrame.LIME );
         components.add( colorPicker );
         
-        x = 790;
+        x = 820;
         y = 30;
         vSpacing = 30;
         checkEnabled = new GuiCheckBox( x, y, 100, 20, "Enabled" );
@@ -405,6 +414,14 @@ public class IMGUIExample extends EngineFrame {
             }
         }
         
+        if ( isMouseButtonPressed( MOUSE_BUTTON_RIGHT ) ) {
+            for ( GuiComponent c : components ) {
+                if ( CollisionUtils.checkCollisionPointRectangle( mousePos, c.getBounds() ) ) {
+                    c.setEnabled( !c.isEnabled() );
+                }
+            }
+        }
+        
         previousMousePos = mousePos;
         
         /*int x = 0;
@@ -434,18 +451,18 @@ public class IMGUIExample extends EngineFrame {
         
         int hSep = 280;
         int dataMargin = hSep + 25;
-        drawGrid( 9, 10, 30, 420, 50, hSep, LIGHTGRAY );
-        drawGrid( 1, 10, 480, 420, 100, hSep, LIGHTGRAY );
-        drawGrid( 2, 10, 580, 420, 50, hSep, LIGHTGRAY );
-        drawGrid( 1, 10, 680, 420, 150, hSep, LIGHTGRAY );
-        drawGrid( 4, 440, 30, 340, 100, 170, LIGHTGRAY );
-        drawGrid( 3, 440, 480, 340, 50, 170, LIGHTGRAY );
-        drawGrid( 1, 440, 680, 340, 150, 170, LIGHTGRAY );
+        drawGrid( 9, 10, 30, 450, 50, hSep, LIGHTGRAY );
+        drawGrid( 1, 10, 480, 450, 100, hSep, LIGHTGRAY );
+        drawGrid( 2, 10, 580, 450, 50, hSep, LIGHTGRAY );
+        drawGrid( 1, 10, 680, 450, 150, hSep, LIGHTGRAY );
+        drawGrid( 4, 470, 30, 340, 100, 170, LIGHTGRAY );
+        drawGrid( 3, 470, 480, 340, 50, 170, LIGHTGRAY );
+        drawGrid( 1, 470, 680, 340, 150, 170, LIGHTGRAY );
         
-        drawText( "Controls", 10, 10, 20, GRAY );
-        drawText( "Containers/Separators", 440, 10, 20, GRAY );
-        drawText( "Dialogs", 440, 460, 20, GRAY );
-        drawText( "Color Picker", 440, 660, 20, GRAY );
+        drawText( "Controls (right click to disable)", 10, 10, 20, GRAY );
+        drawText( "Containers/Separators", 470, 10, 20, GRAY );
+        drawText( "Dialogs", 470, 460, 20, GRAY );
+        drawText( "Color Picker", 470, 660, 20, GRAY );
         
         for ( GuiComponent c : components ) {
             c.draw();
@@ -489,21 +506,21 @@ public class IMGUIExample extends EngineFrame {
         buttonShowInputDialog.draw();
         buttonShowConfirmDialog.draw();
         
-        drawText( messageDialogStatus, 620, buttonShowMessageDialog.getBounds().y + buttonShowMessageDialog.getBounds().height / 2 - 3, 12, GRAY );
-        drawText( inputDialogStatus, 620, buttonShowInputDialog.getBounds().y + buttonShowInputDialog.getBounds().height / 2 - 3, 12, GRAY );
-        drawText( confirmDialogStatus, 620, buttonShowConfirmDialog.getBounds().y + buttonShowConfirmDialog.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( messageDialogStatus, 650, buttonShowMessageDialog.getBounds().y + buttonShowMessageDialog.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( inputDialogStatus, 650, buttonShowInputDialog.getBounds().y + buttonShowInputDialog.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( confirmDialogStatus, 650, buttonShowConfirmDialog.getBounds().y + buttonShowConfirmDialog.getBounds().height / 2 - 3, 12, GRAY );
         
         messageDialog.draw();
         inputDialog.draw();
         confirmDialog.draw();
         
-        drawColoredRectangle( 645, colorPicker.getBounds().y + colorPicker.getBounds().height / 2 - 40, colorPicker.getColor() );
+        drawColoredRectangle( 675, colorPicker.getBounds().y + colorPicker.getBounds().height / 2 - 40, colorPicker.getColor() );
         
         checkEnabled.draw();
         checkVisible.draw();
         checkDrawBounds.draw();
         
-        drawFPS( checkDrawBounds.getX(), checkDrawBounds.getY() + checkDrawBounds.getHeight() + 10 );
+        drawFPS( checkDrawBounds.getX(), checkDrawBounds.getY() + checkDrawBounds.getHeight() + 15 );
         
     }
     
