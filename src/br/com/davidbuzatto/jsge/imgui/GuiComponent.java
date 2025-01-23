@@ -76,6 +76,12 @@ public abstract class GuiComponent {
     public static final Color PROGRESS_BAR_BACKGROUND_COLOR = new Color( 151, 232, 255 );
     public static final Color DISABLED_PROGRESS_BAR_BACKGROUND_COLOR = new Color( 230, 233, 233 );
     
+    public static final Color LIST_CONTAINER_BACKGROUND_COLOR = new Color( 245, 245, 245 );
+    public static final Color DISABLED_LIST_CONTAINER_BACKGROUND_COLOR = new Color( 245, 245, 245 );
+    
+    public static final Color SCROLL_BAR_TRACK_COLOR = new Color( 220, 220, 220 );
+    public static final Color DISABLED_SCROLL_BAR_TRACK_COLOR = new Color( 220, 220, 220 );
+    
     public GuiComponent( Rectangle bounds, EngineFrame engine ) {
         this.id = idCounter++;
         this.engine = engine;

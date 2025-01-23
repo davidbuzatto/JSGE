@@ -1,7 +1,9 @@
 Criar componentes immediate mode! (v1.5.0)
-    - GuiList         -> implica em rolagem
+    - Clique nos sliders faz mover.
     - GuiDropdownList -> implica em rolagem (reaproveitar o GuiList)
+    - Sobrescrever método move em todos os componentes com componentes filhos.
     - Verificar todos os componentes passando a engine explicitamente!
-    - Documentar OS componentes apropriadamente.
+    - Sealed classes para os componentes?
+    - Documentar ps componentes apropriadamente.
 
 Separar o exemplos futuramente.

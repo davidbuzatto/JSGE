@@ -28,6 +28,7 @@ import br.com.davidbuzatto.jsge.imgui.GuiInputDialog;
 import br.com.davidbuzatto.jsge.imgui.GuiLabel;
 import br.com.davidbuzatto.jsge.imgui.GuiLabelButton;
 import br.com.davidbuzatto.jsge.imgui.GuiLine;
+import br.com.davidbuzatto.jsge.imgui.GuiList;
 import br.com.davidbuzatto.jsge.imgui.GuiMessageDialog;
 import br.com.davidbuzatto.jsge.imgui.GuiPanel;
 import br.com.davidbuzatto.jsge.imgui.GuiProgressBar;
@@ -70,7 +71,7 @@ public class IMGUIExample extends EngineFrame {
     private GuiSlider verticalSlider;
     private GuiTextField textField;
     private GuiLabel labelDropdownList;
-    private GuiLabel labelList;
+    private GuiList list;
     private GuiColorPicker colorPicker;
     
     private GuiLine horizontalLine;
@@ -155,8 +156,16 @@ public class IMGUIExample extends EngineFrame {
         horizontalSlider = new GuiSlider( x, ( y += vSpacing ) + 25, 220, 30, 25, 1, 50 );
         verticalSlider = new GuiSlider( x + 230, y, 30, 80, 25, 1, 50, GuiSlider.VERTICAL );
         textField = new GuiTextField( x, y += vSpacing * 2, 260, 30, "" );
+        
+        List<String> listItems = new ArrayList<>();
+        listItems.add( "one" );
+        listItems.add( "two" );
+        listItems.add( "three" );
+        listItems.add( "four" );
+        listItems.add( "five" );
+        listItems.add( "six" );
         labelDropdownList = new GuiLabel( x, y += vSpacing, 260, 30, "Dropdown List (work in progress)" );
-        labelList = new GuiLabel( x, y += vSpacing, 260, 30, "List (work in progress)" );
+        list = new GuiList( x, y += vSpacing, 240, 130, listItems );
 
         progressTime = 0.05;
         
@@ -178,7 +187,7 @@ public class IMGUIExample extends EngineFrame {
         components.add( verticalSlider );
         components.add( textField );
         components.add( labelDropdownList );
-        components.add( labelList );
+        components.add( list );
         
         x = 450;
         y = 55;
@@ -447,6 +456,8 @@ public class IMGUIExample extends EngineFrame {
         drawText( String.format( "value (h): %.2f", horizontalSlider.getValue() ), dataMargin, horizontalSlider.getBounds().y + horizontalSlider.getBounds().height / 2 - 25, 12, GRAY );
         drawText( String.format( "value (v): %.2f", verticalSlider.getValue() ), dataMargin, verticalSlider.getBounds().y + verticalSlider.getBounds().height / 2 + 20, 12, GRAY );
         drawText( String.format( "size: %d", textField.getValue().length() ), dataMargin, textField.getBounds().y + textField.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( String.format( "selected: %s", "wp" ), dataMargin, labelDropdownList.getBounds().y + labelDropdownList.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( String.format( "selected: %s", list.getSelectedItem() ), dataMargin, list.getBounds().y + list.getBounds().height / 2 - 3, 12, GRAY );
         
         buttonShowMessageDialog.draw();
         buttonShowInputDialog.draw();
