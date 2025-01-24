@@ -101,14 +101,14 @@ public class GuiDropdownList extends GuiComponent {
     
     private void initComponents( EngineFrame engine, List<String> itemsText ) {
         
-        //bounds.width += GuiSlider.SLIDER_RADIUS * 2;
+        //bounds.width += SLIDER_RADIUS * 2;
         
         int size = MathUtils.clamp( itemsText.size(), 1, 4 );
         
         if ( engine == null ) {
-            itemsList = new GuiList( bounds.x, bounds.y + bounds.height + 3, bounds.width - GuiSlider.SLIDER_RADIUS * 2, 3 + GuiList.ITEM_BOUND_HEIGHT * size + 3 * size, itemsText );
+            itemsList = new GuiList( bounds.x, bounds.y + bounds.height + 3, bounds.width - SLIDER_RADIUS * 2, 3 + GuiList.ITEM_BOUND_HEIGHT * size + 3 * size, itemsText );
         } else {
-            itemsList = new GuiList( bounds.x, bounds.y + bounds.height + 3, bounds.width - GuiSlider.SLIDER_RADIUS * 2, 3 + GuiList.ITEM_BOUND_HEIGHT * size + 3 * size, itemsText, engine );
+            itemsList = new GuiList( bounds.x, bounds.y + bounds.height + 3, bounds.width - SLIDER_RADIUS * 2, 3 + GuiList.ITEM_BOUND_HEIGHT * size + 3 * size, itemsText, engine );
         }
         
         itemsList.setEnabled( false );
@@ -172,7 +172,7 @@ public class GuiDropdownList extends GuiComponent {
                             drawDropdownList( MOUSE_OVER_BORDER_COLOR, MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_TEXT_COLOR );
                             break;
                         default:
-                            drawDropdownList( BORDER_COLOR, BACKGROUND_COLOR, TEXT_COLOR );
+                            drawDropdownList( borderColor, backgroundColor, textColor );
                             break;
                     }
                 }
@@ -199,7 +199,7 @@ public class GuiDropdownList extends GuiComponent {
         double textWidth = engine.measureText( selectedText, FONT_SIZE );
         engine.drawText( selectedText, bounds.x + bounds.width / 2 - textWidth / 2, bounds.y + bounds.height / 2 - itemsList.getItemTextHeight() / 5, FONT_SIZE, textColor );
         
-        engine.fillPolygon( bounds.x + bounds.width - GuiSlider.SLIDER_RADIUS, bounds.y + bounds.height / 2, 3, 6, 90, textColor );
+        engine.fillPolygon( bounds.x + bounds.width - SLIDER_RADIUS, bounds.y + bounds.height / 2, 3, 6, 90, textColor );
         
     }
     
@@ -236,6 +236,114 @@ public class GuiDropdownList extends GuiComponent {
      */
     public boolean isDropdownListVisible() {
         return itemsList.isVisible();
+    }
+    
+    /**
+     * Obtém a cor do caminho da barra de rolagem.
+     * 
+     * @return A cor do caminho da barra de rolagem.
+     */
+    public Color getScrollBarTrackColor() {
+        return itemsList.scrollBarTrackColor;
+    }
+
+    /**
+     * Configura a cor do caminho da barra de rolagem.
+     * 
+     * @param scrollBarTrackColor A cor do caminho da barra de rolagem.
+     */
+    public void setScrollBarTrackColor( Color scrollBarTrackColor ) {
+        this.itemsList.scrollBarTrackColor = scrollBarTrackColor;
+    }
+    
+    /**
+     * Obtém a cor do fundo da barra de rolagem.
+     * 
+     * @return A cor do fundo.
+     */
+    public Color getScrollBarBackgroundColor() {
+        return itemsList.scrollBar.getBackgroundColor();
+    }
+    
+    /**
+     * Confira a cor do fundo da barra de rolagem.
+     * 
+     * @param backgroundColor A cor do fundo.
+     */
+    public void setScrollBarBackgroundColor( Color backgroundColor ) {
+        itemsList.scrollBar.setBackgroundColor( backgroundColor );
+    }
+    
+    /**
+     * Obtém a cor da borda da barra de rolagem.
+     * 
+     * @return A cor da borda.
+     */
+    public Color getScrollBarBorderColor() {
+        return itemsList.scrollBar.getBorderColor();
+    }
+    
+    /**
+     * Confira a cor da borda da barra de rolagem.
+     * 
+     * @param borderColor A cor da borda.
+     */
+    public void setScrollBarBorderColor( Color borderColor ) {
+        itemsList.scrollBar.setBorderColor( borderColor );
+    }
+    
+    /**
+     * Obtém a cor do texto da barra de rolagem.
+     * 
+     * @return A cor do texto.
+     */
+    public Color getScrollBarTextColor() {
+        return itemsList.scrollBar.getTextColor();
+    }
+    
+    /**
+     * Confira a cor do texto da barra de rolagem.
+     * 
+     * @param textColor A cor do texto.
+     */
+    public void setScrollBarTextColor( Color textColor ) {
+        itemsList.scrollBar.setTextColor( textColor );
+    }
+    
+    /**
+     * Obtém a cor do preenchimento da barra de rolagem.
+     * 
+     * @return A cor do preenchimento.
+     */
+    public Color getScrollBarTrackFillColor() {
+        return itemsList.scrollBar.getTrackFillColor();
+    }
+    
+    /**
+     * Confira a cor do preenchimento da barra de rolagem.
+     * 
+     * @param trackFillColor A cor do preenchimento.
+     */
+    public void setScrollBarTrackFillColor( Color trackFillColor ) {
+        itemsList.scrollBar.setTrackFillColor( trackFillColor );
+    }
+
+    @Override
+    public void setBackgroundColor( Color backgroundColor ) {
+        super.setBackgroundColor( backgroundColor );
+        itemsList.setBackgroundColor( backgroundColor );
+    }
+
+    @Override
+    public void setBorderColor( Color borderColor ) {
+        super.setBorderColor( borderColor );
+        itemsList.setBorderColor( borderColor );
+    }
+
+    @Override
+    public void setTextColor( Color textColor ) {
+        super.setTextColor( textColor );
+        itemsList.setTextColor( textColor );
     }
     
     @Override

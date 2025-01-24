@@ -117,6 +117,7 @@ public class GuiTextField extends GuiComponent {
     private void initData( String value ) {
         setValue( value );
         this.showCaret = true;
+        this.backgroundColor = CONTAINER_BACKGROUNG_COLOR;
     }
     
     @Override
@@ -247,7 +248,7 @@ public class GuiTextField extends GuiComponent {
                     if ( mouseState == GuiComponentMouseState.MOUSE_OVER ) {
                         drawTextField( MOUSE_OVER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR, TEXT_COLOR );
                     } else {
-                        drawTextField( CONTAINER_BACKGROUNG_COLOR, BORDER_COLOR, TEXT_COLOR );
+                        drawTextField( backgroundColor, borderColor, textColor );
                     }
                 }
                 if ( hasFocus && showCaret ) {

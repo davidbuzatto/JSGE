@@ -35,6 +35,10 @@ public class GuiPanel extends GuiTextComponent {
     private Rectangle titleBarBounds;
     private boolean titleBarPressed;
     
+    private Color titleBarBackgroundColor;
+    private Color titleBarBorderColor;
+    private Color titleBarTextColor;
+    
     /**
      * Cria o componente.
      * 
@@ -102,7 +106,12 @@ public class GuiPanel extends GuiTextComponent {
     }
     
     private void initComponents() {
-        titleBarBounds = new Rectangle( bounds.x, bounds.y, bounds.width, 25 );
+        this.titleBarBounds = new Rectangle( bounds.x, bounds.y, bounds.width, 25 );
+        this.backgroundColor = CONTAINER_BACKGROUNG_COLOR;
+        this.borderColor = CONTAINER_BORDER_COLOR;
+        this.titleBarBackgroundColor = CONTAINER_TITLE_BAR_BACKGROUND_COLOR;
+        this.titleBarBorderColor = CONTAINER_TITLE_BAR_BORDER_COLOR;
+        this.titleBarTextColor = CONTAINER_TITLE_BAR_TEXT_COLOR;
     }
     
     @Override
@@ -129,7 +138,7 @@ public class GuiPanel extends GuiTextComponent {
         if ( visible ) {
             engine.setStrokeLineWidth( LINE_WIDTH );
             if ( enabled ) {
-                drawPanel( CONTAINER_BORDER_COLOR, CONTAINER_BACKGROUNG_COLOR, CONTAINER_TITLE_BAR_BORDER_COLOR, CONTAINER_TITLE_BAR_BACKGROUND_COLOR, CONTAINER_TITLE_BAR_TEXT_COLOR );
+                drawPanel( borderColor, backgroundColor, titleBarBorderColor, titleBarBackgroundColor, titleBarTextColor );
             } else {
                 drawPanel( DISABLED_CONTAINER_BORDER_COLOR, DISABLED_CONTAINER_BACKGROUND_COLOR, DISABLED_CONTAINER_TITLE_BAR_BORDER_COLOR, DISABLED_CONTAINER_TITLE_BAR_BACKGROUND_COLOR, DISABLED_CONTAINER_TITLE_BAR_TEXT_COLOR );
             }
@@ -171,6 +180,60 @@ public class GuiPanel extends GuiTextComponent {
      */
     public boolean isTitleBarPressed() {
         return titleBarPressed;
+    }
+
+    /**
+     * Obtém a cor do fundo da barra de título.
+     * 
+     * @return A cor do fundo da barra de título.
+     */
+    public Color getTitleBarBackgroundColor() {
+        return titleBarBackgroundColor;
+    }
+
+    /**
+     * Configura a cor do fundo da barra de título.
+     * 
+     * @param titleBarBackgroundColor A cor do fundo da barra de título.
+     */
+    public void setTitleBarBackgroundColor( Color titleBarBackgroundColor ) {
+        this.titleBarBackgroundColor = titleBarBackgroundColor;
+    }
+
+    /**
+     * Obtém a cor da borda da barra de título.
+     * 
+     * @return A cor da borda da barra de título.
+     */
+    public Color getTitleBarBorderColor() {
+        return titleBarBorderColor;
+    }
+
+    /**
+     * Configura a cor da borda da barra de título.
+     * 
+     * @param titleBarBorderColor A cor da borda da barra de título.
+     */
+    public void setTitleBarBorderColor( Color titleBarBorderColor ) {
+        this.titleBarBorderColor = titleBarBorderColor;
+    }
+
+    /**
+     * Obtém a cor do texto da barra de título.
+     * 
+     * @return A cor do texto da barra de título.
+     */
+    public Color getTitleBarTextColor() {
+        return titleBarTextColor;
+    }
+
+    /**
+     * Configura a cor do texto da barra de título.
+     * 
+     * @param titleBarTextColor A cor do texto da barra de título.
+     */
+    public void setTitleBarTextColor( Color titleBarTextColor ) {
+        this.titleBarTextColor = titleBarTextColor;
     }
     
 }

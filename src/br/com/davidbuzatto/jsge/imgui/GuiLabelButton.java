@@ -97,7 +97,7 @@ public class GuiLabelButton extends GuiTextComponent {
 
                 switch ( mouseState ) {
                     case MOUSE_OUT:
-                        drawText( TEXT_COLOR );
+                        drawText( textColor );
                         break;
                     case MOUSE_OVER:
                         drawText( MOUSE_OVER_TEXT_COLOR );

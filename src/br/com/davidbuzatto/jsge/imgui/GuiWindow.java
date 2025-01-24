@@ -36,6 +36,10 @@ public class GuiWindow extends GuiTextComponent {
     protected Rectangle titleBarBounds;
     protected boolean titleBarPressed;
     
+    private Color titleBarBackgroundColor;
+    private Color titleBarBorderColor;
+    private Color titleBarTextColor;
+    
     /**
      * Cria o componente.
      * 
@@ -103,12 +107,25 @@ public class GuiWindow extends GuiTextComponent {
     }
     
     protected void initComponents( EngineFrame engine ) {
+        
         titleBarBounds = new Rectangle( bounds.x, bounds.y, bounds.width, 25 );
+        
         if ( engine == null ) {
             closeButton = new GuiButtonClose( bounds.x + bounds.width - 22, bounds.y + 3, 19, 19 );
         } else {
             closeButton = new GuiButtonClose( bounds.x + bounds.width - 22, bounds.y + 3, 19, 19, engine );
         }
+        
+        this.backgroundColor = CONTAINER_BACKGROUNG_COLOR;
+        this.borderColor = CONTAINER_BORDER_COLOR;
+        this.titleBarBackgroundColor = CONTAINER_TITLE_BAR_BACKGROUND_COLOR;
+        this.titleBarBorderColor = CONTAINER_TITLE_BAR_BORDER_COLOR;
+        this.titleBarTextColor = CONTAINER_TITLE_BAR_TEXT_COLOR;
+        
+        closeButton.setBackgroundColor( titleBarBackgroundColor );
+        closeButton.setBorderColor( titleBarBorderColor );
+        closeButton.setTextColor( titleBarTextColor );
+        
     }
     
     @Override
@@ -138,11 +155,11 @@ public class GuiWindow extends GuiTextComponent {
             engine.setStrokeLineWidth( LINE_WIDTH );
             if ( enabled ) {
                 drawWindow( 
-                        CONTAINER_BORDER_COLOR, 
-                        CONTAINER_BACKGROUNG_COLOR, 
-                        CONTAINER_TITLE_BAR_BORDER_COLOR, 
-                        CONTAINER_TITLE_BAR_BACKGROUND_COLOR, 
-                        CONTAINER_TITLE_BAR_TEXT_COLOR
+                        borderColor, 
+                        backgroundColor, 
+                        titleBarBorderColor, 
+                        titleBarBackgroundColor, 
+                        titleBarTextColor
                 );
             } else {
                 drawWindow( 
@@ -218,6 +235,63 @@ public class GuiWindow extends GuiTextComponent {
         return titleBarPressed;
     }
     
+    /**
+     * Obtém a cor do fundo da barra de título.
+     * 
+     * @return A cor do fundo da barra de título.
+     */
+    public Color getTitleBarBackgroundColor() {
+        return titleBarBackgroundColor;
+    }
+
+    /**
+     * Configura a cor do fundo da barra de título.
+     * 
+     * @param titleBarBackgroundColor A cor do fundo da barra de título.
+     */
+    public void setTitleBarBackgroundColor( Color titleBarBackgroundColor ) {
+        this.titleBarBackgroundColor = titleBarBackgroundColor;
+        this.closeButton.setBackgroundColor( titleBarBackgroundColor );
+    }
+
+    /**
+     * Obtém a cor da borda da barra de título.
+     * 
+     * @return A cor da borda da barra de título.
+     */
+    public Color getTitleBarBorderColor() {
+        return titleBarBorderColor;
+    }
+
+    /**
+     * Configura a cor da borda da barra de título.
+     * 
+     * @param titleBarBorderColor A cor da borda da barra de título.
+     */
+    public void setTitleBarBorderColor( Color titleBarBorderColor ) {
+        this.titleBarBorderColor = titleBarBorderColor;
+        this.closeButton.setBorderColor( titleBarBorderColor );
+    }
+
+    /**
+     * Obtém a cor do texto da barra de título.
+     * 
+     * @return A cor do texto da barra de título.
+     */
+    public Color getTitleBarTextColor() {
+        return titleBarTextColor;
+    }
+
+    /**
+     * Configura a cor do texto da barra de título.
+     * 
+     * @param titleBarTextColor A cor do texto da barra de título.
+     */
+    public void setTitleBarTextColor( Color titleBarTextColor ) {
+        this.titleBarTextColor = titleBarTextColor;
+        this.closeButton.setTextColor( titleBarTextColor );
+    }
+    
     protected class GuiButtonClose extends GuiButton {
         
         public GuiButtonClose( double x, double y, double width, double height, EngineFrame engine ) {
@@ -241,7 +315,7 @@ public class GuiWindow extends GuiTextComponent {
 
                     switch ( mouseState ) {
                         case MOUSE_OUT:
-                            drawButtonClose( TEXT_COLOR );
+                            drawButtonClose( titleBarTextColor );
                             break;
                         case MOUSE_OVER:
                             drawButtonClose( MOUSE_OVER_TEXT_COLOR );

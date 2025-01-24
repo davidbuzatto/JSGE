@@ -117,6 +117,7 @@ public class GuiSpinner extends GuiComponent {
         this.value = value;
         this.min = min;
         this.max = max;
+        this.backgroundColor = CONTAINER_BACKGROUNG_COLOR;
     }
     
     private void initComponents( EngineFrame engine, double buttonSize ) {
@@ -159,7 +160,7 @@ public class GuiSpinner extends GuiComponent {
             engine.setStrokeLineWidth( LINE_WIDTH );
 
             if ( enabled ) {
-                drawSpinner(CONTAINER_BACKGROUNG_COLOR, BORDER_COLOR, TEXT_COLOR );
+                drawSpinner( backgroundColor, borderColor, textColor );
             } else {
                 drawSpinner( DISABLED_CONTAINER_BACKGROUND_COLOR, DISABLED_BORDER_COLOR, DISABLED_TEXT_COLOR );
             }
@@ -264,6 +265,27 @@ public class GuiSpinner extends GuiComponent {
             value++;
         }
     }
+
+    @Override
+    public void setBackgroundColor( Color backgroundColor ) {
+        super.setBackgroundColor( backgroundColor );
+        leftButton.setBackgroundColor( backgroundColor );
+        rightButton.setBackgroundColor( backgroundColor );
+    }
+
+    @Override
+    public void setBorderColor( Color borderColor ) {
+        super.setBorderColor( borderColor );
+        leftButton.setBorderColor( borderColor );
+        rightButton.setBorderColor( borderColor );
+    }
+
+    @Override
+    public void setTextColor( Color textColor ) {
+        super.setTextColor( textColor );
+        leftButton.setTextColor( textColor );
+        rightButton.setTextColor( textColor );
+    }
     
     @Override
     public void move( double xAmount, double yAmount ) {
@@ -300,7 +322,7 @@ public class GuiSpinner extends GuiComponent {
 
                     switch ( mouseState ) {
                         case MOUSE_OUT:
-                            drawChangeValueButton( TEXT_COLOR );
+                            drawChangeValueButton( textColor );
                             break;
                         case MOUSE_OVER:
                             drawChangeValueButton( MOUSE_OVER_TEXT_COLOR );

@@ -29,8 +29,7 @@ import java.awt.Color;
  * @author Prof. Dr. David Buzatto
  */
 public class GuiColorPicker extends GuiComponent {
-
-    private static final Color DISABLED_OVERLAY_COLOR = ColorUtils.fade( EngineFrame.LIGHTGRAY, 0.5 );
+    
     private static final int SPACING = 8;
     private static final int BAR_SIZE = 15;
     private static final int RET_SIZE = 5;
@@ -111,11 +110,11 @@ public class GuiColorPicker extends GuiComponent {
         double[] hsv = ColorUtils.colorToHSV( initialColor );
         
         if ( engine == null ) {
-            hueSlider = new GuiSlider( bounds.x + bounds.width + SPACING, bounds.y - GuiSlider.SLIDER_RADIUS, BAR_SIZE, bounds.height + GuiSlider.SLIDER_RADIUS * 2, hsv[0], 359, 0, GuiSlider.VERTICAL );
-            alphaSlider = new GuiSlider( bounds.x - GuiSlider.SLIDER_RADIUS, bounds.y + bounds.height + SPACING, bounds.width + GuiSlider.SLIDER_RADIUS * 2, BAR_SIZE, initialColor.getAlpha(), 0, 255 );
+            hueSlider = new GuiSlider( bounds.x + bounds.width + SPACING, bounds.y - SLIDER_RADIUS, BAR_SIZE, bounds.height + SLIDER_RADIUS * 2, hsv[0], 359, 0, GuiSlider.VERTICAL );
+            alphaSlider = new GuiSlider( bounds.x - SLIDER_RADIUS, bounds.y + bounds.height + SPACING, bounds.width + SLIDER_RADIUS * 2, BAR_SIZE, initialColor.getAlpha(), 0, 255 );
         } else {
-            hueSlider = new GuiSlider( bounds.x + bounds.width + SPACING, bounds.y - GuiSlider.SLIDER_RADIUS, BAR_SIZE, bounds.height + GuiSlider.SLIDER_RADIUS * 2, hsv[0], 359, 0, GuiSlider.VERTICAL, engine );
-            alphaSlider = new GuiSlider( bounds.x - GuiSlider.SLIDER_RADIUS, bounds.y + bounds.height + SPACING, bounds.width + GuiSlider.SLIDER_RADIUS * 2, BAR_SIZE, initialColor.getAlpha(), 0, 255, engine );
+            hueSlider = new GuiSlider( bounds.x + bounds.width + SPACING, bounds.y - SLIDER_RADIUS, BAR_SIZE, bounds.height + SLIDER_RADIUS * 2, hsv[0], 359, 0, GuiSlider.VERTICAL, engine );
+            alphaSlider = new GuiSlider( bounds.x - SLIDER_RADIUS, bounds.y + bounds.height + SPACING, bounds.width + SLIDER_RADIUS * 2, BAR_SIZE, initialColor.getAlpha(), 0, 255, engine );
         }
         
         hueSlider.setShowTrack( false );
@@ -180,7 +179,7 @@ public class GuiColorPicker extends GuiComponent {
                         drawColorPicker( MOUSE_DOWN_BORDER_COLOR );
                         break;
                     default:
-                        drawColorPicker( BORDER_COLOR );
+                        drawColorPicker( borderColor );
                         break;
                 }
             } else {
@@ -218,7 +217,7 @@ public class GuiColorPicker extends GuiComponent {
         }
         
         if ( !enabled ) {
-            engine.fillRectangle( bounds, DISABLED_OVERLAY_COLOR );
+            engine.fillRectangle( bounds, COLOR_PICKER_DISABLED_OVERLAY_COLOR );
         } else {
             engine.fillCircle( saturationAndValuePosition.x, saturationAndValuePosition.y, 4, EngineFrame.WHITE );
         }
@@ -271,8 +270,8 @@ public class GuiColorPicker extends GuiComponent {
         }
         
         if ( !enabled ) {
-            engine.fillRectangle( bounds.x + bounds.width + SPACING, bounds.y, BAR_SIZE, bounds.height, DISABLED_OVERLAY_COLOR );
-            engine.fillRectangle( bounds.x, bounds.y + bounds.height + SPACING, bounds.width, BAR_SIZE, DISABLED_OVERLAY_COLOR );
+            engine.fillRectangle( bounds.x + bounds.width + SPACING, bounds.y, BAR_SIZE, bounds.height, COLOR_PICKER_DISABLED_OVERLAY_COLOR );
+            engine.fillRectangle( bounds.x, bounds.y + bounds.height + SPACING, bounds.width, BAR_SIZE, COLOR_PICKER_DISABLED_OVERLAY_COLOR );
         }
         
         engine.drawRectangle( bounds.x + bounds.width + SPACING, bounds.y, BAR_SIZE, bounds.height, borderColor );

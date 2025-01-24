@@ -115,8 +115,8 @@ public class GuiCheckBox extends GuiTextComponent {
 
                 switch ( mouseState ) {
                     case MOUSE_OUT:
-                        drawCheckBox(BORDER_COLOR, 20, selected );
-                        drawText( TEXT_COLOR, 25, 0 );
+                        drawCheckBox( borderColor, 20, selected );
+                        drawText( textColor, 25, 0 );
                         break;
                     case MOUSE_OVER:
                         drawCheckBox( MOUSE_OVER_BORDER_COLOR, 20, selected );

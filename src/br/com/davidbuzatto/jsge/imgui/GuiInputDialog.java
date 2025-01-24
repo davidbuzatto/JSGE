@@ -19,7 +19,6 @@ package br.com.davidbuzatto.jsge.imgui;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.Vector2;
-import java.awt.Color;
 
 /**
  * Um diálogo para entrada de dados.
@@ -28,17 +27,13 @@ import java.awt.Color;
  */
 public class GuiInputDialog extends GuiWindow {
     
-    private static final int PADDING = 20;
-    private static final Color OVERLAY_COLOR = new Color( 0, 0, 0, 100 );
-    private static final double MIN_WIDTH = 250;
-    private static final double MIN_HEIGHT = 100;
-    
     private String message;
     private boolean showOverlay;
     
     private GuiLabel messageLabel;
     private GuiButton okButton;
     private GuiButton cancelButton;
+    private GuiButton[] buttons;
     private GuiTextField textField;
     
     private double messageWidth;
@@ -60,7 +55,22 @@ public class GuiInputDialog extends GuiWindow {
      */
     public GuiInputDialog( String title, String message, boolean showOverlay, EngineFrame engine ) {
         super( 0, 0, 0, 0, title, engine );
-        initComponents( engine, message, showOverlay );
+        initComponents( engine, message, "Cancel", showOverlay );
+    }
+    
+    /**
+     * Cria o componente.
+     * 
+     * @param title O título do componente.
+     * @param message A mensagem do componente.
+     * @param showOverlay Verdadeiro para desenhar uma camada de sobreposição atrás do diálogo.
+     * @param cancelButonText Texto do botão de cancelamento.
+     * @param engine A instância da engine utilizada para desenhar e atualizar
+     * o componente.
+     */
+    public GuiInputDialog( String title, String message, String cancelButonText, boolean showOverlay, EngineFrame engine ) {
+        super( 0, 0, 0, 0, title, engine );
+        initComponents( engine, message, cancelButonText, showOverlay );
     }
     
     /**
@@ -76,24 +86,42 @@ public class GuiInputDialog extends GuiWindow {
      */
     public GuiInputDialog( String title, String message, boolean showOverlay ) {
         super( 0, 0, 0, 0, title );
-        initComponents( null, message, showOverlay );
+        initComponents( null, message, "Cancel", showOverlay );
     }
     
-    private void initComponents( EngineFrame engine, String message, boolean showOverlay ) {
+    /**
+     * Cria o componente.
+     * 
+     * Essa versão do construtor depende da configuração "injetável" de uma
+     * instância de uma engine.
+     * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
+     * 
+     * @param title O título do componente.
+     * @param message A mensagem do componente.
+     * @param cancelButonText Texto do botão de cancelamento.
+     * @param showOverlay Verdadeiro para desenhar uma camada de sobreposição atrás do diálogo. 
+     */
+    public GuiInputDialog( String title, String message, String cancelButonText, boolean showOverlay ) {
+        super( 0, 0, 0, 0, title );
+        initComponents( null, message, cancelButonText, showOverlay );
+    }
+    
+    private void initComponents( EngineFrame engine, String message, String cancelButonText, boolean showOverlay ) {
         super.initComponents( engine );
         this.message = message;
         this.showOverlay = showOverlay;
         if ( engine == null ) {
             this.messageLabel = new GuiLabel( 0, 0, 0, 0, message );
-            this.okButton = new GuiButton( 0, 0, 40, 30, "OK" );
-            this.cancelButton = new GuiButton( 0, 0, 70, 30, "Cancel" );
-            this.textField = new GuiTextField( 0, 0, MIN_WIDTH - PADDING * 2, 25, "" );
+            this.okButton = new GuiButton( 0, 0, 0, DIALOG_BUTTON_HEIGHT, "OK" );
+            this.cancelButton = new GuiButton( 0, 0, 0, DIALOG_BUTTON_HEIGHT, cancelButonText );
+            this.textField = new GuiTextField( 0, 0, DIALOG_MIN_WIDTH - DIALOG_CONTENT_PADDING * 2, 25, "" );
         } else {
             this.messageLabel = new GuiLabel( 0, 0, 0, 0, message, engine );
-            this.okButton = new GuiButton( 0, 0, 40, 30, "OK", engine );
-            this.cancelButton = new GuiButton( 0, 0, 70, 30, "Cancel", engine );
-            this.textField = new GuiTextField( 0, 0, MIN_WIDTH - PADDING * 2, 25, "", engine );
+            this.okButton = new GuiButton( 0, 0, 0, DIALOG_BUTTON_HEIGHT, "OK", engine );
+            this.cancelButton = new GuiButton( 0, 0, 0, DIALOG_BUTTON_HEIGHT, cancelButonText, engine );
+            this.textField = new GuiTextField( 0, 0, DIALOG_MIN_WIDTH - DIALOG_CONTENT_PADDING * 2, 25, "", engine );
         }
+        buttons = new GuiButton[] { okButton, cancelButton };
         this.visible = false;
     }
     
@@ -114,15 +142,21 @@ public class GuiInputDialog extends GuiWindow {
             lineHeight = r.height;
             messageHeight = ma.length * r.height;
 
-            double width = messageWidth + 2 * PADDING;
-            double height = messageHeight + 2 * PADDING + titleBarBounds.height + okButton.bounds.height + lineHeight + textField.bounds.height;
+            double width = messageWidth + 2 * DIALOG_CONTENT_PADDING;
+            double height = messageHeight + 2 * DIALOG_CONTENT_PADDING + titleBarBounds.height + okButton.bounds.height + lineHeight + textField.bounds.height;
 
-            if ( width < MIN_WIDTH ) {
-                width = MIN_WIDTH;
+            if ( width < DIALOG_MIN_WIDTH ) {
+                width = DIALOG_MIN_WIDTH;
             }
 
-            if ( height < MIN_HEIGHT ) {
-                height = MIN_HEIGHT;
+            updateButtonsBounds();
+            double buttonsWidth = cancelButton.bounds.x + cancelButton.bounds.width - okButton.bounds.x + DIALOG_CONTENT_PADDING * 2;
+            if ( buttonsWidth > width ) {
+                width = buttonsWidth;
+            }
+            
+            if ( height < DIALOG_MIN_HEIGHT ) {
+                height = DIALOG_MIN_HEIGHT;
             }
 
             bounds = new Rectangle( 0, 0, width, height );
@@ -275,20 +309,22 @@ public class GuiInputDialog extends GuiWindow {
         closeButton.bounds.x = bounds.x + bounds.width - 22;
         closeButton.bounds.y = bounds.y + 3;
         
-        messageLabel.bounds.x = bounds.x + PADDING;
-        messageLabel.bounds.y = bounds.y + titleBarBounds.height + PADDING + lineHeight / 2;
+        messageLabel.bounds.x = bounds.x + DIALOG_CONTENT_PADDING;
+        messageLabel.bounds.y = bounds.y + titleBarBounds.height + DIALOG_CONTENT_PADDING + lineHeight / 2;
         
-        double w = okButton.bounds.width + cancelButton.bounds.width + PADDING / 2;
+        double w = okButton.bounds.width + cancelButton.bounds.width + DIALOG_CONTENT_PADDING / 2;
         double start = bounds.x + bounds.width / 2 - w / 2;
         
         okButton.bounds.x = start;
-        okButton.bounds.y = bounds.y + bounds.height - PADDING - okButton.bounds.height;
-        cancelButton.bounds.x = okButton.bounds.x + okButton.bounds.width + PADDING / 2;
+        okButton.bounds.y = bounds.y + bounds.height - DIALOG_CONTENT_PADDING - okButton.bounds.height;
+        cancelButton.bounds.x = okButton.bounds.x + okButton.bounds.width + DIALOG_CONTENT_PADDING / 2;
         cancelButton.bounds.y = okButton.bounds.y;
         
-        textField.bounds.x = bounds.x + PADDING;
+        textField.bounds.x = bounds.x + DIALOG_CONTENT_PADDING;
         textField.bounds.y = okButton.bounds.y - textField.bounds.height - lineHeight + 3;
-        textField.bounds.width = bounds.width - PADDING * 2;
+        textField.bounds.width = bounds.width - DIALOG_CONTENT_PADDING * 2;
+        
+        updateButtonsBounds();
         
     }
     
@@ -297,20 +333,54 @@ public class GuiInputDialog extends GuiWindow {
         
         super.move( xAmount, yAmount );
         
-        messageLabel.bounds.x = bounds.x + PADDING;
-        messageLabel.bounds.y = bounds.y + titleBarBounds.height + PADDING + lineHeight / 2;
+        messageLabel.bounds.x = bounds.x + DIALOG_CONTENT_PADDING;
+        messageLabel.bounds.y = bounds.y + titleBarBounds.height + DIALOG_CONTENT_PADDING + lineHeight / 2;
         
-        double w = okButton.bounds.width + cancelButton.bounds.width + PADDING / 2;
+        double w = okButton.bounds.width + cancelButton.bounds.width + DIALOG_CONTENT_PADDING / 2;
         double start = bounds.x + bounds.width / 2 - w / 2;
         
         okButton.bounds.x = start;
-        okButton.bounds.y = bounds.y + bounds.height - PADDING - okButton.bounds.height;
-        cancelButton.bounds.x = okButton.bounds.x + okButton.bounds.width + PADDING / 2;
+        okButton.bounds.y = bounds.y + bounds.height - DIALOG_CONTENT_PADDING - okButton.bounds.height;
+        cancelButton.bounds.x = okButton.bounds.x + okButton.bounds.width + DIALOG_CONTENT_PADDING / 2;
         cancelButton.bounds.y = okButton.bounds.y;
         
-        textField.bounds.x = bounds.x + PADDING;
+        textField.bounds.x = bounds.x + DIALOG_CONTENT_PADDING;
         textField.bounds.y = okButton.bounds.y - textField.bounds.height - lineHeight + 3;
-        textField.bounds.width = bounds.width - PADDING * 2;
+        textField.bounds.width = bounds.width - DIALOG_CONTENT_PADDING * 2;
+        
+        updateButtonsBounds();
+        
+    }
+    
+    private void updateButtonsBounds() {
+        
+        int minWidth = 50;
+        int buttonPadding = 10;
+        
+        double w = 0;
+        int b = 0;
+        
+        for ( int i = 0; i < buttons.length; i++ ) {
+            if ( !buttons[i].text.isEmpty() ) {
+                buttons[i].bounds.width = engine.measureText( buttons[i].text, FONT_SIZE ) + buttonPadding * 2;
+                if ( buttons[i].bounds.width < minWidth ) {
+                    buttons[i].bounds.width = minWidth;
+                }
+                w += buttons[i].bounds.width;
+                b++;
+            }
+        }
+        
+        w += ( DIALOG_CONTENT_PADDING / 2 ) * ( b - 1 );
+        double start = bounds.x + bounds.width / 2 - w / 2;
+        
+        for ( int i = 0; i < buttons.length; i++ ) {
+            if ( i != 0 ) {
+                start += buttons[i-1].bounds.width + DIALOG_CONTENT_PADDING / 2;
+            }
+            buttons[i].bounds.x = start;
+            buttons[i].bounds.y = bounds.y + bounds.height - DIALOG_CONTENT_PADDING - buttons[i].bounds.height;
+        }
         
     }
     

@@ -111,7 +111,7 @@ public class GuiLine extends GuiTextComponent {
      */
     public GuiLine( double x, double y, double width, double height, String text, int orientation, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
-        this.orientation = orientation;
+        initData( orientation );
     }
     
     /**
@@ -132,7 +132,7 @@ public class GuiLine extends GuiTextComponent {
      */
     public GuiLine( double x, double y, double width, double height, String text, int orientation ) {
         super( x, y, width, height, text );
-        this.orientation = orientation;
+        initData( orientation );
     }
     
     /**
@@ -146,7 +146,7 @@ public class GuiLine extends GuiTextComponent {
      */
     public GuiLine( Rectangle bounds, String text, int orientation, EngineFrame engine ) {
         super( bounds, text, engine );
-        this.orientation = orientation;
+        initData( orientation );
     }
     
     /**
@@ -162,7 +162,13 @@ public class GuiLine extends GuiTextComponent {
      */
     public GuiLine( Rectangle bounds, String text, int orientation ) {
         super( bounds, text );
+        initData( orientation );
+    }
+    
+    private void initData( int orientation ) {
         this.orientation = orientation;
+        this.borderColor = CONTAINER_BORDER_COLOR;
+        this.textColor = CONTAINER_TEXT_COLOR;
     }
     
     @Override
@@ -170,7 +176,7 @@ public class GuiLine extends GuiTextComponent {
         if ( visible ) {
             engine.setStrokeLineWidth( LINE_WIDTH );
             if ( enabled ) {
-                drawLine( CONTAINER_BORDER_COLOR, CONTAINER_TEXT_COLOR);
+                drawLine( borderColor, textColor );
             } else {
                 drawLine( DISABLED_CONTAINER_BORDER_COLOR, DISABLED_CONTAINER_TEXT_COLOR );
             }

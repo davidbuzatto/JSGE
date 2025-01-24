@@ -32,6 +32,8 @@ public class GuiProgressBar extends GuiComponent {
     private double min;
     private double max;
     
+    private Color progressFillColor;
+    
     /**
      * Cria o componente.
      * 
@@ -110,6 +112,7 @@ public class GuiProgressBar extends GuiComponent {
         this.value = value;
         this.min = min;
         this.max = max;
+        this.progressFillColor = PROGRESS_BAR_BACKGROUND_COLOR;
     }
     
     @Override
@@ -120,9 +123,9 @@ public class GuiProgressBar extends GuiComponent {
             engine.setStrokeLineWidth( LINE_WIDTH );
 
             if ( enabled ) {
-                drawProgressBar(BACKGROUND_COLOR, BORDER_COLOR, PROGRESS_BAR_BACKGROUND_COLOR );
+                drawProgressBar(backgroundColor, borderColor, progressFillColor );
             } else {
-                drawProgressBar( DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR, PROGRESS_BAR_BACKGROUND_COLOR );
+                drawProgressBar(DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR, progressFillColor );
             }
             
             drawBounds();
@@ -202,6 +205,24 @@ public class GuiProgressBar extends GuiComponent {
      */
     public double getPercentage() {
         return MathUtils.clamp( MathUtils.inverseLerp( min, max, value ), 0, 1 );
+    }
+
+    /**
+     * Obtém a cor do preenchimento do progresso da barra de progresso.
+     * 
+     * @return A cor do preenchimento do progresso.
+     */
+    public Color getProgressFillColor() {
+        return progressFillColor;
+    }
+
+    /**
+     * Configura a cor do preenchimento do progresso da barra de progresso.
+     * 
+     * @param progressColor A cor do preenchimento do progresso.
+     */
+    public void setProgressFillColor( Color progressColor ) {
+        this.progressFillColor = progressColor;
     }
     
     @Override

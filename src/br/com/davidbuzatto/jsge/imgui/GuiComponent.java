@@ -18,6 +18,7 @@ package br.com.davidbuzatto.jsge.imgui;
 
 import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
@@ -40,10 +41,26 @@ public abstract class GuiComponent {
     protected boolean visible;
     protected boolean drawingBounds;
     
+    protected Color backgroundColor;
+    protected Color borderColor;
+    protected Color textColor;
+    
     /** Tamanho padrão da fonte dos componentes. */
     public static final int FONT_SIZE = 12;
     /** Largura padrão da linha utilizada nos componentes. */
     public static final int LINE_WIDTH = 1;
+    
+    /** Espaçamento dos diálogos. */
+    public static final int DIALOG_CONTENT_PADDING = 20;
+    /** Largura mínima dos diálogos. */
+    public static final double DIALOG_MIN_WIDTH = 250;
+    /** Altura mínima dos diálogos. */
+    public static final double DIALOG_MIN_HEIGHT = 100;
+    /** Altura dos botões dos diálogos. */
+    public static final double DIALOG_BUTTON_HEIGHT = 30;
+    
+    /** Raio do componente deslizante. */
+    public static final double SLIDER_RADIUS = 10;
     
     /** Cor padrão de fundo. */
     public static final Color BACKGROUND_COLOR = new Color( 201, 201, 201 );
@@ -114,6 +131,10 @@ public abstract class GuiComponent {
     /** Cor de fundo para a trila dos sliders desabiltiados usados como barras de rolagem. */
     public static final Color DISABLED_SCROLL_BAR_TRACK_COLOR = new Color( 220, 220, 220 );
     
+    public static final Color COLOR_PICKER_DISABLED_OVERLAY_COLOR = ColorUtils.fade( EngineFrame.LIGHTGRAY, 0.5 );
+    
+    public static final Color OVERLAY_COLOR = new Color( 0, 0, 0, 100 );
+    
     /**
      * Constrói a infraestrutura básica dos componentes.
      * 
@@ -128,6 +149,9 @@ public abstract class GuiComponent {
         this.mouseState = GuiComponentMouseState.MOUSE_OUT;
         this.enabled = true;
         this.visible = true;
+        this.backgroundColor = BACKGROUND_COLOR;
+        this.borderColor = BORDER_COLOR;
+        this.textColor = TEXT_COLOR;
     }
     
     /**
@@ -366,6 +390,60 @@ public abstract class GuiComponent {
      */
     public Rectangle getBounds() {
         return new Rectangle( bounds.x, bounds.y, bounds.width, bounds.height );
+    }
+
+    /**
+     * Obtém a cor de fundo do componente.
+     * 
+     * @return A cor de fundo do componente.
+     */
+    public Color getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    /**
+     * Configura a cor de fundo do componente.
+     * 
+     * @param backgroundColor A cor de fundo do componente.
+     */
+    public void setBackgroundColor( Color backgroundColor ) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    /**
+     * Obtém a cor da borda do componente.
+     * 
+     * @return A cor da borda do componente.
+     */
+    public Color getBorderColor() {
+        return borderColor;
+    }
+
+    /**
+     * Configura a cor da borda do componente.
+     * 
+     * @param borderColor A cor da borda do componente.
+     */
+    public void setBorderColor( Color borderColor ) {
+        this.borderColor = borderColor;
+    }
+
+    /**
+     * Obtém a cor do texto do componente.
+     * 
+     * @return A cor do texto do componente.
+     */
+    public Color getTextColor() {
+        return textColor;
+    }
+
+    /**
+     * Configura a cor do texto do componente.
+     * 
+     * @param textColor A cor do texto do componente.
+     */
+    public void setTextColor( Color textColor ) {
+        this.textColor = textColor;
     }
     
     @Override

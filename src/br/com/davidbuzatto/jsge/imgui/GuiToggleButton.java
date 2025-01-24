@@ -134,8 +134,8 @@ public class GuiToggleButton extends GuiCheckBox {
                 switch ( mouseState ) {
                     case MOUSE_OUT:
                         if ( !selected ) {
-                            drawToggleButton( BACKGROUND_COLOR, BORDER_COLOR );
-                            drawCenteredText( TEXT_COLOR );
+                            drawToggleButton( backgroundColor, borderColor );
+                            drawCenteredText( textColor );
                         } else {
                             drawToggleButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
                             drawCenteredText( MOUSE_DOWN_TEXT_COLOR );

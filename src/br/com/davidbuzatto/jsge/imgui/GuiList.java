@@ -38,13 +38,15 @@ public class GuiList extends GuiComponent {
     private List<ListItem> items;
     private double itemTextHeight;
     
-    private GuiSlider scrollBar;
+    protected GuiSlider scrollBar;
     private boolean useScrollBar;
     private double itemsHeight;
     private double heightDiff;
     
     private double scrollOffset;
     private double prevScrollOffset;
+    
+    protected Color scrollBarTrackColor;
     
     /**
      * Cria o componente.
@@ -115,14 +117,17 @@ public class GuiList extends GuiComponent {
     private void initComponents( EngineFrame engine, List<String> itemsText ) {
         
         if ( engine == null ) {
-            scrollBar = new GuiSlider( bounds.x + bounds.width, bounds.y, GuiSlider.SLIDER_RADIUS * 2, bounds.height, itemsText.size(), 0, itemsText.size(), GuiSlider.VERTICAL );
+            scrollBar = new GuiSlider( bounds.x + bounds.width, bounds.y, SLIDER_RADIUS * 2, bounds.height, itemsText.size(), 0, itemsText.size(), GuiSlider.VERTICAL );
         } else {
-            scrollBar = new GuiSlider( bounds.x + bounds.width, bounds.y, GuiSlider.SLIDER_RADIUS * 2, bounds.height, itemsText.size(), 0, itemsText.size(), GuiSlider.VERTICAL, engine );
+            scrollBar = new GuiSlider( bounds.x + bounds.width, bounds.y, SLIDER_RADIUS * 2, bounds.height, itemsText.size(), 0, itemsText.size(), GuiSlider.VERTICAL, engine );
         }
         
         this.itemsText = itemsText;
         this.items = new ArrayList<>();
         this.useScrollBar = true;
+        this.backgroundColor = LIST_CONTAINER_BACKGROUND_COLOR;
+        this.scrollBarTrackColor = SCROLL_BAR_TRACK_COLOR;
+        
     }
     
     @Override
@@ -205,13 +210,13 @@ public class GuiList extends GuiComponent {
             if ( enabled ) {
                 switch ( mouseState ) {
                     case MOUSE_OVER:
-                        drawList( MOUSE_OVER_BORDER_COLOR, LIST_CONTAINER_BACKGROUND_COLOR, SCROLL_BAR_TRACK_COLOR );
+                        drawList( MOUSE_OVER_BORDER_COLOR, backgroundColor, scrollBarTrackColor );
                         break;
                     case MOUSE_DOWN:
-                        drawList( MOUSE_OVER_BORDER_COLOR, LIST_CONTAINER_BACKGROUND_COLOR, SCROLL_BAR_TRACK_COLOR );
+                        drawList( MOUSE_OVER_BORDER_COLOR, backgroundColor, scrollBarTrackColor );
                         break;
                     default:
-                        drawList( BORDER_COLOR, LIST_CONTAINER_BACKGROUND_COLOR, SCROLL_BAR_TRACK_COLOR );
+                        drawList( borderColor, backgroundColor, scrollBarTrackColor );
                         break;
                 }
             } else {
@@ -346,6 +351,96 @@ public class GuiList extends GuiComponent {
     public boolean isMouseOutEntirely() {
         return mouseState == GuiComponentMouseState.MOUSE_OUT && scrollBar.mouseState == GuiComponentMouseState.MOUSE_OUT;
     }
+
+    /**
+     * Obtém a cor do caminho da barra de rolagem.
+     * 
+     * @return A cor do caminho da barra de rolagem.
+     */
+    public Color getScrollBarTrackColor() {
+        return scrollBarTrackColor;
+    }
+
+    /**
+     * Configura a cor do caminho da barra de rolagem.
+     * 
+     * @param scrollBarTrackColor A cor do caminho da barra de rolagem.
+     */
+    public void setScrollBarTrackColor( Color scrollBarTrackColor ) {
+        this.scrollBarTrackColor = scrollBarTrackColor;
+    }
+    
+    /**
+     * Obtém a cor do fundo da barra de rolagem.
+     * 
+     * @return A cor do fundo.
+     */
+    public Color getScrollBarBackgroundColor() {
+        return scrollBar.getBackgroundColor();
+    }
+    
+    /**
+     * Confira a cor do fundo da barra de rolagem.
+     * 
+     * @param backgroundColor A cor do fundo.
+     */
+    public void setScrollBarBackgroundColor( Color backgroundColor ) {
+        scrollBar.setBackgroundColor( backgroundColor );
+    }
+    
+    /**
+     * Obtém a cor da borda da barra de rolagem.
+     * 
+     * @return A cor da borda.
+     */
+    public Color getScrollBarBorderColor() {
+        return scrollBar.getBorderColor();
+    }
+    
+    /**
+     * Confira a cor da borda da barra de rolagem.
+     * 
+     * @param borderColor A cor da borda.
+     */
+    public void setScrollBarBorderColor( Color borderColor ) {
+        scrollBar.setBorderColor( borderColor );
+    }
+    
+    /**
+     * Obtém a cor do texto da barra de rolagem.
+     * 
+     * @return A cor do texto.
+     */
+    public Color getScrollBarTextColor() {
+        return scrollBar.getTextColor();
+    }
+    
+    /**
+     * Confira a cor do texto da barra de rolagem.
+     * 
+     * @param textColor A cor do texto.
+     */
+    public void setScrollBarTextColor( Color textColor ) {
+        scrollBar.setTextColor( textColor );
+    }
+    
+    /**
+     * Obtém a cor do preenchimento da barra de rolagem.
+     * 
+     * @return A cor do preenchimento.
+     */
+    public Color getScrollBarTrackFillColor() {
+        return scrollBar.getTrackFillColor();
+    }
+    
+    /**
+     * Confira a cor do preenchimento da barra de rolagem.
+     * 
+     * @param trackFillColor A cor do preenchimento.
+     */
+    public void setScrollBarTrackFillColor( Color trackFillColor ) {
+        scrollBar.setTrackFillColor( trackFillColor );
+    }
     
     @Override
     public void move( double xAmount, double yAmount ) {
@@ -375,9 +470,9 @@ public class GuiList extends GuiComponent {
             
             double textWidth = engine.measureText( text, FONT_SIZE );
             
-            Color itemBackgroundColor = BACKGROUND_COLOR;
-            Color itemBorderColor = BORDER_COLOR;
-            Color itemTextColor = TEXT_COLOR;
+            Color itemBackgroundColor = backgroundColor;
+            Color itemBorderColor = borderColor;
+            Color itemTextColor = textColor;
             
             boolean drawBounds = true;
             

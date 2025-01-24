@@ -45,6 +45,7 @@ public class GuiGroup extends GuiTextComponent {
      */
     public GuiGroup( double x, double y, double width, double height, String title, EngineFrame engine ) {
         super( x, y, width, height, title, engine );
+        initData();
     }
     
     /**
@@ -64,6 +65,7 @@ public class GuiGroup extends GuiTextComponent {
      */
     public GuiGroup( double x, double y, double width, double height, String title ) {
         super( x, y, width, height, title );
+        initData();
     }
     
     /**
@@ -76,6 +78,7 @@ public class GuiGroup extends GuiTextComponent {
      */
     public GuiGroup( Rectangle bounds, String title, EngineFrame engine ) {
         super( bounds, title, engine );
+        initData();
     }
     
     /**
@@ -90,6 +93,12 @@ public class GuiGroup extends GuiTextComponent {
      */
     public GuiGroup( Rectangle bounds, String title ) {
         super( bounds, title );
+        initData();
+    }
+    
+    private void initData() {
+        this.borderColor = CONTAINER_BORDER_COLOR;
+        this.textColor = CONTAINER_TEXT_COLOR;
     }
     
     @Override
@@ -97,7 +106,7 @@ public class GuiGroup extends GuiTextComponent {
         if ( visible ) {
             engine.setStrokeLineWidth( LINE_WIDTH );
             if ( enabled ) {
-                drawGroup( CONTAINER_BORDER_COLOR, CONTAINER_TEXT_COLOR);
+                drawGroup( borderColor, textColor );
             } else {
                 drawGroup( DISABLED_CONTAINER_BORDER_COLOR, DISABLED_CONTAINER_TEXT_COLOR );
             }

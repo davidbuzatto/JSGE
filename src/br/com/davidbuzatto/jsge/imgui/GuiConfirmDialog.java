@@ -19,7 +19,6 @@ package br.com.davidbuzatto.jsge.imgui;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.Vector2;
-import java.awt.Color;
 
 /**
  * Um diálogo para confirmações.
@@ -27,12 +26,6 @@ import java.awt.Color;
  * @author Prof. Dr. David Buzatto
  */
 public class GuiConfirmDialog extends GuiWindow {
-    
-    private static final int PADDING = 20;
-    private static final Color OVERLAY_COLOR = new Color( 0, 0, 0, 100 );
-    private static final double MIN_WIDTH = 250;
-    private static final double MIN_HEIGHT = 100;
-    private static final double BUTTON_HEIGHT = 30;
     
     private String message;
     private boolean showOverlay;
@@ -103,36 +96,36 @@ public class GuiConfirmDialog extends GuiWindow {
         if ( engine == null ) {
             this.messageLabel = new GuiLabel( 0, 0, 0, 0, message );
             if ( button1Text != null && !button1Text.trim().isEmpty() ) {
-                this.button1 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, button1Text );
+                this.button1 = new GuiButton( 0, 0, 0, DIALOG_BUTTON_HEIGHT, button1Text );
             } else {
-                this.button1 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, "" );
+                this.button1 = new GuiButton( 0, 0, 0, DIALOG_BUTTON_HEIGHT, "" );
             }
             if ( button2Text != null && !button2Text.trim().isEmpty() ) {
-                this.button2 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, button2Text );
+                this.button2 = new GuiButton( 0, 0, 0, DIALOG_BUTTON_HEIGHT, button2Text );
             } else {
-                this.button2 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, "" );
+                this.button2 = new GuiButton( 0, 0, 0, DIALOG_BUTTON_HEIGHT, "" );
             }
             if ( button3Text != null && !button3Text.trim().isEmpty() ) {
-                this.button3 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, button3Text );
+                this.button3 = new GuiButton( 0, 0, 0, DIALOG_BUTTON_HEIGHT, button3Text );
             } else {
-                this.button3 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, "" );
+                this.button3 = new GuiButton( 0, 0, 0, DIALOG_BUTTON_HEIGHT, "" );
             }
         } else {
             this.messageLabel = new GuiLabel( 0, 0, 0, 0, message, engine );
             if ( button1Text != null && !button1Text.trim().isEmpty() ) {
-                this.button1 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, button1Text, engine );
+                this.button1 = new GuiButton( 0, 0, 0, DIALOG_BUTTON_HEIGHT, button1Text, engine );
             } else {
-                this.button1 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, "", engine );
+                this.button1 = new GuiButton( 0, 0, 0, DIALOG_BUTTON_HEIGHT, "", engine );
             }
             if ( button2Text != null && !button2Text.trim().isEmpty() ) {
-                this.button2 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, button2Text, engine );
+                this.button2 = new GuiButton( 0, 0, 0, DIALOG_BUTTON_HEIGHT, button2Text, engine );
             } else {
-                this.button2 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, "", engine );
+                this.button2 = new GuiButton( 0, 0, 0, DIALOG_BUTTON_HEIGHT, "", engine );
             }
             if ( button3Text != null && !button3Text.trim().isEmpty() ) {
-                this.button3 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, button3Text, engine );
+                this.button3 = new GuiButton( 0, 0, 0, DIALOG_BUTTON_HEIGHT, button3Text, engine );
             } else {
-                this.button3 = new GuiButton( 0, 0, 0, BUTTON_HEIGHT, "", engine );
+                this.button3 = new GuiButton( 0, 0, 0, DIALOG_BUTTON_HEIGHT, "", engine );
             }
         }
         buttons = new GuiButton[] { button1, button2, button3 };
@@ -156,15 +149,21 @@ public class GuiConfirmDialog extends GuiWindow {
             lineHeight = r.height;
             messageHeight = ma.length * r.height;
 
-            double width = messageWidth + 2 * PADDING;
-            double height = messageHeight + 2 * PADDING + titleBarBounds.height + buttons[0].bounds.height + lineHeight;
+            double width = messageWidth + 2 * DIALOG_CONTENT_PADDING;
+            double height = messageHeight + 2 * DIALOG_CONTENT_PADDING + titleBarBounds.height + buttons[0].bounds.height + lineHeight;
 
-            if ( width < MIN_WIDTH ) {
-                width = MIN_WIDTH;
+            if ( width < DIALOG_MIN_WIDTH ) {
+                width = DIALOG_MIN_WIDTH;
             }
 
-            if ( height < MIN_HEIGHT ) {
-                height = MIN_HEIGHT;
+            updateButtonsBounds();
+            double buttonsWidth = button3.bounds.x + button3.bounds.width - button1.bounds.x + DIALOG_CONTENT_PADDING * 2;
+            if ( buttonsWidth > width ) {
+                width = buttonsWidth;
+            }
+            
+            if ( height < DIALOG_MIN_HEIGHT ) {
+                height = DIALOG_MIN_HEIGHT;
             }
 
             bounds = new Rectangle( 0, 0, width, height );
@@ -333,8 +332,8 @@ public class GuiConfirmDialog extends GuiWindow {
         closeButton.bounds.x = bounds.x + bounds.width - 22;
         closeButton.bounds.y = bounds.y + 3;
         
-        messageLabel.bounds.x = bounds.x + PADDING;
-        messageLabel.bounds.y = bounds.y + titleBarBounds.height + PADDING + lineHeight / 2;
+        messageLabel.bounds.x = bounds.x + DIALOG_CONTENT_PADDING;
+        messageLabel.bounds.y = bounds.y + titleBarBounds.height + DIALOG_CONTENT_PADDING + lineHeight / 2;
         
         updateButtonsBounds();
         
@@ -345,8 +344,8 @@ public class GuiConfirmDialog extends GuiWindow {
         
         super.move( xAmount, yAmount );
         
-        messageLabel.bounds.x = bounds.x + PADDING;
-        messageLabel.bounds.y = bounds.y + titleBarBounds.height + PADDING + lineHeight / 2;
+        messageLabel.bounds.x = bounds.x + DIALOG_CONTENT_PADDING;
+        messageLabel.bounds.y = bounds.y + titleBarBounds.height + DIALOG_CONTENT_PADDING + lineHeight / 2;
         
         updateButtonsBounds();
         
@@ -371,15 +370,15 @@ public class GuiConfirmDialog extends GuiWindow {
             }
         }
         
-        w += ( PADDING / 2 ) * ( b - 1 );
+        w += ( DIALOG_CONTENT_PADDING / 2 ) * ( b - 1 );
         double start = bounds.x + bounds.width / 2 - w / 2;
         
         for ( int i = 0; i < buttons.length; i++ ) {
             if ( i != 0 ) {
-                start += buttons[i-1].bounds.width + PADDING / 2;
+                start += buttons[i-1].bounds.width + DIALOG_CONTENT_PADDING / 2;
             }
             buttons[i].bounds.x = start;
-            buttons[i].bounds.y = bounds.y + bounds.height - PADDING - buttons[i].bounds.height;
+            buttons[i].bounds.y = bounds.y + bounds.height - DIALOG_CONTENT_PADDING - buttons[i].bounds.height;
         }
         
     }

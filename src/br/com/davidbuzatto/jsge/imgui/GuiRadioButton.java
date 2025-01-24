@@ -100,8 +100,8 @@ public class GuiRadioButton extends GuiToggleButton {
 
                 switch ( mouseState ) {
                     case MOUSE_OUT:
-                        drawRadioButton(BORDER_COLOR, 10, selected );
-                        drawText( TEXT_COLOR, 25, 0 );
+                        drawRadioButton( borderColor, 10, selected );
+                        drawText( textColor, 25, 0 );
                         break;
                     case MOUSE_OVER:
                         drawRadioButton( MOUSE_OVER_BORDER_COLOR, 10, selected );

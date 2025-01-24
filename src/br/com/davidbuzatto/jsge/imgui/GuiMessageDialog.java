@@ -19,7 +19,6 @@ package br.com.davidbuzatto.jsge.imgui;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.Vector2;
-import java.awt.Color;
 
 /**
  * Um diálogo para mensagens.
@@ -27,11 +26,6 @@ import java.awt.Color;
  * @author Prof. Dr. David Buzatto
  */
 public class GuiMessageDialog extends GuiWindow {
-    
-    private static final int PADDING = 20;
-    private static final Color OVERLAY_COLOR = new Color( 0, 0, 0, 100 );
-    private static final double MIN_WIDTH = 250;
-    private static final double MIN_HEIGHT = 100;
     
     private String message;
     private boolean showOverlay;
@@ -81,10 +75,10 @@ public class GuiMessageDialog extends GuiWindow {
         this.showOverlay = showOverlay;
         if ( engine == null ) {
             this.messageLabel = new GuiLabel( 0, 0, 0, 0, message );
-            this.okButton = new GuiButton( 0, 0, 40, 30, "OK" );
+            this.okButton = new GuiButton( 0, 0, 40, DIALOG_BUTTON_HEIGHT, "OK" );
         } else {
             this.messageLabel = new GuiLabel( 0, 0, 0, 0, message, engine );
-            this.okButton = new GuiButton( 0, 0, 40, 30, "OK", engine );
+            this.okButton = new GuiButton( 0, 0, 40, DIALOG_BUTTON_HEIGHT, "OK", engine );
         }
         this.visible = false;
     }
@@ -106,15 +100,15 @@ public class GuiMessageDialog extends GuiWindow {
             lineHeight = r.height;
             messageHeight = ma.length * r.height;
 
-            double width = messageWidth + 2 * PADDING;
-            double height = messageHeight + 2 * PADDING + titleBarBounds.height + okButton.bounds.height + lineHeight;
+            double width = messageWidth + 2 * DIALOG_CONTENT_PADDING;
+            double height = messageHeight + 2 * DIALOG_CONTENT_PADDING + titleBarBounds.height + okButton.bounds.height + lineHeight;
 
-            if ( width < MIN_WIDTH ) {
-                width = MIN_WIDTH;
+            if ( width < DIALOG_MIN_WIDTH ) {
+                width = DIALOG_MIN_WIDTH;
             }
 
-            if ( height < MIN_HEIGHT ) {
-                height = MIN_HEIGHT;
+            if ( height < DIALOG_MIN_HEIGHT ) {
+                height = DIALOG_MIN_HEIGHT;
             }
 
             bounds = new Rectangle( 0, 0, width, height );
@@ -226,10 +220,10 @@ public class GuiMessageDialog extends GuiWindow {
         closeButton.bounds.x = bounds.x + bounds.width - 22;
         closeButton.bounds.y = bounds.y + 3;
         
-        messageLabel.bounds.x = bounds.x + PADDING;
-        messageLabel.bounds.y = bounds.y + titleBarBounds.height + PADDING + lineHeight / 2;
+        messageLabel.bounds.x = bounds.x + DIALOG_CONTENT_PADDING;
+        messageLabel.bounds.y = bounds.y + titleBarBounds.height + DIALOG_CONTENT_PADDING + lineHeight / 2;
         okButton.bounds.x = bounds.x + bounds.width / 2 - okButton.bounds.width / 2;
-        okButton.bounds.y = bounds.y + bounds.height - PADDING - okButton.bounds.height;
+        okButton.bounds.y = bounds.y + bounds.height - DIALOG_CONTENT_PADDING - okButton.bounds.height;
         
     }
     
@@ -238,10 +232,10 @@ public class GuiMessageDialog extends GuiWindow {
         
         super.move( xAmount, yAmount );
         
-        messageLabel.bounds.x = bounds.x + PADDING;
-        messageLabel.bounds.y = bounds.y + titleBarBounds.height + PADDING + lineHeight / 2;
+        messageLabel.bounds.x = bounds.x + DIALOG_CONTENT_PADDING;
+        messageLabel.bounds.y = bounds.y + titleBarBounds.height + DIALOG_CONTENT_PADDING + lineHeight / 2;
         okButton.bounds.x = bounds.x + bounds.width / 2 - okButton.bounds.width / 2;
-        okButton.bounds.y = bounds.y + bounds.height - PADDING - okButton.bounds.height;
+        okButton.bounds.y = bounds.y + bounds.height - DIALOG_CONTENT_PADDING - okButton.bounds.height;
         
     }
     

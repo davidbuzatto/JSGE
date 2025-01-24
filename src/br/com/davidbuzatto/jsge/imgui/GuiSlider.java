@@ -30,7 +30,6 @@ import java.awt.Color;
  */
 public class GuiSlider extends GuiComponent {
     
-    public static final double SLIDER_RADIUS = 10;
     public static final int HORIZONTAL = 1;
     public static final int VERTICAL = 2;
     private double value;
@@ -42,6 +41,8 @@ public class GuiSlider extends GuiComponent {
     private boolean showTrack;
     
     private boolean mouseWheelEnabled;
+    
+    private Color trackFillColor;
     
     /**
      * Cria o componente.
@@ -202,6 +203,8 @@ public class GuiSlider extends GuiComponent {
         this.orientation = orientation;
         this.showTrack = true;
         this.mouseWheelEnabled = true;
+        this.backgroundColor = CONTAINER_BACKGROUNG_COLOR;
+        this.trackFillColor = MOUSE_DOWN_BACKGROUND_COLOR;
     }
     
     private void initComponents( EngineFrame engine, double sliderRadius ) {
@@ -244,9 +247,9 @@ public class GuiSlider extends GuiComponent {
             
             if ( mouseState == GuiComponentMouseState.MOUSE_DOWN && sliderButton.mouseState == GuiComponentMouseState.MOUSE_OUT ) {
                 if ( orientation == VERTICAL ) {
-                    sliderButton.bounds.y = mousePos.y - GuiSlider.SLIDER_RADIUS;
+                    sliderButton.bounds.y = mousePos.y - SLIDER_RADIUS;
                 } else {
-                    sliderButton.bounds.x = mousePos.x - GuiSlider.SLIDER_RADIUS;
+                    sliderButton.bounds.x = mousePos.x - SLIDER_RADIUS;
                 }
                 sliderButton.update( delta, bounds );
             }
@@ -291,7 +294,7 @@ public class GuiSlider extends GuiComponent {
                         drawSlider( CONTAINER_BACKGROUNG_COLOR, MOUSE_DOWN_BORDER_COLOR, MOUSE_DOWN_BACKGROUND_COLOR, 4 );
                         break;
                     default:
-                        drawSlider( CONTAINER_BACKGROUNG_COLOR, BORDER_COLOR, MOUSE_DOWN_BACKGROUND_COLOR, 4 );
+                        drawSlider( backgroundColor, borderColor, trackFillColor, 4 );
                         break;
                 }
             } else {
@@ -452,6 +455,24 @@ public class GuiSlider extends GuiComponent {
      */
     public void setMouseWheelEnabled( boolean mouseWheelEnabled ) {
         this.mouseWheelEnabled = mouseWheelEnabled;
+    }
+
+    /**
+     * Obtém a cor do valor preenchido.
+     * 
+     * @return A cor do valor preenchido.
+     */
+    public Color getTrackFillColor() {
+        return trackFillColor;
+    }
+
+    /**
+     * Configura a cor do valor preenchido.
+     * 
+     * @param trackFillColor A cor do valor preenchido.
+     */
+    public void setTrackFillColor( Color trackFillColor ) {
+        this.trackFillColor = trackFillColor;
     }
     
     @Override

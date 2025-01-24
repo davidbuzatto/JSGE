@@ -109,7 +109,7 @@ public class GuiLabel extends GuiTextComponent {
     public void draw() {
         if ( visible ) {
             if ( enabled ) {
-                engine.drawText( text, bounds.x + startPosition.x, bounds.y + startPosition.y, FONT_SIZE, TEXT_COLOR );
+                engine.drawText( text, bounds.x + startPosition.x, bounds.y + startPosition.y, FONT_SIZE, textColor );
                 //drawText( TEXT_COLOR );
             } else {
                 engine.drawText( text, bounds.x + startPosition.x, bounds.y + startPosition.y, FONT_SIZE, DISABLED_TEXT_COLOR );
