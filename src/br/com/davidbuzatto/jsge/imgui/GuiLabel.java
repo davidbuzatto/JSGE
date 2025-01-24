@@ -18,6 +18,7 @@ package br.com.davidbuzatto.jsge.imgui;
 
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
+import br.com.davidbuzatto.jsge.math.Vector2;
 
 /**
  * Um componente de etiqueta.
@@ -25,6 +26,12 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
  * @author Prof. Dr. David Buzatto
  */
 public class GuiLabel extends GuiTextComponent {
+    
+    private int horizontalAlignment;
+    private int verticalAlignment;
+    
+    // posição relativa ao retângulo de limite
+    private Vector2 startPosition;
     
     /**
      * Cria o componente.
@@ -41,6 +48,7 @@ public class GuiLabel extends GuiTextComponent {
      */
     public GuiLabel( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
+        initData();
     }
     
     /**
@@ -60,6 +68,7 @@ public class GuiLabel extends GuiTextComponent {
      */
     public GuiLabel( double x, double y, double width, double height, String text ) {
         super( x, y, width, height, text );
+        initData();
     }
     
     /**
@@ -72,6 +81,7 @@ public class GuiLabel extends GuiTextComponent {
      */
     public GuiLabel( Rectangle bounds, String text, EngineFrame engine ) {
         super( bounds, text, engine );
+        initData();
     }
     
     /**
@@ -86,15 +96,24 @@ public class GuiLabel extends GuiTextComponent {
      */
     public GuiLabel( Rectangle bounds, String text ) {
         super( bounds, text );
+        initData();
+    }
+    
+    private void initData() {
+        horizontalAlignment = LEFT_ALIGNMENT;
+        verticalAlignment = MIDDLE_ALIGNMENT;
+        startPosition = calculateStartPosition( horizontalAlignment, verticalAlignment );
     }
     
     @Override
     public void draw() {
         if ( visible ) {
             if ( enabled ) {
-                drawText( TEXT_COLOR );
+                engine.drawText( text, bounds.x + startPosition.x, bounds.y + startPosition.y, FONT_SIZE, TEXT_COLOR );
+                //drawText( TEXT_COLOR );
             } else {
-                drawText( DISABLED_TEXT_COLOR );
+                engine.drawText( text, bounds.x + startPosition.x, bounds.y + startPosition.y, FONT_SIZE, DISABLED_TEXT_COLOR );
+                //drawText( DISABLED_TEXT_COLOR );
             }
             drawBounds();
         }
@@ -104,6 +123,34 @@ public class GuiLabel extends GuiTextComponent {
     public void move( double xAmount, double yAmount ) {
         bounds.x += xAmount;
         bounds.y += yAmount;
+    }
+
+    public int getHorizontalAlignment() {
+        return horizontalAlignment;
+    }
+
+    public void setHorizontalAlignment( int horizontalAlignment ) {
+        if ( horizontalAlignment >= LEFT_ALIGNMENT && horizontalAlignment <= RIGHT_ALIGNMENT ) {
+            this.horizontalAlignment = horizontalAlignment;
+            startPosition = calculateStartPosition( horizontalAlignment, verticalAlignment );
+        }
+    }
+
+    public int getVerticalAlignment() {
+        return verticalAlignment;
+    }
+
+    public void setVerticalAlignment( int verticalAlignment ) {
+        if ( verticalAlignment >= TOP_ALIGNMENT && verticalAlignment <= BOTTOM_ALIGNMENT ) {
+            this.verticalAlignment = verticalAlignment;
+            startPosition = calculateStartPosition( horizontalAlignment, verticalAlignment );
+        }
+    }
+    
+    @Override
+    public void setText( String text ) {
+        this.text = text;
+        startPosition = calculateStartPosition( horizontalAlignment, verticalAlignment );
     }
     
 }

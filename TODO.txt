@@ -1,4 +1,3 @@
-Criar componentes immediate mode! (v1.5.0)
-    - Documentar os componentes apropriadamente.
+Permitir trocar cores do texto e do fundo nos componentes.
 
 Separar o exemplos futuramente.

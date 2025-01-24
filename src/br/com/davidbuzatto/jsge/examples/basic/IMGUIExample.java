@@ -25,6 +25,7 @@ import br.com.davidbuzatto.jsge.imgui.GuiColorPicker;
 import br.com.davidbuzatto.jsge.imgui.GuiComponent;
 import br.com.davidbuzatto.jsge.imgui.GuiConfirmDialog;
 import br.com.davidbuzatto.jsge.imgui.GuiDropdownList;
+import br.com.davidbuzatto.jsge.imgui.GuiGlue;
 import br.com.davidbuzatto.jsge.imgui.GuiGroup;
 import br.com.davidbuzatto.jsge.imgui.GuiInputDialog;
 import br.com.davidbuzatto.jsge.imgui.GuiLabel;
@@ -54,7 +55,9 @@ public class IMGUIExample extends EngineFrame {
 
     private List<GuiComponent> components;
     
-    private GuiLabel label;
+    private GuiLabel label1;
+    private GuiLabel label2;
+    private GuiLabel label3;
     private GuiButton button;
     private GuiLabelButton labelButton;
     private GuiCheckBox checkBox;
@@ -95,6 +98,13 @@ public class IMGUIExample extends EngineFrame {
     private GuiInputDialog inputDialog;
     private GuiConfirmDialog confirmDialog;
     
+    private GuiWindow glueWindow;
+    private GuiLabel glueLabel;
+    private GuiButton glueButton;
+    private GuiDropdownList glueDropdownList;
+    private GuiColorPicker glueColorPicker;
+    private GuiGlue glue;
+    
     private GuiComponent draggedComponent;
     private Vector2 previousMousePos;
     
@@ -116,7 +126,7 @@ public class IMGUIExample extends EngineFrame {
      * Cria o exemplo.
      */
     public IMGUIExample() {
-        super( 935, 840, "IMGUI", 60, true );
+        super( 1070, 840, "IMGUI", 60, true );
     }
     
     @Override
@@ -128,7 +138,16 @@ public class IMGUIExample extends EngineFrame {
         int y = 40;
         int vSpacing = 50;
         
-        label = new GuiLabel( x, y, 40, 30, "Label" );
+        label1 = new GuiLabel( x, y, 130, 30, "TL Label" );
+        label1.setVerticalAlignment( GuiLabel.TOP_ALIGNMENT );
+        
+        label2 = new GuiLabel( x + 150, y, 130, 30, "MC Label" );
+        label2.setHorizontalAlignment( GuiLabel.CENTER_ALIGNMENT );
+        
+        label3 = new GuiLabel( x + 300, y, 130, 30, "BR Label" );
+        label3.setHorizontalAlignment( GuiLabel.RIGHT_ALIGNMENT );
+        label3.setVerticalAlignment( GuiLabel.BOTTOM_ALIGNMENT );
+        
         button = new GuiButton( x, y += vSpacing, 100, 30, "Button" );
         labelButton = new GuiLabelButton( x, y += vSpacing, 90, 30, "Label Button" );
         checkBox = new GuiCheckBox( x, y += vSpacing, 100, 30, "Check Box" );
@@ -158,28 +177,23 @@ public class IMGUIExample extends EngineFrame {
         verticalSlider = new GuiSlider( x + 230, y, 30, 80, 25, 1, 50, GuiSlider.VERTICAL );
         textField = new GuiTextField( x, y += vSpacing * 2, 260, 30, "" );
         
-        List<String> dropdownItems = new ArrayList<>();
-        dropdownItems.add( "pizza" );
-        dropdownItems.add( "carbonara" );
-        dropdownItems.add( "parmigiana" );
-        dropdownItems.add( "lasagna" );
-        dropdownItems.add( "risotto" );
-        dropdownItems.add( "arancino" );
-        dropdownList = new GuiDropdownList( x, y += vSpacing, 240, 30, dropdownItems );
-        
-        List<String> listItems = new ArrayList<>();
-        listItems.add( "gelato" );
-        listItems.add( "cannoli" );
-        listItems.add( "tiramisu" );
-        listItems.add( "cassata" );
-        listItems.add( "cantuccini" );
-        listItems.add( "babà al rum" );
-        list = new GuiList( x, y += vSpacing, 240, 130, listItems );
+        dropdownList = new GuiDropdownList( x, y += vSpacing, 240, 30, 
+                List.<String>of( 
+                        "pizza", "carbonara", "parmigiana", "lasagna", "risotto", "arancino"
+                )
+        );
+        list = new GuiList( x, y += vSpacing, 240, 130, 
+                List.<String>of( 
+                        "gelato","cannoli","tiramisu","cassata","cantuccini","babà al rum" 
+                )
+        );
 
         progressTime = 0.05;
         
         components = new ArrayList<>();
-        components.add( label );
+        components.add( label1 );
+        components.add( label2 );
+        components.add( label3 );
         components.add( button );
         components.add( labelButton );
         components.add( checkBox );
@@ -202,10 +216,10 @@ public class IMGUIExample extends EngineFrame {
         y = 55;
         vSpacing = 120;
         
-        horizontalLine = new GuiLine( x, y + 10, 130, 30, "Line" );
-        horizontalLineUntitled = new GuiLine( x + 170, y +10, 130, 30, "" );
-        verticalLine = new GuiLine( x + 130, y - 20, 30, 90, "Line", GuiLine.VERTICAL );
-        verticalLineUntitled = new GuiLine( x + 300, y - 20, 30, 90, "", GuiLine.VERTICAL );
+        horizontalLine = new GuiLine( x, y + 10, 110, 30, "Line" );
+        horizontalLineUntitled = new GuiLine( x + 170, y +10, 110, 30, "" );
+        verticalLine = new GuiLine( x + 120, y - 20, 30, 90, "Line", GuiLine.VERTICAL );
+        verticalLineUntitled = new GuiLine( x + 290, y - 20, 30, 90, "", GuiLine.VERTICAL );
         group = new GuiGroup( x, y += vSpacing - 30, 150, 70, "Group" );
         groupUntitled = new GuiGroup( x + 170, y, 150, 70, "" );
         panel = new GuiPanel( x, y += vSpacing - 25, 150, 80, "Panel" );
@@ -245,7 +259,21 @@ public class IMGUIExample extends EngineFrame {
         
         x = 820;
         y = 30;
+        glueWindow = new GuiWindow( x, y, 240, 160, "Glue Example (drag me!)" );
+        glueLabel = new GuiLabel( 0, 0, 100, 30, "Glued Label" );
+        glueButton = new GuiButton( 0, 0, 100, 30, "Glued Button" );
+        glueDropdownList = new GuiDropdownList( 0, 0, 100, 30, List.<String>of( "1", "2", "3", "4", "5", "6" ) );
+        glueColorPicker = new GuiColorPicker( 0, 0, 85, 85, Color.RED );
+        
+        glue = new GuiGlue( glueWindow );
+        glue.addChild( glueLabel, 10, 40 );
+        glue.addChild( glueButton, 10, 80 );
+        glue.addChild( glueDropdownList, 10, 120 );
+        glue.addChild( glueColorPicker, glueDropdownList.getX() - glueWindow.getX() + glueDropdownList.getWidth() + 10, 40 );
+        components.add( glue );
+        
         vSpacing = 30;
+        y += glueWindow.getHeight() + 10;
         checkEnabled = new GuiCheckBox( x, y, 100, 20, "Enabled" );
         checkEnabled.setSelected( true );
         checkVisible = new GuiCheckBox( x, y += vSpacing, 100, 20, "Visible" );
@@ -307,6 +335,14 @@ public class IMGUIExample extends EngineFrame {
         
         if ( windowUntitled.isTitleBarPressed() ) {
             draggedComponent = windowUntitled;
+        }
+        
+        if ( glueWindow.isCloseButtonPressed() ) {
+            glue.setVisible( false );
+        }
+        
+        if ( glueWindow.isTitleBarPressed() ) {
+            draggedComponent = glue;
         }
         
         if ( isMouseButtonDown( MOUSE_BUTTON_LEFT ) ) {
@@ -407,10 +443,10 @@ public class IMGUIExample extends EngineFrame {
         
         if ( checkDrawBounds.isMousePressed() ) {
             for ( GuiComponent c : components ) {
-                c.setDrawBounds( checkDrawBounds.isSelected() );
-                checkEnabled.setDrawBounds( checkDrawBounds.isSelected() );
-                checkVisible.setDrawBounds( checkDrawBounds.isSelected() );
-                checkDrawBounds.setDrawBounds( checkDrawBounds.isSelected() );
+                c.setDrawingBounds( checkDrawBounds.isSelected() );
+                checkEnabled.setDrawingBounds( checkDrawBounds.isSelected() );
+                checkVisible.setDrawingBounds( checkDrawBounds.isSelected() );
+                checkDrawBounds.setDrawingBounds( checkDrawBounds.isSelected() );
             }
         }
         
@@ -451,7 +487,8 @@ public class IMGUIExample extends EngineFrame {
         
         int hSep = 280;
         int dataMargin = hSep + 25;
-        drawGrid( 9, 10, 30, 450, 50, hSep, LIGHTGRAY );
+        drawGrid( 1, 10, 30, 450, 50, 0, LIGHTGRAY );
+        drawGrid( 8, 10, 80, 450, 50, hSep, LIGHTGRAY );
         drawGrid( 1, 10, 480, 450, 100, hSep, LIGHTGRAY );
         drawGrid( 2, 10, 580, 450, 50, hSep, LIGHTGRAY );
         drawGrid( 1, 10, 680, 450, 150, hSep, LIGHTGRAY );
@@ -463,10 +500,6 @@ public class IMGUIExample extends EngineFrame {
         drawText( "Containers/Separators", 470, 10, 20, GRAY );
         drawText( "Dialogs", 470, 460, 20, GRAY );
         drawText( "Color Picker", 470, 660, 20, GRAY );
-        
-        for ( GuiComponent c : components ) {
-            c.draw();
-        }
         
         drawText( "press count: " + buttonPressCount, dataMargin, button.getBounds().y + button.getBounds().height / 2 - 3, 12, GRAY );
         drawText( "press count: " + labelButtonPressCount, dataMargin, labelButton.getBounds().y + labelButton.getBounds().height / 2 - 3, 12, GRAY );
@@ -510,10 +543,6 @@ public class IMGUIExample extends EngineFrame {
         drawText( inputDialogStatus, 650, buttonShowInputDialog.getBounds().y + buttonShowInputDialog.getBounds().height / 2 - 3, 12, GRAY );
         drawText( confirmDialogStatus, 650, buttonShowConfirmDialog.getBounds().y + buttonShowConfirmDialog.getBounds().height / 2 - 3, 12, GRAY );
         
-        messageDialog.draw();
-        inputDialog.draw();
-        confirmDialog.draw();
-        
         drawColoredRectangle( 675, colorPicker.getBounds().y + colorPicker.getBounds().height / 2 - 40, colorPicker.getColor() );
         
         checkEnabled.draw();
@@ -521,6 +550,14 @@ public class IMGUIExample extends EngineFrame {
         checkDrawBounds.draw();
         
         drawFPS( checkDrawBounds.getX(), checkDrawBounds.getY() + checkDrawBounds.getHeight() + 15 );
+        
+        for ( GuiComponent c : components ) {
+            c.draw();
+        }
+        
+        messageDialog.draw();
+        inputDialog.draw();
+        confirmDialog.draw();
         
     }
     

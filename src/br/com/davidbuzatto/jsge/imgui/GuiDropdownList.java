@@ -101,7 +101,7 @@ public class GuiDropdownList extends GuiComponent {
     
     private void initComponents( EngineFrame engine, List<String> itemsText ) {
         
-        bounds.width += GuiSlider.SLIDER_RADIUS * 2;
+        //bounds.width += GuiSlider.SLIDER_RADIUS * 2;
         
         int size = MathUtils.clamp( itemsText.size(), 1, 4 );
         

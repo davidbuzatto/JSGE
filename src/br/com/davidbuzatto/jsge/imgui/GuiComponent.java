@@ -298,7 +298,7 @@ public abstract class GuiComponent {
      */
     protected void drawBounds() {
         if ( drawingBounds ) {
-            engine.setStrokeLineWidth( 1 );
+            engine.setStrokeLineWidth( LINE_WIDTH );
             engine.drawRectangle( bounds, EngineFrame.BLUE );
         }
     }
@@ -351,10 +351,10 @@ public abstract class GuiComponent {
     /**
      * Configura se deve-se desenhar os limites do componente.
      * 
-     * @param drawBounds Verdadeiro para desenhar, falso para não desenhar.
+     * @param drawingBounds Verdadeiro para desenhar, falso para não desenhar.
      */
-    public void setDrawBounds( boolean drawBounds ) {
-        this.drawingBounds = drawBounds;
+    public void setDrawingBounds( boolean drawingBounds ) {
+        this.drawingBounds = drawingBounds;
     }
 
     /**

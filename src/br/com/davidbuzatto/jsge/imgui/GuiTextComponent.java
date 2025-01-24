@@ -17,9 +17,13 @@
 package br.com.davidbuzatto.jsge.imgui;
 
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
-import static br.com.davidbuzatto.jsge.imgui.GuiComponent.FONT_SIZE;
+import br.com.davidbuzatto.jsge.font.FontUtils;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
+import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 /**
  * Componentes que contém texto na representação gráfica.
@@ -28,8 +32,24 @@ import java.awt.Color;
  */
 public abstract class GuiTextComponent extends GuiComponent {
 
+    /** Alinhamento à esquerda na horizontal. */
+    public static final int LEFT_ALIGNMENT = 1;
+    /** Alinhamento ao centro na horizontal. */
+    public static final int CENTER_ALIGNMENT = 2;
+    /** Alinhamento à direita na horizontal. */
+    public static final int RIGHT_ALIGNMENT = 3;
+    /** Alinhamento acima na vertical. */
+    public static final int TOP_ALIGNMENT = 4;
+    /** Alinhamento ao meio na vertical. */
+    public static final int MIDDLE_ALIGNMENT = 5;
+    /** Alinhamento abaixo na vertical. */
+    public static final int BOTTOM_ALIGNMENT = 6;
+    
+    private static BufferedImage dummyImage = new BufferedImage( 1, 1, BufferedImage.TYPE_INT_ARGB );
+    
     protected String text;
     protected int textWidth = -1;
+    protected int textLineHeight = -1;
 
     /**
      * Cria o componente.
@@ -96,6 +116,7 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
     
     /**
+     * Desenha texto centralizado na vertical.
      * 
      * @param textColor Cor do texto.
      */
@@ -109,6 +130,7 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
     
     /**
+     * Desenha texto centralizado na vertical com deslocamento.
      * 
      * @param textColor Cor do texto.
      * @param xOffset Deslocamento no eixo x.
@@ -124,6 +146,7 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
     
     /**
+     * Desenha texto centralizado na vertical depois do retângulo de limite.
      * 
      * @param textColor Cor do texto.
      */
@@ -137,6 +160,8 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
     
     /**
+     * Desenha texto centralizado na vertical depois do retângulo de limite, 
+     * com deslocamento.
      * 
      * @param textColor Cor do texto.
      * @param xOffset Deslocamento no eixo x.
@@ -151,6 +176,7 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
     
     /**
+     * Desenha texto centralizado na vertical e na horizontal.
      * 
      * @param textColor Cor do texto.
      */
@@ -182,7 +208,41 @@ public abstract class GuiTextComponent extends GuiComponent {
      */
     public void setText( String text ) {
         this.text = text;
-        textWidth = engine.measureText( text, FONT_SIZE );
+        updateTextProperties();
+    }
+    
+    private void updateTextProperties() {
+        
+        Graphics g = dummyImage.createGraphics();
+        g.setFont( FontUtils.DEFAULT_FONT.deriveFont( (float) FONT_SIZE ) );
+        FontMetrics fm = g.getFontMetrics();
+        
+        textWidth = fm.stringWidth( text );
+        textLineHeight = (int) fm.getStringBounds( text, g ).getHeight();
+        g.dispose();
+        
+    }
+    
+    protected Vector2 calculateStartPosition( int horizontalAlignment, int verticalAlignment ) {
+        
+        Vector2 pos = new Vector2();
+        
+        updateTextProperties();
+        
+        switch ( horizontalAlignment ) {
+            case LEFT_ALIGNMENT -> pos.x = 0;
+            case CENTER_ALIGNMENT -> pos.x = bounds.width / 2 - textWidth / 2;
+            case RIGHT_ALIGNMENT -> pos.x = bounds.width - textWidth;
+        }
+        
+        switch ( verticalAlignment ) {
+            case TOP_ALIGNMENT -> pos.y = 2;
+            case MIDDLE_ALIGNMENT -> pos.y = bounds.height / 2 - textLineHeight / 4;
+            case BOTTOM_ALIGNMENT -> pos.y = bounds.height - textLineHeight / 2;
+        }
+        
+        return pos;
+        
     }
 
 }
