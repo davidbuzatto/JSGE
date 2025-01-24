@@ -42,7 +42,7 @@ public class ColorMethodsExample extends EngineFrame {
     private GuiButton cancelButton;
     
     private boolean showComponents;
-    private Color overlayColor = ColorUtils.fade( BLACK, 0.5 );
+    private Color overlayColor = new Color( 0, 0, 0, 100 );
     
     /**
      * Cria o exemplo.

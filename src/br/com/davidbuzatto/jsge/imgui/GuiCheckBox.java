@@ -153,16 +153,18 @@ public class GuiCheckBox extends GuiTextComponent {
     }
 
     /**
+     * Marca a caixa de seleção como selecionada ou não selecionada.
      * 
-     * @param selected 
+     * @param selected Verdadeiro para selecionar, falso para remover a seleção.
      */
     public void setSelected( boolean selected ) {
         this.selected = selected;
     }
     
     /**
+     * Retorna o estado da seleção da caixa de seleção.
      * 
-     * @return 
+     * @return Verdadeiro caso esteja selecionada, falso caso contrário.
      */
     public boolean isSelected() {
         return this.selected;

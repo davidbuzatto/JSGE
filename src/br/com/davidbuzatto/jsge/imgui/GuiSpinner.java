@@ -32,8 +32,8 @@ public class GuiSpinner extends GuiComponent {
     private int min;
     private int max;
     
-    private GuiButtonChangeValue leftButton;
-    private GuiButtonChangeValue rightButton;
+    private GuiChangeValueButton leftButton;
+    private GuiChangeValueButton rightButton;
     
     /**
      * Cria o componente.
@@ -121,11 +121,11 @@ public class GuiSpinner extends GuiComponent {
     
     private void initComponents( EngineFrame engine, double buttonSize ) {
         if ( engine == null ) {
-            leftButton = new GuiButtonChangeValue( bounds.x, bounds.y, buttonSize, bounds.height, 180 );
-            rightButton = new GuiButtonChangeValue( bounds.x + bounds.width - buttonSize, bounds.y, buttonSize, bounds.height, 0 );
+            leftButton = new GuiChangeValueButton( bounds.x, bounds.y, buttonSize, bounds.height, 180 );
+            rightButton = new GuiChangeValueButton( bounds.x + bounds.width - buttonSize, bounds.y, buttonSize, bounds.height, 0 );
         } else {
-            leftButton = new GuiButtonChangeValue( bounds.x, bounds.y, buttonSize, bounds.height, 180, engine );
-            rightButton = new GuiButtonChangeValue( bounds.x + bounds.width - buttonSize, bounds.y, buttonSize, bounds.height, 0, engine );
+            leftButton = new GuiChangeValueButton( bounds.x, bounds.y, buttonSize, bounds.height, 180, engine );
+            rightButton = new GuiChangeValueButton( bounds.x + bounds.width - buttonSize, bounds.y, buttonSize, bounds.height, 0, engine );
         }
     }
     
@@ -200,30 +200,34 @@ public class GuiSpinner extends GuiComponent {
     }
     
     /**
+     * Obtém o valor atual do componente.
      * 
-     * @return 
+     * @return O valor atual.
      */
     public int getValue() {
         return value;
     }
 
     /**
+     * Configura o valor do componente.
      * 
-     * @param value O valor inicial do componente. 
+     * @param value O valor do componente. 
      */
     public void setValue( int value ) {
         this.value = MathUtils.clamp( value, min, max );
     }
 
     /**
+     * Retorna o valor mínimo do componente.
      * 
-     * @return 
+     * @return O valor mínimo.
      */
     public int getMin() {
         return min;
     }
 
     /**
+     * Configura o valor mínimo do componente.
      * 
      * @param min O valor mínimo do componente. 
      */
@@ -232,14 +236,16 @@ public class GuiSpinner extends GuiComponent {
     }
 
     /**
+     * Retorna o valor máximo do componente.
      * 
-     * @return 
+     * @return O valor máximo.
      */
     public int getMax() {
         return max;
     }
 
     /**
+     * Configura o valor máximo do componente.
      * 
      * @param max O valor máximo do componente. 
      */
@@ -267,16 +273,16 @@ public class GuiSpinner extends GuiComponent {
         rightButton.move( xAmount, yAmount );
     }
     
-    private class GuiButtonChangeValue extends GuiButton {
+    private class GuiChangeValueButton extends GuiButton {
         
         private final double arrowAngle;
         
-        public GuiButtonChangeValue( double x, double y, double width, double height, double arrowAngle, EngineFrame engine ) {
+        public GuiChangeValueButton( double x, double y, double width, double height, double arrowAngle, EngineFrame engine ) {
             super( x, y, width, height, "", engine );
             this.arrowAngle = arrowAngle;
         }
         
-        public GuiButtonChangeValue( double x, double y, double width, double height, double arrowAngle ) {
+        public GuiChangeValueButton( double x, double y, double width, double height, double arrowAngle ) {
             super( x, y, width, height, "" );
             this.arrowAngle = arrowAngle;
         }
@@ -294,28 +300,28 @@ public class GuiSpinner extends GuiComponent {
 
                     switch ( mouseState ) {
                         case MOUSE_OUT:
-                            drawButtonLabel( TEXT_COLOR );
+                            drawChangeValueButton( TEXT_COLOR );
                             break;
                         case MOUSE_OVER:
-                            drawButtonLabel( MOUSE_OVER_TEXT_COLOR );
+                            drawChangeValueButton( MOUSE_OVER_TEXT_COLOR );
                             break;
                         case MOUSE_PRESSED:
-                            drawButtonLabel( MOUSE_DOWN_TEXT_COLOR );
+                            drawChangeValueButton( MOUSE_DOWN_TEXT_COLOR );
                             break;
                         case MOUSE_DOWN:
-                            drawButtonLabel( MOUSE_DOWN_TEXT_COLOR );
+                            drawChangeValueButton( MOUSE_DOWN_TEXT_COLOR );
                             break;
                     }
 
                 } else {
-                    drawButtonLabel( DISABLED_TEXT_COLOR );
+                    drawChangeValueButton( DISABLED_TEXT_COLOR );
                 }
 
             }
             
         }
         
-        private void drawButtonLabel( Color color ) {
+        private void drawChangeValueButton( Color color ) {
             int pad = 5;
             engine.fillPolygon( bounds.x + bounds.width / 2, bounds.y + bounds.height / 2, 3, 6, arrowAngle, color );
         }

@@ -198,16 +198,18 @@ public class GuiWindow extends GuiTextComponent {
     }
     
     /**
+     * Retorna se o botão de fechar da barra de título foi pressionado no ciclo atual.
      * 
-     * @return 
+     * @return Verdadeiro caso tenha sido pressionado, falso caso contrário.
      */
     public boolean isCloseButtonPressed() {
         return closeButton.isMousePressed();
     }
     
     /**
+     * Retorna se a barra de título foi pressionada no ciclo atual.
      * 
-     * @return 
+     * @return Verdadeiro caso tenha sido pressionada, falso caso contrário.
      */
     public boolean isTitleBarPressed() {
         if ( closeButton.isMousePressed() ) {
@@ -239,28 +241,28 @@ public class GuiWindow extends GuiTextComponent {
 
                     switch ( mouseState ) {
                         case MOUSE_OUT:
-                            drawButtonLabel( TEXT_COLOR );
+                            drawButtonClose( TEXT_COLOR );
                             break;
                         case MOUSE_OVER:
-                            drawButtonLabel( MOUSE_OVER_TEXT_COLOR );
+                            drawButtonClose( MOUSE_OVER_TEXT_COLOR );
                             break;
                         case MOUSE_PRESSED:
-                            drawButtonLabel( MOUSE_DOWN_TEXT_COLOR );
+                            drawButtonClose( MOUSE_DOWN_TEXT_COLOR );
                             break;
                         case MOUSE_DOWN:
-                            drawButtonLabel( MOUSE_DOWN_TEXT_COLOR );
+                            drawButtonClose( MOUSE_DOWN_TEXT_COLOR );
                             break;
                     }
 
                 } else {
-                    drawButtonLabel( DISABLED_TEXT_COLOR );
+                    drawButtonClose( DISABLED_TEXT_COLOR );
                 }
 
             }
             
         }
         
-        private void drawButtonLabel( Color color ) {
+        private void drawButtonClose( Color color ) {
             int pad = 6;
             engine.drawLine( bounds.x + pad, bounds.y + pad, bounds.x + bounds.width - pad, bounds.y + bounds.height - pad, color );
             engine.drawLine( bounds.x + pad, bounds.y + bounds.height - pad, bounds.x + bounds.width - pad, bounds.y + pad, color );

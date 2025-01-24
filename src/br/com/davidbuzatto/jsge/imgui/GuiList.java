@@ -297,8 +297,10 @@ public class GuiList extends GuiComponent {
     }
     
     /**
+     * Retorna o texto do item selecionado no momento.
      * 
-     * @return 
+     * @return O texto do item selecionado ou null caso nenhum item esteja
+     * selecionado.
      */
     public String getSelectedItemText() {
         for ( ListItem item : items ) {
@@ -310,8 +312,10 @@ public class GuiList extends GuiComponent {
     }
     
     /**
+     * Retorna o índice do item selecionado no momento.
      * 
-     * @return 
+     * @return O índice do item selecionado ou -1 caso nenhum item esteja
+     * selecionado.
      */
     public int getSelectedItemIndex() {
         int index = -1;
@@ -324,13 +328,20 @@ public class GuiList extends GuiComponent {
         return index;
     }
 
+    /**
+     * Retorna a altura do texto utilizada do desenho do componente.
+     * 
+     * @return A altura do texto.
+     */
     protected double getItemTextHeight() {
         return itemTextHeight;
     }
     
     /**
+     * Retorna se o ponteiro do mouse está totalmente fora do componente, ou seja,
+     * fora do retângulo limítrofe e da barra de rolagem.
      * 
-     * @return 
+     * @return Verdadeiro caso esteja fora, falso caso contrário.
      */
     public boolean isMouseOutEntirely() {
         return mouseState == GuiComponentMouseState.MOUSE_OUT && scrollBar.mouseState == GuiComponentMouseState.MOUSE_OUT;

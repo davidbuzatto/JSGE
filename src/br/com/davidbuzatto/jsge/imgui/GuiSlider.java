@@ -360,16 +360,18 @@ public class GuiSlider extends GuiComponent {
     }
     
     /**
+     * Obtém o valor atual do componente.
      * 
-     * @return 
+     * @return O valor atual.
      */
     public double getValue() {
         return value;
     }
 
     /**
+     * Configura o valor do componente.
      * 
-     * @param value O valor inicial do componente. 
+     * @param value O valor do componente. 
      */
     public void setValue( double value ) {
         if ( min <= max ) {
@@ -381,14 +383,16 @@ public class GuiSlider extends GuiComponent {
     }
 
     /**
+     * Retorna o valor mínimo do componente.
      * 
-     * @return 
+     * @return O valor mínimo.
      */
     public double getMin() {
         return min;
     }
 
     /**
+     * Configura o valor mínimo do componente.
      * 
      * @param min O valor mínimo do componente. 
      */
@@ -397,14 +401,16 @@ public class GuiSlider extends GuiComponent {
     }
 
     /**
+     * Retorna o valor máximo do componente.
      * 
-     * @return 
+     * @return O valor máximo.
      */
     public double getMax() {
         return max;
     }
 
     /**
+     * Configura o valor máximo do componente.
      * 
      * @param max O valor máximo do componente. 
      */
@@ -413,32 +419,36 @@ public class GuiSlider extends GuiComponent {
     }
 
     /**
+     * Retorna se a trilha do componente está visível.
      * 
-     * @return 
+     * @return Verdadeiro caso esteja visível, falso caso contrário.
      */
     public boolean isShowTrack() {
         return showTrack;
     }
 
     /**
+     * Configura a visibilidade da trilha do componente.
      * 
-     * @param showTrack 
+     * @param showTrack Verdeiro para exibir a trilha, falso para esconder.
      */
     public void setShowTrack( boolean showTrack ) {
         this.showTrack = showTrack;
     }
 
     /**
+     * Retorna se o componente responde à rolagem da roda do mouse.
      * 
-     * @return 
+     * @return Verdadeiro caso sim, falso caso contrário.
      */
     public boolean isMouseWheelEnabled() {
         return mouseWheelEnabled;
     }
 
     /**
+     * Configura se o componente deve responder à rolagem da roda do mouse.
      * 
-     * @param mouseWheelEnabled 
+     * @param mouseWheelEnabled Verdadeiro para responder, falso para não responder.
      */
     public void setMouseWheelEnabled( boolean mouseWheelEnabled ) {
         this.mouseWheelEnabled = mouseWheelEnabled;

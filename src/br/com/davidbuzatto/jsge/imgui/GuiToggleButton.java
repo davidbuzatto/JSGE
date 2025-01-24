@@ -172,8 +172,9 @@ public class GuiToggleButton extends GuiCheckBox {
     }
 
     /**
+     * Configura o grupo de botões do componente.
      * 
-     * @param buttonGroup 
+     * @param buttonGroup O grupo de botões do componente.
      */
     public void setButtonGroup( GuiButtonGroup buttonGroup ) {
         this.buttonGroup = buttonGroup;

@@ -141,30 +141,34 @@ public class GuiProgressBar extends GuiComponent {
     }
 
     /**
+     * Obtém o valor atual do componente.
      * 
-     * @return 
+     * @return O valor atual.
      */
     public double getValue() {
         return value;
     }
 
     /**
+     * Configura o valor do componente.
      * 
-     * @param value O valor inicial do componente. 
+     * @param value O valor do componente. 
      */
     public void setValue( double value ) {
         this.value = MathUtils.clamp( value, min, max );
     }
 
     /**
+     * Retorna o valor mínimo do componente.
      * 
-     * @return 
+     * @return O valor mínimo.
      */
     public double getMin() {
         return min;
     }
 
     /**
+     * Configura o valor mínimo do componente.
      * 
      * @param min O valor mínimo do componente. 
      */
@@ -173,14 +177,16 @@ public class GuiProgressBar extends GuiComponent {
     }
 
     /**
+     * Retorna o valor máximo do componente.
      * 
-     * @return 
+     * @return O valor máximo.
      */
     public double getMax() {
         return max;
     }
 
     /**
+     * Configura o valor máximo do componente.
      * 
      * @param max O valor máximo do componente. 
      */
@@ -189,8 +195,10 @@ public class GuiProgressBar extends GuiComponent {
     }
     
     /**
+     * Retorna a porcentagem do progresso da barra de progresso com
+     * base no valor atual e os valores mínimos e máximos.
      * 
-     * @return 
+     * @return A porcentagem da barra de progresso.
      */
     public double getPercentage() {
         return MathUtils.clamp( MathUtils.inverseLerp( min, max, value ), 0, 1 );

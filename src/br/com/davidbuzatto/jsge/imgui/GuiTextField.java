@@ -199,7 +199,7 @@ public class GuiTextField extends GuiComponent {
                             caretPosition = value.length();
                             break;
                         default:
-                            if ( isValid( key ) && value.length() < maxVisibleChars ) {
+                            if ( isKeyValid( key ) && value.length() < maxVisibleChars ) {
                                 if ( !value.isEmpty() ) {
                                     String prev = value.substring( 0, caretPosition );
                                     String pos = value.substring( caretPosition );
@@ -270,12 +270,7 @@ public class GuiTextField extends GuiComponent {
         engine.drawText( value, bounds.x + 5, bounds.y + bounds.height / 2 - 3, FONT_SIZE, textColor );
     }
     
-    /**
-     * 
-     * @param key
-     * @return 
-     */
-    public boolean isValid( int key ) {
+    private boolean isKeyValid( int key ) {
         return ( key >= EngineFrame.KEY_A && key <= EngineFrame.KEY_Z ) ||
                ( key >= EngineFrame.KEY_ZERO && key <= EngineFrame.KEY_NINE ) ||
                key == EngineFrame.KEY_PERIOD ||
@@ -301,16 +296,18 @@ public class GuiTextField extends GuiComponent {
     }
     
     /**
+     * Obtém o valor do componente.
      * 
-     * @return 
+     * @return O valor do componente.
      */
     public String getValue() {
         return value;
     }
     
     /**
+     * Configura o valor do componente.
      * 
-     * @param value O valor inicial do componente. 
+     * @param value O valor do componente. 
      */
     public void setValue( String value ) {
         if ( value == null ) {

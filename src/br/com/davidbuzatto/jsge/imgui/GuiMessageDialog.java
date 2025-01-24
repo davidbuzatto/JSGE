@@ -18,6 +18,7 @@ package br.com.davidbuzatto.jsge.imgui;
 
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
+import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
@@ -171,18 +172,19 @@ public class GuiMessageDialog extends GuiWindow {
     }
     
     /**
-     * 
+     * Mostra o diálogo centralizado na tela.
      */
     public void show() {
         show( engine.getScreenWidth() / 2 - bounds.width / 2, engine.getScreenHeight() / 2 - bounds.height / 2 );
     }
     
     /**
+     * Mostra o diálogo numa posição específica.
      * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente. 
+     * @param x Coordenada x onde o vértice superior esquerdo do retângulo que 
+     * define os limites do componente será posicionado.
+     * @param y Coordenada y onde o vértice superior esquerdo do retângulo que 
+     * define os limites do componente será posicionado.
      */
     public void show( double x, double y ) {
         bounds.x = x;
@@ -192,15 +194,26 @@ public class GuiMessageDialog extends GuiWindow {
     }
     
     /**
+     * Mostra o diálogo numa posição específica.
      * 
+     * @param position Posição onde o vértice superior esquerdo do retângulo que 
+     * define os limites do componente será posicionado.
+     */
+    public void show( Vector2 position ) {
+        show( position.x, position.y );
+    }
+    
+    /**
+     * Esconde o diálogo.
      */
     public void hide() {
         super.setVisible( false );
     }
     
     /**
+     * Retorna se o botão OK foi pressionado no ciclo atual.
      * 
-     * @return 
+     * @return Verdadeiro caso tenha sido pressionado, falso caso contrário.
      */
     public boolean isOkButtonPressed() {
         return okButton.isMousePressed();

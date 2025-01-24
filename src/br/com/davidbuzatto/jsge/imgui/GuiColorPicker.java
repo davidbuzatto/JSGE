@@ -288,8 +288,9 @@ public class GuiColorPicker extends GuiComponent {
     }
     
     /**
+     * Retorna a cor selecionada no momento.
      * 
-     * @return 
+     * @return A cor selecionada.
      */
     public Color getColor() {
         return ColorUtils.fade( 
@@ -303,24 +304,27 @@ public class GuiColorPicker extends GuiComponent {
     }
     
     /**
+     * Retorna o matiz da cor selecionada no momento.
      * 
-     * @return 
+     * @return O matiz variando de 0 a 360.
      */
     public double getHue() {
         return hueSlider.getValue();
     }
     
     /**
+     * Retorna a saturação da cor selecionada no momento.
      * 
-     * @return 
+     * @return A saturação de 0 a 1.
      */
     public double getSaturation() {
         return ( saturationAndValuePosition.x - bounds.x ) / bounds.width;
     }
     
     /**
+     * Retorna o valor da cor selecionada no momento.
      * 
-     * @return 
+     * @return O valor de 0 a 1.
      */
     public double getValue() {
         return 1.0 - ( saturationAndValuePosition.y - bounds.y ) / bounds.height;

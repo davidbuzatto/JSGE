@@ -18,6 +18,7 @@ package br.com.davidbuzatto.jsge.imgui;
 
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
+import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
@@ -230,18 +231,19 @@ public class GuiConfirmDialog extends GuiWindow {
     }
     
     /**
-     * 
+     * Mostra o diálogo centralizado na tela.
      */
     public void show() {
         show( engine.getScreenWidth() / 2 - bounds.width / 2, engine.getScreenHeight() / 2 - bounds.height / 2 );
     }
     
     /**
+     * Mostra o diálogo numa posição específica.
      * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente. 
+     * @param x Coordenada x onde o vértice superior esquerdo do retângulo que 
+     * define os limites do componente será posicionado.
+     * @param y Coordenada y onde o vértice superior esquerdo do retângulo que 
+     * define os limites do componente será posicionado.
      */
     public void show( double x, double y ) {
         bounds.x = x;
@@ -251,39 +253,54 @@ public class GuiConfirmDialog extends GuiWindow {
     }
     
     /**
+     * Mostra o diálogo numa posição específica.
      * 
+     * @param position Posição onde o vértice superior esquerdo do retângulo que 
+     * define os limites do componente será posicionado.
+     */
+    public void show( Vector2 position ) {
+        show( position.x, position.y );
+    }
+    
+    /**
+     * Esconde o diálogo.
      */
     public void hide() {
         super.setVisible( false );
     }
     
     /**
+     * Retorna se o botão 1 foi pressionado no ciclo atual.
      * 
-     * @return 
+     * @return Verdadeiro caso tenha sido pressionado, falso caso contrário.
      */
     public boolean isButton1Pressed() {
         return button1.isMousePressed();
     }
     
     /**
+     * Retorna se o botão 2 foi pressionado no ciclo atual.
      * 
-     * @return 
+     * @return Verdadeiro caso tenha sido pressionado, falso caso contrário.
      */
     public boolean isButton2Pressed() {
         return button2.isMousePressed();
     }
     
     /**
+     * Retorna se o botão 3 foi pressionado no ciclo atual.
      * 
-     * @return 
+     * @return Verdadeiro caso tenha sido pressionado, falso caso contrário.
      */
     public boolean isButton3Pressed() {
         return button3.isMousePressed();
     }
     
     /**
+     * Retorna o texto do botão pressionado no ciclo atual.
      * 
-     * @return 
+     * @return O texto contido no botão pressionado ou null caso nenhum botão
+     * tenha sido pressionado.
      */
     public String getPressedButton() {
         for ( int i = 0; i < buttons.length; i++ ) {
@@ -292,6 +309,21 @@ public class GuiConfirmDialog extends GuiWindow {
             }
         }
         return null;
+    }
+    
+    /**
+     * Retorna o número do botão pressionado no ciclo atual.
+     * 
+     * @return O número do botão pressionado ou zero caso nenhum botão tenha
+     * sido pressionado.
+     */
+    public int getPressedButtonNumber() {
+        for ( int i = 0; i < buttons.length; i++ ) {
+            if ( buttons[i].isMousePressed() ) {
+                return i + 1;
+            }
+        }
+        return 0;
     }
     
     private void updateComponentsBounds() {

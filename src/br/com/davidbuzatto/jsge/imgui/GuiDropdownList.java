@@ -210,24 +210,29 @@ public class GuiDropdownList extends GuiComponent {
     }
     
     /**
+     * Retorna o texto do item selecionado no momento.
      * 
-     * @return 
+     * @return O texto do item selecionado ou null caso nenhum item esteja
+     * selecionado.
      */
     public String getSelectedItemText() {
         return itemsList.getSelectedItemText();
     }
     
     /**
+     * Retorna o índice do item selecionado no momento.
      * 
-     * @return 
+     * @return O índice do item selecionado ou -1 caso nenhum item esteja
+     * selecionado.
      */
     public int getSelectedItemIndex() {
         return itemsList.getSelectedItemIndex();
     }
     
     /**
+     * Retorna se a lista de itens está visível no momento.
      * 
-     * @return 
+     * @return Verdadeiro caso esteja visível, falso caso contrário.
      */
     public boolean isDropdownListVisible() {
         return itemsList.isVisible();

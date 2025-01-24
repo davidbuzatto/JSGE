@@ -165,8 +165,9 @@ public class GuiPanel extends GuiTextComponent {
     }
     
     /**
+     * Retorna se a barra de título foi pressionada no ciclo atual.
      * 
-     * @return 
+     * @return Verdadeiro caso tenha sido pressionada, falso caso contrário.
      */
     public boolean isTitleBarPressed() {
         return titleBarPressed;

@@ -167,6 +167,16 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
 
     /**
+     * Obtém o texto do componente.
+     * 
+     * @return O texto do componente.
+     */
+    public String getText() {
+        return this.text;
+    }
+    
+    /**
+     * Configura o texto do componente.
      * 
      * @param text Texto utilizado no componente. 
      */
