@@ -211,7 +211,7 @@ public abstract class GuiTextComponent extends GuiComponent {
         updateTextProperties();
     }
     
-    private void updateTextProperties() {
+    protected void updateTextProperties() {
         
         Graphics g = dummyImage.createGraphics();
         g.setFont( FontUtils.DEFAULT_FONT.deriveFont( (float) FONT_SIZE ) );

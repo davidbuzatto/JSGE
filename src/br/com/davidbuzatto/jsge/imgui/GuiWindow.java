@@ -344,4 +344,36 @@ public class GuiWindow extends GuiTextComponent {
         
     }
     
+    protected void updateButtonsBounds( GuiButton[] buttons ) {
+        
+        int minWidth = 50;
+        int buttonPadding = 10;
+        
+        double w = 0;
+        int b = 0;
+        
+        for ( int i = 0; i < buttons.length; i++ ) {
+            if ( !buttons[i].text.isEmpty() ) {
+                buttons[i].bounds.width = engine.measureText( buttons[i].text, FONT_SIZE ) + buttonPadding * 2;
+                if ( buttons[i].bounds.width < minWidth ) {
+                    buttons[i].bounds.width = minWidth;
+                }
+                w += buttons[i].bounds.width;
+                b++;
+            }
+        }
+        
+        w += ( DIALOG_CONTENT_PADDING / 2 ) * ( b - 1 );
+        double start = bounds.x + bounds.width / 2 - w / 2;
+        
+        for ( int i = 0; i < buttons.length; i++ ) {
+            if ( i != 0 ) {
+                start += buttons[i-1].bounds.width + DIALOG_CONTENT_PADDING / 2;
+            }
+            buttons[i].bounds.x = start;
+            buttons[i].bounds.y = bounds.y + bounds.height - DIALOG_CONTENT_PADDING - buttons[i].bounds.height;
+        }
+        
+    }
+    
 }

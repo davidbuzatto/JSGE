@@ -40,6 +40,7 @@ import br.com.davidbuzatto.jsge.imgui.GuiSlider;
 import br.com.davidbuzatto.jsge.imgui.GuiSpinner;
 import br.com.davidbuzatto.jsge.imgui.GuiTextField;
 import br.com.davidbuzatto.jsge.imgui.GuiToggleButton;
+import br.com.davidbuzatto.jsge.imgui.GuiToolTip;
 import br.com.davidbuzatto.jsge.imgui.GuiWindow;
 import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
@@ -104,6 +105,10 @@ public class IMGUIExample extends EngineFrame {
     private GuiDropdownList glueDropdownList;
     private GuiColorPicker glueColorPicker;
     private GuiGlue glue;
+    
+    private GuiToolTip toolTipLabel1;
+    private GuiToolTip toolTipLabel2;
+    private GuiToolTip toolTipLabel3;
     
     private GuiComponent draggedComponent;
     private Vector2 previousMousePos;
@@ -279,6 +284,13 @@ public class IMGUIExample extends EngineFrame {
         checkVisible = new GuiCheckBox( x, y += vSpacing, 100, 20, "Visible" );
         checkVisible.setSelected( true );
         checkDrawBounds = new GuiCheckBox( x, y += vSpacing, 100, 20, "Draw bounds" );
+        
+        toolTipLabel1 = new GuiToolTip( label1, "Top and Left Label" );
+        toolTipLabel2 = new GuiToolTip( label2, "Middle and Center Label" );
+        toolTipLabel3 = new GuiToolTip( label3, "Bottom and Right Label" );
+        components.add( toolTipLabel1 );
+        components.add( toolTipLabel2 );
+        components.add( toolTipLabel3 );
         
     }
 

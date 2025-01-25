@@ -143,7 +143,7 @@ public class GuiMessageDialog extends GuiWindow {
         if ( visible ) {
             
             if ( showOverlay ) {
-                engine.fillRectangle( 0, 0, engine.getScreenWidth(), engine.getScreenHeight(), OVERLAY_COLOR );
+                engine.fillRectangle( 0, 0, engine.getScreenWidth(), engine.getScreenHeight(), DIALOG_OVERLAY_COLOR );
             }
 
             super.draw();

@@ -131,9 +131,18 @@ public abstract class GuiComponent {
     /** Cor de fundo para a trila dos sliders desabiltiados usados como barras de rolagem. */
     public static final Color DISABLED_SCROLL_BAR_TRACK_COLOR = new Color( 220, 220, 220 );
     
+    /** Cor da sobreposição do seletor de cor quando está desabilitado. */
     public static final Color COLOR_PICKER_DISABLED_OVERLAY_COLOR = ColorUtils.fade( EngineFrame.LIGHTGRAY, 0.5 );
     
-    public static final Color OVERLAY_COLOR = new Color( 0, 0, 0, 100 );
+    /** Cor da sobreposição dos diálogos. */
+    public static final Color DIALOG_OVERLAY_COLOR = new Color( 0, 0, 0, 100 );
+    
+    /** Cor padrão de fundo. */
+    public static final Color TOOL_TIP_BACKGROUND_COLOR = new Color( 230, 233, 233 );
+    /** Cor padrão da borda. */
+    public static final Color TOOL_TIP_BORDER_COLOR = new Color( 181, 193, 194 );
+    /** Cor padrão do texto. */
+    public static final Color TOOL_TIP_TEXT_COLOR = new Color( 130, 130, 130 );
     
     /**
      * Constrói a infraestrutura básica dos componentes.

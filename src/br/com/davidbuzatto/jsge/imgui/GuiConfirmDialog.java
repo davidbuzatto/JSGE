@@ -156,7 +156,7 @@ public class GuiConfirmDialog extends GuiWindow {
                 width = DIALOG_MIN_WIDTH;
             }
 
-            updateButtonsBounds();
+            updateButtonsBounds( buttons );
             double buttonsWidth = button3.bounds.x + button3.bounds.width - button1.bounds.x + DIALOG_CONTENT_PADDING * 2;
             if ( buttonsWidth > width ) {
                 width = buttonsWidth;
@@ -202,7 +202,7 @@ public class GuiConfirmDialog extends GuiWindow {
         if ( visible ) {
             
             if ( showOverlay ) {
-                engine.fillRectangle( 0, 0, engine.getScreenWidth(), engine.getScreenHeight(), OVERLAY_COLOR );
+                engine.fillRectangle( 0, 0, engine.getScreenWidth(), engine.getScreenHeight(), DIALOG_OVERLAY_COLOR );
             }
 
             super.draw();
@@ -335,7 +335,7 @@ public class GuiConfirmDialog extends GuiWindow {
         messageLabel.bounds.x = bounds.x + DIALOG_CONTENT_PADDING;
         messageLabel.bounds.y = bounds.y + titleBarBounds.height + DIALOG_CONTENT_PADDING + lineHeight / 2;
         
-        updateButtonsBounds();
+        updateButtonsBounds( buttons );
         
     }
     
@@ -347,39 +347,7 @@ public class GuiConfirmDialog extends GuiWindow {
         messageLabel.bounds.x = bounds.x + DIALOG_CONTENT_PADDING;
         messageLabel.bounds.y = bounds.y + titleBarBounds.height + DIALOG_CONTENT_PADDING + lineHeight / 2;
         
-        updateButtonsBounds();
-        
-    }
-    
-    private void updateButtonsBounds() {
-        
-        int minWidth = 50;
-        int buttonPadding = 10;
-        
-        double w = 0;
-        int b = 0;
-        
-        for ( int i = 0; i < buttons.length; i++ ) {
-            if ( !buttons[i].text.isEmpty() ) {
-                buttons[i].bounds.width = engine.measureText( buttons[i].text, FONT_SIZE ) + buttonPadding * 2;
-                if ( buttons[i].bounds.width < minWidth ) {
-                    buttons[i].bounds.width = minWidth;
-                }
-                w += buttons[i].bounds.width;
-                b++;
-            }
-        }
-        
-        w += ( DIALOG_CONTENT_PADDING / 2 ) * ( b - 1 );
-        double start = bounds.x + bounds.width / 2 - w / 2;
-        
-        for ( int i = 0; i < buttons.length; i++ ) {
-            if ( i != 0 ) {
-                start += buttons[i-1].bounds.width + DIALOG_CONTENT_PADDING / 2;
-            }
-            buttons[i].bounds.x = start;
-            buttons[i].bounds.y = bounds.y + bounds.height - DIALOG_CONTENT_PADDING - buttons[i].bounds.height;
-        }
+        updateButtonsBounds( buttons );
         
     }
     
