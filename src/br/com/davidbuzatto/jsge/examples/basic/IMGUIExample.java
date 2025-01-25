@@ -18,6 +18,7 @@ package br.com.davidbuzatto.jsge.examples.basic;
 
 import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
+import br.com.davidbuzatto.jsge.image.Image;
 import br.com.davidbuzatto.jsge.imgui.GuiButton;
 import br.com.davidbuzatto.jsge.imgui.GuiButtonGroup;
 import br.com.davidbuzatto.jsge.imgui.GuiCheckBox;
@@ -133,6 +134,9 @@ public class IMGUIExample extends EngineFrame {
     private GuiTheme darkTheme;
     private GuiTheme currentTheme;
     private ChangeThemeButton changeThemeButton;
+    
+    private Image sunIcon;
+    private Image moonIcon;
     
     /**
      * Cria o exemplo.
@@ -296,7 +300,12 @@ public class IMGUIExample extends EngineFrame {
         checkVisible = new GuiCheckBox( x, y += vSpacing, 100, 20, "Visible" );
         checkVisible.setSelected( true );
         checkDrawBounds = new GuiCheckBox( x, y += vSpacing, 100, 20, "Draw bounds" );
-        changeThemeButton = new ChangeThemeButton( getScreenWidth() - 60, getScreenHeight() - 60, 50, 50 );
+        
+        changeThemeButton = new ChangeThemeButton( 
+                getScreenWidth() - 60, getScreenHeight() - 60, 50, 50,
+                loadImage( "resources/images/sun.png" ),
+                loadImage( "resources/images/moon.png" )
+        );
                 
         toolTipLabel1 = new GuiToolTip( label1, "Top and Left Label" );
         toolTipLabel2 = new GuiToolTip( label2, "Middle and Center Label" );
@@ -315,7 +324,6 @@ public class IMGUIExample extends EngineFrame {
         interactionComponents.add( checkVisible );
         interactionComponents.add( checkDrawBounds );
         interactionComponents.add( changeThemeButton );
-        
         
     }
 
@@ -495,14 +503,13 @@ public class IMGUIExample extends EngineFrame {
         if ( changeThemeButton.isMousePressed() ) {
             changeThemeButton.darkThemeActive = !changeThemeButton.darkThemeActive;
             if ( changeThemeButton.darkThemeActive ) {
-                darkTheme.install( components );
-                darkTheme.install( interactionComponents );
                 currentTheme = darkTheme;
             } else {
-                lightTheme.install( components );
-                lightTheme.install( interactionComponents );
                 currentTheme = lightTheme;
             }
+            currentTheme.apply( components );
+            currentTheme.apply( interactionComponents );
+            currentTheme.install();
         }
         
         if ( isMouseButtonPressed( MOUSE_BUTTON_RIGHT ) ) {
@@ -657,17 +664,29 @@ public class IMGUIExample extends EngineFrame {
     private class ChangeThemeButton extends GuiComponent {
         
         private boolean darkThemeActive;
+        private Image sunIcon;
+        private Image moonIcon;
         
-        public ChangeThemeButton( double x, double y, double width, double height ) {
+        public ChangeThemeButton( double x, double y, double width, double height, Image sunIcon, Image moonIcon ) {
             super( x, y, width, height );
+            this.sunIcon = sunIcon;
+            this.moonIcon = moonIcon;
         }
         
-        public ChangeThemeButton( double x, double y, double width, double height, EngineFrame engine ) {
+        public ChangeThemeButton( double x, double y, double width, double height, Image sunIcon, Image moonIcon, EngineFrame engine ) {
             super( x, y, width, height, engine );
+            this.sunIcon = sunIcon;
+            this.moonIcon = moonIcon;
         }
         
         @Override
         public void draw() {
+            fillRectangle( bounds, backgroundColor );
+            if ( darkThemeActive ) {
+                drawImage( moonIcon, bounds.x, bounds.y );
+            } else {
+                drawImage( sunIcon, bounds.x, bounds.y );
+            }
             drawRectangle( bounds, borderColor );
         }
 

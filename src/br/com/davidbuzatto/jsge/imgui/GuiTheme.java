@@ -22,7 +22,7 @@ import java.awt.Color;
 import java.util.List;
 
 /**
- * Classe para criação de temas.
+ * Classe para criação, gerenciamento e instalação de temas.
  * 
  * @author Prof. Dr. David Buzatto
  */
@@ -179,54 +179,126 @@ public class GuiTheme {
         
         GuiTheme theme = new GuiTheme();
         
-        theme.backgroundColor = new Color( 201, 201, 201 );
-        theme.borderColor = new Color( 131, 131, 131 );
-        theme.textColor = new Color( 104, 104, 104 );
+        theme.backgroundColor = new Color( 60, 63, 65 );
+        theme.borderColor = new Color( 97, 99, 101 );
+        theme.textColor = new Color( 187, 187, 187 );
 
-        theme.mouseOverBackgroundColor = new Color( 201, 239, 254 );
-        theme.mouseOverBorderColor = new Color( 91, 178, 217 );
-        theme.mouseOverTextColor = new Color( 108, 155, 188 );
+        theme.mouseOverBackgroundColor = new Color( 80, 83, 85 );
+        theme.mouseOverBorderColor = new Color( 118, 120, 122 );
+        theme.mouseOverTextColor = new Color( 190, 190, 190 );
 
-        theme.mouseDownBackgroundColor = new Color( 151, 232, 255 );
-        theme.mouseDownBorderColor = new Color( 4, 146, 199 );
-        theme.mouseDownTextColor = new Color( 54, 139, 175 );
+        theme.mouseDownBackgroundColor = new Color( 103, 107, 109 );
+        theme.mouseDownBorderColor = new Color( 142, 145, 147 );
+        theme.mouseDownTextColor = new Color( 190, 190, 190 );
 
-        theme.disabledBackgroundColor = new Color( 230, 233, 233 );
-        theme.disabledBorderColor = new Color( 181, 193, 194 );
-        theme.disabledTextColor = new Color( 174, 183, 184 );
+        theme.disabledBackgroundColor = new Color( 136, 141, 145 );
+        theme.disabledBorderColor = new Color( 159, 165, 168 );
+        theme.disabledTextColor = new Color( 199, 201, 203 );
 
-        theme.containerBackgroundColor = new Color( 245, 245, 245 );
-        theme.containerBorderColor = new Color( 144, 171, 181 );
-        theme.containerTextColor = new Color( 144, 171, 181 );
-        theme.containerTitleBarBackgroundColor = new Color( 201, 201, 201 );
-        theme.containerTitleBarBorderColor = new Color( 131, 131, 131 );
-        theme.containerTitleBarTextColor = new Color( 104, 104, 104 );
+        theme.containerBackgroundColor = new Color( 23, 23, 23 );
+        theme.containerBorderColor = new Color( 110, 110, 110 );
+        theme.containerTextColor = new Color( 110, 110, 110 );
+        theme.containerTitleBarBackgroundColor = new Color( 20, 20, 20 );
+        theme.containerTitleBarBorderColor = new Color( 80, 80, 80 );
+        theme.containerTitleBarTextColor = new Color( 160, 160, 160 );
 
-        theme.disabledContainerBackgroundColor = new Color( 230, 233, 233 );
-        theme.disabledContainerBorderColor = new Color( 181, 193, 194 );
-        theme.disabledContainerTextColor = new Color( 181, 193, 194 );
-        theme.disabledContainerTitleBarBackgroundColor = new Color( 230, 233, 233 );
-        theme.disabledContainerTitleBarBorderColor = new Color( 181, 193, 194 );
-        theme.disabledContainerTitleBarTextColor = new Color( 181, 193, 194 );
+        theme.disabledContainerBackgroundColor = new Color( 136, 141, 145 );
+        theme.disabledContainerBorderColor = new Color( 159, 165, 168 );
+        theme.disabledContainerTextColor = new Color( 199, 201, 203 );
+        theme.disabledContainerTitleBarBackgroundColor = new Color( 136, 141, 145 );
+        theme.disabledContainerTitleBarBorderColor = new Color( 159, 165, 168 );
+        theme.disabledContainerTitleBarTextColor = new Color( 199, 201, 203 );
 
-        theme.progressBarProgressFillColor = new Color( 151, 232, 255 );
+        theme.progressBarProgressFillColor = new Color( 180, 180, 180 );
 
-        theme.listContainerBackgroundColor = new Color( 245, 245, 245 );
-        theme.disabledListContainerBackgroundColor = new Color( 245, 245, 245 );
+        theme.listContainerBackgroundColor = new Color( 60, 63, 65 );
+        theme.disabledListContainerBackgroundColor = new Color( 121, 128, 132 );
 
-        theme.scrollBarTrackColor = new Color( 220, 220, 220 );
-        theme.disabledScrollBarTrackColor = new Color( 220, 220, 220 );
+        theme.scrollBarTrackColor = new Color( 180, 180, 180 );
+        theme.disabledScrollBarTrackColor = new Color( 180, 180, 180 );
 
         theme.colorPickerDisabledOverlayColor = ColorUtils.fade( EngineFrame.LIGHTGRAY, 0.5 );
 
         theme.dialogOverlayColor = new Color( 0, 0, 0, 100 );
 
-        theme.toolTipBackgroundColor = new Color( 230, 233, 233 );
-        theme.toolTipBorderColor = new Color( 181, 193, 194 );
-        theme.toolTipTextColor = new Color( 130, 130, 130 );
+        theme.toolTipBackgroundColor = new Color( 30, 32, 33 );
+        theme.toolTipBorderColor = new Color( 130, 130, 130 );
+        theme.toolTipTextColor = new Color( 187, 187, 187 );
         
         return theme;
         
+    }
+    
+    /**
+     * Cria um novo tema usando uma cor básica e sua inversa para destaques.
+     * 
+     * @param color A cor.
+     * @return Um tema de cor base.
+     */
+    public static GuiTheme buildColoredTheme( Color color ) {
+        
+        GuiTheme theme = new GuiTheme();
+        Color inv = ColorUtils.colorInvert( color );
+        Color cw = ColorUtils.lerp( color, Color.WHITE, 0.5 );
+        Color cb = ColorUtils.lerp( color, Color.BLACK, 0.5 );
+        
+        theme.backgroundColor = ColorUtils.colorBrightness( color, .1 );
+        theme.borderColor = ColorUtils.colorBrightness( color, -.2 );
+        theme.textColor = ColorUtils.colorBrightness( color, -.3 );
+
+        theme.mouseOverBackgroundColor = ColorUtils.colorBrightness( inv, .2 );
+        theme.mouseOverBorderColor = ColorUtils.colorBrightness( inv, -.3 );
+        theme.mouseOverTextColor = ColorUtils.colorBrightness( inv, .7 );
+
+        theme.mouseDownBackgroundColor = ColorUtils.colorBrightness( inv, -.1 );
+        theme.mouseDownBorderColor = ColorUtils.colorBrightness( inv, -.25 );
+        theme.mouseDownTextColor = ColorUtils.colorBrightness( inv, .7 );
+
+        theme.disabledBackgroundColor = ColorUtils.colorBrightness( cw, -.1 );
+        theme.disabledBorderColor = ColorUtils.colorBrightness( cw, -.2 );
+        theme.disabledTextColor = ColorUtils.colorBrightness( cw, .8 );
+
+        theme.containerBackgroundColor = ColorUtils.colorBrightness( cw, .1 );
+        theme.containerBorderColor = ColorUtils.colorBrightness( cw, -.2 );;
+        theme.containerTextColor = ColorUtils.colorBrightness( cw, -.4 );
+        theme.containerTitleBarBackgroundColor = ColorUtils.colorBrightness( cb, .1 );
+        theme.containerTitleBarBorderColor = ColorUtils.colorBrightness( cb, -.2 );
+        theme.containerTitleBarTextColor = ColorUtils.colorBrightness( cw, .2 );
+
+        theme.disabledContainerBackgroundColor = ColorUtils.colorBrightness( cw, -.1 );
+        theme.disabledContainerBorderColor = ColorUtils.colorBrightness( cw, -.2 );
+        theme.disabledContainerTextColor = ColorUtils.colorBrightness( cw, .8 );
+        theme.disabledContainerTitleBarBackgroundColor = ColorUtils.colorBrightness( cw, -.3 );
+        theme.disabledContainerTitleBarBorderColor = ColorUtils.colorBrightness( cw, -.4 );
+        theme.disabledContainerTitleBarTextColor = ColorUtils.colorBrightness( cw, .8 );
+
+        theme.progressBarProgressFillColor = ColorUtils.colorBrightness( inv, -.1 );
+
+        theme.listContainerBackgroundColor = ColorUtils.colorBrightness( color, .3 );
+        theme.disabledListContainerBackgroundColor = ColorUtils.colorBrightness( cw, -.1 );
+
+        theme.scrollBarTrackColor = ColorUtils.colorBrightness( cw, -.1 );
+        theme.disabledScrollBarTrackColor = ColorUtils.colorBrightness( cw, -.1 );
+
+        theme.colorPickerDisabledOverlayColor = ColorUtils.fade( EngineFrame.LIGHTGRAY, 0.5 );
+
+        theme.dialogOverlayColor = new Color( 0, 0, 0, 100 );
+
+        theme.toolTipBackgroundColor = ColorUtils.colorBrightness( cb, .1 );
+        theme.toolTipBorderColor = ColorUtils.colorBrightness( cb, -.2 );
+        theme.toolTipTextColor = ColorUtils.colorBrightness( cw, .2 );
+        
+        return theme;
+        
+    }
+    
+    /**
+     * Cria um tema "vazio", usando a cor cinza.
+     * 
+     * @return O tema cinza.
+     */
+    public static GuiTheme buildEmptyTheme() {
+        return buildColoredTheme( EngineFrame.LIGHTGRAY );
     }
     
     /**
@@ -284,50 +356,66 @@ public class GuiTheme {
     }
     
     /**
-     * Instala o tema globalmente, para os novos componentes que forem criados,
-     * e nos componentes passados que já foram criados.
+     * Aplica o tema nos componentes passados.
      * 
      * @param components Os componentes.
      */
-    public void install( List<GuiComponent> components ) {
-        install();
+    public void apply( List<GuiComponent> components ) {
         for ( GuiComponent c : components ) {
-            install( c );
+            apply( c );
         }
     }
     
     /**
-     * Instala o tema globalmente, para os novos componentes que forem criados,
-     * e nos componentes passados que já foram criados.
+     * Aplica o tema nos componentes passados.
      * 
      * @param components Os componentes.
      */
-    public void install( GuiComponent... components ) {
-        install();
+    public void apply( GuiComponent... components ) {
         for ( GuiComponent c : components ) {
-            install( c );
+            apply( c );
         }
     }
     
     /**
-     * Instala o tema em um componente e em seus subcomponentes se necessário.
+     * Instala o tema globalmente e o aplica nos componentes passados.
+     * 
+     * @param components Os componentes.
+     */
+    public void installAndApply( List<GuiComponent> components ) {
+        install();
+        apply( components );
+    }
+    
+    /**
+     * Instala o tema globalmente e o aplica nos componentes passados.
+     * 
+     * @param components Os componentes.
+     */
+    public void installAndApply( GuiComponent... components ) {
+        install();
+        apply( components );
+    }
+    
+    /**
+     * Aplica o tema em um componente e em seus subcomponentes se necessário.
      * 
      * @param component O componente.
      */
-    private void install( GuiComponent component ) {
+    public void apply( GuiComponent component ) {
         
         component.setBackgroundColor( backgroundColor );
         component.setBorderColor( borderColor );
         component.setTextColor( textColor );
             
         if ( component instanceof GuiColorPicker c ) {
-            install( c.hueSlider );
-            install( c.alphaSlider );
+            apply( c.hueSlider );
+            apply( c.alphaSlider );
         } else if ( component instanceof GuiDropdownList c ) {
-            install( c.itemsList );
+            apply( c.itemsList );
         } else if ( component instanceof GuiGlue c ) {
-            install( c.baseComponent );
-            install( c.children );
+            apply( c.baseComponent );
+            GuiTheme.this.installAndApply( c.children );
         } else if ( component instanceof GuiGroup c ) {
             c.setBorderColor( containerBorderColor );
             c.setTextColor( containerTextColor );
@@ -337,7 +425,7 @@ public class GuiTheme {
         } else if ( component instanceof GuiList c ) {
             c.setBackgroundColor( listContainerBackgroundColor );
             c.setScrollBarTrackColor( scrollBarTrackColor );
-            install( c.scrollBar );
+            apply( c.scrollBar );
         } else if ( component instanceof GuiPanel c ) {
             c.setBackgroundColor( containerBackgroundColor );
             c.setBorderColor( containerBorderColor );
@@ -349,11 +437,11 @@ public class GuiTheme {
         } else if ( component instanceof GuiSlider c ) {
             c.setBackgroundColor( containerBackgroundColor );
             c.setTrackFillColor( mouseOverBackgroundColor );
-            install( c.sliderButton );
+            apply( c.sliderButton );
         } else if ( component instanceof GuiSpinner c ) {
             c.setBackgroundColor( containerBackgroundColor );
-            install( c.leftButton );
-            install( c.rightButton );
+            apply( c.leftButton );
+            apply( c.rightButton );
         } else if ( component instanceof GuiTextField c ) {
             c.setBackgroundColor( containerBackgroundColor );
         }  else if ( component instanceof GuiToolTip c ) {
@@ -361,25 +449,25 @@ public class GuiTheme {
             c.setBorderColor( toolTipBorderColor );
             c.setTextColor( toolTipTextColor );
         } else if ( component instanceof GuiWindow c ) {
-            install( c.closeButton );
+            apply( c.closeButton );
             c.setBackgroundColor( containerBackgroundColor );
             c.setBorderColor( containerBorderColor );
             c.setTitleBarBackgroundColor( containerTitleBarBackgroundColor );
             c.setTitleBarBorderColor( containerTitleBarBorderColor );
             c.setTitleBarTextColor( containerTitleBarTextColor );
             if ( c instanceof GuiConfirmDialog d ) {
-                install( d.messageLabel );
-                install( d.button1 );
-                install( d.button2 );
-                install( d.button3 );
+                apply( d.messageLabel );
+                apply( d.button1 );
+                apply( d.button2 );
+                apply( d.button3 );
             } else if ( c instanceof GuiInputDialog d ) {
-                install( d.messageLabel );
-                install( d.okButton );
-                install( d.cancelButton );
-                install( d.textField );
+                apply( d.messageLabel );
+                apply( d.okButton );
+                apply( d.cancelButton );
+                apply( d.textField );
             } else if ( c instanceof GuiMessageDialog d ) {
-                install( d.messageLabel );
-                install( d.okButton );
+                apply( d.messageLabel );
+                apply( d.okButton );
             }
         }
         

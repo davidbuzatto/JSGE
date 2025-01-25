@@ -19,7 +19,6 @@ package br.com.davidbuzatto.jsge.imgui;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.MathUtils;
-import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 import java.util.List;
 
@@ -205,7 +204,7 @@ public class GuiDropdownList extends GuiComponent {
     @Override
     public void setEnabled( boolean enabled ) {
         super.setEnabled( enabled );
-        itemsList.setEnabled( enabled );
+        //itemsList.setEnabled( enabled );
     }
     
     /**
