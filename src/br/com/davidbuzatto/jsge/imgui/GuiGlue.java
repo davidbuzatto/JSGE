@@ -31,8 +31,8 @@ public class GuiGlue extends GuiComponent {
 
     private static final double GLUE_SIZE = 30;
     
-    private GuiComponent baseComponent;
-    private final List<GuiComponent> children;
+    protected GuiComponent baseComponent;
+    protected final List<GuiComponent> children;
     
     /**
      * Cria o componente.

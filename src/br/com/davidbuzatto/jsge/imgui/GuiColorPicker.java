@@ -36,8 +36,8 @@ public class GuiColorPicker extends GuiComponent {
     
     private Vector2 saturationAndValuePosition;
     
-    private GuiSlider hueSlider;
-    private GuiSlider alphaSlider;
+    protected GuiSlider hueSlider;
+    protected GuiSlider alphaSlider;
     
     /**
      * Cria o componente.
@@ -219,7 +219,9 @@ public class GuiColorPicker extends GuiComponent {
         if ( !enabled ) {
             engine.fillRectangle( bounds, COLOR_PICKER_DISABLED_OVERLAY_COLOR );
         } else {
+            engine.beginScissorMode( bounds );
             engine.fillCircle( saturationAndValuePosition.x, saturationAndValuePosition.y, 4, EngineFrame.WHITE );
+            engine.endScissorMode();
         }
         
         engine.drawRectangle( bounds, borderColor );

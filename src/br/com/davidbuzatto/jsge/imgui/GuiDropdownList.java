@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class GuiDropdownList extends GuiComponent {
     
-    private GuiList itemsList;
+    protected GuiList itemsList;
     private boolean wasSelected;
     
     /**
@@ -123,7 +123,6 @@ public class GuiDropdownList extends GuiComponent {
         
         if ( visible && enabled ) {
             
-            Vector2 mousePos = engine.getMousePositionPoint();
             itemsList.update( delta );
             
             if ( isMousePressed() ) {

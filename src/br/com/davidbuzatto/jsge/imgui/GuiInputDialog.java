@@ -30,11 +30,11 @@ public class GuiInputDialog extends GuiWindow {
     private String message;
     private boolean showOverlay;
     
-    private GuiLabel messageLabel;
-    private GuiButton okButton;
-    private GuiButton cancelButton;
+    protected GuiLabel messageLabel;
+    protected GuiTextField textField;
+    protected GuiButton okButton;
+    protected GuiButton cancelButton;
     private GuiButton[] buttons;
-    private GuiTextField textField;
     
     private double messageWidth;
     private double messageHeight;

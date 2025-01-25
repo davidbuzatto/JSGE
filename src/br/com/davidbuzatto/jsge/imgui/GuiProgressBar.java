@@ -112,7 +112,7 @@ public class GuiProgressBar extends GuiComponent {
         this.value = value;
         this.min = min;
         this.max = max;
-        this.progressFillColor = PROGRESS_BAR_BACKGROUND_COLOR;
+        this.progressFillColor = PROGRESS_BAR_PROGRESS_FILL_COLOR;
     }
     
     @Override
@@ -123,9 +123,9 @@ public class GuiProgressBar extends GuiComponent {
             engine.setStrokeLineWidth( LINE_WIDTH );
 
             if ( enabled ) {
-                drawProgressBar(backgroundColor, borderColor, progressFillColor );
+                drawProgressBar( backgroundColor, borderColor, progressFillColor );
             } else {
-                drawProgressBar(DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR, progressFillColor );
+                drawProgressBar( DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR, progressFillColor );
             }
             
             drawBounds();

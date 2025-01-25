@@ -39,6 +39,7 @@ import br.com.davidbuzatto.jsge.imgui.GuiRadioButton;
 import br.com.davidbuzatto.jsge.imgui.GuiSlider;
 import br.com.davidbuzatto.jsge.imgui.GuiSpinner;
 import br.com.davidbuzatto.jsge.imgui.GuiTextField;
+import br.com.davidbuzatto.jsge.imgui.GuiTheme;
 import br.com.davidbuzatto.jsge.imgui.GuiToggleButton;
 import br.com.davidbuzatto.jsge.imgui.GuiToolTip;
 import br.com.davidbuzatto.jsge.imgui.GuiWindow;
@@ -55,6 +56,7 @@ import java.util.List;
 public class IMGUIExample extends EngineFrame {
 
     private List<GuiComponent> components;
+    private List<GuiComponent> interactionComponents;
     
     private GuiLabel label1;
     private GuiLabel label2;
@@ -127,6 +129,11 @@ public class IMGUIExample extends EngineFrame {
     private String inputDialogStatus;
     private String confirmDialogStatus;
     
+    private GuiTheme lightTheme;
+    private GuiTheme darkTheme;
+    private GuiTheme currentTheme;
+    private ChangeThemeButton changeThemeButton;
+    
     /**
      * Cria o exemplo.
      */
@@ -138,6 +145,12 @@ public class IMGUIExample extends EngineFrame {
     public void create() {
         
         useAsDependencyForIMGUI();
+        components = new ArrayList<>();
+        interactionComponents = new ArrayList<>();
+        
+        lightTheme = GuiTheme.buildLightTheme();
+        darkTheme = GuiTheme.buildDarkTheme();
+        currentTheme = lightTheme;
         
         int x = 20;
         int y = 40;
@@ -195,7 +208,6 @@ public class IMGUIExample extends EngineFrame {
 
         progressTime = 0.05;
         
-        components = new ArrayList<>();
         components.add( label1 );
         components.add( label2 );
         components.add( label3 );
@@ -284,13 +296,26 @@ public class IMGUIExample extends EngineFrame {
         checkVisible = new GuiCheckBox( x, y += vSpacing, 100, 20, "Visible" );
         checkVisible.setSelected( true );
         checkDrawBounds = new GuiCheckBox( x, y += vSpacing, 100, 20, "Draw bounds" );
-        
+        changeThemeButton = new ChangeThemeButton( getScreenWidth() - 60, getScreenHeight() - 60, 50, 50 );
+                
         toolTipLabel1 = new GuiToolTip( label1, "Top and Left Label" );
         toolTipLabel2 = new GuiToolTip( label2, "Middle and Center Label" );
         toolTipLabel3 = new GuiToolTip( label3, "Bottom and Right Label" );
         components.add( toolTipLabel1 );
         components.add( toolTipLabel2 );
         components.add( toolTipLabel3 );
+        
+        interactionComponents.add( buttonShowMessageDialog );
+        interactionComponents.add( buttonShowInputDialog );
+        interactionComponents.add( buttonShowConfirmDialog );
+        interactionComponents.add( messageDialog );
+        interactionComponents.add( inputDialog );
+        interactionComponents.add( confirmDialog );
+        interactionComponents.add( checkEnabled );
+        interactionComponents.add( checkVisible );
+        interactionComponents.add( checkDrawBounds );
+        interactionComponents.add( changeThemeButton );
+        
         
     }
 
@@ -440,16 +465,21 @@ public class IMGUIExample extends EngineFrame {
         checkEnabled.update( delta );
         checkVisible.update( delta );
         checkDrawBounds.update( delta );
+        changeThemeButton.update( delta );
         
         if ( checkEnabled.isMousePressed() ) {
             for ( GuiComponent c : components ) {
-                c.setEnabled( checkEnabled.isSelected() );
+                if ( !( c instanceof GuiToolTip ) ) {
+                    c.setEnabled( checkEnabled.isSelected() );
+                }
             }
         }
         
         if ( checkVisible.isMousePressed() ) {
             for ( GuiComponent c : components ) {
-                c.setVisible( checkVisible.isSelected() );
+                if ( !( c instanceof GuiToolTip ) ) {
+                    c.setVisible( checkVisible.isSelected() );
+                }
             }
         }
         
@@ -459,6 +489,19 @@ public class IMGUIExample extends EngineFrame {
                 checkEnabled.setDrawingBounds( checkDrawBounds.isSelected() );
                 checkVisible.setDrawingBounds( checkDrawBounds.isSelected() );
                 checkDrawBounds.setDrawingBounds( checkDrawBounds.isSelected() );
+            }
+        }
+        
+        if ( changeThemeButton.isMousePressed() ) {
+            changeThemeButton.darkThemeActive = !changeThemeButton.darkThemeActive;
+            if ( changeThemeButton.darkThemeActive ) {
+                darkTheme.install( components );
+                darkTheme.install( interactionComponents );
+                currentTheme = darkTheme;
+            } else {
+                lightTheme.install( components );
+                lightTheme.install( interactionComponents );
+                currentTheme = lightTheme;
             }
         }
         
@@ -495,27 +538,27 @@ public class IMGUIExample extends EngineFrame {
     @Override
     public void draw() {
         
-        clearBackground( WHITE );
+        clearBackground( currentTheme.containerBackgroundColor );
         
         int hSep = 280;
         int dataMargin = hSep + 25;
-        drawGrid( 1, 10, 30, 450, 50, 0, LIGHTGRAY );
-        drawGrid( 8, 10, 80, 450, 50, hSep, LIGHTGRAY );
-        drawGrid( 1, 10, 480, 450, 100, hSep, LIGHTGRAY );
-        drawGrid( 2, 10, 580, 450, 50, hSep, LIGHTGRAY );
-        drawGrid( 1, 10, 680, 450, 150, hSep, LIGHTGRAY );
-        drawGrid( 4, 470, 30, 340, 100, 170, LIGHTGRAY );
-        drawGrid( 3, 470, 480, 340, 50, 170, LIGHTGRAY );
-        drawGrid( 1, 470, 680, 340, 150, 170, LIGHTGRAY );
+        drawGrid( 1, 10, 30, 450, 50, 0, currentTheme.disabledBorderColor );
+        drawGrid( 8, 10, 80, 450, 50, hSep, currentTheme.disabledBorderColor );
+        drawGrid( 1, 10, 480, 450, 100, hSep, currentTheme.disabledBorderColor );
+        drawGrid( 2, 10, 580, 450, 50, hSep, currentTheme.disabledBorderColor );
+        drawGrid( 1, 10, 680, 450, 150, hSep, currentTheme.disabledBorderColor );
+        drawGrid( 4, 470, 30, 340, 100, 170, currentTheme.disabledBorderColor );
+        drawGrid( 3, 470, 480, 340, 50, 170, currentTheme.disabledBorderColor );
+        drawGrid( 1, 470, 680, 340, 150, 170, currentTheme.disabledBorderColor );
         
-        drawText( "Controls (right click to disable)", 10, 10, 20, GRAY );
-        drawText( "Containers/Separators", 470, 10, 20, GRAY );
-        drawText( "Dialogs", 470, 460, 20, GRAY );
-        drawText( "Color Picker", 470, 660, 20, GRAY );
+        drawText( "Controls (right click to disable)", 10, 10, 20, currentTheme.borderColor );
+        drawText( "Containers/Separators", 470, 10, 20, currentTheme.borderColor );
+        drawText( "Dialogs", 470, 460, 20, currentTheme.borderColor );
+        drawText( "Color Picker", 470, 660, 20, currentTheme.borderColor );
         
-        drawText( "press count: " + buttonPressCount, dataMargin, button.getBounds().y + button.getBounds().height / 2 - 3, 12, GRAY );
-        drawText( "press count: " + labelButtonPressCount, dataMargin, labelButton.getBounds().y + labelButton.getBounds().height / 2 - 3, 12, GRAY );
-        drawText( checkBox.isSelected() ? "selected" : "unselected", dataMargin, checkBox.getBounds().y + checkBox.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( "press count: " + buttonPressCount, dataMargin, button.getBounds().y + button.getBounds().height / 2 - 3, 12, currentTheme.borderColor );
+        drawText( "press count: " + labelButtonPressCount, dataMargin, labelButton.getBounds().y + labelButton.getBounds().height / 2 - 3, 12, currentTheme.borderColor );
+        drawText( checkBox.isSelected() ? "selected" : "unselected", dataMargin, checkBox.getBounds().y + checkBox.getBounds().height / 2 - 3, 12, currentTheme.borderColor );
         
         int selectedRadio = 0;
         if ( radioButton1.isSelected() ) {
@@ -525,9 +568,9 @@ public class IMGUIExample extends EngineFrame {
         } else if ( radioButton3.isSelected() ) {
             selectedRadio = 3;
         }
-        drawText( "radio " + selectedRadio, dataMargin, radioButton1.getBounds().y + radioButton1.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( "radio " + selectedRadio, dataMargin, radioButton1.getBounds().y + radioButton1.getBounds().height / 2 - 3, 12, currentTheme.borderColor );
         
-        drawText( toggleButton.isSelected() ? "selected" : "unselected", dataMargin, toggleButton.getBounds().y + toggleButton.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( toggleButton.isSelected() ? "selected" : "unselected", dataMargin, toggleButton.getBounds().y + toggleButton.getBounds().height / 2 - 3, 12, currentTheme.borderColor );
         
         int selectedOtion = 0;
         if ( toggleButton1.isSelected() ) {
@@ -537,22 +580,22 @@ public class IMGUIExample extends EngineFrame {
         } else if ( toggleButton3.isSelected() ) {
             selectedOtion = 3;
         }
-        drawText( "option " + selectedOtion, dataMargin, toggleButton1.getBounds().y + toggleButton1.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( "option " + selectedOtion, dataMargin, toggleButton1.getBounds().y + toggleButton1.getBounds().height / 2 - 3, 12, currentTheme.borderColor );
         
-        drawText( String.format( "%.0f%% (%.2f)", progressBar.getPercentage() * 100, progressBar.getValue() ), dataMargin, progressBar.getBounds().y + progressBar.getBounds().height / 2 - 3, 12, GRAY );
-        drawText( String.format( "value: %d", spinner.getValue() ), dataMargin, spinner.getBounds().y + spinner.getBounds().height / 2 - 3, 12, GRAY );
-        drawText( String.format( "value (h): %.2f", horizontalSlider.getValue() ), dataMargin, horizontalSlider.getBounds().y + horizontalSlider.getBounds().height / 2 - 25, 12, GRAY );
-        drawText( String.format( "value (v): %.2f", verticalSlider.getValue() ), dataMargin, verticalSlider.getBounds().y + verticalSlider.getBounds().height / 2 + 20, 12, GRAY );
-        drawText( String.format( "size: %d", textField.getValue().length() ), dataMargin, textField.getBounds().y + textField.getBounds().height / 2 - 3, 12, GRAY );
-        drawText( String.format( "selected: %s", dropdownList.getSelectedItemText() ), dataMargin, dropdownList.getBounds().y + dropdownList.getBounds().height / 2 - 3, 12, GRAY );
-        drawText( String.format( "selected: %s", list.getSelectedItemText() ), dataMargin, list.getBounds().y + list.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( String.format( "%.0f%% (%.2f)", progressBar.getPercentage() * 100, progressBar.getValue() ), dataMargin, progressBar.getBounds().y + progressBar.getBounds().height / 2 - 3, 12, currentTheme.borderColor );
+        drawText( String.format( "value: %d", spinner.getValue() ), dataMargin, spinner.getBounds().y + spinner.getBounds().height / 2 - 3, 12, currentTheme.borderColor );
+        drawText( String.format( "value (h): %.2f", horizontalSlider.getValue() ), dataMargin, horizontalSlider.getBounds().y + horizontalSlider.getBounds().height / 2 - 25, 12, currentTheme.borderColor );
+        drawText( String.format( "value (v): %.2f", verticalSlider.getValue() ), dataMargin, verticalSlider.getBounds().y + verticalSlider.getBounds().height / 2 + 20, 12, currentTheme.borderColor );
+        drawText( String.format( "size: %d", textField.getValue().length() ), dataMargin, textField.getBounds().y + textField.getBounds().height / 2 - 3, 12, currentTheme.borderColor );
+        drawText( String.format( "selected: %s", dropdownList.getSelectedItemText() ), dataMargin, dropdownList.getBounds().y + dropdownList.getBounds().height / 2 - 3, 12, currentTheme.borderColor );
+        drawText( String.format( "selected: %s", list.getSelectedItemText() ), dataMargin, list.getBounds().y + list.getBounds().height / 2 - 3, 12, currentTheme.borderColor );
         
         buttonShowMessageDialog.draw();
         buttonShowInputDialog.draw();
         buttonShowConfirmDialog.draw();
         
-        drawText( messageDialogStatus, 650, buttonShowMessageDialog.getBounds().y + buttonShowMessageDialog.getBounds().height / 2 - 3, 12, GRAY );
-        drawText( inputDialogStatus, 650, buttonShowInputDialog.getBounds().y + buttonShowInputDialog.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( messageDialogStatus, 650, buttonShowMessageDialog.getBounds().y + buttonShowMessageDialog.getBounds().height / 2 - 3, 12, currentTheme.borderColor );
+        drawText( inputDialogStatus, 650, buttonShowInputDialog.getBounds().y + buttonShowInputDialog.getBounds().height / 2 - 3, 12, currentTheme.borderColor );
         drawText( confirmDialogStatus, 650, buttonShowConfirmDialog.getBounds().y + buttonShowConfirmDialog.getBounds().height / 2 - 3, 12, GRAY );
         
         drawColoredRectangle( 675, colorPicker.getBounds().y + colorPicker.getBounds().height / 2 - 40, colorPicker.getColor() );
@@ -560,6 +603,7 @@ public class IMGUIExample extends EngineFrame {
         checkEnabled.draw();
         checkVisible.draw();
         checkDrawBounds.draw();
+        changeThemeButton.draw();
         
         drawFPS( checkDrawBounds.getX(), checkDrawBounds.getY() + checkDrawBounds.getHeight() + 15 );
         
@@ -607,6 +651,29 @@ public class IMGUIExample extends EngineFrame {
         
         fillRectangle( x, y, 100, 100, colorPicker.getColor() );
         drawRectangle( x, y, 100, 100, GRAY );
+        
+    }
+    
+    private class ChangeThemeButton extends GuiComponent {
+        
+        private boolean darkThemeActive;
+        
+        public ChangeThemeButton( double x, double y, double width, double height ) {
+            super( x, y, width, height );
+        }
+        
+        public ChangeThemeButton( double x, double y, double width, double height, EngineFrame engine ) {
+            super( x, y, width, height, engine );
+        }
+        
+        @Override
+        public void draw() {
+            drawRectangle( bounds, borderColor );
+        }
+
+        @Override
+        public void move( double xAmount, double yAmount ) {
+        }
         
     }
     

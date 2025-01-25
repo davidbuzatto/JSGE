@@ -1,3 +1,4 @@
-Preparar infraestrutura para definir temas para os componentes IMGUI.
+Terminar o botão de troca de tema.
+Configurar o tema escuro.
 
 Separar o exemplos futuramente.

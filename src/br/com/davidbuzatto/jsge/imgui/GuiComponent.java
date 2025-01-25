@@ -18,7 +18,6 @@ package br.com.davidbuzatto.jsge.imgui;
 
 import br.com.davidbuzatto.jsge.collision.CollisionUtils;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
-import br.com.davidbuzatto.jsge.core.utils.ColorUtils;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
@@ -62,87 +61,94 @@ public abstract class GuiComponent {
     /** Raio do componente deslizante. */
     public static final double SLIDER_RADIUS = 10;
     
+    //**************************************************************************
+    // Cores.
+    // Os nomes são mantidos em maiúsculas para não misturar com os atributos.
+    //**************************************************************************
+    
     /** Cor padrão de fundo. */
-    public static final Color BACKGROUND_COLOR = new Color( 201, 201, 201 );
+    public static Color BACKGROUND_COLOR;
     /** Cor padrão da borda. */
-    public static final Color BORDER_COLOR = new Color( 131, 131, 131 );
+    public static Color BORDER_COLOR;
     /** Cor padrão do texto. */
-    public static final Color TEXT_COLOR = new Color( 104, 104, 104 );
+    public static Color TEXT_COLOR;
     
     /** Cor de fundo quando o mouse está em cima do componente. */
-    public static final Color MOUSE_OVER_BACKGROUND_COLOR = new Color( 201, 239, 254 );
+    public static Color MOUSE_OVER_BACKGROUND_COLOR;
     /** Cor da borda quando o mouse está em cima do componente. */
-    public static final Color MOUSE_OVER_BORDER_COLOR = new Color( 91, 178, 217 );
+    public static Color MOUSE_OVER_BORDER_COLOR;
     /** Cor do texto quando o mouse está em cima do componente. */
-    public static final Color MOUSE_OVER_TEXT_COLOR = new Color( 108, 155, 188 );
+    public static Color MOUSE_OVER_TEXT_COLOR;
     
     /** Cor de fundo quando o mouse está sendo pressionado no componente. */
-    public static final Color MOUSE_DOWN_BACKGROUND_COLOR = new Color( 151, 232, 255 );
+    public static Color MOUSE_DOWN_BACKGROUND_COLOR;
     /** Cor da borda quando o mouse está sendo pressionado no componente. */
-    public static final Color MOUSE_DOWN_BORDER_COLOR = new Color( 4, 146, 199 );
+    public static Color MOUSE_DOWN_BORDER_COLOR;
     /** Cor do texto quando o mouse está sendo pressionado no componente. */
-    public static final Color MOUSE_DOWN_TEXT_COLOR = new Color( 54, 139, 175 );
+    public static Color MOUSE_DOWN_TEXT_COLOR;
     
     /** Cor de fundo quando o componente está desabilitado. */
-    public static final Color DISABLED_BACKGROUND_COLOR = new Color( 230, 233, 233 );
+    public static Color DISABLED_BACKGROUND_COLOR;
     /** Cor da borda quando o componente está desabilitado. */
-    public static final Color DISABLED_BORDER_COLOR = new Color( 181, 193, 194 );
+    public static Color DISABLED_BORDER_COLOR;
     /** Cor do texto quando o componente está desabilitado. */
-    public static final Color DISABLED_TEXT_COLOR = new Color( 174, 183, 184 );
+    public static Color DISABLED_TEXT_COLOR;
     
     /** Cor de fundo para os componentes contâineres. */
-    public static final Color CONTAINER_BACKGROUNG_COLOR = new Color( 245, 245, 245 );
+    public static Color CONTAINER_BACKGROUND_COLOR;
     /** Cor da borda para os componentes contâineres. */
-    public static final Color CONTAINER_BORDER_COLOR = new Color( 144, 171, 181 );
+    public static Color CONTAINER_BORDER_COLOR;
     /** Cor do texto para os componentes contâineres. */
-    public static final Color CONTAINER_TEXT_COLOR = new Color( 144, 171, 181 );
+    public static Color CONTAINER_TEXT_COLOR;
     /** Cor de fundo para as barras de título dos componentes contâineres. */
-    public static final Color CONTAINER_TITLE_BAR_BACKGROUND_COLOR = new Color( 201, 201, 201 );
+    public static Color CONTAINER_TITLE_BAR_BACKGROUND_COLOR;
     /** Cor da borda para as barras de título dos componentes contâineres. */
-    public static final Color CONTAINER_TITLE_BAR_BORDER_COLOR = new Color( 131, 131, 131 );
+    public static Color CONTAINER_TITLE_BAR_BORDER_COLOR;
     /** Cor do texto para as barras de título dos componentes contâineres. */
-    public static final Color CONTAINER_TITLE_BAR_TEXT_COLOR = new Color( 104, 104, 104 );
+    public static Color CONTAINER_TITLE_BAR_TEXT_COLOR;
     
     /** Cor de fundo para os componentes contâineres desabilitados. */
-    public static final Color DISABLED_CONTAINER_BACKGROUND_COLOR = new Color( 230, 233, 233 );
+    public static Color DISABLED_CONTAINER_BACKGROUND_COLOR;
     /** Cor da borda para os componentes contâineres desabilitados. */
-    public static final Color DISABLED_CONTAINER_BORDER_COLOR = new Color( 181, 193, 194 );
+    public static Color DISABLED_CONTAINER_BORDER_COLOR;
     /** Cor do texto para os componentes contâineres desabilitados. */
-    public static final Color DISABLED_CONTAINER_TEXT_COLOR = new Color( 181, 193, 194 );
+    public static Color DISABLED_CONTAINER_TEXT_COLOR;
     /** Cor de fundo para as barras de título dos componentes contâineres desabilitados. */
-    public static final Color DISABLED_CONTAINER_TITLE_BAR_BACKGROUND_COLOR = new Color( 230, 233, 233 );
+    public static Color DISABLED_CONTAINER_TITLE_BAR_BACKGROUND_COLOR;
     /** Cor da borda para as barras de título dos componentes contâineres desabilitados. */
-    public static final Color DISABLED_CONTAINER_TITLE_BAR_BORDER_COLOR = new Color( 181, 193, 194 );
+    public static Color DISABLED_CONTAINER_TITLE_BAR_BORDER_COLOR;
     /** Cor do texto para as barras de título dos componentes contâineres desabilitados. */
-    public static final Color DISABLED_CONTAINER_TITLE_BAR_TEXT_COLOR = new Color( 181, 193, 194 );
+    public static Color DISABLED_CONTAINER_TITLE_BAR_TEXT_COLOR;
     
     /** Cor de fundo para o progresso das barras de progresso. */
-    public static final Color PROGRESS_BAR_BACKGROUND_COLOR = new Color( 151, 232, 255 );
-    /** Cor de fundo para o progresso das barras de progresso desabilitadas. */
-    public static final Color DISABLED_PROGRESS_BAR_BACKGROUND_COLOR = new Color( 230, 233, 233 );
+    public static Color PROGRESS_BAR_PROGRESS_FILL_COLOR;
     
     /** Cor de fundo para os contâineres de itens dos componentes de lista. */
-    public static final Color LIST_CONTAINER_BACKGROUND_COLOR = new Color( 245, 245, 245 );
+    public static Color LIST_CONTAINER_BACKGROUND_COLOR;
     /** Cor de fundo para os contâineres de itens dos componentes de lista desabilitados. */
-    public static final Color DISABLED_LIST_CONTAINER_BACKGROUND_COLOR = new Color( 245, 245, 245 );
+    public static Color DISABLED_LIST_CONTAINER_BACKGROUND_COLOR;
     
     /** Cor de fundo para a trila dos sliders usados como barras de rolagem. */
-    public static final Color SCROLL_BAR_TRACK_COLOR = new Color( 220, 220, 220 );
+    public static Color SCROLL_BAR_TRACK_COLOR;
     /** Cor de fundo para a trila dos sliders desabiltiados usados como barras de rolagem. */
-    public static final Color DISABLED_SCROLL_BAR_TRACK_COLOR = new Color( 220, 220, 220 );
+    public static Color DISABLED_SCROLL_BAR_TRACK_COLOR;
     
     /** Cor da sobreposição do seletor de cor quando está desabilitado. */
-    public static final Color COLOR_PICKER_DISABLED_OVERLAY_COLOR = ColorUtils.fade( EngineFrame.LIGHTGRAY, 0.5 );
+    public static Color COLOR_PICKER_DISABLED_OVERLAY_COLOR;
     
     /** Cor da sobreposição dos diálogos. */
-    public static final Color DIALOG_OVERLAY_COLOR = new Color( 0, 0, 0, 100 );
+    public static Color DIALOG_OVERLAY_COLOR;
     
     /** Cor padrão de fundo. */
-    public static final Color TOOL_TIP_BACKGROUND_COLOR = new Color( 230, 233, 233 );
+    public static Color TOOL_TIP_BACKGROUND_COLOR;
     /** Cor padrão da borda. */
-    public static final Color TOOL_TIP_BORDER_COLOR = new Color( 181, 193, 194 );
+    public static Color TOOL_TIP_BORDER_COLOR;
     /** Cor padrão do texto. */
-    public static final Color TOOL_TIP_TEXT_COLOR = new Color( 130, 130, 130 );
+    public static Color TOOL_TIP_TEXT_COLOR;
+    
+    static {
+        GuiTheme.buildLightTheme().install();
+    }
     
     /**
      * Constrói a infraestrutura básica dos componentes.

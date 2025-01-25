@@ -30,10 +30,10 @@ public class GuiConfirmDialog extends GuiWindow {
     private String message;
     private boolean showOverlay;
     
-    private GuiLabel messageLabel;
-    private GuiButton button1;
-    private GuiButton button2;
-    private GuiButton button3;
+    protected GuiLabel messageLabel;
+    protected GuiButton button1;
+    protected GuiButton button2;
+    protected GuiButton button3;
     private GuiButton[] buttons;
     
     private double messageWidth;

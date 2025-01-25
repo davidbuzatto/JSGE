@@ -36,7 +36,7 @@ public class GuiSlider extends GuiComponent {
     private double min;
     private double max;
     
-    private GuiSliderButton sliderButton;
+    protected GuiSliderButton sliderButton;
     private int orientation;
     private boolean showTrack;
     
@@ -203,7 +203,7 @@ public class GuiSlider extends GuiComponent {
         this.orientation = orientation;
         this.showTrack = true;
         this.mouseWheelEnabled = true;
-        this.backgroundColor = CONTAINER_BACKGROUNG_COLOR;
+        this.backgroundColor = CONTAINER_BACKGROUND_COLOR;
         this.trackFillColor = MOUSE_DOWN_BACKGROUND_COLOR;
     }
     
@@ -288,10 +288,10 @@ public class GuiSlider extends GuiComponent {
             if ( enabled ) {
                 switch ( mouseState ) {
                     case MOUSE_OVER:
-                        drawSlider( CONTAINER_BACKGROUNG_COLOR, MOUSE_OVER_BORDER_COLOR, MOUSE_DOWN_BACKGROUND_COLOR, 4 );
+                        drawSlider(CONTAINER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR, MOUSE_DOWN_BACKGROUND_COLOR, 4 );
                         break;
                     case MOUSE_DOWN:
-                        drawSlider( CONTAINER_BACKGROUNG_COLOR, MOUSE_DOWN_BORDER_COLOR, MOUSE_DOWN_BACKGROUND_COLOR, 4 );
+                        drawSlider(CONTAINER_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR, MOUSE_DOWN_BACKGROUND_COLOR, 4 );
                         break;
                     default:
                         drawSlider( backgroundColor, borderColor, trackFillColor, 4 );
@@ -483,7 +483,7 @@ public class GuiSlider extends GuiComponent {
         sliderButton.bounds.y += yAmount;
     }
     
-    private class GuiSliderButton extends GuiButton {
+    protected class GuiSliderButton extends GuiButton {
         
         private final double radius;
         private boolean dragging;
@@ -564,7 +564,7 @@ public class GuiSlider extends GuiComponent {
 
                     switch ( mouseState ) {
                         case MOUSE_OUT:
-                            drawSliderButton(BACKGROUND_COLOR, BORDER_COLOR );
+                            drawSliderButton( backgroundColor, borderColor );
                             break;
                         case MOUSE_OVER:
                             drawSliderButton( MOUSE_OVER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR );

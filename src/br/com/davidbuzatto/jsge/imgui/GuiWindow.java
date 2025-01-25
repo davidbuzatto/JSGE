@@ -116,7 +116,7 @@ public class GuiWindow extends GuiTextComponent {
             closeButton = new GuiButtonClose( bounds.x + bounds.width - 22, bounds.y + 3, 19, 19, engine );
         }
         
-        this.backgroundColor = CONTAINER_BACKGROUNG_COLOR;
+        this.backgroundColor = CONTAINER_BACKGROUND_COLOR;
         this.borderColor = CONTAINER_BORDER_COLOR;
         this.titleBarBackgroundColor = CONTAINER_TITLE_BAR_BACKGROUND_COLOR;
         this.titleBarBorderColor = CONTAINER_TITLE_BAR_BORDER_COLOR;

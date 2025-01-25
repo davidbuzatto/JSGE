@@ -30,8 +30,8 @@ public class GuiMessageDialog extends GuiWindow {
     private String message;
     private boolean showOverlay;
     
-    private GuiLabel messageLabel;
-    private GuiButton okButton;
+    protected GuiLabel messageLabel;
+    protected GuiButton okButton;
     
     private double messageWidth;
     private double messageHeight;

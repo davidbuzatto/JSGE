@@ -32,8 +32,8 @@ public class GuiSpinner extends GuiComponent {
     private int min;
     private int max;
     
-    private GuiChangeValueButton leftButton;
-    private GuiChangeValueButton rightButton;
+    protected GuiChangeValueButton leftButton;
+    protected GuiChangeValueButton rightButton;
     
     /**
      * Cria o componente.
@@ -117,7 +117,7 @@ public class GuiSpinner extends GuiComponent {
         this.value = value;
         this.min = min;
         this.max = max;
-        this.backgroundColor = CONTAINER_BACKGROUNG_COLOR;
+        this.backgroundColor = CONTAINER_BACKGROUND_COLOR;
     }
     
     private void initComponents( EngineFrame engine, double buttonSize ) {
@@ -160,7 +160,11 @@ public class GuiSpinner extends GuiComponent {
             engine.setStrokeLineWidth( LINE_WIDTH );
 
             if ( enabled ) {
-                drawSpinner( backgroundColor, borderColor, textColor );
+                if ( mouseState == GuiComponentMouseState.MOUSE_OVER ) {
+                    drawSpinner( MOUSE_OVER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR, MOUSE_OVER_TEXT_COLOR );
+                } else {
+                    drawSpinner( backgroundColor, borderColor, textColor );
+                }
             } else {
                 drawSpinner( DISABLED_CONTAINER_BACKGROUND_COLOR, DISABLED_BORDER_COLOR, DISABLED_TEXT_COLOR );
             }
@@ -266,11 +270,19 @@ public class GuiSpinner extends GuiComponent {
         }
     }
 
+    /**
+     * Configura a cor do fundo dos botões.
+     * 
+     * @param backgroundColor A cor do fundo dos botões.
+     */
+    public void setButtonsBackgroundColor( Color backgroundColor ) {
+        leftButton.setBackgroundColor( backgroundColor );
+        rightButton.setBackgroundColor( backgroundColor );
+    }
+    
     @Override
     public void setBackgroundColor( Color backgroundColor ) {
         super.setBackgroundColor( backgroundColor );
-        leftButton.setBackgroundColor( backgroundColor );
-        rightButton.setBackgroundColor( backgroundColor );
     }
 
     @Override

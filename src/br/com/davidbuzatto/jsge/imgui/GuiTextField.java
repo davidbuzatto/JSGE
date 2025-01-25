@@ -117,7 +117,7 @@ public class GuiTextField extends GuiComponent {
     private void initData( String value ) {
         setValue( value );
         this.showCaret = true;
-        this.backgroundColor = CONTAINER_BACKGROUNG_COLOR;
+        this.backgroundColor = CONTAINER_BACKGROUND_COLOR;
     }
     
     @Override

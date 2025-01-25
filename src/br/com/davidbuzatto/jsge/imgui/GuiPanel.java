@@ -107,7 +107,7 @@ public class GuiPanel extends GuiTextComponent {
     
     private void initComponents() {
         this.titleBarBounds = new Rectangle( bounds.x, bounds.y, bounds.width, 25 );
-        this.backgroundColor = CONTAINER_BACKGROUNG_COLOR;
+        this.backgroundColor = CONTAINER_BACKGROUND_COLOR;
         this.borderColor = CONTAINER_BORDER_COLOR;
         this.titleBarBackgroundColor = CONTAINER_TITLE_BAR_BACKGROUND_COLOR;
         this.titleBarBorderColor = CONTAINER_TITLE_BAR_BORDER_COLOR;
