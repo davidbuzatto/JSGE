@@ -1,4 +1,6 @@
-Terminar o botão de troca de tema.
-Configurar o tema escuro.
+Desenvolver componentes:
+    Barra de rolagem;
+    Painel de rolagem?
+    Área de texto.
 
 Separar o exemplos futuramente.
