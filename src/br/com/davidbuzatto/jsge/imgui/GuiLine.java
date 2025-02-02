@@ -225,7 +225,9 @@ public class GuiLine extends GuiTextComponent {
     
     @Override
     public void apply( GuiTheme theme ) {
-        
+        super.apply( theme );
+        setBorderColor( theme.containerBorderColor );
+        setTextColor( theme.containerTextColor );
     }
     
 }

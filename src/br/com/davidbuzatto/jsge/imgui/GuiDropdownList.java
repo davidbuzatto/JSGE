@@ -317,7 +317,8 @@ public class GuiDropdownList extends GuiComponent {
     
     @Override
     public void apply( GuiTheme theme ) {
-        
+        super.apply( theme );
+        itemsList.apply( theme );
     }
     
 }

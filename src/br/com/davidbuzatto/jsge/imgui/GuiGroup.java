@@ -141,7 +141,9 @@ public class GuiGroup extends GuiTextComponent {
     
     @Override
     public void apply( GuiTheme theme ) {
-        
+        super.apply( theme );
+        setBorderColor( theme.containerBorderColor );
+        setTextColor( theme.containerTextColor );
     }
     
 }

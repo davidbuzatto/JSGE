@@ -233,7 +233,8 @@ public class GuiProgressBar extends GuiComponent {
     
     @Override
     public void apply( GuiTheme theme ) {
-        
+        super.apply( theme );
+        setProgressFillColor( theme.progressBarProgressFillColor );
     }
     
 }

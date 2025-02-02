@@ -354,7 +354,11 @@ public class GuiInputDialog extends GuiWindow {
     
     @Override
     public void apply( GuiTheme theme ) {
-        
+        super.apply( theme );
+        messageLabel.apply( theme );
+        okButton.apply( theme );
+        cancelButton.apply( theme );
+        textField.apply( theme );
     }
     
 }

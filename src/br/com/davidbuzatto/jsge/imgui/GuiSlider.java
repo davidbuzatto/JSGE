@@ -596,7 +596,10 @@ public class GuiSlider extends GuiComponent {
     
     @Override
     public void apply( GuiTheme theme ) {
-        
+        super.apply( theme );
+        setBackgroundColor( theme.containerBackgroundColor );
+        setTrackFillColor( theme.mouseOverBackgroundColor );
+        sliderButton.apply( theme );
     }
     
 }

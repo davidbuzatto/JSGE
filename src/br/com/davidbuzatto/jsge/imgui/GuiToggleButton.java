@@ -181,9 +181,4 @@ public class GuiToggleButton extends GuiCheckBox {
         this.buttonGroup.addToggleButton( this );
     }
     
-    @Override
-    public void apply( GuiTheme theme ) {
-        
-    }
-    
 }

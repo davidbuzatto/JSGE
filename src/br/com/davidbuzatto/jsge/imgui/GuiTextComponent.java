@@ -244,10 +244,5 @@ public abstract class GuiTextComponent extends GuiComponent {
         return pos;
         
     }
-    
-    @Override
-    public void apply( GuiTheme theme ) {
-        
-    }
 
 }

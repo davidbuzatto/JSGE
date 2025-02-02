@@ -327,7 +327,8 @@ public class GuiTextField extends GuiComponent {
     
     @Override
     public void apply( GuiTheme theme ) {
-        
+        super.apply( theme );
+        setBackgroundColor( theme.containerBackgroundColor );
     }
     
 }

@@ -353,7 +353,11 @@ public class GuiConfirmDialog extends GuiWindow {
     
     @Override
     public void apply( GuiTheme theme ) {
-        
+        super.apply( theme );
+        messageLabel.apply( theme );
+        button1.apply( theme );
+        button2.apply( theme );
+        button3.apply( theme );
     }
     
 }

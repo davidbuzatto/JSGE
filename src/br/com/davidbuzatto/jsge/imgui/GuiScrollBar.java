@@ -561,7 +561,9 @@ public class GuiScrollBar extends GuiComponent {
     
     @Override
     public void apply( GuiTheme theme ) {
-        
+        super.apply( theme );
+        setBackgroundColor( theme.scrollBarTrackColor );
+        scrollBarButton.apply( theme );
     }
     
 }

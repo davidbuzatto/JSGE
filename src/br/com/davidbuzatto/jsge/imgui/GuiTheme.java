@@ -155,7 +155,7 @@ public class GuiTheme {
         theme.listContainerBackgroundColor = new Color( 245, 245, 245 );
         theme.disabledListContainerBackgroundColor = new Color( 245, 245, 245 );
 
-        theme.scrollBarTrackColor = ColorUtils.colorBrightness( theme.backgroundColor, 0.4 );
+        theme.scrollBarTrackColor = ColorUtils.colorBrightness( theme.backgroundColor, 0.6 );
         theme.disabledScrollBarTrackColor = new Color( 220, 220, 220 );
 
         theme.colorPickerDisabledOverlayColor = ColorUtils.fade( EngineFrame.LIGHTGRAY, 0.5 );
@@ -195,7 +195,7 @@ public class GuiTheme {
         theme.disabledBorderColor = new Color( 159, 165, 168 );
         theme.disabledTextColor = new Color( 199, 201, 203 );
 
-        theme.containerBackgroundColor = new Color( 23, 23, 23 );
+        theme.containerBackgroundColor = new Color( 43, 43, 43 );
         theme.containerBorderColor = new Color( 110, 110, 110 );
         theme.containerTextColor = new Color( 110, 110, 110 );
         theme.containerTitleBarBackgroundColor = new Color( 20, 20, 20 );
@@ -214,7 +214,7 @@ public class GuiTheme {
         theme.listContainerBackgroundColor = new Color( 60, 63, 65 );
         theme.disabledListContainerBackgroundColor = new Color( 121, 128, 132 );
 
-        theme.scrollBarTrackColor = ColorUtils.colorBrightness( theme.backgroundColor, 0.4 );
+        theme.scrollBarTrackColor = ColorUtils.colorBrightness( theme.backgroundColor, 0.6 );
         theme.disabledScrollBarTrackColor = new Color( 180, 180, 180 );
 
         theme.colorPickerDisabledOverlayColor = ColorUtils.fade( EngineFrame.LIGHTGRAY, 0.5 );
@@ -277,7 +277,7 @@ public class GuiTheme {
         theme.listContainerBackgroundColor = ColorUtils.colorBrightness( color, .3 );
         theme.disabledListContainerBackgroundColor = ColorUtils.colorBrightness( cw, -.1 );
 
-        theme.scrollBarTrackColor = ColorUtils.colorBrightness( theme.backgroundColor, 0.4 );
+        theme.scrollBarTrackColor = ColorUtils.colorBrightness( theme.backgroundColor, 0.6 );
         theme.disabledScrollBarTrackColor = ColorUtils.colorBrightness( cw, -.1 );
 
         theme.colorPickerDisabledOverlayColor = ColorUtils.fade( EngineFrame.LIGHTGRAY, 0.5 );
@@ -403,76 +403,7 @@ public class GuiTheme {
      * @param component O componente.
      */
     public void apply( GuiComponent component ) {
-        
-        component.setBackgroundColor( backgroundColor );
-        component.setBorderColor( borderColor );
-        component.setTextColor( textColor );
-            
-        if ( component instanceof GuiColorPicker c ) {
-            apply( c.hueSlider );
-            apply( c.alphaSlider );
-        } else if ( component instanceof GuiDropdownList c ) {
-            apply( c.itemsList );
-        } else if ( component instanceof GuiGlue c ) {
-            apply( c.baseComponent );
-            GuiTheme.this.installAndApply( c.children );
-        } else if ( component instanceof GuiGroup c ) {
-            c.setBorderColor( containerBorderColor );
-            c.setTextColor( containerTextColor );
-        } else if ( component instanceof GuiLine c ) {
-            c.setBorderColor( containerBorderColor );
-            c.setTextColor( containerTextColor );
-        } else if ( component instanceof GuiList c ) {
-            c.setBackgroundColor( listContainerBackgroundColor );
-            apply( c.scrollBar );
-        } else if ( component instanceof GuiPanel c ) {
-            c.setBackgroundColor( containerBackgroundColor );
-            c.setBorderColor( containerBorderColor );
-            c.setTitleBarBackgroundColor( containerTitleBarBackgroundColor );
-            c.setTitleBarBorderColor( containerTitleBarBorderColor );
-            c.setTitleBarTextColor( containerTitleBarTextColor );
-        } else if ( component instanceof GuiProgressBar c ) {
-            c.setProgressFillColor( progressBarProgressFillColor );
-        } else if ( component instanceof GuiSlider c ) {
-            c.setBackgroundColor( containerBackgroundColor );
-            c.setTrackFillColor( mouseOverBackgroundColor );
-            apply( c.sliderButton );
-        } else if ( component instanceof GuiScrollBar c ) {
-            c.setBackgroundColor( scrollBarTrackColor );
-            apply(c.scrollBarButton );
-        } else if ( component instanceof GuiSpinner c ) {
-            c.setBackgroundColor( containerBackgroundColor );
-            apply( c.leftButton );
-            apply( c.rightButton );
-        } else if ( component instanceof GuiTextField c ) {
-            c.setBackgroundColor( containerBackgroundColor );
-        }  else if ( component instanceof GuiToolTip c ) {
-            c.setBackgroundColor( toolTipBackgroundColor );
-            c.setBorderColor( toolTipBorderColor );
-            c.setTextColor( toolTipTextColor );
-        } else if ( component instanceof GuiWindow c ) {
-            apply( c.closeButton );
-            c.setBackgroundColor( containerBackgroundColor );
-            c.setBorderColor( containerBorderColor );
-            c.setTitleBarBackgroundColor( containerTitleBarBackgroundColor );
-            c.setTitleBarBorderColor( containerTitleBarBorderColor );
-            c.setTitleBarTextColor( containerTitleBarTextColor );
-            if ( c instanceof GuiConfirmDialog d ) {
-                apply( d.messageLabel );
-                apply( d.button1 );
-                apply( d.button2 );
-                apply( d.button3 );
-            } else if ( c instanceof GuiInputDialog d ) {
-                apply( d.messageLabel );
-                apply( d.okButton );
-                apply( d.cancelButton );
-                apply( d.textField );
-            } else if ( c instanceof GuiMessageDialog d ) {
-                apply( d.messageLabel );
-                apply( d.okButton );
-            }
-        }
-        
+        component.apply( this );
     }
     
 }

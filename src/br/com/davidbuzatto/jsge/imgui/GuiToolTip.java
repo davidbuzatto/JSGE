@@ -134,7 +134,10 @@ public class GuiToolTip extends GuiTextComponent {
     
     @Override
     public void apply( GuiTheme theme ) {
-        
+        super.apply( theme );
+        setBackgroundColor( theme.toolTipBackgroundColor );
+        setBorderColor( theme.toolTipBorderColor );
+        setTextColor( theme.toolTipTextColor );
     }
     
 }

@@ -153,9 +153,4 @@ public class GuiLabel extends GuiTextComponent {
         startPosition = calculateStartPosition( horizontalAlignment, verticalAlignment );
     }
     
-    @Override
-    public void apply( GuiTheme theme ) {
-        
-    }
-    
 }

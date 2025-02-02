@@ -137,9 +137,4 @@ public class GuiRadioButton extends GuiToggleButton {
         }
     }
     
-    @Override
-    public void apply( GuiTheme theme ) {
-        
-    }
-    
 }

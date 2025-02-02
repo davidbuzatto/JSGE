@@ -364,7 +364,10 @@ public class GuiSpinner extends GuiComponent {
     
     @Override
     public void apply( GuiTheme theme ) {
-        
+        super.apply( theme );
+        setBackgroundColor( theme.containerBackgroundColor );
+        leftButton.apply( theme );
+        rightButton.apply( theme );
     }
     
 }

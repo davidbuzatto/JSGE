@@ -241,7 +241,9 @@ public class GuiMessageDialog extends GuiWindow {
     
     @Override
     public void apply( GuiTheme theme ) {
-        
+        super.apply( theme );
+        messageLabel.apply( theme );
+        okButton.apply( theme );
     }
     
 }

@@ -238,7 +238,12 @@ public class GuiPanel extends GuiTextComponent {
     
     @Override
     public void apply( GuiTheme theme ) {
-        
+        super.apply( theme );
+        setBackgroundColor( theme.containerBackgroundColor );
+        setBorderColor( theme.containerBorderColor );
+        setTitleBarBackgroundColor( theme.containerTitleBarBackgroundColor );
+        setTitleBarBorderColor( theme.containerTitleBarBorderColor );
+        setTitleBarTextColor( theme.containerTitleBarTextColor );
     }
     
 }

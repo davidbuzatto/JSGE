@@ -471,7 +471,9 @@ public class GuiList extends GuiComponent {
     
     @Override
     public void apply( GuiTheme theme ) {
-        
+        super.apply( theme );
+        setBackgroundColor( theme.listContainerBackgroundColor );
+        scrollBar.apply( theme );
     }
     
 }

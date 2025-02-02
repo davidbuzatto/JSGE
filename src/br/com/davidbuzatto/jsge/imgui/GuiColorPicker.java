@@ -343,7 +343,9 @@ public class GuiColorPicker extends GuiComponent {
     
     @Override
     public void apply( GuiTheme theme ) {
-        
+        super.apply( theme );
+        hueSlider.apply( theme );
+        alphaSlider.apply( theme );
     }
     
 }
