@@ -376,4 +376,9 @@ public class GuiWindow extends GuiTextComponent {
         
     }
     
+    @Override
+    public void apply( GuiTheme theme ) {
+        
+    }
+    
 }

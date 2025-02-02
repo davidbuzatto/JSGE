@@ -559,4 +559,9 @@ public class GuiScrollBar extends GuiComponent {
         
     }
     
+    @Override
+    public void apply( GuiTheme theme ) {
+        
+    }
+    
 }

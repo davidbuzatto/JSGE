@@ -132,4 +132,9 @@ public class GuiToolTip extends GuiTextComponent {
         throw new IllegalStateException( "This component cannot be manually turned visible/invisible." );
     }
     
+    @Override
+    public void apply( GuiTheme theme ) {
+        
+    }
+    
 }

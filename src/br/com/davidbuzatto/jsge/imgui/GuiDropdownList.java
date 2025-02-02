@@ -315,4 +315,9 @@ public class GuiDropdownList extends GuiComponent {
         itemsList.move( xAmount, yAmount );
     }
     
+    @Override
+    public void apply( GuiTheme theme ) {
+        
+    }
+    
 }

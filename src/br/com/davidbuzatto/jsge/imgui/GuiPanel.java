@@ -236,4 +236,9 @@ public class GuiPanel extends GuiTextComponent {
         this.titleBarTextColor = titleBarTextColor;
     }
     
+    @Override
+    public void apply( GuiTheme theme ) {
+        
+    }
+    
 }

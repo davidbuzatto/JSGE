@@ -162,4 +162,9 @@ public class GuiGlue extends GuiComponent {
         children.add( child );
     }
     
+    @Override
+    public void apply( GuiTheme theme ) {
+        
+    }
+    
 }

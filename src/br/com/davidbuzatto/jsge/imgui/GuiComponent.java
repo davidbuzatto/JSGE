@@ -262,6 +262,17 @@ public abstract class GuiComponent {
     public abstract void move( double xAmount, double yAmount );
     
     /**
+     * Aplica um tema ao componente.
+     * 
+     * @param theme O tema.
+     */
+    public void apply( GuiTheme theme ) {
+        setBackgroundColor( theme.backgroundColor );
+        setBorderColor( theme.borderColor );
+        setTextColor( theme.textColor );
+    }
+    
+    /**
      * Retorna se o botão esquerdo do mouse foi pressionado no componente
      * no ciclo atual.
      * 

@@ -239,4 +239,9 @@ public class GuiMessageDialog extends GuiWindow {
         
     }
     
+    @Override
+    public void apply( GuiTheme theme ) {
+        
+    }
+    
 }

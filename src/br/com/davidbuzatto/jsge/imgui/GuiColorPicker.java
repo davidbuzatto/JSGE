@@ -341,4 +341,9 @@ public class GuiColorPicker extends GuiComponent {
         alphaSlider.move( xAmount, yAmount );
     }
     
+    @Override
+    public void apply( GuiTheme theme ) {
+        
+    }
+    
 }

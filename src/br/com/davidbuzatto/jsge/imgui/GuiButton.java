@@ -138,5 +138,10 @@ public class GuiButton extends GuiTextComponent {
         bounds.x += xAmount;
         bounds.y += yAmount;
     }
+
+    @Override
+    public void apply( GuiTheme theme ) {
+        
+    }
     
 }

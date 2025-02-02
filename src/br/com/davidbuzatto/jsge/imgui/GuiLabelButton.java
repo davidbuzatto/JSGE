@@ -126,4 +126,9 @@ public class GuiLabelButton extends GuiTextComponent {
         bounds.y += yAmount;
     }
     
+    @Override
+    public void apply( GuiTheme theme ) {
+        
+    }
+    
 }

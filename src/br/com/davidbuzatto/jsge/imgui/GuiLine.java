@@ -223,4 +223,9 @@ public class GuiLine extends GuiTextComponent {
         bounds.y += yAmount;
     }
     
+    @Override
+    public void apply( GuiTheme theme ) {
+        
+    }
+    
 }

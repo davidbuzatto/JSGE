@@ -351,4 +351,9 @@ public class GuiConfirmDialog extends GuiWindow {
         
     }
     
+    @Override
+    public void apply( GuiTheme theme ) {
+        
+    }
+    
 }

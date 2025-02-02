@@ -594,4 +594,9 @@ public class GuiSlider extends GuiComponent {
         
     }
     
+    @Override
+    public void apply( GuiTheme theme ) {
+        
+    }
+    
 }

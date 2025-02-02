@@ -139,4 +139,9 @@ public class GuiGroup extends GuiTextComponent {
         bounds.y += yAmount;
     }
     
+    @Override
+    public void apply( GuiTheme theme ) {
+        
+    }
+    
 }

@@ -176,4 +176,9 @@ public class GuiCheckBox extends GuiTextComponent {
         bounds.y += yAmount;
     }
     
+    @Override
+    public void apply( GuiTheme theme ) {
+        
+    }
+    
 }

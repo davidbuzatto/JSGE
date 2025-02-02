@@ -231,4 +231,9 @@ public class GuiProgressBar extends GuiComponent {
         bounds.y += yAmount;
     }
     
+    @Override
+    public void apply( GuiTheme theme ) {
+        
+    }
+    
 }
