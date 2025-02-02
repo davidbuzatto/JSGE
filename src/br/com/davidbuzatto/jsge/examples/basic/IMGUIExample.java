@@ -102,11 +102,9 @@ public class IMGUIExample extends EngineFrame {
     private GuiInputDialog inputDialog;
     private GuiConfirmDialog confirmDialog;
     
-    private GuiWindow glueWindow;
-    private GuiLabel glueLabel;
-    private GuiButton glueButton;
-    private GuiDropdownList glueDropdownList;
-    private GuiColorPicker glueColorPicker;
+    private GuiWindow themeWindow;
+    private GuiButton themeButton;
+    private GuiColorPicker themeColorPicker;
     private GuiGlue glue;
     
     private GuiToolTip toolTipLabel1;
@@ -133,6 +131,7 @@ public class IMGUIExample extends EngineFrame {
     private GuiTheme lightTheme;
     private GuiTheme darkTheme;
     private GuiTheme currentTheme;
+    private GuiTheme coloredTheme;
     private ChangeThemeButton changeThemeButton;
     
     private Image sunIcon;
@@ -154,6 +153,7 @@ public class IMGUIExample extends EngineFrame {
         
         lightTheme = GuiTheme.buildLightTheme();
         darkTheme = GuiTheme.buildDarkTheme();
+        coloredTheme = GuiTheme.buildColoredTheme( EngineFrame.BLUE );
         currentTheme = lightTheme;
         
         int x = 20;
@@ -280,21 +280,17 @@ public class IMGUIExample extends EngineFrame {
         
         x = 820;
         y = 30;
-        glueWindow = new GuiWindow( x, y, 240, 160, "Glue Example (drag me!)" );
-        glueLabel = new GuiLabel( 0, 0, 100, 30, "Glued Label" );
-        glueButton = new GuiButton( 0, 0, 100, 30, "Glued Button" );
-        glueDropdownList = new GuiDropdownList( 0, 0, 100, 30, List.<String>of( "1", "2", "3", "4", "5", "6" ) );
-        glueColorPicker = new GuiColorPicker( 0, 0, 85, 85, Color.RED );
+        themeWindow = new GuiWindow( x, y, 240, 160, "Theme Color (drag me!)" );
+        themeButton = new GuiButton( 0, 0, 100, 85, "Apply Color" );
+        themeColorPicker = new GuiColorPicker( 0, 0, 85, 85, EngineFrame.BLUE );
         
-        glue = new GuiGlue( glueWindow );
-        glue.addChild( glueLabel, 10, 40 );
-        glue.addChild( glueButton, 10, 80 );
-        glue.addChild( glueDropdownList, 10, 120 );
-        glue.addChild( glueColorPicker, glueDropdownList.getX() - glueWindow.getX() + glueDropdownList.getWidth() + 10, 40 );
+        glue = new GuiGlue( themeWindow );
+        glue.addChild( themeColorPicker, 10, 40 );
+        glue.addChild( themeButton, 130, 40 );
         components.add( glue );
         
         vSpacing = 30;
-        y += glueWindow.getHeight() + 10;
+        y += themeWindow.getHeight() + 10;
         checkEnabled = new GuiCheckBox( x, y, 100, 20, "Enabled" );
         checkEnabled.setSelected( true );
         checkVisible = new GuiCheckBox( x, y += vSpacing, 100, 20, "Visible" );
@@ -382,11 +378,11 @@ public class IMGUIExample extends EngineFrame {
             draggedComponent = windowUntitled;
         }
         
-        if ( glueWindow.isCloseButtonPressed() ) {
+        if ( themeWindow.isCloseButtonPressed() ) {
             glue.setVisible( false );
         }
         
-        if ( glueWindow.isTitleBarPressed() ) {
+        if ( themeWindow.isTitleBarPressed() ) {
             draggedComponent = glue;
         }
         
@@ -470,6 +466,15 @@ public class IMGUIExample extends EngineFrame {
             draggedComponent = confirmDialog;
         }
         
+        if ( themeButton.isMousePressed() ) {
+            coloredTheme = GuiTheme.buildColoredTheme( themeColorPicker.getColor() );
+            currentTheme = coloredTheme;
+            currentTheme.apply( components );
+            currentTheme.apply( interactionComponents );
+            currentTheme.install();
+            changeThemeButton.activeTheme = ChangeThemeButton.COLORED_THEME;
+        }
+        
         checkEnabled.update( delta );
         checkVisible.update( delta );
         checkDrawBounds.update( delta );
@@ -501,11 +506,18 @@ public class IMGUIExample extends EngineFrame {
         }
         
         if ( changeThemeButton.isMousePressed() ) {
-            changeThemeButton.darkThemeActive = !changeThemeButton.darkThemeActive;
-            if ( changeThemeButton.darkThemeActive ) {
-                currentTheme = darkTheme;
-            } else {
-                currentTheme = lightTheme;
+            changeThemeButton.activeTheme = (changeThemeButton.activeTheme++) % 3 + 1;
+            switch ( changeThemeButton.activeTheme ) {
+                case ChangeThemeButton.LIGHT_THEME:
+                    currentTheme = lightTheme;
+                    break;
+                case ChangeThemeButton.DARK_THEME:
+                    currentTheme = darkTheme;
+                    break;
+                case ChangeThemeButton.COLORED_THEME:
+                    currentTheme = coloredTheme;
+                    break;
+                    
             }
             currentTheme.apply( components );
             currentTheme.apply( interactionComponents );
@@ -603,7 +615,7 @@ public class IMGUIExample extends EngineFrame {
         
         drawText( messageDialogStatus, 650, buttonShowMessageDialog.getBounds().y + buttonShowMessageDialog.getBounds().height / 2 - 3, 12, currentTheme.borderColor );
         drawText( inputDialogStatus, 650, buttonShowInputDialog.getBounds().y + buttonShowInputDialog.getBounds().height / 2 - 3, 12, currentTheme.borderColor );
-        drawText( confirmDialogStatus, 650, buttonShowConfirmDialog.getBounds().y + buttonShowConfirmDialog.getBounds().height / 2 - 3, 12, GRAY );
+        drawText( confirmDialogStatus, 650, buttonShowConfirmDialog.getBounds().y + buttonShowConfirmDialog.getBounds().height / 2 - 3, 12, currentTheme.borderColor );
         
         drawColoredRectangle( 675, colorPicker.getBounds().y + colorPicker.getBounds().height / 2 - 40, colorPicker.getColor() );
         
@@ -663,7 +675,11 @@ public class IMGUIExample extends EngineFrame {
     
     private class ChangeThemeButton extends GuiComponent {
         
-        private boolean darkThemeActive;
+        private static final int LIGHT_THEME = 1;
+        private static final int DARK_THEME = 2;
+        private static final int COLORED_THEME = 3;
+        
+        private int activeTheme;
         private Image sunIcon;
         private Image moonIcon;
         
@@ -671,21 +687,29 @@ public class IMGUIExample extends EngineFrame {
             super( x, y, width, height );
             this.sunIcon = sunIcon;
             this.moonIcon = moonIcon;
+            this.activeTheme = LIGHT_THEME;
         }
         
         public ChangeThemeButton( double x, double y, double width, double height, Image sunIcon, Image moonIcon, EngineFrame engine ) {
             super( x, y, width, height, engine );
             this.sunIcon = sunIcon;
             this.moonIcon = moonIcon;
+            this.activeTheme = LIGHT_THEME;
         }
         
         @Override
         public void draw() {
             fillRectangle( bounds, backgroundColor );
-            if ( darkThemeActive ) {
-                drawImage( moonIcon, bounds.x, bounds.y );
-            } else {
-                drawImage( sunIcon, bounds.x, bounds.y );
+            switch ( activeTheme ) {
+                case LIGHT_THEME:
+                    drawImage( sunIcon, bounds.x, bounds.y );
+                    break;
+                case DARK_THEME:
+                    drawImage( moonIcon, bounds.x, bounds.y );
+                    break;
+                case COLORED_THEME:
+                    drawText( "C", bounds.x + 10, bounds.y + 7, 50, textColor );
+                    break;
             }
             drawRectangle( bounds, borderColor );
         }

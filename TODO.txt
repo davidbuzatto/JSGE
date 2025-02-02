@@ -1,6 +1,4 @@
 Desenvolver componentes:
-    Barra de rolagem;
-    Painel de rolagem?
     Área de texto.
 
 Separar o exemplos futuramente.

@@ -237,24 +237,6 @@ public class GuiDropdownList extends GuiComponent {
     }
     
     /**
-     * Obtém a cor do caminho da barra de rolagem.
-     * 
-     * @return A cor do caminho da barra de rolagem.
-     */
-    public Color getScrollBarTrackColor() {
-        return itemsList.scrollBarTrackColor;
-    }
-
-    /**
-     * Configura a cor do caminho da barra de rolagem.
-     * 
-     * @param scrollBarTrackColor A cor do caminho da barra de rolagem.
-     */
-    public void setScrollBarTrackColor( Color scrollBarTrackColor ) {
-        this.itemsList.scrollBarTrackColor = scrollBarTrackColor;
-    }
-    
-    /**
      * Obtém a cor do fundo da barra de rolagem.
      * 
      * @return A cor do fundo.
@@ -306,24 +288,6 @@ public class GuiDropdownList extends GuiComponent {
      */
     public void setScrollBarTextColor( Color textColor ) {
         itemsList.scrollBar.setTextColor( textColor );
-    }
-    
-    /**
-     * Obtém a cor do preenchimento da barra de rolagem.
-     * 
-     * @return A cor do preenchimento.
-     */
-    public Color getScrollBarTrackFillColor() {
-        return itemsList.scrollBar.getTrackFillColor();
-    }
-    
-    /**
-     * Confira a cor do preenchimento da barra de rolagem.
-     * 
-     * @param trackFillColor A cor do preenchimento.
-     */
-    public void setScrollBarTrackFillColor( Color trackFillColor ) {
-        itemsList.scrollBar.setTrackFillColor( trackFillColor );
     }
 
     @Override

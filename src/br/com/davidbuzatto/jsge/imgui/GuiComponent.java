@@ -61,6 +61,9 @@ public abstract class GuiComponent {
     /** Raio do componente deslizante. */
     public static final double SLIDER_RADIUS = 10;
     
+    /** Tamanho do botão da barra de rolagem. */
+    public static final double SCROLL_BAR_BUTTON_SIZE = 20;
+    
     //**************************************************************************
     // Cores.
     // Os nomes são mantidos em maiúsculas para não misturar com os atributos.
@@ -128,9 +131,9 @@ public abstract class GuiComponent {
     /** Cor de fundo para os contâineres de itens dos componentes de lista desabilitados. */
     public static Color DISABLED_LIST_CONTAINER_BACKGROUND_COLOR;
     
-    /** Cor de fundo para a trila dos sliders usados como barras de rolagem. */
+    /** Cor de fundo para a trila das barras de rolagem. */
     public static Color SCROLL_BAR_TRACK_COLOR;
-    /** Cor de fundo para a trila dos sliders desabiltiados usados como barras de rolagem. */
+    /** Cor de fundo para a trila das barras de rolagem desabiltiadas. */
     public static Color DISABLED_SCROLL_BAR_TRACK_COLOR;
     
     /** Cor da sobreposição do seletor de cor quando está desabilitado. */

@@ -24,11 +24,11 @@ import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
- * Um componente de controle deslizante.
+ * Um componente de barra de rolagem.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class GuiSlider extends GuiComponent {
+public class GuiScrollBar extends GuiComponent {
     
     public static final int HORIZONTAL = 1;
     public static final int VERTICAL = 2;
@@ -36,13 +36,11 @@ public class GuiSlider extends GuiComponent {
     private double min;
     private double max;
     
-    protected GuiSliderButton sliderButton;
+    protected GuiScrollBarButton scrollBarButton;
     private int orientation;
     private boolean showTrack;
     
     private boolean mouseWheelEnabled;
-    
-    private Color trackFillColor;
     
     /**
      * Cria o componente.
@@ -59,7 +57,7 @@ public class GuiSlider extends GuiComponent {
      * @param engine A instância da engine utilizada para desenhar e atualizar
      * o componente.
      */
-    public GuiSlider( double x, double y, double width, double height, double value, double min, double max, EngineFrame engine ) {
+    public GuiScrollBar( double x, double y, double width, double height, double value, double min, double max, EngineFrame engine ) {
         this( x, y, width, height, value, min, max, HORIZONTAL, engine );
     }
     
@@ -80,7 +78,7 @@ public class GuiSlider extends GuiComponent {
      * @param min O valor mínimo do componente.
      * @param max O valor máximo do componente. 
      */
-    public GuiSlider( double x, double y, double width, double height, double value, double min, double max ) {
+    public GuiScrollBar( double x, double y, double width, double height, double value, double min, double max ) {
         this( x, y, width, height, value, min, max, HORIZONTAL );
     }
     
@@ -94,7 +92,7 @@ public class GuiSlider extends GuiComponent {
      * @param engine A instância da engine utilizada para desenhar e atualizar
      * o componente.
      */
-    public GuiSlider( Rectangle bounds, double value, double min, double max, EngineFrame engine ) {
+    public GuiScrollBar( Rectangle bounds, double value, double min, double max, EngineFrame engine ) {
         this( bounds, value, min, max, HORIZONTAL, engine );
     }
     
@@ -110,7 +108,7 @@ public class GuiSlider extends GuiComponent {
      * @param min O valor mínimo do componente.
      * @param max O valor máximo do componente. 
      */
-    public GuiSlider( Rectangle bounds, double value, double min, double max ) {
+    public GuiScrollBar( Rectangle bounds, double value, double min, double max ) {
         this( bounds, value, min, max, HORIZONTAL );
     }
     
@@ -126,14 +124,14 @@ public class GuiSlider extends GuiComponent {
      * @param value O valor inicial do componente.
      * @param min O valor mínimo do componente.
      * @param max O valor máximo do componente.
-     * @param orientation Se o controle deslizante é horizontal ou vertical.
+     * @param orientation Se a barra de rolagem é horizontal ou vertical.
      * @param engine A instância da engine utilizada para desenhar e atualizar
      * o componente.
      */
-    public GuiSlider( double x, double y, double width, double height, double value, double min, double max, int orientation, EngineFrame engine ) {
+    public GuiScrollBar( double x, double y, double width, double height, double value, double min, double max, int orientation, EngineFrame engine ) {
         super( x, y, width, height, engine );
         initData( value, min, max, orientation );
-        initComponents( engine, SLIDER_RADIUS );
+        initComponents( engine, SCROLL_BAR_BUTTON_SIZE );
     }
     
     /**
@@ -152,12 +150,12 @@ public class GuiSlider extends GuiComponent {
      * @param value O valor inicial do componente.
      * @param min O valor mínimo do componente.
      * @param max O valor máximo do componente.
-     * @param orientation Se o controle deslizante é horizontal ou vertical.
+     * @param orientation Se a barra de rolagem é horizontal ou vertical.
      */
-    public GuiSlider( double x, double y, double width, double height, double value, double min, double max, int orientation ) {
+    public GuiScrollBar( double x, double y, double width, double height, double value, double min, double max, int orientation ) {
         super( x, y, width, height );
         initData( value, min, max, orientation );
-        initComponents( null, SLIDER_RADIUS );
+        initComponents( null, SCROLL_BAR_BUTTON_SIZE );
     }
     
     /**
@@ -167,14 +165,14 @@ public class GuiSlider extends GuiComponent {
      * @param value O valor inicial do componente.
      * @param min O valor mínimo do componente.
      * @param max O valor máximo do componente.
-     * @param orientation Se o controle deslizante é horizontal ou vertical.
+     * @param orientation Se a barra de rolagem é horizontal ou vertical.
      * @param engine A instância da engine utilizada para desenhar e atualizar
      * o componente.
      */
-    public GuiSlider( Rectangle bounds, double value, double min, double max, int orientation, EngineFrame engine ) {
+    public GuiScrollBar( Rectangle bounds, double value, double min, double max, int orientation, EngineFrame engine ) {
         super( bounds, engine );
         initData( value, min, max, orientation );
-        initComponents( engine, SLIDER_RADIUS );
+        initComponents( engine, SCROLL_BAR_BUTTON_SIZE );
     }
     
     /**
@@ -188,12 +186,12 @@ public class GuiSlider extends GuiComponent {
      * @param value O valor inicial do componente.
      * @param min O valor mínimo do componente.
      * @param max O valor máximo do componente.
-     * @param orientation Se o controle deslizante é horizontal ou vertical.
+     * @param orientation Se a barra de rolagem é horizontal ou vertical.
      */
-    public GuiSlider( Rectangle bounds, double value, double min, double max, int orientation ) {
+    public GuiScrollBar( Rectangle bounds, double value, double min, double max, int orientation ) {
         super( bounds );
         initData( value, min, max, orientation );
-        initComponents( null, SLIDER_RADIUS );
+        initComponents( null, SCROLL_BAR_BUTTON_SIZE );
     }
     
     private void initData( double value, double min, double max, int orientation ) {
@@ -203,25 +201,24 @@ public class GuiSlider extends GuiComponent {
         this.orientation = orientation;
         this.showTrack = true;
         this.mouseWheelEnabled = true;
-        this.backgroundColor = CONTAINER_BACKGROUND_COLOR;
-        this.trackFillColor = MOUSE_DOWN_BACKGROUND_COLOR;
+        this.backgroundColor = SCROLL_BAR_TRACK_COLOR;
     }
     
-    private void initComponents( EngineFrame engine, double sliderRadius ) {
+    private void initComponents( EngineFrame engine, double scrollBarButtonSize ) {
         if ( engine == null ) {
             if ( orientation == HORIZONTAL ) {
-                sliderButton = new GuiSliderButton( bounds.x, bounds.y + bounds.height / 2 - sliderRadius, sliderRadius * 2, sliderRadius * 2, sliderRadius, true );
+                scrollBarButton = new GuiScrollBarButton( bounds.x, bounds.y, scrollBarButtonSize, bounds.height, scrollBarButtonSize, true );
             } else {
-                sliderButton = new GuiSliderButton( bounds.x + bounds.width / 2 - sliderRadius, bounds.y, sliderRadius * 2, sliderRadius * 2, sliderRadius, false );
+                scrollBarButton = new GuiScrollBarButton( bounds.x, bounds.y, bounds.width, scrollBarButtonSize, scrollBarButtonSize, false );
             }
         } else {
             if ( orientation == HORIZONTAL ) {
-                sliderButton = new GuiSliderButton( bounds.x, bounds.y + bounds.height / 2 - sliderRadius, sliderRadius * 2, sliderRadius * 2, sliderRadius, true, engine );
+                scrollBarButton = new GuiScrollBarButton( bounds.x, bounds.y, scrollBarButtonSize, bounds.height, scrollBarButtonSize, true, engine );
             } else {
-                sliderButton = new GuiSliderButton( bounds.x + bounds.width / 2 - sliderRadius, bounds.y, sliderRadius * 2, sliderRadius * 2, sliderRadius, false, engine );
+                scrollBarButton = new GuiScrollBarButton( bounds.x, bounds.y, bounds.width, scrollBarButtonSize, scrollBarButtonSize, false, engine );
             }
         }
-        updateSliderButtonPosition();
+        updateScrollBarButtonPosition();
     }
     
     @Override
@@ -232,7 +229,7 @@ public class GuiSlider extends GuiComponent {
         if ( visible && enabled ) {
             
             Vector2 mousePos = engine.getMousePositionPoint();
-            sliderButton.update( delta, bounds );
+            scrollBarButton.update( delta, bounds );
             
             if ( mouseWheelEnabled ) {
                 if ( mouseState == GuiComponentMouseState.MOUSE_OVER ) {
@@ -245,30 +242,30 @@ public class GuiSlider extends GuiComponent {
                 }
             }
             
-            if ( mouseState == GuiComponentMouseState.MOUSE_DOWN && sliderButton.mouseState == GuiComponentMouseState.MOUSE_OUT ) {
+            if ( mouseState == GuiComponentMouseState.MOUSE_DOWN && scrollBarButton.mouseState == GuiComponentMouseState.MOUSE_OUT ) {
                 if ( orientation == VERTICAL ) {
-                    sliderButton.bounds.y = mousePos.y - SLIDER_RADIUS;
+                    scrollBarButton.bounds.y = mousePos.y - SCROLL_BAR_BUTTON_SIZE / 2;
                 } else {
-                    sliderButton.bounds.x = mousePos.x - SLIDER_RADIUS;
+                    scrollBarButton.bounds.x = mousePos.x - SCROLL_BAR_BUTTON_SIZE / 2;
                 }
-                sliderButton.update( delta, bounds );
+                scrollBarButton.update( delta, bounds );
             }
             
             if ( orientation == VERTICAL ) {
                 
-                double maxSliderY = bounds.y + sliderButton.radius;
-                double minSliderY = bounds.y + bounds.height - sliderButton.radius;
-                double sliderY = sliderButton.bounds.y + sliderButton.radius;
-                double percentage = MathUtils.inverseLerp( minSliderY, maxSliderY, sliderY );
+                double maxScrollBarButtonY = bounds.y + scrollBarButton.bounds.height / 2;
+                double minScrollBarButtonY = bounds.y + bounds.height - scrollBarButton.bounds.height / 2;
+                double scrollBarButtonY = scrollBarButton.bounds.y + scrollBarButton.bounds.height / 2;
+                double percentage = MathUtils.inverseLerp( minScrollBarButtonY, maxScrollBarButtonY, scrollBarButtonY );
 
                 value = MathUtils.lerp( min, max, percentage );
                 
             } else {
                 
-                double minSliderX = bounds.x + sliderButton.radius;
-                double maxSliderX = bounds.x + bounds.width - sliderButton.radius;
-                double sliderX = sliderButton.bounds.x + sliderButton.radius;
-                double percentage = MathUtils.inverseLerp( minSliderX, maxSliderX, sliderX );
+                double minScrollBarButtonX = bounds.x + scrollBarButton.bounds.width / 2;
+                double maxScrollBarButtonX = bounds.x + bounds.width - scrollBarButton.bounds.width / 2;
+                double scrollBarButtonX = scrollBarButton.bounds.x + scrollBarButton.bounds.width / 2;
+                double percentage = MathUtils.inverseLerp( minScrollBarButtonX, maxScrollBarButtonX, scrollBarButtonX );
 
                 value = MathUtils.lerp( min, max, percentage );
             
@@ -288,17 +285,17 @@ public class GuiSlider extends GuiComponent {
             if ( enabled ) {
                 switch ( mouseState ) {
                     case MOUSE_OVER:
-                        drawSlider( CONTAINER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR, MOUSE_DOWN_BACKGROUND_COLOR, 4 );
+                        drawScrollBar( SCROLL_BAR_TRACK_COLOR );
                         break;
                     case MOUSE_DOWN:
-                        drawSlider( CONTAINER_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR, MOUSE_DOWN_BACKGROUND_COLOR, 4 );
+                        drawScrollBar( SCROLL_BAR_TRACK_COLOR );
                         break;
                     default:
-                        drawSlider( backgroundColor, borderColor, trackFillColor, 4 );
+                        drawScrollBar( SCROLL_BAR_TRACK_COLOR );
                         break;
                 }
             } else {
-                drawSlider( DISABLED_CONTAINER_BACKGROUND_COLOR, DISABLED_BORDER_COLOR, MOUSE_DOWN_BACKGROUND_COLOR, 4 );
+                drawScrollBar( DISABLED_CONTAINER_BACKGROUND_COLOR );
             }
             
             drawBounds();
@@ -307,44 +304,30 @@ public class GuiSlider extends GuiComponent {
         
     }
     
-    private void drawSlider( Color backgroundColor, Color borderColor, Color valueColor, double sliderBarSize ) {
-        if ( showTrack ) {
-            if ( orientation == VERTICAL ) {
-                engine.fillRectangle( bounds.x + bounds.width / 2 - sliderBarSize / 2, bounds.y, sliderBarSize, bounds.height, backgroundColor );
-                if ( enabled ) {
-                    engine.fillRectangle( bounds.x + bounds.width / 2 - sliderBarSize / 2, sliderButton.bounds.y, sliderBarSize, bounds.y + bounds.height - sliderButton.bounds.y, valueColor );
-                }
-                engine.drawRectangle( bounds.x + bounds.width / 2 - sliderBarSize / 2, bounds.y, sliderBarSize, bounds.height, borderColor );
-            } else { // horizontal
-                engine.fillRectangle( bounds.x, bounds.y + bounds.height / 2 - sliderBarSize / 2, bounds.width, sliderBarSize, backgroundColor );
-                if ( enabled ) {
-                    engine.fillRectangle( bounds.x, bounds.y + bounds.height / 2 - sliderBarSize / 2, sliderButton.bounds.x - bounds.x, sliderBarSize, valueColor );
-                }
-                engine.drawRectangle( bounds.x, bounds.y + bounds.height / 2 - sliderBarSize / 2, bounds.width, sliderBarSize, borderColor );
-            }
-        }
-        sliderButton.draw();
+    private void drawScrollBar( Color backgroundColor ) {
+        engine.fillRectangle( bounds, backgroundColor );
+        scrollBarButton.draw();
     }
     
-    private void updateSliderButtonPosition() {
+    private void updateScrollBarButtonPosition() {
         
         if ( orientation == VERTICAL ) {
             
-            double maxSliderY = bounds.y + sliderButton.radius;
-            double minSliderY = bounds.y + bounds.height - sliderButton.radius;
+            double maxScrollBarButtonY = bounds.y + scrollBarButton.bounds.height / 2;
+            double minScrollBarButtonY = bounds.y + bounds.height - scrollBarButton.bounds.height / 2;
             double percentage = MathUtils.inverseLerp( min, max, value );
 
-            double sliderY = MathUtils.lerp( minSliderY, maxSliderY, percentage );
-            sliderButton.bounds.y = sliderY - sliderButton.radius;
+            double scrollBarButtonY = MathUtils.lerp( minScrollBarButtonY, maxScrollBarButtonY, percentage );
+            scrollBarButton.bounds.y = scrollBarButtonY - scrollBarButton.bounds.height / 2;
             
         } else {
             
-            double minSliderX = bounds.x + sliderButton.radius;
-            double maxSliderX = bounds.x + bounds.width - sliderButton.radius;
+            double minScrollBarButtonX = bounds.x + scrollBarButton.bounds.width / 2;
+            double maxScrollBarButtonX = bounds.x + bounds.width - scrollBarButton.bounds.width / 2;
             double percentage = MathUtils.inverseLerp( min, max, value );
 
-            double sliderX = MathUtils.lerp( minSliderX, maxSliderX, percentage );
-            sliderButton.bounds.x = sliderX - sliderButton.radius;
+            double scrollBarButtonX = MathUtils.lerp( minScrollBarButtonX, maxScrollBarButtonX, percentage );
+            scrollBarButton.bounds.x = scrollBarButtonX - scrollBarButton.bounds.width / 2;
             
         }
         
@@ -353,13 +336,13 @@ public class GuiSlider extends GuiComponent {
     @Override
     public void setEnabled( boolean enabled ) {
         super.setEnabled( enabled );
-        sliderButton.setEnabled( enabled );
+        scrollBarButton.setEnabled( enabled );
     }
 
     @Override
     public void setVisible( boolean visible ) {
         super.setVisible( visible );
-        sliderButton.setVisible( visible );
+        scrollBarButton.setVisible( visible );
     }
     
     /**
@@ -382,7 +365,7 @@ public class GuiSlider extends GuiComponent {
         } else {
             this.value = MathUtils.clamp( value, max, min );
         }
-        updateSliderButtonPosition();
+        updateScrollBarButtonPosition();
     }
 
     /**
@@ -456,49 +439,28 @@ public class GuiSlider extends GuiComponent {
     public void setMouseWheelEnabled( boolean mouseWheelEnabled ) {
         this.mouseWheelEnabled = mouseWheelEnabled;
     }
-
-    /**
-     * Obtém a cor do valor preenchido.
-     * 
-     * @return A cor do valor preenchido.
-     */
-    public Color getTrackFillColor() {
-        return trackFillColor;
-    }
-
-    /**
-     * Configura a cor do valor preenchido.
-     * 
-     * @param trackFillColor A cor do valor preenchido.
-     */
-    public void setTrackFillColor( Color trackFillColor ) {
-        this.trackFillColor = trackFillColor;
-    }
     
     @Override
     public void move( double xAmount, double yAmount ) {
         bounds.x += xAmount;
         bounds.y += yAmount;
-        sliderButton.bounds.x += xAmount;
-        sliderButton.bounds.y += yAmount;
+        scrollBarButton.bounds.x += xAmount;
+        scrollBarButton.bounds.y += yAmount;
     }
     
-    protected class GuiSliderButton extends GuiButton {
+    protected class GuiScrollBarButton extends GuiButton {
         
-        private final double radius;
         private boolean dragging;
         private Vector2 prevMousePos;
         private final boolean moveHorizontally;
         
-        public GuiSliderButton( double x, double y, double width, double height, double radius, boolean moveHorizontally, EngineFrame engine ) {
+        public GuiScrollBarButton( double x, double y, double width, double height, double radius, boolean moveHorizontally, EngineFrame engine ) {
             super( x, y, width, height, "", engine );
-            this.radius = radius;
             this.moveHorizontally = moveHorizontally;
         }
         
-        public GuiSliderButton( double x, double y, double width, double height, double radius, boolean moveHorizontally ) {
+        public GuiScrollBarButton( double x, double y, double width, double height, double radius, boolean moveHorizontally ) {
             super( x, y, width, height, "" );
-            this.radius = radius;
             this.moveHorizontally = moveHorizontally;
         }
 
@@ -530,15 +492,15 @@ public class GuiSlider extends GuiComponent {
                     
                     if ( moveHorizontally ) {
                         bounds.x += mousePos.x - prevMousePos.x;
-                        if ( bounds.x + radius * 2 > containerBounds.x + containerBounds.width ) {
-                            bounds.x = containerBounds.x + containerBounds.width - radius * 2;
+                        if ( bounds.x + bounds.width > containerBounds.x + containerBounds.width ) {
+                            bounds.x = containerBounds.x + containerBounds.width - bounds.width;
                         } else if ( bounds.x < containerBounds.x ) {
                             bounds.x = containerBounds.x;
                         }
                     } else {
                         bounds.y += mousePos.y - prevMousePos.y;
-                        if ( bounds.y + radius * 2 > containerBounds.y + containerBounds.height ) {
-                            bounds.y = containerBounds.y + containerBounds.height - radius * 2;
+                        if ( bounds.y + bounds.height > containerBounds.y + containerBounds.height ) {
+                            bounds.y = containerBounds.y + containerBounds.height - bounds.height;
                         } else if ( bounds.y < containerBounds.y ) {
                             bounds.y = containerBounds.y;
                         }
@@ -564,21 +526,21 @@ public class GuiSlider extends GuiComponent {
 
                     switch ( mouseState ) {
                         case MOUSE_OUT:
-                            drawSliderButton( backgroundColor, borderColor );
+                            drawScrollBarButtonButton( backgroundColor, borderColor );
                             break;
                         case MOUSE_OVER:
-                            drawSliderButton( MOUSE_OVER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR );
+                            drawScrollBarButtonButton( MOUSE_OVER_BACKGROUND_COLOR, MOUSE_OVER_BORDER_COLOR );
                             break;
                         case MOUSE_PRESSED:
-                            drawSliderButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
+                            drawScrollBarButtonButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
                             break;
                         case MOUSE_DOWN:
-                            drawSliderButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
+                            drawScrollBarButtonButton( MOUSE_DOWN_BACKGROUND_COLOR, MOUSE_DOWN_BORDER_COLOR );
                             break;
                     }
 
                 } else {
-                    drawSliderButton( DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR );
+                    drawScrollBarButtonButton( DISABLED_BACKGROUND_COLOR, DISABLED_BORDER_COLOR );
                 }
                 
                 drawBounds();
@@ -587,9 +549,12 @@ public class GuiSlider extends GuiComponent {
             
         }
         
-        private void drawSliderButton( Color backgroundColor, Color borderColor ) {
-            engine.fillCircle( bounds.x + bounds.width / 2, bounds.y + bounds.height / 2, radius, backgroundColor );
-            engine.drawCircle( bounds.x + bounds.width / 2, bounds.y + bounds.height / 2, radius, borderColor );
+        private void drawScrollBarButtonButton( Color backgroundColor, Color borderColor ) {
+            if ( orientation == VERTICAL ) {
+                engine.fillRectangle( bounds, backgroundColor );
+            } else {
+                engine.fillRectangle( bounds, backgroundColor );
+            }
         }
         
     }
