@@ -154,7 +154,9 @@ public class IMGUIExample extends EngineFrame {
         lightTheme = GuiTheme.buildLightTheme();
         darkTheme = GuiTheme.buildDarkTheme();
         coloredTheme = GuiTheme.buildColoredTheme( EngineFrame.BLUE );
+        
         currentTheme = lightTheme;
+        currentTheme.install();
         
         int x = 20;
         int y = 40;

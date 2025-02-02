@@ -59,9 +59,7 @@ public class SoundAndMusicExample extends EngineFrame {
             
             if ( over && isMouseButtonDown( MOUSE_BUTTON_LEFT ) ) {
                 down = true;
-            }
-            
-            if ( isMouseButtonReleased( MOUSE_BUTTON_LEFT ) ) {
+            } else {
                 down = false;
             }
             
