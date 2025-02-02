@@ -1,4 +1,8 @@
+Alterar ícone dos exemplos para o ícone igual ao do showcase;
+
 Desenvolver componentes:
     Área de texto.
 
-Separar o exemplos futuramente.
+Separar o exemplos futuramente;
+
+Realizer testes com joysticks do playstation.
