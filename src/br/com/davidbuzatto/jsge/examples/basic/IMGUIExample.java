@@ -282,9 +282,10 @@ public class IMGUIExample extends EngineFrame {
         
         x = 820;
         y = 30;
-        themeWindow = new GuiWindow( x, y, 240, 160, "Theme Color (drag me!)" );
+        themeWindow = new GuiWindow( x, y, 240, 140, "Theme Color (drag me!)" );
         themeButton = new GuiButton( 0, 0, 100, 85, "Apply Color" );
         themeColorPicker = new GuiColorPicker( 0, 0, 85, 85, EngineFrame.BLUE );
+        themeColorPicker.setAllowingAlphaChange( false );
         
         glue = new GuiGlue( themeWindow );
         glue.addChild( themeColorPicker, 10, 40 );

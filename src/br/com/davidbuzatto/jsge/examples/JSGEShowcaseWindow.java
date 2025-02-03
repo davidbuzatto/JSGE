@@ -16,6 +16,7 @@
  */
 package br.com.davidbuzatto.jsge.examples;
 
+import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.core.utils.CoreUtils;
 import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.examples.basic.CollisionDetectionExample;
@@ -34,6 +35,7 @@ import br.com.davidbuzatto.jsge.examples.basic.IMGUIExample;
 import br.com.davidbuzatto.jsge.examples.basic.ScissorExample;
 import br.com.davidbuzatto.jsge.examples.camera.CameraExample;
 import br.com.davidbuzatto.jsge.examples.particles.ParticlesExample;
+import br.com.davidbuzatto.jsge.image.Image;
 
 /**
  * Janela do showcase (vitrine) da JSGE.
@@ -42,13 +44,16 @@ import br.com.davidbuzatto.jsge.examples.particles.ParticlesExample;
  */
 public class JSGEShowcaseWindow extends javax.swing.JFrame {
     
+    private Image logoImage;
+    
     /**
      * Creates new form JSGEShowcaseFrame
      */
     public JSGEShowcaseWindow() {
+        logoImage = DrawingUtils.createLogo();
         initComponents();
         setTitle( String.format( "JSGE Showcase - %s", CoreUtils.getVersion() ) );
-        setIconImage( DrawingUtils.createLogo().buffImage );
+        setIconImage( logoImage.buffImage );
     }
 
     /**
@@ -268,69 +273,74 @@ public class JSGEShowcaseWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDrawingPrimitiveMethodsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDrawingPrimitiveMethodsActionPerformed
-        new DrawingWithPrimitiveMethodsExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        initExample( new DrawingWithPrimitiveMethodsExample() );
     }//GEN-LAST:event_btnDrawingPrimitiveMethodsActionPerformed
 
     private void btnDrawingPrimitiveObjectsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDrawingPrimitiveObjectsActionPerformed
-        new DrawingWithPrimitiveObjectsExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        initExample( new DrawingWithPrimitiveObjectsExample() );
     }//GEN-LAST:event_btnDrawingPrimitiveObjectsActionPerformed
 
     private void btnCollisionDetectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCollisionDetectionActionPerformed
-        new CollisionDetectionExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        initExample( new CollisionDetectionExample() );
     }//GEN-LAST:event_btnCollisionDetectionActionPerformed
 
     private void btnImageLoadingAndProcessingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImageLoadingAndProcessingActionPerformed
-        new ImageLoadingProcessingExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        initExample( new ImageLoadingProcessingExample() );
     }//GEN-LAST:event_btnImageLoadingAndProcessingActionPerformed
 
     private void btnUserInteractionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserInteractionActionPerformed
-        new UserInteractionExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        initExample( new UserInteractionExample() );
     }//GEN-LAST:event_btnUserInteractionActionPerformed
 
     private void btnColorMethodsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorMethodsActionPerformed
-        new ColorMethodsExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        initExample( new ColorMethodsExample() );
     }//GEN-LAST:event_btnColorMethodsActionPerformed
 
     private void btnBouncingBallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBouncingBallActionPerformed
-        new BouncingBallExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        initExample( new BouncingBallExample() );
     }//GEN-LAST:event_btnBouncingBallActionPerformed
 
     private void btnParticlesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParticlesActionPerformed
-        new ParticlesExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        initExample( new ParticlesExample() );
     }//GEN-LAST:event_btnParticlesActionPerformed
 
     private void btnCameraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCameraActionPerformed
-        new CameraExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        initExample( new CameraExample() );
     }//GEN-LAST:event_btnCameraActionPerformed
 
     private void btnSoundAndMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoundAndMusicActionPerformed
-        new SoundAndMusicExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        initExample( new SoundAndMusicExample() );
     }//GEN-LAST:event_btnSoundAndMusicActionPerformed
 
     private void btnPaintingCapabilitiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaintingCapabilitiesActionPerformed
-        new PaintingCapabilitiesExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        initExample( new PaintingCapabilitiesExample() );
     }//GEN-LAST:event_btnPaintingCapabilitiesActionPerformed
 
     private void btnAnimationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnimationsActionPerformed
-        new AnimationsExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        initExample( new AnimationsExample() );
     }//GEN-LAST:event_btnAnimationsActionPerformed
 
     private void btnGamepadsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGamepadsActionPerformed
-        new GamepadsExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        initExample( new GamepadsExample() );
     }//GEN-LAST:event_btnGamepadsActionPerformed
 
     private void btnCurveSmoothingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCurveSmoothingActionPerformed
-        new CurveSmoothingExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        initExample( new CurveSmoothingExample() );
     }//GEN-LAST:event_btnCurveSmoothingActionPerformed
 
     private void btnScissorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScissorActionPerformed
-        new ScissorExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        initExample( new ScissorExample() );
     }//GEN-LAST:event_btnScissorActionPerformed
 
     private void btnIMGUIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIMGUIActionPerformed
-        new IMGUIExample().setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        initExample( new IMGUIExample() );
     }//GEN-LAST:event_btnIMGUIActionPerformed
 
+    private void initExample( EngineFrame example ) {
+        example.setIconImage( logoImage.buffImage );
+        example.setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+    }
+    
     /**
      * Executa o Showcase.
      * 

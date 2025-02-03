@@ -39,6 +39,8 @@ public class GuiColorPicker extends GuiComponent {
     protected GuiSlider hueSlider;
     protected GuiSlider alphaSlider;
     
+    private boolean allowingAlphaChange;
+    
     /**
      * Cria o componente.
      * 
@@ -127,6 +129,8 @@ public class GuiColorPicker extends GuiComponent {
                 bounds.y + bounds.height * ( 1 - hsv[2] )
         );
         
+        allowingAlphaChange = true;
+        
     }
     
     @Override
@@ -138,17 +142,22 @@ public class GuiColorPicker extends GuiComponent {
             
             Vector2 mousePos = engine.getMousePositionPoint();
             
-            hueSlider.update( delta );
-            alphaSlider.update( delta );
-            
             double mouseWheelMove = engine.getMouseWheelMove();
+            
+            hueSlider.update( delta );
             
             if ( hueSlider.mouseState == GuiComponentMouseState.MOUSE_OVER ) {
                 hueSlider.setValue( hueSlider.getValue() - mouseWheelMove * 5 );
             }
             
-            if ( alphaSlider.mouseState == GuiComponentMouseState.MOUSE_OVER ) {
-                alphaSlider.setValue( alphaSlider.getValue() + mouseWheelMove * 5 );
+            if ( allowingAlphaChange ) {
+                
+                alphaSlider.update( delta );
+
+                if ( alphaSlider.mouseState == GuiComponentMouseState.MOUSE_OVER ) {
+                    alphaSlider.setValue( alphaSlider.getValue() + mouseWheelMove * 5 );
+                }
+                
             }
             
             if ( engine.isMouseButtonDown( EngineFrame.MOUSE_BUTTON_LEFT ) ) {
@@ -186,8 +195,6 @@ public class GuiColorPicker extends GuiComponent {
                 drawColorPicker( DISABLED_BORDER_COLOR );
             }
             
-            hueSlider.draw();
-            alphaSlider.draw();
             drawBounds();
             
             //engine.drawText( String.format( "hue: %.2f", hueSlider.getValue() ), bounds.x, bounds.y, 20, EngineFrame.BLACK );
@@ -233,6 +240,7 @@ public class GuiColorPicker extends GuiComponent {
         int h = (int) bounds.height;
         int w = (int) bounds.width;
         
+        // hue bar
         for ( int i = 1; i < h; i++ ) {
             engine.drawLine( 
                     bounds.x + bounds.width + SPACING, 
@@ -243,41 +251,54 @@ public class GuiColorPicker extends GuiComponent {
             );
         }
         
-        int lines = BAR_SIZE / RET_SIZE;
-        int columns = w / RET_SIZE;
-        
-        for ( int i = 0; i < lines; i++ ) {
-            for ( int j = 0; j < columns; j++ ) {
-                engine.fillRectangle( 
-                        bounds.x + j * RET_SIZE,
-                        bounds.y + bounds.height + SPACING + i * RET_SIZE,
-                        RET_SIZE,
-                        RET_SIZE,
-                        i % 2 == 0 ?
-                                j % 2 == 0 ? EngineFrame.WHITE : EngineFrame.GRAY
-                                :
-                                j % 2 == 0 ? EngineFrame.GRAY : EngineFrame.WHITE
-                );
-            }
-        }
-        
-        for ( int i = 1; i < w; i++ ) {
-            engine.drawLine( 
-                    bounds.x + i, 
-                    bounds.y + bounds.height + SPACING, 
-                    bounds.x + i, 
-                    bounds.y + bounds.height + SPACING + BAR_SIZE, 
-                    ColorUtils.fade( Color.BLACK, i / (double) w )
-            );
-        }
-        
         if ( !enabled ) {
             engine.fillRectangle( bounds.x + bounds.width + SPACING, bounds.y, BAR_SIZE, bounds.height, COLOR_PICKER_DISABLED_OVERLAY_COLOR );
-            engine.fillRectangle( bounds.x, bounds.y + bounds.height + SPACING, bounds.width, BAR_SIZE, COLOR_PICKER_DISABLED_OVERLAY_COLOR );
         }
         
         engine.drawRectangle( bounds.x + bounds.width + SPACING, bounds.y, BAR_SIZE, bounds.height, borderColor );
-        engine.drawRectangle( bounds.x, bounds.y + bounds.height + SPACING, bounds.width, BAR_SIZE, borderColor );
+        
+        hueSlider.draw();
+            
+        // alpha bar
+        if ( allowingAlphaChange ) {
+            
+            int lines = BAR_SIZE / RET_SIZE;
+            int columns = w / RET_SIZE;
+        
+            for ( int i = 0; i < lines; i++ ) {
+                for ( int j = 0; j < columns; j++ ) {
+                    engine.fillRectangle( 
+                            bounds.x + j * RET_SIZE,
+                            bounds.y + bounds.height + SPACING + i * RET_SIZE,
+                            RET_SIZE,
+                            RET_SIZE,
+                            i % 2 == 0 ?
+                                    j % 2 == 0 ? EngineFrame.WHITE : EngineFrame.GRAY
+                                    :
+                                    j % 2 == 0 ? EngineFrame.GRAY : EngineFrame.WHITE
+                    );
+                }
+            }
+        
+            for ( int i = 1; i < w; i++ ) {
+                engine.drawLine( 
+                        bounds.x + i, 
+                        bounds.y + bounds.height + SPACING, 
+                        bounds.x + i, 
+                        bounds.y + bounds.height + SPACING + BAR_SIZE, 
+                        ColorUtils.fade( Color.BLACK, i / (double) w )
+                );
+            }
+            
+            if ( !enabled ) {
+                engine.fillRectangle( bounds.x, bounds.y + bounds.height + SPACING, bounds.width, BAR_SIZE, COLOR_PICKER_DISABLED_OVERLAY_COLOR );
+            }
+            
+            engine.drawRectangle( bounds.x, bounds.y + bounds.height + SPACING, bounds.width, BAR_SIZE, borderColor );
+            
+            alphaSlider.draw();
+            
+        }
         
     }
     
@@ -286,6 +307,25 @@ public class GuiColorPicker extends GuiComponent {
         super.setEnabled( enabled );
         hueSlider.setEnabled( enabled );
         alphaSlider.setEnabled( enabled );
+    }
+
+    /**
+     * Retorna se o componente permite a edição do canal de transparência.
+     * 
+     * @return Verdadeiro caso permita, falso caso contrário.
+     */
+    public boolean isAllowingAlphaChange() {
+        return allowingAlphaChange;
+    }
+
+    /**
+     * Configura o componente para permitir ou não a modificação do canal
+     * de transparência da cor.
+     * 
+     * @param allowingAlphaChange Verdadeiro para permitir, falso caso contrário.
+     */
+    public void setAllowingAlphaChange( boolean allowingAlphaChange ) {
+        this.allowingAlphaChange = allowingAlphaChange;
     }
     
     /**
