@@ -111,6 +111,14 @@ public class GuiToolTip extends GuiTextComponent {
         bounds.width = textWidth + HORIZONTAL_PADDING * 2;
         bounds.height = textLineHeight + VERTICAL_PADDING;
         
+        if ( bounds.x + bounds.width > engine.getScreenWidth() ) {
+            bounds.x -= bounds.width;
+        }
+        
+        if ( bounds.y + bounds.height > engine.getScreenHeight() ) {
+            bounds.y = position.y - bounds.height - 5;
+        }
+        
     }
     
     @Override
