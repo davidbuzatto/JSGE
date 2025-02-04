@@ -11,7 +11,7 @@ Note que a engine depende de algumas bibliotecas nativas para o gerencimamento d
 
 Qualquer IDE ou sistema de build para Java tem a capacidade de realizar essa tarefa de cópia, ficando a cargo do usuário configurá-la. Ao executar seu programa, tenha em mente que as bibliotecas nativas tem que estar visíveis para a JVM, seja deixando esses arquivos no mesmo diretório de execução do jogo, seja informando à JVM onde buscar tais arquivos (opção -Djava.library.path) ou colocando-os visíveis sob a variável PATH do sistema operacional.
 
-Ainda, o showcase pode ser visto executando-se o arquivo JSGE-vx.x.x-bin.jar contido nos pacotes binários ou executando o projeto da engine.
+Ainda, o showcase com os exemplos de utilização da engine está disponível em outro repositório: [JSGE-Showcase](https://github.com/davidbuzatto/JSGE-Showcase).
 
 ## Dependências
 - [Java Stream Player](https://github.com/goxr3plus/java-stream-player): processamento de áudio;
@@ -30,7 +30,7 @@ Note that the engine depends on some native libraries for managing controls/game
 
 Any Java IDE or build system has the ability to perform this copying task, leaving the user load configured. When running your program, keep in mind that the native libraries must be visible to the JVM, either by leaving these files in the same directory as the game execution, or by telling the JVM where to look for such files (-Djava.library.path option) or by making them visible under the operating system PATH variable.
 
-However, the showcase can be seen by running the JSGE-vx.x.x-bin.jar file contained in the binary packages or by running the engine project.
+Still, the showcase with examples of engine usage is available in another repository: [JSGE-Showcase](https://github.com/davidbuzatto/JSGE-Showcase).
 
 ## Dependencies
 - [Java Stream Player](https://github.com/goxr3plus/java-stream-player): audio processing;
