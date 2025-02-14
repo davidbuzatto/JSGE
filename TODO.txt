@@ -1,1 +1,3 @@
+Implementar "print screen" de tela inteira e de recorte;
+
 Realizar testes com joysticks do playstation.
