@@ -3055,7 +3055,7 @@ public abstract class EngineFrame extends JFrame {
      * @param name Nome da fonte padrão.
      */
     public void setDefaultFontName( String name ) {
-        defaultFont = new Font( defaultFont.getName(), defaultFont.getStyle(), defaultFont.getSize() );
+        defaultFont = new Font( name, defaultFont.getStyle(), defaultFont.getSize() );
     }
 
     /**
