@@ -53,6 +53,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Insets;
 import java.awt.Paint;
 import java.awt.RenderingHints;
 import java.awt.Robot;
@@ -83,7 +84,9 @@ import java.awt.image.ImageObserver;
 import java.awt.image.RenderedImage;
 import java.awt.image.renderable.RenderableImage;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -98,6 +101,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.LogManager;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -4176,6 +4181,205 @@ public abstract class EngineFrame extends JFrame {
     public void g2DrawString( String string, float x, float y, Paint paint ) {
         g2d.setPaint( paint );
         g2d.drawString( string, x, y );
+    }
+    
+    
+    
+    //**************************************************************************
+    // Métodos para captura de tela.
+    //**************************************************************************
+    
+    /**
+     * Tira a captura de tela da engine corrente, respeitando um limite, retornando uma imagem.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo do retângulo de captura.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo de captura.
+     * @param width Largura do retângulo de captura.
+     * @param height Altura do retângulo de captura.
+     * @return Uma imagem com a captura.
+     */
+    public Image takeScreenshot( double x, double y, double width, double height ) {
+        
+        try {
+            
+            java.awt.Rectangle fBounds = getBounds();
+            Insets insets = getInsets();
+
+            int xStart = fBounds.x + insets.left + (int) x;
+            int yStart = fBounds.y + insets.top + (int) y;
+
+            Robot rb = new Robot();
+            Image image = new Image( rb.createScreenCapture( new java.awt.Rectangle( xStart, yStart, (int) width, (int) height ) ) );
+            
+            return image;
+            
+        } catch ( AWTException exc ) {
+            traceLogError( CoreUtils.stackTraceToString( exc ) );
+        }
+        
+        return ImageUtils.createTextImage( "error", 20, Font.BOLD, EngineFrame.WHITE, EngineFrame.BLACK );
+        
+    }
+    
+    /**
+     * Tira a captura de tela da engine corrente, respeitando um limite, retornando uma imagem.
+     * 
+     * @param source O retângulo de captura.
+     * @return Uma imagem com a captura.
+     */
+    public Image takeScreenshot( Rectangle source ) {
+        return takeScreenshot( source.x, source.y, source.width, source.height );
+    }
+    
+    /**
+     * Tira a captura de toda a tela da engine corrente, retornando uma imagem.
+     * 
+     * @return Uma imagem com a captura.
+     */
+    public Image takeScreenshot() {
+        Dimension dpSize = drawingPanel.getSize();
+        return takeScreenshot( 0, 0, dpSize.width, dpSize.height );
+    }
+    
+    /**
+     * Salva uma captura de tela da engine corrente, respeitando um limite.
+     * 
+     * @param formatName Nome do formato (bmp, BMP, gif, GIF, jpg, JPG, jpeg, JPEG, png, PNG, tif, TIF, tiff, TIFF, wbmp, WBMP).
+     * @param outputFile Arquivo de saída.
+     * @param x Coordenada x do vértice superior esquerdo do retângulo de captura.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo de captura.
+     * @param width Largura do retângulo de captura.
+     * @param height Altura do retângulo de captura.
+     */
+    public void saveScreenshot( String formatName, File outputFile, double x, double y, double width, double height ) {
+        try {
+            ImageIO.write( takeScreenshot( x, y, width, height ).buffImage, formatName, outputFile );
+        } catch ( IOException exc ) {
+            traceLogError( CoreUtils.stackTraceToString( exc ) );
+        }
+    }
+    
+    /**
+     * Salva uma captura de tela da engine corrente, respeitando um limite.
+     * 
+     * @param formatName Nome do formato (bmp, BMP, gif, GIF, jpg, JPG, jpeg, JPEG, png, PNG, tif, TIF, tiff, TIFF, wbmp, WBMP).
+     * @param outputFile Arquivo de saída.
+     * @param source O retângulo de captura.
+     */
+    public void saveScreenshot( String formatName, File outputFile, Rectangle source ) {
+        try {
+            ImageIO.write( takeScreenshot( source ).buffImage, formatName, outputFile );
+        } catch ( IOException exc ) {
+            traceLogError( CoreUtils.stackTraceToString( exc ) );
+        }
+    }
+    
+    /**
+     * Salva uma captura da tela toda da engine corrente.
+     * 
+     * @param formatName Nome do formato (bmp, BMP, gif, GIF, jpg, JPG, jpeg, JPEG, png, PNG, tif, TIF, tiff, TIFF, wbmp, WBMP).
+     * @param outputFile Arquivo de saída.
+     */
+    public void saveScreenshot( String formatName, File outputFile ) {
+        try {
+            ImageIO.write( takeScreenshot().buffImage, formatName, outputFile );
+        } catch ( IOException exc ) {
+            traceLogError( CoreUtils.stackTraceToString( exc ) );
+        }
+    }
+    
+    /**
+     * Salva uma captura de tela da engine corrente, respeitando um limite.
+     * 
+     * @param formatName Nome do formato (bmp, BMP, gif, GIF, jpg, JPG, jpeg, JPEG, png, PNG, tif, TIF, tiff, TIFF, wbmp, WBMP).
+     * @param imageOutputStream Stream de saída de imagem.
+     * @param x Coordenada x do vértice superior esquerdo do retângulo de captura.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo de captura.
+     * @param width Largura do retângulo de captura.
+     * @param height Altura do retângulo de captura.
+     */
+    public void saveScreenshot( String formatName, ImageOutputStream imageOutputStream, double x, double y, double width, double height ) {
+        try {
+            ImageIO.write( takeScreenshot( x, y, width, height ).buffImage, formatName, imageOutputStream );
+        } catch ( IOException exc ) {
+            traceLogError( CoreUtils.stackTraceToString( exc ) );
+        }
+    }
+    
+    /**
+     * Salva uma captura de tela da engine corrente, respeitando um limite.
+     * 
+     * @param formatName Nome do formato (bmp, BMP, gif, GIF, jpg, JPG, jpeg, JPEG, png, PNG, tif, TIF, tiff, TIFF, wbmp, WBMP).
+     * @param imageOutputStream Stream de saída de imagem.
+     * @param source O retângulo de captura.
+     */
+    public void saveScreenshot( String formatName, ImageOutputStream imageOutputStream, Rectangle source ) {
+        try {
+            ImageIO.write( takeScreenshot( source ).buffImage, formatName, imageOutputStream );
+        } catch ( IOException exc ) {
+            traceLogError( CoreUtils.stackTraceToString( exc ) );
+        }
+    }
+    
+    /**
+     * Salva uma captura da tela toda da engine corrente.
+     * 
+     * @param formatName Nome do formato (bmp, BMP, gif, GIF, jpg, JPG, jpeg, JPEG, png, PNG, tif, TIF, tiff, TIFF, wbmp, WBMP).
+     * @param imageOutputStream Stream de saída de imagem.
+     */
+    public void saveScreenshot( String formatName, ImageOutputStream imageOutputStream ) {
+        try {
+            ImageIO.write( takeScreenshot().buffImage, formatName, imageOutputStream );
+        } catch ( IOException exc ) {
+            traceLogError( CoreUtils.stackTraceToString( exc ) );
+        }
+    }
+    
+    /**
+     * Salva uma captura de tela da engine corrente, respeitando um limite.
+     * 
+     * @param formatName Nome do formato (bmp, BMP, gif, GIF, jpg, JPG, jpeg, JPEG, png, PNG, tif, TIF, tiff, TIFF, wbmp, WBMP).
+     * @param outputStream Stream de saída.
+     * @param x Coordenada x do vértice superior esquerdo do retângulo de captura.
+     * @param y Coordenada y do vértice superior esquerdo do retângulo de captura.
+     * @param width Largura do retângulo de captura.
+     * @param height Altura do retângulo de captura.
+     */
+    public void saveScreenshot( String formatName, OutputStream outputStream, double x, double y, double width, double height ) {
+        try {
+            ImageIO.write( takeScreenshot( x, y, width, height ).buffImage, formatName, outputStream );
+        } catch ( IOException exc ) {
+            traceLogError( CoreUtils.stackTraceToString( exc ) );
+        }
+    }
+    
+    /**
+     * Salva uma captura de tela da engine corrente, respeitando um limite.
+     * 
+     * @param formatName Nome do formato (bmp, BMP, gif, GIF, jpg, JPG, jpeg, JPEG, png, PNG, tif, TIF, tiff, TIFF, wbmp, WBMP).
+     * @param outputStream Stream de saída.
+     * @param source O retângulo de captura.
+     */
+    public void saveScreenshot( String formatName, OutputStream outputStream, Rectangle source ) {
+        try {
+            ImageIO.write( takeScreenshot( source ).buffImage, formatName, outputStream );
+        } catch ( IOException exc ) {
+            traceLogError( CoreUtils.stackTraceToString( exc ) );
+        }
+    }
+    
+    /**
+     * Salva uma captura da tela toda da engine corrente.
+     * 
+     * @param formatName Nome do formato (bmp, BMP, gif, GIF, jpg, JPG, jpeg, JPEG, png, PNG, tif, TIF, tiff, TIFF, wbmp, WBMP).
+     * @param outputStream Stream de saída.
+     */
+    public void saveScreenshot( String formatName, OutputStream outputStream ) {
+        try {
+            ImageIO.write( takeScreenshot().buffImage, formatName, outputStream );
+        } catch ( IOException exc ) {
+            traceLogError( CoreUtils.stackTraceToString( exc ) );
+        }
     }
     
     

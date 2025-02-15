@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.jsge.core.engine;
+package br.com.davidbuzatto.jsge.core.engine.legacy;
 
 import br.com.davidbuzatto.jsge.collision.aabb.AABB;
 import br.com.davidbuzatto.jsge.core.Camera2D;
