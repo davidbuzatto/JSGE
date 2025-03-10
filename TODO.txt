@@ -1,2 +1,1 @@
-Melhorar a entrada do componente de campo de texto, aumentando a quantidade símbolos que podem ser inseridos.
 Realizar testes com joysticks do playstation.
