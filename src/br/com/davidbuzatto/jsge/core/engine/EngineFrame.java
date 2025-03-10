@@ -5324,6 +5324,10 @@ public abstract class EngineFrame extends JFrame {
         private List<GameAction> getKeyActions( KeyEvent e ) {
 
             int keyCode = e.getKeyCode();
+            
+            if ( keyCode == 0 ) {
+                keyCode = e.getExtendedKeyCode();
+            }
 
             if ( keyActionsMap.containsKey( keyCode ) ) {
                 return keyActionsMap.get( keyCode );

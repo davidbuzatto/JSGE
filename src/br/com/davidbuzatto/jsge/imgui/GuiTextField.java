@@ -22,6 +22,9 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.MathUtils;
 import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.util.Iterator;
 
 /**
  * Um componente de campo de texto. Este componente é um tanto rudimentar,
@@ -141,7 +144,21 @@ public class GuiTextField extends GuiComponent {
             
             if ( hasFocus ) {
                 
-                int key = engine.getKeysPressed().iterator().next();
+                Iterator<Integer> it = engine.getKeysPressed().iterator();
+                boolean isShiftDown = false;
+                boolean isCapsLockOn = Toolkit.getDefaultToolkit().getLockingKeyState( KeyEvent.VK_CAPS_LOCK );
+                int key = EngineFrame.KEY_NULL;
+                
+                while ( it.hasNext() ) {
+                    int k = it.next();
+                    if ( k == EngineFrame.KEY_SHIFT ) {
+                        isShiftDown = true;
+                    } else {
+                        key = k;
+                    }
+                }
+                
+                //int key = engine.getKeysPressed().iterator().next();
                 boolean ok = key != lastKey;
                 boolean delayOk = false;
                 
@@ -204,9 +221,9 @@ public class GuiTextField extends GuiComponent {
                                 if ( !value.isEmpty() ) {
                                     String prev = value.substring( 0, caretPosition );
                                     String pos = value.substring( caretPosition );
-                                    value = prev + ( (char) key ) + pos;
+                                    value = prev + keyToChar( key, isShiftDown, isCapsLockOn ) + pos;
                                 } else {
-                                    value += (char) key;
+                                    value += keyToChar( key, isShiftDown, isCapsLockOn );
                                 }
                                 caretPosition++;
                             }
@@ -274,10 +291,131 @@ public class GuiTextField extends GuiComponent {
     private boolean isKeyValid( int key ) {
         return ( key >= EngineFrame.KEY_A && key <= EngineFrame.KEY_Z ) ||
                ( key >= EngineFrame.KEY_ZERO && key <= EngineFrame.KEY_NINE ) ||
-               key == EngineFrame.KEY_PERIOD ||
+               ( key >= EngineFrame.KEY_KP_0 && key <= EngineFrame.KEY_KP_9 ) ||
+               key == EngineFrame.KEY_BACKSLASH ||
                key == EngineFrame.KEY_COMMA ||
+               key == EngineFrame.KEY_PERIOD ||
                key == EngineFrame.KEY_SEMICOLON ||
+               key == EngineFrame.KEY_SLASH ||
+               key == EngineFrame.KEY_APOSTROPHE ||
+               key == EngineFrame.KEY_LEFT_BRACKET ||
+               key == EngineFrame.KEY_RIGHT_BRACKET ||
+               key == EngineFrame.KEY_MINUS ||
+               key == EngineFrame.KEY_EQUAL ||
+               key == EngineFrame.KEY_KP_ADD ||
+               key == EngineFrame.KEY_KP_SUBTRACT ||
+               key == EngineFrame.KEY_KP_MULTIPLY ||
+               key == EngineFrame.KEY_KP_DIVIDE ||
                key == EngineFrame.KEY_SPACE;
+    }
+    
+    private char keyToChar( int key, boolean isShiftDown, boolean isCapsLockOn ) {
+        
+        if ( key >= EngineFrame.KEY_A && key <= EngineFrame.KEY_Z ) {
+            
+            if ( isShiftDown || isCapsLockOn ) {
+                return Character.toUpperCase( (char) key );
+            }
+            
+            return Character.toLowerCase( (char) key );
+            
+        } else if ( key >= EngineFrame.KEY_ZERO && key <= EngineFrame.KEY_NINE ) {
+            
+            if ( isShiftDown ) {
+                switch ( key ) {
+                    case EngineFrame.KEY_ONE: return '!';
+                    case EngineFrame.KEY_TWO: return '@';
+                    case EngineFrame.KEY_THREE: return '#';
+                    case EngineFrame.KEY_FOUR: return '$';
+                    case EngineFrame.KEY_FIVE: return '%';
+                    case EngineFrame.KEY_SEVEN: return '&';
+                    case EngineFrame.KEY_EIGHT: return '*';
+                    case EngineFrame.KEY_NINE: return '(';
+                    case EngineFrame.KEY_ZERO: return ')';
+                    default: return (char) key;
+                }
+            }
+            
+            return (char) key;
+            
+        } else if ( key >= EngineFrame.KEY_KP_0 && key <= EngineFrame.KEY_KP_9 ) {
+            
+            switch ( key ) {
+                case EngineFrame.KEY_KP_0: return '0';
+                case EngineFrame.KEY_KP_1: return '1';
+                case EngineFrame.KEY_KP_2: return '2';
+                case EngineFrame.KEY_KP_3: return '3';
+                case EngineFrame.KEY_KP_4: return '4';
+                case EngineFrame.KEY_KP_5: return '5';
+                case EngineFrame.KEY_KP_6: return '6';
+                case EngineFrame.KEY_KP_7: return '7';
+                case EngineFrame.KEY_KP_8: return '8';
+                case EngineFrame.KEY_KP_9: return '9';
+                default: return (char) key;
+            }
+            
+        } else if ( key == EngineFrame.KEY_BACKSLASH ) {
+            if ( isShiftDown ) {
+                return '|';
+            }
+            return '\\';
+        } else if ( key == EngineFrame.KEY_COMMA ) {
+            if ( isShiftDown ) {
+                return '<';
+            }
+            return ',';
+        } else if ( key == EngineFrame.KEY_PERIOD ) {
+            if ( isShiftDown ) {
+                return '>';
+            }
+            return '.';
+        } else if ( key == EngineFrame.KEY_SEMICOLON ) {
+            if ( isShiftDown ) {
+                return ':';
+            }
+            return ';';
+        } else if ( key == EngineFrame.KEY_SLASH ) {
+            if ( isShiftDown ) {
+                return '?';
+            }
+            return '/';
+        } else if ( key == EngineFrame.KEY_APOSTROPHE ) {
+            if ( isShiftDown ) {
+                return '"';
+            }
+            return '\'';
+        } else if ( key == EngineFrame.KEY_LEFT_BRACKET ) {
+            if ( isShiftDown ) {
+                return '{';
+            }
+            return '[';
+        } else if ( key == EngineFrame.KEY_RIGHT_BRACKET ) {
+            if ( isShiftDown ) {
+                return '}';
+            }
+            return ']';
+        } else if ( key == EngineFrame.KEY_MINUS ) {
+            if ( isShiftDown ) {
+                return '_';
+            }
+            return '-';
+        } else if ( key == EngineFrame.KEY_EQUAL ) {
+            if ( isShiftDown ) {
+                return '+';
+            }
+            return '=';
+        } else if ( key == EngineFrame.KEY_KP_ADD ) {
+            return '+';
+        } else if ( key == EngineFrame.KEY_KP_SUBTRACT ) {
+            return '-';
+        } else if ( key == EngineFrame.KEY_KP_MULTIPLY ) {
+            return '*';
+        } else if ( key == EngineFrame.KEY_KP_DIVIDE ) {
+            return '/';
+        }
+        
+        return (char) key;
+        
     }
 
     @Override
