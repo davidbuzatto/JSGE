@@ -266,8 +266,11 @@ public class GuiList extends GuiComponent {
                 vOffset += ITEM_BOUND_HEIGHT + 3;
                 first = false;
             }
-
-            Rectangle lastItemBounds = items.getLast().bounds;
+            
+            // JDK 21 e posteriores :D
+            //Rectangle lastItemBounds = items.getLast().bounds;
+            
+            Rectangle lastItemBounds = items.get( items.size() - 1 ).bounds;
             itemsHeight = lastItemBounds.y + lastItemBounds.height - bounds.y;
             heightDiff = itemsHeight - bounds.height + 3;
 
