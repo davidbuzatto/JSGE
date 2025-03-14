@@ -434,7 +434,7 @@ public abstract class EngineFrame extends JFrame {
         }
         
         if ( undecorated && invisibleBackground ) {
-            setBackground( new Color( 0, 0, 0, 0 ) );
+            setBackground( new Color( 0, 0, 0, 1 ) );
         }
         
         setDefaultCloseOperation( EXIT_ON_CLOSE );
@@ -5068,7 +5068,7 @@ public abstract class EngineFrame extends JFrame {
             setBackground( null );
             setIgnoreRepaint( true );
             if ( invisibleBackground ) {
-                setBackground( new Color( 0, 0, 0, 0 ) );
+                setBackground( new Color( 0, 0, 0, 1 ) );
                 setOpaque( false );
             }
         }
