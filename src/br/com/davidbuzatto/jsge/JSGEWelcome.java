@@ -20,7 +20,6 @@ import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.core.utils.CoreUtils;
 import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.image.Image;
-import br.com.davidbuzatto.jsge.math.Vector2;
 
 /**
  * Classe de apresentação.
@@ -30,10 +29,11 @@ import br.com.davidbuzatto.jsge.math.Vector2;
 public class JSGEWelcome extends EngineFrame {
     
     private Image logo;
-    private Vector2 logoPos;
+    private double timeCounter;
+    private double timeToClose;
     
     public JSGEWelcome() {
-        super( 700, 700, String.format( "JSGE - %s", CoreUtils.getVersion() ), 60, true );
+        super( 512, 512, String.format( "JSGE - %s", CoreUtils.getVersion() ), 60, true, false, false, true, false, false );
     }
     
     @Override
@@ -42,30 +42,35 @@ public class JSGEWelcome extends EngineFrame {
         logo = DrawingUtils.createLogo();
         setWindowIcon( logo );
         
-        logoPos = new Vector2(
-                getScreenWidth() / 2 - logo.getWidth() / 2, 
-                getScreenHeight() / 2 - logo.getHeight() / 2 - 10
-        );
-        
         setDefaultFontSize( 20 );
+        timeToClose = 10;
         
     }
     
     @Override
     public void update( double delta ) {
+        
+        timeCounter += delta;
+        
+        if ( isMouseButtonPressed( MOUSE_BUTTON_LEFT ) || 
+             isMouseButtonPressed( MOUSE_BUTTON_MIDDLE ) || 
+             isMouseButtonPressed( MOUSE_BUTTON_RIGHT ) ||
+             getKeyPressed() != KEY_NULL ||
+             timeCounter > timeToClose ) {
+            System.exit( 0 );
+        }
+        
     }
     
     @Override
     public void draw() {
         
-        clearBackground( WHITE );
-        
-        drawImage( logo, logoPos.x, logoPos.y );
+        drawImage( logo, 0, 0 );
         
         drawText( 
             CoreUtils.getVersion(),
-            logoPos.x + logo.getWidth() - measureText( CoreUtils.getVersion() ), 
-            logoPos.y + logo.getHeight() + 10,
+            logo.getWidth() - measureText( CoreUtils.getVersion() ) - 48, 
+            logo.getHeight() - 60,
             BLACK
         );
         

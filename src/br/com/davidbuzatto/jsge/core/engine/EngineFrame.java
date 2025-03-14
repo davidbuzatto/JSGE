@@ -352,6 +352,7 @@ public abstract class EngineFrame extends JFrame {
      * @param fullScreen Flag que indica se a janela deve rodar em modo tela cheia exclusivo.
      * @param undecorated Flag que indica se a janela deve ser não decorada.
      * @param alwaysOnTop Flag que indica se a janela está sempre por cima.
+     * @param invisibleBackground Flag que indica se o fundo da janela é invisível. A janela precisa, obrigatoriamente, não ser decorada.
      */
     public EngineFrame( int windowWidth, 
                    int windowHeight, 
@@ -361,7 +362,8 @@ public abstract class EngineFrame extends JFrame {
                    boolean resizable, 
                    boolean fullScreen, 
                    boolean undecorated, 
-                   boolean alwaysOnTop ) {
+                   boolean alwaysOnTop,
+                   boolean invisibleBackground ) {
         
         // desliga o sistema de logging do JDK usado pela biblioteca de processamento de som
         LogManager.getLogManager().reset();
@@ -383,9 +385,9 @@ public abstract class EngineFrame extends JFrame {
 
         this.antialiasing = antialiasing;
         waitTimeFPS = (long) ( 1000.0 / this.targetFPS );   // quanto se espera que cada frame demore
-
+        
         // cria e configura o painel de desenho
-        drawingPanel = new DrawingPanel();
+        drawingPanel = new DrawingPanel( undecorated && invisibleBackground );
         drawingPanel.setPreferredSize( new Dimension( windowWidth, windowHeight ) );
         drawingPanel.setFocusable( true );
         drawingPanel.addKeyListener( new KeyAdapter(){
@@ -430,7 +432,11 @@ public abstract class EngineFrame extends JFrame {
             setResizable( resizable );
             setUndecorated( undecorated );
         }
-
+        
+        if ( undecorated && invisibleBackground ) {
+            setBackground( new Color( 0, 0, 0, 0 ) );
+        }
+        
         setDefaultCloseOperation( EXIT_ON_CLOSE );
         add( drawingPanel, BorderLayout.CENTER );
 
@@ -475,7 +481,7 @@ public abstract class EngineFrame extends JFrame {
                    String windowTitle, 
                    int targetFPS, 
                    boolean antialiasing ) {
-        this( windowWidth, windowHeight, windowTitle, targetFPS, antialiasing, false, false, false, false );
+        this( windowWidth, windowHeight, windowTitle, targetFPS, antialiasing, false, false, false, false, false );
     }
     
     private void start() {
@@ -5058,9 +5064,13 @@ public abstract class EngineFrame extends JFrame {
      */
     private class DrawingPanel extends JPanel {
 
-        public DrawingPanel() {
+        public DrawingPanel( boolean invisibleBackground ) {
             setBackground( null );
             setIgnoreRepaint( true );
+            if ( invisibleBackground ) {
+                setBackground( new Color( 0, 0, 0, 0 ) );
+                setOpaque( false );
+            }
         }
         
         @Override

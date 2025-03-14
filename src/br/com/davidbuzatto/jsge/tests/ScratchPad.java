@@ -29,7 +29,7 @@ public class ScratchPad extends EngineFrame {
      * Cria o teste.
      */
     public ScratchPad() {
-        super( 800, 450, "Scratch Pad", 60, true );
+        super( 800, 450, "Scratch Pad", 60, true, false, false, false, false, false );
     }
     
     @Override
