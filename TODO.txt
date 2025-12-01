@@ -1,3 +1,5 @@
+Adicionar desenho por "tartaruga"
+
 Bug:
     Sistema de entrada se perdendo ao, por exemplo, redimensionar uma EngineFrame, tentando fechar uma EngineFrame com default close operation com DO_NOTHING, etc.
     Mudar o sistema de input inteiro para usar a JInput?
