@@ -1,26 +1,3 @@
-Adicionar desenho por "tartaruga"
-    moveForward
-    moveBackward
-    moveRight
-    moveLeft
-    rotate
-    brushUp
-    brushDown
-    changeColor / changePaint
-    engrossar
-    desengrossar
-    trocarGrossura
-    trocarEstilo
-    escrever
-    save
-    restore
-    reset
-    draw
-    drawUntil
-    draw -> frame inicial e final
-    quanto estados / desenhos
-    
-
 Bug:
     Sistema de entrada se perdendo ao, por exemplo, redimensionar uma EngineFrame, tentando fechar uma EngineFrame com default close operation com DO_NOTHING, etc.
     Mudar o sistema de input inteiro para usar a JInput?
