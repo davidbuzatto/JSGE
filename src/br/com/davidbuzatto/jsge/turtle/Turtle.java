@@ -26,7 +26,8 @@ import java.util.Deque;
 import java.util.List;
 
 /**
- *
+ * Classe que encapsula um componente de Gráfico de Tartaruga (Turtle Graphics).
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class Turtle {
@@ -35,184 +36,331 @@ public class Turtle {
     private Deque<TurtleStateSnapshot> snapshots;
     private TurtleState currentState;
     
+    /**
+     * Cria uma nova Tartaruga na origem, com pincel na cor preta e ângulo inicial
+     * igual a -90 graus.
+     */
     public Turtle() {
         reset();
     }
     
+    /**
+     * Cria uma nova Tartaruga com pincel na cor preta e ângulo inicial igual a
+     * -90 graus em uma posição definida.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo.
+     * @param y Coordenada y do vértice superior esquerdo.
+     */
     public Turtle( double x, double y ) {
         reset( x, y );
     }
     
-    private void addFrame( double x, double y, double angle, Paint color, BasicStroke bs, boolean brushDown ) {
-        currentState = new TurtleState( x, y, angle, color, bs, brushDown );
-        frames.add( currentState );
+    /**
+     * Cria uma nova Tartaruga com pincel na cor preta em uma posição definida
+     * com um ângulo inicial.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo.
+     * @param y Coordenada y do vértice superior esquerdo.
+     * @param angle Ângulo inicial em graus (sentido horário).
+     */
+    public Turtle( double x, double y, double angle ) {
+        reset( x, y, angle );
     }
     
+    /**
+     * Cria uma nova Tartaruga com ângulo inicial igual a -90 graus em uma
+     * posição definida com cor inicial.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo.
+     * @param y Coordenada y do vértice superior esquerdo.
+     * @param paint Paint inicial.
+     */
+    public Turtle( double x, double y, Paint paint ) {
+        reset( x, y, paint );
+    }
+    
+    /**
+     * Cria uma nova Tartaruga.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo.
+     * @param y Coordenada y do vértice superior esquerdo.
+     * @param angle Ângulo inicial em graus (sentido horário).
+     * @param paint Paint inicial.
+     */
+    public Turtle( double x, double y, double angle, Paint paint ) {
+        reset( x, y, angle, paint );
+    }
+    
+    /**
+     * Cria uma nova Tartaruga.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo.
+     * @param y Coordenada y do vértice superior esquerdo.
+     * @param angle Ângulo inicial em graus (sentido horário).
+     * @param paint Paint inicial.
+     * @param stroke Formato inicial do pincel.
+     * @param brushDown Se o pincel está abaixado.
+     */
+    public Turtle( double x, double y, double angle, Paint paint, BasicStroke stroke, boolean brushDown ) {
+        reset( x, y, angle, paint, stroke, brushDown );
+    }
+    
+    /**
+     * Move a tartaruga.
+     * 
+     * @param x Coordenada x de destino.
+     * @param y Coordenada y de destino.
+     */
     public void moveTo( double x, double y ) {
         addFrame(
             x, 
             y, 
             currentState.angle(), 
-            currentState.color(), 
+            currentState.paint(), 
             currentState.stroke(),
-            currentState.brushDown()
+            currentState.brushDown(),
+            TurtleOperation.DRAW
         );
     }
     
+    /**
+     * Move a Tartaruga para frente.
+     * 
+     * @param length Comprimento da movimentação.
+     */
     public void moveForward( double length ) {
         addFrame(
             currentState.x() + length * Math.cos( currentState.angle() * MathUtils.DEG2RAD ),
             currentState.y() + length * Math.sin( currentState.angle() * MathUtils.DEG2RAD ),
             currentState.angle(),
-            currentState.color(),
+            currentState.paint(),
             currentState.stroke(),
-            currentState.brushDown()
+            currentState.brushDown(),
+            TurtleOperation.DRAW
         );
     }
     
+    /**
+     * Move a Tartaruga para trás.
+     * 
+     * @param length Comprimento da movimentação.
+     */
     public void moveBackward( double length ) {
         addFrame(
             currentState.x() - length * Math.cos( currentState.angle() * MathUtils.DEG2RAD ),
             currentState.y() - length * Math.sin( currentState.angle() * MathUtils.DEG2RAD ),
             currentState.angle(),
-            currentState.color(),
+            currentState.paint(),
             currentState.stroke(),
-            currentState.brushDown()
+            currentState.brushDown(),
+            TurtleOperation.DRAW
         );
     }
     
+    /**
+     * Move a Tartaruga para esquerda.
+     * 
+     * @param length Comprimento da movimentação.
+     */
     public void moveLeft( double length ) {
         addFrame(
             currentState.x() + length * Math.cos( ( currentState.angle() - 90 ) * MathUtils.DEG2RAD ),
             currentState.y() + length * Math.sin( ( currentState.angle() - 90 ) * MathUtils.DEG2RAD ),
             currentState.angle(),
-            currentState.color(),
+            currentState.paint(),
             currentState.stroke(),
-            currentState.brushDown()
+            currentState.brushDown(),
+            TurtleOperation.DRAW
         );
     }
     
+    /**
+     * Move a Tartaruga para direita.
+     * 
+     * @param length Comprimento da movimentação.
+     */
     public void moveRight( double length ) {
         addFrame(
             currentState.x() + length * Math.cos( ( currentState.angle() + 90 ) * MathUtils.DEG2RAD ),
             currentState.y() + length * Math.sin( ( currentState.angle() + 90 ) * MathUtils.DEG2RAD ),
             currentState.angle(),
-            currentState.color(),
+            currentState.paint(),
             currentState.stroke(),
-            currentState.brushDown()
+            currentState.brushDown(),
+            TurtleOperation.DRAW
         );
     }
     
+    /**
+     * Gira a Tartaruga.
+     * 
+     * @param amount Quantidade de graus (sentido horário).
+     */
     public void rotate( double amount ) {
         addFrame(
             currentState.x(), 
             currentState.y(), 
             currentState.angle() + amount, 
-            currentState.color(), 
+            currentState.paint(), 
             currentState.stroke(),
-            currentState.brushDown()
+            currentState.brushDown(),
+            TurtleOperation.CONFIG
         );
     }
     
-    public void moveBrushUp() {
+    /**
+     * Configura a rotação da tartaruga.
+     * 
+     * @param angle Ângulo em graus (sentido horário).
+     */
+    public void setRotation( double angle ) {
+        addFrame(
+            currentState.x(), 
+            currentState.y(), 
+            angle, 
+            currentState.paint(), 
+            currentState.stroke(),
+            currentState.brushDown(),
+            TurtleOperation.CONFIG
+        );
+    }
+    
+    /**
+     * Levanta o pincel.
+     */
+    public void raiseBrush() {
         addFrame(
             currentState.x(), 
             currentState.y(), 
             currentState.angle(), 
-            currentState.color(), 
+            currentState.paint(), 
             currentState.stroke(),
-            false
+            false,
+            TurtleOperation.CONFIG
         );
     }
     
-    public void moveBrushDown() {
+    /**
+     * Abaixa o pincel.
+     */
+    public void lowerBrush() {
         addFrame(
             currentState.x(), 
             currentState.y(), 
             currentState.angle(), 
-            currentState.color(), 
+            currentState.paint(), 
             currentState.stroke(),
-            true
+            true,
+            TurtleOperation.CONFIG
         );
     }
     
+    /**
+     * Alterna o estado do pincel (levantado ou abaixado).
+     */
     public void toggleBrush() {
         addFrame(
             currentState.x(), 
             currentState.y(), 
             currentState.angle(), 
-            currentState.color(), 
+            currentState.paint(), 
             currentState.stroke(),
-            !currentState.brushDown()
+            !currentState.brushDown(),
+            TurtleOperation.CONFIG
         );
     }
     
-    public void setBrushPaint( Paint color ) {
+    /**
+     * Configura a cor do pincel.
+     * 
+     * @param paint Qualquer objeto paint válido que será usado nas operações
+     * de desenho.
+     */
+    public void setBrushPaint( Paint paint ) {
         addFrame(
             currentState.x(), 
             currentState.y(), 
             currentState.angle(), 
-            color, 
+            paint, 
             currentState.stroke(),
-            currentState.brushDown()
+            currentState.brushDown(),
+            TurtleOperation.CONFIG
         );
     }
     
-    public void increaseLineWidth() {
+    /**
+     * Aumenta a grossura do pincel em um pixel.
+     */
+    public void increaseBrushWidth() {
         addFrame( 
             currentState.x(), 
             currentState.y(), 
             currentState.angle(), 
-            currentState.color(), 
+            currentState.paint(), 
             new BasicStroke( currentState.stroke().getLineWidth() + 1 ),
-            currentState.brushDown()
+            currentState.brushDown(),
+            TurtleOperation.CONFIG
         );
     }
     
-    public void decreaseLineWidth() {
+    /**
+     * Diminiu a grossura do pincel em um pixel.
+     */
+    public void decreaseBrushWidth() {
         float lineWidth = currentState.stroke().getLineWidth() - 1;
         if ( lineWidth > 0.0f ) {
             addFrame( 
                 currentState.x(), 
                 currentState.y(), 
                 currentState.angle(), 
-                currentState.color(), 
+                currentState.paint(), 
                 new BasicStroke( lineWidth ),
-                currentState.brushDown()
+                currentState.brushDown(),
+                TurtleOperation.CONFIG
             );
         }
     }
     
-    public void setLineWidth( double thikness ) {
+    /**
+     * Configura a largura do pincel.
+     * 
+     * @param width A nova largura do pincel.
+     */
+    public void setBrushWidth( double width ) {
+        if ( width < 0 ) {
+            width = 0;
+        }
         addFrame( 
             currentState.x(), 
             currentState.y(), 
             currentState.angle(), 
-            currentState.color(), 
-            new BasicStroke( (float) thikness ),
-            currentState.brushDown()
+            currentState.paint(), 
+            new BasicStroke( (float) width ),
+            currentState.brushDown(),
+            TurtleOperation.CONFIG
         );
     }
     
-    public void setStroke( BasicStroke stroke ) {
+    /**
+     * Configura o formato do pincel.
+     * 
+     * @param stroke Novo formato do pincel.
+     */
+    public void setBrushStroke( BasicStroke stroke ) {
         addFrame( 
             currentState.x(), 
             currentState.y(), 
             currentState.angle(), 
-            currentState.color(), 
+            currentState.paint(), 
             stroke,
-            currentState.brushDown()
+            currentState.brushDown(),
+            TurtleOperation.CONFIG
         );
     }
     
-    public void undo() {
-        
-    }
-    
-    public void redo() {
-        
-    }
-    
+    /**
+     * Salva o estado atual da Tartaruga.
+     */
     public void save() {
         snapshots.push( 
             new TurtleStateSnapshot(
@@ -220,39 +368,116 @@ public class Turtle {
                     currentState.x(),
                     currentState.y(),
                     currentState.angle(), 
-                    currentState.color(),
+                    currentState.paint(),
                     currentState.stroke(),
-                    currentState.brushDown()
+                    currentState.brushDown(),
+                    currentState.operation()
                 ),
                 frames.size()
             )
         );
     }
     
+    /**
+     * Restaura o último estado salvo da Tartaruga (caso exista), não removendo
+     * os quadros gerados até o momento do salvamento.
+     */
+    public void restoreNotPurge() {
+        if ( !snapshots.isEmpty() ) {
+            currentState = snapshots.pop().state();
+        }
+    }
+    
+    /**
+     * Restaura o último estado salvo da Tartaruga (caso exista), removendo
+     * os quadros gerados até o momento do salvamento.
+     */
     public void restore() {
         if ( !snapshots.isEmpty() ) {
-            TurtleStateSnapshot ss = snapshots.pop();
-            currentState = ss.state();
-            while ( frames.size() > ss.frameCount() ) {
+            TurtleStateSnapshot snapshot = snapshots.pop();
+            currentState = snapshot.state();
+            while ( frames.size() > snapshot.frameCount() ) {
                 frames.removeLast();
             }
         }
     }
     
+    /**
+     * Reconfigura a Tartaruga na origem, com pincel na cor preta e ângulo inicial
+     * igual a -90 graus.
+     */
     public void reset() {
         reset( 0, 0 );
     }
     
+    /**
+     * Reconfigura a Tartaruga com pincel na cor preta e ângulo inicial igual a
+     * -90 graus em uma posição definida.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo.
+     * @param y Coordenada y do vértice superior esquerdo.
+     */
     public void reset( double x, double y ) {
         reset( x, y, -90, EngineFrame.BLACK, new BasicStroke( 1 ), true );
     }
     
-    public void reset( double x, double y, double angle, Paint color, BasicStroke bs, boolean brushDown ) {
-        frames = new ArrayList<>();
-        snapshots = new ArrayDeque<>();
-        addFrame( x, y, angle, color, bs, brushDown );
+    /**
+     * Reconfigura a Tartaruga com pincel na cor preta em uma posição definida
+     * com um ângulo inicial.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo.
+     * @param y Coordenada y do vértice superior esquerdo.
+     * @param angle Ângulo inicial em graus (sentido horário).
+     */
+    public void reset( double x, double y, double angle ) {
+        reset( x, y, angle, EngineFrame.BLACK, new BasicStroke( 1 ), true );
     }
     
+    /**
+     * Reconfigura a Tartaruga com ângulo inicial igual a -90 graus em uma
+     * posição definida com cor inicial.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo.
+     * @param y Coordenada y do vértice superior esquerdo.
+     * @param paint Paint inicial.
+     */
+    public void reset( double x, double y, Paint paint ) {
+        reset( x, y, -90, paint, new BasicStroke( 1 ), true );
+    }
+    
+    /**
+     * Reconfigura a Tartaruga.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo.
+     * @param y Coordenada y do vértice superior esquerdo.
+     * @param angle Ângulo inicial em graus (sentido horário).
+     * @param paint Paint inicial.
+     */
+    public void reset( double x, double y, double angle, Paint paint ) {
+        reset( x, y, angle, paint, new BasicStroke( 1 ), true );
+    }
+    
+    /**
+     * Reconfigura a Tartaruga.
+     * 
+     * @param x Coordenada x do vértice superior esquerdo.
+     * @param y Coordenada y do vértice superior esquerdo.
+     * @param angle Ângulo inicial em graus (sentido horário).
+     * @param paint Paint inicial.
+     * @param stroke Formato inicial do pincel.
+     * @param brushDown Se o pincel está abaixado.
+     */
+    public void reset( double x, double y, double angle, Paint paint, BasicStroke stroke, boolean brushDown ) {
+        frames = new ArrayList<>();
+        snapshots = new ArrayDeque<>();
+        addFrame( x, y, angle, paint, stroke, brushDown, TurtleOperation.CONFIG );
+    }
+    
+    /**
+     * Desenha todos os quadros da Tartaruga.
+     * 
+     * @param engine EngineFrame utilizada.
+     */
     public void draw( EngineFrame engine ) {
         
         if ( frames.size() <= 1 ) {
@@ -261,21 +486,14 @@ public class Turtle {
         
         draw( 1, frames.size() - 1, engine );
         
-        /*BasicStroke bs = engine.getStroke();
-        
-        for ( int i = 0; i < frames.size() - 1; i++ ) {
-            TurtleState f1 = frames.get( i );
-            TurtleState f2 = frames.get( i + 1 );
-            if ( f2.brushDown() ) {
-                engine.setStroke( f2.stroke() );
-                engine.drawLine( f1.x(), f1.y(), f2.x(), f2.y(), f2.color() );
-            }
-        }
-        
-        engine.setStroke( bs );*/
-        
     }
     
+    /**
+     * Desenha do primeiro quadro até um limite.
+     * 
+     * @param until Quadro final.
+     * @param engine EngineFrame utilizada.
+     */
     public void draw( int until, EngineFrame engine ) {
         
         if ( frames.size() <= 1 ) {
@@ -286,6 +504,13 @@ public class Turtle {
         
     }
     
+    /**
+     * Desenha um intervalo de quadros.
+     * 
+     * @param from Quadro inicial.
+     * @param until Quadro final.
+     * @param engine EngineFrame utilizada.
+     */
     public void draw( int from, int until, EngineFrame engine  ) {
         
         if ( frames.isEmpty() ) {
@@ -323,9 +548,9 @@ public class Turtle {
         for ( int i = startIndex; i <= endIndex; i++ ) {
             TurtleState f1 = frames.get( i );
             TurtleState f2 = frames.get( i + 1 );
-            if ( f2.brushDown() ) {
+            if ( f2.brushDown() && f2.operation() == TurtleOperation.DRAW ) {
                 engine.setStroke( f2.stroke() );
-                engine.drawLine( f1.x(), f1.y(), f2.x(), f2.y(), f2.color() );
+                engine.drawLine( f1.x(), f1.y(), f2.x(), f2.y(), f2.paint() );
             }
         }
         
@@ -333,96 +558,36 @@ public class Turtle {
         
     }
     
+    /**
+     * Obtém o estado atual da Tartaruga.
+     * 
+     * @return O estado atual da Tartaruga.
+     */
     public TurtleState getCurrentState() {
         return currentState;
     }
     
+    /**
+     * Obtém a quantidade de quadros da Tartaruga.
+     * 
+     * @return A quantidade de quadros da Tartaruga.
+     */
     public int getFrameCount() {
         return frames.size() - 1;
     }
     
+    /**
+     * Adiciona um novo quadro.
+     */
+    private void addFrame( double x, double y, double angle, Paint paint, BasicStroke bs, boolean brushDown, TurtleOperation operation ) {
+        currentState = new TurtleState( x, y, angle, paint, bs, brushDown, operation );
+        frames.add( currentState );
+    }
+    
+    /**
+     * Record para armazenar o estado salvo da Tartaruga.
+     */
     private static record TurtleStateSnapshot( TurtleState state, int frameCount ) {
-    }
-    
-    private static class TurtlePad extends EngineFrame {
-        
-        Turtle t;
-        
-        public TurtlePad() {
-            super( 800, 450, "Turtle Pad", 60, true, false, false, false, false, false );
-        }
-        
-        @Override
-        public void create() {
-            t = new Turtle( getScreenWidth() / 2, getScreenHeight() / 2 );
-        }
-        
-        @Override
-        public void update( double delta ) {
-            
-            double length = 10;
-            double amount = 5;
-            
-            if ( isKeyPressed( KEY_UP ) ) {
-                t.moveForward( length );
-            } else if ( isKeyPressed( KEY_DOWN ) ) {
-                t.moveBackward(length );
-            } else if ( isKeyPressed( KEY_LEFT ) ) {
-                t.moveLeft( length );
-            } else if ( isKeyPressed( KEY_RIGHT ) ) {
-                t.moveRight( length );
-            } else if ( isKeyPressed( KEY_PAGE_UP ) ) {
-                t.rotate( -amount );
-            } else if ( isKeyPressed( KEY_PAGE_DOWN ) ) {
-                t.rotate( amount );
-            } else if ( isKeyPressed( KEY_HOME ) ) {
-                t.increaseLineWidth();
-            } else if ( isKeyPressed( KEY_END ) ) {
-                t.decreaseLineWidth();
-            } else if ( isKeyPressed( KEY_F1 ) ) {
-                t.toggleBrush();
-            } else if ( isKeyPressed( KEY_S ) ) {
-                t.save();
-            } else if ( isKeyPressed( KEY_R ) ) {
-                t.restore();
-            }
-            
-        }
-        
-        @Override
-        public void draw() {
-            clearBackground( WHITE );
-            desenharTartaruga();
-            drawText( String.format( "frames: " + t.getFrameCount() ), 10, 10, 20, BLACK );
-        }
-        
-        private void desenharTartaruga() {
-            
-            /*if ( t.frames.size() > 10 ) {
-                t.draw( 1, 3, this );
-            }*/
-            
-            t.draw( this );
-            
-            double width = 6;
-            double veWidth = 20;
-            
-            TurtleState s = t.currentState;
-            fillRectangle( s.x() - width/2, s.y() - width/2, width, width, BLUE );
-            
-            drawLine( 
-                s.x(), s.y(),
-                s.x() + veWidth * Math.cos( s.angle() * MathUtils.DEG2RAD ),
-                s.y() + veWidth * Math.sin( s.angle() * MathUtils.DEG2RAD ),
-                DARKGREEN
-            );
-            
-        }
-        
-    }
-    
-    public static void main( String[] args ) {
-        new TurtlePad();
     }
     
 }

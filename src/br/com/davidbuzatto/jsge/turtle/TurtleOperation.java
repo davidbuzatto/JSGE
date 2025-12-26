@@ -16,13 +16,12 @@
  */
 package br.com.davidbuzatto.jsge.turtle;
 
-import java.awt.BasicStroke;
-import java.awt.Paint;
-
 /**
- * O estado da Tartaruga.
+ * Tipo de operação da Tartaruga em cada quadro armazenado.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public record TurtleState( double x, double y, double angle, Paint paint, BasicStroke stroke, boolean brushDown, TurtleOperation operation ) {
+public enum TurtleOperation {
+    DRAW,    // operação de desenho
+    CONFIG;  // operação de configuração
 }
