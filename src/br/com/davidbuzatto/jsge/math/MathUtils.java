@@ -29,7 +29,7 @@ import java.util.Random;
 public interface MathUtils {
     
     /**
-     * Gerador de números pseudo-aleatórios.
+     * Gerador de números pseudoaleatórios.
      */
     public static final Random RANDOM_GEN = new Random();
     
@@ -134,11 +134,11 @@ public interface MathUtils {
     }
 
     /**
-     * Gera um número pseudo-aleatório entre min (inclusive) e max (inclusive).
+     * Gera um número pseudoaleatório entre min (inclusive) e max (inclusive).
      * 
      * @param min Início do intervalo.
      * @param max Fim do intervalo.
-     * @return Um número pseudo-aleatório entre min (inclusive) e max (inclusive).
+     * @return Um número pseudoaleatório entre min (inclusive) e max (inclusive).
      */
     public static int getRandomValue( int min, int max ) {
         return RANDOM_GEN.nextInt( min, max + 1 );
