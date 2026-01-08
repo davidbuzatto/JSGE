@@ -118,9 +118,13 @@
         <antcall target="-javadoc-build"/>
         
         <!-- compacta a documentação -->
-        <zip destfile="${dist.dir}/${artefatoJavadoc}.zip">
+        <!--zip destfile="${dist.dir}/${artefatoJavadoc}.zip">
             <zipfileset dir="${dist.dir}/javadoc" prefix="javadoc"/>
-        </zip>
+        </zip-->
+        
+        <!-- estrutura correta -->
+        <zip destfile="${dist.dir}/${artefatoJavadoc}.zip"
+             basedir="${dist.dir}/javadoc" />
         
         <!-- apaga o diretório do build da documentação -->
         <delete includeEmptyDirs="true">
