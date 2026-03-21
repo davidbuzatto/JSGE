@@ -20,25 +20,25 @@ import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import java.awt.Paint;
 
 /**
- * Interface para elementos desenháveis.
- * 
+ * Interface for drawable elements.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public interface Drawable {
-    
+
     /**
-     * Desenha o elemento corrente usando a engine.
-     * 
-     * @param engine EngineFrame utilizada.
-     * @param paint Paint para o desenho.
+     * Draws the current element using the engine.
+     *
+     * @param engine The EngineFrame used.
+     * @param paint Paint for drawing.
      */
     void draw( EngineFrame engine, Paint paint );
 
     /**
-     * Pinta o elemento corrente usando a engine.
-     * 
-     * @param engine EngineFrame utilizada.
-     * @param paint Paint para o desenho.
+     * Fills/paints the current element using the engine.
+     *
+     * @param engine The EngineFrame used.
+     * @param paint Paint for drawing.
      */
     void fill( EngineFrame engine, Paint paint );
 

@@ -19,75 +19,75 @@ package br.com.davidbuzatto.jsge.math;
 import java.io.Serializable;
 
 /**
- * Uma matriz.
- * 
+ * A matrix.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class Matrix implements Cloneable, Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    /** Linha 1, coluna 1 */
+    /** Row 1, column 1 */
     public double m0;
-    /** Linha 1, coluna 2 */
+    /** Row 1, column 2 */
     public double m4;
-    /** Linha 1, coluna 3 */
+    /** Row 1, column 3 */
     public double m8;
-    /** Linha 1, coluna 4 */
+    /** Row 1, column 4 */
     public double m12;
-    
-    /** Linha 2, coluna 1 */
+
+    /** Row 2, column 1 */
     public double m1;
-    /** Linha 2, coluna 2 */
+    /** Row 2, column 2 */
     public double m5;
-    /** Linha 2, coluna 3 */
+    /** Row 2, column 3 */
     public double m9;
-    /** Linha 2, coluna 4 */
+    /** Row 2, column 4 */
     public double m13;
-    
-    /** Linha 3, coluna 1 */
+
+    /** Row 3, column 1 */
     public double m2;
-    /** Linha 3, coluna 2 */
+    /** Row 3, column 2 */
     public double m6;
-    /** Linha 3, coluna 3 */
+    /** Row 3, column 3 */
     public double m10;
-    /** Linha 3, coluna 4 */
+    /** Row 3, column 4 */
     public double m14;
-    
-    /** Linha 4, coluna 1 */
+
+    /** Row 4, column 1 */
     public double m3;
-    /** Linha 4, coluna 2 */
+    /** Row 4, column 2 */
     public double m7;
-    /** Linha 4, coluna 3 */
+    /** Row 4, column 3 */
     public double m11;
-    /** Linha 4, coluna 4 */
+    /** Row 4, column 4 */
     public double m15;
 
     /**
-     * Cria uma nova matriz com valores padrão.
+     * Creates a new matrix with default values.
      */
     public Matrix() {
     }
 
     /**
-     * Cria uma nova matriz.
-     * 
-     * @param m0 Valor da linha 1, coluna 1
-     * @param m4 Valor da linha 1, coluna 2
-     * @param m8 Valor da linha 1, coluna 3
-     * @param m12 Valor da linha 1, coluna 4
-     * @param m1 Valor da linha 2, coluna 1
-     * @param m5 Valor da linha 2, coluna 2
-     * @param m9 Valor da linha 2, coluna 3
-     * @param m13 Valor da linha 2, coluna 4
-     * @param m2 Valor da linha 3, coluna 1
-     * @param m6 Valor da linha 3, coluna 2
-     * @param m10 Valor da linha 3, coluna 3
-     * @param m14 Valor da linha 3, coluna 4
-     * @param m3 Valor da linha 4, coluna 1
-     * @param m7 Valor da linha 4, coluna 2
-     * @param m11 Valor da linha 4, coluna 3
-     * @param m15 Valor da linha 4, coluna 4
+     * Creates a new matrix.
+     *
+     * @param m0 Value at row 1, column 1
+     * @param m4 Value at row 1, column 2
+     * @param m8 Value at row 1, column 3
+     * @param m12 Value at row 1, column 4
+     * @param m1 Value at row 2, column 1
+     * @param m5 Value at row 2, column 2
+     * @param m9 Value at row 2, column 3
+     * @param m13 Value at row 2, column 4
+     * @param m2 Value at row 3, column 1
+     * @param m6 Value at row 3, column 2
+     * @param m10 Value at row 3, column 3
+     * @param m14 Value at row 3, column 4
+     * @param m3 Value at row 4, column 1
+     * @param m7 Value at row 4, column 2
+     * @param m11 Value at row 4, column 3
+     * @param m15 Value at row 4, column 4
      */
     public Matrix( double m0, double m4, double m8, double m12, 
                    double m1, double m5, double m9, double m13, 
@@ -112,9 +112,9 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Calcula o determinante da matriz.
-     * 
-     * @return O determinante da matriz.
+     * Calculates the determinant of the matrix.
+     *
+     * @return The determinant of the matrix.
      */
     public double determinant() {
         
@@ -137,18 +137,18 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Calcila o traço da matriz (soma dos valores da diagonal).
-     * 
-     * @return O traço de matriz.
+     * Calculates the trace of the matrix (sum of the diagonal values).
+     *
+     * @return The trace of the matrix.
      */
     public double trace() {
         return m0 + m5 + m10 + m15;
     }
     
     /**
-     * Transpõe a matriz corrente.
-     * 
-     * @return Uma nova matriz transposta.
+     * Transposes the current matrix.
+     *
+     * @return A new transposed matrix.
      */
     public Matrix transpose() {
         
@@ -176,9 +176,9 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Inverte a matriz corrente.
-     * 
-     * @return Uma nova matriz invertida.
+     * Inverts the current matrix.
+     *
+     * @return A new inverted matrix.
      */
     public Matrix invert() {
         
@@ -226,10 +226,10 @@ public class Matrix implements Cloneable, Serializable {
     }
 
     /**
-     * Soma a matriz corrente com outra matriz.
-     * 
-     * @param m Outra matriz.
-     * @return Uma nova matriz da soma.
+     * Adds the current matrix to another matrix.
+     *
+     * @param m Another matrix.
+     * @return A new matrix resulting from the addition.
      */
     public Matrix add( Matrix m ) {
         
@@ -257,10 +257,10 @@ public class Matrix implements Cloneable, Serializable {
     }
 
     /**
-     * Subtrai da matriz corrente a outra matriz.
-     * 
-     * @param m Outra matriz.
-     * @return Uma nova matriz da subtração.
+     * Subtracts another matrix from the current matrix.
+     *
+     * @param m Another matrix.
+     * @return A new matrix resulting from the subtraction.
      */
     public Matrix subtract( Matrix m ) {
         
@@ -288,10 +288,10 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Multiplica a matriz corrente pela passada.
-     * 
-     * @param m Outra matriz.
-     * @return Uma nova matriz com a multiplicação.
+     * Multiplies the current matrix by the given matrix.
+     *
+     * @param m Another matrix.
+     * @return A new matrix with the result of the multiplication.
      */
     public Matrix multiply( Matrix m ) {
         
@@ -319,11 +319,11 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Decompõe a matriz corrente em seus componentes rotacionais, translacionais e de escalonamento.
-     * 
-     * @param translation Vetor que receberá os dados translacionais.
-     * @param rotation Quaternion que receberá os componentes rotacionais.
-     * @param scaling Vetor que receberá os componentes de escalonamento.
+     * Decomposes the current matrix into its rotational, translational, and scaling components.
+     *
+     * @param translation Vector that will receive the translational data.
+     * @param rotation Quaternion that will receive the rotational components.
+     * @param scaling Vector that will receive the scaling components.
      */
     public void decompose( Vector3 translation, Quaternion rotation, Vector3 scaling ) {
         
@@ -386,9 +386,9 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Cria uma matriz identidade.
-     * 
-     * @return Uma nova matriz identidade.
+     * Creates an identity matrix.
+     *
+     * @return A new identity matrix.
      */
     public static Matrix identity() {
         return new Matrix(
@@ -399,12 +399,12 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Cria uma matriz de translação.
-     * 
-     * @param x Posição em x.
-     * @param y Posição em y.
-     * @param z Posição em z.
-     * @return Uma nova matriz de translação.
+     * Creates a translation matrix.
+     *
+     * @param x Position in x.
+     * @param y Position in y.
+     * @param z Position in z.
+     * @return A new translation matrix.
      */
     public static Matrix translate( double x, double y, double z ) {
         return new Matrix( 
@@ -416,11 +416,11 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Cria uma matriz de rotação.
-     * 
-     * @param axis O eixo de rotação.
-     * @param angle O ângulo em radianos.
-     * @return Uma nova matriz de rotação.
+     * Creates a rotation matrix.
+     *
+     * @param axis The rotation axis.
+     * @param angle The angle in radians.
+     * @return A new rotation matrix.
      */
     public static Matrix rotate( Vector3 axis, double angle ) {
         
@@ -466,10 +466,10 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Cria uma matriz de rotação em x.
-     * 
-     * @param angle O ângulo em radianos.
-     * @return Uma nova matriz de rotação em x.
+     * Creates a rotation matrix around the x axis.
+     *
+     * @param angle The angle in radians.
+     * @return A new rotation matrix around the x axis.
      */
     public static Matrix rotateX( double angle ) {
         
@@ -488,10 +488,10 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Cria uma matriz de rotação em y.
-     * 
-     * @param angle O ângulo em radianos.
-     * @return Uma nova matriz de rotação em y.
+     * Creates a rotation matrix around the y axis.
+     *
+     * @param angle The angle in radians.
+     * @return A new rotation matrix around the y axis.
      */
     public static Matrix rotateY( double angle ) {
         
@@ -510,10 +510,10 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Cria uma matriz de rotação em z.
-     * 
-     * @param angle O ângulo em radianos.
-     * @return Uma nova matriz de rotação em z.
+     * Creates a rotation matrix around the z axis.
+     *
+     * @param angle The angle in radians.
+     * @return A new rotation matrix around the z axis.
      */
     public static Matrix rotateZ( double angle ) {
         
@@ -532,10 +532,10 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Cria uma matriz de rotação em em xyz.
-     * 
-     * @param angle Um vetor com os ângulos em radianos.
-     * @return Uma nova matriz de rotação em xyz.
+     * Creates a rotation matrix around xyz.
+     *
+     * @param angle A vector with the angles in radians.
+     * @return A new rotation matrix around xyz.
      */
     public static Matrix rotateXYZ( Vector3 angle ) {
         
@@ -565,10 +565,10 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Cria uma matriz de rotação em em zyx.
-     * 
-     * @param angle Um vetor com os ângulos em radianos.
-     * @return Uma nova matriz de rotação em zyx.
+     * Creates a rotation matrix around zyx.
+     *
+     * @param angle A vector with the angles in radians.
+     * @return A new rotation matrix around zyx.
      */
     public static Matrix rotateZYX( Vector3 angle ) {
         
@@ -606,12 +606,12 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Cria uma matriz de escalonamento.
-     * 
-     * @param x Escala em x.
-     * @param y Escala em y.
-     * @param z Escala em z.
-     * @return Uma nova matriz escalonada.
+     * Creates a scaling matrix.
+     *
+     * @param x Scale in x.
+     * @param y Scale in y.
+     * @param z Scale in z.
+     * @return A new scaling matrix.
      */
     public static Matrix scale( double x, double y, double z ) {
         return new Matrix( 
@@ -623,15 +623,15 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Cria uma matriz de projeção de perspectiva.
-     * 
-     * @param left Esquerda.
-     * @param right Direita.
-     * @param bottom Baixo.
-     * @param top Cima.
-     * @param nearPlane Plano próximo.
-     * @param farPlane Plano distante.
-     * @return Uma nova matriz de projeção.
+     * Creates a perspective projection matrix.
+     *
+     * @param left Left.
+     * @param right Right.
+     * @param bottom Bottom.
+     * @param top Top.
+     * @param nearPlane Near plane.
+     * @param farPlane Far plane.
+     * @return A new projection matrix.
      */
     public static Matrix frustrum( double left, double right, double bottom, double top, double nearPlane, double farPlane ) {
         
@@ -663,13 +663,13 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Cria uma matriz de projeção de perspectiva.
-     * 
-     * @param fovY Campo de visão em radianos.
-     * @param aspect Aspecto.
-     * @param nearPlane Plano próximo.
-     * @param farPlane Plano distante.
-     * @return Uma nova matriz de projeção.
+     * Creates a perspective projection matrix.
+     *
+     * @param fovY Field of view in radians.
+     * @param aspect Aspect ratio.
+     * @param nearPlane Near plane.
+     * @param farPlane Far plane.
+     * @return A new projection matrix.
      */
     public static Matrix perspective( double fovY, double aspect, double nearPlane, double farPlane ) {
         
@@ -696,15 +696,15 @@ public class Matrix implements Cloneable, Serializable {
     }
 
     /**
-     * Cria uma matriz de projeção ortográfica.
-     * 
-     * @param left Esquerda.
-     * @param right Direita.
-     * @param bottom Baixo.
-     * @param top Cima.
-     * @param nearPlane Plano próximo.
-     * @param farPlane Plano distante.
-     * @return Uma nova matriz de projeção.
+     * Creates an orthographic projection matrix.
+     *
+     * @param left Left.
+     * @param right Right.
+     * @param bottom Bottom.
+     * @param top Top.
+     * @param nearPlane Near plane.
+     * @param farPlane Far plane.
+     * @return A new projection matrix.
      */
     public static Matrix ortho( double left, double right, double bottom, double top, double nearPlane, double farPlane ) {
         
@@ -736,12 +736,12 @@ public class Matrix implements Cloneable, Serializable {
     }
     
     /**
-     * Obtém a matriz de "look-at" de uma câmera (view matriz).
-     * 
-     * @param eye Posição do olho.
-     * @param target Posição do alvo.
-     * @param up Vetor cima.
-     * @return Uma nova matriz "look-at".
+     * Gets the "look-at" matrix for a camera (view matrix).
+     *
+     * @param eye Eye position.
+     * @param target Target position.
+     * @param up Up vector.
+     * @return A new "look-at" matrix.
      */
     public static Matrix lookAt( Vector3 eye, Vector3 target, Vector3 up ) {
         

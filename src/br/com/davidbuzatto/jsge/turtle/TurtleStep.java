@@ -20,8 +20,8 @@ import java.awt.BasicStroke;
 import java.awt.Paint;
 
 /**
- * Um passo da Tartaruga.
- * 
+ * A Turtle step.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public record TurtleStep( double x, double y, double angle, Paint paint, BasicStroke stroke, boolean penDown, TurtleOperation operation ) {

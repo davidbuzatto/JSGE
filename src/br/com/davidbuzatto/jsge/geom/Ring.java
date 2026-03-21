@@ -22,8 +22,8 @@ import java.awt.Paint;
 import java.io.Serializable;
 
 /**
- * Classe para representação de um anel em duas dimensões.
- * 
+ * Class for representing a ring in two dimensions.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class Ring implements Drawable, Serializable {
@@ -31,50 +31,50 @@ public class Ring implements Drawable, Serializable {
     private static final long serialVersionUID = 1L;
     
     /**
-     * Coordenada x do centro.
+     * X coordinate of the center.
      */
     public double x;
-    
+
     /**
-     * Coordenada y do centro.
+     * Y coordinate of the center.
      */
     public double y;
-    
+
     /**
-     * Raio interno.
+     * Inner radius.
      */
     public double innerRadius;
-    
+
     /**
-     * Raio externo.
+     * Outer radius.
      */
     public double outerRadius;
-    
+
     /**
-     * Ângulo inicial, em graus, sentido horário.
+     * Start angle, in degrees, clockwise.
      */
     public double startAngle;
-    
+
     /**
-     * Ângulo final, em graus, sentido horário.
+     * End angle, in degrees, clockwise.
      */
     public double endAngle;
 
     /**
-     * Cria um novo anel com valores padrão.
+     * Creates a new ring with default values.
      */
     public Ring() {
     }
 
     /**
-     * Cria um novo anel.
-     * 
-     * @param x Coordenada x do centro.
-     * @param y Coordenada y do centro.
-     * @param innerRadius Raio interno.
-     * @param outerRadius Raio externo.
-     * @param startAngle Ângulo inicial em graus (sentido horário).
-     * @param endAngle Ângulo final em graus (sentido horário).
+     * Creates a new ring.
+     *
+     * @param x X coordinate of the center.
+     * @param y Y coordinate of the center.
+     * @param innerRadius Inner radius.
+     * @param outerRadius Outer radius.
+     * @param startAngle Start angle in degrees (clockwise).
+     * @param endAngle End angle in degrees (clockwise).
      */
     public Ring( double x, double y, double innerRadius, double outerRadius, double startAngle, double endAngle ) {
         this.x = x;

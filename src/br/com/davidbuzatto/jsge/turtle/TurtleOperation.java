@@ -17,11 +17,11 @@
 package br.com.davidbuzatto.jsge.turtle;
 
 /**
- * Tipo de operação da Tartaruga em cada quadro armazenado.
- * 
+ * Type of Turtle operation in each stored step.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public enum TurtleOperation {
-    DRAW,    // operação de desenho
-    CONFIG;  // operação de configuração
+    DRAW,    // drawing operation
+    CONFIG;  // configuration operation
 }

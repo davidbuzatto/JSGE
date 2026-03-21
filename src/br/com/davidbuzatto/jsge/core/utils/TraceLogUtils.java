@@ -17,52 +17,51 @@
 package br.com.davidbuzatto.jsge.core.utils;
 
 /**
- * Classe com métodos estáticos para gerenciamento dos métodos de logging da
- * engine.
- * 
+ * Class with static methods for managing the engine's logging methods.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public abstract class TraceLogUtils {
-    
+
     /**
-     * Um warning a menos do javadoc :D
+     * One fewer Javadoc warning :D
      */
     private TraceLogUtils() {
     }
-    
+
     //**************************************************************************
-    // Níveis de log.
+    // Log levels.
     //**************************************************************************
-    
-    /** Constante para desabilitar o sistema de logs */
+
+    /** Constant to disable the logging system. */
     public static final int LOG_NONE           = 0;
-    
-    /** Constante para logs em nível INFO (informação). */
+
+    /** Constant for INFO level logs. */
     public static final int LOG_INFO           = 1;
-    
-    /** Constante para logs em nível WARNING (aviso). */
+
+    /** Constant for WARNING level logs. */
     public static final int LOG_WARNING        = 2;
-    
-    /** Constante para logs em nível ERROR (erro). */
+
+    /** Constant for ERROR level logs. */
     public static final int LOG_ERROR          = 3;
-    
-    /** Constante para logs em nível FATAL. */
+
+    /** Constant for FATAL level logs. */
     public static final int LOG_FATAL          = 4;
-    
-    /** Constante para realizar o log de quaisquer níveis. */
+
+    /** Constant to log at any level. */
     public static final int LOG_ALL            = 5;
-    
+
     /**
-     * Nível de log atual da engine.
+     * Current log level of the engine.
      */
     private static int traceLogLevel = TraceLogUtils.LOG_ALL;
-    
+
     /**
-     * Emite uma mensagem de log no stream de saída de erro.
-     * 
-     * @param logLevel O nível do log.
-     * @param text O texto a ser emitido.
-     * @param args Os argumentos para a formatação do texto.
+     * Emits a log message to the error output stream.
+     *
+     * @param logLevel The log level.
+     * @param text The text to be emitted.
+     * @param args The arguments for text formatting.
      */
     public static void traceLog( int logLevel, String text, Object... args ) {
         if ( logLevel <= traceLogLevel ) {
@@ -82,49 +81,49 @@ public abstract class TraceLogUtils {
     }
     
     /**
-     * Emite uma mensagem de log no nível INFO no stream de saída de erro.
-     * 
-     * @param text O texto a ser emitido.
-     * @param args Os argumentos para a formatação do texto.
+     * Emits an INFO level log message to the error output stream.
+     *
+     * @param text The text to be emitted.
+     * @param args The arguments for text formatting.
      */
     public static void traceLogInfo( String text, Object... args ) {
         traceLog( LOG_INFO, text, args );
     }
     
     /**
-     * Emite uma mensagem de log no nível WARNING no stream de saída de erro.
-     * 
-     * @param text O texto a ser emitido.
-     * @param args Os argumentos para a formatação do texto.
+     * Emits a WARNING level log message to the error output stream.
+     *
+     * @param text The text to be emitted.
+     * @param args The arguments for text formatting.
      */
     public static void traceLogWarning( String text, Object... args ) {
         traceLog( LOG_WARNING, text, args );
     }
     
     /**
-     * Emite uma mensagem de log no nível ERROR no stream de saída de erro.
-     * 
-     * @param text O texto a ser emitido.
-     * @param args Os argumentos para a formatação do texto.
+     * Emits an ERROR level log message to the error output stream.
+     *
+     * @param text The text to be emitted.
+     * @param args The arguments for text formatting.
      */
     public static void traceLogError( String text, Object... args ) {
         traceLog( LOG_ERROR, text, args );
     }
     
     /**
-     * Emite uma mensagem de log no nível FATAL no stream de saída de erro.
-     * 
-     * @param text O texto a ser emitido.
-     * @param args Os argumentos para a formatação do texto.
+     * Emits a FATAL level log message to the error output stream.
+     *
+     * @param text The text to be emitted.
+     * @param args The arguments for text formatting.
      */
     public static void traceLogFatal( String text, Object... args ) {
         traceLog( LOG_FATAL, text, args );
     }
     
     /**
-     * Configura o nível de log do sistema de loggin da engine.
-     * 
-     * @param logLevel O nível de log.
+     * Sets the log level for the engine's logging system.
+     *
+     * @param logLevel The log level.
      */
     public static void setTraceLogLevel( int logLevel ) {
         if ( logLevel >= LOG_NONE && logLevel <= LOG_ALL ) {

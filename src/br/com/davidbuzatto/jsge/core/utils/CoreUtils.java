@@ -21,31 +21,31 @@ import java.io.StringWriter;
 import java.util.ResourceBundle;
 
 /**
- * Interface com métodos estáticos utilitários.
- * 
+ * Interface with static utility methods.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public interface CoreUtils {
-    
+
     /**
-     * Resurce bundle para strings.
+     * Resource bundle for strings.
      */
     public static final ResourceBundle BUNDLE = ResourceBundle.getBundle( "br/com/davidbuzatto/jsge/Bundle" );
-    
+
     /**
-     * Obtém a versão atual.
-     * 
-     * @return A versão.
+     * Gets the current version.
+     *
+     * @return The version.
      */
     public static String getVersion() {
         return BUNDLE.getString( "JSGE.version" );
     }
-    
+
     /**
-     * Escreve os dados da stack trace de uma exceção em uma string.
-     * 
-     * @param exc A exceção a ser processada.
-     * @return Uma string com o conteúdo da stack trace.
+     * Writes the stack trace data of an exception to a string.
+     *
+     * @param exc The exception to be processed.
+     * @return A string with the stack trace content.
      */
     public static String stackTraceToString( Exception exc ) {
         

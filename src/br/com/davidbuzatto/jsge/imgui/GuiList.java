@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Um componente de lista de items.
- * 
+ * A list component.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class GuiList extends GuiComponent {
@@ -47,17 +47,16 @@ public class GuiList extends GuiComponent {
     private double prevScrollOffset;
     
     /**
-     * Cria o componente.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param itemsText Lista com o texto dos itens da lista.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param itemsText List with the text of the list items.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiList( double x, double y, double width, double height, List<String> itemsText, EngineFrame engine ) {
         super( x, y, width, height, engine );
@@ -65,19 +64,19 @@ public class GuiList extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param itemsText Lista com o texto dos itens da lista.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param itemsText List with the text of the list items.
      */
     public GuiList( double x, double y, double width, double height, List<String> itemsText ) {
         super( x, y, width, height );
@@ -85,12 +84,11 @@ public class GuiList extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param itemsText Lista com o texto dos itens da lista.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param itemsText List with the text of the list items.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiList( Rectangle bounds, List<String> itemsText, EngineFrame engine ) {
         super( bounds, engine );
@@ -98,14 +96,14 @@ public class GuiList extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param itemsText Lista com o texto dos itens da lista.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param itemsText List with the text of the list items.
      */
     public GuiList( Rectangle bounds, List<String> itemsText ) {
         super( bounds );
@@ -267,7 +265,7 @@ public class GuiList extends GuiComponent {
                 first = false;
             }
             
-            // JDK 21 e posteriores :D
+            // JDK 21 and later :D
             //Rectangle lastItemBounds = items.getLast().bounds;
             
             Rectangle lastItemBounds = items.get( items.size() - 1 ).bounds;
@@ -302,10 +300,9 @@ public class GuiList extends GuiComponent {
     }
     
     /**
-     * Retorna o texto do item selecionado no momento.
-     * 
-     * @return O texto do item selecionado ou null caso nenhum item esteja
-     * selecionado.
+     * Returns the text of the currently selected item.
+     *
+     * @return The text of the selected item, or null if no item is selected.
      */
     public String getSelectedItemText() {
         for ( ListItem item : items ) {
@@ -317,10 +314,9 @@ public class GuiList extends GuiComponent {
     }
     
     /**
-     * Retorna o índice do item selecionado no momento.
-     * 
-     * @return O índice do item selecionado ou -1 caso nenhum item esteja
-     * selecionado.
+     * Returns the index of the currently selected item.
+     *
+     * @return The index of the selected item, or -1 if no item is selected.
      */
     public int getSelectedItemIndex() {
         int index = -1;
@@ -334,73 +330,73 @@ public class GuiList extends GuiComponent {
     }
 
     /**
-     * Retorna a altura do texto utilizada do desenho do componente.
-     * 
-     * @return A altura do texto.
+     * Returns the text height used when drawing the component.
+     *
+     * @return The text height.
      */
     protected double getItemTextHeight() {
         return itemTextHeight;
     }
     
     /**
-     * Retorna se o ponteiro do mouse está totalmente fora do componente, ou seja,
-     * fora do retângulo limítrofe e da barra de rolagem.
-     * 
-     * @return Verdadeiro caso esteja fora, falso caso contrário.
+     * Returns whether the mouse pointer is entirely outside the component, that is,
+     * outside both the bounding rectangle and the scroll bar.
+     *
+     * @return True if it is outside, false otherwise.
      */
     public boolean isMouseOutEntirely() {
         return mouseState == GuiComponentMouseState.MOUSE_OUT && scrollBar.mouseState == GuiComponentMouseState.MOUSE_OUT;
     }
     
     /**
-     * Obtém a cor do fundo da barra de rolagem.
-     * 
-     * @return A cor do fundo.
+     * Gets the background color of the scroll bar.
+     *
+     * @return The background color.
      */
     public Color getScrollBarBackgroundColor() {
         return scrollBar.getBackgroundColor();
     }
     
     /**
-     * Confira a cor do fundo da barra de rolagem.
-     * 
-     * @param backgroundColor A cor do fundo.
+     * Sets the background color of the scroll bar.
+     *
+     * @param backgroundColor The background color.
      */
     public void setScrollBarBackgroundColor( Color backgroundColor ) {
         scrollBar.setBackgroundColor( backgroundColor );
     }
     
     /**
-     * Obtém a cor da borda da barra de rolagem.
-     * 
-     * @return A cor da borda.
+     * Gets the border color of the scroll bar.
+     *
+     * @return The border color.
      */
     public Color getScrollBarBorderColor() {
         return scrollBar.getBorderColor();
     }
     
     /**
-     * Confira a cor da borda da barra de rolagem.
-     * 
-     * @param borderColor A cor da borda.
+     * Sets the border color of the scroll bar.
+     *
+     * @param borderColor The border color.
      */
     public void setScrollBarBorderColor( Color borderColor ) {
         scrollBar.setBorderColor( borderColor );
     }
     
     /**
-     * Obtém a cor do texto da barra de rolagem.
-     * 
-     * @return A cor do texto.
+     * Gets the text color of the scroll bar.
+     *
+     * @return The text color.
      */
     public Color getScrollBarTextColor() {
         return scrollBar.getTextColor();
     }
     
     /**
-     * Confira a cor do texto da barra de rolagem.
-     * 
-     * @param textColor A cor do texto.
+     * Sets the text color of the scroll bar.
+     *
+     * @param textColor The text color.
      */
     public void setScrollBarTextColor( Color textColor ) {
         scrollBar.setTextColor( textColor );

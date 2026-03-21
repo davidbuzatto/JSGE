@@ -24,8 +24,8 @@ import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
- * Um componente seletor de cores.
- * 
+ * A color picker component.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class GuiColorPicker extends GuiComponent {
@@ -42,17 +42,16 @@ public class GuiColorPicker extends GuiComponent {
     private boolean allowingAlphaChange;
     
     /**
-     * Cria o componente.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param initialColor A cor inicial.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param initialColor The initial color.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiColorPicker( double x, double y, double width, double height, Color initialColor, EngineFrame engine ) {
         super( x, y, width, height, engine );
@@ -60,19 +59,19 @@ public class GuiColorPicker extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param initialColor A cor inicial.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param initialColor The initial color.
      */
     public GuiColorPicker( double x, double y, double width, double height, Color initialColor ) {
         super( x, y, width, height );
@@ -80,12 +79,11 @@ public class GuiColorPicker extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param initialColor A cor inicial.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param initialColor The initial color.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiColorPicker( Rectangle bounds, Color initialColor, EngineFrame engine ) {
         super( bounds, engine );
@@ -93,14 +91,14 @@ public class GuiColorPicker extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param initialColor A cor inicial.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param initialColor The initial color.
      */
     public GuiColorPicker( Rectangle bounds, Color initialColor ) {
         super( bounds );
@@ -310,28 +308,28 @@ public class GuiColorPicker extends GuiComponent {
     }
 
     /**
-     * Retorna se o componente permite a edição do canal de transparência.
-     * 
-     * @return Verdadeiro caso permita, falso caso contrário.
+     * Returns whether the component allows editing of the alpha channel.
+     *
+     * @return True if it allows, false otherwise.
      */
     public boolean isAllowingAlphaChange() {
         return allowingAlphaChange;
     }
 
     /**
-     * Configura o componente para permitir ou não a modificação do canal
-     * de transparência da cor.
-     * 
-     * @param allowingAlphaChange Verdadeiro para permitir, falso caso contrário.
+     * Configures the component to allow or disallow modification of the
+     * alpha channel of the color.
+     *
+     * @param allowingAlphaChange True to allow, false otherwise.
      */
     public void setAllowingAlphaChange( boolean allowingAlphaChange ) {
         this.allowingAlphaChange = allowingAlphaChange;
     }
     
     /**
-     * Retorna a cor selecionada no momento.
-     * 
-     * @return A cor selecionada.
+     * Returns the currently selected color.
+     *
+     * @return The selected color.
      */
     public Color getColor() {
         return ColorUtils.fade( 
@@ -345,27 +343,27 @@ public class GuiColorPicker extends GuiComponent {
     }
     
     /**
-     * Retorna o matiz da cor selecionada no momento.
-     * 
-     * @return O matiz variando de 0 a 360.
+     * Returns the hue of the currently selected color.
+     *
+     * @return The hue ranging from 0 to 360.
      */
     public double getHue() {
         return hueSlider.getValue();
     }
     
     /**
-     * Retorna a saturação da cor selecionada no momento.
-     * 
-     * @return A saturação de 0 a 1.
+     * Returns the saturation of the currently selected color.
+     *
+     * @return The saturation from 0 to 1.
      */
     public double getSaturation() {
         return ( saturationAndValuePosition.x - bounds.x ) / bounds.width;
     }
     
     /**
-     * Retorna o valor da cor selecionada no momento.
-     * 
-     * @return O valor de 0 a 1.
+     * Returns the value (brightness) of the currently selected color.
+     *
+     * @return The value from 0 to 1.
      */
     public double getValue() {
         return 1.0 - ( saturationAndValuePosition.y - bounds.y ) / bounds.height;

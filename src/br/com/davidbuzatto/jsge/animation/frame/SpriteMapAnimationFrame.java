@@ -22,27 +22,26 @@ import br.com.davidbuzatto.jsge.image.Image;
 import java.awt.Color;
 
 /**
- * Um quadro de animação baseado em um mapa de sprite. Usa como base um quadro
- * do tipo ImageAnimationFrame. A imagem do mapa de sprite será associada
- * ao atributo baseImage do ImageAnimationFrame.
- * 
+ * An animation frame based on a sprite map. It is based on an ImageAnimationFrame.
+ * The sprite map image will be associated with the baseImage attribute of ImageAnimationFrame.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class SpriteMapAnimationFrame extends ImageAnimationFrame {
-    
+
     /**
-     * O retângulo fonte do recorte.
+     * The source rectangle of the crop.
      */
     public final Rectangle source;
-    
+
     /**
-     * Cria um quadro de animação de imagem.
-     * 
-     * @param spriteMapImage Imagem do mapa de sprite.
-     * @param x Coordenada x do início do recorte do mapa de sprite.
-     * @param y Coordenada y do início do recorte do mapa de sprite.
-     * @param width Largura do recorte do mapa de sprite.
-     * @param height Altura do recorte do mapa de sprite.
+     * Creates an image animation frame.
+     *
+     * @param spriteMapImage The sprite map image.
+     * @param x The x coordinate of the start of the sprite map crop.
+     * @param y The y coordinate of the start of the sprite map crop.
+     * @param width Width of the sprite map crop.
+     * @param height Height of the sprite map crop.
      */
     public SpriteMapAnimationFrame( Image spriteMapImage, double x, double y, double width, double height ) {
         super( spriteMapImage );

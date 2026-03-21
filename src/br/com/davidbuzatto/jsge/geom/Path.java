@@ -23,8 +23,8 @@ import java.awt.geom.Path2D;
 import java.io.Serializable;
 
 /**
- * Classe para representação de um caminho em duas dimensões.
- * 
+ * Class for representing a path in two dimensions.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class Path implements Drawable, Serializable {
@@ -32,65 +32,65 @@ public class Path implements Drawable, Serializable {
     private static final long serialVersionUID = 1L;
     
     /**
-     * Path2D desse caminho.
+     * The Path2D of this path.
      */
     public Path2D.Double path;
 
     /**
-     * Cria um novo caminho.
+     * Creates a new path.
      */
     public Path() {
         path = new Path2D.Double();
     }
-    
+
     /**
-     * Move para a coordenada desejada.
-     * 
-     * @param x Coordenada x do ponto desejado.
-     * @param y Coordenada y do ponto desejado.
+     * Moves to the desired coordinate.
+     *
+     * @param x X coordinate of the desired point.
+     * @param y Y coordinate of the desired point.
      */
     public void moveTo( double x, double y ) {
         path.moveTo( x, y );
     }
 
     /**
-     * Cria uma linha do ponto atual até o ponto desejado.
-     * 
-     * @param x Coordenada x do ponto desejado.
-     * @param y Coordenada y do ponto desejado.
+     * Creates a line from the current point to the desired point.
+     *
+     * @param x X coordinate of the desired point.
+     * @param y Y coordinate of the desired point.
      */
     public void lineTo( double x, double y ) {
         path.lineTo( x, y );
     }
 
     /**
-     * Cria uma curva Bézier quadrática do ponto atual até o ponto desejado.
-     * 
-     * @param cx Coordenada x do ponto de controle.
-     * @param cy Coordenada y do ponto de controle.
-     * @param x Coordenada x do ponto desejado.
-     * @param y Coordenada y do ponto desejado.
+     * Creates a quadratic Bézier curve from the current point to the desired point.
+     *
+     * @param cx X coordinate of the control point.
+     * @param cy Y coordinate of the control point.
+     * @param x X coordinate of the desired point.
+     * @param y Y coordinate of the desired point.
      */
     public void quadTo( double cx, double cy, double x, double y ) {
         path.quadTo( cx, cy, x, y );
     }
 
     /**
-     * Cria uma curva Bézier cúbica do ponto atual até o ponto desejado.
-     * 
-     * @param c1x Coordenada x do primeiro ponto de controle.
-     * @param c1y Coordenada y do primeiro ponto de controle.
-     * @param c2x Coordenada x do segundo ponto de controle.
-     * @param c2y Coordenada y do segundo ponto de controle.
-     * @param x Coordenada x do ponto desejado.
-     * @param y Coordenada y do ponto desejado.
+     * Creates a cubic Bézier curve from the current point to the desired point.
+     *
+     * @param c1x X coordinate of the first control point.
+     * @param c1y Y coordinate of the first control point.
+     * @param c2x X coordinate of the second control point.
+     * @param c2y Y coordinate of the second control point.
+     * @param x X coordinate of the desired point.
+     * @param y Y coordinate of the desired point.
      */
     public void cubicTo( double c1x, double c1y, double c2x, double c2y, double x, double y ) {
         path.curveTo( c1x, c1y, c2x, c2y, x, y );
     }
 
     /**
-     * Fecha o caminho, ligando com uma linha do ponto inicial até o último ponto criado.
+     * Closes the path, connecting with a line from the start point to the last created point.
      */
     public void close() {
         path.closePath();

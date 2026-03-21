@@ -22,8 +22,8 @@ import java.awt.Paint;
 import java.io.Serializable;
 
 /**
- * Classe para representação de uma curva Bézier quadrática.
- * 
+ * Class for representing a quadratic Bézier curve.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class QuadCurve implements Drawable, Serializable {
@@ -31,50 +31,50 @@ public class QuadCurve implements Drawable, Serializable {
     private static final long serialVersionUID = 1L;
     
     /**
-     * Coordenada x do ponto inicial.
+     * X coordinate of the start point.
      */
     public double x1;
-    
+
     /**
-     * Coordenada y do ponto inicial.
+     * Y coordinate of the start point.
      */
     public double y1;
-    
+
     /**
-     * Coordenada x do ponto de controle.
+     * X coordinate of the control point.
      */
     public double cx;
-    
+
     /**
-     * Coordenada y do ponto de controle.
+     * Y coordinate of the control point.
      */
     public double cy;
-    
+
     /**
-     * Coordenada x do ponto final.
+     * X coordinate of the end point.
      */
     public double x2;
-    
+
     /**
-     * Coordenada y do ponto final.
+     * Y coordinate of the end point.
      */
     public double y2;
 
     /**
-     * Uma uma nova curva Bézier quadrática com valores padrão.
+     * Creates a new quadratic Bézier curve with default values.
      */
     public QuadCurve() {
     }
 
     /**
-     * Cria uma nova curva Bézier quadrática.
-     * 
-     * @param x1 Coordenada x inicial.
-     * @param y1 Coordenada y inicial.
-     * @param cx Coordenada x do ponto de controle.
-     * @param cy Coordenada y do ponto de controle.
-     * @param x2 Coordenada x final.
-     * @param y2 Coordenada y final.
+     * Creates a new quadratic Bézier curve.
+     *
+     * @param x1 Start x coordinate.
+     * @param y1 Start y coordinate.
+     * @param cx X coordinate of the control point.
+     * @param cy Y coordinate of the control point.
+     * @param x2 End x coordinate.
+     * @param y2 End y coordinate.
      */
     public QuadCurve( double x1, double y1, double cx, double cy, double x2, double y2 ) {
         this.x1 = x1;

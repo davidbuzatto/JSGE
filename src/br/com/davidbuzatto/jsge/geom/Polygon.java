@@ -22,8 +22,8 @@ import java.awt.Paint;
 import java.io.Serializable;
 
 /**
- * Classe para representação de um polígono regular em duas dimensões.
- * 
+ * Class for representing a regular polygon in two dimensions.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class Polygon implements Drawable, Serializable {
@@ -31,44 +31,44 @@ public class Polygon implements Drawable, Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Coordenada x do centro.
+     * X coordinate of the center.
      */
     public double x;
-    
+
     /**
-     * Coordenada y do centro.
+     * Y coordinate of the center.
      */
     public double y;
-    
+
     /**
-     * Quantidade de lados.
+     * Number of sides.
      */
     public int sides;
-    
+
     /**
-     * Raio.
+     * Radius.
      */
     public double radius;
-    
+
     /**
-     * Ângulo de rotação em gradus, no sentido horário.
+     * Rotation angle in degrees, clockwise.
      */
     public double rotation;
 
     /**
-     * Cria um novo polígono regular com valores padrão.
+     * Creates a new regular polygon with default values.
      */
     public Polygon() {
     }
 
     /**
-     * Cria um novo polígono regular.
-     * 
-     * @param x Coordenada x do centro.
-     * @param y Coordenada y do centro.
-     * @param sides Quantidade de lados.
-     * @param radius Raio do círculo circunscrito.
-     * @param rotation Ângulo inicial em graus (sentido horário).
+     * Creates a new regular polygon.
+     *
+     * @param x X coordinate of the center.
+     * @param y Y coordinate of the center.
+     * @param sides Number of sides.
+     * @param radius Radius of the circumscribed circle.
+     * @param rotation Start angle in degrees (clockwise).
      */
     public Polygon( double x, double y, int sides, double radius, double rotation ) {
         this.x = x;
@@ -79,12 +79,12 @@ public class Polygon implements Drawable, Serializable {
     }
 
     /**
-     * Cria um novo polígono regular com rotação igual a zero.
-     * 
-     * @param x Coordenada x do centro.
-     * @param y Coordenada y do centro.
-     * @param sides Quantidade de lados.
-     * @param radius Raio do círculo circunscrito.
+     * Creates a new regular polygon with rotation equal to zero.
+     *
+     * @param x X coordinate of the center.
+     * @param y Y coordinate of the center.
+     * @param sides Number of sides.
+     * @param radius Radius of the circumscribed circle.
      */
     public Polygon( double x, double y, int sides, double radius ) {
         this( x, y, sides, radius, 0.0 );

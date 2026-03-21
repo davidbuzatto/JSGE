@@ -21,10 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Uma cola de componentes. A ideia é que exista um componente básico
- * onde serão "colados" diversos componentes filhos. Ideal para ser utilizada
- * com componentes do tipo contâiner.
- * 
+ * A component glue. The idea is that there is a base component
+ * to which various child components are "glued". Ideal for use
+ * with container-type components.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class GuiGlue extends GuiComponent {
@@ -35,12 +35,11 @@ public class GuiGlue extends GuiComponent {
     protected final List<GuiComponent> children;
     
     /**
-     * Cria o componente.
-     * 
-     * @param baseComponent O componente base da cola. É esse componente
-     * que atuará como âncora, carregando todos os componentes filhos juntos.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param baseComponent The base component of the glue. This component
+     * acts as the anchor, carrying all child components together.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiGlue( GuiComponent baseComponent, EngineFrame engine ) {
         super( baseComponent.bounds.x, baseComponent.bounds.y, GLUE_SIZE, GLUE_SIZE, engine );
@@ -49,14 +48,14 @@ public class GuiGlue extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param baseComponent O componente base da cola. É esse componente
-     * que atuará como âncora, carregando todos os componentes filhos juntos.
+     *
+     * @param baseComponent The base component of the glue. This component
+     * acts as the anchor, carrying all child components together.
      */
     public GuiGlue( GuiComponent baseComponent ) {
         super( baseComponent.bounds.x, baseComponent.bounds.y, GLUE_SIZE, GLUE_SIZE );
@@ -147,12 +146,12 @@ public class GuiGlue extends GuiComponent {
     }
     
     /**
-     * Adiciona um componente filho.
-     * A ordem de desenho segue a ordem de inserção.
-     * 
-     * @param child Um componente filho.
-     * @param x Coordenada x relativa ao componente principal.
-     * @param y Coordenada y relativa ao componente principal.
+     * Adds a child component.
+     * The drawing order follows the insertion order.
+     *
+     * @param child A child component.
+     * @param x X coordinate relative to the base component.
+     * @param y Y coordinate relative to the base component.
      */
     public void addChild( GuiComponent child, double x, double y ) {
         child.move( 

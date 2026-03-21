@@ -27,11 +27,11 @@ import java.awt.event.KeyEvent;
 import java.util.Iterator;
 
 /**
- * Um componente de campo de texto. Este componente é um tanto rudimentar,
- * aceitando apenas letras não acentuadas, dígitos e alguns sinais
- * de pontuação, como vírgulas, pontos etc. Não há suporte para 
- * diferenciação de letras maiúsculas e minúsculas.
- * 
+ * A text field component. This component is somewhat rudimentary,
+ * accepting only unaccented letters, digits, and some punctuation
+ * marks such as commas, periods, etc. There is no support for
+ * case sensitivity.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class GuiTextField extends GuiComponent {
@@ -52,17 +52,16 @@ public class GuiTextField extends GuiComponent {
     private int lastKey;
     
     /**
-     * Cria o componente.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param value O valor inicial do componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param value The initial value of the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiTextField( double x, double y, double width, double height, String value, EngineFrame engine ) {
         super( x, y, width, height, engine );
@@ -70,19 +69,19 @@ public class GuiTextField extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param value O valor inicial do componente. 
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param value The initial value of the component.
      */
     public GuiTextField( double x, double y, double width, double height, String value ) {
         super( x, y, width, height );
@@ -90,12 +89,11 @@ public class GuiTextField extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param value O valor inicial do componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param value The initial value of the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiTextField( Rectangle bounds, String value, EngineFrame engine ) {
         super( bounds, engine );
@@ -103,14 +101,14 @@ public class GuiTextField extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param value O valor inicial do componente. 
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param value The initial value of the component.
      */
     public GuiTextField( Rectangle bounds, String value ) {
         super( bounds );
@@ -435,18 +433,18 @@ public class GuiTextField extends GuiComponent {
     }
     
     /**
-     * Obtém o valor do componente.
-     * 
-     * @return O valor do componente.
+     * Gets the value of the component.
+     *
+     * @return The value of the component.
      */
     public String getValue() {
         return value;
     }
     
     /**
-     * Configura o valor do componente.
-     * 
-     * @param value O valor do componente. 
+     * Sets the value of the component.
+     *
+     * @param value The value of the component.
      */
     public void setValue( String value ) {
         if ( value == null ) {

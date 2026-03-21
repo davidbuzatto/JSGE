@@ -17,8 +17,8 @@
 package br.com.davidbuzatto.jsge.animation.frame;
 
 /**
- * Interface de marcação para um quadro de uma animação.
- * 
+ * Marker interface for an animation frame.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public interface AnimationFrame {

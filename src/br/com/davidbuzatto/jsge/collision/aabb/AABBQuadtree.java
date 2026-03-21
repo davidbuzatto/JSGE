@@ -22,8 +22,8 @@ import java.awt.Color;
 import java.util.List;
 
 /**
- * Uma quadtree para AABBs.
- * 
+ * A quadtree for AABBs.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class AABBQuadtree {
@@ -35,22 +35,22 @@ public class AABBQuadtree {
     private static final Color NEARBY_AABB_COLOR = ColorUtils.fade( EngineFrame.LIME, 1 );
         
     /**
-     * Raiz.
+     * Root.
      */
     private AABBQuadtreeNode root;
-    
+
     /**
-     * Profundidade máxima.
+     * Maximum depth.
      */
     private int maxDepth;
-    
+
     /**
-     * Lista de AABBs da árvore.
+     * List of AABBs in the tree.
      */
     private List<AABB> aabbs;
-    
+
     /**
-     * Enumeração para os tipos dos nós da quadtree.
+     * Enumeration for the quadtree node shapes.
      */
     public static enum Shape {
         SQUARE,
@@ -58,13 +58,13 @@ public class AABBQuadtree {
     }
 
     /**
-     * Constroi uma nova quadtree a partir de um conjunto de AABBs.
-     * 
-     * @param aabbs As AABBs da árvore.
-     * @param width Largura da árvore (retângulo mais externo).
-     * @param height Altura da árvore (retângulo mais externo).
-     * @param maxDepth Maior profundidade da árvore.
-     * @param shape Formato dos nós da árvore.
+     * Constructs a new quadtree from a set of AABBs.
+     *
+     * @param aabbs The AABBs of the tree.
+     * @param width Width of the tree (outermost rectangle).
+     * @param height Height of the tree (outermost rectangle).
+     * @param maxDepth Maximum depth of the tree.
+     * @param shape Shape of the tree nodes.
      */
     public AABBQuadtree( List<AABB> aabbs, int width, int height, int maxDepth, Shape shape ) {
         this.aabbs = aabbs;
@@ -73,26 +73,26 @@ public class AABBQuadtree {
     }
     
     /**
-     * Constroi uma nova quadtree a partir de um conjunto de AABBs com nós quadrados.
-     * 
-     * @param aabbs As AABBs da árvore.
-     * @param width Largura da árvore (retângulo mais externo).
-     * @param height Altura da árvore (retângulo mais externo).
-     * @param maxDepth Maior profundidade da árvore.
+     * Constructs a new quadtree from a set of AABBs with square nodes.
+     *
+     * @param aabbs The AABBs of the tree.
+     * @param width Width of the tree (outermost rectangle).
+     * @param height Height of the tree (outermost rectangle).
+     * @param maxDepth Maximum depth of the tree.
      */
     public AABBQuadtree( List<AABB> aabbs, int width, int height, int maxDepth ) {
         this( aabbs, width, height, maxDepth, Shape.SQUARE );
     }
 
     /**
-     * Constroi a estrutura da árvore recursivamente.
-     * 
-     * @param x1 Coordenada x do vértice superior esquerdo do nó atual.
-     * @param y1 Coordenada y do vértice superior esquerdo do nó atual.
-     * @param x2 Coordenada x do vértice inferior direito do nó atual.
-     * @param y2 Coordenada y do vértice inferior direito do nó atual.
-     * @param depth A profundidade do nó atual.
-     * @return 
+     * Builds the tree structure recursively.
+     *
+     * @param x1 X coordinate of the upper-left vertex of the current node.
+     * @param y1 Y coordinate of the upper-left vertex of the current node.
+     * @param x2 X coordinate of the lower-right vertex of the current node.
+     * @param y2 Y coordinate of the lower-right vertex of the current node.
+     * @param depth The depth of the current node.
+     * @return
      */
     public AABBQuadtreeNode buildQuadtree( int x1, int y1, int x2, int y2, int depth ) {
         
@@ -111,9 +111,9 @@ public class AABBQuadtree {
     }
 
     /**
-     * Insere um novo nó na árvore.
-     * 
-     * @param node O nó que será inserido.
+     * Inserts a new node into the tree.
+     *
+     * @param node The node to be inserted.
      */
     public void insert( AABBQuadtreeNode node ) {
 
@@ -161,11 +161,11 @@ public class AABBQuadtree {
     }
 
     /**
-     * Remodela a árvore.
-     * 
-     * @param width Nova largura.
-     * @param height Nova altura.
-     * @param shape O formato da árvore.
+     * Reshapes the tree.
+     *
+     * @param width New width.
+     * @param height New height.
+     * @param shape The shape of the tree.
      */
     public void reshape( int width, int height, AABBQuadtree.Shape shape ) {
         
@@ -187,22 +187,22 @@ public class AABBQuadtree {
     }
     
     /**
-     * Atualiza a árvore.
-     * Apenas AABBs ativas são inseridas.
+     * Updates the tree.
+     * Only active AABBs are inserted.
      */
     public void update() {
-        
+
         resetNodes( root );
-        
-        // entram apenas AABBs ativas na raiz
-        // o que é propagado posteriormente
+
+        // only active AABBs enter the root,
+        // which is then propagated downward
         for ( AABB aabb : aabbs ) {
             if ( aabb.active ) {
                 root.aabbs.add( aabb );
             }
         }
-        
-        // todos as AABBs (implementação anterior)
+
+        // all AABBs (previous implementation)
         //root.aabbs.addAll( aabbs );
         
         for ( AABB aabb : aabbs ) {
@@ -214,45 +214,45 @@ public class AABBQuadtree {
     }
 
     /**
-     * Obtém as AABBs.
-     * 
-     * @return Uma lista de AABBs.
+     * Gets the AABBs.
+     *
+     * @return A list of AABBs.
      */
     public List<AABB> getAABBs() {
         return aabbs;
     }
 
     /**
-     * Obtém a raiz da árvore.
-     * 
-     * @return A raiz da árvore.
+     * Gets the root of the tree.
+     *
+     * @return The root of the tree.
      */
     public AABBQuadtreeNode getRoot() {
         return root;
     }
     
     /**
-     * Configura as AABBs.
-     * 
-     * @param aabbs Novas AABBs. 
+     * Sets the AABBs.
+     *
+     * @param aabbs New AABBs.
      */
     public void setAABBs( List<AABB> aabbs ) {
         this.aabbs = aabbs;
     }
 
     /**
-     * Obtém a profundidade máxima da quadtree.
-     * 
-     * @return A profundidade máxima.
+     * Gets the maximum depth of the quadtree.
+     *
+     * @return The maximum depth.
      */
     public int getMaxDepth() {
         return maxDepth;
     }
     
     /**
-     * Configura a profundidade máxima.
-     * 
-     * @param maxDepth A nova profundidade máxina.
+     * Sets the maximum depth.
+     *
+     * @param maxDepth The new maximum depth.
      */
     public void setMaxDepth( int maxDepth ) {
         if ( this.maxDepth != maxDepth ) {
@@ -263,9 +263,9 @@ public class AABBQuadtree {
     }
 
     /**
-     * Reseta os nós recursivamente.
-     * 
-     * @param node O nó a ser resetado.
+     * Resets nodes recursively.
+     *
+     * @param node The node to be reset.
      */
     private void resetNodes( AABBQuadtreeNode node ) {
         if ( node != null ) {
@@ -280,13 +280,13 @@ public class AABBQuadtree {
     }
     
     /**
-     * Configura as AABBs que estão próximas.
-     * 
-     * A configuração é feita apenas quando o alvo (target) é uma 
-     * AABB dinâmica.
-     * 
-     * @param aabbs A lista de AABBs.
-     * @param target O alvo, ou seja, a AABB próxima.
+     * Sets the nearby AABBs.
+     *
+     * The assignment is performed only when the target is a
+     * dynamic AABB.
+     *
+     * @param aabbs The list of AABBs.
+     * @param target The target, i.e., the nearby AABB.
      */
     private void setNearby( List<AABB> aabbs, AABB target ) {
         if ( target.type == AABB.Type.DYNAMIC ) {
@@ -297,23 +297,23 @@ public class AABBQuadtree {
     }
     
     /**
-     * Desenha a quadtree.
-     * 
-     * @param engine A engine.
-     * @param x Coordenada x do desenho.
-     * @param y Coordenada y do desenho.
+     * Draws the quadtree.
+     *
+     * @param engine The engine.
+     * @param x X coordinate of the drawing position.
+     * @param y Y coordinate of the drawing position.
      */
     public void draw( EngineFrame engine, double x, double y ) {
         draw( engine, x, y, 1.0 );
     }
-    
+
     /**
-     * Desenha a quadtree.
-     * 
-     * @param engine A engine.
-     * @param x Coordenada x do desenho.
-     * @param y Coordenada y do desenho.
-     * @param scale A escala do desenho.
+     * Draws the quadtree.
+     *
+     * @param engine The engine.
+     * @param x X coordinate of the drawing position.
+     * @param y Y coordinate of the drawing position.
+     * @param scale The drawing scale.
      */
     public void draw( EngineFrame engine, double x, double y, double scale ) {
         drawAABBs( engine, x, y, scale );

@@ -22,8 +22,8 @@ import java.awt.Paint;
 import java.io.Serializable;
 
 /**
- * Classe para representação de um estrela em duas dimensões.
- * 
+ * Class for representing a star in two dimensions.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class Star implements Drawable, Serializable {
@@ -31,44 +31,44 @@ public class Star implements Drawable, Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Coordenada x do centro.
+     * X coordinate of the center.
      */
     public double x;
-    
+
     /**
-     * Coordenada y do centro.
+     * Y coordinate of the center.
      */
     public double y;
-    
+
     /**
-     * Quantidade de pontas.
+     * Number of tips.
      */
     public int tips;
-    
+
     /**
-     * Raio.
+     * Radius.
      */
     public double radius;
-    
+
     /**
-     * Ângulo de rotação em gradus, no sentido horário.
+     * Rotation angle in degrees, clockwise.
      */
     public double rotation;
 
     /**
-     * Cria um novo polígono regular com valores padrão.
+     * Creates a new star with default values.
      */
     public Star() {
     }
 
     /**
-     * Cria um novo polígono regular.
-     * 
-     * @param x Coordenada x do centro.
-     * @param y Coordenada y do centro.
-     * @param tips Quantidade de pontas.
-     * @param radius Raio do círculo circunscrito.
-     * @param rotation Ângulo inicial em graus (sentido horário).
+     * Creates a new star.
+     *
+     * @param x X coordinate of the center.
+     * @param y Y coordinate of the center.
+     * @param tips Number of tips.
+     * @param radius Radius of the circumscribed circle.
+     * @param rotation Start angle in degrees (clockwise).
      */
     public Star( double x, double y, int tips, double radius, double rotation ) {
         this.x = x;
@@ -79,12 +79,12 @@ public class Star implements Drawable, Serializable {
     }
 
     /**
-     * Cria um novo polígono regular com rotação igual a zero.
-     * 
-     * @param x Coordenada x do centro.
-     * @param y Coordenada y do centro.
-     * @param tips Quantidade de pontas.
-     * @param radius Raio do círculo circunscrito.
+     * Creates a new star with rotation equal to zero.
+     *
+     * @param x X coordinate of the center.
+     * @param y Y coordinate of the center.
+     * @param tips Number of tips.
+     * @param radius Radius of the circumscribed circle.
      */
     public Star( double x, double y, int tips, double radius ) {
         this( x, y, tips, radius, 0.0 );

@@ -20,9 +20,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Um componente para gerenciamento da lógica de seleção das caixas de
- * alternância e botões de radio.
- * 
+ * A component for managing the selection logic of toggle buttons and radio buttons.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class GuiButtonGroup {
@@ -30,24 +29,24 @@ public class GuiButtonGroup {
     private final Set<GuiToggleButton> toggleButtons;
     
     /**
-     * Cria um grupo de botões.
+     * Creates a button group.
      */
     public GuiButtonGroup() {
         toggleButtons = new HashSet<>();
     }
     
     /**
-     * Adiciona um botão de alternância ou botão de rádio à este grupo.
-     * @param toggleButton 
+     * Adds a toggle button or radio button to this group.
+     * @param toggleButton
      */
     public void addToggleButton( GuiToggleButton toggleButton ) {
         toggleButtons.add( toggleButton );
     }
     
     /**
-     * Alterna a seleção para o botão passado como parâmetro.
-     * 
-     * @param target O botão que deve ser selecionado.
+     * Toggles the selection to the button passed as parameter.
+     *
+     * @param target The button that should be selected.
      */
     public void toggle( GuiToggleButton target ) {
         

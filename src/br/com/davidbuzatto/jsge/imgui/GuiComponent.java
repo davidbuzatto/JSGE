@@ -23,8 +23,8 @@ import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
- * Representação genérica de um componente.
- * 
+ * Generic representation of a component.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public abstract class GuiComponent {
@@ -44,109 +44,109 @@ public abstract class GuiComponent {
     protected Color borderColor;
     protected Color textColor;
     
-    /** Tamanho padrão da fonte dos componentes. */
+    /** Default font size for components. */
     public static final int FONT_SIZE = 12;
-    /** Largura padrão da linha utilizada nos componentes. */
+    /** Default line width used in components. */
     public static final int LINE_WIDTH = 1;
-    
-    /** Espaçamento dos diálogos. */
+
+    /** Padding for dialog content. */
     public static final int DIALOG_CONTENT_PADDING = 20;
-    /** Largura mínima dos diálogos. */
+    /** Minimum width of dialogs. */
     public static final double DIALOG_MIN_WIDTH = 250;
-    /** Altura mínima dos diálogos. */
+    /** Minimum height of dialogs. */
     public static final double DIALOG_MIN_HEIGHT = 100;
-    /** Altura dos botões dos diálogos. */
+    /** Height of dialog buttons. */
     public static final double DIALOG_BUTTON_HEIGHT = 30;
-    
-    /** Raio do componente deslizante. */
+
+    /** Radius of the slider component. */
     public static final double SLIDER_RADIUS = 10;
-    
-    /** Tamanho do botão da barra de rolagem. */
+
+    /** Size of the scroll bar button. */
     public static final double SCROLL_BAR_BUTTON_SIZE = 20;
-    
+
     //**************************************************************************
-    // Cores.
-    // Os nomes são mantidos em maiúsculas para não misturar com os atributos.
+    // Colors.
+    // Names are kept in uppercase to avoid mixing with instance attributes.
     //**************************************************************************
-    
-    /** Cor padrão de fundo. */
+
+    /** Default background color. */
     public static Color BACKGROUND_COLOR;
-    /** Cor padrão da borda. */
+    /** Default border color. */
     public static Color BORDER_COLOR;
-    /** Cor padrão do texto. */
+    /** Default text color. */
     public static Color TEXT_COLOR;
-    
-    /** Cor de fundo quando o mouse está em cima do componente. */
+
+    /** Background color when the mouse is over the component. */
     public static Color MOUSE_OVER_BACKGROUND_COLOR;
-    /** Cor da borda quando o mouse está em cima do componente. */
+    /** Border color when the mouse is over the component. */
     public static Color MOUSE_OVER_BORDER_COLOR;
-    /** Cor do texto quando o mouse está em cima do componente. */
+    /** Text color when the mouse is over the component. */
     public static Color MOUSE_OVER_TEXT_COLOR;
-    
-    /** Cor de fundo quando o mouse está sendo pressionado no componente. */
+
+    /** Background color when the mouse button is pressed on the component. */
     public static Color MOUSE_DOWN_BACKGROUND_COLOR;
-    /** Cor da borda quando o mouse está sendo pressionado no componente. */
+    /** Border color when the mouse button is pressed on the component. */
     public static Color MOUSE_DOWN_BORDER_COLOR;
-    /** Cor do texto quando o mouse está sendo pressionado no componente. */
+    /** Text color when the mouse button is pressed on the component. */
     public static Color MOUSE_DOWN_TEXT_COLOR;
-    
-    /** Cor de fundo quando o componente está desabilitado. */
+
+    /** Background color when the component is disabled. */
     public static Color DISABLED_BACKGROUND_COLOR;
-    /** Cor da borda quando o componente está desabilitado. */
+    /** Border color when the component is disabled. */
     public static Color DISABLED_BORDER_COLOR;
-    /** Cor do texto quando o componente está desabilitado. */
+    /** Text color when the component is disabled. */
     public static Color DISABLED_TEXT_COLOR;
-    
-    /** Cor de fundo para os componentes contâineres. */
+
+    /** Background color for container components. */
     public static Color CONTAINER_BACKGROUND_COLOR;
-    /** Cor da borda para os componentes contâineres. */
+    /** Border color for container components. */
     public static Color CONTAINER_BORDER_COLOR;
-    /** Cor do texto para os componentes contâineres. */
+    /** Text color for container components. */
     public static Color CONTAINER_TEXT_COLOR;
-    /** Cor de fundo para as barras de título dos componentes contâineres. */
+    /** Background color for the title bars of container components. */
     public static Color CONTAINER_TITLE_BAR_BACKGROUND_COLOR;
-    /** Cor da borda para as barras de título dos componentes contâineres. */
+    /** Border color for the title bars of container components. */
     public static Color CONTAINER_TITLE_BAR_BORDER_COLOR;
-    /** Cor do texto para as barras de título dos componentes contâineres. */
+    /** Text color for the title bars of container components. */
     public static Color CONTAINER_TITLE_BAR_TEXT_COLOR;
-    
-    /** Cor de fundo para os componentes contâineres desabilitados. */
+
+    /** Background color for disabled container components. */
     public static Color DISABLED_CONTAINER_BACKGROUND_COLOR;
-    /** Cor da borda para os componentes contâineres desabilitados. */
+    /** Border color for disabled container components. */
     public static Color DISABLED_CONTAINER_BORDER_COLOR;
-    /** Cor do texto para os componentes contâineres desabilitados. */
+    /** Text color for disabled container components. */
     public static Color DISABLED_CONTAINER_TEXT_COLOR;
-    /** Cor de fundo para as barras de título dos componentes contâineres desabilitados. */
+    /** Background color for the title bars of disabled container components. */
     public static Color DISABLED_CONTAINER_TITLE_BAR_BACKGROUND_COLOR;
-    /** Cor da borda para as barras de título dos componentes contâineres desabilitados. */
+    /** Border color for the title bars of disabled container components. */
     public static Color DISABLED_CONTAINER_TITLE_BAR_BORDER_COLOR;
-    /** Cor do texto para as barras de título dos componentes contâineres desabilitados. */
+    /** Text color for the title bars of disabled container components. */
     public static Color DISABLED_CONTAINER_TITLE_BAR_TEXT_COLOR;
-    
-    /** Cor de fundo para o progresso das barras de progresso. */
+
+    /** Background color for the progress fill of progress bars. */
     public static Color PROGRESS_BAR_PROGRESS_FILL_COLOR;
-    
-    /** Cor de fundo para os contâineres de itens dos componentes de lista. */
+
+    /** Background color for item containers of list components. */
     public static Color LIST_CONTAINER_BACKGROUND_COLOR;
-    /** Cor de fundo para os contâineres de itens dos componentes de lista desabilitados. */
+    /** Background color for item containers of disabled list components. */
     public static Color DISABLED_LIST_CONTAINER_BACKGROUND_COLOR;
-    
-    /** Cor de fundo para a trila das barras de rolagem. */
+
+    /** Background color for the track of scroll bars. */
     public static Color SCROLL_BAR_TRACK_COLOR;
-    /** Cor de fundo para a trila das barras de rolagem desabiltiadas. */
+    /** Background color for the track of disabled scroll bars. */
     public static Color DISABLED_SCROLL_BAR_TRACK_COLOR;
-    
-    /** Cor da sobreposição do seletor de cor quando está desabilitado. */
+
+    /** Overlay color of the color picker when it is disabled. */
     public static Color COLOR_PICKER_DISABLED_OVERLAY_COLOR;
-    
-    /** Cor da sobreposição dos diálogos. */
+
+    /** Overlay color for dialogs. */
     public static Color DIALOG_OVERLAY_COLOR;
-    
-    /** Cor padrão de fundo. */
+
+    /** Default tooltip background color. */
     public static Color TOOL_TIP_BACKGROUND_COLOR;
-    /** Cor padrão da borda. */
+    /** Default tooltip border color. */
     public static Color TOOL_TIP_BORDER_COLOR;
-    /** Cor padrão do texto. */
+    /** Default tooltip text color. */
     public static Color TOOL_TIP_TEXT_COLOR;
     
     static {
@@ -154,11 +154,10 @@ public abstract class GuiComponent {
     }
     
     /**
-     * Constrói a infraestrutura básica dos componentes.
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Builds the basic infrastructure of components.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiComponent( Rectangle bounds, EngineFrame engine ) {
         this.id = idCounter++;
@@ -173,57 +172,56 @@ public abstract class GuiComponent {
     }
     
     /**
-     * Constrói a infraestrutura básica dos componentes.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Builds the basic infrastructure of components.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiComponent( double x, double y, double width, double height, EngineFrame engine ) {
         this( new Rectangle( x, y, width, height ), engine );
     }
     
     /**
-     * Constrói a infraestrutura básica dos componentes.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Builds the basic infrastructure of components.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
      */
     public GuiComponent( Rectangle bounds ) {
         this( bounds, EngineFrame.getDependencyEngine() );
     }
     
     /**
-     * Constrói a infraestrutura básica dos componentes.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Builds the basic infrastructure of components.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
      */
     public GuiComponent( double x, double y, double width, double height ) {
         this( new Rectangle( x, y, width, height ) );
     }
     
     /**
-     * Atualiza o estado do componente. Deve ser invocado no método update
-     * da instância da engine.
-     * 
-     * @param delta A variação no tempo, em segundos, de um frame para o outro.
+     * Updates the state of the component. Must be called in the update method
+     * of the engine instance.
+     *
+     * @param delta The time variation, in seconds, from one frame to the next.
      */
     public void update( double delta ) {
         
@@ -249,22 +247,22 @@ public abstract class GuiComponent {
     }
     
     /**
-     * Desenha o componente usando a engine configurada.
+     * Draws the component using the configured engine.
      */
     public abstract void draw();
     
     /**
-     * Move o componente.
-     * 
-     * @param xAmount Quantidade de movimentação no eixo x.
-     * @param yAmount Quantidade de movimentação no eixo y. 
+     * Moves the component.
+     *
+     * @param xAmount Amount of movement on the x axis.
+     * @param yAmount Amount of movement on the y axis.
      */
     public abstract void move( double xAmount, double yAmount );
     
     /**
-     * Aplica um tema ao componente.
-     * 
-     * @param theme O tema.
+     * Applies a theme to the component.
+     *
+     * @param theme The theme.
      */
     public void apply( GuiTheme theme ) {
         setBackgroundColor( theme.backgroundColor );
@@ -273,81 +271,81 @@ public abstract class GuiComponent {
     }
     
     /**
-     * Retorna se o botão esquerdo do mouse foi pressionado no componente
-     * no ciclo atual.
-     * 
-     * @return Verdadeiro caso sim, falso caso contrário.
+     * Returns whether the left mouse button was pressed on the component
+     * in the current cycle.
+     *
+     * @return True if so, false otherwise.
      */
     public boolean isMousePressed() {
         return mouseState == GuiComponentMouseState.MOUSE_PRESSED;
     }
     
     /**
-     * Retorna se o botão esquerdo do mouse está pressionado no componente
-     * no ciclo atual.
-     * 
-     * @return Verdadeiro caso sim, falso caso contrário.
+     * Returns whether the left mouse button is held down on the component
+     * in the current cycle.
+     *
+     * @return True if so, false otherwise.
      */
     public boolean isMouseDown() {
         return mouseState == GuiComponentMouseState.MOUSE_DOWN;
     }
     
     /**
-     * Retorna se o ponteiro do mouse está fora do componente no ciclo atual.
-     * 
-     * @return Verdadeiro caso sim, falso caso contrário.
+     * Returns whether the mouse pointer is outside the component in the current cycle.
+     *
+     * @return True if so, false otherwise.
      */
     public boolean isMouseOut() {
         return mouseState == GuiComponentMouseState.MOUSE_OUT;
     }
     
     /**
-     * Retorna se o ponteiro do mouse em cima do componente no ciclo atual.
-     * 
-     * @return Verdadeiro caso sim, falso caso contrário.
+     * Returns whether the mouse pointer is over the component in the current cycle.
+     *
+     * @return True if so, false otherwise.
      */
     public boolean isMouseOver() {
         return mouseState == GuiComponentMouseState.MOUSE_OVER;
     }
     
     /**
-     * Obtém a coordenada x superior esquerda do retângulo que limita o componente.
-     * 
-     * @return A coordenada x.
+     * Gets the upper-left x coordinate of the rectangle that bounds the component.
+     *
+     * @return The x coordinate.
      */
     public double getX() {
         return bounds.x;
     }
     
     /**
-     * Obtém a coordenada y superior esquerda do retângulo que limita o componente.
-     * 
-     * @return A coordenada y.
+     * Gets the upper-left y coordinate of the rectangle that bounds the component.
+     *
+     * @return The y coordinate.
      */
     public double getY() {
         return bounds.y;
     }
     
     /**
-     * Obtém a largura do retângulo que limite o componente.
-     * 
-     * @return A largura do componente.
+     * Gets the width of the rectangle that bounds the component.
+     *
+     * @return The width of the component.
      */
     public double getWidth() {
         return bounds.width;
     }
     
     /**
-     * Obtém a altura do retângulo que limite o componente.
-     * 
-     * @return A altura do componente.
+     * Gets the height of the rectangle that bounds the component.
+     *
+     * @return The height of the component.
      */
     public double getHeight() {
         return bounds.height;
     }
     
     /**
-     * Desenha o retângulo que limite o componente.
+     * Draws the rectangle that bounds the component.
      */
     protected void drawBounds() {
         if ( drawingBounds ) {
@@ -357,119 +355,119 @@ public abstract class GuiComponent {
     }
     
     /**
-     * Retorna se o componente está habilitado.
-     * 
-     * @return Verdadeiro caso sim, falso caso contrário.
+     * Returns whether the component is enabled.
+     *
+     * @return True if so, false otherwise.
      */
     public boolean isEnabled() {
         return enabled;
     }
 
     /**
-     * Configura se o componente está ou não habilitado.
-     * 
-     * @param enabled Verdadeiro para habilitar, falso para desabilitar.
+     * Sets whether the component is enabled or not.
+     *
+     * @param enabled True to enable, false to disable.
      */
     public void setEnabled( boolean enabled ) {
         this.enabled = enabled;
     }
 
     /**
-     * Retorna se o componente está visível.
-     * 
-     * @return Verdadeiro caso sim, falso caso contrário.
+     * Returns whether the component is visible.
+     *
+     * @return True if so, false otherwise.
      */
     public boolean isVisible() {
         return visible;
     }
 
     /**
-     * Configura se o componente está ou não visível.
-     * 
-     * @param visible Verdadeiro para mostrar, falso para esconder.
+     * Sets whether the component is visible or not.
+     *
+     * @param visible True to show, false to hide.
      */
     public void setVisible( boolean visible ) {
         this.visible = visible;
     }
 
     /**
-     * Retorna se os limites do componente está sendo desenhado.
-     * 
-     * @return Verdadeiro caso sim, falso caso contrário.
+     * Returns whether the bounds of the component are being drawn.
+     *
+     * @return True if so, false otherwise.
      */
     public boolean isDrawingBounds() {
         return drawingBounds;
     }
 
     /**
-     * Configura se deve-se desenhar os limites do componente.
-     * 
-     * @param drawingBounds Verdadeiro para desenhar, falso para não desenhar.
+     * Sets whether the bounds of the component should be drawn.
+     *
+     * @param drawingBounds True to draw, false to not draw.
      */
     public void setDrawingBounds( boolean drawingBounds ) {
         this.drawingBounds = drawingBounds;
     }
 
     /**
-     * Obtém o retângulo que define os limites do componente.
-     * Retorna uma cópia do retângulo atual para não permitir que o usuário
-     * do componente altere o retângulo utilizado.
-     * 
-     * @return O retângulo que define os limites do componente.
+     * Gets the rectangle that defines the bounds of the component.
+     * Returns a copy of the current rectangle to prevent the component user
+     * from modifying the rectangle in use.
+     *
+     * @return The rectangle that defines the bounds of the component.
      */
     public Rectangle getBounds() {
         return new Rectangle( bounds.x, bounds.y, bounds.width, bounds.height );
     }
 
     /**
-     * Obtém a cor de fundo do componente.
-     * 
-     * @return A cor de fundo do componente.
+     * Gets the background color of the component.
+     *
+     * @return The background color of the component.
      */
     public Color getBackgroundColor() {
         return backgroundColor;
     }
 
     /**
-     * Configura a cor de fundo do componente.
-     * 
-     * @param backgroundColor A cor de fundo do componente.
+     * Sets the background color of the component.
+     *
+     * @param backgroundColor The background color of the component.
      */
     public void setBackgroundColor( Color backgroundColor ) {
         this.backgroundColor = backgroundColor;
     }
 
     /**
-     * Obtém a cor da borda do componente.
-     * 
-     * @return A cor da borda do componente.
+     * Gets the border color of the component.
+     *
+     * @return The border color of the component.
      */
     public Color getBorderColor() {
         return borderColor;
     }
 
     /**
-     * Configura a cor da borda do componente.
-     * 
-     * @param borderColor A cor da borda do componente.
+     * Sets the border color of the component.
+     *
+     * @param borderColor The border color of the component.
      */
     public void setBorderColor( Color borderColor ) {
         this.borderColor = borderColor;
     }
 
     /**
-     * Obtém a cor do texto do componente.
-     * 
-     * @return A cor do texto do componente.
+     * Gets the text color of the component.
+     *
+     * @return The text color of the component.
      */
     public Color getTextColor() {
         return textColor;
     }
 
     /**
-     * Configura a cor do texto do componente.
-     * 
-     * @param textColor A cor do texto do componente.
+     * Sets the text color of the component.
+     *
+     * @param textColor The text color of the component.
      */
     public void setTextColor( Color textColor ) {
         this.textColor = textColor;

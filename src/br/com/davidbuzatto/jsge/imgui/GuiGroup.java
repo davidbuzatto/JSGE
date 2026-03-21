@@ -21,27 +21,26 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
 import java.awt.Color;
 
 /**
- * Um container do tipo grupo.
- * 
- * Atenção: nenhum container possui componentes filhos.
- * Eles são apenas um artifício gráfico para agrupar componentes.
- * 
+ * A group-type container.
+ *
+ * Note: no container holds child components.
+ * They are purely a graphical device for visually grouping components.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class GuiGroup extends GuiTextComponent {
     
     /**
-     * Cria o componente.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param title O título do componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param title The title of the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiGroup( double x, double y, double width, double height, String title, EngineFrame engine ) {
         super( x, y, width, height, title, engine );
@@ -49,19 +48,19 @@ public class GuiGroup extends GuiTextComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param title O título do componente. 
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param title The title of the component.
      */
     public GuiGroup( double x, double y, double width, double height, String title ) {
         super( x, y, width, height, title );
@@ -69,12 +68,11 @@ public class GuiGroup extends GuiTextComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param title O título do componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param title The title of the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiGroup( Rectangle bounds, String title, EngineFrame engine ) {
         super( bounds, title, engine );
@@ -82,14 +80,14 @@ public class GuiGroup extends GuiTextComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param title O título do componente. 
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param title The title of the component.
      */
     public GuiGroup( Rectangle bounds, String title ) {
         super( bounds, title );

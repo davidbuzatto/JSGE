@@ -19,134 +19,134 @@ package br.com.davidbuzatto.jsge.animation.tween.easing;
 import java.util.function.DoubleFunction;
 
 /**
- * Interface que contém funções de suavização modeladas como DoubleFunctions.
- * Referência: https://easings.net/
+ * Interface containing easing functions modeled as DoubleFunctions.
+ * Reference: https://easings.net/
  *
  * @author Prof. Dr. David Buzatto
  */
 public interface TweenAnimationEasingFunctions {
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInSine = ( x ) -> {
         return 1 - Math.cos( ( x * Math.PI ) / 2 );
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeOutSine = ( x ) -> {
         return Math.sin( ( x * Math.PI ) / 2 );
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInOutSine = ( x ) -> {
         return -( Math.cos( Math.PI * x ) - 1 ) / 2;
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInQuad = ( x ) -> {
         return x * x;
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeOutQuad = ( x ) -> {
         return 1 - ( 1 - x ) * ( 1 - x );
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInOutQuad = ( x ) -> {
         return x < 0.5 ? 2 * x * x : 1 - Math.pow( -2 * x + 2, 2 ) / 2;
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInCubic = ( x ) -> {
         return x * x * x;
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeOutCubic = ( x ) -> {
         return 1 - Math.pow( 1 - x, 3 );
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInOutCubic = ( x ) -> {
         return x < 0.5 ? 4 * x * x * x : 1 - Math.pow( -2 * x + 2, 3 ) / 2;
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInQuart = ( x ) -> {
         return x * x * x * x;
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeOutQuart = ( x ) -> {
         return 1 - Math.pow( 1 - x, 4 );
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInOutQuart = ( x ) -> {
         return x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow( -2 * x + 2, 4 ) / 2;
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInQuint = ( x ) -> {
         return x * x * x * x * x;
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeOutQuint = ( x ) -> {
         return 1 - Math.pow( 1 - x, 5 );
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInOutQuint = ( x ) -> {
         return x < 0.5 ? 16 * x * x * x * x * x : 1 - Math.pow( -2 * x + 2, 5 ) / 2;
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInEtpo = ( x ) -> {
         return x == 0 ? 0 : Math.pow( 2, 10 * x - 10 );
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeOutEtpo = ( x ) -> {
         return x == 1 ? 1 : 1 - Math.pow( 2, -10 * x );
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInOutEtpo = ( x ) -> {
         return x == 0
@@ -158,21 +158,21 @@ public interface TweenAnimationEasingFunctions {
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInCirc = ( x ) -> {
         return 1 - Math.sqrt( 1 - Math.pow( x, 2 ) );
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeOutCirc = ( x ) -> {
         return Math.sqrt( 1 - Math.pow( x - 1, 2 ) );
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInOutCirc = ( x ) -> {
         return x < 0.5
@@ -181,7 +181,7 @@ public interface TweenAnimationEasingFunctions {
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInBack = ( x ) -> {
         double c1 = 1.70158;
@@ -191,7 +191,7 @@ public interface TweenAnimationEasingFunctions {
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeOutBack = ( x ) -> {
         double c1 = 1.70158;
@@ -201,7 +201,7 @@ public interface TweenAnimationEasingFunctions {
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInOutBack = ( x ) -> {
         double c1 = 1.70158;
@@ -213,7 +213,7 @@ public interface TweenAnimationEasingFunctions {
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInElastic = ( x ) -> {
         double c4 = ( 2 * Math.PI ) / 3;
@@ -225,7 +225,7 @@ public interface TweenAnimationEasingFunctions {
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeOutElastic = ( x ) -> {
         double c4 = ( 2 * Math.PI ) / 3;
@@ -238,7 +238,7 @@ public interface TweenAnimationEasingFunctions {
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInOutElastic = ( x ) -> {
         double c5 = ( 2 * Math.PI ) / 4.5;
@@ -252,14 +252,14 @@ public interface TweenAnimationEasingFunctions {
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInBounce = ( x ) -> {
         return 1 - TweenAnimationEasingFunctions.easeOutBounce.apply( 1 - x );
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeOutBounce = ( x ) -> {
         double n1 = 7.5625;
@@ -276,7 +276,7 @@ public interface TweenAnimationEasingFunctions {
     };
 
     /***
-     * Função de suavização.
+     * Easing function.
      */
     public static final DoubleFunction<Double> easeInOutBounce = ( x ) -> {
         return x < 0.5

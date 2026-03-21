@@ -19,14 +19,14 @@ package br.com.davidbuzatto.jsge.tests;
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 
 /**
- * Classe de testes.
- * 
+ * Test class.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class ScratchPad extends EngineFrame {
     
     /**
-     * Cria o teste.
+     * Creates the test.
      */
     public ScratchPad() {
         super( 800, 450, "Scratch Pad", 60, true, false, false, false, false, false );
@@ -50,8 +50,8 @@ public class ScratchPad extends EngineFrame {
     }
     
     /**
-     * Executa o teste.
-     * @param args Argumentos.
+     * Runs the test.
+     * @param args Arguments.
      */
     public static void main( String[] args ) {
         new ScratchPad();

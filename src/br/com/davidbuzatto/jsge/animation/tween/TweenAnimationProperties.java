@@ -24,29 +24,28 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Empacota as propriedades iniciais passadas por parâmetro para um MotionTweenConsumer.
- * 
+ * Packages the initial properties passed as parameters to a MotionTweenConsumer.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class TweenAnimationProperties {
-    
+
     private final Map<String, Object> properties = new HashMap<>();
-    
+
     /**
-     * Cria um container de propriedades para uma interpolação de movimento.
+     * Creates a property container for a motion tween.
      */
     public TweenAnimationProperties() {
     }
-    
+
     /**
-     * Método de conveniência para criar um novo MotionTweenAnimationProperties.
-     * Os argumentos devem ser passados em pares chave-valor, sendo a chave
-     * uma String e o valor qualquer objeto. Mesmo que a chave seja passada
-     * como algo diferente de String, toString() será invocado para que a chave
-     * seja de fato uma String.
-     * 
-     * @param args Pares chave-valor que preencherão as propriedades.
-     * @return Um novo objeto de propriedades.
+     * Convenience method for creating a new MotionTweenAnimationProperties.
+     * Arguments must be passed as key-value pairs, where the key is a String
+     * and the value is any object. Even if the key is passed as something other
+     * than a String, toString() will be invoked so the key is effectively a String.
+     *
+     * @param args Key-value pairs that will populate the properties.
+     * @return A new properties object.
      */
     public static TweenAnimationProperties of( Object... args ) {
         
@@ -67,30 +66,30 @@ public class TweenAnimationProperties {
     }
     
     /**
-     * Configura uma propriedade ou sobrescreve uma existente.
-     * 
-     * @param property A propriedade.
-     * @param value O valor da propriedade.
+     * Sets a property or overwrites an existing one.
+     *
+     * @param property The property.
+     * @param value The property value.
      */
     public void set( String property, Object value ) {
         properties.put( property, value );
     }
-    
+
     /**
-     * Obtém uma propriedade existente como Object ou null caso não exista.
-     * 
-     * @param property A propriedade.
-     * @return O valor da propriedade associada, como Object, ou null caso não exista tal propriedade.
+     * Gets an existing property as Object, or null if it does not exist.
+     *
+     * @param property The property.
+     * @return The associated property value as Object, or null if no such property exists.
      */
     public Object get( String property ) {
         return properties.get( property );
     }
-    
+
     /**
-     * Obtém uma propriedade existente como char ou '\0' caso não exista.
-     * 
-     * @param property A propriedade.
-     * @return O valor da propriedade associada, como char, ou '\0' caso não exista tal propriedade.
+     * Gets an existing property as char, or '\0' if it does not exist.
+     *
+     * @param property The property.
+     * @return The associated property value as char, or '\0' if no such property exists.
      */
     public char getChar( String property ) {
         if ( properties.getOrDefault( property, '\0' ) instanceof Character v ) {
@@ -100,10 +99,10 @@ public class TweenAnimationProperties {
     }
     
     /**
-     * Obtém uma propriedade existente como int ou 0 caso não exista.
-     * 
-     * @param property A propriedade.
-     * @return O valor da propriedade associada, como int, ou 0 caso não exista tal propriedade.
+     * Gets an existing property as int, or 0 if it does not exist.
+     *
+     * @param property The property.
+     * @return The associated property value as int, or 0 if no such property exists.
      */
     public int getInt( String property ) {
         if ( properties.getOrDefault( property, 0 ) instanceof Number v ) {
@@ -113,10 +112,10 @@ public class TweenAnimationProperties {
     }
     
     /**
-     * Obtém uma propriedade existente como double ou 0.0 caso não exista.
-     * 
-     * @param property A propriedade.
-     * @return O valor da propriedade associada, como double, ou 0.0 caso não exista tal propriedade.
+     * Gets an existing property as double, or 0.0 if it does not exist.
+     *
+     * @param property The property.
+     * @return The associated property value as double, or 0.0 if no such property exists.
      */
     public double getDouble( String property ) {
         if ( properties.getOrDefault( property, 0.0 ) instanceof Number v ) {
@@ -126,10 +125,10 @@ public class TweenAnimationProperties {
     }
     
     /**
-     * Obtém uma propriedade existente como boolean ou false caso não exista.
-     * 
-     * @param property A propriedade.
-     * @return O valor da propriedade associada, como boolean, ou false caso não exista tal propriedade.
+     * Gets an existing property as boolean, or false if it does not exist.
+     *
+     * @param property The property.
+     * @return The associated property value as boolean, or false if no such property exists.
      */
     public boolean getBoolean( String property ) {
         if ( properties.getOrDefault( property, false ) instanceof Boolean v ) {
@@ -139,10 +138,10 @@ public class TweenAnimationProperties {
     }
     
     /**
-     * Obtém uma propriedade existente como String ou "" caso não exista.
-     * 
-     * @param property A propriedade.
-     * @return O valor da propriedade associada, como String, ou "" caso não exista tal propriedade.
+     * Gets an existing property as String, or "" if it does not exist.
+     *
+     * @param property The property.
+     * @return The associated property value as String, or "" if no such property exists.
      */
     public String getString( String property ) {
         if ( properties.getOrDefault( property, "" ) instanceof String v ) {
@@ -152,10 +151,10 @@ public class TweenAnimationProperties {
     }
     
     /**
-     * Obtém uma propriedade existente como Color ou Color.BLACK caso não exista.
-     * 
-     * @param property A propriedade.
-     * @return O valor da propriedade associada, como Color, ou Color.BLACK caso não exista tal propriedade.
+     * Gets an existing property as Color, or Color.BLACK if it does not exist.
+     *
+     * @param property The property.
+     * @return The associated property value as Color, or Color.BLACK if no such property exists.
      */
     public Color getColor( String property ) {
         if ( properties.getOrDefault( property, Color.BLACK ) instanceof Color v ) {
@@ -165,10 +164,10 @@ public class TweenAnimationProperties {
     }
     
     /**
-     * Obtém uma propriedade existente como Paint ou Color.BLACK caso não exista.
-     * 
-     * @param property A propriedade.
-     * @return O valor da propriedade associada, como Paint, ou Color.BLACK caso não exista tal propriedade.
+     * Gets an existing property as Paint, or Color.BLACK if it does not exist.
+     *
+     * @param property The property.
+     * @return The associated property value as Paint, or Color.BLACK if no such property exists.
      */
     public Paint getPaint( String property ) {
         if ( properties.getOrDefault( property, Color.BLACK ) instanceof Paint v ) {

@@ -21,8 +21,8 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
 import java.awt.Color;
 
 /**
- * Um componente caixa de seleção.
- * 
+ * A checkbox component.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class GuiCheckBox extends GuiTextComponent {
@@ -30,62 +30,60 @@ public class GuiCheckBox extends GuiTextComponent {
     protected boolean selected;
     
     /**
-     * Cria o componente.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param text Texto utilizado no componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param text Text used in the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiCheckBox( double x, double y, double width, double height, String text, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param text Texto utilizado no componente. 
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param text Text used in the component.
      */
     public GuiCheckBox( double x, double y, double width, double height, String text ) {
         super( x, y, width, height, text );
     }
     
     /**
-     * Cria o componente.
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param text Texto utilizado no componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param text Text used in the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiCheckBox( Rectangle bounds, String text, EngineFrame engine ) {
         super( bounds, text, engine );
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param text Texto utilizado no componente. 
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param text Text used in the component.
      */
     public GuiCheckBox( Rectangle bounds, String text ) {
         super( bounds, text );
@@ -153,18 +151,18 @@ public class GuiCheckBox extends GuiTextComponent {
     }
 
     /**
-     * Marca a caixa de seleção como selecionada ou não selecionada.
-     * 
-     * @param selected Verdadeiro para selecionar, falso para remover a seleção.
+     * Marks the checkbox as selected or deselected.
+     *
+     * @param selected True to select, false to deselect.
      */
     public void setSelected( boolean selected ) {
         this.selected = selected;
     }
     
     /**
-     * Retorna o estado da seleção da caixa de seleção.
-     * 
-     * @return Verdadeiro caso esteja selecionada, falso caso contrário.
+     * Returns the selection state of the checkbox.
+     *
+     * @return True if selected, false otherwise.
      */
     public boolean isSelected() {
         return this.selected;

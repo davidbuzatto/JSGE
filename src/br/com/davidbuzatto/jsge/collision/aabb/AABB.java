@@ -21,118 +21,118 @@ import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import java.awt.Paint;
 
 /**
- * Representação de uma Axis-aligned Bounding Box (AABB).
- * 
- * Mantém algumas propriedades para guiar a execução da AABBQuadtree, como
- * o tipo da AABB (estática ou dinâmica), se é uma AABB ativa e qual o objeto
- * que faz referência.
- * 
+ * Representation of an Axis-aligned Bounding Box (AABB).
+ *
+ * Holds some properties to guide the execution of AABBQuadtree, such as
+ * the AABB type (static or dynamic), whether it is an active AABB, and which
+ * object it references.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class AABB implements Drawable {
 
     /**
-     * Tipo da AABB.
+     * AABB type.
      */
     public static enum Type {
-        
+
         /**
-         * Tipo estático. Indica que na quadtree AABBs estáticas não interagem
-         * entre si, apenas com AABBs dinâmicas.
+         * Static type. Indicates that in the quadtree, static AABBs do not interact
+         * with each other, only with dynamic AABBs.
          */
         STATIC,
-        
+
         /**
-         * Tipo dinâmico. Indique que na quadtree AABBs dinâmicas interagem
-         * tanto com AABBs estáticas quando dinâmicas.
+         * Dynamic type. Indicates that in the quadtree, dynamic AABBs interact
+         * with both static and dynamic AABBs.
          */
         DYNAMIC;
-        
+
     }
     
     /**
-     * Coordenada x do vértice superior esquerdo.
+     * X coordinate of the upper-left vertex.
      */
     public double x1;
-    
+
     /**
-     * Coordenada y do vértice superior esquerdo.
+     * Y coordinate of the upper-left vertex.
      */
     public double y1;
-    
+
     /**
-     * Coordenada x do vértice inferior direito.
+     * X coordinate of the lower-right vertex.
      */
     public double x2;
-    
+
     /**
-     * Coordenada y do vértice inferior direito.
+     * Y coordinate of the lower-right vertex.
      */
     public double y2;
-    
+
     /**
-     * Largura.
+     * Width.
      */
     public double width;
-    
+
     /**
-     * Altura.
+     * Height.
      */
     public double height;
-    
+
     /**
-     * Tipo da AABB.
+     * AABB type.
      */
     public Type type;
-    
+
     /**
-     * Indica se a AABB está ativa.
+     * Indicates whether the AABB is active.
      */
     public boolean active;
-    
+
     /**
-     * Objeto referenciado por essa AABB, ou seja, o objeto que deu origem 
-     * a essa AABB.
+     * Object referenced by this AABB, i.e., the object that originated
+     * this AABB.
      */
     public Object referencedObject;
-    
+
     /**
-     * Uma AABB que está próxima.
+     * A nearby AABB.
      */
     public AABB nearby;
 
     /**
-     * Constroi uma AABB estática com o vértice superior esquerdo em 0, 0 e
-     * vértice inferior direito em 50, 50 que não referencia nenhum objeto.
+     * Constructs a static AABB with the upper-left vertex at 0, 0 and
+     * lower-right vertex at 50, 50 that does not reference any object.
      */
     public AABB() {
         this( 0, 0, 50, 50, Type.STATIC, null );
     }
 
     /**
-     * Constroi uma AABB estática.
-     * 
-     * @param x1 Coordenada x do vértice superior esquerdo.
-     * @param y1 Coordenada y do vértice superior esquerdo.
-     * @param x2 Coordenada x do vértice inferior direito.
-     * @param y2 Coordenada y do vértice inferior direito. 
-     * @param referencedObject Objeto referenciado por essa AABB, ou seja, o
-     * objeto que deu origem à mesma.
+     * Constructs a static AABB.
+     *
+     * @param x1 X coordinate of the upper-left vertex.
+     * @param y1 Y coordinate of the upper-left vertex.
+     * @param x2 X coordinate of the lower-right vertex.
+     * @param y2 Y coordinate of the lower-right vertex.
+     * @param referencedObject Object referenced by this AABB, i.e., the
+     * object that originated it.
      */
     public AABB( double x1, double y1, double x2, double y2, Object referencedObject ) {
         this( x1, y1, x2, y2, Type.STATIC, referencedObject );
     }
     
     /**
-     * Constroi uma AABB ativa.
-     * 
-     * @param x1 Coordenada x do vértice superior esquerdo.
-     * @param y1 Coordenada y do vértice superior esquerdo.
-     * @param x2 Coordenada x do vértice inferior direito.
-     * @param y2 Coordenada y do vértice inferior direito. 
-     * @param type Tipo da AABB.
-     * @param referencedObject Objeto referenciado por essa AABB, ou seja, o
-     * objeto que deu origem à mesma.
+     * Constructs an active AABB.
+     *
+     * @param x1 X coordinate of the upper-left vertex.
+     * @param y1 Y coordinate of the upper-left vertex.
+     * @param x2 X coordinate of the lower-right vertex.
+     * @param y2 Y coordinate of the lower-right vertex.
+     * @param type The AABB type.
+     * @param referencedObject Object referenced by this AABB, i.e., the
+     * object that originated it.
      */
     public AABB( double x1, double y1, double x2, double y2, Type type, Object referencedObject ) {
         this.x1 = x1;
@@ -148,10 +148,10 @@ public class AABB implements Drawable {
     }
 
     /**
-     * Verifica se a AABB corrente colide com outro AABB.
-     * 
-     * @param aabb Uma AABB.
-     * @return Verdadeiro caso as AABBs colidem, falso caso contrário.
+     * Checks whether the current AABB collides with another AABB.
+     *
+     * @param aabb An AABB.
+     * @return True if the AABBs collide, false otherwise.
      */
     public boolean collidesWith( AABB aabb ) {
 
@@ -168,10 +168,10 @@ public class AABB implements Drawable {
     }
 
     /**
-     * Move a AABB.
-     * 
-     * @param deltaX Variação em x.
-     * @param deltaY Variação em y.
+     * Moves the AABB.
+     *
+     * @param deltaX Displacement along x.
+     * @param deltaY Displacement along y.
      */
     public void move( double deltaX, double deltaY ) {
         x1 += deltaX;
@@ -181,10 +181,10 @@ public class AABB implements Drawable {
     }
     
     /**
-     * Reposiciona a AABB.
-     * 
-     * @param x1 Coordenada x do vértice superior esquerdo.
-     * @param y1 Coordenada y do vértice superior esquerdo.
+     * Repositions the AABB.
+     *
+     * @param x1 X coordinate of the upper-left vertex.
+     * @param y1 Y coordinate of the upper-left vertex.
      */
     public void moveTo( double x1, double y1 ) {
         this.x1 = x1;
@@ -194,10 +194,10 @@ public class AABB implements Drawable {
     }
 
     /**
-     * Configura o tamanho da AABB, recalculando x2 e y2.
-     * 
-     * @param width Largura.
-     * @param height Altura.
+     * Sets the size of the AABB, recalculating x2 and y2.
+     *
+     * @param width Width.
+     * @param height Height.
      */
     public void setSize( double width, double height ) {
         x2 = x1 + width;

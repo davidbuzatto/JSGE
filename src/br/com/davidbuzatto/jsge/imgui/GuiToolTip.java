@@ -21,8 +21,8 @@ import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
- * Um componente de dica de ferramenta.
- * 
+ * A tooltip component.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class GuiToolTip extends GuiTextComponent {
@@ -35,12 +35,11 @@ public class GuiToolTip extends GuiTextComponent {
     private double timeToShowCounter;
     
     /**
-     * Cria o componente.
-     * 
-     * @param component O componente que receberá a dica.
-     * @param text Texto utilizado no componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param component The component that will receive the tooltip.
+     * @param text Text used in the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiToolTip( GuiComponent component, String text, EngineFrame engine ) {
         super( 0, 0, 0, 0, text, engine );
@@ -48,14 +47,14 @@ public class GuiToolTip extends GuiTextComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param component O componente que receberá a dica.
-     * @param text Texto utilizado no componente. 
+     *
+     * @param component The component that will receive the tooltip.
+     * @param text Text used in the component.
      */
     public GuiToolTip( GuiComponent component, String text ) {
         super( 0, 0, 0, 0, text );

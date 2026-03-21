@@ -22,25 +22,25 @@ import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationProperties;
 import java.util.function.DoubleFunction;
 
 /**
- * Uma animação interpolada com função de suavização.
- * 
- * @param <ComponentType> O tipo do componente que passará pela interpolação.
+ * A tween animation with an easing function.
+ *
+ * @param <ComponentType> The type of the component that will undergo interpolation.
  * @author Prof. Dr. David Buzatto
  */
 public class EasingTweenAnimation<ComponentType> extends TweenAnimationBase<ComponentType> {
-    
+
     private EasingTweenAnimationUpdateFunction<ComponentType> updateFunction;
     private DoubleFunction<Double> easingFunction;
     private double deltaPercentagePerSecond;
-    
+
     /**
-     * Constroi uma nova animação interpolada com suavização.
-     * 
-     * @param properties As propriedades utilizadas para o controle da animação.
-     * @param componentMapper Um mapeador de propriedades do componente que será manipulado na animação.
-     * @param updateFunction A função de atualização de animação.
-     * @param easingFunction A função de suavização da animação.
-     * @param deltaPercentagePerSecond Quanto a porcentagem da execução deve variar por segundo. A porcentagem é medida de 0 a 1.
+     * Constructs a new easing tween animation.
+     *
+     * @param properties The properties used to control the animation.
+     * @param componentMapper A property mapper for the component that will be manipulated in the animation.
+     * @param updateFunction The animation update function.
+     * @param easingFunction The animation easing function.
+     * @param deltaPercentagePerSecond How much the execution percentage should change per second. The percentage is measured from 0 to 1.
      */
     public EasingTweenAnimation( 
         TweenAnimationProperties properties,
@@ -62,36 +62,36 @@ public class EasingTweenAnimation<ComponentType> extends TweenAnimationBase<Comp
     }
 
     /**
-     * Obtém quanto a porcentagem da execução deve variar por segundo. A porcentagem é medida de 0 a 1.
-     * 
-     * @return Quanto a porcentagem da execução deve variar por segundo.
+     * Gets how much the execution percentage should change per second. The percentage is measured from 0 to 1.
+     *
+     * @return How much the execution percentage changes per second.
      */
     public double getDeltaPercentagePerSecond() {
         return deltaPercentagePerSecond;
     }
 
     /**
-     * Configura quanto a porcentagem da execução deve variar por segundo. A porcentagem é medida de 0 a 1.
-     * 
-     * @param deltaPercentagePerSecond Quanto a porcentagem da execução deve variar por segundo.
+     * Sets how much the execution percentage should change per second. The percentage is measured from 0 to 1.
+     *
+     * @param deltaPercentagePerSecond How much the execution percentage should change per second.
      */
     public void setDeltaPercentagePerSecond( double deltaPercentagePerSecond ) {
         this.deltaPercentagePerSecond = deltaPercentagePerSecond;
     }
 
     /**
-     * Configura a função de atualização.
-     * 
-     * @param updateFunction A função.
+     * Sets the update function.
+     *
+     * @param updateFunction The function.
      */
     public void setUpdateFunction( EasingTweenAnimationUpdateFunction<ComponentType> updateFunction ) {
         this.updateFunction = updateFunction;
     }
 
     /**
-     * Configura a função de suavização.
-     * 
-     * @param easingFunction A função.
+     * Sets the easing function.
+     *
+     * @param easingFunction The function.
      */
     public void setEasingFunction( DoubleFunction<Double> easingFunction ) {
         this.easingFunction = easingFunction;

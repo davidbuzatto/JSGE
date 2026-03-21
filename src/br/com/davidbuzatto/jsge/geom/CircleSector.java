@@ -22,8 +22,8 @@ import java.awt.Paint;
 import java.io.Serializable;
 
 /**
- * Classe para representação de um setor circular.
- * 
+ * Class for representing a circular sector.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class CircleSector implements Drawable, Serializable {
@@ -31,44 +31,44 @@ public class CircleSector implements Drawable, Serializable {
     private static final long serialVersionUID = 1L;
     
     /**
-     * Coordenada x do centro.
+     * X coordinate of the center.
      */
     public double x;
-    
+
     /**
-     * Coordenada y do centro.
+     * Y coordinate of the center.
      */
     public double y;
-    
+
     /**
-     * Raio.
+     * Radius.
      */
     public double radius;
-    
+
     /**
-     * Ângulo inicial, em graus, sentido horário.
+     * Start angle, in degrees, clockwise.
      */
     public double startAngle;
-    
+
     /**
-     * Ângulo final, em graus, sentido horário.
+     * End angle, in degrees, clockwise.
      */
     public double endAngle;
 
     /**
-     * Cria um setor circular com valores padrão.
+     * Creates a circular sector with default values.
      */
     public CircleSector() {
     }
 
     /**
-     * Cria um setor circular.
-     * 
-     * @param x Coordenada x do centro.
-     * @param y Coordenada y do centro.
-     * @param radius Raio .
-     * @param startAngle Ângulo inicial em graus (sentido horário).
-     * @param endAngle Ângulo final em gradus (sentido horário).
+     * Creates a circular sector.
+     *
+     * @param x X coordinate of the center.
+     * @param y Y coordinate of the center.
+     * @param radius Radius.
+     * @param startAngle Start angle in degrees (clockwise).
+     * @param endAngle End angle in degrees (clockwise).
      */
     public CircleSector( double x, double y, double radius, double startAngle, double endAngle ) {
         this.x = x;

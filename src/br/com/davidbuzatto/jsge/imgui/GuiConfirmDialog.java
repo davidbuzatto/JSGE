@@ -21,8 +21,8 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.Vector2;
 
 /**
- * Um diálogo para confirmações.
- * 
+ * A confirmation dialog.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class GuiConfirmDialog extends GuiWindow {
@@ -43,16 +43,15 @@ public class GuiConfirmDialog extends GuiWindow {
     private boolean boundsCalculationOk;
     
     /**
-     * Cria o componente.
-     * 
-     * @param title O título do componente.
-     * @param message A mensagem do componente.
-     * @param button1Text Texto do primeiro botão.
-     * @param button2Text Texto do segundo botão.
-     * @param button3Text Texto do terceiro botão.
-     * @param showOverlay Verdadeiro para desenhar uma camada de sobreposição atrás do diálogo.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param title The title of the component.
+     * @param message The message of the component.
+     * @param button1Text Text for the first button.
+     * @param button2Text Text for the second button.
+     * @param button3Text Text for the third button.
+     * @param showOverlay True to draw an overlay layer behind the dialog.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiConfirmDialog( String title, String message, String button1Text, String button2Text, String button3Text, boolean showOverlay, EngineFrame engine ) {
         super( 0, 0, 0, 0, title, engine );
@@ -60,18 +59,18 @@ public class GuiConfirmDialog extends GuiWindow {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param title O título do componente.
-     * @param message A mensagem do componente.
-     * @param button1Text Texto do primeiro botão.
-     * @param button2Text Texto do segundo botão.
-     * @param button3Text Texto do terceiro botão.
-     * @param showOverlay Verdadeiro para desenhar uma camada de sobreposição atrás do diálogo. 
+     *
+     * @param title The title of the component.
+     * @param message The message of the component.
+     * @param button1Text Text for the first button.
+     * @param button2Text Text for the second button.
+     * @param button3Text Text for the third button.
+     * @param showOverlay True to draw an overlay layer behind the dialog.
      */
     public GuiConfirmDialog( String title, String message, String button1Text, String button2Text, String button3Text, boolean showOverlay ) {
         super( 0, 0, 0, 0, title );
@@ -230,19 +229,19 @@ public class GuiConfirmDialog extends GuiWindow {
     }
     
     /**
-     * Mostra o diálogo centralizado na tela.
+     * Shows the dialog centered on the screen.
      */
     public void show() {
         show( engine.getScreenWidth() / 2 - bounds.width / 2, engine.getScreenHeight() / 2 - bounds.height / 2 );
     }
     
     /**
-     * Mostra o diálogo numa posição específica.
-     * 
-     * @param x Coordenada x onde o vértice superior esquerdo do retângulo que 
-     * define os limites do componente será posicionado.
-     * @param y Coordenada y onde o vértice superior esquerdo do retângulo que 
-     * define os limites do componente será posicionado.
+     * Shows the dialog at a specific position.
+     *
+     * @param x The x coordinate where the upper-left vertex of the rectangle
+     * that defines the bounds of the component will be positioned.
+     * @param y The y coordinate where the upper-left vertex of the rectangle
+     * that defines the bounds of the component will be positioned.
      */
     public void show( double x, double y ) {
         bounds.x = x;
@@ -252,54 +251,53 @@ public class GuiConfirmDialog extends GuiWindow {
     }
     
     /**
-     * Mostra o diálogo numa posição específica.
-     * 
-     * @param position Posição onde o vértice superior esquerdo do retângulo que 
-     * define os limites do componente será posicionado.
+     * Shows the dialog at a specific position.
+     *
+     * @param position The position where the upper-left vertex of the rectangle
+     * that defines the bounds of the component will be positioned.
      */
     public void show( Vector2 position ) {
         show( position.x, position.y );
     }
     
     /**
-     * Esconde o diálogo.
+     * Hides the dialog.
      */
     public void hide() {
         super.setVisible( false );
     }
     
     /**
-     * Retorna se o botão 1 foi pressionado no ciclo atual.
-     * 
-     * @return Verdadeiro caso tenha sido pressionado, falso caso contrário.
+     * Returns whether button 1 was pressed in the current cycle.
+     *
+     * @return True if it was pressed, false otherwise.
      */
     public boolean isButton1Pressed() {
         return button1.isMousePressed();
     }
     
     /**
-     * Retorna se o botão 2 foi pressionado no ciclo atual.
-     * 
-     * @return Verdadeiro caso tenha sido pressionado, falso caso contrário.
+     * Returns whether button 2 was pressed in the current cycle.
+     *
+     * @return True if it was pressed, false otherwise.
      */
     public boolean isButton2Pressed() {
         return button2.isMousePressed();
     }
     
     /**
-     * Retorna se o botão 3 foi pressionado no ciclo atual.
-     * 
-     * @return Verdadeiro caso tenha sido pressionado, falso caso contrário.
+     * Returns whether button 3 was pressed in the current cycle.
+     *
+     * @return True if it was pressed, false otherwise.
      */
     public boolean isButton3Pressed() {
         return button3.isMousePressed();
     }
     
     /**
-     * Retorna o texto do botão pressionado no ciclo atual.
-     * 
-     * @return O texto contido no botão pressionado ou null caso nenhum botão
-     * tenha sido pressionado.
+     * Returns the text of the button pressed in the current cycle.
+     *
+     * @return The text of the pressed button, or null if no button was pressed.
      */
     public String getPressedButton() {
         for ( int i = 0; i < buttons.length; i++ ) {
@@ -311,10 +309,9 @@ public class GuiConfirmDialog extends GuiWindow {
     }
     
     /**
-     * Retorna o número do botão pressionado no ciclo atual.
-     * 
-     * @return O número do botão pressionado ou zero caso nenhum botão tenha
-     * sido pressionado.
+     * Returns the number of the button pressed in the current cycle.
+     *
+     * @return The number of the pressed button, or zero if no button was pressed.
      */
     public int getPressedButtonNumber() {
         for ( int i = 0; i < buttons.length; i++ ) {

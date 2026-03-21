@@ -17,21 +17,21 @@
 package br.com.davidbuzatto.jsge.animation.tween;
 
 /**
- * Uma animação interpolada.
- * 
- * @param <ComponentType> O tipo do componente que passará pela interpolação.
+ * A tween animation.
+ *
+ * @param <ComponentType> The type of the component that will undergo interpolation.
  * @author Prof. Dr. David Buzatto
  */
 public class TweenAnimation<ComponentType> extends TweenAnimationBase<ComponentType> {
-    
+
     protected TweenAnimationUpdateFunction<ComponentType> updateFunction;
-    
+
     /**
-     * Constroi uma nova animação interpolada.
-     * 
-     * @param properties As propriedades utilizadas para o controle da animação.
-     * @param componentMapper Um mapeador de propriedades do componente que será manipulado na animação.
-     * @param updateFunction A função de atualização de animação.
+     * Constructs a new tween animation.
+     *
+     * @param properties The properties used to control the animation.
+     * @param componentMapper A property mapper for the component that will be manipulated in the animation.
+     * @param updateFunction The animation update function.
      */
     public TweenAnimation( 
         TweenAnimationProperties properties,
@@ -47,9 +47,9 @@ public class TweenAnimation<ComponentType> extends TweenAnimationBase<ComponentT
     }
 
     /**
-     * Configura a função de atualização.
-     * 
-     * @param updateFunction A função.
+     * Sets the update function.
+     *
+     * @param updateFunction The function.
      */
     public void setUpdateFunction( TweenAnimationUpdateFunction<ComponentType> updateFunction ) {
         this.updateFunction = updateFunction;

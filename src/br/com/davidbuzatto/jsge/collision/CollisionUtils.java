@@ -25,26 +25,26 @@ import br.com.davidbuzatto.jsge.geom.Triangle;
 import br.com.davidbuzatto.jsge.math.Vector2;
 
 /**
- * Interface com métodos estáticos utilitários para detecção de colisão.
- * 
- * Várias implementações são baseadas na raylib e em seus módulos
+ * Interface with static utility methods for collision detection.
+ *
+ * Several implementations are based on raylib and its modules
  * (www.raylib.com).
- * 
+ *
  * @author Prof. Dr. David Buzatto
  */
 public interface CollisionUtils {
     
     /**
-     * Variação para valores em ponto flutuante.
+     * Variation for floating-point values.
      */
     public static final double FLT_EPSILON = 2.2204460492503131e-16;
 
     /**
-     * Verifica se dois retângulos colidiram.
-     * 
-     * @param rec1 Um retângulo.
-     * @param rec2 Outro retângulo.
-     * @return Verdadeiro caso os retângulos tenham colidido, falso caso contrário.
+     * Checks whether two rectangles have collided.
+     *
+     * @param rec1 A rectangle.
+     * @param rec2 Another rectangle.
+     * @return True if the rectangles have collided, false otherwise.
      */
     public static boolean checkCollisionRectangles( Rectangle rec1, Rectangle rec2 ) {
         return ( 
@@ -54,11 +54,11 @@ public interface CollisionUtils {
     }
     
     /**
-     * Verifica se duas AABBs colidiram.
-     * 
-     * @param aabb1 Uma AABB.
-     * @param aabb2 Outra AABB.
-     * @return Verdadeiro caso as duas AABBs tenham colidido, falso caso contrário.
+     * Checks whether two AABBs have collided.
+     *
+     * @param aabb1 An AABB.
+     * @param aabb2 Another AABB.
+     * @return True if both AABBs have collided, false otherwise.
      */
     public static boolean checkCollisionAABBs( AABB aabb1, AABB aabb2 ) {
         return ( 
@@ -68,11 +68,11 @@ public interface CollisionUtils {
     }
     
     /**
-     * Verifica se um retângulo colidiu com uma AABB.
-     * 
-     * @param rect Um retângulo.
-     * @param aabb Uma AABB.
-     * @return Verdadeiro caso o retângulo colidiu com a AABB, falso caso contrário.
+     * Checks whether a rectangle has collided with an AABB.
+     *
+     * @param rect A rectangle.
+     * @param aabb An AABB.
+     * @return True if the rectangle has collided with the AABB, false otherwise.
      */
     public static boolean checkCollisionRectangleAABB( Rectangle rect, AABB aabb ) {
         return ( 
@@ -82,13 +82,13 @@ public interface CollisionUtils {
     }
 
     /**
-     * Verifica se dois círculos definidos por pontos e raios colidiram.
-     * 
-     * @param center1 Ponto do centro do primeiro círculo.
-     * @param radius1 Raio do primeiro círculo.
-     * @param center2 Ponto do centro do segundo círculo.
-     * @param radius2 Raio do segundo círculo.
-     * @return Verdadeiro caso os círculos tenham colidido, falso caso contrário.
+     * Checks whether two circles defined by center points and radii have collided.
+     *
+     * @param center1 Center point of the first circle.
+     * @param radius1 Radius of the first circle.
+     * @param center2 Center point of the second circle.
+     * @param radius2 Radius of the second circle.
+     * @return True if the circles have collided, false otherwise.
      */
     public static boolean checkCollisionCircles( Vector2 center1, double radius1, Vector2 center2, double radius2 ) {
         
@@ -103,11 +103,11 @@ public interface CollisionUtils {
     }
 
     /**
-     * Verifica se dois círculos colidiram.
-     * 
-     * @param circle1 Um círculo.
-     * @param circle2 Outro círculo.
-     * @return Verdadeiro caso os círculos tenham colidido, falso caso contrário.
+     * Checks whether two circles have collided.
+     *
+     * @param circle1 A circle.
+     * @param circle2 Another circle.
+     * @return True if the circles have collided, false otherwise.
      */
     public static boolean checkCollisionCircles( Circle circle1, Circle circle2 ) {
         return checkCollisionCircles( 
@@ -117,14 +117,14 @@ public interface CollisionUtils {
     }
     
     /**
-     * Verifica se um círculo, definido por um ponto e pelo raio, colidiu
-     * com uma linha definida por dois pontos.
-     * 
-     * @param center Ponto do centro do círculo.
-     * @param radius Raio do círculo.
-     * @param p1 Ponto inicial da linha.
-     * @param p2 Ponto final da linha.
-     * @return Verdadeiro caso o círculo tenha colidido com a linha, falso caso contrário.
+     * Checks whether a circle, defined by a center point and radius, has collided
+     * with a line defined by two points.
+     *
+     * @param center Center point of the circle.
+     * @param radius Radius of the circle.
+     * @param p1 Start point of the line.
+     * @param p2 End point of the line.
+     * @return True if the circle has collided with the line, false otherwise.
      */
     public static boolean checkCollisionCircleLine( Vector2 center, double radius, Vector2 p1, Vector2 p2 ) {
 
@@ -154,23 +154,23 @@ public interface CollisionUtils {
     }
 
     /**
-     * Verifica se um círculo colidiu com uma linha definida por dois pontos.
-     * 
-     * @param circle O círculo.
-     * @param p1 Ponto inicial da linha.
-     * @param p2 Ponto final da linha.
-     * @return Verdadeiro caso o círculo tenha colidido com a linha, falso caso contrário.
+     * Checks whether a circle has collided with a line defined by two points.
+     *
+     * @param circle The circle.
+     * @param p1 Start point of the line.
+     * @param p2 End point of the line.
+     * @return True if the circle has collided with the line, false otherwise.
      */
     public static boolean checkCollisionCircleLine( Circle circle, Vector2 p1, Vector2 p2 ) {
         return checkCollisionCircleLine( new Vector2( circle.x, circle.y ), circle.radius, p1, p2 );
     }
 
     /**
-     * Verifica se um círculo colidiu com uma linha.
-     * 
-     * @param circle O círculo.
-     * @param line A linha.
-     * @return Verdadeiro caso o círculo tenha colidido com a linha, falso caso contrário.
+     * Checks whether a circle has collided with a line.
+     *
+     * @param circle The circle.
+     * @param line The line.
+     * @return True if the circle has collided with the line, false otherwise.
      */
     public static boolean checkCollisionCircleLine( Circle circle, Line line ) {
         return checkCollisionCircleLine( 
@@ -181,13 +181,13 @@ public interface CollisionUtils {
     }
 
     /**
-     * Verifica se um círculo, definido por um ponto e pelo raio, colidiu
-     * com um retângulo.
-     * 
-     * @param center Ponto do centro do círculo.
-     * @param radius Raio do círculo.
-     * @param rec Um retângulo.
-     * @return Verdadeiro caso o círculo tenha colidido com o retângulo, falso caso contrário.
+     * Checks whether a circle, defined by a center point and radius, has collided
+     * with a rectangle.
+     *
+     * @param center Center point of the circle.
+     * @param radius Radius of the circle.
+     * @param rec A rectangle.
+     * @return True if the circle has collided with the rectangle, false otherwise.
      */
     public static boolean checkCollisionCircleRectangle( Vector2 center, double radius, Rectangle rec ) {
 
@@ -219,24 +219,24 @@ public interface CollisionUtils {
     }
 
     /**
-     * Verifica se um círculo colidiu com um retângulo.
-     * 
-     * @param circle O círculo.
-     * @param rec O retângulo.
-     * @return Verdadeiro caso o círculo tenha colidido com o retângulo, falso caso contrário.
+     * Checks whether a circle has collided with a rectangle.
+     *
+     * @param circle The circle.
+     * @param rec The rectangle.
+     * @return True if the circle has collided with the rectangle, false otherwise.
      */
     public static boolean checkCollisionCircleRectangle( Circle circle, Rectangle rec ) {
         return checkCollisionCircleRectangle( new Vector2( circle.x, circle.y ), circle.radius, rec );
     }
     
     /**
-     * Verifica se um círculo, definido por um ponto e pelo raio, colidiu
-     * com uma AABB.
-     * 
-     * @param center Ponto do centro do círculo.
-     * @param radius Raio do círculo.
-     * @param aabb A AABB.
-     * @return Verdadeiro caso o círculo tenha colidido com a AABB, falso caso contrário.
+     * Checks whether a circle, defined by a center point and radius, has collided
+     * with an AABB.
+     *
+     * @param center Center point of the circle.
+     * @param radius Radius of the circle.
+     * @param aabb The AABB.
+     * @return True if the circle has collided with the AABB, false otherwise.
      */
     public static boolean checkCollisionCircleAABB( Vector2 center, double radius, AABB aabb ) {
 
@@ -268,23 +268,23 @@ public interface CollisionUtils {
     }
 
     /**
-     * Verifica se um círculo colidiu com uma AABB.
-     * 
-     * @param circle O círculo.
-     * @param aabb A AABB.
-     * @return Verdadeiro caso o círculo tenha colidido com a AABB, falso caso contrário.
+     * Checks whether a circle has collided with an AABB.
+     *
+     * @param circle The circle.
+     * @param aabb The AABB.
+     * @return True if the circle has collided with the AABB, false otherwise.
      */
     public static boolean checkCollisionCircleAABB( Circle circle, AABB aabb ) {
         return checkCollisionCircleAABB( new Vector2( circle.x, circle.y ), circle.radius, aabb );
     }
 
     /**
-     * Verifica se um ponto, definido pela coordenada inicial, colidiu com um retângulo.
-     * 
-     * @param x Coordenada x do ponto.
-     * @param y Coordenada y do ponto.
-     * @param rec O retângulo.
-     * @return Verdadeiro caso o ponto tenha colidido com o retângulo, falso caso contrário.
+     * Checks whether a point, defined by its coordinates, has collided with a rectangle.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param rec The rectangle.
+     * @return True if the point has collided with the rectangle, false otherwise.
      */
     public static boolean checkCollisionPointRectangle( double x, double y, Rectangle rec ) {
         return ( 
@@ -296,23 +296,23 @@ public interface CollisionUtils {
     }
 
     /**
-     * Verifica se um ponto colidiu com um retângulo.
-     * 
-     * @param point O ponto.
-     * @param rec O retângulo.
-     * @return Verdadeiro caso o ponto tenha colidido com o retângulo, falso caso contrário.
+     * Checks whether a point has collided with a rectangle.
+     *
+     * @param point The point.
+     * @param rec The rectangle.
+     * @return True if the point has collided with the rectangle, false otherwise.
      */
     public static boolean checkCollisionPointRectangle( Vector2 point, Rectangle rec ) {
         return checkCollisionPointRectangle( point.x, point.y, rec );
     }
     
     /**
-     * Verifica se um ponto, definido pela coordenada inicial, colidiu com uma AABB.
-     * 
-     * @param x Coordenada x do ponto.
-     * @param y Coordenada y do ponto.
-     * @param aabb A AABB.
-     * @return Verdadeiro caso o ponto tenha colidido com a AABB, falso caso contrário.
+     * Checks whether a point, defined by its coordinates, has collided with an AABB.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param aabb The AABB.
+     * @return True if the point has collided with the AABB, false otherwise.
      */
     public static boolean checkCollisionPointAABB( double x, double y, AABB aabb ) {
         return ( 
@@ -324,24 +324,24 @@ public interface CollisionUtils {
     }
 
     /**
-     * Verifica se um ponto colidiu com uma AABB.
-     * 
-     * @param point O ponto.
-     * @param aabb A AABB.
-     * @return Verdadeiro caso o ponto tenha colidido com a AABB, falso caso contrário.
+     * Checks whether a point has collided with an AABB.
+     *
+     * @param point The point.
+     * @param aabb The AABB.
+     * @return True if the point has collided with the AABB, false otherwise.
      */
     public static boolean checkCollisionPointAABB( Vector2 point, AABB aabb ) {
         return checkCollisionPointAABB( point.x, point.y, aabb );
     }
 
     /**
-     * Verifica se um ponto colidiu com um círculo.
-     * 
-     * @param x Coordenada x do ponto.
-     * @param y Coordenada y do ponto.
-     * @param center Ponto do centro do círculo.
-     * @param radius Raio do círculo.
-     * @return Verdadeiro caso o ponto tenha colidido com o círculo, falso caso contrário.
+     * Checks whether a point has collided with a circle.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param center Center point of the circle.
+     * @param radius Radius of the circle.
+     * @return True if the point has collided with the circle, false otherwise.
      */
     public static boolean checkCollisionPointCircle( double x, double y, Vector2 center, double radius ) {
         double distanceSquared = ( x - center.x ) * ( x - center.x ) + 
@@ -350,36 +350,36 @@ public interface CollisionUtils {
     }
 
     /**
-     * Verifica se um ponto colidiu com um círculo.
-     * 
-     * @param point O ponto.
-     * @param center Ponto do centro do círculo.
-     * @param radius Raio do círculo.
-     * @return Verdadeiro caso o ponto tenha colidido com o círculo, falso caso contrário.
+     * Checks whether a point has collided with a circle.
+     *
+     * @param point The point.
+     * @param center Center point of the circle.
+     * @param radius Radius of the circle.
+     * @return True if the point has collided with the circle, false otherwise.
      */
     public static boolean checkCollisionPointCircle( Vector2 point, Vector2 center, double radius ) {
         return checkCollisionPointCircle( point.x, point.y, center, radius );
     }
 
     /**
-     * Verifica se um ponto colidiu com um círculo.
-     * 
-     * @param point O ponto.
-     * @param circle O círculo.
-     * @return Verdadeiro caso o ponto tenha colidido com o círculo, falso caso contrário.
+     * Checks whether a point has collided with a circle.
+     *
+     * @param point The point.
+     * @param circle The circle.
+     * @return True if the point has collided with the circle, false otherwise.
      */
     public static boolean checkCollisionPointCircle( Vector2 point, Circle circle ) {
         return checkCollisionPointCircle( point.x, point.y, new Vector2( circle.x, circle.y ), circle.radius );
     }
 
     /**
-     * Verifica se um ponto colidiu com um triângulo.
-     * 
-     * @param point O ponto.
-     * @param p1 Ponto do primeiro vértice do triângulo.
-     * @param p2 Ponto do segundo vértice do triângulo.
-     * @param p3 Ponto do terceiro vértice do triângulo.
-     * @return Verdadeiro caso o ponto tenha colidido com o triângulo, falso caso contrário.
+     * Checks whether a point has collided with a triangle.
+     *
+     * @param point The point.
+     * @param p1 First vertex point of the triangle.
+     * @param p2 Second vertex point of the triangle.
+     * @param p3 Third vertex point of the triangle.
+     * @return True if the point has collided with the triangle, false otherwise.
      */
     public static boolean checkCollisionPointTriangle( Vector2 point, Vector2 p1, Vector2 p2, Vector2 p3 ) {
 
@@ -396,11 +396,11 @@ public interface CollisionUtils {
     }
 
     /**
-     * Verifica se um ponto colidiu com um triângulo.
-     * 
-     * @param point O ponto.
-     * @param triangle O triângulo.
-     * @return Verdadeiro caso o vetor tenha colidido com o triângulo, falso caso contrário.
+     * Checks whether a point has collided with a triangle.
+     *
+     * @param point The point.
+     * @param triangle The triangle.
+     * @return True if the point has collided with the triangle, false otherwise.
      */
     public static boolean checkCollisionPointTriangle( Vector2 point, Triangle triangle ) {
         return checkCollisionPointTriangle( 
@@ -412,11 +412,11 @@ public interface CollisionUtils {
     }
 
     /**
-     * Verifica se um ponto colidiu com um polígono regular.
-     * 
-     * @param point O ponto.
-     * @param polygon O polígono.
-     * @return Verdadeiro caso o ponto tenha colidido com o polígono, falso caso contrário.
+     * Checks whether a point has collided with a regular polygon.
+     *
+     * @param point The point.
+     * @param polygon The polygon.
+     * @return True if the point has collided with the polygon, false otherwise.
      */
     public static boolean checkCollisionPointPolygon( Vector2 point, Polygon polygon ) {
 
@@ -448,13 +448,13 @@ public interface CollisionUtils {
     }
 
     /**
-     * Verifica a colisão entre duas linhas.
-     * 
-     * @param startPos1 Ponto inicial da primeira linha.
-     * @param endPos1 Ponto final da segunda linha.
-     * @param startPos2 Ponto inicial da segunda linha.
-     * @param endPos2 Ponto final da segunda linha.
-     * @return Retorna o ponto de colisão caso as linhas tenham se interceptado ou nulo caso contrário.
+     * Checks the collision between two lines.
+     *
+     * @param startPos1 Start point of the first line.
+     * @param endPos1 End point of the first line.
+     * @param startPos2 Start point of the second line.
+     * @param endPos2 End point of the second line.
+     * @return Returns the collision point if the lines intersected, or null otherwise.
      */
     public static Vector2 checkCollisionLines( Vector2 startPos1, Vector2 endPos1, Vector2 startPos2, Vector2 endPos2 ) {
         
@@ -489,11 +489,11 @@ public interface CollisionUtils {
     }
 
     /**
-     * Verifica a colisão entre duas linhas.
-     * 
-     * @param line1 Uma linha.
-     * @param line2 Outra linha.
-     * @return Retorna o ponto de colisão caso as linhas tenham se interceptado ou nulo caso contrário.
+     * Checks the collision between two lines.
+     *
+     * @param line1 A line.
+     * @param line2 Another line.
+     * @return Returns the collision point if the lines intersected, or null otherwise.
      */
     public static Vector2 checkCollisionLines( Line line1, Line line2 ) {
         return checkCollisionLines(
@@ -505,13 +505,13 @@ public interface CollisionUtils {
     }
 
     /**
-     * Verifica a colisão de um ponto com uma linha.
-     * 
-     * @param point O ponto.
-     * @param p1 O ponto inicial da linha.
-     * @param p2 O ponto final da linha.
-     * @param threshold O limite de proximidade entre o ponto e a linha.
-     * @return Verdadeiro caso o ponto tenha colidido com a linha, falso caso contrário.
+     * Checks the collision of a point with a line.
+     *
+     * @param point The point.
+     * @param p1 The start point of the line.
+     * @param p2 The end point of the line.
+     * @param threshold The proximity threshold between the point and the line.
+     * @return True if the point has collided with the line, false otherwise.
      */
     public static boolean checkCollisionPointLine( Vector2 point, Vector2 p1, Vector2 p2, int threshold ) {
 
@@ -533,23 +533,23 @@ public interface CollisionUtils {
     }
 
     /**
-     * Verifica a colisão de um ponto com uma linha.
-     * 
-     * @param point O ponto.
-     * @param line A linha.
-     * @param threshold O limite de proximidade entre o ponto e a linha.
-     * @return Verdadeiro caso o ponto tenha colidido com a linha, falso caso contrário.
+     * Checks the collision of a point with a line.
+     *
+     * @param point The point.
+     * @param line The line.
+     * @param threshold The proximity threshold between the point and the line.
+     * @return True if the point has collided with the line, false otherwise.
      */
     public static boolean checkCollisionPointLine( Vector2 point, Line line, int threshold ) {
         return checkCollisionPointLine( point, new Vector2( line.x1, line.y1 ), new Vector2( line.x2, line.y2 ), threshold );
     }
 
     /**
-     * Calcula o retângulo da sobreposição entre dois retângulos.
-     * 
-     * @param rec1 Um retângulo.
-     * @param rec2 Outro retângulo.
-     * @return O retângulo da sobreposição entre os dois retângulos.
+     * Computes the overlap rectangle between two rectangles.
+     *
+     * @param rec1 A rectangle.
+     * @param rec2 Another rectangle.
+     * @return The overlap rectangle between the two rectangles.
      */
     public static Rectangle getCollisionRectangle( Rectangle rec1, Rectangle rec2 ) {
         
@@ -576,11 +576,11 @@ public interface CollisionUtils {
     }
     
     /**
-     * Calcula o retângulo da sobreposição entre duas AABBs.
-     * 
-     * @param aabb1 Uma AABB.
-     * @param aabb2 Outra AABB.
-     * @return O retângulo da sobreposição entre duas AABBs.
+     * Computes the overlap rectangle between two AABBs.
+     *
+     * @param aabb1 An AABB.
+     * @param aabb2 Another AABB.
+     * @return The overlap rectangle between the two AABBs.
      */
     public static Rectangle getCollisionRectangle( AABB aabb1, AABB aabb2 ) {
         
@@ -607,11 +607,11 @@ public interface CollisionUtils {
     }
     
     /**
-     * Calcula o retângulo da sobreposição entre um retângulo e uma AABB.
-     * 
-     * @param rect Um retângulo.
-     * @param aabb Uma AABB.
-     * @return O retângulo da sobreposição entre um retângulo e uma AABB.
+     * Computes the overlap rectangle between a rectangle and an AABB.
+     *
+     * @param rect A rectangle.
+     * @param aabb An AABB.
+     * @return The overlap rectangle between a rectangle and an AABB.
      */
     public static Rectangle getCollisionRectangle( Rectangle rect, AABB aabb ) {
         

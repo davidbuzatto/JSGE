@@ -21,98 +21,98 @@ import br.com.davidbuzatto.jsge.image.Image;
 import java.awt.Color;
 
 /**
- * Um quadro de animação baseado em imagem.
- * 
+ * An animation frame based on an image.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class ImageAnimationFrame implements AnimationFrame {
-    
+
     /**
-     * A imagem do quadro de animação.
+     * The image of the animation frame.
      */
     public final Image baseImage;
-    
+
     /**
-     * Cria um quadro de animação de imagem.
-     * 
-     * @param baseImage Imagem do quadro.
+     * Creates an image animation frame.
+     *
+     * @param baseImage The frame image.
      */
     public ImageAnimationFrame( Image baseImage ) {
         this.baseImage = baseImage;
     }
-    
+
     /**
-     * Desenha o quadro de animação.
-     * 
-     * @param engine A engine.
-     * @param x Coordenada x.
-     * @param y Coordenada y.
+     * Draws the animation frame.
+     *
+     * @param engine The engine.
+     * @param x X coordinate.
+     * @param y Y coordinate.
      */
     public void draw( EngineFrame engine, double x, double y ) {
         engine.drawImage( baseImage, x, y );
     }
-    
+
     /**
-     * Desenha o quadro de animação.
-     * 
-     * @param engine A engine.
-     * @param x Coordenada x.
-     * @param y Coordenada y.
-     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     * Draws the animation frame.
+     *
+     * @param engine The engine.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     * @param rotation Rotation in degrees for drawing the image (clockwise).
      */
     public void draw( EngineFrame engine, double x, double y, double rotation ) {
         engine.drawImage( baseImage, x, y, rotation );
     }
-    
+
     /**
-     * Desenha o quadro de animação.
-     * 
-     * @param engine A engine.
-     * @param x Coordenada x.
-     * @param y Coordenada y.
-     * @param originX Coordenada x do eixo de rotação.
-     * @param originY Coordenada y do eixo de rotação.
-     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
+     * Draws the animation frame.
+     *
+     * @param engine The engine.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     * @param originX X coordinate of the rotation axis.
+     * @param originY Y coordinate of the rotation axis.
+     * @param rotation Rotation in degrees for drawing the image (clockwise).
      */
     public void draw( EngineFrame engine, double x, double y, double originX, double originY, double rotation ) {
         engine.drawImage( baseImage, x, y, originX, originY, rotation );
     }
-    
+
     /**
-     * Desenha o quadro de animação.
-     * 
-     * @param engine A engine.
-     * @param x Coordenada x.
-     * @param y Coordenada y.
-     * @param bgColor Cor de fundo.
+     * Draws the animation frame.
+     *
+     * @param engine The engine.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     * @param bgColor Background color.
      */
     public void draw( EngineFrame engine, double x, double y, Color bgColor ) {
         engine.drawImage( baseImage, x, y, bgColor );
     }
-    
+
     /**
-     * Desenha o quadro de animação.
-     * 
-     * @param engine A engine.
-     * @param x Coordenada x.
-     * @param y Coordenada y.
-     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
-     * @param bgColor Cor de fundo.
+     * Draws the animation frame.
+     *
+     * @param engine The engine.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     * @param rotation Rotation in degrees for drawing the image (clockwise).
+     * @param bgColor Background color.
      */
     public void draw( EngineFrame engine, double x, double y, double rotation, Color bgColor ) {
         engine.drawImage( baseImage, x, y, rotation, bgColor );
     }
-    
+
     /**
-     * Desenha o quadro de animação.
-     * 
-     * @param engine A engine.
-     * @param x Coordenada x.
-     * @param y Coordenada y.
-     * @param originX Coordenada x do eixo de rotação.
-     * @param originY Coordenada y do eixo de rotação.
-     * @param rotation Rotação em graus do desenho da imagem (sentido horário).
-     * @param bgColor Cor de fundo.
+     * Draws the animation frame.
+     *
+     * @param engine The engine.
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     * @param originX X coordinate of the rotation axis.
+     * @param originY Y coordinate of the rotation axis.
+     * @param rotation Rotation in degrees for drawing the image (clockwise).
+     * @param bgColor Background color.
      */
     public void draw( EngineFrame engine, double x, double y, double originX, double originY, double rotation, Color bgColor ) {
         engine.drawImage( baseImage, x, y, originX, originY, rotation, bgColor );

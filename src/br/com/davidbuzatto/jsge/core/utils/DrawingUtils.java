@@ -32,22 +32,22 @@ import java.awt.image.BufferedImage;
 import java.util.function.DoubleFunction;
 
 /**
- * Interface com métodos utilitários de desenho.
- * 
+ * Interface with drawing utility methods.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public interface DrawingUtils {
-       
+
     /**
-     * Cria Path2D de um triângulo.
-     * 
-     * @param v1x Coordenada x do primeiro vértice.
-     * @param v1y Coordenada y do primeiro vértice.
-     * @param v2x Coordenada x do segundo vértice.
-     * @param v2y Coordenada y do segundo vértice.
-     * @param v3x Coordenada x do terceiro vértice.
-     * @param v3y Coordenada y do quarto vértice.
-     * @return O Path2D do triângulo.
+     * Creates a Path2D for a triangle.
+     *
+     * @param v1x X coordinate of the first vertex.
+     * @param v1y Y coordinate of the first vertex.
+     * @param v2x X coordinate of the second vertex.
+     * @param v2y Y coordinate of the second vertex.
+     * @param v3x X coordinate of the third vertex.
+     * @param v3y Y coordinate of the fourth vertex.
+     * @return The Path2D of the triangle.
      */
     public static Path2D createTriangle( double v1x, double v1y, double v2x, double v2y, double v3x, double v3y ) {
 
@@ -62,14 +62,14 @@ public interface DrawingUtils {
     }
     
     /**
-     * Cria um Path2D de um polígono regular.
-     * 
-     * @param x Coordenada x do centro.
-     * @param y Coordenada y do centro.
-     * @param sides Quantidade de lados.
-     * @param radius Raio do círculo circunscrito.
-     * @param rotation Ângulo inicial em graus (sentido horário).
-     * @return O Path2D do polígono.
+     * Creates a Path2D for a regular polygon.
+     *
+     * @param x X coordinate of the center.
+     * @param y Y coordinate of the center.
+     * @param sides Number of sides.
+     * @param radius Radius of the circumscribed circle.
+     * @param rotation Initial angle in degrees (clockwise).
+     * @return The Path2D of the polygon.
      */
     public static Path2D createPolygon( double x, double y, int sides, double radius, double rotation ) {
 
@@ -100,14 +100,14 @@ public interface DrawingUtils {
     }
     
     /**
-     * Cria um Path2D de uma estrela regular.
-     * 
-     * @param x Coordenada x do centro.
-     * @param y Coordenada y do centro.
-     * @param tips Quantidade de pontas.
-     * @param radius Raio do círculo circunscrito.
-     * @param rotation Ângulo inicial em graus (sentido horário).
-     * @return O Path2D da estrela.
+     * Creates a Path2D for a regular star.
+     *
+     * @param x X coordinate of the center.
+     * @param y Y coordinate of the center.
+     * @param tips Number of points/tips.
+     * @param radius Radius of the circumscribed circle.
+     * @param rotation Initial angle in degrees (clockwise).
+     * @return The Path2D of the star.
      */
     public static Path2D createStar( double x, double y, int tips, double radius, double rotation ) {
 
@@ -153,15 +153,15 @@ public interface DrawingUtils {
     }
     
     /**
-     * Cria um Path2D de um anel.
-     * 
-     * @param x Coordenada x do centro.
-     * @param y Coordenada y do centro.
-     * @param innerRadius Raio interno.
-     * @param outerRadius Raio externo.
-     * @param startAngle Ângulo inicial em graus (sentigo horário).
-     * @param endAngle Ângulo final em graus (sentigo horário).
-     * @return O Path2D do anel.
+     * Creates a Path2D for a ring.
+     *
+     * @param x X coordinate of the center.
+     * @param y Y coordinate of the center.
+     * @param innerRadius Inner radius.
+     * @param outerRadius Outer radius.
+     * @param startAngle Start angle in degrees (clockwise).
+     * @param endAngle End angle in degrees (clockwise).
+     * @return The Path2D of the ring.
      */
     public static Path2D createRing( double x, double y, double innerRadius, double outerRadius, double startAngle, double endAngle ) {
 
@@ -177,7 +177,7 @@ public interface DrawingUtils {
     }
     
     /*
-     * Cria um anel (implementação antiga, mantida como referência).
+     * Creates a ring (old implementation, kept as reference).
      */
     @SuppressWarnings( "unused" )
     private static Path2D createRingOld( double centerX, double centerY, double innerRadius, double outerRadius, double startAngle, double endAngle, int segments ) {
@@ -227,13 +227,13 @@ public interface DrawingUtils {
     }
     
     /**
-     * Método estático auxiliar para separação do texto em várias linhas e seu
-     * consecutivo desenho.
-     * 
-     * @param text Texto a ser desenhado.
-     * @param x Coordenada x inicial.
-     * @param y Coordenada y inicial.
-     * @param g2d Contexto gráfico utilizado.
+     * Static helper method for splitting text into multiple lines and
+     * drawing them consecutively.
+     *
+     * @param text Text to be drawn.
+     * @param x Initial x coordinate.
+     * @param y Initial y coordinate.
+     * @param g2d The graphics context used.
      */
     public static void drawTextMultilineHelper( String text, double x, double y, Graphics2D g2d ) {
         
@@ -254,16 +254,16 @@ public interface DrawingUtils {
     }
     
     /**
-     * Plota uma função f(x) em um gráfico no formato de uma imagem.
-     * 
-     * @param function A função.
-     * @param width Largura da imagem gerada.
-     * @param height Altura da imagem gerada.
-     * @param marginH Margem horizontal.
-     * @param marginV Margem Vertical.
-     * @param axisColor Cor dos eixos.
-     * @param graphColor Cor do gráfico.
-     * @return Uma imagem com a plotagem do gráfico.
+     * Plots a function f(x) on a graph in image format.
+     *
+     * @param function The function.
+     * @param width Width of the generated image.
+     * @param height Height of the generated image.
+     * @param marginH Horizontal margin.
+     * @param marginV Vertical margin.
+     * @param axisColor Color of the axes.
+     * @param graphColor Color of the graph.
+     * @return An image with the graph plot.
      */
     public static Image plot( DoubleFunction<Double> function, int width, int height, int marginH, int marginV, Color axisColor, Color graphColor ) {
         
@@ -310,9 +310,9 @@ public interface DrawingUtils {
     }
     
     /**
-     * Cria uma imagem do logo da JSGE.
-     * 
-     * @return Uma imagem do logo da JSGE.
+     * Creates an image of the JSGE logo.
+     *
+     * @return An image of the JSGE logo.
      */
     public static Image createLogo() {
         
@@ -342,26 +342,26 @@ public interface DrawingUtils {
         int lw = 5 * sw;
         int margin = sw;
         
-        // j
+        // j letter
         logo.fillRectangle( right - margin - sw * 2 - lw, down - margin - sw - lh * 2 - sw * 2, sw, sw, EngineFrame.BLACK );
         logo.fillRectangle( right - margin - sw * 2 - lw, down - margin - sw - lh * 2, sw, lh, EngineFrame.BLACK );
         logo.fillRectangle( right - margin - sw * 2 - lw - sw, down - margin - sw * 2 - lh, sw * 2, sw, EngineFrame.BLACK );
-        
-        // s
+
+        // s letter
         logo.fillRectangle( right - margin - sw * 5, down - margin - sw - lh * 2, sw * 5, sw, EngineFrame.BLACK );
         logo.fillRectangle( right - margin - sw * 5, down - margin - lh * 2, sw, sw, EngineFrame.BLACK );
         logo.fillRectangle( right - margin - sw * 5, down - margin + sw - lh * 2, sw * 5, sw, EngineFrame.BLACK );
         logo.fillRectangle( right - margin - sw, down - margin + sw * 2 - lh * 2, sw, sw, EngineFrame.BLACK );
         logo.fillRectangle( right - margin - sw * 5, down - margin + sw * 3 - lh * 2, sw * 5, sw, EngineFrame.BLACK );
-        
-        // g
+
+        // g letter
         logo.fillRectangle( right - margin - sw * 6 - lw, down - margin - lh, sw * 5, sw, EngineFrame.BLACK );
         logo.fillRectangle( right - margin - sw * 6 - lw, down - margin + sw - lh, sw, sw * 3, EngineFrame.BLACK );
         logo.fillRectangle( right - margin - sw * 2 - lw, down - margin + sw - lh, sw, sw * 5, EngineFrame.BLACK );
         logo.fillRectangle( right - margin - sw * 6 - lw, down - margin + sw * 4 - lh, sw * 5, sw, EngineFrame.BLACK );
         logo.fillRectangle( right - margin - sw * 6 - lw, down - margin + sw * 6 - lh, sw * 5, sw, EngineFrame.BLACK );
-        
-        // e
+
+        // e letter
         logo.fillRectangle( right - margin - sw * 5, down - margin - lh, sw * 5, sw, EngineFrame.BLACK );
         logo.fillRectangle( right - margin - sw * 5, down - margin + sw - lh, sw, sw, EngineFrame.BLACK );
         logo.fillRectangle( right - margin - sw, down - margin + sw - lh, sw, sw, EngineFrame.BLACK );
