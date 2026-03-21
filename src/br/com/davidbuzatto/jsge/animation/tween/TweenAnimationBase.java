@@ -19,22 +19,22 @@ package br.com.davidbuzatto.jsge.animation.tween;
 import br.com.davidbuzatto.jsge.animation.AnimationExecutionState;
 
 /**
- * Uma animação interpolada base.
- * 
- * @param <ComponentType> O tipo do componente que passará pela interpolação.
+ * A base tween animation.
+ *
+ * @param <ComponentType> The type of the component that will undergo interpolation.
  * @author Prof. Dr. David Buzatto
  */
 public abstract class TweenAnimationBase<ComponentType> {
-    
+
     protected TweenAnimationProperties properties;
     protected TweenAnimationComponentMapper<ComponentType> componentMapper;
     protected TweenAnimationStateContainer stateContainer;
-    
+
     /**
-     * Constroi uma nova animação interpolada.
-     * 
-     * @param properties As propriedades utilizadas para o controle da animação.
-     * @param componentMapper Um mapeador de propriedades do componente que será manipulado na animação.
+     * Constructs a new tween animation.
+     *
+     * @param properties The properties used to control the animation.
+     * @param componentMapper A property mapper for the component that will be manipulated in the animation.
      */
     public TweenAnimationBase( 
         TweenAnimationProperties properties,
@@ -45,70 +45,67 @@ public abstract class TweenAnimationBase<ComponentType> {
     }
     
     /**
-     * Atualiza a animação usando a função de atualização definida.
-     * 
-     * @param delta Variação do tempo.
+     * Updates the animation using the defined update function.
+     *
+     * @param delta Time variation.
      */
     public abstract void update( double delta );
-    
+
     /**
-     * Obtém o componente manipulado na animação.
-     * 
-     * @return O componente manipulado na animação.
+     * Gets the component manipulated in the animation.
+     *
+     * @return The component manipulated in the animation.
      */
     public ComponentType getComponent() {
         return componentMapper.getComponent();
     }
-    
+
     /**
-     * Obtém o estado da animação.
-     * 
-     * @return O estado da animação.
+     * Gets the animation state.
+     *
+     * @return The animation state.
      */
     public AnimationExecutionState getState() {
         return stateContainer.state;
     }
-    
+
     /**
-     * Obtém a porcentagem da animação.
-     * 
-     * @return A porcentagem da execução da animação.
+     * Gets the animation percentage.
+     *
+     * @return The execution percentage of the animation.
      */
     public double getPercentage() {
         return stateContainer.percentage;
     }
-    
+
     /**
-     * Obtém o tempo de execução total animação.
-     * 
-     * @return O tempo de execução total da animação.
+     * Gets the total execution time of the animation.
+     *
+     * @return The total execution time of the animation.
      */
     public double getExecutionTime() {
         return stateContainer.executionTime;
     }
-    
+
     /**
-     * Pausa a animação. Esse método apenas muda o estado da animação.
-     * O processo de pausar de fato deve ser implementado na função
-     * de atualização.
+     * Pauses the animation. This method only changes the animation state.
+     * The actual pausing logic must be implemented in the update function.
      */
     public void pause() {
         stateContainer.state = AnimationExecutionState.PAUSED;
     }
-    
+
     /**
-     * Retoma a animação. Esse método apenas muda o estado da animação.
-     * O processo de retomar de fato deve ser implementado na função
-     * de atualização.
+     * Resumes the animation. This method only changes the animation state.
+     * The actual resuming logic must be implemented in the update function.
      */
     public void resume() {
         stateContainer.state = AnimationExecutionState.RUNNING;
     }
-    
+
     /**
-     * Reseta a animação. Esse método apenas muda o estado da animação.
-     * O processo de resetar de fato deve ser implementado na função
-     * de atualização.
+     * Resets the animation. This method only changes the animation state.
+     * The actual reset logic must be implemented in the update function.
      */
     public void reset() {
         stateContainer.state = AnimationExecutionState.INITIALIZED;
@@ -117,18 +114,18 @@ public abstract class TweenAnimationBase<ComponentType> {
     }
 
     /**
-     * Configura o mapeador.
-     * 
-     * @param componentMapper Mapeador.
+     * Sets the component mapper.
+     *
+     * @param componentMapper The mapper.
      */
     public void setComponentMapper( TweenAnimationComponentMapper<ComponentType> componentMapper ) {
         this.componentMapper = componentMapper;
     }
 
     /**
-     * Configura as propriedades.
-     * 
-     * @param properties As propriedades.
+     * Sets the properties.
+     *
+     * @param properties The properties.
      */
     public void setProperties( TweenAnimationProperties properties ) {
         this.properties = properties;

@@ -21,25 +21,24 @@ import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationProperties;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationStateContainer;
 
 /**
- * Interface funcional para as funções de atualização das animações interpoladas
- * temporizadas.
- * 
- * São essas funções que são responsáveis em atualizar o estado de uma animação.
- * 
- * @param <ComponentType> Tipo do componente.
+ * Functional interface for the update functions of timing-based tween animations.
+ *
+ * These functions are responsible for updating the state of an animation.
+ *
+ * @param <ComponentType> The component type.
  * @author Prof. Dr. David Buzatto
  */
 @FunctionalInterface
 public interface TimingTweenAnimationUpdateFunction<ComponentType> {
-    
+
     /**
-     * Função de atualização temporizada.
-     * 
-     * @param delta Variação no tempo.
-     * @param totalExecutionTime Tempo de total de execução da animação.
-     * @param properties Propriedades para inicialização e manutenção do estado da animação.
-     * @param componentMapper Mapeador de propriedades que realiza a interface entre o componente manipulado e a função de atualização.
-     * @param stateContainer Mantém o estado da animação. ´É responsabilidade do desenvolvedor lidar com seus atributos.
+     * Timing-based update function.
+     *
+     * @param delta Time variation.
+     * @param totalExecutionTime Total execution time of the animation.
+     * @param properties Properties for initializing and maintaining the animation state.
+     * @param componentMapper Property mapper that acts as the interface between the manipulated component and the update function.
+     * @param stateContainer Holds the animation state. It is the developer's responsibility to manage its attributes.
      */
     public void accept( 
         double delta, 

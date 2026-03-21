@@ -32,9 +32,9 @@ import java.util.concurrent.Executors;
 import javax.sound.sampled.FloatControl;
 
 /**
- * Uma classe para representação de sons.
- * Utilize-a para sons curtos, de menos de 10 segundos.
- * 
+ * A class for representing sounds.
+ * Use it for short sounds, less than 10 seconds long.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class Sound {
@@ -122,17 +122,17 @@ public class Sound {
     private URL url;
     
     /**
-     * Cria um som usando o caminho do arquivo.
-     * 
-     * @param filePath Caminho do arquivo.
+     * Creates a sound using the file path.
+     *
+     * @param filePath Path to the file.
      */
     public Sound( String filePath ) {
         this.file = new File( filePath );
     }
     
     /**
-     * Cria um som usando um input stream.
-     * 
+     * Creates a sound using an input stream.
+     *
      * @param is Input stream.
      */
     public Sound( InputStream is ) {
@@ -140,8 +140,8 @@ public class Sound {
     }
     
     /**
-     * Cria um som usando uma URL.
-     * 
+     * Creates a sound using a URL.
+     *
      * @param url URL.
      */
     public Sound( URL url ) {
@@ -149,7 +149,7 @@ public class Sound {
     }
     
     /**
-     * Executa o som.
+     * Plays the sound.
      */
     public void play() {
         executor.execute( () -> {

@@ -30,29 +30,29 @@ import java.awt.TexturePaint;
 import java.awt.geom.Rectangle2D;
 
 /**
- * Interface com métodos estáticos utilitários criação de diversos tipos de Paints.
- * 
+ * Interface with static utility methods for creating various types of Paints.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public interface PaintUtils {
-    
+
     /**
-     * Enumeração para os tipos de cyclos para os gradientes.
+     * Enumeration for gradient cycle types.
      */
     public static enum CycleMethod {
-        
+
         /**
-         * Sem ciclo.
+         * No cycle.
          */
         NO_CYCLE( MultipleGradientPaint.CycleMethod.NO_CYCLE ),
-        
+
         /**
-         * Ciclo em reflexo.
+         * Reflection cycle.
          */
         REFLECT( MultipleGradientPaint.CycleMethod.REFLECT ),
-        
+
         /**
-         * Ciclo em repetição.
+         * Repeat cycle.
          */
         REPEAT( MultipleGradientPaint.CycleMethod.REPEAT );
         
@@ -67,61 +67,61 @@ public interface PaintUtils {
     
     
     //**************************************************************************
-    // Paints de gradiente (GradientPaint).
+    // Gradient paints (GradientPaint).
     //**************************************************************************
     /**
-     * Cria um paint do tipo gradiente de duas cores com início e fim.
-     * 
-     * @param startX Coordenada x do ponto inicial.
-     * @param startY Coordenada y do ponto inicial.
-     * @param endX Coordenada x do ponto final.
-     * @param endY Coordenada y do ponto final.
-     * @param startColor Cor inicial.
-     * @param endColor Cor final.
-     * @param cyclic Se o gradiente é cíclico.
-     * @return Um paint do tipo gradiente.
+     * Creates a two-color gradient paint with start and end points.
+     *
+     * @param startX X coordinate of the start point.
+     * @param startY Y coordinate of the start point.
+     * @param endX X coordinate of the end point.
+     * @param endY Y coordinate of the end point.
+     * @param startColor Start color.
+     * @param endColor End color.
+     * @param cyclic Whether the gradient is cyclic.
+     * @return A gradient paint.
      */
     public static Paint getGradientPaint( double startX, double startY, double endX, double endY, Color startColor, Color endColor, boolean cyclic ) {
         return new GradientPaint( (float) startX, (float) startY, startColor, (float) endX, (float) endY, endColor, cyclic );
     }
     
     /**
-     * Cria um paint do tipo gradiente acíclico de duas cores com início e fim.
-     * 
-     * @param startX Coordenada x do ponto inicial.
-     * @param startY Coordenada y do ponto inicial.
-     * @param endX Coordenada x do ponto final.
-     * @param endY Coordenada y do ponto final.
-     * @param startColor Cor inicial.
-     * @param endColor Cor final.
-     * @return Um paint do tipo gradiente acíclico.
+     * Creates an acyclic two-color gradient paint with start and end points.
+     *
+     * @param startX X coordinate of the start point.
+     * @param startY Y coordinate of the start point.
+     * @param endX X coordinate of the end point.
+     * @param endY Y coordinate of the end point.
+     * @param startColor Start color.
+     * @param endColor End color.
+     * @return An acyclic gradient paint.
      */
     public static Paint getGradientPaint( double startX, double startY, double endX, double endY, Color startColor, Color endColor ) {
         return new GradientPaint( (float) startX, (float) startY, startColor, (float) endX, (float) endY, endColor, false );
     }
     
     /**
-     * Cria um paint do tipo gradiente de duas cores com início e fim.
-     * 
-     * @param start Ponto inicial.
-     * @param end Ponto final.
-     * @param startColor Cor inicial.
-     * @param endColor Cor final.
-     * @param cyclic Se o gradiente é cíclico.
-     * @return Um paint do tipo gradiente.
+     * Creates a two-color gradient paint with start and end points.
+     *
+     * @param start Start point.
+     * @param end End point.
+     * @param startColor Start color.
+     * @param endColor End color.
+     * @param cyclic Whether the gradient is cyclic.
+     * @return A gradient paint.
      */
     public static Paint getGradientPaint( Vector2 start, Vector2 end, Color startColor, Color endColor, boolean cyclic ) {
         return getGradientPaint( start.x, start.y, end.x, end.y, startColor, endColor, cyclic );
     }
     
     /**
-     * Cria um paint do tipo gradiente acíclico de duas cores com início e fim.
-     * 
-     * @param start Ponto inicial.
-     * @param end Ponto final.
-     * @param startColor Cor inicial.
-     * @param endColor Cor final.
-     * @return Um paint do tipo gradiente acíclico.
+     * Creates an acyclic two-color gradient paint with start and end points.
+     *
+     * @param start Start point.
+     * @param end End point.
+     * @param startColor Start color.
+     * @param endColor End color.
+     * @return An acyclic gradient paint.
      */
     public static Paint getGradientPaint( Vector2 start, Vector2 end, Color startColor, Color endColor ) {
         return getGradientPaint( start.x, start.y, end.x, end.y, startColor, endColor, false );
@@ -130,86 +130,86 @@ public interface PaintUtils {
     
     
     //**************************************************************************
-    // Paints de gradiente horizontal (GradientPaint).
+    // Horizontal gradient paints (GradientPaint).
     //**************************************************************************
     /**
-     * Cria um gradiente horizontal de duas cores.
-     * 
-     * @param x Coordenada x do ponto inicial.
-     * @param y Coordenada y do ponto inicial.
-     * @param width Largura.
-     * @param height Altura.
-     * @param startColor Cor inicial.
-     * @param endColor Cor final.
-     * @param cyclic Se o gradiente é cíclico.
-     * @return Um gradiente horizontal de duas cores.
+     * Creates a horizontal two-color gradient.
+     *
+     * @param x X coordinate of the start point.
+     * @param y Y coordinate of the start point.
+     * @param width Width.
+     * @param height Height.
+     * @param startColor Start color.
+     * @param endColor End color.
+     * @param cyclic Whether the gradient is cyclic.
+     * @return A horizontal two-color gradient.
      */
     public static Paint getHorizontalGradientPaint( double x, double y, double width, double height, Color startColor, Color endColor, boolean cyclic ) {
         return new GradientPaint( (float) x, (float) (y + height / 2), startColor, (float) (x + width), (float) (y + height / 2), endColor, cyclic );
     }
     
     /**
-     * Cria um gradiente horizontal acíclico de duas cores.
-     * 
-     * @param x Coordenada x do ponto inicial.
-     * @param y Coordenada y do ponto inicial.
-     * @param width Largura.
-     * @param height Altura.
-     * @param startColor Cor inicial.
-     * @param endColor Cor final.
-     * @return Um gradiente horizontal acíclico de duas cores.
+     * Creates an acyclic horizontal two-color gradient.
+     *
+     * @param x X coordinate of the start point.
+     * @param y Y coordinate of the start point.
+     * @param width Width.
+     * @param height Height.
+     * @param startColor Start color.
+     * @param endColor End color.
+     * @return An acyclic horizontal two-color gradient.
      */
     public static Paint getHorizontalGradientPaint( double x, double y, double width, double height, Color startColor, Color endColor ) {
         return getHorizontalGradientPaint( x, y, width, height, startColor, endColor, false );
     }
     
     /**
-     * Cria um gradiente horizontal de duas cores.
-     * 
-     * @param pos Ponto inicial.
-     * @param dim Dimensão do gradiente (largura e altura).
-     * @param startColor Cor inicial.
-     * @param endColor Cor final.
-     * @param cyclic Se o gradiente é cíclico.
-     * @return Um gradiente horizontal de duas cores.
+     * Creates a horizontal two-color gradient.
+     *
+     * @param pos Start point.
+     * @param dim Gradient dimensions (width and height).
+     * @param startColor Start color.
+     * @param endColor End color.
+     * @param cyclic Whether the gradient is cyclic.
+     * @return A horizontal two-color gradient.
      */
     public static Paint getHorizontalGradientPaint( Vector2 pos, Vector2 dim, Color startColor, Color endColor, boolean cyclic ) {
         return getHorizontalGradientPaint( pos.x, pos.y, dim.x, dim.y, startColor, endColor, cyclic );
     }
     
     /**
-     * Cria um gradiente horizontal acíclico de duas cores.
-     * 
-     * @param pos Ponto inicial.
-     * @param dim Dimensão do gradiente (largura e altura).
-     * @param startColor Cor inicial.
-     * @param endColor Cor final.
-     * @return Um gradiente horizontal acíclico de duas cores.
+     * Creates an acyclic horizontal two-color gradient.
+     *
+     * @param pos Start point.
+     * @param dim Gradient dimensions (width and height).
+     * @param startColor Start color.
+     * @param endColor End color.
+     * @return An acyclic horizontal two-color gradient.
      */
     public static Paint getHorizontalGradientPaint( Vector2 pos, Vector2 dim, Color startColor, Color endColor ) {
         return getHorizontalGradientPaint( pos.x, pos.y, dim.x, dim.y, startColor, endColor, false );
     }
     
     /**
-     * Cria um gradiente horizontal de duas cores.
-     * 
-     * @param rect Retângulo do gradiente.
-     * @param startColor Cor inicial.
-     * @param endColor Cor final.
-     * @param cyclic Se o gradiente é cíclico.
-     * @return Um gradiente horizontal de duas cores.
+     * Creates a horizontal two-color gradient.
+     *
+     * @param rect The gradient rectangle.
+     * @param startColor Start color.
+     * @param endColor End color.
+     * @param cyclic Whether the gradient is cyclic.
+     * @return A horizontal two-color gradient.
      */
     public static Paint getHorizontalGradientPaint( Rectangle rect, Color startColor, Color endColor, boolean cyclic ) {
         return getHorizontalGradientPaint( rect.x, rect.y, rect.width, rect.height, startColor, endColor, cyclic );
     }
     
     /**
-     * Cria um gradiente horizontal acíclico de duas cores.
-     * 
-     * @param rect Retângulo do gradiente.
-     * @param startColor Cor inicial.
-     * @param endColor Cor final.
-     * @return Um gradiente horizontal acíclico de duas cores.
+     * Creates an acyclic horizontal two-color gradient.
+     *
+     * @param rect The gradient rectangle.
+     * @param startColor Start color.
+     * @param endColor End color.
+     * @return An acyclic horizontal two-color gradient.
      */
     public static Paint getHorizontalGradientPaint( Rectangle rect, Color startColor, Color endColor ) {
         return getHorizontalGradientPaint( rect.x, rect.y, rect.width, rect.height, startColor, endColor, false );
@@ -218,86 +218,86 @@ public interface PaintUtils {
     
     
     //**************************************************************************
-    // Paints de gradiente vertical (GradientPaint).
+    // Vertical gradient paints (GradientPaint).
     //**************************************************************************
     /**
-     * Cria um gradiente vertical de duas cores.
-     * 
-     * @param x Coordenada x do ponto inicial.
-     * @param y Coordenada y do ponto inicial.
-     * @param width Largura.
-     * @param height Altura.
-     * @param startColor Cor inicial.
-     * @param endColor Cor final.
-     * @param cyclic Se o gradiente é cíclico.
-     * @return Um gradiente vertical de duas cores.
+     * Creates a vertical two-color gradient.
+     *
+     * @param x X coordinate of the start point.
+     * @param y Y coordinate of the start point.
+     * @param width Width.
+     * @param height Height.
+     * @param startColor Start color.
+     * @param endColor End color.
+     * @param cyclic Whether the gradient is cyclic.
+     * @return A vertical two-color gradient.
      */
     public static Paint getVerticalGradientPaint( double x, double y, double width, double height, Color startColor, Color endColor, boolean cyclic ) {
         return new GradientPaint( (float) (x + width / 2), (float) y, startColor, (float) (x + width / 2), (float) (y + height), endColor, cyclic );
     }
     
     /**
-     * Cria um gradiente vertical acíclico de duas cores.
-     * 
-     * @param x Coordenada x do ponto inicial.
-     * @param y Coordenada y do ponto inicial.
-     * @param width Largura.
-     * @param height Altura.
-     * @param startColor Cor inicial.
-     * @param endColor Cor final.
-     * @return Um gradiente vertical acíclico de duas cores.
+     * Creates an acyclic vertical two-color gradient.
+     *
+     * @param x X coordinate of the start point.
+     * @param y Y coordinate of the start point.
+     * @param width Width.
+     * @param height Height.
+     * @param startColor Start color.
+     * @param endColor End color.
+     * @return An acyclic vertical two-color gradient.
      */
     public static Paint getVerticalGradientPaint( double x, double y, double width, double height, Color startColor, Color endColor ) {
         return getVerticalGradientPaint( x, y, width, height, startColor, endColor, false );
     }
     
     /**
-     * Cria um gradiente vertical de duas cores.
-     * 
-     * @param pos Ponto inicial.
-     * @param dim Dimensão do gradiente (largura e altura).
-     * @param startColor Cor inicial.
-     * @param endColor Cor final.
-     * @param cyclic Se o gradiente é cíclico.
-     * @return Um gradiente vertical de duas cores.
+     * Creates a vertical two-color gradient.
+     *
+     * @param pos Start point.
+     * @param dim Gradient dimensions (width and height).
+     * @param startColor Start color.
+     * @param endColor End color.
+     * @param cyclic Whether the gradient is cyclic.
+     * @return A vertical two-color gradient.
      */
     public static Paint getVerticalGradientPaint( Vector2 pos, Vector2 dim, Color startColor, Color endColor, boolean cyclic ) {
         return getVerticalGradientPaint( pos.x, pos.y, dim.x, dim.y, startColor, endColor, cyclic );
     }
     
     /**
-     * Cria um gradiente vertical acíclico de duas cores.
-     * 
-     * @param pos Ponto inicial.
-     * @param dim Dimensão do gradiente (largura e altura).
-     * @param startColor Cor inicial.
-     * @param endColor Cor final.
-     * @return Um gradiente vertical acíclico de duas cores.
+     * Creates an acyclic vertical two-color gradient.
+     *
+     * @param pos Start point.
+     * @param dim Gradient dimensions (width and height).
+     * @param startColor Start color.
+     * @param endColor End color.
+     * @return An acyclic vertical two-color gradient.
      */
     public static Paint getVerticalGradientPaint( Vector2 pos, Vector2 dim, Color startColor, Color endColor ) {
         return getVerticalGradientPaint( pos.x, pos.y, dim.x, dim.y, startColor, endColor, false );
     }
     
     /**
-     * Cria um gradiente vertical de duas cores.
-     * 
-     * @param rect Retângulo do gradiente.
-     * @param startColor Cor inicial.
-     * @param endColor Cor final.
-     * @param cyclic Se o gradiente é cíclico.
-     * @return Um gradiente vertical de duas cores.
+     * Creates a vertical two-color gradient.
+     *
+     * @param rect The gradient rectangle.
+     * @param startColor Start color.
+     * @param endColor End color.
+     * @param cyclic Whether the gradient is cyclic.
+     * @return A vertical two-color gradient.
      */
     public static Paint getVerticalGradientPaint( Rectangle rect, Color startColor, Color endColor, boolean cyclic ) {
         return getVerticalGradientPaint( rect.x, rect.y, rect.width, rect.height, startColor, endColor, cyclic );
     }
     
     /**
-     * Cria um gradiente vertical acíclico de duas cores.
-     * 
-     * @param rect Retângulo do gradiente.
-     * @param startColor Cor inicial.
-     * @param endColor Cor final.
-     * @return Um gradiente vertical acíclico de duas cores.
+     * Creates an acyclic vertical two-color gradient.
+     *
+     * @param rect The gradient rectangle.
+     * @param startColor Start color.
+     * @param endColor End color.
+     * @return An acyclic vertical two-color gradient.
      */
     public static Paint getVerticalGradientPaint( Rectangle rect, Color startColor, Color endColor ) {
         return getVerticalGradientPaint( rect.x, rect.y, rect.width, rect.height, startColor, endColor, false );
@@ -306,61 +306,61 @@ public interface PaintUtils {
     
     
     //**************************************************************************
-    // Paints de gradiente linear (LinearGradientPaint).
+    // Linear gradient paints (LinearGradientPaint).
     //**************************************************************************
     /**
-     * Cria um gradiente linear de várias cores.
-     * 
-     * @param startX Coordenada x do ponto inicial.
-     * @param startY Coordenada y do ponto inicial.
-     * @param endX Coordenada x do ponto final.
-     * @param endY Coordenada y do ponto final.
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @param cycleMethod Qual tipo de ciclo deve ser empregado.
-     * @return Um gradiente linear.
+     * Creates a multi-color linear gradient.
+     *
+     * @param startX X coordinate of the start point.
+     * @param startY Y coordinate of the start point.
+     * @param endX X coordinate of the end point.
+     * @param endY Y coordinate of the end point.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @param cycleMethod The type of cycle to use.
+     * @return A linear gradient.
      */
     public static Paint getLinearGradientPaint( double startX, double startY, double endX, double endY, float[] fractions, Color[] colors, CycleMethod cycleMethod ) {
         return new LinearGradientPaint( (float) startX, (float) startY, (float) endX, (float) endY, fractions, colors, cycleMethod.method );
     }
     
     /**
-     * Cria um gradiente linear acíclico de várias cores.
-     * 
-     * @param startX Coordenada x do ponto inicial.
-     * @param startY Coordenada y do ponto inicial.
-     * @param endX Coordenada x do ponto final.
-     * @param endY Coordenada y do ponto final.
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @return Um gradiente linear acíclico.
+     * Creates an acyclic multi-color linear gradient.
+     *
+     * @param startX X coordinate of the start point.
+     * @param startY Y coordinate of the start point.
+     * @param endX X coordinate of the end point.
+     * @param endY Y coordinate of the end point.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @return An acyclic linear gradient.
      */
     public static Paint getLinearGradientPaint( double startX, double startY, double endX, double endY, float[] fractions, Color[] colors ) {
         return getLinearGradientPaint( startX, startY, endX, endY, fractions, colors, CycleMethod.NO_CYCLE );
     }
     
     /**
-     * Cria um gradiente linear de várias cores.
-     * 
-     * @param start Ponto inicial.
-     * @param end Ponto final.
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @param cycleMethod Qual tipo de ciclo deve ser empregado.
-     * @return Um gradiente linear.
+     * Creates a multi-color linear gradient.
+     *
+     * @param start Start point.
+     * @param end End point.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @param cycleMethod The type of cycle to use.
+     * @return A linear gradient.
      */
     public static Paint getLinearGradientPaint( Vector2 start, Vector2 end, float[] fractions, Color[] colors, CycleMethod cycleMethod ) {
         return getLinearGradientPaint( start.x, start.y, end.x, end.y, fractions, colors, cycleMethod );
     }
     
     /**
-     * Cria um gradiente linear acíclico de várias cores.
-     * 
-     * @param start Ponto inicial.
-     * @param end Ponto final.
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @return Um gradiente linear acíclico.
+     * Creates an acyclic multi-color linear gradient.
+     *
+     * @param start Start point.
+     * @param end End point.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @return An acyclic linear gradient.
      */
     public static Paint getLinearGradientPaint( Vector2 start, Vector2 end, float[] fractions, Color[] colors ) {
         return getLinearGradientPaint( start.x, start.y, end.x, end.y, fractions, colors, CycleMethod.NO_CYCLE );
@@ -369,198 +369,198 @@ public interface PaintUtils {
     
     
     //**************************************************************************
-    // Paints de gradiente radial (RadialGradientPaint).
+    // Radial gradient paints (RadialGradientPaint).
     //**************************************************************************
     /**
-     * Cria um gradiente radial de várias cores.
-     * 
-     * @param cx Coordenada x do centro.
-     * @param cy Coordenada y do centro.
-     * @param radius Raio.
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @param cycleMethod Qual tipo de ciclo deve ser empregado.
-     * @return Um gradiente radial.
+     * Creates a multi-color radial gradient.
+     *
+     * @param cx X coordinate of the center.
+     * @param cy Y coordinate of the center.
+     * @param radius Radius.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @param cycleMethod The type of cycle to use.
+     * @return A radial gradient.
      */
     public static Paint getRadialGradientPaint( double cx, double cy, double radius, float[] fractions, Color[] colors, CycleMethod cycleMethod ) {
         return new RadialGradientPaint( (float) cx, (float) cy, (float) radius, fractions, colors, cycleMethod.method );
     }
     
     /**
-     * Cria um gradiente radial acíclico de várias cores.
-     * 
-     * @param cx Coordenada x do centro.
-     * @param cy Coordenada y do centro.
-     * @param radius Raio.
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @return Um gradiente radial acíclico.
+     * Creates an acyclic multi-color radial gradient.
+     *
+     * @param cx X coordinate of the center.
+     * @param cy Y coordinate of the center.
+     * @param radius Radius.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @return An acyclic radial gradient.
      */
     public static Paint getRadialGradientPaint( double cx, double cy, double radius, float[] fractions, Color[] colors ) {
         return new RadialGradientPaint( (float) cx, (float) cy, (float) radius, fractions, colors );
     }
     
     /**
-     * Cria um gradiente radial de várias cores.
-     * 
-     * @param cx Coordenada x do centro.
-     * @param cy Coordenada y do centro.
-     * @param radius Raio.
-     * @param fx Coordenada x do foco.
-     * @param fy Coordenada y do foco.
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @param cycleMethod Qual tipo de ciclo deve ser empregado.
-     * @return Um gradiente radial.
+     * Creates a multi-color radial gradient.
+     *
+     * @param cx X coordinate of the center.
+     * @param cy Y coordinate of the center.
+     * @param radius Radius.
+     * @param fx X coordinate of the focus.
+     * @param fy Y coordinate of the focus.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @param cycleMethod The type of cycle to use.
+     * @return A radial gradient.
      */
     public static Paint getRadialGradientPaint( double cx, double cy, double radius, double fx, double fy, float[] fractions, Color[] colors, CycleMethod cycleMethod ) {
         return new RadialGradientPaint( (float) cx, (float) cy, (float) radius, (float) fx, (float) fy, fractions, colors, cycleMethod.method );
     }
     
     /**
-     * Cria um gradiente radial acíclico de várias cores.
-     * 
-     * @param cx Coordenada x do centro.
-     * @param cy Coordenada y do centro.
-     * @param radius Raio.
-     * @param fx Coordenada x do foco.
-     * @param fy Coordenada y do foco.
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @return Um gradiente radial acíclico.
+     * Creates an acyclic multi-color radial gradient.
+     *
+     * @param cx X coordinate of the center.
+     * @param cy Y coordinate of the center.
+     * @param radius Radius.
+     * @param fx X coordinate of the focus.
+     * @param fy Y coordinate of the focus.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @return An acyclic radial gradient.
      */
     public static Paint getRadialGradientPaint( double cx, double cy, double radius, double fx, double fy, float[] fractions, Color[] colors ) {
         return new RadialGradientPaint( (float) cx, (float) cy, (float) radius, (float) fx, (float) fy, fractions, colors, CycleMethod.NO_CYCLE.method );
     }
     
     /**
-     * Cria um gradiente radial de várias cores.
-     * 
-     * @param center Centro.
-     * @param radius Raio.
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @param cycleMethod Qual tipo de ciclo deve ser empregado.
-     * @return Um gradiente radial.
+     * Creates a multi-color radial gradient.
+     *
+     * @param center Center.
+     * @param radius Radius.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @param cycleMethod The type of cycle to use.
+     * @return A radial gradient.
      */
     public static Paint getRadialGradientPaint( Vector2 center, double radius, float[] fractions, Color[] colors, CycleMethod cycleMethod ) {
         return new RadialGradientPaint( (float) center.x, (float) center.x, (float) radius, fractions, colors, cycleMethod.method );
     }
     
     /**
-     * Cria um gradiente radial acíclico de várias cores.
-     * 
-     * @param center Centro.
-     * @param radius Raio.
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @return Um gradiente radial acíclico.
+     * Creates an acyclic multi-color radial gradient.
+     *
+     * @param center Center.
+     * @param radius Radius.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @return An acyclic radial gradient.
      */
     public static Paint getRadialGradientPaint( Vector2 center, double radius, float[] fractions, Color[] colors ) {
         return new RadialGradientPaint( (float) center.x, (float) center.x, (float) radius, fractions, colors );
     }
     
     /**
-     * Cria um gradiente radial de várias cores.
-     * 
-     * @param center Centro.
-     * @param radius Raio.
-     * @param focus Ponto do foco.
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @param cycleMethod Qual tipo de ciclo deve ser empregado.
-     * @return Um gradiente radial.
+     * Creates a multi-color radial gradient.
+     *
+     * @param center Center.
+     * @param radius Radius.
+     * @param focus Focus point.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @param cycleMethod The type of cycle to use.
+     * @return A radial gradient.
      */
     public static Paint getRadialGradientPaint( Vector2 center, double radius, Vector2 focus, float[] fractions, Color[] colors, CycleMethod cycleMethod ) {
         return new RadialGradientPaint( (float) center.x, (float) center.y, (float) radius, (float) focus.x, (float) focus.y, fractions, colors, cycleMethod.method );
     }
     
     /**
-     * Cria um gradiente radial acíclico de várias cores.
-     * 
-     * @param center Centro.
-     * @param radius Raio.
-     * @param focus Ponto do foco.
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @return Um gradiente radial acíclico.
+     * Creates an acyclic multi-color radial gradient.
+     *
+     * @param center Center.
+     * @param radius Radius.
+     * @param focus Focus point.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @return An acyclic radial gradient.
      */
     public static Paint getRadialGradientPaint( Vector2 center, double radius, Vector2 focus, float[] fractions, Color[] colors ) {
         return new RadialGradientPaint( (float) center.x, (float) center.y, (float) radius, (float) focus.x, (float) focus.y, fractions, colors, CycleMethod.NO_CYCLE.method );
     }
     
     /**
-     * Cria um gradiente radial de várias cores.
-     * 
-     * @param circle Círculo.
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @param cycleMethod Qual tipo de ciclo deve ser empregado.
-     * @return Um gradiente radial.
+     * Creates a multi-color radial gradient.
+     *
+     * @param circle Circle.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @param cycleMethod The type of cycle to use.
+     * @return A radial gradient.
      */
     public static Paint getRadialGradientPaint( Circle circle, float[] fractions, Color[] colors, CycleMethod cycleMethod ) {
         return new RadialGradientPaint( (float) circle.x, (float) circle.x, (float) circle.radius, fractions, colors, cycleMethod.method );
     }
     
     /**
-     * Cria um gradiente radial acíclico de várias cores.
-     * 
-     * @param circle Círculo.
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @return Um gradiente radial acíclico.
+     * Creates an acyclic multi-color radial gradient.
+     *
+     * @param circle Circle.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @return An acyclic radial gradient.
      */
     public static Paint getRadialGradientPaint( Circle circle, float[] fractions, Color[] colors ) {
         return new RadialGradientPaint( (float) circle.x, (float) circle.x, (float) circle.radius, fractions, colors );
     }
     
     /**
-     * Cria um gradiente radial de várias cores.
-     * 
-     * @param circle Círculo.
-     * @param focus Ponto do foco.
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @param cycleMethod Qual tipo de ciclo deve ser empregado.
-     * @return Um gradiente radial.
+     * Creates a multi-color radial gradient.
+     *
+     * @param circle Circle.
+     * @param focus Focus point.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @param cycleMethod The type of cycle to use.
+     * @return A radial gradient.
      */
     public static Paint getRadialGradientPaint( Circle circle, Vector2 focus, float[] fractions, Color[] colors, CycleMethod cycleMethod ) {
         return new RadialGradientPaint( (float) circle.x, (float) circle.x, (float) circle.radius, (float) focus.x, (float) focus.y, fractions, colors, cycleMethod.method );
     }
     
     /**
-     * Cria um gradiente radial acíclico de várias cores.
-     * 
-     * @param circle Círculo.
-     * @param focus Ponto do foco.
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @return Um gradiente radial acíclico.
+     * Creates an acyclic multi-color radial gradient.
+     *
+     * @param circle Circle.
+     * @param focus Focus point.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @return An acyclic radial gradient.
      */
     public static Paint getRadialGradientPaint( Circle circle, Vector2 focus, float[] fractions, Color[] colors ) {
         return new RadialGradientPaint( (float) circle.x, (float) circle.x, (float) circle.radius, (float) focus.x, (float) focus.y, fractions, colors, CycleMethod.NO_CYCLE.method );
     }
     
     /**
-     * Cria um gradiente radial de várias cores.
-     * 
-     * @param gradientBounds Retângulo dos limites do gradiente
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @param cycleMethod Qual tipo de ciclo deve ser empregado.
-     * @return Um gradiente radial.
+     * Creates a multi-color radial gradient.
+     *
+     * @param gradientBounds Rectangle defining the gradient bounds.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @param cycleMethod The type of cycle to use.
+     * @return A radial gradient.
      */
     public static Paint getRadialGradientPaint( Rectangle gradientBounds, float[] fractions, Color[] colors, CycleMethod cycleMethod ) {
         return new RadialGradientPaint( new Rectangle2D.Double( gradientBounds.x, gradientBounds.y, gradientBounds.width, gradientBounds.height ), fractions, colors, cycleMethod.method );
     }
     
     /**
-     * Cria um gradiente radial acíclico de várias cores.
-     * 
-     * @param gradientBounds Retângulo dos limites do gradiente
-     * @param fractions Posições percentuais das fronteiras das cores.
-     * @param colors Cores.
-     * @return Um gradiente radial acíclico.
+     * Creates an acyclic multi-color radial gradient.
+     *
+     * @param gradientBounds Rectangle defining the gradient bounds.
+     * @param fractions Percentage positions of the color boundaries.
+     * @param colors Colors.
+     * @return An acyclic radial gradient.
      */
     public static Paint getRadialGradientPaint( Rectangle gradientBounds, float[] fractions, Color[] colors ) {
         return new RadialGradientPaint( new Rectangle2D.Double( gradientBounds.x, gradientBounds.y, gradientBounds.width, gradientBounds.height ), fractions, colors, CycleMethod.NO_CYCLE.method );
@@ -569,40 +569,40 @@ public interface PaintUtils {
     
     
     //**************************************************************************
-    // Paints de imagem (TexturePaint).
+    // Image paints (TexturePaint).
     //**************************************************************************
     /**
-     * Cria um paint de imagem.
-     * 
-     * @param image Imagem.
-     * @param anchor Retângulo que representa a âncora.
-     * @return Um paint de imagem.
+     * Creates an image paint.
+     *
+     * @param image Image.
+     * @param anchor Rectangle representing the anchor.
+     * @return An image paint.
      */
     public static Paint getImagePaint( Image image, Rectangle anchor ) {
         return new TexturePaint( image.buffImage, new Rectangle2D.Double( anchor.x, anchor.y, anchor.width, anchor.height ) );
     }
     
     /**
-     * Cria um paint de imagem.
-     * 
-     * @param image Imagem.
-     * @param anchorPos Posição do retângulo que representa a âncora.
-     * @param anchorDim Dimenões do retângulo que representa a âncora.
-     * @return Um paint de imagem.
+     * Creates an image paint.
+     *
+     * @param image Image.
+     * @param anchorPos Position of the rectangle representing the anchor.
+     * @param anchorDim Dimensions of the rectangle representing the anchor.
+     * @return An image paint.
      */
     public static Paint getImagePaint( Image image, Vector2 anchorPos, Vector2 anchorDim ) {
         return new TexturePaint( image.buffImage, new Rectangle2D.Double( anchorPos.x, anchorPos.y, anchorDim.x, anchorDim.y ) );
     }
     
     /**
-     * Cria um paint de imagem.
-     * 
-     * @param image Imagem.
-     * @param anchorX Coordenada x do retângulo que representa a âncora.
-     * @param anchorY Coordenada y do retângulo que representa a âncora.
-     * @param anchorWidth Largura do retângulo que representa a âncora.
-     * @param anchorHeight Altura do retângulo que representa a âncora.
-     * @return Um paint de imagem.
+     * Creates an image paint.
+     *
+     * @param image Image.
+     * @param anchorX X coordinate of the rectangle representing the anchor.
+     * @param anchorY Y coordinate of the rectangle representing the anchor.
+     * @param anchorWidth Width of the rectangle representing the anchor.
+     * @param anchorHeight Height of the rectangle representing the anchor.
+     * @return An image paint.
      */
     public static Paint getImagePaint( Image image, double anchorX, double anchorY, double anchorWidth, double anchorHeight ) {
         return new TexturePaint( image.buffImage, new Rectangle2D.Double( anchorX, anchorY, anchorWidth, anchorHeight ) );

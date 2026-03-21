@@ -22,8 +22,8 @@ import java.awt.Paint;
 import java.io.Serializable;
 
 /**
- * Classe para representação de um retângulo com cantos arrendondados em duas dimensões.
- * 
+ * Class for representing a rectangle with rounded corners in two dimensions.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class RoundRectangle implements Drawable, Serializable {
@@ -31,44 +31,44 @@ public class RoundRectangle implements Drawable, Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Coordenada x do vértice superior esquerdo.
+     * X coordinate of the top-left vertex.
      */
     public double x;
-    
+
     /**
-     * Coordenada y do vértice superior esquerdo.
+     * Y coordinate of the top-left vertex.
      */
     public double y;
-    
+
     /**
-     * Largura.
+     * Width.
      */
     public double width;
-    
+
     /**
-     * Altura.
+     * Height.
      */
     public double height;
-    
+
     /**
-     * Arredondamento dos cantos.
+     * Corner roundness.
      */
     public double roundness;
 
     /**
-     * Cria um novo retângulo com cantos arredondados com valores padrão.
+     * Creates a new rectangle with rounded corners with default values.
      */
     public RoundRectangle() {
     }
 
     /**
-     * Cria um novo retângulo com cantos arredondados.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo.
-     * @param y Coordenada y do vértice superior esquerdo.
-     * @param width Largura.
-     * @param height Altura.
-     * @param roundness Arredondamento dos cantos.
+     * Creates a new rectangle with rounded corners.
+     *
+     * @param x X coordinate of the top-left vertex.
+     * @param y Y coordinate of the top-left vertex.
+     * @param width Width.
+     * @param height Height.
+     * @param roundness Corner roundness.
      */
     public RoundRectangle( double x, double y, double width, double height, double roundness ) {
         this.x = x;

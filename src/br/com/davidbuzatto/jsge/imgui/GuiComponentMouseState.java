@@ -17,8 +17,8 @@
 package br.com.davidbuzatto.jsge.imgui;
 
 /**
- * Enumeração que definite os tipos de estado do mouse em relação aos componentes.
- * 
+ * Enumeration that defines the types of mouse state in relation to components.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public enum GuiComponentMouseState {

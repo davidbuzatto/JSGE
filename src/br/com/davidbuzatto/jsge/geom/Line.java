@@ -22,8 +22,8 @@ import java.awt.Paint;
 import java.io.Serializable;
 
 /**
- * Classe para representação de uma linha em duas dimensões.
- * 
+ * Class for representing a line in two dimensions.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class Line implements Drawable, Serializable {
@@ -31,38 +31,38 @@ public class Line implements Drawable, Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Coordenada x do ponto inicial.
+     * X coordinate of the start point.
      */
     public double x1;
-    
+
     /**
-     * Coordenada y do ponto inicial.
+     * Y coordinate of the start point.
      */
     public double y1;
-    
+
     /**
-     * Coordenada x do ponto final.
+     * X coordinate of the end point.
      */
     public double x2;
-    
+
     /**
-     * Coordenada y do ponto final.
+     * Y coordinate of the end point.
      */
     public double y2;
 
     /**
-     * Cria uma nova linha com valores padrão.
+     * Creates a new line with default values.
      */
     public Line() {
     }
 
     /**
-     * Cria uma nova linha.
-     * 
-     * @param x1 Coordenada x inicial.
-     * @param y1 Coordenada y inicial.
-     * @param x2 Coordenada x final.
-     * @param y2 Coordenada y final.
+     * Creates a new line.
+     *
+     * @param x1 Start x coordinate.
+     * @param y1 Start y coordinate.
+     * @param x2 End x coordinate.
+     * @param y2 End y coordinate.
      */
     public Line( double x1, double y1, double x2, double y2 ) {
         this.x1 = x1;

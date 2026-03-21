@@ -27,27 +27,27 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Interface com métodos estáticos utilitários para tratamento de fontes.
- * 
+ * Interface with static utility methods for font handling.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public interface FontUtils {
     
     /**
-     * Fonte padrão da engine.
+     * Default font for the engine.
      */
     public static final Font DEFAULT_FONT = new Font( Font.MONOSPACED, Font.BOLD, 10 );
-    
+
     /**
-     * Fonte padrão para o desenho do FPS da engine.
+     * Default font for drawing the engine FPS.
      */
     public static final Font DEFAULT_FPS_FONT = new Font( Font.MONOSPACED, Font.BOLD, 20 );
     
     /**
-     * Carrega uma nova fonte e a registra no GraphicsEnvinronment.
-     * 
-     * @param filePath Caminho do arquivo da fonte.
-     * @return A fonte carregada.
+     * Loads a new font and registers it in the GraphicsEnvironment.
+     *
+     * @param filePath Path to the font file.
+     * @return The loaded font.
      */
     public static Font loadFont( String filePath ) {
         
@@ -73,10 +73,10 @@ public interface FontUtils {
     }
     
     /**
-     * Carrega uma nova fonte e a registra no GraphicsEnvinronment.
-     * 
-     * @param fontFile O arquivo da fonte.
-     * @return A fonte carregada.
+     * Loads a new font and registers it in the GraphicsEnvironment.
+     *
+     * @param fontFile The font file.
+     * @return The loaded font.
      */
     public static Font loadFont( File fontFile ) {
         
@@ -101,11 +101,11 @@ public interface FontUtils {
     }
     
     /**
-     * Carrega uma nova fonte e a registra no GraphicsEnvinronment.
-     * 
-     * @param inputStream InputStream para a fonte.
-     * @param fontType O tipo da fonte (Font.TRUETYPE_FONT ou Font.TYPE1_FONT).
-     * @return A fonte carregada.
+     * Loads a new font and registers it in the GraphicsEnvironment.
+     *
+     * @param inputStream InputStream for the font.
+     * @param fontType The font type (Font.TRUETYPE_FONT or Font.TYPE1_FONT).
+     * @return The loaded font.
      */
     public static Font loadFont( InputStream inputStream, int fontType ) {
         
@@ -125,12 +125,12 @@ public interface FontUtils {
     }
     
     /**
-     * Obtém o tipo de fonte pela extensão do arquivo.
-     * Extensões ttf e otf são tratadas como Font.TRUETYPE_FONT qualquer outra
-     * extensão é tratada como Font.TYPE1_FONT.
-     * 
-     * @param file O arquivo.
-     * @return O tipo de fonte baseado na extensão do arquivo.
+     * Gets the font type by the file extension.
+     * Extensions ttf and otf are treated as Font.TRUETYPE_FONT; any other
+     * extension is treated as Font.TYPE1_FONT.
+     *
+     * @param file The file.
+     * @return The font type based on the file extension.
      */
     private static int getFontTypeByExtension( File file ) {
         

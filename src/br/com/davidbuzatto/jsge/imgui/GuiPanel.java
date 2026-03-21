@@ -23,11 +23,11 @@ import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
- * Um container do tipo painel.
- * 
- * Atenção: nenhum container possui componentes filhos.
- * Eles são apenas um artifício gráfico para agrupar componentes.
- * 
+ * A panel-type container.
+ *
+ * Note: no container holds child components.
+ * They are purely a graphical device for visually grouping components.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class GuiPanel extends GuiTextComponent {
@@ -40,17 +40,16 @@ public class GuiPanel extends GuiTextComponent {
     private Color titleBarTextColor;
     
     /**
-     * Cria o componente.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param title O título do componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param title The title of the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiPanel( double x, double y, double width, double height, String title, EngineFrame engine ) {
         super( x, y, width, height, title, engine );
@@ -58,19 +57,19 @@ public class GuiPanel extends GuiTextComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param title O título do componente. 
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param title The title of the component.
      */
     public GuiPanel( double x, double y, double width, double height, String title ) {
         super( x, y, width, height, title );
@@ -78,12 +77,11 @@ public class GuiPanel extends GuiTextComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param title O título do componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param title The title of the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiPanel( Rectangle bounds, String title, EngineFrame engine ) {
         super( bounds, title, engine );
@@ -91,14 +89,14 @@ public class GuiPanel extends GuiTextComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param title O título do componente. 
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param title The title of the component.
      */
     public GuiPanel( Rectangle bounds, String title ) {
         super( bounds, title );
@@ -174,63 +172,63 @@ public class GuiPanel extends GuiTextComponent {
     }
     
     /**
-     * Retorna se a barra de título foi pressionada no ciclo atual.
-     * 
-     * @return Verdadeiro caso tenha sido pressionada, falso caso contrário.
+     * Returns whether the title bar was pressed in the current cycle.
+     *
+     * @return True if it was pressed, false otherwise.
      */
     public boolean isTitleBarPressed() {
         return titleBarPressed;
     }
 
     /**
-     * Obtém a cor do fundo da barra de título.
-     * 
-     * @return A cor do fundo da barra de título.
+     * Gets the background color of the title bar.
+     *
+     * @return The background color of the title bar.
      */
     public Color getTitleBarBackgroundColor() {
         return titleBarBackgroundColor;
     }
 
     /**
-     * Configura a cor do fundo da barra de título.
-     * 
-     * @param titleBarBackgroundColor A cor do fundo da barra de título.
+     * Sets the background color of the title bar.
+     *
+     * @param titleBarBackgroundColor The background color of the title bar.
      */
     public void setTitleBarBackgroundColor( Color titleBarBackgroundColor ) {
         this.titleBarBackgroundColor = titleBarBackgroundColor;
     }
 
     /**
-     * Obtém a cor da borda da barra de título.
-     * 
-     * @return A cor da borda da barra de título.
+     * Gets the border color of the title bar.
+     *
+     * @return The border color of the title bar.
      */
     public Color getTitleBarBorderColor() {
         return titleBarBorderColor;
     }
 
     /**
-     * Configura a cor da borda da barra de título.
-     * 
-     * @param titleBarBorderColor A cor da borda da barra de título.
+     * Sets the border color of the title bar.
+     *
+     * @param titleBarBorderColor The border color of the title bar.
      */
     public void setTitleBarBorderColor( Color titleBarBorderColor ) {
         this.titleBarBorderColor = titleBarBorderColor;
     }
 
     /**
-     * Obtém a cor do texto da barra de título.
-     * 
-     * @return A cor do texto da barra de título.
+     * Gets the text color of the title bar.
+     *
+     * @return The text color of the title bar.
      */
     public Color getTitleBarTextColor() {
         return titleBarTextColor;
     }
 
     /**
-     * Configura a cor do texto da barra de título.
-     * 
-     * @param titleBarTextColor A cor do texto da barra de título.
+     * Sets the text color of the title bar.
+     *
+     * @param titleBarTextColor The text color of the title bar.
      */
     public void setTitleBarTextColor( Color titleBarTextColor ) {
         this.titleBarTextColor = titleBarTextColor;

@@ -20,19 +20,19 @@ import java.awt.BasicStroke;
 import java.awt.Stroke;
 
 /**
- * Interface com métodos utilitários para manipular strokes (contornos).
- * 
+ * Interface with utility methods for manipulating strokes (outlines).
+ *
  * @author Prof. Dr. David Buzatto
  */
 public interface StrokeUtils {
-    
+
     /**
-     * Cria um novo contorno, copiando o contorno passado e alterando a largura
-     * da linha.
-     * 
-     * @param lineWidth A nova largura de linha.
-     * @param stroke O contorno base.
-     * @return Um novo contorno.
+     * Creates a new stroke, copying the given stroke and changing the line
+     * width.
+     *
+     * @param lineWidth The new line width.
+     * @param stroke The base stroke.
+     * @return A new stroke.
      */
     public static BasicStroke cloneStrokeLineWidth( float lineWidth, Stroke stroke ) {
         BasicStroke s = (BasicStroke) stroke;
@@ -40,12 +40,12 @@ public interface StrokeUtils {
     }
     
     /**
-     * Cria um novo contorno, copiando o contorno passado e alterando o desenho
-     * do fim da linha.
-     * 
-     * @param endCap O estilo de desenho do fim da linha.
-     * @param stroke O contorno base.
-     * @return Um novo contorno.
+     * Creates a new stroke, copying the given stroke and changing the line
+     * end cap style.
+     *
+     * @param endCap The line end cap style.
+     * @param stroke The base stroke.
+     * @return A new stroke.
      */
     public static BasicStroke cloneStrokeEndCap( int endCap, Stroke stroke ) {
         BasicStroke s = (BasicStroke) stroke;
@@ -53,12 +53,12 @@ public interface StrokeUtils {
     }
     
     /**
-     * Cria um novo contorno, copiando o contorno passado e alterando o modelo
-     * de junção de linhas.
-     * 
-     * @param lineJoin O modelo de junção de linha.
-     * @param stroke O contorno base.
-     * @return Um novo contorno.
+     * Creates a new stroke, copying the given stroke and changing the line
+     * join style.
+     *
+     * @param lineJoin The line join style.
+     * @param stroke The base stroke.
+     * @return A new stroke.
      */
     public static BasicStroke cloneStrokeLineJoin( int lineJoin, Stroke stroke ) {
         BasicStroke s = (BasicStroke) stroke;
@@ -66,12 +66,12 @@ public interface StrokeUtils {
     }
     
     /**
-     * Cria um novo contorno, copiando o contorno passado e alterando o limite
-     * e aparagem da junta de esquadria.
-     * 
-     * @param miterLimit O limite de aparagem da junta de esquadria.
-     * @param stroke O contorno base.
-     * @return Um novo contorno.
+     * Creates a new stroke, copying the given stroke and changing the miter
+     * join trim limit.
+     *
+     * @param miterLimit The miter join trim limit.
+     * @param stroke The base stroke.
+     * @return A new stroke.
      */
     public static BasicStroke cloneStrokeMiterLimit( float miterLimit, Stroke stroke ) {
         BasicStroke s = (BasicStroke) stroke;
@@ -79,12 +79,12 @@ public interface StrokeUtils {
     }
     
     /**
-     * Cria um novo contorno, copiando o contorno passado e alterando o padrão
-     * de traço.
-     * 
-     * @param dashArray O padrão de traço.
-     * @param stroke O contorno base.
-     * @return Um novo contorno.
+     * Creates a new stroke, copying the given stroke and changing the dash
+     * pattern.
+     *
+     * @param dashArray The dash pattern.
+     * @param stroke The base stroke.
+     * @return A new stroke.
      */
     public static BasicStroke cloneStrokeDashArray( float[] dashArray, Stroke stroke ) {
         BasicStroke s = (BasicStroke) stroke;
@@ -92,12 +92,12 @@ public interface StrokeUtils {
     }
     
     /**
-     * Cria um novo contorno, copiando o contorno passado e alterando o
-     * deslocamento do início do padrão de traço.
-     * 
-     * @param dashPhase O deslocamento do início do padrão de traço.
-     * @param stroke O contorno base.
-     * @return Um novo contorno.
+     * Creates a new stroke, copying the given stroke and changing the
+     * dash pattern offset.
+     *
+     * @param dashPhase The dash pattern offset.
+     * @param stroke The base stroke.
+     * @return A new stroke.
      */
     public static BasicStroke cloneStrokeDashPhase( float dashPhase, Stroke stroke ) {
         BasicStroke s = (BasicStroke) stroke;
@@ -105,13 +105,13 @@ public interface StrokeUtils {
     }
     
     /**
-     * Cria um novo contorno, copiando o contorno passado e alterando o padrão
-     * de traço e o deslocamento do início do padrão de traço.
-     * 
-     * @param dashArray O padrão de traço.
-     * @param dashPhase O deslocamento do início do padrão de traço.
-     * @param stroke O contorno base.
-     * @return Um novo contorno.
+     * Creates a new stroke, copying the given stroke and changing both the
+     * dash pattern and the dash pattern offset.
+     *
+     * @param dashArray The dash pattern.
+     * @param dashPhase The dash pattern offset.
+     * @param stroke The base stroke.
+     * @return A new stroke.
      */
     public static BasicStroke cloneStrokeDashArrayAndPhase( float[] dashArray, float dashPhase, Stroke stroke ) {
         BasicStroke s = (BasicStroke) stroke;

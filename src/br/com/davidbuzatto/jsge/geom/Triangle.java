@@ -22,7 +22,7 @@ import java.awt.Paint;
 import java.io.Serializable;
 
 /**
- * Classe para representação de um triângulo em duas dimensões.
+ * Class for representing a triangle in two dimensions.
  *
  * @author Prof. Dr. David Buzatto
  */
@@ -31,50 +31,50 @@ public class Triangle implements Drawable, Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Coordenada x do primeiro vértice.
+     * X coordinate of the first vertex.
      */
     public double x1;
 
     /**
-     * Coordenada y do primeiro vértice.
+     * Y coordinate of the first vertex.
      */
     public double y1;
 
     /**
-     * Coordenada x do segundo vértice.
+     * X coordinate of the second vertex.
      */
     public double x2;
 
     /**
-     * Coordenada y do segundo vértice.
+     * Y coordinate of the second vertex.
      */
     public double y2;
 
     /**
-     * Coordenada x do terceiro vértice.
+     * X coordinate of the third vertex.
      */
     public double x3;
 
     /**
-     * Coordenada y do terceiro vértice.
+     * Y coordinate of the third vertex.
      */
     public double y3;
 
     /**
-     * Cria um novo triângulo com valores padrão.
+     * Creates a new triangle with default values.
      */
     public Triangle() {
     }
 
     /**
-     * Cria um novo triângulo. Forneça os vértices no sentido horário.
+     * Creates a new triangle. Provide the vertices in clockwise order.
      *
-     * @param x1 Coordenada x do primeiro vértice.
-     * @param y1 Coordenada y do primeiro vértice.
-     * @param x2 Coordenada x do segundo vértice.
-     * @param y2 Coordenada y do segundo vértice.
-     * @param x3 Coordenada x do terceiro vértice.
-     * @param y3 Coordenada y do terceiro vértice.
+     * @param x1 X coordinate of the first vertex.
+     * @param y1 Y coordinate of the first vertex.
+     * @param x2 X coordinate of the second vertex.
+     * @param y2 Y coordinate of the second vertex.
+     * @param x3 X coordinate of the third vertex.
+     * @param y3 Y coordinate of the third vertex.
      */
     public Triangle( double x1, double y1, double x2, double y2, double x3, double y3 ) {
         this.x1 = x1;

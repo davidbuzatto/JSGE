@@ -21,8 +21,8 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
 import java.awt.Color;
 
 /**
- * Um separador do tipo linha.
- * 
+ * A line separator component.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class GuiLine extends GuiTextComponent {
@@ -34,131 +34,127 @@ public class GuiLine extends GuiTextComponent {
     private int charWidth;
     
     /**
-     * Cria o componente.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param text Texto utilizado no componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param text Text used in the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiLine( double x, double y, double width, double height, String text, EngineFrame engine ) {
         this( x, y, width, height, text, HORIZONTAL, engine );
     }
-    
+
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param text Texto utilizado no componente. 
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param text Text used in the component.
      */
     public GuiLine( double x, double y, double width, double height, String text ) {
         this( x, y, width, height, text, HORIZONTAL );
     }
-    
+
     /**
-     * Cria o componente.
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param text Texto utilizado no componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param text Text used in the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiLine( Rectangle bounds, String text, EngineFrame engine ) {
         this( bounds, text, HORIZONTAL, engine );
     }
-    
+
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param text Texto utilizado no componente. 
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param text Text used in the component.
      */
     public GuiLine( Rectangle bounds, String text ) {
         this( bounds, text, HORIZONTAL );
     }
-    
+
     /**
-     * Cria o componente.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param text Texto utilizado no componente.
-     * @param orientation Se a linha é horizontal ou vertical.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param text Text used in the component.
+     * @param orientation Whether the line is horizontal or vertical.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiLine( double x, double y, double width, double height, String text, int orientation, EngineFrame engine ) {
         super( x, y, width, height, text, engine );
         initData( orientation );
     }
-    
+
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param text Texto utilizado no componente.
-     * @param orientation Se a linha é horizontal ou vertical.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param text Text used in the component.
+     * @param orientation Whether the line is horizontal or vertical.
      */
     public GuiLine( double x, double y, double width, double height, String text, int orientation ) {
         super( x, y, width, height, text );
         initData( orientation );
     }
-    
+
     /**
-     * Cria o componente.
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param text Texto utilizado no componente.
+     * Creates the component.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param text Text used in the component.
      * @param orientation
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiLine( Rectangle bounds, String text, int orientation, EngineFrame engine ) {
         super( bounds, text, engine );
         initData( orientation );
     }
-    
+
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param text Texto utilizado no componente.
-     * @param orientation 
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param text Text used in the component.
+     * @param orientation
      */
     public GuiLine( Rectangle bounds, String text, int orientation ) {
         super( bounds, text );

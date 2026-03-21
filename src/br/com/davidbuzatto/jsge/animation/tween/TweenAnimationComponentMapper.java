@@ -17,49 +17,49 @@
 package br.com.davidbuzatto.jsge.animation.tween;
 
 /**
- * Um mapeador de propriedades para componentes.
- * 
- * @param <ComponentType> Tipo do componente.
+ * A property mapper for components.
+ *
+ * @param <ComponentType> The component type.
  * @author Prof. Dr. David Buzatto
  */
 public abstract class TweenAnimationComponentMapper<ComponentType> {
-    
+
     /**
-     * O componente que será manipulado através do mapeador.
+     * The component that will be manipulated through the mapper.
      */
     protected ComponentType component;
-    
+
     /**
-     * Cria o mapeador de propriedades.
-     * 
-     * @param component O componente em que os dados serão redirecionados.
+     * Creates the property mapper.
+     *
+     * @param component The component to which data will be redirected.
      */
     public TweenAnimationComponentMapper( ComponentType component ) {
         this.component = component;
     }
 
     /**
-     * Obtém o componente do mapeador.
-     * 
-     * @return O componente.
+     * Gets the component from the mapper.
+     *
+     * @return The component.
      */
     public ComponentType getComponent() {
         return component;
     }
-    
+
     /**
-     * Mapeia uma propriedade para o componente.
-     * 
-     * @param property A propriedade.
-     * @param value O valor da propriedade.
+     * Maps a property to the component.
+     *
+     * @param property The property.
+     * @param value The property value.
      */
     public abstract void set( String property, Object value );
-    
+
     /**
-     * Obtém uma propriedade do componente.
-     * 
-     * @param property A propriedade.
-     * @return O valor da propriedade ou null caso não exista.
+     * Gets a property from the component.
+     *
+     * @param property The property.
+     * @return The property value, or null if it does not exist.
      */
     public abstract Object get( String property );
     

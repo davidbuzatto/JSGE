@@ -22,8 +22,8 @@ import java.awt.Paint;
 import java.io.Serializable;
 
 /**
- * Classe para representação de uma curva Bézier cúbica.
- * 
+ * Class for representing a cubic Bézier curve.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class CubicCurve implements Drawable, Serializable {
@@ -31,62 +31,62 @@ public class CubicCurve implements Drawable, Serializable {
     private static final long serialVersionUID = 1L;
     
     /**
-     * Coordenada x do ponto inicial.
+     * X coordinate of the start point.
      */
     public double x1;
-    
+
     /**
-     * Coordenada y do ponto inicial.
+     * Y coordinate of the start point.
      */
     public double y1;
-    
+
     /**
-     * Coordenada x do primeiro ponto de controle.
+     * X coordinate of the first control point.
      */
     public double c1x;
-    
+
     /**
-     * Coordenada y do primeiro ponto de controle.
+     * Y coordinate of the first control point.
      */
     public double c1y;
-    
+
     /**
-     * Coordenada x do segundo ponto de controle.
+     * X coordinate of the second control point.
      */
     public double c2x;
-    
+
     /**
-     * Coordenada y do segundo ponto de controle.
+     * Y coordinate of the second control point.
      */
     public double c2y;
-    
+
     /**
-     * Coordenada x do ponto final.
+     * X coordinate of the end point.
      */
     public double x2;
-    
+
     /**
-     * Coordenada y do ponto final.
+     * Y coordinate of the end point.
      */
     public double y2;
 
     /**
-     * Uma uma nova curva Bézier cúbica com valores padrão.
+     * Creates a new cubic Bézier curve with default values.
      */
     public CubicCurve() {
     }
 
     /**
-     * Cria uma nova curva Bézier cúbica.
-     * 
-     * @param x1 Coordenada x inicial.
-     * @param y1 Coordenada y inicial.
-     * @param c1x Coordenada x do primeiro ponto de controle.
-     * @param c1y Coordenada y do primeiro ponto de controle.
-     * @param c2x Coordenada x do segundo ponto de controle.
-     * @param c2y Coordenada y do segundo ponto de controle.
-     * @param x2 Coordenada x final.
-     * @param y2 Coordenada y final.
+     * Creates a new cubic Bézier curve.
+     *
+     * @param x1 Start x coordinate.
+     * @param y1 Start y coordinate.
+     * @param c1x X coordinate of the first control point.
+     * @param c1y Y coordinate of the first control point.
+     * @param c2x X coordinate of the second control point.
+     * @param c2y Y coordinate of the second control point.
+     * @param x2 End x coordinate.
+     * @param y2 End y coordinate.
      */
     public CubicCurve( double x1, double y1, double c1x, double c1y, double c2x, double c2y, double x2, double y2 ) {
         this.x1 = x1;

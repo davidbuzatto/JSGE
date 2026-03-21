@@ -21,36 +21,35 @@ import br.com.davidbuzatto.jsge.math.Vector2;
 import br.com.davidbuzatto.jsge.math.Vector3;
 
 /**
- * Representação de uma câmera para controle do processo de desenho.
- * 
+ * Representation of a camera for controlling the drawing process.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class Camera2D {
     
     /**
-     * O alvo da câmera.
+     * The camera target.
      */
     public Vector2 target;
-    
+
     /**
-     * O deslocamento da câmera.
+     * The camera offset.
      */
     public Vector2 offset;
-    
+
     /**
-     * Rotação em graus no sentido horário.
+     * Clockwise rotation in degrees.
      */
     public double rotation;
-    
+
     /**
-     * Fator de zoom.
+     * Zoom factor.
      */
     public double zoom;
 
     /**
-     * Cria uma nova câmera apontando para a coordenada 0.0; 0.0, com deslocamento
-     * igual a zero tanto na vertical, quanto na horizontal, sem rotação e com 
-     * fator de zoom igual a 1.0.
+     * Creates a new camera pointing to coordinate 0.0; 0.0, with zero offset
+     * both vertically and horizontally, no rotation and a zoom factor of 1.0.
      */
     public Camera2D() {
         target = new Vector2();
@@ -60,12 +59,12 @@ public class Camera2D {
     }
     
     /**
-     * Cria uma nova câmera.
-     * 
-     * @param target o alvo.
-     * @param offset o deslocamento.
-     * @param rotation a rotação.
-     * @param zoom o zoom.
+     * Creates a new camera.
+     *
+     * @param target the target.
+     * @param offset the offset.
+     * @param rotation the rotation.
+     * @param zoom the zoom.
      */
     public Camera2D( Vector2 target, Vector2 offset, double rotation, double zoom ) {
         this.target = target;
@@ -75,12 +74,12 @@ public class Camera2D {
     }
     
     /**
-     * Converte uma coordenada da tela para uma coordenada do mundo 2D de 
-     * acordo com o câmera.
-     * 
-     * @param x A coordenada x da posição da tela.
-     * @param y A coordenada y da posição da tela.
-     * @return O ponto correspondente do mundo 2D.
+     * Converts a screen coordinate to a 2D world coordinate
+     * according to the camera.
+     *
+     * @param x The x coordinate of the screen position.
+     * @param y The y coordinate of the screen position.
+     * @return The corresponding point in the 2D world.
      */
     public Vector2 getScreenToWorld( double x, double y ) {
         
@@ -92,23 +91,23 @@ public class Camera2D {
     }
     
     /**
-     * Converte uma coordenada da tela para uma coordenada do mundo 2D de 
-     * acordo com o câmera.
-     * 
-     * @param point A posição da tela.
-     * @return O ponto correspondente do mundo 2D.
+     * Converts a screen coordinate to a 2D world coordinate
+     * according to the camera.
+     *
+     * @param point The screen position.
+     * @return The corresponding point in the 2D world.
      */
     public Vector2 getScreenToWorld( Vector2 point ) {
         return getScreenToWorld( point.x, point.y );
     }
     
     /**
-     * Converte uma coordenada do mundo 2D para uma coordenada da tela de 
-     * acordo com o câmera.
-     * 
-     * @param x A coordenada x da posição do mundo 2D.
-     * @param y A coordenada y da posição do mundo 2D.
-     * @return O ponto correspondente da tela.
+     * Converts a 2D world coordinate to a screen coordinate
+     * according to the camera.
+     *
+     * @param x The x coordinate of the 2D world position.
+     * @param y The y coordinate of the 2D world position.
+     * @return The corresponding screen point.
      */
     public Vector2 getWorldToScreen( double x, double y ) {
         
@@ -120,24 +119,24 @@ public class Camera2D {
     }
     
     /**
-     * Converte uma coordenada do mundo 2D para uma coordenada da tela de 
-     * acordo com o câmera.
-     * 
-     * @param point A posição do mundo 2D.
-     * @return O ponto correspondente da tela.
+     * Converts a 2D world coordinate to a screen coordinate
+     * according to the camera.
+     *
+     * @param point The 2D world position.
+     * @return The corresponding screen point.
      */
     public Vector2 getWorldToScreen( Vector2 point ) {
         return getWorldToScreen( point.x, point.y );
     }
     
     /**
-     * Obtém a matriz da câmera 2D.
-     * 
-     * @return A matriz da câmera 2D.
+     * Gets the 2D camera matrix.
+     *
+     * @return The 2D camera matrix.
      */
     public Matrix getCameraMatrix() {
         
-        // fonte: https://github.com/raysan5/raylib/blob/master/src/rcore.c
+        // source: https://github.com/raysan5/raylib/blob/master/src/rcore.c
         // The camera in world-space is set by
         //   1. Move it to target
         //   2. Rotate by -rotation and scaling by (1/zoom)

@@ -21,41 +21,41 @@ import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import java.awt.Paint;
 
 /**
- * Um quadro de animação baseado em um objeto desenhável.
- * 
+ * An animation frame based on a drawable object.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class DrawableAnimationFrame implements AnimationFrame {
-    
+
     /**
-     * O objeto desenhável do quadro de animação.
+     * The drawable object of the animation frame.
      */
     public final Drawable drawable;
-    
+
     /**
-     * Cria um quadro de animação de um objeto desenhável.
-     * 
-     * @param drawable Objeto desenhável.
+     * Creates an animation frame from a drawable object.
+     *
+     * @param drawable Drawable object.
      */
     public DrawableAnimationFrame( Drawable drawable ) {
         this.drawable = drawable;
     }
-    
+
     /**
-     * Desenha o objeto desenhável do quadro de animação.
-     * 
-     * @param engine A engine.
-     * @param paint Paint para o desenho.
+     * Draws the drawable object of the animation frame.
+     *
+     * @param engine The engine.
+     * @param paint Paint for drawing.
      */
     public void draw( EngineFrame engine, Paint paint ) {
         drawable.draw( engine, paint );
     }
-    
+
     /**
-     * Pinta o objeto desenhável do quadro de animação.
-     * 
-     * @param engine A engine.
-     * @param paint Paint para o desenho.
+     * Fills the drawable object of the animation frame.
+     *
+     * @param engine The engine.
+     * @param paint Paint for drawing.
      */
     public void fill( EngineFrame engine, Paint paint ) {
         drawable.fill( engine, paint );

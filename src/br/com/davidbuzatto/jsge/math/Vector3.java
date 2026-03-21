@@ -19,11 +19,11 @@ package br.com.davidbuzatto.jsge.math;
 import java.io.Serializable;
 
 /**
- * Classe para representação de um vetor de três dimensões.
- * 
- * Pode ser usada para retornar valores com três componentes, como pontos
- * 3D etc.
- * 
+ * Class for representing a three-dimensional vector.
+ *
+ * Can also be used to return values with three components, such as
+ * 3D points, etc.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class Vector3 implements Cloneable, Serializable {
@@ -31,32 +31,32 @@ public class Vector3 implements Cloneable, Serializable {
     private static final long serialVersionUID = 1L;
     
     /**
-     * Coordenada x.
+     * X coordinate.
      */
     public double x;
-    
+
     /**
-     * Coordenada y.
+     * Y coordinate.
      */
     public double y;
-    
+
     /**
-     * Coordenada z.
+     * Z coordinate.
      */
     public double z;
 
     /**
-     * Cria um novo vetor de três dimensões com valores padrão.
+     * Creates a new three-dimensional vector with default values.
      */
     public Vector3() {
     }
 
     /**
-     * Cria um novo vetor de três dimensões.
-     * 
-     * @param x coordenada x.
-     * @param y coordenada y.
-     * @param z coordenada z.
+     * Creates a new three-dimensional vector.
+     *
+     * @param x x coordinate.
+     * @param y y coordinate.
+     * @param z z coordinate.
      */
     public Vector3( double x, double y, double z ) {
         this.x = x;
@@ -65,60 +65,60 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Soma o vetor corrente com outro vetor.
-     * 
-     * @param v Outro vetor.
-     * @return Um novo vetor resultado da soma.
+     * Adds the current vector to another vector.
+     *
+     * @param v Another vector.
+     * @return A new vector resulting from the addition.
      */
     public Vector3 add( Vector3 v ) {
         return new Vector3( x + v.x, y + v.y, z + v.z );
     }
     
     /**
-     * Soma um valor ao vetor corrente.
-     * 
-     * @param value O valor a somar.
-     * @return Um novo vetor com os componentes somados ao valor passado.
+     * Adds a value to the current vector.
+     *
+     * @param value The value to add.
+     * @return A new vector with the components added to the given value.
      */
     public Vector3 addValue( double value ) {
         return new Vector3( x + value, y + value, z + value );
     }
     
     /**
-     * Subtrai um vetor do vetor corrente.
-     * 
-     * @param v Outro vetor.
-     * @return Um novo vetor resultado da subtração.
+     * Subtracts a vector from the current vector.
+     *
+     * @param v Another vector.
+     * @return A new vector resulting from the subtraction.
      */
     public Vector3 subtract( Vector3 v ) {
         return new Vector3( x - v.x, y - v.y, z - v.z );
     }
     
     /**
-     * Subtrai um valor do vetor corrente
-     * 
-     * @param value O valor a subtrair.
-     * @return Um novo vetor com os componentes subtraídos do valor passado.
+     * Subtracts a value from the current vector.
+     *
+     * @param value The value to subtract.
+     * @return A new vector with the components subtracted by the given value.
      */
     public Vector3 subtractValue( double value ) {
         return new Vector3( x - value, y - value, z - value );
     }
     
     /**
-     * Escalona o vetor corrente, análogo à multiplicação por escalar.
-     * 
-     * @param scale A escala.
-     * @return Um novo vetor escalonado.
+     * Scales the current vector, analogous to scalar multiplication.
+     *
+     * @param scale The scale.
+     * @return A new scaled vector.
      */
     public Vector3 scale( double scale ) {
         return new Vector3( x * scale, y * scale, z * scale );
     }
     
     /**
-     * Multiplica o vetor corrente por outro vetor.
-     * 
-     * @param v Outro vetor.
-     * @return Um novo vetor com o resultado da multiplicação.
+     * Multiplies the current vector by another vector.
+     *
+     * @param v Another vector.
+     * @return A new vector with the result of the multiplication.
      */
     public Vector3 multiply( Vector3 v ) {
         return new Vector3( x * v.x, y * v.y, z * v.z );
@@ -126,19 +126,19 @@ public class Vector3 implements Cloneable, Serializable {
     
     
     /**
-     * Calcula o produto vetorial do vetor corrente com o vetor passado.
-     * 
-     * @param v Outro vetor.
-     * @return O produto vetorial.
+     * Calculates the cross product of the current vector with the given vector.
+     *
+     * @param v Another vector.
+     * @return The cross product.
      */
     public Vector3 crossProduct( Vector3 v ) {
         return new Vector3( y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x );
     }
     
     /**
-     * Calcula o vetor perpendicular ao vetor corrente.
-     * 
-     * @return O vetor perpendicular.
+     * Calculates the vector perpendicular to the current vector.
+     *
+     * @return The perpendicular vector.
      */
     public Vector3 perpendicular() {
         
@@ -160,7 +160,7 @@ public class Vector3 implements Cloneable, Serializable {
             cardinalAxis.z = 1.0;
         }
         
-        // produto vetorial
+        // cross product
         result.x = y * cardinalAxis.z - z * cardinalAxis.y;
         result.y = z * cardinalAxis.x - x * cardinalAxis.z;
         result.z = x * cardinalAxis.y - y * cardinalAxis.x;
@@ -170,38 +170,38 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Calcula o comprimento do vetor.
-     * 
-     * @return O comprimento.
+     * Calculates the length of the vector.
+     *
+     * @return The length.
      */
     public double length() {
         return Math.sqrt( x * x + y * y + z * z );
     }
     
     /**
-     * Calcula o comprimento quadrado do vetor.
-     * 
-     * @return O comprimento.
+     * Calculates the squared length of the vector.
+     *
+     * @return The length.
      */
     public double lengthSquare() {
         return x * x + y * y + z * z;
     }
     
     /**
-     * Calcula o produto escalar do vetor corrente com o vetor passado.
-     * 
-     * @param v Outro vetor.
-     * @return O produto escalar.
+     * Calculates the dot product of the current vector with the given vector.
+     *
+     * @param v Another vector.
+     * @return The dot product.
      */
     public double dotProduct( Vector3 v ) {
         return x * v.x + y * v.y + z * v.z;
     }
 
     /**
-     * Calcula a distância entre o vetor corrente e outro vetor.
-     * 
-     * @param v Outro vetor.
-     * @return A distância.
+     * Calculates the distance between the current vector and another vector.
+     *
+     * @param v Another vector.
+     * @return The distance.
      */
     public double distance( Vector3 v ) {
         return Math.sqrt( ( v.x - x ) * ( v.x - x ) + 
@@ -210,10 +210,10 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Calcula a distância quadrada entre o vetor corrente e outro vetor.
-     * 
-     * @param v Outro vetor.
-     * @return A distância quadrada.
+     * Calculates the squared distance between the current vector and another vector.
+     *
+     * @param v Another vector.
+     * @return The squared distance.
      */
     public double distanceSquare( Vector3 v ) {
         return ( v.x - x ) * ( v.x - x ) + 
@@ -223,11 +223,11 @@ public class Vector3 implements Cloneable, Serializable {
     
     
     /**
-     * Calcula o ângulo entre o vetor corrente e outro vetor, sendo que esse
-     * ângulo é calculado a partir do ponto de origem (0, 0).
-     * 
-     * @param v Outro vetor.
-     * @return O ângulo entre os vetores.
+     * Calculates the angle between the current vector and another vector, where
+     * the angle is calculated from the origin point (0, 0).
+     *
+     * @param v Another vector.
+     * @return The angle between the vectors.
      */
     public double angle( Vector3 v ) {
         
@@ -240,28 +240,28 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Nega o vetor corrente.
-     * 
-     * @return Um novo vetor com a negação do vetor corrente.
+     * Negates the current vector.
+     *
+     * @return A new vector with the negation of the current vector.
      */
     public Vector3 negate() {
         return new Vector3( -x, -y, -z );
     }
     
     /**
-     * Divide o vetor corrente por outro vetor.
-     * 
-     * @param v Outro vetor.
-     * @return Um novo vetor com o resultado da divisão.
+     * Divides the current vector by another vector.
+     *
+     * @param v Another vector.
+     * @return A new vector with the result of the division.
      */
     public Vector3 divide( Vector3 v ) {
         return new Vector3( x / v.x, y / v.y, z / v.z );
     }
     
     /**
-     * Normaliza o vetor corrent.
-     * 
-     * @return Um novo vetor normalizado.
+     * Normalizes the current vector.
+     *
+     * @return A new normalized vector.
      */
     public Vector3 normalize() {
 
@@ -280,10 +280,10 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Calcula a projeção do vetor corrente no outro vetor.
-     * 
-     * @param v Outro vetor.
-     * @return A projeção.
+     * Calculates the projection of the current vector onto another vector.
+     *
+     * @param v Another vector.
+     * @return The projection.
      */
     public Vector3 project( Vector3 v ) {
         
@@ -302,10 +302,10 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Calcula a rejeição do vetor corrente no outro vetor.
-     * 
-     * @param v Outro vetor.
-     * @return A projeção.
+     * Calculates the rejection of the current vector from another vector.
+     *
+     * @param v Another vector.
+     * @return The rejection.
      */
     public Vector3 reject( Vector3 v ) {
         
@@ -324,10 +324,10 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Transforma o vetor corrente dada uma matriz.
-     * 
-     * @param mat A matriz.
-     * @return Um novo vetor transformado.
+     * Transforms the current vector by a given matrix.
+     *
+     * @param mat The matrix.
+     * @return A new transformed vector.
      */
     public Vector3 transform( Matrix mat ) {
         
@@ -342,10 +342,10 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Transforma o vetor corrente por uma rotação por quaternion.
-     * 
-     * @param q O quaternion.
-     * @return Um novo vetor transformado.
+     * Transforms the current vector by a quaternion rotation.
+     *
+     * @param q The quaternion.
+     * @return A new transformed vector.
      */
     public Vector3 rotateByQuaternion( Quaternion q ) {
         
@@ -360,14 +360,14 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Rotaciona o vetor corrente em volta de um eixo.
-     * 
+     * Rotates the current vector around an axis.
+     *
      * Using Euler-Rodrigues Formula
      * Ref.: https://en.wikipedia.org/w/index.php?title=Euler%E2%80%93Rodrigues_formula
-     * 
-     * @param axis O eixo.
-     * @param angle O ângulo em radianos.
-     * @return Um novo vetor rotacionado.
+     *
+     * @param axis The axis.
+     * @param angle The angle in radians.
+     * @return A new rotated vector.
      */
     public Vector3 rotateByAxisAngle( Vector3 axis, double angle ) {
         
@@ -420,11 +420,11 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Cria um novo vetor movido em direção a um alvo.
-     * 
-     * @param target O alvo.
-     * @param maxDistance A distância máxima.
-     * @return Um novo vetor movido em direção ao alvo.
+     * Creates a new vector moved towards a target.
+     *
+     * @param target The target.
+     * @param maxDistance The maximum distance.
+     * @return A new vector moved towards the target.
      */
     public Vector3 moveTowards( Vector3 target, double maxDistance ) {
         
@@ -449,11 +449,11 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Realiza a interpolação linear entre o vetor corrente (início) e outro vetor (fim).
-     * 
-     * @param end Vetor final.
-     * @param amount Quantidade (0 a 1)
-     * @return Um vetor que representa a interpolação linear entre dois vetores.
+     * Performs linear interpolation between the current vector (start) and another vector (end).
+     *
+     * @param end End vector.
+     * @param amount Amount (0 to 1)
+     * @return A vector representing the linear interpolation between two vectors.
      */
     public Vector3 lerp( Vector3 end, double amount ) {
         return new Vector3( 
@@ -464,13 +464,13 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Calcula a interpolação cúbica Hermitiana do vetor corrente e de outro vetor e suas tangentes.
-     * 
-     * @param tangent1 Primeira tangente
-     * @param v O vetor.
-     * @param tangent2 Segunda tangente.
-     * @param amount A quantidade
-     * @return Um novo vetor com a interpolação cúbica Hermitiana.
+     * Calculates the cubic Hermite interpolation of the current vector and another vector and their tangents.
+     *
+     * @param tangent1 First tangent.
+     * @param v The vector.
+     * @param tangent2 Second tangent.
+     * @param amount The amount.
+     * @return A new vector with the cubic Hermite interpolation.
      */
     public Vector3 cubicHermite( Vector3 tangent1, Vector3 v, Vector3 tangent2, double amount ) {
         
@@ -487,10 +487,10 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Calcula a reflexão do vetor corrente por um vetor normal.
-     * 
-     * @param normal Vetor normal.
-     * @return Um novo vetor refletido.
+     * Calculates the reflection of the current vector by a normal vector.
+     *
+     * @param normal Normal vector.
+     * @return A new reflected vector.
      */
     public Vector3 reflect( Vector3 normal ) {
         
@@ -506,10 +506,10 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Obtem um novo vetor com o mínimo dos componentes.
-     * 
-     * @param v Outro vetor.
-     * @return Um novo vetor com o mínimo dos componentes.
+     * Gets a new vector with the minimum of each component.
+     *
+     * @param v Another vector.
+     * @return A new vector with the minimum of each component.
      */
     public Vector3 min( Vector3 v ) {
 
@@ -524,10 +524,10 @@ public class Vector3 implements Cloneable, Serializable {
     }
 
     /**
-     * Obtem um novo vetor com o máximo dos componentes.
-     * 
-     * @param v Outro vetor.
-     * @return Um novo vetor com o máximo dos componentes.
+     * Gets a new vector with the maximum of each component.
+     *
+     * @param v Another vector.
+     * @return A new vector with the maximum of each component.
      */
     public Vector3 max( Vector3 v ) {
 
@@ -542,11 +542,11 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Projeta o vetor corrente (espaço da tela) para o espaço dos objetos.
-     * 
-     * @param projection Matrix de projeção.
-     * @param view Matrix da visualização.
-     * @return Um novo vetor projetado.
+     * Unprojects the current vector (screen space) to object space.
+     *
+     * @param projection Projection matrix.
+     * @param view View matrix.
+     * @return A new unprojected vector.
      */
     public Vector3 unproject( Matrix projection, Matrix view ) {
         
@@ -622,20 +622,20 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Inverte o vetor corrente.
-     * 
-     * @return Um novo vetor invertido.
+     * Inverts the current vector.
+     *
+     * @return A new inverted vector.
      */
     public Vector3 invert() {
         return new Vector3( 1.0 / x, 1.0 / y, 1.0 / z );
     }
     
     /**
-     * Limita o vetor corrente vetor entre dois vetores.
-     * 
-     * @param min O vetor mínimo.
-     * @param max O vetor máximo.
-     * @return Um novo vetor limitado entre o vetor mínimo e o vetor máximo.
+     * Clamps the current vector between two vectors.
+     *
+     * @param min The minimum vector.
+     * @param max The maximum vector.
+     * @return A new vector clamped between the minimum and maximum vectors.
      */
     public Vector3 clamp( Vector3 min, Vector3 max ) {
 
@@ -650,11 +650,11 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Limita a magnitude do vetor corrente entre mínimo e máximo.
-     * 
-     * @param min O valor mínimo.
-     * @param max O valor máximo.
-     * @return Um novo vetor com a magnitude limitada.
+     * Clamps the magnitude of the current vector between minimum and maximum.
+     *
+     * @param min The minimum value.
+     * @param max The maximum value.
+     * @return A new vector with the clamped magnitude.
      */
     public Vector3 clampValue( double min, double max ) {
 
@@ -684,21 +684,21 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Cria um vetor com todos os componentes iguais a 1.0.
-     * 
-     * @return Um vetor com todos os componentes iguais a 1.0.
+     * Creates a vector with all components equal to 1.0.
+     *
+     * @return A vector with all components equal to 1.0.
      */
     public static Vector3 one() {
         return new Vector3( 1.0, 1.0, 1.0 );
     }
     
     /**
-     * Ortonormaliza dois vetores (serão modificados).
-     * Faz com que os vetores sejam normalizados e ortogonais entre eles.
-     * implementação da funlção de Gram-Schmidt.
-     * 
-     * @param v1 Um vetor.
-     * @param v2 Outro vetor.
+     * Orthonormalizes two vectors (they will be modified).
+     * Makes the vectors normalized and orthogonal to each other.
+     * Implementation of the Gram-Schmidt process.
+     *
+     * @param v1 A vector.
+     * @param v2 Another vector.
      */
     public static void orthoNormalize( Vector3 v1, Vector3 v2 ) {
         
@@ -744,13 +744,13 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Calcula o baricentro de um ponto p em um triângulo (a, b, c).
-     * 
-     * @param p O ponto.
-     * @param a Primeiro vértice.
-     * @param b Segundo vértice.
-     * @param c Terceiro vértice.
-     * @return O baricentro.
+     * Calculates the barycenter of a point p in a triangle (a, b, c).
+     *
+     * @param p The point.
+     * @param a First vertex.
+     * @param b Second vertex.
+     * @param c Third vertex.
+     * @return The barycenter.
      */
     public static Vector3 barycenter( Vector3 p, Vector3 a, Vector3 b, Vector3 c ) {
         
@@ -775,13 +775,13 @@ public class Vector3 implements Cloneable, Serializable {
     }
     
     /**
-     * Computa a direção de um raio refratado.
-     * 
-     * @param v A direção normalizada do raio de chegada.
-     * @param n O vetor normal normalizado da interface das dois meios óticos.
-     * @param r A razão do índice de refração do meio de onde o raio chega com o
-     * índice de refração do outro meio da superfície.
-     * @return A direção do raio refratado.
+     * Computes the direction of a refracted ray.
+     *
+     * @param v The normalized direction of the incoming ray.
+     * @param n The normalized normal vector of the interface between the two optical media.
+     * @param r The ratio of the refractive index of the medium where the ray arrives to
+     * the refractive index of the other medium at the surface.
+     * @return The direction of the refracted ray.
      */
     public static Vector3 refract( Vector3 v, Vector3 n, double r ) {
 

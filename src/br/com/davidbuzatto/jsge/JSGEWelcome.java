@@ -22,8 +22,8 @@ import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.image.Image;
 
 /**
- * Classe de apresentação.
- * 
+ * Welcome/splash screen class.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class JSGEWelcome extends EngineFrame {
@@ -77,8 +77,8 @@ public class JSGEWelcome extends EngineFrame {
     }
     
     /**
-     * Executa.
-     * @param args Argumentos.
+     * Runs the application.
+     * @param args Arguments.
      */
     public static void main( String[] args ) {
         new JSGEWelcome();

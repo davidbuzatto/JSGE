@@ -23,21 +23,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Interface com métodos utilitários para curvas.
- * 
+ * Interface with utility methods for curves.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public interface CurveUtils {
     
     /**
-     * Obtém um ponto dentro de uma linha.
-     * 
-     * @param p1x Coordenada x do ponto inicial.
-     * @param p1y Coordenada y do ponto inicial.
-     * @param p2x Coordenada x do ponto final.
-     * @param p2y Coordenada y do ponto final.
-     * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
-     * @return O ponto dentro da linha.
+     * Gets a point within a line.
+     *
+     * @param p1x X coordinate of the start point.
+     * @param p1y Y coordinate of the start point.
+     * @param p2x X coordinate of the end point.
+     * @param p2y Y coordinate of the end point.
+     * @param amount A value from 0 to 1 representing the position, as a percentage, of the desired point.
+     * @return The point within the line.
      */
     public static Vector2 getPointAtLine( double p1x, double p1y, double p2x, double p2y, double amount ) {
 
@@ -49,39 +49,39 @@ public interface CurveUtils {
     }
 
     /**
-     * Obtém um ponto dentro de uma linha.
-     * 
-     * @param p1 Ponto inicial da linha.
-     * @param p2 Ponto final da linha.
-     * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
-     * @return O ponto dentro da linha.
+     * Gets a point within a line.
+     *
+     * @param p1 Start point of the line.
+     * @param p2 End point of the line.
+     * @param amount A value from 0 to 1 representing the position, as a percentage, of the desired point.
+     * @return The point within the line.
      */
     public static Vector2 getPointAtLine( Vector2 p1, Vector2 p2, double amount ) {
         return getPointAtLine( p1.x, p1.y, p2.x, p2.y, amount );
     }
 
     /**
-     * Obtém um ponto dentro de uma linha.
-     * 
-     * @param line Uma linha.
-     * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
-     * @return O ponto dentro da linha.
+     * Gets a point within a line.
+     *
+     * @param line A line.
+     * @param amount A value from 0 to 1 representing the position, as a percentage, of the desired point.
+     * @return The point within the line.
      */
     public static Vector2 getPointAtLine( Line line, double amount ) {
         return getPointAtLine( line.x1, line.y1, line.x2, line.y2, amount );
     }
 
     /**
-     * Obtém um ponto dentro de uma curva quadrática (curva Bézier quadrática).
-     * 
-     * @param p1x Coordenada x do ponto inicial.
-     * @param p1y Coordenada y do ponto inicial.
-     * @param cx Coordenada x do ponto de controle.
-     * @param cy Coordenada y do ponto de controle.
-     * @param p2x Coordenada x do ponto final.
-     * @param p2y Coordenada y do ponto final.
-     * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
-     * @return O ponto dentro da curva.
+     * Gets a point within a quadratic curve (quadratic Bézier curve).
+     *
+     * @param p1x X coordinate of the start point.
+     * @param p1y Y coordinate of the start point.
+     * @param cx X coordinate of the control point.
+     * @param cy Y coordinate of the control point.
+     * @param p2x X coordinate of the end point.
+     * @param p2y Y coordinate of the end point.
+     * @param amount A value from 0 to 1 representing the position, as a percentage, of the desired point.
+     * @return The point within the curve.
      */
     public static Vector2 getPointAtQuadCurve( double p1x, double p1y, double cx, double cy, double p2x, double p2y, double amount ) {
 
@@ -97,42 +97,42 @@ public interface CurveUtils {
     }
 
     /**
-     * Obtém um ponto dentro de uma curva quadrática (curva Bézier quadrática).
-     * 
-     * @param p1 Ponto inicial.
-     * @param c Ponto de controle.
-     * @param p2 Ponto final.
-     * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
-     * @return O ponto dentro da curva.
+     * Gets a point within a quadratic curve (quadratic Bézier curve).
+     *
+     * @param p1 Start point.
+     * @param c Control point.
+     * @param p2 End point.
+     * @param amount A value from 0 to 1 representing the position, as a percentage, of the desired point.
+     * @return The point within the curve.
      */
     public static Vector2 getPointAtQuadCurve( Vector2 p1, Vector2 c, Vector2 p2, double amount ) {
         return getPointAtQuadCurve( p1.x, p1.y, c.x, c.y, p2.x, p2.y, amount );
     }
     
     /**
-     * Obtém um ponto dentro de uma curva quadrática (curva Bézier quadrática).
-     * 
-     * @param quadCurve Uma curva Bézier quadrática.
-     * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
-     * @return O ponto dentro da curva.
+     * Gets a point within a quadratic curve (quadratic Bézier curve).
+     *
+     * @param quadCurve A quadratic Bézier curve.
+     * @param amount A value from 0 to 1 representing the position, as a percentage, of the desired point.
+     * @return The point within the curve.
      */
     public static Vector2 getPointAtQuadCurve( QuadCurve quadCurve, double amount ) {
         return getPointAtQuadCurve( quadCurve.x1, quadCurve.y1, quadCurve.cx, quadCurve.cy, quadCurve.x2, quadCurve.y2, amount );
     }
 
     /**
-     * Obtém um ponto dentro de uma curva cúbica (curva Bézier cúbica).
-     * 
-     * @param p1x Coordenada x do ponto inicial.
-     * @param p1y Coordenada y do ponto inicial.
-     * @param c1x Coordenada x do primeiro ponto de controle.
-     * @param c1y Coordenada y do primeiro ponto de controle.
-     * @param c2x Coordenada x do segundo ponto de controle.
-     * @param c2y Coordenada y do segundo ponto de controle.
-     * @param p2x Coordenada x do ponto final.
-     * @param p2y Coordenada y do ponto final.
-     * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
-     * @return O ponto dentro da curva.
+     * Gets a point within a cubic curve (cubic Bézier curve).
+     *
+     * @param p1x X coordinate of the start point.
+     * @param p1y Y coordinate of the start point.
+     * @param c1x X coordinate of the first control point.
+     * @param c1y Y coordinate of the first control point.
+     * @param c2x X coordinate of the second control point.
+     * @param c2y Y coordinate of the second control point.
+     * @param p2x X coordinate of the end point.
+     * @param p2y Y coordinate of the end point.
+     * @param amount A value from 0 to 1 representing the position, as a percentage, of the desired point.
+     * @return The point within the curve.
      */
     public static Vector2 getPointAtCubicCurve( double p1x, double p1y, double c1x, double c1y, double c2x, double c2y, double p2x, double p2y, double amount ) {
 
@@ -149,50 +149,50 @@ public interface CurveUtils {
     }
 
     /**
-     * Obtém um ponto dentro de uma curva cúbica (curva Bézier cúbica).
-     * 
-     * @param p1 Ponto inicial.
-     * @param c1 Primeiro ponto de controle.
-     * @param c2 Segundo ponto de controle.
-     * @param p2 Ponto final.
-     * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
-     * @return O ponto dentro da curva.
+     * Gets a point within a cubic curve (cubic Bézier curve).
+     *
+     * @param p1 Start point.
+     * @param c1 First control point.
+     * @param c2 Second control point.
+     * @param p2 End point.
+     * @param amount A value from 0 to 1 representing the position, as a percentage, of the desired point.
+     * @return The point within the curve.
      */
     public static Vector2 getPointAtCubicCurve( Vector2 p1, Vector2 c1, Vector2 c2, Vector2 p2, double amount ) {
         return getPointAtCubicCurve( p1.x, p1.y, c1.x, c1.y, c2.x, c2.y, p2.x, p2.y, amount );
     }
 
     /**
-     * Obtém um ponto dentro de uma curva cúbica (curva Bézier cúbica).
-     * 
-     * @param cubicCurve Uma curva Bézier cúbica.
-     * @param amount Um valor de 0 a 1 que representa a posição, em porcentagem, do ponto desejado.
-     * @return O ponto dentro da curva.
+     * Gets a point within a cubic curve (cubic Bézier curve).
+     *
+     * @param cubicCurve A cubic Bézier curve.
+     * @param amount A value from 0 to 1 representing the position, as a percentage, of the desired point.
+     * @return The point within the curve.
      */
     public static Vector2 getPointAtCubicCurve( CubicCurve cubicCurve, double amount ) {
         return getPointAtCubicCurve( cubicCurve.x1, cubicCurve.y1, cubicCurve.c1x, cubicCurve.c1y, cubicCurve.c2x, cubicCurve.c2y, cubicCurve.x2, cubicCurve.y2, amount );
     }
     
     /**
-     * Aplica o algoritmo de Chaikin em uma curva representada por uma lista de 
-     * pontos, retornando uma nova lista de pontos que corresponde à curva
-     * suavizada.
-     * 
-     * Referências:
+     * Applies the Chaikin algorithm to a curve represented by a list of
+     * points, returning a new list of points corresponding to the smoothed
+     * curve.
+     *
+     * References:
      *     https://www.codeproject.com/Articles/1093960/2D-Polyline-Vertex-Smoothing
      *     https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
-     * 
-     * @param points Pontos que serão processados.
-     * @param tension Tensão [0..1]
-     * @param iterations Quantidade iterações [1..10]
-     * @return Uma lista de pontos que representa uma curva suavizada ou uma
-     * lista vazia caso a lista de pontos contenha menos que 3 pontos.
+     *
+     * @param points Points to be processed.
+     * @param tension Tension [0..1]
+     * @param iterations Number of iterations [1..10]
+     * @return A list of points representing a smoothed curve, or an empty
+     * list if the point list contains fewer than 3 points.
      */
     public static List<Vector2> getCurveSmoothingChaikin( List<Vector2> points, double tension, int iterations ) {
         
         List<Vector2> newList = new ArrayList<>();
         
-        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // original comment: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
         // checks
         if ( points == null || points.size() < 3 ) {
             return newList;
@@ -210,13 +210,13 @@ public interface CurveUtils {
             tension = 1;
         }
 
-        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // original comment: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
         // the tension factor defines a scale between corner cutting distance in segment half length, i.e. between 0.05 and 0.45
         // the opposite corner will be cut by the inverse (i.e. 1-cutting distance) to keep symmetry
         // with a tension value of 0.5 this amounts to 0.25 = 1/4 and 0.75 = 3/4 the original Chaikin values
         double cutdist = 0.05 + ( tension * 0.4 );
 
-        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // original comment: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
         // make a copy of the pointlist and feed it to the iteration
         for ( Vector2 point : points ) {
             newList.add( new Vector2( point.x, point.y ) );
@@ -234,7 +234,7 @@ public interface CurveUtils {
         
         List<Vector2> newList = new ArrayList<>();
 
-        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // original comment: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
         // always add the first point
         newList.add( new Vector2( points.get( 0 ).x, points.get( 0 ).y ) );
         
@@ -258,7 +258,7 @@ public interface CurveUtils {
             
         }
 
-        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // original comment: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
         // always add the last point
         newList.add( new Vector2( points.get( points.size() - 1 ).x, points.get( points.size() - 1 ).y ) );
 
@@ -267,33 +267,33 @@ public interface CurveUtils {
     }
     
     /**
-     * Aplica o algoritmo de Catmull-Rom em uma curva representada por uma lista de 
-     * pontos, retornando uma nova lista de pontos que corresponde à curva
-     * suavizada.
-     * 
-     * @param points A lista de pontos.
-     * @param interpolationPoints A quantidade de pontos de interpolação.
-     * @return Uma lista de pontos que representa uma curva suavizada ou uma
-     * lista vazia caso a lista de pontos contenha menos que 3 pontos.
+     * Applies the Catmull-Rom algorithm to a curve represented by a list of
+     * points, returning a new list of points corresponding to the smoothed
+     * curve.
+     *
+     * @param points The list of points.
+     * @param interpolationPoints The number of interpolation points.
+     * @return A list of points representing a smoothed curve, or an empty
+     * list if the point list contains fewer than 3 points.
      */
     public static List<Vector2> getSplineInterpolationCatmullRom( List<Vector2> points, int interpolationPoints ) {
         
         List<Vector2> spline = new ArrayList<>();
         
-        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // original comment: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
         // The Catmull-Rom Spline, requires at least 4 points so it is possible to extrapolate from 3 points, but not from 2.
         // you would get a straight line anyway
         if ( points.size() < 3 ) {
             return spline;
         }
 
-        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // original comment: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
         // could throw an error on the following, but it is easily fixed implicitly
         if ( interpolationPoints < 1 ) {
             interpolationPoints = 1;
         }
 
-        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // original comment: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
         // create a new pointlist to do splining on
         // if you don't do this, the original pointlist gets extended with the exptrapolated points
         List<Vector2> spoints = new ArrayList<>();
@@ -301,7 +301,7 @@ public interface CurveUtils {
             spoints.add( new Vector2( p.x, p.y ) );
         }
         
-        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // original comment: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
         // always extrapolate the first and last point out
         double dx = spoints.get(1).x - spoints.get(0).x;
         double dy = spoints.get(1).y - spoints.get(0).y;
@@ -310,7 +310,7 @@ public interface CurveUtils {
         dy = spoints.get(spoints.size()-1).y - spoints.get(spoints.size()-2).y;
         spoints.add( new Vector2( spoints.get(spoints.size()-1).x + dx, spoints.get(spoints.size()-1).y + dy ) );
 
-        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // original comment: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
         // Note the nrOfInterpolatedPoints acts as a kind of tension factor between 0 and 1 because it is normalised
         // to 1/nrOfInterpolatedPoints. It can never be 0
         double t;
@@ -337,7 +337,7 @@ public interface CurveUtils {
             
         }
 
-        // comentário original: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
+        // original comment: https://github.com/xstos/PolylineSmoothCSharp/blob/master/MainForm.cs
         // add the last point, but skip the interpolated last point, so second last...
         spline.add( spoints.get(spoints.size() - 2) );
         return spline;

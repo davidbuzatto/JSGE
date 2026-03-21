@@ -26,23 +26,23 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 /**
- * Componentes que contém texto na representação gráfica.
- * 
+ * Components that contain text in their graphical representation.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public abstract class GuiTextComponent extends GuiComponent {
 
-    /** Alinhamento à esquerda na horizontal. */
+    /** Left horizontal alignment. */
     public static final int LEFT_ALIGNMENT = 1;
-    /** Alinhamento ao centro na horizontal. */
+    /** Center horizontal alignment. */
     public static final int CENTER_ALIGNMENT = 2;
-    /** Alinhamento à direita na horizontal. */
+    /** Right horizontal alignment. */
     public static final int RIGHT_ALIGNMENT = 3;
-    /** Alinhamento acima na vertical. */
+    /** Top vertical alignment. */
     public static final int TOP_ALIGNMENT = 4;
-    /** Alinhamento ao meio na vertical. */
+    /** Middle vertical alignment. */
     public static final int MIDDLE_ALIGNMENT = 5;
-    /** Alinhamento abaixo na vertical. */
+    /** Bottom vertical alignment. */
     public static final int BOTTOM_ALIGNMENT = 6;
     
     private static BufferedImage dummyImage = new BufferedImage( 1, 1, BufferedImage.TYPE_INT_ARGB );
@@ -52,12 +52,11 @@ public abstract class GuiTextComponent extends GuiComponent {
     protected int textLineHeight = -1;
 
     /**
-     * Cria o componente.
-     * 
-     * @param bounds
-     * @param text Texto utilizado no componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param text Text used in the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiTextComponent( Rectangle bounds, String text, EngineFrame engine ) {
         super( bounds, engine );
@@ -65,14 +64,14 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param bounds
-     * @param text Texto utilizado no componente. 
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param text Text used in the component.
      */
     public GuiTextComponent( Rectangle bounds, String text ) {
         super( bounds );
@@ -80,45 +79,44 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param text Texto utilizado no componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param text Text used in the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiTextComponent( double x, double y, double width, double height, String text, EngineFrame engine ) {
         this( new Rectangle( x, y, width, height ), text, engine );
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param text Texto utilizado no componente. 
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param text Text used in the component.
      */
     public GuiTextComponent( double x, double y, double width, double height, String text ) {
         this( new Rectangle( x, y, width, height ), text );
     }
     
     /**
-     * Desenha texto centralizado na vertical.
-     * 
-     * @param textColor Cor do texto.
+     * Draws text centered vertically.
+     *
+     * @param textColor The text color.
      */
     protected void drawText( Color textColor ) {
         engine.drawText(
@@ -130,11 +128,11 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
     
     /**
-     * Desenha texto centralizado na vertical com deslocamento.
-     * 
-     * @param textColor Cor do texto.
-     * @param xOffset Deslocamento no eixo x.
-     * @param yOffset Deslocamento no eixo y.
+     * Draws text centered vertically with an offset.
+     *
+     * @param textColor The text color.
+     * @param xOffset Offset on the x axis.
+     * @param yOffset Offset on the y axis.
      */
     protected void drawText( Color textColor, double xOffset, double yOffset ) {
         engine.drawText(
@@ -146,9 +144,9 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
     
     /**
-     * Desenha texto centralizado na vertical depois do retângulo de limite.
-     * 
-     * @param textColor Cor do texto.
+     * Draws text centered vertically after the bounding rectangle.
+     *
+     * @param textColor The text color.
      */
     protected void drawTextAfterBounds( Color textColor ) {
         engine.drawText(
@@ -160,11 +158,11 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
     
     /**
-     * Desenha texto centralizado na vertical depois do retângulo de limite, 
-     * com deslocamento.
-     * 
-     * @param textColor Cor do texto.
-     * @param xOffset Deslocamento no eixo x.
+     * Draws text centered vertically after the bounding rectangle,
+     * with an offset.
+     *
+     * @param textColor The text color.
+     * @param xOffset Offset on the x axis.
      */
     protected void drawTextAfterBounds( Color textColor, double xOffset ) {
         engine.drawText(
@@ -176,9 +174,9 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
     
     /**
-     * Desenha texto centralizado na vertical e na horizontal.
-     * 
-     * @param textColor Cor do texto.
+     * Draws text centered both vertically and horizontally.
+     *
+     * @param textColor The text color.
      */
     protected void drawCenteredText( Color textColor ) {
         if ( textWidth == -1 ) {
@@ -193,18 +191,18 @@ public abstract class GuiTextComponent extends GuiComponent {
     }
 
     /**
-     * Obtém o texto do componente.
-     * 
-     * @return O texto do componente.
+     * Gets the text of the component.
+     *
+     * @return The text of the component.
      */
     public String getText() {
         return this.text;
     }
     
     /**
-     * Configura o texto do componente.
-     * 
-     * @param text Texto utilizado no componente. 
+     * Sets the text of the component.
+     *
+     * @param text Text used in the component.
      */
     public void setText( String text ) {
         this.text = text;

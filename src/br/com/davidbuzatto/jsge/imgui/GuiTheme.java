@@ -22,99 +22,99 @@ import java.awt.Color;
 import java.util.List;
 
 /**
- * Classe para criação, gerenciamento e instalação de temas.
- * 
+ * Class for creating, managing, and installing themes.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class GuiTheme {
     
-    /** Cor padrão de fundo. */
+    /** Default background color. */
     public Color backgroundColor;
-    /** Cor padrão da borda. */
+    /** Default border color. */
     public Color borderColor;
-    /** Cor padrão do texto. */
+    /** Default text color. */
     public Color textColor;
-    
-    /** Cor de fundo quando o mouse está em cima do componente. */
+
+    /** Background color when the mouse is over the component. */
     public Color mouseOverBackgroundColor;
-    /** Cor da borda quando o mouse está em cima do componente. */
+    /** Border color when the mouse is over the component. */
     public Color mouseOverBorderColor;
-    /** Cor do texto quando o mouse está em cima do componente. */
+    /** Text color when the mouse is over the component. */
     public Color mouseOverTextColor;
-    
-    /** Cor de fundo quando o mouse está sendo pressionado no componente. */
+
+    /** Background color when the mouse button is pressed on the component. */
     public Color mouseDownBackgroundColor;
-    /** Cor da borda quando o mouse está sendo pressionado no componente. */
+    /** Border color when the mouse button is pressed on the component. */
     public Color mouseDownBorderColor;
-    /** Cor do texto quando o mouse está sendo pressionado no componente. */
+    /** Text color when the mouse button is pressed on the component. */
     public Color mouseDownTextColor;
-    
-    /** Cor de fundo quando o componente está desabilitado. */
+
+    /** Background color when the component is disabled. */
     public Color disabledBackgroundColor;
-    /** Cor da borda quando o componente está desabilitado. */
+    /** Border color when the component is disabled. */
     public Color disabledBorderColor;
-    /** Cor do texto quando o componente está desabilitado. */
+    /** Text color when the component is disabled. */
     public Color disabledTextColor;
-    
-    /** Cor de fundo para os componentes contâineres. */
+
+    /** Background color for container components. */
     public Color containerBackgroundColor;
-    /** Cor da borda para os componentes contâineres. */
+    /** Border color for container components. */
     public Color containerBorderColor;
-    /** Cor do texto para os componentes contâineres. */
+    /** Text color for container components. */
     public Color containerTextColor;
-    /** Cor de fundo para as barras de título dos componentes contâineres. */
+    /** Background color for the title bars of container components. */
     public Color containerTitleBarBackgroundColor;
-    /** Cor da borda para as barras de título dos componentes contâineres. */
+    /** Border color for the title bars of container components. */
     public Color containerTitleBarBorderColor;
-    /** Cor do texto para as barras de título dos componentes contâineres. */
+    /** Text color for the title bars of container components. */
     public Color containerTitleBarTextColor;
-    
-    /** Cor de fundo para os componentes contâineres desabilitados. */
+
+    /** Background color for disabled container components. */
     public Color disabledContainerBackgroundColor;
-    /** Cor da borda para os componentes contâineres desabilitados. */
+    /** Border color for disabled container components. */
     public Color disabledContainerBorderColor;
-    /** Cor do texto para os componentes contâineres desabilitados. */
+    /** Text color for disabled container components. */
     public Color disabledContainerTextColor;
-    /** Cor de fundo para as barras de título dos componentes contâineres desabilitados. */
+    /** Background color for the title bars of disabled container components. */
     public Color disabledContainerTitleBarBackgroundColor;
-    /** Cor da borda para as barras de título dos componentes contâineres desabilitados. */
+    /** Border color for the title bars of disabled container components. */
     public Color disabledContainerTitleBarBorderColor;
-    /** Cor do texto para as barras de título dos componentes contâineres desabilitados. */
+    /** Text color for the title bars of disabled container components. */
     public Color disabledContainerTitleBarTextColor;
-    
-    /** Cor de fundo para o progresso das barras de progresso. */
+
+    /** Background color for the progress fill of progress bars. */
     public Color progressBarProgressFillColor;
-    
-    /** Cor de fundo para os contâineres de itens dos componentes de lista. */
+
+    /** Background color for item containers of list components. */
     public Color listContainerBackgroundColor;
-    /** Cor de fundo para os contâineres de itens dos componentes de lista desabilitados. */
+    /** Background color for item containers of disabled list components. */
     public Color disabledListContainerBackgroundColor;
-    
-    /** Cor de fundo para a trila dos sliders usados como barras de rolagem. */
+
+    /** Background color for the track of scroll bars. */
     public Color scrollBarTrackColor;
-    /** Cor de fundo para a trila dos sliders desabiltiados usados como barras de rolagem. */
+    /** Background color for the track of disabled scroll bars. */
     public Color disabledScrollBarTrackColor;
-    
-    /** Cor da sobreposição do seletor de cor quando está desabilitado. */
+
+    /** Overlay color of the color picker when it is disabled. */
     public Color colorPickerDisabledOverlayColor;
-    
-    /** Cor da sobreposição dos diálogos. */
+
+    /** Overlay color for dialogs. */
     public Color dialogOverlayColor;
-    
-    /** Cor padrão de fundo. */
+
+    /** Default tooltip background color. */
     public Color toolTipBackgroundColor;
-    /** Cor padrão da borda. */
+    /** Default tooltip border color. */
     public Color toolTipBorderColor;
-    /** Cor padrão do texto. */
+    /** Default tooltip text color. */
     public Color toolTipTextColor;
     
     private GuiTheme() {
     }
     
     /**
-     * Constroi o tema claro. É o tema utilizado por padrão.
-     * 
-     * @return O tema claro.
+     * Builds the light theme. This is the default theme.
+     *
+     * @return The light theme.
      */
     public static GuiTheme buildLightTheme() {
         
@@ -171,9 +171,9 @@ public class GuiTheme {
     }
     
     /**
-     * Constroi o tema escuro.
-     * 
-     * @return O tema escuro.
+     * Builds the dark theme.
+     *
+     * @return The dark theme.
      */
     public static GuiTheme buildDarkTheme() {
         
@@ -230,10 +230,10 @@ public class GuiTheme {
     }
     
     /**
-     * Cria um novo tema usando uma cor básica e sua inversa para destaques.
-     * 
-     * @param color A cor.
-     * @return Um tema de cor base.
+     * Creates a new theme using a base color and its inverse for highlights.
+     *
+     * @param color The base color.
+     * @return A base-color theme.
      */
     public static GuiTheme buildColoredTheme( Color color ) {
         
@@ -293,17 +293,16 @@ public class GuiTheme {
     }
     
     /**
-     * Cria um tema "vazio", usando a cor cinza.
-     * 
-     * @return O tema cinza.
+     * Creates an "empty" theme using the gray color.
+     *
+     * @return The gray theme.
      */
     public static GuiTheme buildEmptyTheme() {
         return buildColoredTheme( EngineFrame.LIGHTGRAY );
     }
     
     /**
-     * Instala o tema globalmente. Deve ser usado antes de se inciciar a criação
-     * dos componentes.
+     * Installs the theme globally. Should be called before creating components.
      */
     public void install() {
         
@@ -356,9 +355,9 @@ public class GuiTheme {
     }
     
     /**
-     * Aplica o tema nos componentes passados.
-     * 
-     * @param components Os componentes.
+     * Applies the theme to the given components.
+     *
+     * @param components The components.
      */
     public void apply( List<GuiComponent> components ) {
         for ( GuiComponent c : components ) {
@@ -367,9 +366,9 @@ public class GuiTheme {
     }
     
     /**
-     * Aplica o tema nos componentes passados.
-     * 
-     * @param components Os componentes.
+     * Applies the theme to the given components.
+     *
+     * @param components The components.
      */
     public void apply( GuiComponent... components ) {
         for ( GuiComponent c : components ) {
@@ -378,9 +377,9 @@ public class GuiTheme {
     }
     
     /**
-     * Instala o tema globalmente e o aplica nos componentes passados.
-     * 
-     * @param components Os componentes.
+     * Installs the theme globally and applies it to the given components.
+     *
+     * @param components The components.
      */
     public void installAndApply( List<GuiComponent> components ) {
         install();
@@ -388,9 +387,9 @@ public class GuiTheme {
     }
     
     /**
-     * Instala o tema globalmente e o aplica nos componentes passados.
-     * 
-     * @param components Os componentes.
+     * Installs the theme globally and applies it to the given components.
+     *
+     * @param components The components.
      */
     public void installAndApply( GuiComponent... components ) {
         install();
@@ -398,9 +397,9 @@ public class GuiTheme {
     }
     
     /**
-     * Aplica o tema em um componente e em seus subcomponentes se necessário.
-     * 
-     * @param component O componente.
+     * Applies the theme to a component and its subcomponents if necessary.
+     *
+     * @param component The component.
      */
     public void apply( GuiComponent component ) {
         component.apply( this );

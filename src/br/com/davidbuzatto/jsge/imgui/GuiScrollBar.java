@@ -24,8 +24,8 @@ import br.com.davidbuzatto.jsge.math.Vector2;
 import java.awt.Color;
 
 /**
- * Um componente de barra de rolagem.
- * 
+ * A scroll bar component.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class GuiScrollBar extends GuiComponent {
@@ -43,90 +43,87 @@ public class GuiScrollBar extends GuiComponent {
     private boolean mouseWheelEnabled;
     
     /**
-     * Cria o componente.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param value O valor inicial do componente.
-     * @param min O valor mínimo do componente.
-     * @param max O valor máximo do componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param value The initial value of the component.
+     * @param min The minimum value of the component.
+     * @param max The maximum value of the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiScrollBar( double x, double y, double width, double height, double value, double min, double max, EngineFrame engine ) {
         this( x, y, width, height, value, min, max, HORIZONTAL, engine );
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param value O valor inicial do componente.
-     * @param min O valor mínimo do componente.
-     * @param max O valor máximo do componente. 
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param value The initial value of the component.
+     * @param min The minimum value of the component.
+     * @param max The maximum value of the component.
      */
     public GuiScrollBar( double x, double y, double width, double height, double value, double min, double max ) {
         this( x, y, width, height, value, min, max, HORIZONTAL );
     }
     
     /**
-     * Cria o componente.
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param value O valor inicial do componente.
-     * @param min O valor mínimo do componente.
-     * @param max O valor máximo do componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param value The initial value of the component.
+     * @param min The minimum value of the component.
+     * @param max The maximum value of the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiScrollBar( Rectangle bounds, double value, double min, double max, EngineFrame engine ) {
         this( bounds, value, min, max, HORIZONTAL, engine );
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param value O valor inicial do componente.
-     * @param min O valor mínimo do componente.
-     * @param max O valor máximo do componente. 
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param value The initial value of the component.
+     * @param min The minimum value of the component.
+     * @param max The maximum value of the component.
      */
     public GuiScrollBar( Rectangle bounds, double value, double min, double max ) {
         this( bounds, value, min, max, HORIZONTAL );
     }
     
     /**
-     * Cria o componente.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param value O valor inicial do componente.
-     * @param min O valor mínimo do componente.
-     * @param max O valor máximo do componente.
-     * @param orientation Se a barra de rolagem é horizontal ou vertical.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param value The initial value of the component.
+     * @param min The minimum value of the component.
+     * @param max The maximum value of the component.
+     * @param orientation Whether the scroll bar is horizontal or vertical.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiScrollBar( double x, double y, double width, double height, double value, double min, double max, int orientation, EngineFrame engine ) {
         super( x, y, width, height, engine );
@@ -135,22 +132,22 @@ public class GuiScrollBar extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param value O valor inicial do componente.
-     * @param min O valor mínimo do componente.
-     * @param max O valor máximo do componente.
-     * @param orientation Se a barra de rolagem é horizontal ou vertical.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param value The initial value of the component.
+     * @param min The minimum value of the component.
+     * @param max The maximum value of the component.
+     * @param orientation Whether the scroll bar is horizontal or vertical.
      */
     public GuiScrollBar( double x, double y, double width, double height, double value, double min, double max, int orientation ) {
         super( x, y, width, height );
@@ -159,15 +156,14 @@ public class GuiScrollBar extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param value O valor inicial do componente.
-     * @param min O valor mínimo do componente.
-     * @param max O valor máximo do componente.
-     * @param orientation Se a barra de rolagem é horizontal ou vertical.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param value The initial value of the component.
+     * @param min The minimum value of the component.
+     * @param max The maximum value of the component.
+     * @param orientation Whether the scroll bar is horizontal or vertical.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiScrollBar( Rectangle bounds, double value, double min, double max, int orientation, EngineFrame engine ) {
         super( bounds, engine );
@@ -176,17 +172,17 @@ public class GuiScrollBar extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param value O valor inicial do componente.
-     * @param min O valor mínimo do componente.
-     * @param max O valor máximo do componente.
-     * @param orientation Se a barra de rolagem é horizontal ou vertical.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param value The initial value of the component.
+     * @param min The minimum value of the component.
+     * @param max The maximum value of the component.
+     * @param orientation Whether the scroll bar is horizontal or vertical.
      */
     public GuiScrollBar( Rectangle bounds, double value, double min, double max, int orientation ) {
         super( bounds );
@@ -346,18 +342,18 @@ public class GuiScrollBar extends GuiComponent {
     }
     
     /**
-     * Obtém o valor atual do componente.
-     * 
-     * @return O valor atual.
+     * Gets the current value of the component.
+     *
+     * @return The current value.
      */
     public double getValue() {
         return value;
     }
 
     /**
-     * Configura o valor do componente.
-     * 
-     * @param value O valor do componente. 
+     * Sets the value of the component.
+     *
+     * @param value The value of the component.
      */
     public void setValue( double value ) {
         if ( min <= max ) {
@@ -369,72 +365,72 @@ public class GuiScrollBar extends GuiComponent {
     }
 
     /**
-     * Retorna o valor mínimo do componente.
-     * 
-     * @return O valor mínimo.
+     * Returns the minimum value of the component.
+     *
+     * @return The minimum value.
      */
     public double getMin() {
         return min;
     }
 
     /**
-     * Configura o valor mínimo do componente.
-     * 
-     * @param min O valor mínimo do componente. 
+     * Sets the minimum value of the component.
+     *
+     * @param min The minimum value of the component.
      */
     public void setMin( double min ) {
         this.min = min;
     }
 
     /**
-     * Retorna o valor máximo do componente.
-     * 
-     * @return O valor máximo.
+     * Returns the maximum value of the component.
+     *
+     * @return The maximum value.
      */
     public double getMax() {
         return max;
     }
 
     /**
-     * Configura o valor máximo do componente.
-     * 
-     * @param max O valor máximo do componente. 
+     * Sets the maximum value of the component.
+     *
+     * @param max The maximum value of the component.
      */
     public void setMax( double max ) {
         this.max = max;
     }
 
     /**
-     * Retorna se a trilha do componente está visível.
-     * 
-     * @return Verdadeiro caso esteja visível, falso caso contrário.
+     * Returns whether the track of the component is visible.
+     *
+     * @return True if it is visible, false otherwise.
      */
     public boolean isShowTrack() {
         return showTrack;
     }
 
     /**
-     * Configura a visibilidade da trilha do componente.
-     * 
-     * @param showTrack Verdeiro para exibir a trilha, falso para esconder.
+     * Sets the visibility of the track of the component.
+     *
+     * @param showTrack True to show the track, false to hide it.
      */
     public void setShowTrack( boolean showTrack ) {
         this.showTrack = showTrack;
     }
 
     /**
-     * Retorna se o componente responde à rolagem da roda do mouse.
-     * 
-     * @return Verdadeiro caso sim, falso caso contrário.
+     * Returns whether the component responds to mouse wheel scrolling.
+     *
+     * @return True if it responds, false otherwise.
      */
     public boolean isMouseWheelEnabled() {
         return mouseWheelEnabled;
     }
 
     /**
-     * Configura se o componente deve responder à rolagem da roda do mouse.
-     * 
-     * @param mouseWheelEnabled Verdadeiro para responder, falso para não responder.
+     * Sets whether the component should respond to mouse wheel scrolling.
+     *
+     * @param mouseWheelEnabled True to respond, false to not respond.
      */
     public void setMouseWheelEnabled( boolean mouseWheelEnabled ) {
         this.mouseWheelEnabled = mouseWheelEnabled;

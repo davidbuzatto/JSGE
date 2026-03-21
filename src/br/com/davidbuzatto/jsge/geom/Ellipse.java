@@ -22,8 +22,8 @@ import java.awt.Paint;
 import java.io.Serializable;
 
 /**
- * Classe para representação de uma elipse em duas dimensões.
- * 
+ * Class for representing an ellipse in two dimensions.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class Ellipse implements Drawable, Serializable {
@@ -31,38 +31,38 @@ public class Ellipse implements Drawable, Serializable {
     private static final long serialVersionUID = 1L;
     
     /**
-     * Coordenada x do centro.
+     * X coordinate of the center.
      */
     public double x;
-    
+
     /**
-     * Coordenada y do centro.
+     * Y coordinate of the center.
      */
     public double y;
-    
+
     /**
-     * Raio horizontal.
+     * Horizontal radius.
      */
     public double radiusH;
-    
+
     /**
-     * Raio vertical.
+     * Vertical radius.
      */
     public double radiusV;
 
     /**
-     * Cria uma nova elipse com valores padrão.
+     * Creates a new ellipse with default values.
      */
     public Ellipse() {
     }
 
     /**
-     * Cria uma nova elipse.
-     * 
-     * @param x Coordenada x do centro.
-     * @param y Coordenada y do centro.
-     * @param radiusH Raio horizontal.
-     * @param radiusV Raio vertical.
+     * Creates a new ellipse.
+     *
+     * @param x X coordinate of the center.
+     * @param y Y coordinate of the center.
+     * @param radiusH Horizontal radius.
+     * @param radiusV Vertical radius.
      */
     public Ellipse( double x, double y, double radiusH, double radiusV ) {
         this.x = x;

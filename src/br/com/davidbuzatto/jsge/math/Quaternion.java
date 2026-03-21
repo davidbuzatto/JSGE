@@ -19,8 +19,8 @@ package br.com.davidbuzatto.jsge.math;
 import java.io.Serializable;
 
 /**
- * Classe para representação de um quatérnio.
- * 
+ * Class for representing a quaternion.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class Quaternion implements Cloneable, Serializable {
@@ -28,38 +28,38 @@ public class Quaternion implements Cloneable, Serializable {
     private static final long serialVersionUID = 1L;
     
     /**
-     * Coordenada x.
+     * X coordinate.
      */
     public double x;
-    
+
     /**
-     * Coordenada y.
+     * Y coordinate.
      */
     public double y;
-    
+
     /**
-     * Coordenada z.
+     * Z coordinate.
      */
     public double z;
-    
+
     /**
-     * Coordenada w.
+     * W coordinate.
      */
     public double w;
 
     /**
-     * Cria um novo quatérnio com valores padrão.
+     * Creates a new quaternion with default values.
      */
     public Quaternion() {
     }
 
     /**
-     * Cria um novo quatérnio.
-     * 
-     * @param x coordenada x.
-     * @param y coordenada y.
-     * @param z coordenada z.
-     * @param w coordenada w.
+     * Creates a new quaternion.
+     *
+     * @param x x coordinate.
+     * @param y y coordinate.
+     * @param z z coordinate.
+     * @param w w coordinate.
      */
     public Quaternion( double x, double y, double z, double w ) {
         this.x = x;
@@ -69,58 +69,58 @@ public class Quaternion implements Cloneable, Serializable {
     }
 
     /**
-     * Soma o quatérnio corrente com outro quatérnio.
-     * 
-     * @param q Outro quatérnio.
-     * @return Um novo quatérnio resultado da soma.
+     * Adds the current quaternion to another quaternion.
+     *
+     * @param q Another quaternion.
+     * @return A new quaternion resulting from the addition.
      */
     public Quaternion add( Quaternion q ) {
         return new Quaternion( x + q.x, y + q.y, z + q.z, w + q.w );
     }
     
     /**
-     * Soma um valor ao quatérnio corrente.
-     * 
-     * @param value O valor a somar.
-     * @return Um novo quatérnio com os componentes somados ao valor passado.
+     * Adds a value to the current quaternion.
+     *
+     * @param value The value to add.
+     * @return A new quaternion with the components added to the given value.
      */
     public Quaternion addValue( double value ) {
         return new Quaternion( x + value, y + value, z + value, w + value );
     }
     
     /**
-     * Subtrai um quatérnio do quatérnio corrente.
-     * 
-     * @param q Outro quatérnio.
-     * @return Um novo quatérnio resultado da subtração.
+     * Subtracts a quaternion from the current quaternion.
+     *
+     * @param q Another quaternion.
+     * @return A new quaternion resulting from the subtraction.
      */
     public Quaternion subtract( Quaternion q ) {
         return new Quaternion( x - q.x, y - q.y, z - q.z, w - q.w );
     }
     
     /**
-     * Subtrai um valor do quatérnio corrente
-     * 
-     * @param value O valor a subtrair.
-     * @return Um novo quatérnio com os componentes subtraídos do valor passado.
+     * Subtracts a value from the current quaternion.
+     *
+     * @param value The value to subtract.
+     * @return A new quaternion with the components subtracted by the given value.
      */
     public Quaternion subtractValue( double value ) {
         return new Quaternion( x - value, y - value, z - value, w - value );
     }
     
     /**
-     * Calcula o comprimento do quatérnio.
-     * 
-     * @return O comprimento.
+     * Calculates the length of the quaternion.
+     *
+     * @return The length.
      */
     public double length() {
         return Math.sqrt( x * x + y * y + z * z + w * w );
     }
     
     /**
-     * Normaliza o vetor quatérnio.
-     * 
-     * @return Um novo quatérnio normalizado.
+     * Normalizes the quaternion vector.
+     *
+     * @return A new normalized quaternion.
      */
     public Quaternion normalize() {
 
@@ -142,9 +142,9 @@ public class Quaternion implements Cloneable, Serializable {
     }
     
     /**
-     * Inverte o quatérnio corrente.
-     * 
-     * @return Um novo quatérnio invertido.
+     * Inverts the current quaternion.
+     *
+     * @return A new inverted quaternion.
      */
     public Quaternion invert() {
         
@@ -165,10 +165,10 @@ public class Quaternion implements Cloneable, Serializable {
     }
     
     /**
-     * Multiplica o quatérnio corrente por outro quatérnio.
-     * 
-     * @param q Outro quatérnio.
-     * @return Um novo quatérnio com o resultado da multiplicação.
+     * Multiplies the current quaternion by another quaternion.
+     *
+     * @param q Another quaternion.
+     * @return A new quaternion with the result of the multiplication.
      */
     public Quaternion multiply( Quaternion q ) {
         
@@ -187,31 +187,31 @@ public class Quaternion implements Cloneable, Serializable {
     }
     
     /**
-     * Escalona o quatérnio corrente, análogo à multiplicação por escalar.
-     * 
-     * @param scale A escala.
-     * @return Um novo quatérnio escalonado.
+     * Scales the current quaternion, analogous to scalar multiplication.
+     *
+     * @param scale The scale.
+     * @return A new scaled quaternion.
      */
     public Quaternion scale( double scale ) {
         return new Quaternion( x * scale, y * scale, z * scale, w * scale );
     }
     
     /**
-     * Divide o quatérnio corrente por outro quatérnio.
-     * 
-     * @param q Outro quatérnio.
-     * @return Um novo vetor com o resultado da divisão.
+     * Divides the current quaternion by another quaternion.
+     *
+     * @param q Another quaternion.
+     * @return A new quaternion with the result of the division.
      */
     public Quaternion divide( Quaternion q ) {
         return new Quaternion( x / q.x, y / q.y, z / q.z, w / q.w );
     }
     
     /**
-     * Realiza a interpolação linear entre o quatérnio corrente (início) e outro quatérnio (fim).
-     * 
-     * @param end Quatérnio final.
-     * @param amount Quantidade (0 a 1)
-     * @return Um quatérnio que representa a interpolação linear entre dois quatérnios.
+     * Performs linear interpolation between the current quaternion (start) and another quaternion (end).
+     *
+     * @param end End quaternion.
+     * @param amount Amount (0 to 1)
+     * @return A quaternion representing the linear interpolation between two quaternions.
      */
     public Quaternion lerp( Quaternion end, double amount ) {
         return new Quaternion( 
@@ -223,11 +223,11 @@ public class Quaternion implements Cloneable, Serializable {
     }
     
     /**
-     * Realiza a interpolação linear normalizada entre o quatérnio corrente (início) e outro quatérnio (fim).
-     * 
-     * @param end Quatérnio final.
-     * @param amount Quantidade (0 a 1)
-     * @return Um quatérnio que representa a interpolação linear normalizada entre dois quatérnios.
+     * Performs normalized linear interpolation between the current quaternion (start) and another quaternion (end).
+     *
+     * @param end End quaternion.
+     * @param amount Amount (0 to 1)
+     * @return A quaternion representing the normalized linear interpolation between two quaternions.
      */
     public Quaternion normalizedLerp( Quaternion end, double amount ) {
         
@@ -255,11 +255,11 @@ public class Quaternion implements Cloneable, Serializable {
     }
     
     /**
-     * Realiza a interpolação linear esférica entre o quatérnio corrente (início) e outro quatérnio (fim).
-     * 
-     * @param end Quatérnio final.
-     * @param amount Quantidade (0 a 1)
-     * @return Um quatérnio que representa a interpolação linear esférica entre dois quatérnios.
+     * Performs spherical linear interpolation between the current quaternion (start) and another quaternion (end).
+     *
+     * @param end End quaternion.
+     * @param amount Amount (0 to 1)
+     * @return A quaternion representing the spherical linear interpolation between two quaternions.
      */
     public Quaternion sphericalLerp( Quaternion end, double amount ) {
         
@@ -311,13 +311,13 @@ public class Quaternion implements Cloneable, Serializable {
     }
     
     /**
-     * Calcula a interpolação cúbica Hermitiana do quatérnio corrente e de outro quatérnio e suas tangentes.
-     * 
-     * @param outTangent Primeira tangente
-     * @param q O quatérnio.
-     * @param inTangent Segunda tangente.
-     * @param amount A quantidade
-     * @return Um novo vetor com a interpolação cúbica Hermitiana.
+     * Calculates the cubic Hermite interpolation of the current quaternion and another quaternion and their tangents.
+     *
+     * @param outTangent First tangent.
+     * @param q The quaternion.
+     * @param inTangent Second tangent.
+     * @param amount The amount.
+     * @return A new quaternion with the cubic Hermite interpolation.
      */
     public Quaternion cubicHermite( Quaternion outTangent, Quaternion q, Quaternion inTangent, double amount ) {
         
@@ -343,9 +343,9 @@ public class Quaternion implements Cloneable, Serializable {
     }
     
     /**
-     * Obtém a matrix do quatérnio corrente.
-     * 
-     * @return Uma nova matriz do quatérnio corrente.
+     * Gets the matrix of the current quaternion.
+     *
+     * @return A new matrix of the current quaternion.
      */
     public Matrix toMatrix() {
         
@@ -378,9 +378,9 @@ public class Quaternion implements Cloneable, Serializable {
     }
     
     /**
-     * Obtém o ângulo de rotação e o eixo do quatérnio corrente.
-     * @param outAxis Vetor que receberá os dados do eixo.
-     * @return O ângulo.
+     * Gets the rotation angle and axis of the current quaternion.
+     * @param outAxis Vector that will receive the axis data.
+     * @return The angle.
      */
     public double toAxisAngle( Vector3 outAxis ) {
         
@@ -419,9 +419,9 @@ public class Quaternion implements Cloneable, Serializable {
     }
     
     /**
-     * Obtém os ângulos de Euler em radianos (rolagem (roll), passo (pitch) e guinada (yaw))
-     * equivalentes ao quatérnio corrente.
-     * @return Um vetor contendo os ângulos de Euler. x = roll (rotação em x), y = pitch (rotação em y) e z = yaw (rotação em z).
+     * Gets the Euler angles in radians (roll, pitch, and yaw)
+     * equivalent to the current quaternion.
+     * @return A vector containing the Euler angles. x = roll (rotation in x), y = pitch (rotation in y) and z = yaw (rotation in z).
      */
     public Vector3 toEuler() {
         
@@ -445,10 +445,10 @@ public class Quaternion implements Cloneable, Serializable {
     }
     
     /**
-     * Transforma o quatérnio corrente dada uma matriz.
-     * 
-     * @param mat A matriz.
-     * @return Um novo quatérnio transformado.
+     * Transforms the current quaternion by a given matrix.
+     *
+     * @param mat The matrix.
+     * @return A new transformed quaternion.
      */
     public Quaternion transform( Matrix mat ) {
         
@@ -464,20 +464,20 @@ public class Quaternion implements Cloneable, Serializable {
     }
     
     /**
-     * Cria uma quatérnio identidade.
-     * 
-     * @return Uma novo quatérnio identidade.
+     * Creates an identity quaternion.
+     *
+     * @return A new identity quaternion.
      */
     public static Quaternion identity() {
         return new Quaternion( 0.0, 0.0, 0.0, 1.0 );
     }
     
     /**
-     * Cria um quatérnio baseado na rotação de um vetor para outro.
-     * 
-     * @param from Um vetor.
-     * @param to Outro vetor.
-     * @return Um novo quatérnio.
+     * Creates a quaternion based on the rotation from one vector to another.
+     *
+     * @param from A vector.
+     * @param to Another vector.
+     * @return A new quaternion.
      */
     public static Quaternion fromVectorToVetor( Vector3 from, Vector3 to ) {
         
@@ -508,10 +508,10 @@ public class Quaternion implements Cloneable, Serializable {
     }
     
     /**
-     * Obtém um quatérnio dada uma matriz de rotação.
-     * 
-     * @param mat A matriz.
-     * @return Um novo quatérnio.
+     * Gets a quaternion from a rotation matrix.
+     *
+     * @param mat The matrix.
+     * @return A new quaternion.
      */
     public static Quaternion fromMatrix( Matrix mat ) {
         
@@ -574,11 +574,11 @@ public class Quaternion implements Cloneable, Serializable {
     }
     
     /**
-     * Obtém um quatérnio de rotação dado um ângulo e um eixo.
-     * 
-     * @param axis O eixo.
-     * @param angle O ângulo em radianos.
-     * @return Um novo quatérnio de rotação.
+     * Gets a rotation quaternion given an angle and an axis.
+     *
+     * @param axis The axis.
+     * @param angle The angle in radians.
+     * @return A new rotation quaternion.
      */
     public static Quaternion fromAxisAngle( Vector3 axis, double angle ) {
         
@@ -629,13 +629,13 @@ public class Quaternion implements Cloneable, Serializable {
     }
     
     /**
-     * Obtém o quatérnio equivalente aos ângulos de Euler.
-     * A ordem de rotação é ZYX.
-     * 
-     * @param pitch Ângulo de passo.
-     * @param yaw Ângulo de guinada.
-     * @param roll Ângulo de rolagem.
-     * @return Um novo quatérnio equivalente aos ângulos de Euler.
+     * Gets the quaternion equivalent to the Euler angles.
+     * The rotation order is ZYX.
+     *
+     * @param pitch Pitch angle.
+     * @param yaw Yaw angle.
+     * @param roll Roll angle.
+     * @return A new quaternion equivalent to the Euler angles.
      */
     public static Quaternion fromEuler( double pitch, double yaw, double roll ) {
         

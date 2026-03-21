@@ -22,8 +22,8 @@ import br.com.davidbuzatto.jsge.math.MathUtils;
 import java.awt.Color;
 
 /**
- * Um componente seletor de inteiros.
- * 
+ * An integer selector component.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class GuiSpinner extends GuiComponent {
@@ -36,19 +36,18 @@ public class GuiSpinner extends GuiComponent {
     protected GuiChangeValueButton rightButton;
     
     /**
-     * Cria o componente.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param value O valor inicial do componente.
-     * @param min O valor mínimo do componente.
-     * @param max O valor máximo do componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param value The initial value of the component.
+     * @param min The minimum value of the component.
+     * @param max The maximum value of the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiSpinner( double x, double y, double width, double height, int value, int min, int max, EngineFrame engine ) {
         super( x, y, width, height, engine );
@@ -57,21 +56,21 @@ public class GuiSpinner extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param value O valor inicial do componente.
-     * @param min O valor mínimo do componente.
-     * @param max O valor máximo do componente. 
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param value The initial value of the component.
+     * @param min The minimum value of the component.
+     * @param max The maximum value of the component.
      */
     public GuiSpinner( double x, double y, double width, double height, int value, int min, int max ) {
         super( x, y, width, height );
@@ -80,14 +79,13 @@ public class GuiSpinner extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param value O valor inicial do componente.
-     * @param min O valor mínimo do componente.
-     * @param max O valor máximo do componente.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param value The initial value of the component.
+     * @param min The minimum value of the component.
+     * @param max The maximum value of the component.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiSpinner( Rectangle bounds, int value, int min, int max, EngineFrame engine ) {
         super( bounds, engine );
@@ -96,16 +94,16 @@ public class GuiSpinner extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param value O valor inicial do componente.
-     * @param min O valor mínimo do componente.
-     * @param max O valor máximo do componente. 
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param value The initial value of the component.
+     * @param min The minimum value of the component.
+     * @param max The maximum value of the component.
      */
     public GuiSpinner( Rectangle bounds, int value, int min, int max ) {
         super( bounds );
@@ -205,54 +203,54 @@ public class GuiSpinner extends GuiComponent {
     }
     
     /**
-     * Obtém o valor atual do componente.
-     * 
-     * @return O valor atual.
+     * Gets the current value of the component.
+     *
+     * @return The current value.
      */
     public int getValue() {
         return value;
     }
 
     /**
-     * Configura o valor do componente.
-     * 
-     * @param value O valor do componente. 
+     * Sets the value of the component.
+     *
+     * @param value The value of the component.
      */
     public void setValue( int value ) {
         this.value = MathUtils.clamp( value, min, max );
     }
 
     /**
-     * Retorna o valor mínimo do componente.
-     * 
-     * @return O valor mínimo.
+     * Returns the minimum value of the component.
+     *
+     * @return The minimum value.
      */
     public int getMin() {
         return min;
     }
 
     /**
-     * Configura o valor mínimo do componente.
-     * 
-     * @param min O valor mínimo do componente. 
+     * Sets the minimum value of the component.
+     *
+     * @param min The minimum value of the component.
      */
     public void setMin( int min ) {
         this.min = min;
     }
 
     /**
-     * Retorna o valor máximo do componente.
-     * 
-     * @return O valor máximo.
+     * Returns the maximum value of the component.
+     *
+     * @return The maximum value.
      */
     public int getMax() {
         return max;
     }
 
     /**
-     * Configura o valor máximo do componente.
-     * 
-     * @param max O valor máximo do componente. 
+     * Sets the maximum value of the component.
+     *
+     * @param max The maximum value of the component.
      */
     public void setMax( int max ) {
         this.max = max;
@@ -271,9 +269,9 @@ public class GuiSpinner extends GuiComponent {
     }
 
     /**
-     * Configura a cor do fundo dos botões.
-     * 
-     * @param backgroundColor A cor do fundo dos botões.
+     * Sets the background color of the buttons.
+     *
+     * @param backgroundColor The background color of the buttons.
      */
     public void setButtonsBackgroundColor( Color backgroundColor ) {
         leftButton.setBackgroundColor( backgroundColor );

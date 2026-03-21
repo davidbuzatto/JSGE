@@ -23,8 +23,8 @@ import java.awt.Color;
 import java.util.List;
 
 /**
- * Um componente de lista de items suspensos.
- * 
+ * A dropdown list component.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class GuiDropdownList extends GuiComponent {
@@ -33,17 +33,16 @@ public class GuiDropdownList extends GuiComponent {
     private boolean wasSelected;
     
     /**
-     * Cria o componente.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param itemsText Lista com o texto dos itens da lista.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param itemsText List with the text of the list items.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiDropdownList( double x, double y, double width, double height, List<String> itemsText, EngineFrame engine ) {
         super( x, y, width, height, engine );
@@ -51,19 +50,19 @@ public class GuiDropdownList extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param x Coordenada x do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param y Coordenada y do vértice superior esquerdo do retângulo que 
-     * define os limites do componente.
-     * @param width Largura do retângulo que define os limites do componente.
-     * @param height Altura do retângulo que define os limites do componente.
-     * @param itemsText Lista com o texto dos itens da lista.
+     *
+     * @param x The x coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param y The y coordinate of the upper-left vertex of the rectangle that
+     * defines the bounds of the component.
+     * @param width Width of the rectangle that defines the bounds of the component.
+     * @param height Height of the rectangle that defines the bounds of the component.
+     * @param itemsText List with the text of the list items.
      */
     public GuiDropdownList( double x, double y, double width, double height, List<String> itemsText ) {
         super( x, y, width, height );
@@ -71,12 +70,11 @@ public class GuiDropdownList extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param itemsText Lista com o texto dos itens da lista.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param itemsText List with the text of the list items.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiDropdownList( Rectangle bounds, List<String> itemsText, EngineFrame engine ) {
         super( bounds, engine );
@@ -84,14 +82,14 @@ public class GuiDropdownList extends GuiComponent {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param bounds Um retângulo que define os limites do componente.
-     * @param itemsText Lista com o texto dos itens da lista.
+     *
+     * @param bounds A rectangle that defines the bounds of the component.
+     * @param itemsText List with the text of the list items.
      */
     public GuiDropdownList( Rectangle bounds, List<String> itemsText ) {
         super( bounds );
@@ -208,83 +206,81 @@ public class GuiDropdownList extends GuiComponent {
     }
     
     /**
-     * Retorna o texto do item selecionado no momento.
-     * 
-     * @return O texto do item selecionado ou null caso nenhum item esteja
-     * selecionado.
+     * Returns the text of the currently selected item.
+     *
+     * @return The text of the selected item, or null if no item is selected.
      */
     public String getSelectedItemText() {
         return itemsList.getSelectedItemText();
     }
     
     /**
-     * Retorna o índice do item selecionado no momento.
-     * 
-     * @return O índice do item selecionado ou -1 caso nenhum item esteja
-     * selecionado.
+     * Returns the index of the currently selected item.
+     *
+     * @return The index of the selected item, or -1 if no item is selected.
      */
     public int getSelectedItemIndex() {
         return itemsList.getSelectedItemIndex();
     }
     
     /**
-     * Retorna se a lista de itens está visível no momento.
-     * 
-     * @return Verdadeiro caso esteja visível, falso caso contrário.
+     * Returns whether the item list is currently visible.
+     *
+     * @return True if visible, false otherwise.
      */
     public boolean isDropdownListVisible() {
         return itemsList.isVisible();
     }
     
     /**
-     * Obtém a cor do fundo da barra de rolagem.
-     * 
-     * @return A cor do fundo.
+     * Gets the background color of the scroll bar.
+     *
+     * @return The background color.
      */
     public Color getScrollBarBackgroundColor() {
         return itemsList.scrollBar.getBackgroundColor();
     }
-    
+
     /**
-     * Confira a cor do fundo da barra de rolagem.
-     * 
-     * @param backgroundColor A cor do fundo.
+     * Sets the background color of the scroll bar.
+     *
+     * @param backgroundColor The background color.
      */
     public void setScrollBarBackgroundColor( Color backgroundColor ) {
         itemsList.scrollBar.setBackgroundColor( backgroundColor );
     }
-    
+
     /**
-     * Obtém a cor da borda da barra de rolagem.
-     * 
-     * @return A cor da borda.
+     * Gets the border color of the scroll bar.
+     *
+     * @return The border color.
      */
     public Color getScrollBarBorderColor() {
         return itemsList.scrollBar.getBorderColor();
     }
-    
+
     /**
-     * Confira a cor da borda da barra de rolagem.
-     * 
-     * @param borderColor A cor da borda.
+     * Sets the border color of the scroll bar.
+     *
+     * @param borderColor The border color.
      */
     public void setScrollBarBorderColor( Color borderColor ) {
         itemsList.scrollBar.setBorderColor( borderColor );
     }
-    
+
     /**
-     * Obtém a cor do texto da barra de rolagem.
-     * 
-     * @return A cor do texto.
+     * Gets the text color of the scroll bar.
+     *
+     * @return The text color.
      */
     public Color getScrollBarTextColor() {
         return itemsList.scrollBar.getTextColor();
     }
-    
+
     /**
-     * Confira a cor do texto da barra de rolagem.
-     * 
-     * @param textColor A cor do texto.
+     * Sets the text color of the scroll bar.
+     *
+     * @param textColor The text color.
      */
     public void setScrollBarTextColor( Color textColor ) {
         itemsList.scrollBar.setTextColor( textColor );

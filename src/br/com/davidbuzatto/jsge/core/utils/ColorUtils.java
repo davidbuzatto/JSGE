@@ -20,21 +20,21 @@ import br.com.davidbuzatto.jsge.math.MathUtils;
 import java.awt.Color;
 
 /**
- * Interface com métodos estáticos utilitários relacionados às cores.
- * 
- * Várias implementações são baseadas na raylib e em seus módulos
+ * Interface with static utility methods related to colors.
+ *
+ * Several implementations are based on raylib and its modules
  * (www.raylib.com).
- * 
+ *
  * @author Prof. Dr. David Buzatto
  */
 public interface ColorUtils {
     
     /**
-     * Aplica transparência (alpha) na cor.
-     * 
-     * @param color A cor base.
-     * @param alpha A quantidade de transparência entre 0.0 e 1.0
-     * @return A nova cor.
+     * Applies transparency (alpha) to a color.
+     *
+     * @param color The base color.
+     * @param alpha The transparency amount between 0.0 and 1.0.
+     * @return The new color.
      */
     public static Color fade( Color color, double alpha ) {
         return new Color( 
@@ -43,12 +43,11 @@ public interface ColorUtils {
     }
 
     /**
-     * Obtém os valores HSV (hue/saturation/value - matiz/saturação/valor) de uma
-     * cor. Os intervalos são h: [0..360], s: [0..1] e v: [0..1].
-     * 
-     * @param color Uma cor.
-     * @return Os valores HSV na forma de uma array de três elementos. Os valores
-     * seguem na ordem.
+     * Gets the HSV (hue/saturation/value) values of a color.
+     * The ranges are h: [0..360], s: [0..1] and v: [0..1].
+     *
+     * @param color A color.
+     * @return The HSV values as a three-element array, in order.
      */
     public static double[] colorToHSV( Color color ) {
         float[] hsb = Color.RGBtoHSB( color.getRed(), color.getGreen(), color.getBlue(), null );
@@ -56,24 +55,24 @@ public interface ColorUtils {
     }
 
     /**
-     * Obtém uma cor a par dos valores HSV (hue/saturation/value - matiz/saturação/valor).
-     * Os intervalos são h: [0..360], s: [0..1] e v: [0..1].
-     * 
-     * @param hue matiz [0..360]
-     * @param saturation [0..1]
-     * @param value [0..1]
-     * @return Uma cor com tais parâmetros.
+     * Gets a color from HSV (hue/saturation/value) values.
+     * The ranges are h: [0..360], s: [0..1] and v: [0..1].
+     *
+     * @param hue hue [0..360]
+     * @param saturation saturation [0..1]
+     * @param value value [0..1]
+     * @return A color with those parameters.
      */
     public static Color colorFromHSV( double hue, double saturation, double value ) {
         return new Color( Color.HSBtoRGB( (float) ( hue / 360.0 ), (float) saturation, (float) value ) );
     }
 
     /**
-     * Multiplica uma cor por uma tonalidade.
-     * 
-     * @param color A cor base.
-     * @param tint A tonalidade.
-     * @return Uma nova cor multiplicada pela tonalidade.
+     * Multiplies a color by a tint.
+     *
+     * @param color The base color.
+     * @param tint The tint.
+     * @return A new color multiplied by the tint.
      */
     public static Color colorTint( Color color, Color tint ) {
         return new Color( 
@@ -85,10 +84,10 @@ public interface ColorUtils {
     }
     
     /**
-     * Gera a cor invertida da cor passada.
-     * 
-     * @param color A cor.
-     * @return A cor invertida.
+     * Generates the inverted color of the given color.
+     *
+     * @param color The color.
+     * @return The inverted color.
      */
     public static Color colorInvert( Color color ) {
         return new Color( 
@@ -100,10 +99,10 @@ public interface ColorUtils {
     }
     
     /**
-     * Gera a cor em escala de cinza da cor passada.
-     * 
-     * @param color A cor.
-     * @return A cor em escala de cinza.
+     * Generates the grayscale version of the given color.
+     *
+     * @param color The color.
+     * @return The grayscale color.
      */
     public static Color colorGrayscale( Color color ) {
         int gray = ( color.getRed() + color.getGreen() + color.getBlue() ) / 3;
@@ -111,12 +110,12 @@ public interface ColorUtils {
     }
 
     /**
-     * Obtém uma cor com correção em relação ao brilho. O fator de brilho vai de 
-     * -1.0 a 1.0.
-     * 
-     * @param color Uma cor.
-     * @param brightness O fator de brilho de -1.0 a 1.0.
-     * @return Uma nova cor corrigida.
+     * Gets a color with brightness correction. The brightness factor ranges
+     * from -1.0 to 1.0.
+     *
+     * @param color A color.
+     * @param brightness The brightness factor from -1.0 to 1.0.
+     * @return A new corrected color.
      */
     public static Color colorBrightness( Color color, double brightness ) {
 
@@ -143,12 +142,12 @@ public interface ColorUtils {
     }
 
     /**
-     * Obtém uma cor com correção em relação ao contraste. O fator de contraste vai de 
-     * -1.0 a 1.0.
-     * 
-     * @param color Uma cor.
-     * @param contrast O fator de contraste de -1.0 a 1.0.
-     * @return Uma nova cor corrigida.
+     * Gets a color with contrast correction. The contrast factor ranges
+     * from -1.0 to 1.0.
+     *
+     * @param color A color.
+     * @param contrast The contrast factor from -1.0 to 1.0.
+     * @return A new corrected color.
      */
     public static Color colorContrast( Color color, double contrast ) {
 
@@ -187,40 +186,40 @@ public interface ColorUtils {
     }
 
     /**
-     * Aplica transparência (alpha) na cor.
-     * 
-     * @param color A cor base.
-     * @param alpha A quantidade de transparência entre 0.0 e 1.0
-     * @return A nova cor.
+     * Applies transparency (alpha) to a color.
+     *
+     * @param color The base color.
+     * @param alpha The transparency amount between 0.0 and 1.0.
+     * @return The new color.
      */
     public static Color colorAlpha( Color color, double alpha ) {
         return fade( color, alpha );
     }
     
     /**
-     * Obtém uma cor a partir de um inteido em hexadecimal na forma 0xAARRGGBB, onde:
-     *     AA: canal alfa de 00 a FF;
-     *     RR: canal vermelho de 00 a FF;
-     *     GG: canal verde de 00 a FF;
-     *     BB: canal azul de 00 a FF;
-     * 
-     * Exemplo:
-     *     0xFF00FF00: verde com alfa máximo (sem transparência)
-     * 
-     * @param hexValue Um valor inteiro em hexadecimal.
-     * @return A cor relativa ao inteiro passado.
+     * Gets a color from a hexadecimal integer in the form 0xAARRGGBB, where:
+     *     AA: alpha channel from 00 to FF;
+     *     RR: red channel from 00 to FF;
+     *     GG: green channel from 00 to FF;
+     *     BB: blue channel from 00 to FF;
+     *
+     * Example:
+     *     0xFF00FF00: green with maximum alpha (no transparency)
+     *
+     * @param hexValue A hexadecimal integer value.
+     * @return The color corresponding to the given integer.
      */
     public static Color getColor( int hexValue ) {
         return new Color( hexValue, true );
     }
 
     /**
-     * Realiza a interpolação linear entre duas cores.
-     * 
-     * @param start cor inicial.
-     * @param end cor final.
-     * @param amount quantidade (0 a 1)
-     * @return Uma cor que representa a interpolação linear entre duas cores pontos.
+     * Performs linear interpolation between two colors.
+     *
+     * @param start starting color.
+     * @param end ending color.
+     * @param amount amount (0 to 1).
+     * @return A color representing the linear interpolation between the two colors.
      */
     public static Color lerp( Color start, Color end, double amount ) {
         int r = (int) MathUtils.clamp( MathUtils.lerp( start.getRed(), end.getRed(), amount ), 0, 255 );

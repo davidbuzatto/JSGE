@@ -17,22 +17,22 @@
 package br.com.davidbuzatto.jsge.animation;
 
 /**
- * O estado de execução uma animação.
- * 
+ * The execution state of an animation.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public enum AnimationExecutionState {
-    
-    /** A animação foi criada e inicializada. */
+
+    /** The animation has been created and initialized. */
     INITIALIZED,
-    
-    /** A animação está em execução. */
+
+    /** The animation is running. */
     RUNNING,
-    
-    /** A animação está pausada. */
+
+    /** The animation is paused. */
     PAUSED,
-    
-    /** A animação terminou. */
+
+    /** The animation has finished. */
     FINISHED;
     
 }

@@ -22,8 +22,8 @@ import java.awt.Paint;
 import java.io.Serializable;
 
 /**
- * Classe para representação de um círculo em duas dimensões.
- * 
+ * Class for representing a circle in two dimensions.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class Circle implements Drawable, Serializable {
@@ -31,32 +31,32 @@ public class Circle implements Drawable, Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Coordenada x do centro.
+     * X coordinate of the center.
      */
     public double x;
-    
+
     /**
-     * Coordenada y do centro.
+     * Y coordinate of the center.
      */
     public double y;
-    
+
     /**
-     * Raio.
+     * Radius.
      */
     public double radius;
 
     /**
-     * Cria um círculo com valores padrão.
+     * Creates a circle with default values.
      */
     public Circle() {
     }
 
     /**
-     * Cria um círculo.
-     * 
-     * @param x Coordenada x do centro.
-     * @param y Coordenada y do centro.
-     * @param radius Raio.
+     * Creates a circle.
+     *
+     * @param x X coordinate of the center.
+     * @param y Y coordinate of the center.
+     * @param radius Radius.
      */
     public Circle( double x, double y, double radius ) {
         this.x = x;

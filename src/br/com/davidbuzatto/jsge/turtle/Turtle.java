@@ -26,8 +26,8 @@ import java.util.Deque;
 import java.util.List;
 
 /**
- * Classe que encapsula um componente de Gráfico de Tartaruga (Turtle Graphics).
- * 
+ * Class that encapsulates a Turtle Graphics component.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class Turtle {
@@ -37,79 +37,79 @@ public class Turtle {
     private TurtleStep currentStep;
     
     /**
-     * Cria uma nova Tartaruga na origem, com caneta na cor preta e ângulo inicial
-     * igual a -90 graus.
+     * Creates a new Turtle at the origin, with a black pen and an initial angle
+     * of -90 degrees.
      */
     public Turtle() {
         reset();
     }
     
     /**
-     * Cria uma nova Tartaruga com caneta na cor preta e ângulo inicial igual a
-     * -90 graus em uma posição definida.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo.
-     * @param y Coordenada y do vértice superior esquerdo.
+     * Creates a new Turtle with a black pen and an initial angle of -90 degrees
+     * at a specified position.
+     *
+     * @param x X coordinate of the upper-left vertex.
+     * @param y Y coordinate of the upper-left vertex.
      */
     public Turtle( double x, double y ) {
         reset( x, y );
     }
     
     /**
-     * Cria uma nova Tartaruga com caneta na cor preta em uma posição definida
-     * com um ângulo inicial.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo.
-     * @param y Coordenada y do vértice superior esquerdo.
-     * @param angle Ângulo inicial em graus (sentido horário).
+     * Creates a new Turtle with a black pen at a specified position with an
+     * initial angle.
+     *
+     * @param x X coordinate of the upper-left vertex.
+     * @param y Y coordinate of the upper-left vertex.
+     * @param angle Initial angle in degrees (clockwise).
      */
     public Turtle( double x, double y, double angle ) {
         reset( x, y, angle );
     }
     
     /**
-     * Cria uma nova Tartaruga com ângulo inicial igual a -90 graus em uma
-     * posição definida com cor inicial.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo.
-     * @param y Coordenada y do vértice superior esquerdo.
-     * @param paint Paint inicial.
+     * Creates a new Turtle with an initial angle of -90 degrees at a specified
+     * position with an initial color.
+     *
+     * @param x X coordinate of the upper-left vertex.
+     * @param y Y coordinate of the upper-left vertex.
+     * @param paint Initial paint.
      */
     public Turtle( double x, double y, Paint paint ) {
         reset( x, y, paint );
     }
     
     /**
-     * Cria uma nova Tartaruga.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo.
-     * @param y Coordenada y do vértice superior esquerdo.
-     * @param angle Ângulo inicial em graus (sentido horário).
-     * @param paint Paint inicial.
+     * Creates a new Turtle.
+     *
+     * @param x X coordinate of the upper-left vertex.
+     * @param y Y coordinate of the upper-left vertex.
+     * @param angle Initial angle in degrees (clockwise).
+     * @param paint Initial paint.
      */
     public Turtle( double x, double y, double angle, Paint paint ) {
         reset( x, y, angle, paint );
     }
     
     /**
-     * Cria uma nova Tartaruga.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo.
-     * @param y Coordenada y do vértice superior esquerdo.
-     * @param angle Ângulo inicial em graus (sentido horário).
-     * @param paint Paint inicial.
-     * @param stroke Formato inicial da caneta.
-     * @param penDown Se a caneta está abaixada.
+     * Creates a new Turtle.
+     *
+     * @param x X coordinate of the upper-left vertex.
+     * @param y Y coordinate of the upper-left vertex.
+     * @param angle Initial angle in degrees (clockwise).
+     * @param paint Initial paint.
+     * @param stroke Initial pen stroke.
+     * @param penDown Whether the pen is down.
      */
     public Turtle( double x, double y, double angle, Paint paint, BasicStroke stroke, boolean penDown ) {
         reset( x, y, angle, paint, stroke, penDown );
     }
     
     /**
-     * Move a Tartaruga.
-     * 
-     * @param x Coordenada x de destino.
-     * @param y Coordenada y de destino.
+     * Moves the Turtle.
+     *
+     * @param x Destination X coordinate.
+     * @param y Destination Y coordinate.
      */
     public void moveTo( double x, double y ) {
         addStep(
@@ -124,9 +124,9 @@ public class Turtle {
     }
     
     /**
-     * Move a Tartaruga para frente.
-     * 
-     * @param distance Distância da movimentação.
+     * Moves the Turtle forward.
+     *
+     * @param distance Movement distance.
      */
     public void forward( double distance ) {
         addStep(
@@ -141,9 +141,9 @@ public class Turtle {
     }
     
     /**
-     * Move a Tartaruga para trás.
-     * 
-     * @param distance Distância da movimentação.
+     * Moves the Turtle backward.
+     *
+     * @param distance Movement distance.
      */
     public void backward( double distance ) {
         addStep(
@@ -158,9 +158,9 @@ public class Turtle {
     }
     
     /**
-     * Move a Tartaruga para esquerda.
-     * 
-     * @param distance Distância da movimentação.
+     * Moves the Turtle to the left.
+     *
+     * @param distance Movement distance.
      */
     public void left( double distance ) {
         addStep(
@@ -175,9 +175,9 @@ public class Turtle {
     }
     
     /**
-     * Move a Tartaruga para direita.
-     * 
-     * @param distance Distância da movimentação.
+     * Moves the Turtle to the right.
+     *
+     * @param distance Movement distance.
      */
     public void right( double distance ) {
         addStep(
@@ -192,9 +192,9 @@ public class Turtle {
     }
     
     /**
-     * Gira a Tartaruga.
-     * 
-     * @param amount Quantidade de graus (sentido horário).
+     * Rotates the Turtle.
+     *
+     * @param amount Amount in degrees (clockwise).
      */
     public void rotate( double amount ) {
         addStep(
@@ -209,27 +209,27 @@ public class Turtle {
     }
     
     /**
-     * Gira a Tartaruga para a esquerda.
-     * 
-     * @param amount Quantidade de graus (sentido anti-horário).
+     * Rotates the Turtle to the left.
+     *
+     * @param amount Amount in degrees (counter-clockwise).
      */
     public void rotateLeft( double amount ) {
         rotate( -amount );
     }
     
     /**
-     * Gira a Tartaruga para a direita.
-     * 
-     * @param amount Quantidade de graus (sentido horário).
+     * Rotates the Turtle to the right.
+     *
+     * @param amount Amount in degrees (clockwise).
      */
     public void rotateRight( double amount ) {
         rotate( amount );
     }
     
     /**
-     * Configura a rotação da Tartaruga.
-     * 
-     * @param angle Ângulo em graus (sentido horário).
+     * Sets the rotation of the Turtle.
+     *
+     * @param angle Angle in degrees (clockwise).
      */
     public void setRotation( double angle ) {
         addStep(
@@ -244,7 +244,7 @@ public class Turtle {
     }
     
     /**
-     * Levanta a caneta.
+     * Lifts the pen.
      */
     public void penUp() {
         addStep(
@@ -259,7 +259,7 @@ public class Turtle {
     }
     
     /**
-     * Abaixa a caneta.
+     * Lowers the pen.
      */
     public void penDown() {
         addStep(
@@ -274,7 +274,7 @@ public class Turtle {
     }
     
     /**
-     * Alterna o estado da caneta (levantada ou abaixada).
+     * Toggles the pen state (up or down).
      */
     public void togglePen() {
         addStep(
@@ -289,10 +289,9 @@ public class Turtle {
     }
     
     /**
-     * Configura a cor da caneta.
-     * 
-     * @param paint Qualquer objeto paint válido que será usado nas operações
-     * de desenho.
+     * Sets the pen color.
+     *
+     * @param paint Any valid paint object that will be used in drawing operations.
      */
     public void setPenColor( Paint paint ) {
         addStep(
@@ -307,7 +306,7 @@ public class Turtle {
     }
     
     /**
-     * Aumenta a grossura da caneta em um pixel.
+     * Increases the pen width by one pixel.
      */
     public void increasePenWidth() {
         addStep(
@@ -322,7 +321,7 @@ public class Turtle {
     }
     
     /**
-     * Diminui a grossura da caneta em um pixel.
+     * Decreases the pen width by one pixel.
      */
     public void decreasePenWidth() {
         float lineWidth = currentStep.stroke().getLineWidth() - 1;
@@ -340,9 +339,9 @@ public class Turtle {
     }
     
     /**
-     * Configura a largura da caneta.
-     * 
-     * @param width A nova largura da caneta.
+     * Sets the pen width.
+     *
+     * @param width The new pen width.
      */
     public void setPenWidth( double width ) {
         if ( width < 0 ) {
@@ -360,9 +359,9 @@ public class Turtle {
     }
     
     /**
-     * Configura o formato da caneta.
-     * 
-     * @param stroke Novo formato da caneta.
+     * Sets the pen stroke.
+     *
+     * @param stroke New pen stroke.
      */
     public void setPenStroke( BasicStroke stroke ) {
         addStep(
@@ -377,7 +376,7 @@ public class Turtle {
     }
     
     /**
-     * Salva o estado atual da Tartaruga.
+     * Saves the current state of the Turtle.
      */
     public void saveState() {
         stateStack.push(new StateSnapshot(
@@ -396,8 +395,8 @@ public class Turtle {
     }
     
     /**
-     * Restaura o último estado salvo da Tartaruga (caso exista), não removendo
-     * os passos gerados até o momento do salvamento.
+     * Restores the last saved state of the Turtle (if any), without removing
+     * the steps generated up to the moment of saving.
      */
     public void restoreStateKeepPath() {
         if ( !stateStack.isEmpty() ) {
@@ -406,8 +405,8 @@ public class Turtle {
     }
     
     /**
-     * Restaura o último estado salvo da Tartaruga (caso exista), removendo
-     * os passos gerados até o momento do salvamento.
+     * Restores the last saved state of the Turtle (if any), removing
+     * the steps generated up to the moment of saving.
      */
     public void restoreState() {
         if ( !stateStack.isEmpty() ) {
@@ -420,69 +419,69 @@ public class Turtle {
     }
     
     /**
-     * Reconfigura a Tartaruga na origem, com caneta na cor preta e ângulo inicial
-     * igual a -90 graus.
+     * Resets the Turtle to the origin, with a black pen and an initial angle
+     * of -90 degrees.
      */
     public void reset() {
         reset( 0, 0 );
     }
     
     /**
-     * Reconfigura a Tartaruga com caneta na cor preta e ângulo inicial igual a
-     * -90 graus em uma posição definida.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo.
-     * @param y Coordenada y do vértice superior esquerdo.
+     * Resets the Turtle with a black pen and an initial angle of -90 degrees
+     * at a specified position.
+     *
+     * @param x X coordinate of the upper-left vertex.
+     * @param y Y coordinate of the upper-left vertex.
      */
     public void reset( double x, double y ) {
         reset( x, y, -90, EngineFrame.BLACK, new BasicStroke( 1 ), true );
     }
     
     /**
-     * Reconfigura a Tartaruga com caneta na cor preta em uma posição definida
-     * com um ângulo inicial.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo.
-     * @param y Coordenada y do vértice superior esquerdo.
-     * @param angle Ângulo inicial em graus (sentido horário).
+     * Resets the Turtle with a black pen at a specified position with an
+     * initial angle.
+     *
+     * @param x X coordinate of the upper-left vertex.
+     * @param y Y coordinate of the upper-left vertex.
+     * @param angle Initial angle in degrees (clockwise).
      */
     public void reset( double x, double y, double angle ) {
         reset( x, y, angle, EngineFrame.BLACK, new BasicStroke( 1 ), true );
     }
     
     /**
-     * Reconfigura a Tartaruga com ângulo inicial igual a -90 graus em uma
-     * posição definida com cor inicial.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo.
-     * @param y Coordenada y do vértice superior esquerdo.
-     * @param paint Paint inicial.
+     * Resets the Turtle with an initial angle of -90 degrees at a specified
+     * position with an initial color.
+     *
+     * @param x X coordinate of the upper-left vertex.
+     * @param y Y coordinate of the upper-left vertex.
+     * @param paint Initial paint.
      */
     public void reset( double x, double y, Paint paint ) {
         reset( x, y, -90, paint, new BasicStroke( 1 ), true );
     }
     
     /**
-     * Reconfigura a Tartaruga.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo.
-     * @param y Coordenada y do vértice superior esquerdo.
-     * @param angle Ângulo inicial em graus (sentido horário).
-     * @param paint Paint inicial.
+     * Resets the Turtle.
+     *
+     * @param x X coordinate of the upper-left vertex.
+     * @param y Y coordinate of the upper-left vertex.
+     * @param angle Initial angle in degrees (clockwise).
+     * @param paint Initial paint.
      */
     public void reset( double x, double y, double angle, Paint paint ) {
         reset( x, y, angle, paint, new BasicStroke( 1 ), true );
     }
     
     /**
-     * Reconfigura a Tartaruga.
-     * 
-     * @param x Coordenada x do vértice superior esquerdo.
-     * @param y Coordenada y do vértice superior esquerdo.
-     * @param angle Ângulo inicial em graus (sentido horário).
-     * @param paint Paint inicial.
-     * @param stroke Formato inicial da caneta.
-     * @param penDown Se a caneta está abaixada.
+     * Resets the Turtle.
+     *
+     * @param x X coordinate of the upper-left vertex.
+     * @param y Y coordinate of the upper-left vertex.
+     * @param angle Initial angle in degrees (clockwise).
+     * @param paint Initial paint.
+     * @param stroke Initial pen stroke.
+     * @param penDown Whether the pen is down.
      */
     public void reset( double x, double y, double angle, Paint paint, BasicStroke stroke, boolean penDown ) {
         steps = new ArrayList<>();
@@ -491,9 +490,9 @@ public class Turtle {
     }
     
     /**
-     * Desenha todos os passos da Tartaruga.
-     * 
-     * @param engine EngineFrame utilizada.
+     * Draws all Turtle steps.
+     *
+     * @param engine EngineFrame being used.
      */
     public void draw( EngineFrame engine ) {
         
@@ -506,10 +505,10 @@ public class Turtle {
     }
     
     /**
-     * Desenha do primeiro passo até um limite.
-     * 
-     * @param until Passo final.
-     * @param engine EngineFrame utilizada.
+     * Draws from the first step up to a limit.
+     *
+     * @param until Final step.
+     * @param engine EngineFrame being used.
      */
     public void draw( int until, EngineFrame engine ) {
         
@@ -522,11 +521,11 @@ public class Turtle {
     }
     
     /**
-     * Desenha um intervalo de passos.
-     * 
-     * @param from Passo inicial.
-     * @param until Passo final.
-     * @param engine EngineFrame utilizada.
+     * Draws a range of steps.
+     *
+     * @param from Initial step.
+     * @param until Final step.
+     * @param engine EngineFrame being used.
      */
     public void draw( int from, int until, EngineFrame engine  ) {
         
@@ -576,25 +575,25 @@ public class Turtle {
     }
     
     /**
-     * Obtém o estado atual da Tartaruga.
-     * 
-     * @return O estado atual da Tartaruga.
+     * Gets the current state of the Turtle.
+     *
+     * @return The current state of the Turtle.
      */
     public TurtleStep getCurrentState() {
         return currentStep;
     }
     
     /**
-     * Obtém a quantidade de passos da Tartaruga.
-     * 
-     * @return A quantidade de passos da Tartaruga.
+     * Gets the number of steps of the Turtle.
+     *
+     * @return The number of steps of the Turtle.
      */
     public int getStepCount() {
         return steps.size() - 1;
     }
     
     /**
-     * Adiciona um novo passo.
+     * Adds a new step.
      */
     private void addStep( double x, double y, double angle, Paint paint, BasicStroke bs, boolean penDown, TurtleOperation operation ) {
         currentStep = new TurtleStep( x, y, angle, paint, bs, penDown, operation );
@@ -602,7 +601,7 @@ public class Turtle {
     }
     
     /**
-     * Record para armazenar o estado salvo da Tartaruga.
+     * Record for storing the saved state of the Turtle.
      */
     private static record StateSnapshot( TurtleStep step, int stepCount ) {
     }

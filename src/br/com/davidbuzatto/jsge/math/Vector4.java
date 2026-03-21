@@ -19,10 +19,10 @@ package br.com.davidbuzatto.jsge.math;
 import java.io.Serializable;
 
 /**
- * Classe para representação de um vetor de quatro dimensões.
- * 
- * Pode ser usada para retornar valores com quatro componentes.
- * 
+ * Class for representing a four-dimensional vector.
+ *
+ * Can also be used to return values with four components.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class Vector4 implements Cloneable, Serializable {
@@ -30,38 +30,38 @@ public class Vector4 implements Cloneable, Serializable {
     private static final long serialVersionUID = 1L;
     
     /**
-     * Coordenada x.
+     * X coordinate.
      */
     public double x;
-    
+
     /**
-     * Coordenada y.
+     * Y coordinate.
      */
     public double y;
-    
+
     /**
-     * Coordenada z.
+     * Z coordinate.
      */
     public double z;
-    
+
     /**
-     * Coordenada w.
+     * W coordinate.
      */
     public double w;
 
     /**
-     * Cria um novo vetor de quatro dimensões com valores padrão.
+     * Creates a new four-dimensional vector with default values.
      */
     public Vector4() {
     }
 
     /**
-     * Cria um novo vetor de quatro dimensões.
-     * 
-     * @param x coordenada x.
-     * @param y coordenada y.
-     * @param z coordenada z.
-     * @param w coordenada w.
+     * Creates a new four-dimensional vector.
+     *
+     * @param x x coordinate.
+     * @param y y coordinate.
+     * @param z z coordinate.
+     * @param w w coordinate.
      */
     public Vector4( double x, double y, double z, double w ) {
         this.x = x;
@@ -71,87 +71,87 @@ public class Vector4 implements Cloneable, Serializable {
     }
 
     /**
-     * Cria um vetor com todos os componentes iguais a 1.0.
-     * 
-     * @return Um vetor com todos os componentes iguais a 1.0.
+     * Creates a vector with all components equal to 1.0.
+     *
+     * @return A vector with all components equal to 1.0.
      */
     public static Vector4 one() {
         return new Vector4( 1.0, 1.0, 1.0, 1.0 );
     }
     
     /**
-     * Soma o vetor corrente com outro vetor.
-     * 
-     * @param v Outro vetor.
-     * @return Um novo vetor resultado da soma.
+     * Adds the current vector to another vector.
+     *
+     * @param v Another vector.
+     * @return A new vector resulting from the addition.
      */
     public Vector4 add( Vector4 v ) {
         return new Vector4( x + v.x, y + v.y, z + v.z, w + v.w );
     }
     
     /**
-     * Soma um valor ao vetor corrente.
-     * 
-     * @param value O valor a somar.
-     * @return Um novo vetor com os componentes somados ao valor passado.
+     * Adds a value to the current vector.
+     *
+     * @param value The value to add.
+     * @return A new vector with the components added to the given value.
      */
     public Vector4 addValue( double value ) {
         return new Vector4( x + value, y + value, z + value, w + value );
     }
     
     /**
-     * Subtrai um vetor do vetor corrente.
-     * 
-     * @param v Outro vetor.
-     * @return Um novo vetor resultado da subtração.
+     * Subtracts a vector from the current vector.
+     *
+     * @param v Another vector.
+     * @return A new vector resulting from the subtraction.
      */
     public Vector4 subtract( Vector4 v ) {
         return new Vector4( x - v.x, y - v.y, z - v.z, w - v.w );
     }
     
     /**
-     * Subtrai um valor do vetor corrente
-     * 
-     * @param value O valor a subtrair.
-     * @return Um novo vetor com os componentes subtraídos do valor passado.
+     * Subtracts a value from the current vector.
+     *
+     * @param value The value to subtract.
+     * @return A new vector with the components subtracted by the given value.
      */
     public Vector4 subtractValue( double value ) {
         return new Vector4( x - value, y - value, z - value, w - value );
     }
     
     /**
-     * Calcula o comprimento do vetor.
-     * 
-     * @return O comprimento.
+     * Calculates the length of the vector.
+     *
+     * @return The length.
      */
     public double length() {
         return Math.sqrt( x * x + y * y + z * z + w * w );
     }
     
     /**
-     * Calcula o comprimento quadrado do vetor.
-     * 
-     * @return O comprimento.
+     * Calculates the squared length of the vector.
+     *
+     * @return The length.
      */
     public double lengthSquare() {
         return x * x + y * y + z * z + w * w;
     }
     
     /**
-     * Calcula o produto escalar do vetor corrente com o vetor passado.
-     * 
-     * @param v Outro vetor.
-     * @return O produto escalar.
+     * Calculates the dot product of the current vector with the given vector.
+     *
+     * @param v Another vector.
+     * @return The dot product.
      */
     public double dotProduct( Vector4 v ) {
         return x * v.x + y * v.y + z * v.z + w * v.w;
     }
 
     /**
-     * Calcula a distância entre o vetor corrente e outro vetor.
-     * 
-     * @param v Outro vetor.
-     * @return A distância.
+     * Calculates the distance between the current vector and another vector.
+     *
+     * @param v Another vector.
+     * @return The distance.
      */
     public double distance( Vector4 v ) {
         return Math.sqrt( ( v.x - x ) * ( v.x - x ) + 
@@ -161,10 +161,10 @@ public class Vector4 implements Cloneable, Serializable {
     }
     
     /**
-     * Calcula a distância quadrada entre o vetor corrente e outro vetor.
-     * 
-     * @param v Outro vetor.
-     * @return A distância quadrada.
+     * Calculates the squared distance between the current vector and another vector.
+     *
+     * @param v Another vector.
+     * @return The squared distance.
      */
     public double distanceSquare( Vector4 v ) {
         return ( v.x - x ) * ( v.x - x ) + 
@@ -174,48 +174,48 @@ public class Vector4 implements Cloneable, Serializable {
     }
     
     /**
-     * Escalona o vetor corrente, análogo à multiplicação por escalar.
-     * 
-     * @param scale A escala.
-     * @return Um novo vetor escalonado.
+     * Scales the current vector, analogous to scalar multiplication.
+     *
+     * @param scale The scale.
+     * @return A new scaled vector.
      */
     public Vector4 scale( double scale ) {
         return new Vector4( x * scale, y * scale, z * scale, w * scale );
     }
     
     /**
-     * Multiplica o vetor corrente por outro vetor.
-     * 
-     * @param v Outro vetor.
-     * @return Um novo vetor com o resultado da multiplicação.
+     * Multiplies the current vector by another vector.
+     *
+     * @param v Another vector.
+     * @return A new vector with the result of the multiplication.
      */
     public Vector4 multiply( Vector4 v ) {
         return new Vector4( x * v.x, y * v.y, z * v.z, w * v.w );
     }
     
     /**
-     * Nega o vetor corrente.
-     * 
-     * @return Um novo vetor com a negação do vetor corrente.
+     * Negates the current vector.
+     *
+     * @return A new vector with the negation of the current vector.
      */
     public Vector4 negate() {
         return new Vector4( -x, -y, -z, -w );
     }
     
     /**
-     * Divide o vetor corrente por outro vetor.
-     * 
-     * @param v Outro vetor.
-     * @return Um novo vetor com o resultado da divisão.
+     * Divides the current vector by another vector.
+     *
+     * @param v Another vector.
+     * @return A new vector with the result of the division.
      */
     public Vector4 divide( Vector4 v ) {
         return new Vector4( x / v.x, y / v.y, z / v.z, w / v.w );
     }
     
     /**
-     * Normaliza o vetor corrent.
-     * 
-     * @return Um novo vetor normalizado.
+     * Normalizes the current vector.
+     *
+     * @return A new normalized vector.
      */
     public Vector4 normalize() {
 
@@ -235,10 +235,10 @@ public class Vector4 implements Cloneable, Serializable {
     }
     
     /**
-     * Obtem um novo vetor com o mínimo dos componentes.
-     * 
-     * @param v Outro vetor.
-     * @return Um novo vetor com o mínimo dos componentes.
+     * Gets a new vector with the minimum of each component.
+     *
+     * @param v Another vector.
+     * @return A new vector with the minimum of each component.
      */
     public Vector4 min( Vector4 v ) {
 
@@ -254,10 +254,10 @@ public class Vector4 implements Cloneable, Serializable {
     }
 
     /**
-     * Obtem um novo vetor com o máximo dos componentes.
-     * 
-     * @param v Outro vetor.
-     * @return Um novo vetor com o máximo dos componentes.
+     * Gets a new vector with the maximum of each component.
+     *
+     * @param v Another vector.
+     * @return A new vector with the maximum of each component.
      */
     public Vector4 max( Vector4 v ) {
 
@@ -273,11 +273,11 @@ public class Vector4 implements Cloneable, Serializable {
     }
     
     /**
-     * Realiza a interpolação linear entre o vetor corrente (início) e outro vetor (fim).
-     * 
-     * @param end Vetor final.
-     * @param amount Quantidade (0 a 1)
-     * @return Um vetor que representa a interpolação linear entre dois vetores.
+     * Performs linear interpolation between the current vector (start) and another vector (end).
+     *
+     * @param end End vector.
+     * @param amount Amount (0 to 1)
+     * @return A vector representing the linear interpolation between two vectors.
      */
     public Vector4 lerp( Vector4 end, double amount ) {
         return new Vector4(
@@ -289,11 +289,11 @@ public class Vector4 implements Cloneable, Serializable {
     }
     
     /**
-     * Cria um novo vetor movido em direção a um alvo.
-     * 
-     * @param target O alvo.
-     * @param maxDistance A distância máxima.
-     * @return Um novo vetor movido em direção ao alvo.
+     * Creates a new vector moved towards a target.
+     *
+     * @param target The target.
+     * @param maxDistance The maximum distance.
+     * @return A new vector moved towards the target.
      */
     public Vector4 moveTowards( Vector4 target, double maxDistance ) {
         
@@ -320,9 +320,9 @@ public class Vector4 implements Cloneable, Serializable {
     }
     
     /**
-     * Inverte o vetor corrente.
-     * 
-     * @return Um novo vetor invertido.
+     * Inverts the current vector.
+     *
+     * @return A new inverted vector.
      */
     public Vector4 invert() {
         return new Vector4( 1.0 / x, 1.0 / y, 1.0 / z, 1.0 / w );

@@ -19,61 +19,61 @@ package br.com.davidbuzatto.jsge.math;
 import java.util.Random;
 
 /**
- * Interface com métodos estáticos utilitários relacionados à matemática.
- * 
- * Várias implementações são baseadas na raylib e em seus módulos
- * (www.raylib.com). Nesse caso, principalmente a raymath.
- * 
+ * Interface with static utility methods related to mathematics.
+ *
+ * Several implementations are based on raylib and its modules
+ * (www.raylib.com). In this case, mainly raymath.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public interface MathUtils {
     
     /**
-     * Gerador de números pseudoaleatórios.
+     * Pseudorandom number generator.
      */
     public static final Random RANDOM_GEN = new Random();
     
     /**
-     * Constante para conversão de graus em radianos.
+     * Constant for converting degrees to radians.
      */
     public static final double DEG2RAD = Math.PI / 180.0;
     
     /**
-     * Constante para conversão de radianos em graus.
+     * Constant for converting radians to degrees.
      */
     public static final double RAD2DEG = 180.0 / Math.PI;
 
     /**
-     * Realiza a interpolação linear entre dois valores.
-     * 
-     * @param start Valor inicial.
-     * @param end Valor final.
-     * @param amount Quantidade (0 a 1)
-     * @return A interpolação linear entre dois valores.
+     * Performs linear interpolation between two values.
+     *
+     * @param start Start value.
+     * @param end End value.
+     * @param amount Amount (0 to 1)
+     * @return The linear interpolation between two values.
      */
     public static double lerp( double start, double end, double amount ) {
         return start + amount * ( end - start );
     }
     
     /**
-     * Realiza a interpolação linear inversa entre dois valores.
-     * 
-     * @param start Valor inicial.
-     * @param end Valor final.
-     * @param value O valor.
-     * @return A porcentagem do valor em relação ao intervalo compreendido entre start e end.
+     * Performs inverse linear interpolation between two values.
+     *
+     * @param start Start value.
+     * @param end End value.
+     * @param value The value.
+     * @return The percentage of the value relative to the interval between start and end.
      */
     public static double inverseLerp( double start, double end, double value ) {
         return ( value - start ) / ( end - start );
     }
 
     /**
-     * Limita um valor entre dois valores.
-     * 
-     * @param value O valor.
-     * @param min O valor mínimo.
-     * @param max O valor máximo.
-     * @return O valor fixado entre mínimo e máximo.
+     * Clamps a value between two values.
+     *
+     * @param value The value.
+     * @param min The minimum value.
+     * @param max The maximum value.
+     * @return The value clamped between minimum and maximum.
      */
     public static int clamp( int value, int min, int max ) {
         int result = value < min ? min : value;
@@ -82,12 +82,12 @@ public interface MathUtils {
     }    
 
     /**
-     * Limita um valor entre dois valores.
-     * 
-     * @param value O valor.
-     * @param min O valor mínimo.
-     * @param max O valor máximo.
-     * @return O valor fixado entre mínimo e máximo.
+     * Clamps a value between two values.
+     *
+     * @param value The value.
+     * @param min The minimum value.
+     * @param max The maximum value.
+     * @return The value clamped between minimum and maximum.
      */
     public static double clamp( double value, double min, double max ) {
         double result = value < min ? min : value;
@@ -96,58 +96,58 @@ public interface MathUtils {
     }    
 
     /**
-     * Normaliza o valor dentro do intervalo fornecido.
-     * 
-     * @param value O valor.
-     * @param start O valor inicial.
-     * @param end O valor final.
-     * @return O valor normalizado entre o valor inicial e final.
+     * Normalizes the value within the given range.
+     *
+     * @param value The value.
+     * @param start The start value.
+     * @param end The end value.
+     * @return The value normalized between the start and end values.
      */
     public static double normalize( double value, double start, double end ) {
         return ( value - start ) / ( end - start );
     }
 
     /**
-     * Remapeia um valor entre um intervalo de entrada e um intervalo de saída.
-     * 
-     * @param value O valor.
-     * @param inputStart O valor inicial do intervalo de entrada.
-     * @param inputEnd O valor final do intervalo de entrada.
-     * @param outputStart O valor inicial do intervalo de saída.
-     * @param outputEnd O valor final do intervalo de saída.
-     * @return O valor remapeado.
+     * Remaps a value from an input range to an output range.
+     *
+     * @param value The value.
+     * @param inputStart The start value of the input range.
+     * @param inputEnd The end value of the input range.
+     * @param outputStart The start value of the output range.
+     * @param outputEnd The end value of the output range.
+     * @return The remapped value.
      */
     public static double remap( double value, double inputStart, double inputEnd, double outputStart, double outputEnd ) {
         return ( value - inputStart ) / ( inputEnd - inputStart ) * ( outputEnd - outputStart ) + outputStart;
     }
 
     /**
-     * Coloca um valor entre um valor mínimo e máximo.
-     * 
-     * @param value O valor.
-     * @param min O valor mínimo.
-     * @param max O valor máximo.
-     * @return O valor ajustado.
+     * Wraps a value between a minimum and maximum value.
+     *
+     * @param value The value.
+     * @param min The minimum value.
+     * @param max The maximum value.
+     * @return The wrapped value.
      */
     public static double wrap( double value, double min, double max ) {
         return value - ( max - min ) * Math.floor( ( value - min ) / ( max - min ) );
     }
 
     /**
-     * Gera um número pseudoaleatório entre min (inclusive) e max (inclusive).
-     * 
-     * @param min Início do intervalo.
-     * @param max Fim do intervalo.
-     * @return Um número pseudoaleatório entre min (inclusive) e max (inclusive).
+     * Generates a pseudorandom number between min (inclusive) and max (inclusive).
+     *
+     * @param min Start of the range.
+     * @param max End of the range.
+     * @return A pseudorandom number between min (inclusive) and max (inclusive).
      */
     public static int getRandomValue( int min, int max ) {
         return RANDOM_GEN.nextInt( min, max + 1 );
     }
 
     /**
-     * Configura a semente aleatória do gerador de números aleatórios.
-     * 
-     * @param seed A semente a ser utilizada.
+     * Sets the random seed of the random number generator.
+     *
+     * @param seed The seed to be used.
      */
     public static void setRandomSeed( long seed ) {
         RANDOM_GEN.setSeed( seed );

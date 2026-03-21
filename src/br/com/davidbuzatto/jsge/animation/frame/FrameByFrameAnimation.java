@@ -20,10 +20,10 @@ import br.com.davidbuzatto.jsge.animation.AnimationExecutionState;
 import java.util.List;
 
 /**
- * Uma animação quadro a quadro. A partir de um tempo, muda-se o frame 
- * de desenho atual.
- * 
- * @param <FrameType> O tipo do frame da animação.
+ * A frame-by-frame animation. After a given time, the current drawing frame
+ * is changed.
+ *
+ * @param <FrameType> The type of the animation frame.
  * @author Prof. Dr. David Buzatto
  */
 public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
@@ -43,21 +43,21 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
     private List<FrameType> frames;
     
     /**
-     * Cria uma animação quadro a quadro com repetição (looping).
-     * 
-     * @param timeToNextFrame Tempo para a transição de um quadro para outro em segundos.
-     * @param frames Quadros da animação.
+     * Creates a frame-by-frame animation with looping.
+     *
+     * @param timeToNextFrame Time for the transition from one frame to the next, in seconds.
+     * @param frames The animation frames.
      */
     public FrameByFrameAnimation( double timeToNextFrame, List<FrameType> frames ) {
         this( timeToNextFrame, frames, true );
     }
-    
+
     /**
-     * Cria uma animação quadro a quadro.
-     * 
-     * @param timeToNextFrame Tempo para a transição de um quadro para outro em segundos.
-     * @param frames Quadros da animação.
-     * @param looping Se a animação deve ser executada indefinidamente.
+     * Creates a frame-by-frame animation.
+     *
+     * @param timeToNextFrame Time for the transition from one frame to the next, in seconds.
+     * @param frames The animation frames.
+     * @param looping Whether the animation should run indefinitely.
      */
     public FrameByFrameAnimation( double timeToNextFrame, List<FrameType> frames, boolean looping ) {
         this.timeToNextFrame = timeToNextFrame;
@@ -68,21 +68,21 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
     }
     
     /**
-     * Cria uma animação quadro a quadro com repetição (looping).
-     * 
-     * @param timesToNextFrame Tempos para a transição dos quadros em segundos.
-     * @param frames Quadros da animação.
+     * Creates a frame-by-frame animation with looping.
+     *
+     * @param timesToNextFrame Times for the transition between frames, in seconds.
+     * @param frames The animation frames.
      */
     public FrameByFrameAnimation( double[] timesToNextFrame, List<FrameType> frames ) {
         this( timesToNextFrame, frames, true );
     }
-    
+
     /**
-     * Cria uma animação quadro a quadro com repetição (looping).
-     * 
-     * @param timesToNextFrame Tempos para a transição dos quadros em segundos.
-     * @param frames Quadros da animação.
-     * @param looping Se a animação deve ser executada indefinidamente.
+     * Creates a frame-by-frame animation with looping.
+     *
+     * @param timesToNextFrame Times for the transition between frames, in seconds.
+     * @param frames The animation frames.
+     * @param looping Whether the animation should run indefinitely.
      */
     public FrameByFrameAnimation( double[] timesToNextFrame, List<FrameType> frames, boolean looping ) {
         this.timesToNextFrame = timesToNextFrame;
@@ -93,9 +93,9 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
     }
     
     /**
-     * Atualiza a animação.
-     * 
-     * @param delta Variação do tempo.
+     * Updates the animation.
+     *
+     * @param delta Time variation.
      */
     public void update( double delta ) {
         
@@ -159,63 +159,63 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
     }
 
     /**
-     * Obtém o tempo para a transição de um quadro para outro em segundos.
-     * 
-     * @return O tempo para o próximo quadro em segundos.
+     * Gets the time for the transition from one frame to the next, in seconds.
+     *
+     * @return The time to the next frame, in seconds.
      */
     public double getTimeToNextFrame() {
         return timeToNextFrame;
     }
 
     /**
-     * Configura o tempo para a transição de um quadro para outro em segundos.
-     * 
-     * @param timeToNextFrame O tempo para o próximo quadro em segundos.
+     * Sets the time for the transition from one frame to the next, in seconds.
+     *
+     * @param timeToNextFrame The time to the next frame, in seconds.
      */
     public void setTimeToNextFrame( double timeToNextFrame ) {
         this.timeToNextFrame = timeToNextFrame;
     }
 
     /**
-     * Obtém os tempos para a transição de um quadro para outro em segundos.
-     * 
-     * @return Os tempos para os próximos quadros em segundos.
+     * Gets the times for the transition from one frame to the next, in seconds.
+     *
+     * @return The times to the next frames, in seconds.
      */
     public double[] getTimesToNextFrame() {
         return timesToNextFrame;
     }
 
     /**
-     * Configura os tempos para a transição de um quadro para outro em segundos.
-     * 
-     * @param timesToNextFrame Os tempos para os próximos quadros em segundos.
+     * Sets the times for the transition from one frame to the next, in seconds.
+     *
+     * @param timesToNextFrame The times to the next frames, in seconds.
      */
     public void setTimesToNextFrame( double[] timesToNextFrame ) {
         this.timesToNextFrame = timesToNextFrame;
     }
-    
+
     /**
-     * Obtém o quadro atual.
-     * 
-     * @return O quadro atual da animação.
+     * Gets the current frame.
+     *
+     * @return The current animation frame.
      */
     public FrameType getCurrentFrame() {
         return frames.get( currentFrame );
     }
-    
+
     /**
-     * Obtém a posição do quadro atual da animação.
-     * 
-     * @return A posição do quadro atual da animação.
+     * Gets the position of the current animation frame.
+     *
+     * @return The position of the current animation frame.
      */
     public int getCurrentFramePosition() {
         return currentFrame;
     }
-    
+
     /**
-     * Configura o quadro atual da animação caso se deseje controlar programativamente a mudança de quadros.
-     * 
-     * @param index O índice do quadro.
+     * Sets the current animation frame, for programmatic control of frame changes.
+     *
+     * @param index The frame index.
      */
     public void setCurrentFramePosition( int index ) {
         if ( index >= 0 && index < frames.size() ) {
@@ -224,10 +224,10 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
     }
     
     /**
-     * Obtém um quadro específico da animação.
-     * 
-     * @param index O índice do quadro.
-     * @return Um quadro específico da animação ou null caso não exista.
+     * Gets a specific frame of the animation.
+     *
+     * @param index The frame index.
+     * @return A specific animation frame, or null if it does not exist.
      */
     public FrameType getFrame( int index ) {
         if ( index >= 0 && index < frames.size() ) {
@@ -237,45 +237,45 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
     }
 
     /**
-     * Obtém o estado da animação.
-     * 
-     * @return O estado da animação.
+     * Gets the animation state.
+     *
+     * @return The animation state.
      */
     public AnimationExecutionState getState() {
         return state;
     }
 
     /**
-     * Retorna se a animação está configurada para executar em loop (laço).
-     * 
-     * @return Verdadeiro caso a animação esteja em loop, falso caso contrário.
+     * Returns whether the animation is configured to run in a loop.
+     *
+     * @return True if the animation is looping, false otherwise.
      */
     public boolean isLooping() {
         return looping;
     }
 
     /**
-     * Configura se a animação deve executar indefinidamente (loop, laço).
-     * 
-     * @param looping Se a animação deve executar em loop (laço)
+     * Sets whether the animation should run indefinitely (loop).
+     *
+     * @param looping Whether the animation should run in a loop.
      */
     public void setLooping( boolean looping ) {
         this.looping = looping;
     }
 
     /**
-     * Retorna se está executando ao contrário.
-     * 
-     * @return Verdadeiro caso esteja executando ao contrário. Falso caso contrário.
+     * Returns whether the animation is running backwards.
+     *
+     * @return True if running backwards, false otherwise.
      */
     public boolean isRunBackwards() {
         return runBackwards;
     }
 
     /**
-     * Configura se a animação deve executar ao contrário.
-     * 
-     * @param runBackwards Verdadeiro se deve executar ao contrário, falso caso contrário.
+     * Sets whether the animation should run backwards.
+     *
+     * @param runBackwards True if it should run backwards, false otherwise.
      */
     public void setRunBackwards( boolean runBackwards ) {
         this.runBackwards = runBackwards;
@@ -283,40 +283,40 @@ public class FrameByFrameAnimation<FrameType extends AnimationFrame> {
     }
 
     /**
-     * Retorna se a animação sem loop para no último quadro quando finalizada.
-     * 
-     * @return Verdadeiro caso a animação para no último quadro ao ser finalizada. Falso caso contrário.
+     * Returns whether a non-looping animation stops at the last frame when finished.
+     *
+     * @return True if the animation stops at the last frame when finished, false otherwise.
      */
     public boolean isStopAtLastFrameWhenFinished() {
         return stopAtLastFrameWhenFinished;
     }
 
     /**
-     * Configura se animação deve parar no último quadro quando finalizar. O comportamento
-     * padrão é voltar ao quadro inicial.
-     * 
-     * @param stopAtLastFrameWhenFinished Verdadeiro se deve parar no útlimo quadro. Falso caso contrário.
+     * Sets whether the animation should stop at the last frame when it finishes. The default
+     * behavior is to return to the initial frame.
+     *
+     * @param stopAtLastFrameWhenFinished True if it should stop at the last frame, false otherwise.
      */
     public void setStopAtLastFrameWhenFinished( boolean stopAtLastFrameWhenFinished ) {
         this.stopAtLastFrameWhenFinished = stopAtLastFrameWhenFinished;
     }
-    
+
     /**
-     * Pausa a animação.
+     * Pauses the animation.
      */
     public void pause() {
         state = AnimationExecutionState.PAUSED;
     }
-    
+
     /**
-     * Retoma a animação.
+     * Resumes the animation.
      */
     public void resume() {
         state = AnimationExecutionState.RUNNING;
     }
-    
+
     /**
-     * Reseta a animação.
+     * Resets the animation.
      */
     public void reset() {
         state = AnimationExecutionState.INITIALIZED;

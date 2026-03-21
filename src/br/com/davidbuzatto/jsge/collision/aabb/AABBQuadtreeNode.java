@@ -20,81 +20,81 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Um nó da AABBQuadtree, representado por um quadrante com coordenadas inicias,
- * finais e centrais.
- * 
+ * A node of the AABBQuadtree, represented by a quadrant with start,
+ * end, and center coordinates.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class AABBQuadtreeNode {
 
     /**
-     * Coordenada x do vértice superior esquerdo.
+     * X coordinate of the upper-left vertex.
      */
     public int x1;
-    
+
     /**
-     * Coordenada y do vértice superior esquerdo.
+     * Y coordinate of the upper-left vertex.
      */
     public int y1;
-    
+
     /**
-     * Coordenada x do vértice inferior direito.
+     * X coordinate of the lower-right vertex.
      */
     public int x2;
-    
+
     /**
-     * Coordenada y do vértice inferior direito.
+     * Y coordinate of the lower-right vertex.
      */
     public int y2;
-    
+
     /**
-     * Coordenada x do centro do quadrante.
+     * X coordinate of the quadrant center.
      */
     public int xCenter;
-    
+
     /**
-     * Coordenada y do centro do quadrante.
+     * Y coordinate of the quadrant center.
      */
     public int yCenter;
-    
+
     /**
-     * A profundidade na árvore.
+     * The depth in the tree.
      */
     public int depth;
 
     /**
-     * Nó filho noroeste (superior esquerdo).
+     * Northwest child node (upper-left).
      */
     public AABBQuadtreeNode nw;
-    
+
     /**
-     * Nó filho nordeste (superior direito).
+     * Northeast child node (upper-right).
      */
     public AABBQuadtreeNode ne;
-    
+
     /**
-     * Nó filho sudoeste (inferior esquerdo).
+     * Southwest child node (lower-left).
      */
     public AABBQuadtreeNode sw;
-    
+
     /**
-     * Nó filho sudeste (inferior direito).
+     * Southeast child node (lower-right).
      */
     public AABBQuadtreeNode se;
 
     /**
-     * Uma lista de AABBs que interceptam os limites do nó.
+     * A list of AABBs that intersect the boundaries of this node.
      */
     public List<AABB> aabbs;
 
     /**
-     * Constrói um novo nó da AABBQuadtree.
-     * 
-     * @param x1 Coordenada x do vértice superior esquerdo.
-     * @param y1 Coordenada y do vértice superior esquerdo.
-     * @param x2 Coordenada x do vértice inferior direito.
-     * @param y2 Coordenada y do vértice inferior direito. 
-     * @param depth Profundidade do nó na árvore. 
+     * Constructs a new AABBQuadtree node.
+     *
+     * @param x1 X coordinate of the upper-left vertex.
+     * @param y1 Y coordinate of the upper-left vertex.
+     * @param x2 X coordinate of the lower-right vertex.
+     * @param y2 Y coordinate of the lower-right vertex.
+     * @param depth Depth of the node in the tree.
      */
     public AABBQuadtreeNode( int x1, int y1, int x2, int y2, int depth ) {
         this.x1 = x1;

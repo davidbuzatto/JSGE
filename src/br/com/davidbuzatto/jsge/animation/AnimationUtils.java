@@ -23,17 +23,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Interface com métodos utilitários para animações.
- * 
+ * Interface with utility methods for animations.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public interface AnimationUtils {
-    
+
     /**
-     * Cria uma lista de ImageAnimationFrame a partir de uma lista de imagens.
-     * 
-     * @param images Uma lista de imagens.
-     * @return Uma lista de ImageAnimationFrame
+     * Creates a list of ImageAnimationFrame from a list of images.
+     *
+     * @param images A list of images.
+     * @return A list of ImageAnimationFrame
      */
     public static List<ImageAnimationFrame> getImageAnimationFrameList( List<Image> images ) {
         
@@ -48,16 +48,16 @@ public interface AnimationUtils {
     }
     
     /**
-     * Cria uma lista de SpriteMapAnimationFrame a partir de uma imagem de uma mapa de sprite.
-     * 
-     * @param spriteMapImage Uma imagem de um mapa de sprite.
-     * @param quantity Quantidade de quadros que serão gerados (recortes que serão feitos no mapa de sprites).
-     * @param x Coordenada x do início do recorte da imagem do mapa de sprite.
-     * @param y Coordenada y do início do recorte da imagem do mapa de sprite.
-     * @param width Largura do recorte do mapa de sprite.
-     * @param height Altura do recorte do mapa de sprite.
-     * @param backwards Se o mapa de sprites deve ser mapeado do fim para o começo.
-     * @return Uma lista de SpriteMapAnimationFrame
+     * Creates a list of SpriteMapAnimationFrame from a sprite map image.
+     *
+     * @param spriteMapImage A sprite map image.
+     * @param quantity Number of frames to be generated (crops to be made from the sprite map).
+     * @param x The x coordinate of the start of the crop in the sprite map image.
+     * @param y The y coordinate of the start of the crop in the sprite map image.
+     * @param width Width of the sprite map crop.
+     * @param height Height of the sprite map crop.
+     * @param backwards Whether the sprite map should be mapped from end to start.
+     * @return A list of SpriteMapAnimationFrame
      */
     public static List<SpriteMapAnimationFrame> getSpriteMapAnimationFrameList( Image spriteMapImage, int quantity, double x, double y, double width, double height, boolean backwards ) {
         
@@ -78,104 +78,104 @@ public interface AnimationUtils {
     }
     
     /**
-     * Cria uma lista de SpriteMapAnimationFrame a partir de uma imagem de uma mapa de sprite.
-     * A imagem é processada da esquerda para a direita a partir da coordenada inicial fornecida.
-     * 
-     * @param spriteMapImage Uma imagem de um mapa de sprite.
-     * @param quantity Quantidade de quadros que serão gerados (recortes que serão feitos no mapa de sprites).
-     * @param x Coordenada x do início do recorte da imagem do mapa de sprite.
-     * @param y Coordenada y do início do recorte da imagem do mapa de sprite.
-     * @param width Largura do recorte do mapa de sprite.
-     * @param height Altura do recorte do mapa de sprite.
-     * @return Uma lista de SpriteMapAnimationFrame
+     * Creates a list of SpriteMapAnimationFrame from a sprite map image.
+     * The image is processed from left to right starting from the provided initial coordinate.
+     *
+     * @param spriteMapImage A sprite map image.
+     * @param quantity Number of frames to be generated (crops to be made from the sprite map).
+     * @param x The x coordinate of the start of the crop in the sprite map image.
+     * @param y The y coordinate of the start of the crop in the sprite map image.
+     * @param width Width of the sprite map crop.
+     * @param height Height of the sprite map crop.
+     * @return A list of SpriteMapAnimationFrame
      */
     public static List<SpriteMapAnimationFrame> getSpriteMapAnimationFrameList( Image spriteMapImage, int quantity, double x, double y, double width, double height ) {
         return AnimationUtils.getSpriteMapAnimationFrameList( spriteMapImage, quantity, x, y, width, height, false );
     }
     
     /**
-     * Cria uma lista de SpriteMapAnimationFrame a partir de uma imagem de um mapa de sprite.
-     * 
-     * @param spriteMapImage Uma imagem de um mapa de sprite.
-     * @param quantity Quantidade de quadros que serão gerados (recortes que serão feitos no mapa de sprites).
-     * @param width Largura do recorte do mapa de sprite.
-     * @param height Altura do recorte do mapa de sprite.
-     * @param backwards Se o mapa de sprites deve ser mapeado do fim para o começo.
-     * @return Uma lista de SpriteMapAnimationFrame
+     * Creates a list of SpriteMapAnimationFrame from a sprite map image.
+     *
+     * @param spriteMapImage A sprite map image.
+     * @param quantity Number of frames to be generated (crops to be made from the sprite map).
+     * @param width Width of the sprite map crop.
+     * @param height Height of the sprite map crop.
+     * @param backwards Whether the sprite map should be mapped from end to start.
+     * @return A list of SpriteMapAnimationFrame
      */
     public static List<SpriteMapAnimationFrame> getSpriteMapAnimationFrameList( Image spriteMapImage, int quantity, double width, double height, boolean backwards ) {
         return AnimationUtils.getSpriteMapAnimationFrameList( spriteMapImage, quantity, 0, 0, width, height, backwards );
     }
     
     /**
-     * Cria uma lista de SpriteMapAnimationFrame a partir de uma imagem de um mapa de sprite.
-     * Os recortes são feitos a partir da coordenada (0, 0) da imagem do mapa de sprite, da esquerda para a direita.
-     * 
-     * @param spriteMapImage Uma imagem de um mapa de sprite.
-     * @param quantity Quantidade de quadros que serão gerados (recortes que serão feitos no mapa de sprites).
-     * @param width Largura do recorte do mapa de sprite.
-     * @param height Altura do recorte do mapa de sprite.
-     * @return Uma lista de SpriteMapAnimationFrame
+     * Creates a list of SpriteMapAnimationFrame from a sprite map image.
+     * Crops are made starting from coordinate (0, 0) of the sprite map image, from left to right.
+     *
+     * @param spriteMapImage A sprite map image.
+     * @param quantity Number of frames to be generated (crops to be made from the sprite map).
+     * @param width Width of the sprite map crop.
+     * @param height Height of the sprite map crop.
+     * @return A list of SpriteMapAnimationFrame
      */
     public static List<SpriteMapAnimationFrame> getSpriteMapAnimationFrameList( Image spriteMapImage, int quantity, double width, double height ) {
         return AnimationUtils.getSpriteMapAnimationFrameList( spriteMapImage, quantity, 0, 0, width, height, false );
     }
     
     /**
-     * Cria uma lista de SpriteMapAnimationFrame a partir de uma imagem de uma mapa de sprite.
-     * A quantidade de quadros é gerada dada a imagem e a largura de recorte.
-     * 
-     * @param spriteMapImage Uma imagem de um mapa de sprite.
-     * @param x Coordenada x do início do recorte da imagem do mapa de sprite.
-     * @param y Coordenada y do início do recorte da imagem do mapa de sprite.
-     * @param width Largura do recorte do mapa de sprite.
-     * @param height Altura do recorte do mapa de sprite.
-     * @param backwards Se o mapa de sprites deve ser mapeado do fim para o começo.
-     * @return Uma lista de SpriteMapAnimationFrame
+     * Creates a list of SpriteMapAnimationFrame from a sprite map image.
+     * The number of frames is derived from the image and the crop width.
+     *
+     * @param spriteMapImage A sprite map image.
+     * @param x The x coordinate of the start of the crop in the sprite map image.
+     * @param y The y coordinate of the start of the crop in the sprite map image.
+     * @param width Width of the sprite map crop.
+     * @param height Height of the sprite map crop.
+     * @param backwards Whether the sprite map should be mapped from end to start.
+     * @return A list of SpriteMapAnimationFrame
      */
     public static List<SpriteMapAnimationFrame> getSpriteMapAnimationFrameList( Image spriteMapImage, double x, double y, double width, double height, boolean backwards ) {
         return AnimationUtils.getSpriteMapAnimationFrameList( spriteMapImage, (int) ( spriteMapImage.getWidth() / width ), x, y, width, height, backwards );
     }
     
     /**
-     * Cria uma lista de SpriteMapAnimationFrame a partir de uma imagem de uma mapa de sprite.
-     * A imagem é processada da esquerda para a direita a partir da coordenada inicial fornecida.
-     * A quantidade de quadros é gerada dada a imagem e a largura de recorte.
-     * 
-     * @param spriteMapImage Uma imagem de um mapa de sprite.
-     * @param x Coordenada x do início do recorte da imagem do mapa de sprite.
-     * @param y Coordenada y do início do recorte da imagem do mapa de sprite.
-     * @param width Largura do recorte do mapa de sprite.
-     * @param height Altura do recorte do mapa de sprite.
-     * @return Uma lista de SpriteMapAnimationFrame
+     * Creates a list of SpriteMapAnimationFrame from a sprite map image.
+     * The image is processed from left to right starting from the provided initial coordinate.
+     * The number of frames is derived from the image and the crop width.
+     *
+     * @param spriteMapImage A sprite map image.
+     * @param x The x coordinate of the start of the crop in the sprite map image.
+     * @param y The y coordinate of the start of the crop in the sprite map image.
+     * @param width Width of the sprite map crop.
+     * @param height Height of the sprite map crop.
+     * @return A list of SpriteMapAnimationFrame
      */
     public static List<SpriteMapAnimationFrame> getSpriteMapAnimationFrameList( Image spriteMapImage, double x, double y, double width, double height ) {
         return AnimationUtils.getSpriteMapAnimationFrameList( spriteMapImage, x, y, width, height, false );
     }
     
     /**
-     * Cria uma lista de SpriteMapAnimationFrame a partir de uma imagem de um mapa de sprite.
-     * A quantidade de quadros é gerada dada a imagem e a largura de recorte.
-     * 
-     * @param spriteMapImage Uma imagem de um mapa de sprite.
-     * @param width Largura do recorte do mapa de sprite.
-     * @param height Altura do recorte do mapa de sprite.
-     * @param backwards Se o mapa de sprites deve ser mapeado do fim para o começo.
-     * @return Uma lista de SpriteMapAnimationFrame
+     * Creates a list of SpriteMapAnimationFrame from a sprite map image.
+     * The number of frames is derived from the image and the crop width.
+     *
+     * @param spriteMapImage A sprite map image.
+     * @param width Width of the sprite map crop.
+     * @param height Height of the sprite map crop.
+     * @param backwards Whether the sprite map should be mapped from end to start.
+     * @return A list of SpriteMapAnimationFrame
      */
     public static List<SpriteMapAnimationFrame> getSpriteMapAnimationFrameList( Image spriteMapImage, double width, double height, boolean backwards ) {
         return AnimationUtils.getSpriteMapAnimationFrameList( spriteMapImage, 0, 0, width, height, backwards );
     }
     
     /**
-     * Cria uma lista de SpriteMapAnimationFrame a partir de uma imagem de um mapa de sprite.
-     * Os recortes são feitos a partir da coordenada (0, 0) da imagem do mapa de sprite, da esquerda para a direita.
-     * A quantidade de quadros é gerada dada a imagem e a largura de recorte.
-     * 
-     * @param spriteMapImage Uma imagem de um mapa de sprite.
-     * @param width Largura do recorte do mapa de sprite.
-     * @param height Altura do recorte do mapa de sprite.
-     * @return Uma lista de SpriteMapAnimationFrame
+     * Creates a list of SpriteMapAnimationFrame from a sprite map image.
+     * Crops are made starting from coordinate (0, 0) of the sprite map image, from left to right.
+     * The number of frames is derived from the image and the crop width.
+     *
+     * @param spriteMapImage A sprite map image.
+     * @param width Width of the sprite map crop.
+     * @param height Height of the sprite map crop.
+     * @return A list of SpriteMapAnimationFrame
      */
     public static List<SpriteMapAnimationFrame> getSpriteMapAnimationFrameList( Image spriteMapImage, double width, double height ) {
         return AnimationUtils.getSpriteMapAnimationFrameList( spriteMapImage, 0, 0, width, height, false );

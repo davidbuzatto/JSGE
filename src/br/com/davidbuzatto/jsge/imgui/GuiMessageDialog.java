@@ -21,8 +21,8 @@ import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.math.Vector2;
 
 /**
- * Um diálogo para mensagens.
- * 
+ * A message dialog.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class GuiMessageDialog extends GuiWindow {
@@ -40,13 +40,12 @@ public class GuiMessageDialog extends GuiWindow {
     private boolean boundsCalculationOk;
     
     /**
-     * Cria o componente.
-     * 
-     * @param title O título do componente.
-     * @param message A mensagem do componente.
-     * @param showOverlay Verdadeiro para desenhar uma camada de sobreposição atrás do diálogo.
-     * @param engine A instância da engine utilizada para desenhar e atualizar
-     * o componente.
+     * Creates the component.
+     *
+     * @param title The title of the component.
+     * @param message The message of the component.
+     * @param showOverlay True to draw an overlay layer behind the dialog.
+     * @param engine The engine instance used to draw and update the component.
      */
     public GuiMessageDialog( String title, String message, boolean showOverlay, EngineFrame engine ) {
         super( 0, 0, 0, 0, title, engine );
@@ -54,15 +53,15 @@ public class GuiMessageDialog extends GuiWindow {
     }
     
     /**
-     * Cria o componente.
-     * 
-     * Essa versão do construtor depende da configuração "injetável" de uma
-     * instância de uma engine.
+     * Creates the component.
+     *
+     * This constructor version depends on the "injectable" configuration of an
+     * engine instance.
      * @see br.com.davidbuzatto.jsge.core.engine.EngineFrame#useAsDependencyForIMGUI
-     * 
-     * @param title O título do componente.
-     * @param message A mensagem do componente.
-     * @param showOverlay Verdadeiro para desenhar uma camada de sobreposição atrás do diálogo. 
+     *
+     * @param title The title of the component.
+     * @param message The message of the component.
+     * @param showOverlay True to draw an overlay layer behind the dialog.
      */
     public GuiMessageDialog( String title, String message, boolean showOverlay ) {
         super( 0, 0, 0, 0, title );
@@ -166,19 +165,19 @@ public class GuiMessageDialog extends GuiWindow {
     }
     
     /**
-     * Mostra o diálogo centralizado na tela.
+     * Shows the dialog centered on the screen.
      */
     public void show() {
         show( engine.getScreenWidth() / 2 - bounds.width / 2, engine.getScreenHeight() / 2 - bounds.height / 2 );
     }
     
     /**
-     * Mostra o diálogo numa posição específica.
-     * 
-     * @param x Coordenada x onde o vértice superior esquerdo do retângulo que 
-     * define os limites do componente será posicionado.
-     * @param y Coordenada y onde o vértice superior esquerdo do retângulo que 
-     * define os limites do componente será posicionado.
+     * Shows the dialog at a specific position.
+     *
+     * @param x The x coordinate where the upper-left vertex of the rectangle
+     * that defines the bounds of the component will be positioned.
+     * @param y The y coordinate where the upper-left vertex of the rectangle
+     * that defines the bounds of the component will be positioned.
      */
     public void show( double x, double y ) {
         bounds.x = x;
@@ -188,26 +187,26 @@ public class GuiMessageDialog extends GuiWindow {
     }
     
     /**
-     * Mostra o diálogo numa posição específica.
-     * 
-     * @param position Posição onde o vértice superior esquerdo do retângulo que 
-     * define os limites do componente será posicionado.
+     * Shows the dialog at a specific position.
+     *
+     * @param position The position where the upper-left vertex of the rectangle
+     * that defines the bounds of the component will be positioned.
      */
     public void show( Vector2 position ) {
         show( position.x, position.y );
     }
     
     /**
-     * Esconde o diálogo.
+     * Hides the dialog.
      */
     public void hide() {
         super.setVisible( false );
     }
     
     /**
-     * Retorna se o botão OK foi pressionado no ciclo atual.
-     * 
-     * @return Verdadeiro caso tenha sido pressionado, falso caso contrário.
+     * Returns whether the OK button was pressed in the current cycle.
+     *
+     * @return True if it was pressed, false otherwise.
      */
     public boolean isOkButtonPressed() {
         return okButton.isMousePressed();

@@ -21,23 +21,23 @@ import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationComponentMapper;
 import br.com.davidbuzatto.jsge.animation.tween.TweenAnimationProperties;
 
 /**
- * Uma animação interpolada temporizada.
- * 
- * @param <ComponentType> O tipo do componente que passará pela interpolação.
+ * A timing-based tween animation.
+ *
+ * @param <ComponentType> The type of the component that will undergo interpolation.
  * @author Prof. Dr. David Buzatto
  */
 public class TimingTweenAnimation<ComponentType> extends TweenAnimationBase<ComponentType> {
-    
+
     private TimingTweenAnimationUpdateFunction<ComponentType> updateFunction;
     private double totalExecutionTime;
-    
+
     /**
-     * Constroi uma nova animação interpolada temporizada.
-     * 
-     * @param properties As propriedades utilizadas para o controle da animação.
-     * @param componentMapper Um mapeador de propriedades do componente que será manipulado na animação.
-     * @param updateFunction A função de atualização de animação.
-     * @param totalExecutionTime Tempo de total de execução da animação.
+     * Constructs a new timing-based tween animation.
+     *
+     * @param properties The properties used to control the animation.
+     * @param componentMapper A property mapper for the component that will be manipulated in the animation.
+     * @param updateFunction The animation update function.
+     * @param totalExecutionTime Total execution time of the animation.
      */
     public TimingTweenAnimation( 
         TweenAnimationProperties properties,
@@ -55,27 +55,27 @@ public class TimingTweenAnimation<ComponentType> extends TweenAnimationBase<Comp
     }
 
     /**
-     * Obtém o tempo de total de execução da animação.
-     * 
-     * @return O tempo de total de execução da animação.
+     * Gets the total execution time of the animation.
+     *
+     * @return The total execution time of the animation.
      */
     public double getTotalExecutionTime() {
         return totalExecutionTime;
     }
 
     /**
-     * Configura o tempo de total de execução da animação.
-     * 
-     * @param totalExecutionTime O tempo de total de execução da animação.
+     * Sets the total execution time of the animation.
+     *
+     * @param totalExecutionTime The total execution time of the animation.
      */
     public void setTotalExecutionTime( double totalExecutionTime ) {
         this.totalExecutionTime = totalExecutionTime;
     }
 
     /**
-     * Configura a função de atualização.
-     * 
-     * @param updateFunction A função.
+     * Sets the update function.
+     *
+     * @param updateFunction The function.
      */
     public void setUpdateFunction( TimingTweenAnimationUpdateFunction<ComponentType> updateFunction ) {
         this.updateFunction = updateFunction;

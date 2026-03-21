@@ -22,8 +22,8 @@ import java.awt.Paint;
 import java.io.Serializable;
 
 /**
- * Classe para representação de um arco em duas dimensões.
- * 
+ * Class for representing an ellipse sector in two dimensions.
+ *
  * @author Prof. Dr. David Buzatto
  */
 public class EllipseSector implements Drawable, Serializable {
@@ -31,50 +31,50 @@ public class EllipseSector implements Drawable, Serializable {
     private static final long serialVersionUID = 1L;
     
     /**
-     * Coordenada x do centro.
+     * X coordinate of the center.
      */
     public double x;
-    
+
     /**
-     * Coordenada y do centro.
+     * Y coordinate of the center.
      */
     public double y;
-    
+
     /**
-     * Raio horizontal.
+     * Horizontal radius.
      */
     public double radiusH;
-    
+
     /**
-     * Raio vertical.
+     * Vertical radius.
      */
     public double radiusV;
-    
+
     /**
-     * Ângulo inicial, em graus, sentido horário.
+     * Start angle, in degrees, clockwise.
      */
     public double startAngle;
-    
+
     /**
-     * Ângulo final, em graus, sentido horário.
+     * End angle, in degrees, clockwise.
      */
     public double endAngle;
 
     /**
-     * Cria um novo setor de elipse com valores padrão.
+     * Creates a new ellipse sector with default values.
      */
     public EllipseSector() {
     }
 
     /**
-     * Cria um novo setor de elipse.
-     * 
-     * @param x Coordenada x do centro.
-     * @param y Coordenada y do centro.
-     * @param radiusH Raio horizontal.
-     * @param radiusV Raio vertical.
-     * @param startAngle Ângulo inicial em graus (sentido horário).
-     * @param endAngle Ângulo final em gradus (sentido horário).
+     * Creates a new ellipse sector.
+     *
+     * @param x X coordinate of the center.
+     * @param y Y coordinate of the center.
+     * @param radiusH Horizontal radius.
+     * @param radiusV Vertical radius.
+     * @param startAngle Start angle in degrees (clockwise).
+     * @param endAngle End angle in degrees (clockwise).
      */
     public EllipseSector( double x, double y, double radiusH, double radiusV, double startAngle, double endAngle ) {
         this.x = x;
