@@ -3481,23 +3481,39 @@ public abstract class EngineFrame extends JFrame {
      * @param bgColor A background color.
      */
     public void drawImage( Image image, Rectangle source, double x, double y, Color bgColor ) {
-        g2d.drawImage( image.buffImage, 
-                (int) x, 
-                (int) y, 
-                (int) ( x + source.width ), 
-                (int) ( y + source.height ), 
-                (int) source.x, 
-                (int) source.y, 
-                (int) ( source.x + source.width ), 
-                (int) ( source.y + source.height ), 
+        drawImage( image, source.x, source.y, source.width, source.height, x, y, bgColor );
+    }
+
+    /**
+     * Draws a cropped image with a background color.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region.
+     * @param srcHeight Height of the source crop region.
+     * @param x X coordinate of the image drawing position.
+     * @param y Y coordinate of the image drawing position.
+     * @param bgColor A background color.
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, Color bgColor ) {
+        g2d.drawImage( image.buffImage,
+                (int) x,
+                (int) y,
+                (int) ( x + srcWidth ),
+                (int) ( y + srcHeight ),
+                (int) srcX,
+                (int) srcY,
+                (int) ( srcX + srcWidth ),
+                (int) ( srcY + srcHeight ),
                 bgColor,
                 null
         );
     }
-    
+
     /**
      * Draws a cropped image.
-     * 
+     *
      * @param image The image to be drawn.
      * @param source A rectangle delimiting the image crop to be drawn.
      * @param x X coordinate of the image drawing position.
@@ -3506,10 +3522,25 @@ public abstract class EngineFrame extends JFrame {
     public void drawImage( Image image, Rectangle source, double x, double y ) {
         drawImage( image, source, x, y, null );
     }
-    
+
+    /**
+     * Draws a cropped image.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region.
+     * @param srcHeight Height of the source crop region.
+     * @param x X coordinate of the image drawing position.
+     * @param y Y coordinate of the image drawing position.
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y ) {
+        drawImage( image, srcX, srcY, srcWidth, srcHeight, x, y, null );
+    }
+
     /**
      * Draws a rotated cropped image with a background color.
-     * 
+     *
      * @param image The image to be drawn.
      * @param source A rectangle delimiting the image crop to be drawn.
      * @param x X coordinate of the image drawing position.
@@ -3520,10 +3551,27 @@ public abstract class EngineFrame extends JFrame {
     public void drawImage( Image image, Rectangle source, double x, double y, double rotation, Color bgColor ) {
         drawImage( image, source, x, y, 0, 0, rotation, bgColor );
     }
-    
+
+    /**
+     * Draws a rotated cropped image with a background color.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region.
+     * @param srcHeight Height of the source crop region.
+     * @param x X coordinate of the image drawing position.
+     * @param y Y coordinate of the image drawing position.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     * @param bgColor A background color.
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, double rotation, Color bgColor ) {
+        drawImage( image, srcX, srcY, srcWidth, srcHeight, x, y, 0, 0, rotation, bgColor );
+    }
+
     /**
      * Draws a rotated cropped image.
-     * 
+     *
      * @param image The image to be drawn.
      * @param source A rectangle delimiting the image crop to be drawn.
      * @param x X coordinate of the image drawing position.
@@ -3533,10 +3581,26 @@ public abstract class EngineFrame extends JFrame {
     public void drawImage( Image image, Rectangle source, double x, double y, double rotation ) {
         drawImage( image, source, x, y, 0, 0, rotation, null );
     }
-    
+
+    /**
+     * Draws a rotated cropped image.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region.
+     * @param srcHeight Height of the source crop region.
+     * @param x X coordinate of the image drawing position.
+     * @param y Y coordinate of the image drawing position.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, double rotation ) {
+        drawImage( image, srcX, srcY, srcWidth, srcHeight, x, y, 0, 0, rotation, null );
+    }
+
     /**
      * Draws a rotated cropped image with a background color.
-     * 
+     *
      * @param image The image to be drawn.
      * @param source A rectangle delimiting the image crop to be drawn.
      * @param x X coordinate of the image drawing position.
@@ -3547,26 +3611,45 @@ public abstract class EngineFrame extends JFrame {
      * @param bgColor A background color.
      */
     public void drawImage( Image image, Rectangle source, double x, double y, double originX, double originY, double rotation, Color bgColor ) {
+        drawImage( image, source.x, source.y, source.width, source.height, x, y, originX, originY, rotation, bgColor );
+    }
+
+    /**
+     * Draws a rotated cropped image with a background color.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region.
+     * @param srcHeight Height of the source crop region.
+     * @param x X coordinate of the image drawing position.
+     * @param y Y coordinate of the image drawing position.
+     * @param originX X coordinate of the rotation axis.
+     * @param originY Y coordinate of the rotation axis.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     * @param bgColor A background color.
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, double originX, double originY, double rotation, Color bgColor ) {
         Graphics2D ig2d = (Graphics2D) g2d.create();
         ig2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
-        ig2d.drawImage( image.buffImage, 
-                (int) x, 
-                (int) y, 
-                (int) ( x + source.width ), 
-                (int) ( y + source.height ), 
-                (int) source.x, 
-                (int) source.y, 
-                (int) ( source.x + source.width ), 
-                (int) ( source.y + source.height ), 
+        ig2d.drawImage( image.buffImage,
+                (int) x,
+                (int) y,
+                (int) ( x + srcWidth ),
+                (int) ( y + srcHeight ),
+                (int) srcX,
+                (int) srcY,
+                (int) ( srcX + srcWidth ),
+                (int) ( srcY + srcHeight ),
                 bgColor,
                 null
         );
         ig2d.dispose();
     }
-    
+
     /**
      * Draws a rotated cropped image.
-     * 
+     *
      * @param image The image to be drawn.
      * @param source A rectangle delimiting the image crop to be drawn.
      * @param x X coordinate of the image drawing position.
@@ -3578,33 +3661,69 @@ public abstract class EngineFrame extends JFrame {
     public void drawImage( Image image, Rectangle source, double x, double y, double originX, double originY, double rotation ) {
         drawImage( image, source, x, y, originX, originY, rotation, null );
     }
-    
+
+    /**
+     * Draws a rotated cropped image.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region.
+     * @param srcHeight Height of the source crop region.
+     * @param x X coordinate of the image drawing position.
+     * @param y Y coordinate of the image drawing position.
+     * @param originX X coordinate of the rotation axis.
+     * @param originY Y coordinate of the rotation axis.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, double originX, double originY, double rotation ) {
+        drawImage( image, srcX, srcY, srcWidth, srcHeight, x, y, originX, originY, rotation, null );
+    }
+
     /**
      * Draws a cropped image into a destination rectangle with a background color.
-     * 
+     *
      * @param image The image to be drawn.
      * @param source A rectangle delimiting the image crop to be drawn.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      * @param bgColor A background color.
      */
     public void drawImage( Image image, Rectangle source, Rectangle dest, Color bgColor ) {
-        g2d.drawImage( image.buffImage, 
-                (int) dest.x, 
-                (int) dest.y, 
-                (int) ( dest.x + dest.width ), 
-                (int) ( dest.y + dest.height ), 
-                (int) source.x, 
-                (int) source.y, 
-                (int) ( source.x + source.width ), 
-                (int) ( source.y + source.height ), 
+        drawImage( image, source.x, source.y, source.width, source.height, dest.x, dest.y, dest.width, dest.height, bgColor );
+    }
+
+    /**
+     * Draws a cropped image into a destination rectangle with a background color.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region.
+     * @param srcHeight Height of the source crop region.
+     * @param destX X coordinate of the destination position.
+     * @param destY Y coordinate of the destination position.
+     * @param destWidth Width of the destination region.
+     * @param destHeight Height of the destination region.
+     * @param bgColor A background color.
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double destX, double destY, double destWidth, double destHeight, Color bgColor ) {
+        g2d.drawImage( image.buffImage,
+                (int) destX,
+                (int) destY,
+                (int) ( destX + destWidth ),
+                (int) ( destY + destHeight ),
+                (int) srcX,
+                (int) srcY,
+                (int) ( srcX + srcWidth ),
+                (int) ( srcY + srcHeight ),
                 bgColor,
                 null
         );
     }
-    
+
     /**
      * Draws a cropped image into a destination rectangle.
-     * 
+     *
      * @param image The image to be drawn.
      * @param source A rectangle delimiting the image crop to be drawn.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
@@ -3612,10 +3731,27 @@ public abstract class EngineFrame extends JFrame {
     public void drawImage( Image image, Rectangle source, Rectangle dest ) {
         drawImage( image, source, dest, null );
     }
-    
+
+    /**
+     * Draws a cropped image into a destination rectangle.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region.
+     * @param srcHeight Height of the source crop region.
+     * @param destX X coordinate of the destination position.
+     * @param destY Y coordinate of the destination position.
+     * @param destWidth Width of the destination region.
+     * @param destHeight Height of the destination region.
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double destX, double destY, double destWidth, double destHeight ) {
+        drawImage( image, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight, null );
+    }
+
     /**
      * Draws a rotated cropped image into a destination rectangle with a background color.
-     * 
+     *
      * @param image The image to be drawn.
      * @param source A rectangle delimiting the image crop to be drawn.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
@@ -3625,10 +3761,10 @@ public abstract class EngineFrame extends JFrame {
     public void drawImage( Image image, Rectangle source, Rectangle dest, double rotation, Color bgColor ) {
         drawImage( image, source, dest, 0, 0, rotation, bgColor );
     }
-    
+
     /**
      * Draws a rotated cropped image into a destination rectangle.
-     * 
+     *
      * @param image The image to be drawn.
      * @param source A rectangle delimiting the image crop to be drawn.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
@@ -3637,10 +3773,10 @@ public abstract class EngineFrame extends JFrame {
     public void drawImage( Image image, Rectangle source, Rectangle dest, double rotation ) {
         drawImage( image, source, dest, 0, 0, rotation, null );
     }
-    
+
     /**
      * Draws a rotated cropped image into a destination rectangle with a background color.
-     * 
+     *
      * @param image The image to be drawn.
      * @param source A rectangle delimiting the image crop to be drawn.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
@@ -3650,26 +3786,47 @@ public abstract class EngineFrame extends JFrame {
      * @param bgColor A background color.
      */
     public void drawImage( Image image, Rectangle source, Rectangle dest, double originX, double originY, double rotation, Color bgColor ) {
+        drawImage( image, source.x, source.y, source.width, source.height, dest.x, dest.y, dest.width, dest.height, originX, originY, rotation, bgColor );
+    }
+
+    /**
+     * Draws a rotated cropped image into a destination rectangle with a background color.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region.
+     * @param srcHeight Height of the source crop region.
+     * @param destX X coordinate of the destination position.
+     * @param destY Y coordinate of the destination position.
+     * @param destWidth Width of the destination region.
+     * @param destHeight Height of the destination region.
+     * @param originX X coordinate of the rotation axis.
+     * @param originY Y coordinate of the rotation axis.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     * @param bgColor A background color.
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double destX, double destY, double destWidth, double destHeight, double originX, double originY, double rotation, Color bgColor ) {
         Graphics2D ig2d = (Graphics2D) g2d.create();
-        ig2d.rotate( Math.toRadians( rotation ), dest.x + originX, dest.y + originY );
-        ig2d.drawImage( image.buffImage, 
-                (int) dest.x, 
-                (int) dest.y, 
-                (int) ( dest.x + dest.width ), 
-                (int) ( dest.y + dest.height ), 
-                (int) source.x, 
-                (int) source.y, 
-                (int) ( source.x + source.width ), 
-                (int) ( source.y + source.height ), 
+        ig2d.rotate( Math.toRadians( rotation ), destX + originX, destY + originY );
+        ig2d.drawImage( image.buffImage,
+                (int) destX,
+                (int) destY,
+                (int) ( destX + destWidth ),
+                (int) ( destY + destHeight ),
+                (int) srcX,
+                (int) srcY,
+                (int) ( srcX + srcWidth ),
+                (int) ( srcY + srcHeight ),
                 bgColor,
                 null
         );
         ig2d.dispose();
     }
-    
+
     /**
      * Draws a rotated cropped image into a destination rectangle.
-     * 
+     *
      * @param image The image to be drawn.
      * @param source A rectangle delimiting the image crop to be drawn.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
@@ -3680,8 +3837,28 @@ public abstract class EngineFrame extends JFrame {
     public void drawImage( Image image, Rectangle source, Rectangle dest, double originX, double originY, double rotation ) {
         drawImage( image, source, dest, originX, originY, rotation, null );
     }
-    
-    
+
+    /**
+     * Draws a rotated cropped image into a destination rectangle.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region.
+     * @param srcHeight Height of the source crop region.
+     * @param destX X coordinate of the destination position.
+     * @param destY Y coordinate of the destination position.
+     * @param destWidth Width of the destination region.
+     * @param destHeight Height of the destination region.
+     * @param originX X coordinate of the rotation axis.
+     * @param originY Y coordinate of the rotation axis.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double destX, double destY, double destWidth, double destHeight, double originX, double originY, double rotation ) {
+        drawImage( image, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight, originX, originY, rotation, null );
+    }
+
+
     
     //**************************************************************************
     // Drawing methods mapped directly from Graphics and Graphics2D.
