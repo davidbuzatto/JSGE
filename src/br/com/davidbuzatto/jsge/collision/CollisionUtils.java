@@ -344,8 +344,25 @@ public interface CollisionUtils {
      * @return True if the point has collided with the circle, false otherwise.
      */
     public static boolean checkCollisionPointCircle( double x, double y, Vector2 center, double radius ) {
-        double distanceSquared = ( x - center.x ) * ( x - center.x ) + 
+        double distanceSquared = ( x - center.x ) * ( x - center.x ) +
                                  ( y - center.y ) * ( y - center.y );
+        return distanceSquared <= radius * radius;
+    }
+
+    /**
+     * Checks whether a point, defined by its coordinates, has collided with a circle
+     * defined by its center coordinates and radius.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param cx The x coordinate of the circle center.
+     * @param cy The y coordinate of the circle center.
+     * @param radius Radius of the circle.
+     * @return True if the point has collided with the circle, false otherwise.
+     */
+    public static boolean checkCollisionPointCircle( double x, double y, double cx, double cy, double radius ) {
+        double distanceSquared = ( x - cx ) * ( x - cx ) +
+                                 ( y - cy ) * ( y - cy );
         return distanceSquared <= radius * radius;
     }
 
@@ -403,12 +420,42 @@ public interface CollisionUtils {
      * @return True if the point has collided with the triangle, false otherwise.
      */
     public static boolean checkCollisionPointTriangle( Vector2 point, Triangle triangle ) {
-        return checkCollisionPointTriangle( 
-            point, 
+        return checkCollisionPointTriangle(
+            point,
             new Vector2( triangle.x1, triangle.y1 ),
             new Vector2( triangle.x2, triangle.y2 ),
             new Vector2( triangle.x3, triangle.y3 )
         );
+    }
+
+    /**
+     * Checks whether a point, defined by its coordinates, has collided with a triangle.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param triangle The triangle.
+     * @return True if the point has collided with the triangle, false otherwise.
+     */
+    public static boolean checkCollisionPointTriangle( double x, double y, Triangle triangle ) {
+        return checkCollisionPointTriangle( new Vector2( x, y ), triangle );
+    }
+
+    /**
+     * Checks whether a point, defined by its coordinates, has collided with a triangle
+     * defined by its three vertex coordinates.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param p1x The x coordinate of the first vertex of the triangle.
+     * @param p1y The y coordinate of the first vertex of the triangle.
+     * @param p2x The x coordinate of the second vertex of the triangle.
+     * @param p2y The y coordinate of the second vertex of the triangle.
+     * @param p3x The x coordinate of the third vertex of the triangle.
+     * @param p3y The y coordinate of the third vertex of the triangle.
+     * @return True if the point has collided with the triangle, false otherwise.
+     */
+    public static boolean checkCollisionPointTriangle( double x, double y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y ) {
+        return checkCollisionPointTriangle( new Vector2( x, y ), new Vector2( p1x, p1y ), new Vector2( p2x, p2y ), new Vector2( p3x, p3y ) );
     }
 
     /**
@@ -445,6 +492,18 @@ public interface CollisionUtils {
 
         return inside;
 
+    }
+
+    /**
+     * Checks whether a point, defined by its coordinates, has collided with a regular polygon.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param polygon The polygon.
+     * @return True if the point has collided with the polygon, false otherwise.
+     */
+    public static boolean checkCollisionPointPolygon( double x, double y, Polygon polygon ) {
+        return checkCollisionPointPolygon( new Vector2( x, y ), polygon );
     }
 
     /**
@@ -542,6 +601,36 @@ public interface CollisionUtils {
      */
     public static boolean checkCollisionPointLine( Vector2 point, Line line, int threshold ) {
         return checkCollisionPointLine( point, new Vector2( line.x1, line.y1 ), new Vector2( line.x2, line.y2 ), threshold );
+    }
+
+    /**
+     * Checks the collision of a point, defined by its coordinates, with a line.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param line The line.
+     * @param threshold The proximity threshold between the point and the line.
+     * @return True if the point has collided with the line, false otherwise.
+     */
+    public static boolean checkCollisionPointLine( double x, double y, Line line, int threshold ) {
+        return checkCollisionPointLine( new Vector2( x, y ), line, threshold );
+    }
+
+    /**
+     * Checks the collision of a point, defined by its coordinates, with a line
+     * defined by its two endpoint coordinates.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param p1x The x coordinate of the start point of the line.
+     * @param p1y The y coordinate of the start point of the line.
+     * @param p2x The x coordinate of the end point of the line.
+     * @param p2y The y coordinate of the end point of the line.
+     * @param threshold The proximity threshold between the point and the line.
+     * @return True if the point has collided with the line, false otherwise.
+     */
+    public static boolean checkCollisionPointLine( double x, double y, double p1x, double p1y, double p2x, double p2y, int threshold ) {
+        return checkCollisionPointLine( new Vector2( x, y ), new Vector2( p1x, p1y ), new Vector2( p2x, p2y ), threshold );
     }
 
     /**

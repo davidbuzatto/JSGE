@@ -73,7 +73,19 @@ public class Vector3 implements Cloneable, Serializable {
     public Vector3 add( Vector3 v ) {
         return new Vector3( x + v.x, y + v.y, z + v.z );
     }
-    
+
+    /**
+     * Adds the given components to the current vector.
+     *
+     * @param x The x component to add.
+     * @param y The y component to add.
+     * @param z The z component to add.
+     * @return A new vector resulting from the addition.
+     */
+    public Vector3 add( double x, double y, double z ) {
+        return new Vector3( this.x + x, this.y + y, this.z + z );
+    }
+
     /**
      * Adds a value to the current vector.
      *
@@ -93,7 +105,19 @@ public class Vector3 implements Cloneable, Serializable {
     public Vector3 subtract( Vector3 v ) {
         return new Vector3( x - v.x, y - v.y, z - v.z );
     }
-    
+
+    /**
+     * Subtracts the given components from the current vector.
+     *
+     * @param x The x component to subtract.
+     * @param y The y component to subtract.
+     * @param z The z component to subtract.
+     * @return A new vector resulting from the subtraction.
+     */
+    public Vector3 subtract( double x, double y, double z ) {
+        return new Vector3( this.x - x, this.y - y, this.z - z );
+    }
+
     /**
      * Subtracts a value from the current vector.
      *
@@ -113,7 +137,19 @@ public class Vector3 implements Cloneable, Serializable {
     public Vector3 scale( double scale ) {
         return new Vector3( x * scale, y * scale, z * scale );
     }
-    
+
+    /**
+     * Scales the current vector independently per component (non-uniform scaling).
+     *
+     * @param x The scale factor for the x component.
+     * @param y The scale factor for the y component.
+     * @param z The scale factor for the z component.
+     * @return A new scaled vector.
+     */
+    public Vector3 scale( double x, double y, double z ) {
+        return new Vector3( this.x * x, this.y * y, this.z * z );
+    }
+
     /**
      * Multiplies the current vector by another vector.
      *
@@ -123,8 +159,20 @@ public class Vector3 implements Cloneable, Serializable {
     public Vector3 multiply( Vector3 v ) {
         return new Vector3( x * v.x, y * v.y, z * v.z );
     }
-    
-    
+
+    /**
+     * Multiplies the current vector by the given components.
+     *
+     * @param x The x component to multiply by.
+     * @param y The y component to multiply by.
+     * @param z The z component to multiply by.
+     * @return A new vector with the result of the multiplication.
+     */
+    public Vector3 multiply( double x, double y, double z ) {
+        return new Vector3( this.x * x, this.y * y, this.z * z );
+    }
+
+
     /**
      * Calculates the cross product of the current vector with the given vector.
      *
@@ -204,11 +252,25 @@ public class Vector3 implements Cloneable, Serializable {
      * @return The distance.
      */
     public double distance( Vector3 v ) {
-        return Math.sqrt( ( v.x - x ) * ( v.x - x ) + 
+        return Math.sqrt( ( v.x - x ) * ( v.x - x ) +
                           ( v.y - y ) * ( v.y - y ) +
                           ( v.z - z ) * ( v.z - z ) );
     }
-    
+
+    /**
+     * Calculates the distance between the current vector and a point defined by its coordinates.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param z The z coordinate of the point.
+     * @return The distance.
+     */
+    public double distance( double x, double y, double z ) {
+        return Math.sqrt( ( x - this.x ) * ( x - this.x ) +
+                          ( y - this.y ) * ( y - this.y ) +
+                          ( z - this.z ) * ( z - this.z ) );
+    }
+
     /**
      * Calculates the squared distance between the current vector and another vector.
      *
@@ -216,12 +278,26 @@ public class Vector3 implements Cloneable, Serializable {
      * @return The squared distance.
      */
     public double distanceSquare( Vector3 v ) {
-        return ( v.x - x ) * ( v.x - x ) + 
+        return ( v.x - x ) * ( v.x - x ) +
                ( v.y - y ) * ( v.y - y ) +
                ( v.z - z ) * ( v.z - z );
     }
-    
-    
+
+    /**
+     * Calculates the squared distance between the current vector and a point defined by its coordinates.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param z The z coordinate of the point.
+     * @return The squared distance.
+     */
+    public double distanceSquare( double x, double y, double z ) {
+        return ( x - this.x ) * ( x - this.x ) +
+               ( y - this.y ) * ( y - this.y ) +
+               ( z - this.z ) * ( z - this.z );
+    }
+
+
     /**
      * Calculates the angle between the current vector and another vector, where
      * the angle is calculated from the origin point (0, 0).
@@ -257,7 +333,19 @@ public class Vector3 implements Cloneable, Serializable {
     public Vector3 divide( Vector3 v ) {
         return new Vector3( x / v.x, y / v.y, z / v.z );
     }
-    
+
+    /**
+     * Divides the current vector by the given components.
+     *
+     * @param x The x component to divide by.
+     * @param y The y component to divide by.
+     * @param z The z component to divide by.
+     * @return A new vector with the result of the division.
+     */
+    public Vector3 divide( double x, double y, double z ) {
+        return new Vector3( this.x / x, this.y / y, this.z / z );
+    }
+
     /**
      * Normalizes the current vector.
      *

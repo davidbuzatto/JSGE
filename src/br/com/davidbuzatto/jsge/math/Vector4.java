@@ -88,7 +88,20 @@ public class Vector4 implements Cloneable, Serializable {
     public Vector4 add( Vector4 v ) {
         return new Vector4( x + v.x, y + v.y, z + v.z, w + v.w );
     }
-    
+
+    /**
+     * Adds the given components to the current vector.
+     *
+     * @param x The x component to add.
+     * @param y The y component to add.
+     * @param z The z component to add.
+     * @param w The w component to add.
+     * @return A new vector resulting from the addition.
+     */
+    public Vector4 add( double x, double y, double z, double w ) {
+        return new Vector4( this.x + x, this.y + y, this.z + z, this.w + w );
+    }
+
     /**
      * Adds a value to the current vector.
      *
@@ -108,7 +121,20 @@ public class Vector4 implements Cloneable, Serializable {
     public Vector4 subtract( Vector4 v ) {
         return new Vector4( x - v.x, y - v.y, z - v.z, w - v.w );
     }
-    
+
+    /**
+     * Subtracts the given components from the current vector.
+     *
+     * @param x The x component to subtract.
+     * @param y The y component to subtract.
+     * @param z The z component to subtract.
+     * @param w The w component to subtract.
+     * @return A new vector resulting from the subtraction.
+     */
+    public Vector4 subtract( double x, double y, double z, double w ) {
+        return new Vector4( this.x - x, this.y - y, this.z - z, this.w - w );
+    }
+
     /**
      * Subtracts a value from the current vector.
      *
@@ -154,12 +180,28 @@ public class Vector4 implements Cloneable, Serializable {
      * @return The distance.
      */
     public double distance( Vector4 v ) {
-        return Math.sqrt( ( v.x - x ) * ( v.x - x ) + 
+        return Math.sqrt( ( v.x - x ) * ( v.x - x ) +
                           ( v.y - y ) * ( v.y - y ) +
                           ( v.z - z ) * ( v.z - z ) +
                           ( v.w - w ) * ( v.w - w ) );
     }
-    
+
+    /**
+     * Calculates the distance between the current vector and a point defined by its coordinates.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param z The z coordinate of the point.
+     * @param w The w coordinate of the point.
+     * @return The distance.
+     */
+    public double distance( double x, double y, double z, double w ) {
+        return Math.sqrt( ( x - this.x ) * ( x - this.x ) +
+                          ( y - this.y ) * ( y - this.y ) +
+                          ( z - this.z ) * ( z - this.z ) +
+                          ( w - this.w ) * ( w - this.w ) );
+    }
+
     /**
      * Calculates the squared distance between the current vector and another vector.
      *
@@ -167,12 +209,28 @@ public class Vector4 implements Cloneable, Serializable {
      * @return The squared distance.
      */
     public double distanceSquare( Vector4 v ) {
-        return ( v.x - x ) * ( v.x - x ) + 
+        return ( v.x - x ) * ( v.x - x ) +
                ( v.y - y ) * ( v.y - y ) +
                ( v.z - z ) * ( v.z - z ) +
                ( v.w - w ) * ( v.w - w );
     }
-    
+
+    /**
+     * Calculates the squared distance between the current vector and a point defined by its coordinates.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @param z The z coordinate of the point.
+     * @param w The w coordinate of the point.
+     * @return The squared distance.
+     */
+    public double distanceSquare( double x, double y, double z, double w ) {
+        return ( x - this.x ) * ( x - this.x ) +
+               ( y - this.y ) * ( y - this.y ) +
+               ( z - this.z ) * ( z - this.z ) +
+               ( w - this.w ) * ( w - this.w );
+    }
+
     /**
      * Scales the current vector, analogous to scalar multiplication.
      *
@@ -182,7 +240,20 @@ public class Vector4 implements Cloneable, Serializable {
     public Vector4 scale( double scale ) {
         return new Vector4( x * scale, y * scale, z * scale, w * scale );
     }
-    
+
+    /**
+     * Scales the current vector independently per component (non-uniform scaling).
+     *
+     * @param x The scale factor for the x component.
+     * @param y The scale factor for the y component.
+     * @param z The scale factor for the z component.
+     * @param w The scale factor for the w component.
+     * @return A new scaled vector.
+     */
+    public Vector4 scale( double x, double y, double z, double w ) {
+        return new Vector4( this.x * x, this.y * y, this.z * z, this.w * w );
+    }
+
     /**
      * Multiplies the current vector by another vector.
      *
@@ -192,7 +263,20 @@ public class Vector4 implements Cloneable, Serializable {
     public Vector4 multiply( Vector4 v ) {
         return new Vector4( x * v.x, y * v.y, z * v.z, w * v.w );
     }
-    
+
+    /**
+     * Multiplies the current vector by the given components.
+     *
+     * @param x The x component to multiply by.
+     * @param y The y component to multiply by.
+     * @param z The z component to multiply by.
+     * @param w The w component to multiply by.
+     * @return A new vector with the result of the multiplication.
+     */
+    public Vector4 multiply( double x, double y, double z, double w ) {
+        return new Vector4( this.x * x, this.y * y, this.z * z, this.w * w );
+    }
+
     /**
      * Negates the current vector.
      *
@@ -211,7 +295,20 @@ public class Vector4 implements Cloneable, Serializable {
     public Vector4 divide( Vector4 v ) {
         return new Vector4( x / v.x, y / v.y, z / v.z, w / v.w );
     }
-    
+
+    /**
+     * Divides the current vector by the given components.
+     *
+     * @param x The x component to divide by.
+     * @param y The y component to divide by.
+     * @param z The z component to divide by.
+     * @param w The w component to divide by.
+     * @return A new vector with the result of the division.
+     */
+    public Vector4 divide( double x, double y, double z, double w ) {
+        return new Vector4( this.x / x, this.y / y, this.z / z, this.w / w );
+    }
+
     /**
      * Normalizes the current vector.
      *

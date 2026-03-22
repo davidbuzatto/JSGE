@@ -2907,6 +2907,17 @@ public abstract class EngineFrame extends JFrame {
     }
 
     /**
+     * Rotates the current graphics context from a given pivot point.
+     * Note: Use only inside the draw method!
+     *
+     * @param degrees Rotation angle measure in degrees.
+     * @param pivot The pivot point of the rotation.
+     */
+    public void rotate( double degrees, Vector2 pivot ) {
+        g2d.rotate( Math.toRadians( degrees ), pivot.x, pivot.y );
+    }
+
+    /**
      * Translates the current graphics context.
      * Note: Use only inside the draw method!
      * 
@@ -2915,6 +2926,16 @@ public abstract class EngineFrame extends JFrame {
      */
     public void translate( double x, double y ) {
         g2d.translate( x, y );
+    }
+
+    /**
+     * Translates the current graphics context.
+     * Note: Use only inside the draw method!
+     *
+     * @param offset The translation offset.
+     */
+    public void translate( Vector2 offset ) {
+        g2d.translate( offset.x, offset.y );
     }
 
     /**
@@ -2927,7 +2948,17 @@ public abstract class EngineFrame extends JFrame {
     public void scale( double x, double y ) {
         g2d.scale( x, y );
     }
-    
+
+    /**
+     * Scales the current graphics context.
+     * Note: Use only inside the draw method!
+     *
+     * @param factor The scale factor vector.
+     */
+    public void scale( Vector2 factor ) {
+        g2d.scale( factor.x, factor.y );
+    }
+
     /**
      * Applies shearing to the current graphics context.
      * Note: Use only inside the draw method!
@@ -2937,6 +2968,16 @@ public abstract class EngineFrame extends JFrame {
      */
     public void shear( double x, double y ) {
         g2d.shear( x, y );
+    }
+
+    /**
+     * Applies shearing to the current graphics context.
+     * Note: Use only inside the draw method!
+     *
+     * @param factor The shear factor vector.
+     */
+    public void shear( Vector2 factor ) {
+        g2d.shear( factor.x, factor.y );
     }
 
     /**

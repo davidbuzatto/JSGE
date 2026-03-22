@@ -66,6 +66,17 @@ public class Vector2 implements Cloneable, Serializable {
     }
 
     /**
+     * Adds the given components to the current vector.
+     *
+     * @param x The x component to add.
+     * @param y The y component to add.
+     * @return A new vector resulting from the addition.
+     */
+    public Vector2 add( double x, double y ) {
+        return new Vector2( this.x + x, this.y + y );
+    }
+
+    /**
      * Adds a value to the current vector.
      *
      * @param value The value to add.
@@ -83,6 +94,17 @@ public class Vector2 implements Cloneable, Serializable {
      */
     public Vector2 subtract( Vector2 v ) {
         return new Vector2( x - v.x, y - v.y );
+    }
+
+    /**
+     * Subtracts the given components from the current vector.
+     *
+     * @param x The x component to subtract.
+     * @param y The y component to subtract.
+     * @return A new vector resulting from the subtraction.
+     */
+    public Vector2 subtract( double x, double y ) {
+        return new Vector2( this.x - x, this.y - y );
     }
 
     /**
@@ -106,6 +128,17 @@ public class Vector2 implements Cloneable, Serializable {
     }
 
     /**
+     * Scales the current vector independently per component (non-uniform scaling).
+     *
+     * @param x The scale factor for the x component.
+     * @param y The scale factor for the y component.
+     * @return A new scaled vector.
+     */
+    public Vector2 scale( double x, double y ) {
+        return new Vector2( this.x * x, this.y * y );
+    }
+
+    /**
      * Multiplies the current vector by another vector.
      *
      * @param v Another vector.
@@ -114,7 +147,18 @@ public class Vector2 implements Cloneable, Serializable {
     public Vector2 multiply( Vector2 v ) {
         return new Vector2( x * v.x, y * v.y );
     }
-    
+
+    /**
+     * Multiplies the current vector by the given components.
+     *
+     * @param x The x component to multiply by.
+     * @param y The y component to multiply by.
+     * @return A new vector with the result of the multiplication.
+     */
+    public Vector2 multiply( double x, double y ) {
+        return new Vector2( this.x * x, this.y * y );
+    }
+
     /**
      * Calculates the length of the vector.
      *
@@ -150,10 +194,22 @@ public class Vector2 implements Cloneable, Serializable {
      * @return The distance.
      */
     public double distance( Vector2 v ) {
-        return Math.sqrt( ( v.x - x ) * ( v.x - x ) + 
+        return Math.sqrt( ( v.x - x ) * ( v.x - x ) +
                           ( v.y - y ) * ( v.y - y ) );
     }
-    
+
+    /**
+     * Calculates the distance between the current vector and a point defined by its coordinates.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @return The distance.
+     */
+    public double distance( double x, double y ) {
+        return Math.sqrt( ( x - this.x ) * ( x - this.x ) +
+                          ( y - this.y ) * ( y - this.y ) );
+    }
+
     /**
      * Calculates the squared distance between the current vector and another vector.
      *
@@ -161,8 +217,20 @@ public class Vector2 implements Cloneable, Serializable {
      * @return The squared distance.
      */
     public double distanceSquare( Vector2 v ) {
-        return ( v.x - x ) * ( v.x - x ) + 
+        return ( v.x - x ) * ( v.x - x ) +
                ( v.y - y ) * ( v.y - y );
+    }
+
+    /**
+     * Calculates the squared distance between the current vector and a point defined by its coordinates.
+     *
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @return The squared distance.
+     */
+    public double distanceSquare( double x, double y ) {
+        return ( x - this.x ) * ( x - this.x ) +
+               ( y - this.y ) * ( y - this.y );
     }
 
     /**
@@ -198,6 +266,17 @@ public class Vector2 implements Cloneable, Serializable {
      */
     public Vector2 divide( Vector2 v ) {
         return new Vector2( x / v.x, y / v.y );
+    }
+
+    /**
+     * Divides the current vector by the given components.
+     *
+     * @param x The x component to divide by.
+     * @param y The y component to divide by.
+     * @return A new vector with the result of the division.
+     */
+    public Vector2 divide( double x, double y ) {
+        return new Vector2( this.x / x, this.y / y );
     }
 
     /**
