@@ -137,7 +137,7 @@ public class GuiLine extends GuiTextComponent {
      *
      * @param bounds A rectangle that defines the bounds of the component.
      * @param text Text used in the component.
-     * @param orientation
+     * @param orientation Whether the line is horizontal or vertical.
      * @param engine The engine instance used to draw and update the component.
      */
     public GuiLine( Rectangle bounds, String text, int orientation, EngineFrame engine ) {
@@ -154,7 +154,7 @@ public class GuiLine extends GuiTextComponent {
      *
      * @param bounds A rectangle that defines the bounds of the component.
      * @param text Text used in the component.
-     * @param orientation
+     * @param orientation Whether the line is horizontal or vertical.
      */
     public GuiLine( Rectangle bounds, String text, int orientation ) {
         super( bounds, text );

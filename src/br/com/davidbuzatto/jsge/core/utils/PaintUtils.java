@@ -444,7 +444,7 @@ public interface PaintUtils {
      * @return A radial gradient.
      */
     public static Paint getRadialGradientPaint( Vector2 center, double radius, float[] fractions, Color[] colors, CycleMethod cycleMethod ) {
-        return new RadialGradientPaint( (float) center.x, (float) center.x, (float) radius, fractions, colors, cycleMethod.method );
+        return new RadialGradientPaint( (float) center.x, (float) center.y, (float) radius, fractions, colors, cycleMethod.method );
     }
     
     /**
@@ -457,7 +457,7 @@ public interface PaintUtils {
      * @return An acyclic radial gradient.
      */
     public static Paint getRadialGradientPaint( Vector2 center, double radius, float[] fractions, Color[] colors ) {
-        return new RadialGradientPaint( (float) center.x, (float) center.x, (float) radius, fractions, colors );
+        return new RadialGradientPaint( (float) center.x, (float) center.y, (float) radius, fractions, colors );
     }
     
     /**
@@ -499,7 +499,7 @@ public interface PaintUtils {
      * @return A radial gradient.
      */
     public static Paint getRadialGradientPaint( Circle circle, float[] fractions, Color[] colors, CycleMethod cycleMethod ) {
-        return new RadialGradientPaint( (float) circle.x, (float) circle.x, (float) circle.radius, fractions, colors, cycleMethod.method );
+        return new RadialGradientPaint( (float) circle.x, (float) circle.y, (float) circle.radius, fractions, colors, cycleMethod.method );
     }
     
     /**
@@ -511,7 +511,7 @@ public interface PaintUtils {
      * @return An acyclic radial gradient.
      */
     public static Paint getRadialGradientPaint( Circle circle, float[] fractions, Color[] colors ) {
-        return new RadialGradientPaint( (float) circle.x, (float) circle.x, (float) circle.radius, fractions, colors );
+        return new RadialGradientPaint( (float) circle.x, (float) circle.y, (float) circle.radius, fractions, colors );
     }
     
     /**
@@ -525,7 +525,7 @@ public interface PaintUtils {
      * @return A radial gradient.
      */
     public static Paint getRadialGradientPaint( Circle circle, Vector2 focus, float[] fractions, Color[] colors, CycleMethod cycleMethod ) {
-        return new RadialGradientPaint( (float) circle.x, (float) circle.x, (float) circle.radius, (float) focus.x, (float) focus.y, fractions, colors, cycleMethod.method );
+        return new RadialGradientPaint( (float) circle.x, (float) circle.y, (float) circle.radius, (float) focus.x, (float) focus.y, fractions, colors, cycleMethod.method );
     }
     
     /**
@@ -538,7 +538,7 @@ public interface PaintUtils {
      * @return An acyclic radial gradient.
      */
     public static Paint getRadialGradientPaint( Circle circle, Vector2 focus, float[] fractions, Color[] colors ) {
-        return new RadialGradientPaint( (float) circle.x, (float) circle.x, (float) circle.radius, (float) focus.x, (float) focus.y, fractions, colors, CycleMethod.NO_CYCLE.method );
+        return new RadialGradientPaint( (float) circle.x, (float) circle.y, (float) circle.radius, (float) focus.x, (float) focus.y, fractions, colors, CycleMethod.NO_CYCLE.method );
     }
     
     /**

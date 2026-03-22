@@ -259,7 +259,7 @@ public class GuiTheme {
         theme.disabledTextColor = ColorUtils.colorBrightness( cw, .8 );
 
         theme.containerBackgroundColor = ColorUtils.colorBrightness( cw, .1 );
-        theme.containerBorderColor = ColorUtils.colorBrightness( cw, -.2 );;
+        theme.containerBorderColor = ColorUtils.colorBrightness( cw, -.2 );
         theme.containerTextColor = ColorUtils.colorBrightness( cw, -.4 );
         theme.containerTitleBarBackgroundColor = ColorUtils.colorBrightness( cb, .1 );
         theme.containerTitleBarBorderColor = ColorUtils.colorBrightness( cb, -.2 );

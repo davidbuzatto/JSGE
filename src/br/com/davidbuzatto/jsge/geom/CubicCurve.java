@@ -111,7 +111,7 @@ public class CubicCurve implements Drawable, Serializable {
 
     @Override
     public String toString() {
-        return String.format( "CubicCurve[%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f]", x1, y1, c1x, c1y, c2x, c2y, x2, x2 );
+        return String.format( "CubicCurve[%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f]", x1, y1, c1x, c1y, c2x, c2y, x2, y2 );
     }
 
 }

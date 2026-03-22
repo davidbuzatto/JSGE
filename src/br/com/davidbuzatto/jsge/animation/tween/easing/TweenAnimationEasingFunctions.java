@@ -134,21 +134,21 @@ public interface TweenAnimationEasingFunctions {
     /***
      * Easing function.
      */
-    public static final DoubleFunction<Double> easeInEtpo = ( x ) -> {
+    public static final DoubleFunction<Double> easeInExpo = ( x ) -> {
         return x == 0 ? 0 : Math.pow( 2, 10 * x - 10 );
     };
 
     /***
      * Easing function.
      */
-    public static final DoubleFunction<Double> easeOutEtpo = ( x ) -> {
+    public static final DoubleFunction<Double> easeOutExpo = ( x ) -> {
         return x == 1 ? 1 : 1 - Math.pow( 2, -10 * x );
     };
 
     /***
      * Easing function.
      */
-    public static final DoubleFunction<Double> easeInOutEtpo = ( x ) -> {
+    public static final DoubleFunction<Double> easeInOutExpo = ( x ) -> {
         return x == 0
             ? 0
             : x == 1

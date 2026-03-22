@@ -65,7 +65,6 @@ public class GuiButtonGroup {
             for ( GuiToggleButton btn : toggleButtons ) {
                 btn.selected = false;
             }
-            selected.selected = false;
             target.selected = true;
         }
         

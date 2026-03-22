@@ -229,7 +229,7 @@ public class Vector3 implements Cloneable, Serializable {
     /**
      * Calculates the squared length of the vector.
      *
-     * @return The length.
+     * @return The squared length.
      */
     public double lengthSquare() {
         return x * x + y * y + z * z;

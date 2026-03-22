@@ -546,11 +546,7 @@ public class GuiScrollBar extends GuiComponent {
         }
         
         private void drawScrollBarButtonButton( Color backgroundColor, Color borderColor ) {
-            if ( orientation == VERTICAL ) {
-                engine.fillRectangle( bounds, backgroundColor );
-            } else {
-                engine.fillRectangle( bounds, backgroundColor );
-            }
+            engine.fillRectangle( bounds, backgroundColor );
         }
         
     }

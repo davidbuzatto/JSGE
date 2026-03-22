@@ -97,7 +97,7 @@ public class QuadCurve implements Drawable, Serializable {
 
     @Override
     public String toString() {
-        return String.format( "QuadCurve[%.2f, %.2f, %.2f, %.2f, %.2f, %.2f]", x1, y1, cx, cy, x2, x2 );
+        return String.format( "QuadCurve[%.2f, %.2f, %.2f, %.2f, %.2f, %.2f]", x1, y1, cx, cy, x2, y2 );
     }
 
 }

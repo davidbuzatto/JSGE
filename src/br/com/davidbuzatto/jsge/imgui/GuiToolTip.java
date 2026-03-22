@@ -96,7 +96,7 @@ public class GuiToolTip extends GuiTextComponent {
         
     }
     
-    private void drawToolTip( Color borderColor, Color backgroundColor, Color textColot ) {
+    private void drawToolTip( Color borderColor, Color backgroundColor, Color textColor ) {
         engine.fillRectangle( bounds, backgroundColor );
         engine.drawRectangle( bounds, borderColor );
         engine.drawText( text, bounds.x + HORIZONTAL_PADDING, bounds.y + VERTICAL_PADDING, FONT_SIZE, textColor );
