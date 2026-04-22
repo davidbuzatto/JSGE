@@ -3475,7 +3475,7 @@ public abstract class EngineFrame extends JFrame {
      * Draws a cropped image with a background color.
      * 
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the image crop to be drawn.
+     * @param source A rectangle delimiting the image crop to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing position.
      * @param y Y coordinate of the image drawing position.
      * @param bgColor A background color.
@@ -3490,22 +3490,23 @@ public abstract class EngineFrame extends JFrame {
      * @param image The image to be drawn.
      * @param srcX X coordinate of the source crop region.
      * @param srcY Y coordinate of the source crop region.
-     * @param srcWidth Width of the source crop region.
-     * @param srcHeight Height of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
      * @param x X coordinate of the image drawing position.
      * @param y Y coordinate of the image drawing position.
      * @param bgColor A background color.
      */
     public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, Color bgColor ) {
-        g2d.drawImage( image.buffImage,
+        g2d.drawImage( 
+                image.buffImage,
                 (int) x,
                 (int) y,
-                (int) ( x + srcWidth ),
-                (int) ( y + srcHeight ),
-                (int) srcX,
-                (int) srcY,
-                (int) ( srcX + srcWidth ),
-                (int) ( srcY + srcHeight ),
+                (int) ( x + Math.abs( srcWidth ) ),
+                (int) ( y + Math.abs( srcHeight ) ),
+                (int) ( srcWidth >= 0 ? srcX : srcX - srcWidth ),
+                (int) ( srcHeight >= 0 ? srcY : srcY - srcHeight ),
+                (int) ( srcWidth >= 0 ? srcX + srcWidth : srcX ),
+                (int) ( srcHeight >= 0 ? srcY + srcHeight : srcY ),
                 bgColor,
                 null
         );
@@ -3515,7 +3516,7 @@ public abstract class EngineFrame extends JFrame {
      * Draws a cropped image.
      *
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the image crop to be drawn.
+     * @param source A rectangle delimiting the image crop to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing position.
      * @param y Y coordinate of the image drawing position.
      */
@@ -3529,8 +3530,8 @@ public abstract class EngineFrame extends JFrame {
      * @param image The image to be drawn.
      * @param srcX X coordinate of the source crop region.
      * @param srcY Y coordinate of the source crop region.
-     * @param srcWidth Width of the source crop region.
-     * @param srcHeight Height of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
      * @param x X coordinate of the image drawing position.
      * @param y Y coordinate of the image drawing position.
      */
@@ -3542,7 +3543,7 @@ public abstract class EngineFrame extends JFrame {
      * Draws a rotated cropped image with a background color.
      *
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the image crop to be drawn.
+     * @param source A rectangle delimiting the image crop to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing position.
      * @param y Y coordinate of the image drawing position.
      * @param rotation Rotation in degrees of the image drawing (clockwise).
@@ -3558,8 +3559,8 @@ public abstract class EngineFrame extends JFrame {
      * @param image The image to be drawn.
      * @param srcX X coordinate of the source crop region.
      * @param srcY Y coordinate of the source crop region.
-     * @param srcWidth Width of the source crop region.
-     * @param srcHeight Height of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
      * @param x X coordinate of the image drawing position.
      * @param y Y coordinate of the image drawing position.
      * @param rotation Rotation in degrees of the image drawing (clockwise).
@@ -3573,7 +3574,7 @@ public abstract class EngineFrame extends JFrame {
      * Draws a rotated cropped image.
      *
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the image crop to be drawn.
+     * @param source A rectangle delimiting the image crop to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing position.
      * @param y Y coordinate of the image drawing position.
      * @param rotation Rotation in degrees of the image drawing (clockwise).
@@ -3588,8 +3589,8 @@ public abstract class EngineFrame extends JFrame {
      * @param image The image to be drawn.
      * @param srcX X coordinate of the source crop region.
      * @param srcY Y coordinate of the source crop region.
-     * @param srcWidth Width of the source crop region.
-     * @param srcHeight Height of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
      * @param x X coordinate of the image drawing position.
      * @param y Y coordinate of the image drawing position.
      * @param rotation Rotation in degrees of the image drawing (clockwise).
@@ -3602,7 +3603,7 @@ public abstract class EngineFrame extends JFrame {
      * Draws a rotated cropped image with a background color.
      *
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the image crop to be drawn.
+     * @param source A rectangle delimiting the image crop to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing position.
      * @param y Y coordinate of the image drawing position.
      * @param originX X coordinate of the rotation axis.
@@ -3620,8 +3621,8 @@ public abstract class EngineFrame extends JFrame {
      * @param image The image to be drawn.
      * @param srcX X coordinate of the source crop region.
      * @param srcY Y coordinate of the source crop region.
-     * @param srcWidth Width of the source crop region.
-     * @param srcHeight Height of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
      * @param x X coordinate of the image drawing position.
      * @param y Y coordinate of the image drawing position.
      * @param originX X coordinate of the rotation axis.
@@ -3632,15 +3633,16 @@ public abstract class EngineFrame extends JFrame {
     public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, double originX, double originY, double rotation, Color bgColor ) {
         Graphics2D ig2d = (Graphics2D) g2d.create();
         ig2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
-        ig2d.drawImage( image.buffImage,
+        ig2d.drawImage( 
+                image.buffImage,
                 (int) x,
                 (int) y,
-                (int) ( x + srcWidth ),
-                (int) ( y + srcHeight ),
-                (int) srcX,
-                (int) srcY,
-                (int) ( srcX + srcWidth ),
-                (int) ( srcY + srcHeight ),
+                (int) ( x + Math.abs( srcWidth ) ),
+                (int) ( y + Math.abs( srcHeight ) ),
+                (int) ( srcWidth >= 0 ? srcX : srcX - srcWidth ),
+                (int) ( srcHeight >= 0 ? srcY : srcY - srcHeight ),
+                (int) ( srcWidth >= 0 ? srcX + srcWidth : srcX ),
+                (int) ( srcHeight >= 0 ? srcY + srcHeight : srcY ),
                 bgColor,
                 null
         );
@@ -3651,7 +3653,7 @@ public abstract class EngineFrame extends JFrame {
      * Draws a rotated cropped image.
      *
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the image crop to be drawn.
+     * @param source A rectangle delimiting the image crop to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing position.
      * @param y Y coordinate of the image drawing position.
      * @param originX X coordinate of the rotation axis.
@@ -3668,8 +3670,8 @@ public abstract class EngineFrame extends JFrame {
      * @param image The image to be drawn.
      * @param srcX X coordinate of the source crop region.
      * @param srcY Y coordinate of the source crop region.
-     * @param srcWidth Width of the source crop region.
-     * @param srcHeight Height of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
      * @param x X coordinate of the image drawing position.
      * @param y Y coordinate of the image drawing position.
      * @param originX X coordinate of the rotation axis.
@@ -3684,7 +3686,7 @@ public abstract class EngineFrame extends JFrame {
      * Draws a cropped image into a destination rectangle with a background color.
      *
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the image crop to be drawn.
+     * @param source A rectangle delimiting the image crop to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      * @param bgColor A background color.
      */
@@ -3698,8 +3700,8 @@ public abstract class EngineFrame extends JFrame {
      * @param image The image to be drawn.
      * @param srcX X coordinate of the source crop region.
      * @param srcY Y coordinate of the source crop region.
-     * @param srcWidth Width of the source crop region.
-     * @param srcHeight Height of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
      * @param destX X coordinate of the destination position.
      * @param destY Y coordinate of the destination position.
      * @param destWidth Width of the destination region.
@@ -3707,15 +3709,16 @@ public abstract class EngineFrame extends JFrame {
      * @param bgColor A background color.
      */
     public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double destX, double destY, double destWidth, double destHeight, Color bgColor ) {
-        g2d.drawImage( image.buffImage,
+        g2d.drawImage( 
+                image.buffImage,
                 (int) destX,
                 (int) destY,
                 (int) ( destX + destWidth ),
                 (int) ( destY + destHeight ),
-                (int) srcX,
-                (int) srcY,
-                (int) ( srcX + srcWidth ),
-                (int) ( srcY + srcHeight ),
+                (int) ( srcWidth >= 0 ? srcX : srcX - srcWidth ),
+                (int) ( srcHeight >= 0 ? srcY : srcY - srcHeight ),
+                (int) ( srcWidth >= 0 ? srcX + srcWidth : srcX ),
+                (int) ( srcHeight >= 0 ? srcY + srcHeight : srcY ),
                 bgColor,
                 null
         );
@@ -3725,7 +3728,7 @@ public abstract class EngineFrame extends JFrame {
      * Draws a cropped image into a destination rectangle.
      *
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the image crop to be drawn.
+     * @param source A rectangle delimiting the image crop to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      */
     public void drawImage( Image image, Rectangle source, Rectangle dest ) {
@@ -3738,8 +3741,8 @@ public abstract class EngineFrame extends JFrame {
      * @param image The image to be drawn.
      * @param srcX X coordinate of the source crop region.
      * @param srcY Y coordinate of the source crop region.
-     * @param srcWidth Width of the source crop region.
-     * @param srcHeight Height of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
      * @param destX X coordinate of the destination position.
      * @param destY Y coordinate of the destination position.
      * @param destWidth Width of the destination region.
@@ -3753,7 +3756,7 @@ public abstract class EngineFrame extends JFrame {
      * Draws a rotated cropped image into a destination rectangle with a background color.
      *
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the image crop to be drawn.
+     * @param source A rectangle delimiting the image crop to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      * @param rotation Rotation in degrees of the image drawing (clockwise).
      * @param bgColor A background color.
@@ -3766,7 +3769,7 @@ public abstract class EngineFrame extends JFrame {
      * Draws a rotated cropped image into a destination rectangle.
      *
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the image crop to be drawn.
+     * @param source A rectangle delimiting the image crop to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      * @param rotation Rotation in degrees of the image drawing (clockwise).
      */
@@ -3778,7 +3781,7 @@ public abstract class EngineFrame extends JFrame {
      * Draws a rotated cropped image into a destination rectangle with a background color.
      *
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the image crop to be drawn.
+     * @param source A rectangle delimiting the image crop to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      * @param originX X coordinate of the rotation axis.
      * @param originY Y coordinate of the rotation axis.
@@ -3795,8 +3798,8 @@ public abstract class EngineFrame extends JFrame {
      * @param image The image to be drawn.
      * @param srcX X coordinate of the source crop region.
      * @param srcY Y coordinate of the source crop region.
-     * @param srcWidth Width of the source crop region.
-     * @param srcHeight Height of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
      * @param destX X coordinate of the destination position.
      * @param destY Y coordinate of the destination position.
      * @param destWidth Width of the destination region.
@@ -3809,15 +3812,16 @@ public abstract class EngineFrame extends JFrame {
     public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double destX, double destY, double destWidth, double destHeight, double originX, double originY, double rotation, Color bgColor ) {
         Graphics2D ig2d = (Graphics2D) g2d.create();
         ig2d.rotate( Math.toRadians( rotation ), destX + originX, destY + originY );
-        ig2d.drawImage( image.buffImage,
+        ig2d.drawImage( 
+                image.buffImage,
                 (int) destX,
                 (int) destY,
                 (int) ( destX + destWidth ),
                 (int) ( destY + destHeight ),
-                (int) srcX,
-                (int) srcY,
-                (int) ( srcX + srcWidth ),
-                (int) ( srcY + srcHeight ),
+                (int) ( srcWidth >= 0 ? srcX : srcX - srcWidth ),
+                (int) ( srcHeight >= 0 ? srcY : srcY - srcHeight ),
+                (int) ( srcWidth >= 0 ? srcX + srcWidth : srcX ),
+                (int) ( srcHeight >= 0 ? srcY + srcHeight : srcY ),
                 bgColor,
                 null
         );
@@ -3828,7 +3832,7 @@ public abstract class EngineFrame extends JFrame {
      * Draws a rotated cropped image into a destination rectangle.
      *
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the image crop to be drawn.
+     * @param source A rectangle delimiting the image crop to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      * @param originX X coordinate of the rotation axis.
      * @param originY Y coordinate of the rotation axis.
@@ -3844,8 +3848,8 @@ public abstract class EngineFrame extends JFrame {
      * @param image The image to be drawn.
      * @param srcX X coordinate of the source crop region.
      * @param srcY Y coordinate of the source crop region.
-     * @param srcWidth Width of the source crop region.
-     * @param srcHeight Height of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
      * @param destX X coordinate of the destination position.
      * @param destY Y coordinate of the destination position.
      * @param destWidth Width of the destination region.

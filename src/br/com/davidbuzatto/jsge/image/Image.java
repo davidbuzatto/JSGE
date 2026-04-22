@@ -1895,22 +1895,22 @@ public class Image {
      * Draws a cropped region of an image with a background color.
      * 
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing.
      * @param y Y coordinate of the image drawing.
      * @param bgColor A background color.
      */
     public void drawImage( Image image, Rectangle source, double x, double y, Color bgColor ) {
         Graphics2D g2d = createGraphics();
-        g2d.drawImage( image.buffImage, 
-                (int) x, 
-                (int) y, 
-                (int) ( x + source.width ), 
-                (int) ( y + source.height ), 
-                (int) source.x, 
-                (int) source.y, 
-                (int) ( source.x + source.width ), 
-                (int) ( source.y + source.height ), 
+        g2d.drawImage( image.buffImage,
+                (int) x,
+                (int) y,
+                (int) ( x + Math.abs( source.width ) ),
+                (int) ( y + Math.abs( source.height ) ),
+                (int) ( source.width >= 0 ? source.x : source.x - source.width ),
+                (int) ( source.height >= 0 ? source.y : source.y - source.height ),
+                (int) ( source.width >= 0 ? source.x + source.width : source.x ),
+                (int) ( source.height >= 0 ? source.y + source.height : source.y ),
                 bgColor,
                 null
         );
@@ -1921,19 +1921,63 @@ public class Image {
      * Draws a cropped region of an image.
      * 
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing.
      * @param y Y coordinate of the image drawing.
      */
     public void drawImage( Image image, Rectangle source, double x, double y ) {
         drawImage( image, source, x, y, null );
     }
-    
+
+    /**
+     * Draws a cropped region of an image with a background color.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param x X coordinate of the image drawing.
+     * @param y Y coordinate of the image drawing.
+     * @param bgColor A background color.
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, Color bgColor ) {
+        Graphics2D g2d = createGraphics();
+        g2d.drawImage( image.buffImage,
+                (int) x,
+                (int) y,
+                (int) ( x + Math.abs( srcWidth ) ),
+                (int) ( y + Math.abs( srcHeight ) ),
+                (int) ( srcWidth >= 0 ? srcX : srcX - srcWidth ),
+                (int) ( srcHeight >= 0 ? srcY : srcY - srcHeight ),
+                (int) ( srcWidth >= 0 ? srcX + srcWidth : srcX ),
+                (int) ( srcHeight >= 0 ? srcY + srcHeight : srcY ),
+                bgColor,
+                null
+        );
+        g2d.dispose();
+    }
+
+    /**
+     * Draws a cropped region of an image.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param x X coordinate of the image drawing.
+     * @param y Y coordinate of the image drawing.
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y ) {
+        drawImage( image, srcX, srcY, srcWidth, srcHeight, x, y, null );
+    }
+
     /**
      * Draws a rotated cropped region of an image with a background color.
      * 
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing.
      * @param y Y coordinate of the image drawing.
      * @param rotation Rotation in degrees of the image drawing (clockwise).
@@ -1947,7 +1991,7 @@ public class Image {
      * Draws a rotated cropped region of an image.
      * 
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing.
      * @param y Y coordinate of the image drawing.
      * @param rotation Rotation in degrees of the image drawing (clockwise).
@@ -1955,12 +1999,45 @@ public class Image {
     public void drawImage( Image image, Rectangle source, double x, double y, double rotation ) {
         drawImage( image, source, x, y, 0, 0, rotation, null );
     }
-    
+
     /**
      * Draws a rotated cropped region of an image with a background color.
-     * 
+     *
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param x X coordinate of the image drawing.
+     * @param y Y coordinate of the image drawing.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     * @param bgColor A background color.
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, double rotation, Color bgColor ) {
+        drawImage( image, srcX, srcY, srcWidth, srcHeight, x, y, 0, 0, rotation, bgColor );
+    }
+
+    /**
+     * Draws a rotated cropped region of an image.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param x X coordinate of the image drawing.
+     * @param y Y coordinate of the image drawing.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, double rotation ) {
+        drawImage( image, srcX, srcY, srcWidth, srcHeight, x, y, 0, 0, rotation, null );
+    }
+
+    /**
+     * Draws a rotated cropped region of an image with a background color.
+     *
+     * @param image The image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing.
      * @param y Y coordinate of the image drawing.
      * @param originX X coordinate of the rotation axis.
@@ -1971,15 +2048,15 @@ public class Image {
     public void drawImage( Image image, Rectangle source, double x, double y, double originX, double originY, double rotation, Color bgColor ) {
         Graphics2D g2d = createGraphics();
         g2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
-        g2d.drawImage( image.buffImage, 
-                (int) x, 
-                (int) y, 
-                (int) ( x + source.width ), 
-                (int) ( y + source.height ), 
-                (int) source.x, 
-                (int) source.y, 
-                (int) ( source.x + source.width ), 
-                (int) ( source.y + source.height ), 
+        g2d.drawImage( image.buffImage,
+                (int) x,
+                (int) y,
+                (int) ( x + Math.abs( source.width ) ),
+                (int) ( y + Math.abs( source.height ) ),
+                (int) ( source.width >= 0 ? source.x : source.x - source.width ),
+                (int) ( source.height >= 0 ? source.y : source.y - source.height ),
+                (int) ( source.width >= 0 ? source.x + source.width : source.x ),
+                (int) ( source.height >= 0 ? source.y + source.height : source.y ),
                 bgColor,
                 null
         );
@@ -1990,7 +2067,7 @@ public class Image {
      * Draws a rotated cropped region of an image.
      * 
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing.
      * @param y Y coordinate of the image drawing.
      * @param originX X coordinate of the rotation axis.
@@ -2000,26 +2077,77 @@ public class Image {
     public void drawImage( Image image, Rectangle source, double x, double y, double originX, double originY, double rotation ) {
         drawImage( image, source, x, y, originX, originY, rotation, null );
     }
-    
+
+    /**
+     * Draws a rotated cropped region of an image with a background color.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param x X coordinate of the image drawing.
+     * @param y Y coordinate of the image drawing.
+     * @param originX X coordinate of the rotation axis.
+     * @param originY Y coordinate of the rotation axis.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     * @param bgColor A background color.
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, double originX, double originY, double rotation, Color bgColor ) {
+        Graphics2D g2d = createGraphics();
+        g2d.rotate( Math.toRadians( rotation ), x + originX, y + originY );
+        g2d.drawImage( image.buffImage,
+                (int) x,
+                (int) y,
+                (int) ( x + Math.abs( srcWidth ) ),
+                (int) ( y + Math.abs( srcHeight ) ),
+                (int) ( srcWidth >= 0 ? srcX : srcX - srcWidth ),
+                (int) ( srcHeight >= 0 ? srcY : srcY - srcHeight ),
+                (int) ( srcWidth >= 0 ? srcX + srcWidth : srcX ),
+                (int) ( srcHeight >= 0 ? srcY + srcHeight : srcY ),
+                bgColor,
+                null
+        );
+        g2d.dispose();
+    }
+
+    /**
+     * Draws a rotated cropped region of an image.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param x X coordinate of the image drawing.
+     * @param y Y coordinate of the image drawing.
+     * @param originX X coordinate of the rotation axis.
+     * @param originY Y coordinate of the rotation axis.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, double originX, double originY, double rotation ) {
+        drawImage( image, srcX, srcY, srcWidth, srcHeight, x, y, originX, originY, rotation, null );
+    }
+
     /**
      * Draws a cropped region of an image into a destination rectangle with a background color.
      * 
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      * @param bgColor A background color.
      */
     public void drawImage( Image image, Rectangle source, Rectangle dest, Color bgColor ) {
         Graphics2D g2d = createGraphics();
-        g2d.drawImage( image.buffImage, 
-                (int) dest.x, 
-                (int) dest.y, 
-                (int) ( dest.x + dest.width ), 
-                (int) ( dest.y + dest.height ), 
-                (int) source.x, 
-                (int) source.y, 
-                (int) ( source.x + source.width ), 
-                (int) ( source.y + source.height ), 
+        g2d.drawImage( image.buffImage,
+                (int) dest.x,
+                (int) dest.y,
+                (int) ( dest.x + dest.width ),
+                (int) ( dest.y + dest.height ),
+                (int) ( source.width >= 0 ? source.x : source.x - source.width ),
+                (int) ( source.height >= 0 ? source.y : source.y - source.height ),
+                (int) ( source.width >= 0 ? source.x + source.width : source.x ),
+                (int) ( source.height >= 0 ? source.y + source.height : source.y ),
                 bgColor,
                 null
         );
@@ -2030,18 +2158,66 @@ public class Image {
      * Draws a cropped region of an image into a destination rectangle.
      * 
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      */
     public void drawImage( Image image, Rectangle source, Rectangle dest ) {
         drawImage( image, source, dest, null );
     }
-    
+
+    /**
+     * Draws a cropped region of an image into a destination rectangle with a background color.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param destX X coordinate of the destination position.
+     * @param destY Y coordinate of the destination position.
+     * @param destWidth Width of the destination region.
+     * @param destHeight Height of the destination region.
+     * @param bgColor A background color.
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double destX, double destY, double destWidth, double destHeight, Color bgColor ) {
+        Graphics2D g2d = createGraphics();
+        g2d.drawImage( image.buffImage,
+                (int) destX,
+                (int) destY,
+                (int) ( destX + destWidth ),
+                (int) ( destY + destHeight ),
+                (int) ( srcWidth >= 0 ? srcX : srcX - srcWidth ),
+                (int) ( srcHeight >= 0 ? srcY : srcY - srcHeight ),
+                (int) ( srcWidth >= 0 ? srcX + srcWidth : srcX ),
+                (int) ( srcHeight >= 0 ? srcY + srcHeight : srcY ),
+                bgColor,
+                null
+        );
+        g2d.dispose();
+    }
+
+    /**
+     * Draws a cropped region of an image into a destination rectangle.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param destX X coordinate of the destination position.
+     * @param destY Y coordinate of the destination position.
+     * @param destWidth Width of the destination region.
+     * @param destHeight Height of the destination region.
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double destX, double destY, double destWidth, double destHeight ) {
+        drawImage( image, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight, null );
+    }
+
     /**
      * Draws a rotated cropped region of an image into a destination rectangle with a background color.
      * 
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      * @param rotation Rotation in degrees of the image drawing (clockwise).
      * @param bgColor A background color.
@@ -2054,7 +2230,7 @@ public class Image {
      * Draws a rotated cropped region of an image into a destination rectangle.
      * 
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      * @param rotation Rotation in degrees of the image drawing (clockwise).
      */
@@ -2066,7 +2242,7 @@ public class Image {
      * Draws a rotated cropped region of an image into a destination rectangle with a background color.
      * 
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      * @param originX X coordinate of the rotation axis.
      * @param originY Y coordinate of the rotation axis.
@@ -2076,15 +2252,15 @@ public class Image {
     public void drawImage( Image image, Rectangle source, Rectangle dest, double originX, double originY, double rotation, Color bgColor ) {
         Graphics2D g2d = createGraphics();
         g2d.rotate( Math.toRadians( rotation ), dest.x + originX, dest.y + originY );
-        g2d.drawImage( image.buffImage, 
-                (int) dest.x, 
-                (int) dest.y, 
-                (int) ( dest.x + dest.width ), 
-                (int) ( dest.y + dest.height ), 
-                (int) source.x, 
-                (int) source.y, 
-                (int) ( source.x + source.width ), 
-                (int) ( source.y + source.height ), 
+        g2d.drawImage( image.buffImage,
+                (int) dest.x,
+                (int) dest.y,
+                (int) ( dest.x + dest.width ),
+                (int) ( dest.y + dest.height ),
+                (int) ( source.width >= 0 ? source.x : source.x - source.width ),
+                (int) ( source.height >= 0 ? source.y : source.y - source.height ),
+                (int) ( source.width >= 0 ? source.x + source.width : source.x ),
+                (int) ( source.height >= 0 ? source.y + source.height : source.y ),
                 bgColor,
                 null
         );
@@ -2095,7 +2271,7 @@ public class Image {
      * Draws a rotated cropped region of an image into a destination rectangle.
      * 
      * @param image The image to be drawn.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      * @param originX X coordinate of the rotation axis.
      * @param originY Y coordinate of the rotation axis.
@@ -2104,9 +2280,64 @@ public class Image {
     public void drawImage( Image image, Rectangle source, Rectangle dest, double originX, double originY, double rotation ) {
         drawImage( image, source, dest, originX, originY, rotation, null );
     }
-    
-    
-    
+
+    /**
+     * Draws a rotated cropped region of an image into a destination rectangle with a background color.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param destX X coordinate of the destination position.
+     * @param destY Y coordinate of the destination position.
+     * @param destWidth Width of the destination region.
+     * @param destHeight Height of the destination region.
+     * @param originX X coordinate of the rotation axis.
+     * @param originY Y coordinate of the rotation axis.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     * @param bgColor A background color.
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double destX, double destY, double destWidth, double destHeight, double originX, double originY, double rotation, Color bgColor ) {
+        Graphics2D g2d = createGraphics();
+        g2d.rotate( Math.toRadians( rotation ), destX + originX, destY + originY );
+        g2d.drawImage( image.buffImage,
+                (int) destX,
+                (int) destY,
+                (int) ( destX + destWidth ),
+                (int) ( destY + destHeight ),
+                (int) ( srcWidth >= 0 ? srcX : srcX - srcWidth ),
+                (int) ( srcHeight >= 0 ? srcY : srcY - srcHeight ),
+                (int) ( srcWidth >= 0 ? srcX + srcWidth : srcX ),
+                (int) ( srcHeight >= 0 ? srcY + srcHeight : srcY ),
+                bgColor,
+                null
+        );
+        g2d.dispose();
+    }
+
+    /**
+     * Draws a rotated cropped region of an image into a destination rectangle.
+     *
+     * @param image The image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param destX X coordinate of the destination position.
+     * @param destY Y coordinate of the destination position.
+     * @param destWidth Width of the destination region.
+     * @param destHeight Height of the destination region.
+     * @param originX X coordinate of the rotation axis.
+     * @param originY Y coordinate of the rotation axis.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     */
+    public void drawImage( Image image, double srcX, double srcY, double srcWidth, double srcHeight, double destX, double destY, double destWidth, double destHeight, double originX, double originY, double rotation ) {
+        drawImage( image, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight, originX, originY, rotation, null );
+    }
+
+
+
     //**************************************************************************
     // Methods for transforming the current image.
     //**************************************************************************
@@ -2512,7 +2743,7 @@ public class Image {
      * Draws a cropped region of the current image with a background color.
      * 
      * @param engine EngineFrame being used.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing.
      * @param y Y coordinate of the image drawing.
      * @param bgColor A background color.
@@ -2525,19 +2756,50 @@ public class Image {
      * Draws a cropped region of the current image.
      * 
      * @param engine EngineFrame being used.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing.
      * @param y Y coordinate of the image drawing.
      */
     public void draw( EngineFrame engine, Rectangle source, double x, double y ) {
         engine.drawImage( this, source, x, y );
     }
-    
+
+    /**
+     * Draws a cropped region of the current image with a background color.
+     *
+     * @param engine EngineFrame being used.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param x X coordinate of the image drawing.
+     * @param y Y coordinate of the image drawing.
+     * @param bgColor A background color.
+     */
+    public void draw( EngineFrame engine, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, Color bgColor ) {
+        engine.drawImage( this, srcX, srcY, srcWidth, srcHeight, x, y, bgColor );
+    }
+
+    /**
+     * Draws a cropped region of the current image.
+     *
+     * @param engine EngineFrame being used.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param x X coordinate of the image drawing.
+     * @param y Y coordinate of the image drawing.
+     */
+    public void draw( EngineFrame engine, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y ) {
+        engine.drawImage( this, srcX, srcY, srcWidth, srcHeight, x, y );
+    }
+
     /**
      * Draws a rotated cropped region of the current image with a background color.
      * 
      * @param engine EngineFrame being used.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing.
      * @param y Y coordinate of the image drawing.
      * @param rotation Rotation in degrees of the image drawing (clockwise).
@@ -2551,7 +2813,7 @@ public class Image {
      * Draws a rotated cropped region of the current image.
      * 
      * @param engine EngineFrame being used.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing.
      * @param y Y coordinate of the image drawing.
      * @param rotation Rotation in degrees of the image drawing (clockwise).
@@ -2559,12 +2821,45 @@ public class Image {
     public void draw( EngineFrame engine, Rectangle source, double x, double y, double rotation ) {
         engine.drawImage( this, source, x, y, rotation );
     }
-    
+
     /**
      * Draws a rotated cropped region of the current image with a background color.
-     * 
+     *
      * @param engine EngineFrame being used.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param x X coordinate of the image drawing.
+     * @param y Y coordinate of the image drawing.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     * @param bgColor A background color.
+     */
+    public void draw( EngineFrame engine, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, double rotation, Color bgColor ) {
+        engine.drawImage( this, srcX, srcY, srcWidth, srcHeight, x, y, rotation, bgColor );
+    }
+
+    /**
+     * Draws a rotated cropped region of the current image.
+     *
+     * @param engine EngineFrame being used.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param x X coordinate of the image drawing.
+     * @param y Y coordinate of the image drawing.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     */
+    public void draw( EngineFrame engine, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, double rotation ) {
+        engine.drawImage( this, srcX, srcY, srcWidth, srcHeight, x, y, rotation );
+    }
+
+    /**
+     * Draws a rotated cropped region of the current image with a background color.
+     *
+     * @param engine EngineFrame being used.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing.
      * @param y Y coordinate of the image drawing.
      * @param originX X coordinate of the rotation axis.
@@ -2580,7 +2875,7 @@ public class Image {
      * Draws a rotated cropped region of the current image.
      * 
      * @param engine EngineFrame being used.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param x X coordinate of the image drawing.
      * @param y Y coordinate of the image drawing.
      * @param originX X coordinate of the rotation axis.
@@ -2590,12 +2885,49 @@ public class Image {
     public void draw( EngineFrame engine, Rectangle source, double x, double y, double originX, double originY, double rotation ) {
         engine.drawImage( this, source, x, y, originX, originY, rotation );
     }
-    
+
+    /**
+     * Draws a rotated cropped region of the current image with a background color.
+     *
+     * @param engine EngineFrame being used.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param x X coordinate of the image drawing.
+     * @param y Y coordinate of the image drawing.
+     * @param originX X coordinate of the rotation axis.
+     * @param originY Y coordinate of the rotation axis.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     * @param bgColor A background color.
+     */
+    public void draw( EngineFrame engine, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, double originX, double originY, double rotation, Color bgColor ) {
+        engine.drawImage( this, srcX, srcY, srcWidth, srcHeight, x, y, originX, originY, rotation, bgColor );
+    }
+
+    /**
+     * Draws a rotated cropped region of the current image.
+     *
+     * @param engine EngineFrame being used.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param x X coordinate of the image drawing.
+     * @param y Y coordinate of the image drawing.
+     * @param originX X coordinate of the rotation axis.
+     * @param originY Y coordinate of the rotation axis.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     */
+    public void draw( EngineFrame engine, double srcX, double srcY, double srcWidth, double srcHeight, double x, double y, double originX, double originY, double rotation ) {
+        engine.drawImage( this, srcX, srcY, srcWidth, srcHeight, x, y, originX, originY, rotation );
+    }
+
     /**
      * Draws a cropped region of the current image into a destination rectangle with a background color.
      * 
      * @param engine EngineFrame being used.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      * @param bgColor A background color.
      */
@@ -2607,18 +2939,53 @@ public class Image {
      * Draws a cropped region of the current image into a destination rectangle.
      * 
      * @param engine EngineFrame being used.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      */
     public void draw( EngineFrame engine, Rectangle source, Rectangle dest ) {
         engine.drawImage( this, source, dest );
     }
-    
+
+    /**
+     * Draws a cropped region of the current image into a destination rectangle with a background color.
+     *
+     * @param engine EngineFrame being used.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param destX X coordinate of the destination position.
+     * @param destY Y coordinate of the destination position.
+     * @param destWidth Width of the destination region.
+     * @param destHeight Height of the destination region.
+     * @param bgColor A background color.
+     */
+    public void draw( EngineFrame engine, double srcX, double srcY, double srcWidth, double srcHeight, double destX, double destY, double destWidth, double destHeight, Color bgColor ) {
+        engine.drawImage( this, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight, bgColor );
+    }
+
+    /**
+     * Draws a cropped region of the current image into a destination rectangle.
+     *
+     * @param engine EngineFrame being used.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param destX X coordinate of the destination position.
+     * @param destY Y coordinate of the destination position.
+     * @param destWidth Width of the destination region.
+     * @param destHeight Height of the destination region.
+     */
+    public void draw( EngineFrame engine, double srcX, double srcY, double srcWidth, double srcHeight, double destX, double destY, double destWidth, double destHeight ) {
+        engine.drawImage( this, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight );
+    }
+
     /**
      * Draws a rotated cropped region of the current image into a destination rectangle with a background color.
      * 
      * @param engine EngineFrame being used.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      * @param rotation Rotation in degrees of the image drawing (clockwise).
      * @param bgColor A background color.
@@ -2631,7 +2998,7 @@ public class Image {
      * Draws a rotated cropped region of the current image into a destination rectangle.
      * 
      * @param engine EngineFrame being used.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      * @param rotation Rotation in degrees of the image drawing (clockwise).
      */
@@ -2643,7 +3010,7 @@ public class Image {
      * Draws a rotated cropped region of the current image into a destination rectangle with a background color.
      * 
      * @param engine EngineFrame being used.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      * @param originX X coordinate of the rotation axis.
      * @param originY Y coordinate of the rotation axis.
@@ -2658,7 +3025,7 @@ public class Image {
      * Draws a rotated cropped region of the current image into a destination rectangle.
      * 
      * @param engine EngineFrame being used.
-     * @param source A rectangle delimiting the region of the image to be drawn.
+     * @param source A rectangle delimiting the region of the image to be drawn. Negative width or height mirrors the crop horizontally or vertically, respectively.
      * @param dest A destination rectangle defining the position and dimensions where the image will be drawn.
      * @param originX X coordinate of the rotation axis.
      * @param originY Y coordinate of the rotation axis.
@@ -2667,9 +3034,50 @@ public class Image {
     public void draw( EngineFrame engine, Rectangle source, Rectangle dest, double originX, double originY, double rotation ) {
         engine.drawImage( this, source, dest, originX, originY, rotation );
     }
-    
-    
-    
+
+    /**
+     * Draws a rotated cropped region of the current image into a destination rectangle with a background color.
+     *
+     * @param engine EngineFrame being used.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param destX X coordinate of the destination position.
+     * @param destY Y coordinate of the destination position.
+     * @param destWidth Width of the destination region.
+     * @param destHeight Height of the destination region.
+     * @param originX X coordinate of the rotation axis.
+     * @param originY Y coordinate of the rotation axis.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     * @param bgColor A background color.
+     */
+    public void draw( EngineFrame engine, double srcX, double srcY, double srcWidth, double srcHeight, double destX, double destY, double destWidth, double destHeight, double originX, double originY, double rotation, Color bgColor ) {
+        engine.drawImage( this, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight, originX, originY, rotation, bgColor );
+    }
+
+    /**
+     * Draws a rotated cropped region of the current image into a destination rectangle.
+     *
+     * @param engine EngineFrame being used.
+     * @param srcX X coordinate of the source crop region.
+     * @param srcY Y coordinate of the source crop region.
+     * @param srcWidth Width of the source crop region. A negative value mirrors the crop horizontally.
+     * @param srcHeight Height of the source crop region. A negative value mirrors the crop vertically.
+     * @param destX X coordinate of the destination position.
+     * @param destY Y coordinate of the destination position.
+     * @param destWidth Width of the destination region.
+     * @param destHeight Height of the destination region.
+     * @param originX X coordinate of the rotation axis.
+     * @param originY Y coordinate of the rotation axis.
+     * @param rotation Rotation in degrees of the image drawing (clockwise).
+     */
+    public void draw( EngineFrame engine, double srcX, double srcY, double srcWidth, double srcHeight, double destX, double destY, double destWidth, double destHeight, double originX, double originY, double rotation ) {
+        engine.drawImage( this, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight, originX, originY, rotation );
+    }
+
+
+
     //**************************************************************************
     // Methods for font and stroke management for the image graphics context.
     //**************************************************************************
